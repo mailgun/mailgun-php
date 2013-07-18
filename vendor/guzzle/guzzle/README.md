@@ -32,7 +32,7 @@ The recommended way to install Guzzle is through [Composer](http://getcomposer.o
 curl -sS https://getcomposer.org/installer | php
 
 # Add Guzzle as a dependency
-php composer.phar require guzzle/guzzle:~3.7
+php composer.phar require guzzle/guzzle:~3.6
 ```
 
 After installing, you need to require Composer's autoloader:
@@ -204,7 +204,3 @@ Unit testing
 Guzzle uses PHPUnit for unit testing. In order to run the unit tests, you'll first need
 to install the dependencies of the project using Composer: `php composer.phar install --dev`.
 You can then run the tests using `vendor/bin/phpunit`.
-
-If you are running the tests with xdebug enabled, you may encounter the following issue: 'Fatal error: Maximum function nesting level of '100' reached, aborting!'. This can be resolved by adding 'xdebug.max_nesting_level = 200' to your php.ini file.
-
-The PECL extensions, uri_template and pecl_http will be required to ensure all the tests can run.

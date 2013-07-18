@@ -243,10 +243,11 @@ class Stream implements StreamInterface
             return 0;
         }
 
+        $bytes = fwrite($this->stream, $string);
         // We can't know the size after writing anything
         $this->size = null;
 
-        return fwrite($this->stream, $string);
+        return $bytes;
     }
 
     public function ftell()

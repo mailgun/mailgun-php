@@ -138,11 +138,10 @@ class Parameter
      */
     public function toArray()
     {
-        static $checks = array('required', 'description', 'static', 'type', 'format', 'instanceOf', 'location', 'sentAs',
+        $result = array();
+        $checks = array('required', 'description', 'static', 'type', 'format', 'instanceOf', 'location', 'sentAs',
             'pattern', 'minimum', 'maximum', 'minItems', 'maxItems', 'minLength', 'maxLength', 'data', 'enum',
             'filters');
-
-        $result = array();
 
         // Anything that is in the `Items` attribute of an array *must* include it's name if available
         if ($this->parent instanceof self && $this->parent->getType() == 'array' && isset($this->name)) {

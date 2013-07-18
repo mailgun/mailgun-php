@@ -224,12 +224,4 @@ class UrlTest extends \Guzzle\Tests\GuzzleTestCase
         $this->assertEquals('foo', $url->getHost());
         $this->assertEquals(8983, $url->getPort());
     }
-
-    /**
-     * @expectedException \Guzzle\Common\Exception\InvalidArgumentException
-     */
-    public function testValidatesUrlCanBeParsed()
-    {
-        Url::factory('foo:////');
-    }
 }
