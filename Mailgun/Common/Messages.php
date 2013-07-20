@@ -12,222 +12,193 @@ use Mailgun\Exceptions\HTTPError;
 
 class Message{
 
-	private $message = array();
-	private $toRecipient = array();
-	private $ccRecipient = array();
-	private $bccRecipient = array();
-	private $fromAddress;
-	private $subject;
-	private $customHeader = array();
-	private $textBody;
-	private $htmlBody;
-	private $attachment = array();
-	private $inlineImage = array();
-	private $options = array();
-	private $customData = array();
-	private $customOption = array();
+	private $message;
+	private $sanitized;
+	private $toRecipientCount;
+	private $ccRecipientCount;
+	private $bccRecipientCount;
+	private $attachmentCount;
+	private $campaignIdCount;
+	private $customOptionCount;
 	
-	
-	public function __construct($headers = NULL, $content = NULL, $options = NULL){
+	public function __construct($message = null){
 
-
+		$this->message = array();
+	    $this->toRecipientCount = 0;
+	    $this->ccRecipientCount = 0;
+	    $this->bccRecipientCount = 0;
+		$this->attachmentCount = 0;
+		$this->campaignIdCount = 0;
+		$this->customOptionCount = 0;
 	}
 
-	/*
-	This section includes all headers that can be programmatically
-	added to the email. Each attribute is broken down in to a single
-	function to make it easier and more intuitive for new users. 
-	Dealing with complex arrays on the client side is usually no fun. 
-	Plus most people iterate through an array of data from a database, so
-	why not just iterate and add each recipient to the "Message" object instead?
-	*/	
-
-	// This function adds a recipient item to the recipient array. If the name is Null,
-	// the address will be included in the typical name field so it displays nicely.
 	public function addToRecipient($address, $name = NULL){
 		if($name != NULL){
 			$addr = $name . " <" . $address . ">";
-			array_push($this->toRecipient, $addr);
-			return true;
 		}
 		else{
 			$addr = $address . " <" . $address . ">";
-			array_push($this->toRecipient, $addr);
-			return true;
 		}
+		$arr = "to[".$this->toRecipientCount."]";
+		$this->message[$arr] = $addr;
+		$this->toRecipientCount++;
+		return true;
 	}
 	public function addCcRecipient($address, $name = NULL){
 		if($name != NULL){
 			$addr = $name . " <" . $address . ">";
-			array_push($this->ccRecipient, $addr);
-			return true;
 		}
 		else{
 			$addr = $address . " <" . $address . ">";
-			array_push($this->ccRecipient, $addr);
-			return true;
 		}
+		$arr = "cc[".$this->ccRecipientCount."]";
+		$this->message[$arr] = $addr;
+		$this->ccRecipientCount++;
+		return true;
 		
 	}
 	public function addBccRecipient($address, $name = NULL){
 		if($name != NULL){
 			$addr = $name . " <" . $address . ">";
-			array_push($this->bccRecipient, $addr);
-			return true;
 		}
 		else{
 			$addr = $address . " <" . $address . ">";
-			array_push($this->bccRecipient, $addr);
-			return true;
 		}
+		$arr = "bcc[".$this->bccRecipientCount."]";
+		$this->message[$arr] = $addr;
+		$this->bccRecipientCount++;
+		return true;
 	}
 	public function setFromAddress($address, $name = NULL){
 		if($name != NULL){
-			$this->fromAddress = $name . " <" . $address . ">";
-			return true;
+			$addr = $name . " <" . $address . ">";
 		}
 		else{
-			$this->fromAddress = $address . " <" . $address . ">";
-			return true;
+			$addr = $address . " <" . $address . ">";
 		}
+			$this->message['from'] = $addr;
+			return true;
 	}
 	public function setSubject($data = NULL){
-		if($data != NULL){
-			$this->subject = $data;
-			return true;
+		if($data == NULL || $data == ""){
+			$data = " ";
 		}
-		else{
-			$this->subject = "";
-			return false;
-		}
+		$this->message['subject'] = $data;
+		return true;
 	}
-	public function addCustomHeader($data){
-		//Need to check if "X-Mailgun" exists via Regular Expression. Then either add it or not. 
-		//if(preg_match("\^X-Mailgun", $data)){
-		if(true){	
-			array_push($this->customHeader, $data);
-			return true;
+	public function addCustomHeader($headerName, $data){
+		if(!preg_match("/^h:/i", $headerName)){
+			$headerName = "h:" . $headerName;
 		}
-		else{
-			$header = "X-Mailgun-" . $data;
-			array_push($this->customHeader, $header);
-			return true;
-		}
-		return;		
+		
+		$this->addCustomOption($headerName, $data);
+		return true;
 	}
 	
 	//Content
 	public function setTextBody($data){
-		//Not sure what validation we should do here. Just assigning the data for now. 
-		$this->textBody = $data;
+		if($data == NULL || $data == ""){
+			$data = " ";
+		}
+		$this->message['text'] = $data;
 		return true;
-		
 	}
-	public function setHTMLBody($data){
-		//Not sure what validation we should do here. Just assigning the data for now. 
-		$this->htmlBody = $data;
+	public function setHtmlBody($data){
+		if($data == NULL || $data == ""){
+			$data = " ";
+		}
+		$this->message['html'] = $data;
 		return true;
-		
 	}
 	public function addAttachment($data){
-		$postFields["attachment[$j]"] ="@/path-to-doc/".$mailObj["filenames"][$j]; 		
-		
+		$arr = "attachment[".$this->attachmentCount."]";
+		$this->message[$arr] = $data;
+		$this->attachmentCount++;
+		return true;
 	}
-	public function addInlineImage(){}
-	
-	//Options
-	public function setTestMode($data){
-		if(is_bool($data)){
-			if($data == true){
-				array_push($this->options, array("o:testmode" => true));
-			}
+	public function addInlineImage($data){
+		if(isset($this->message['inline'])){
+			array_push($this->message['inline'] , $data);
+			return true;
 		}
-		return;
-	}
-	public function setCampaignId($data){
-		if(is_array(isset($this->options['o:campaign']))){
-			$arrCount = count($this->options['o:campaign']);
-			if($arrCount <= 3){
-				$this->options['o:campaign'] = $data;
-			}
-			else{
-				return false;
-				}		
-			}
-		else {
-			$this->options['o:campaign'] = $data;
+		else{
+			$this->message['inline'] = array($data);
 			return true;
 		}
 	}
-	public function setDKIM(){
-		if(is_bool($data)){
-			if($data == true){
-				array_push($this->options, array("o:dkim" => true));
-			}
-			else{
-				array_push($this->options, array("o:dkim" => false));
-			}
+	
+	//Options
+	public function setTestMode($data){
+		if(filter_var($data, FILTER_VALIDATE_BOOLEAN)){
+			$data = "yes";
 		}
-		return;
+		else{
+			$data = "no";
+		}
+		$this->message['o:testmode'] = $data;
+		return true;
+	}
+	public function addCampaignId($data){
+		if($this->campaignIdCount < 3){
+			$arr = "o:campaign[".$this->campaignIdCount."]";
+			$this->message[$arr] = $data;
+			$this->campaignIdCount++;
+		return true;	
+		}
+	}
+	public function setDkim($data){
+		if(filter_var($data, FILTER_VALIDATE_BOOLEAN)){
+			$data = "yes";
+		}
+		else{
+			$data = "no";
+		}
+		$this->message["o:dkim"] = $data;
+		return true;
 	}
 	public function setOpenTracking($data){
-		if(is_bool($data)){
-			if($data == true){
-				array_push($this->options, array("o:tracking-opens" => true));
-			}
-			else{
-				array_push($this->options, array("o:tracking-opens" => false));
-			}
+		if(filter_var($data, FILTER_VALIDATE_BOOLEAN)){
+			$data = "yes";
 		}
-		return;
+		else{
+			$data = "no";
+		}
+		$this->message['o:tracking-opens'] = $data;
+		return true;
 	}	
 	public function setClickTracking($data){
-		if(is_bool($data)){
-			if($data == true){
-				array_push($this->options, array("o:tracking-clicks" => true));
-			}
-			else{
-				array_push($this->options, array("o:tracking-clicks" => false));
-			}
+		if(filter_var($data, FILTER_VALIDATE_BOOLEAN)){
+			$data = "yes";
 		}
-		return;
+		else{
+			$data = "no";
+		}
+		$this->message['o:tracking-clicks'] = $data;
+		return true;
+	}
+	
+	public function setDeliveryTime($data){
+		//BLAH
 	}
 	
 	//Handlers for any new features not defined as a concrete function.
 	public function addCustomData(){}
-	public function addCustomOptions(){}
 	
-	public function sendMessage(){
-		// This is the grand daddy function to send the message and flush all data from variables. 
-		
-		
+	public function addCustomOption($optionName, $data){
+		if(isset($this->message['options'][$optionName])){
+			array_push($this->message['options'][$optionName], $data);
+			return true;
+		}
+		else{
+			$this->message['options'][$optionName] = array($data);
+			return true;
+		}
 	}
-	
-	public function getToRecipients(){
-		return $this->toRecipient;
-	}
-		
-	public function getCcRecipients(){
-		return $this->ccRecipient;
-	}
-	public function getBccRecipients(){
-		return $this->bccRecipient;
-	}
-	public function getFromAddress(){
-		return $this->bccRecipient;
-	}
-	public function getSubject(){
-		return $this->subject;
-	}
-	public function getTextBody(){
-		return $this->textBody;
-	}
-	public function getHTMLBody(){
-		return $this->htmlBody;
-	}		
-	public function getCampaignId(){
-		return $this->options;
-	}				
+
+	public function getMessage(){
+
+		return $this->message;
+	}						
 }
 
 
