@@ -2,9 +2,10 @@
 
 namespace Mailgun\Common;
 	
-require_once 'Globals.php';
+require_once 'globals.php';
 
 use Guzzle\Http\Client as Guzzler;
+
 use Mailgun\Exceptions\NoDomainsConfigured;
 use Mailgun\Exceptions\HTTPError;
 

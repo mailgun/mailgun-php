@@ -1,7 +1,8 @@
 {
     "name": "mailgun/mailgun-php-client",
     "require": {
-        "guzzle/guzzle": "3.7.1"
+        "guzzle/guzzle": "3.7.1",
+        "phpunit/phpunit": "3.7.*"
     },
     "authors": [
         {

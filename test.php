@@ -1,7 +1,7 @@
 <?php
 //require 'vendor/autoload.php';
 
-require_once('vendor/autoload.php');
+require dirname(__DIR__) . '/vendor/autoload.php';
 
 use Mailgun\Common\Client;
 use Mailgun\Common\Message;

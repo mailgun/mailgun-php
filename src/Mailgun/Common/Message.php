@@ -5,8 +5,6 @@
 */
 namespace Mailgun\Common;
 	
-require_once 'Globals.php';
-
 use Guzzle\Http\Client as Guzzler;
 use Mailgun\Exceptions\NoDomainsConfigured;
 use Mailgun\Exceptions\HTTPError;
@@ -22,11 +20,8 @@ class Message{
 	protected $campaignIdCount;
 	protected $customOptionCount;
 	
-	public function __construct($message = null){
+	public function __construct(){
 		$this->message = array();
-		if(isset($message)){
-			$this->message = $message;
-		}
 	    $this->toRecipientCount = 0;
 	    $this->ccRecipientCount = 0;
 	    $this->bccRecipientCount = 0;
