@@ -1,18 +1,18 @@
 <?php
 //require 'vendor/autoload.php';
 
-require_once('Mailgun/autoload.php');
-require('Mailgun/Common/Message.php');
-require('Mailgun/Common/BatchMessage.php');
+require_once('vendor/autoload.php');
 
-use Mailgun\Common;
+use Mailgun\Common\Client;
+use Mailgun\Common\Message;
+
 use Mailgun\Exceptions\NoDomainsConfigured;
 use Mailgun\Exceptions\HTTPError;
 
 
-$client = new Common\Client("key-ca6d168e492611df8307001d60d24a9c-0b27e", "aawdawdad.ninomail.com", true);
+$client = new Client("key-ca6d168e492611df8307001d60d24a9c-0b27e", "aawdawdad.ninomail.com", true);
 
-$message = new Mailgun\Common\Message(array('from' =>"travis@aawdawdad.ninomail.com", 'to' => "travis@tswientek.com", "subject" => "subject here", "text" => "hello"));
+$message = new Message(array('from' =>"travis@aawdawdad.ninomail.com", 'to' => "travis@tswientek.com", "subject" => "subject here", "text" => "hello", "o:testmode" =>true));
 
 $response = $client->sendMessage($message->getMessage());
 echo $response->getBody();

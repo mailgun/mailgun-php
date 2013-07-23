@@ -1,9 +1,18 @@
 {
+    "name": "mailgun/mailgun-php-client",
     "require": {
-        "guzzle/guzzle": "3.7"
+        "guzzle/guzzle": "3.7.1"
     },
-    "require-dev": {
-        "phpunit/phpunit": "3.7.*"
+    "authors": [
+        {
+            "name": "Travis Swientek",
+            "email": "travis@tswientek.com"
+        }
+    ],
+    "autoload": {
+        "psr-0": {
+            "Mailgun\\Tests": "tests/",
+            "Mailgun": "src/"
+        }
     }
-
 }
