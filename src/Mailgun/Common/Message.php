@@ -32,14 +32,20 @@ class Message{
 
 	public function addToRecipient($address, $attributes){
 		if($this->toRecipientCount < 1000){
-			if(array_key_exists("first", $attributes)){
-				if(array_key_exists("last", $attributes)){
-					$name = $attributes["first"] . " " . $attributes["last"];
+			if(is_array($attributes)){
+				if(array_key_exists("first", $attributes)){
+					$name = $attributes["first"];
+					if(array_key_exists("last", $attributes)){
+						$name = $attributes["first"] . " " . $attributes["last"];
 					}
-				$name = $attributes["first"];
+				}
 			}
-			
-			$addr = $name . " <" . $address . ">";
+			if(isset($name)){
+				$addr = $name . " <" . $address . ">";
+			}
+			else{
+				$addr = $address;
+			}
 			if(isset($this->message["to"])){
 				array_push($this->message["to"], $addr);
 			}
@@ -49,19 +55,27 @@ class Message{
 			$this->toRecipientCount++;
 			return true;
 		}
+		else{
+			//DIE HERE WITH EXCEPTION! TOO MANY RECIPIENTS
+		}
 	}
 
-	public function addCcRecipient($address, $name = NULL){
+	public function addCcRecipient($address, $attributes){
 		if($this->ccRecipientCount < 1000){
-			if(array_key_exists("first", $attributes)){
-				if(array_key_exists("last", $attributes)){
-					$name = $attributes["first"] . " " . $attributes["last"];
+			if(is_array($attributes)){
+				if(array_key_exists("first", $attributes)){
+					$name = $attributes["first"];
+					if(array_key_exists("last", $attributes)){
+						$name = $attributes["first"] . " " . $attributes["last"];
 					}
-				$name = $attributes["first"];
+				}
 			}
-			
-			$addr = $name . " <" . $address . ">";
-			
+			if(isset($name)){
+				$addr = $name . " <" . $address . ">";
+			}
+			else{
+				$addr = $address;
+			}
 			if(isset($this->message["cc"])){
 				array_push($this->message["cc"], $addr);
 			}
@@ -70,19 +84,27 @@ class Message{
 			}
 			$this->ccRecipientCount++;
 			return true;
-		}	
+		}
+		else{
+			//DIE HERE WITH EXCEPTION! TOO MANY RECIPIENTS
+		}
 	}
-	public function addBccRecipient($address, $name = NULL){
+	public function addBccRecipient($address, $attributes){
 		if($this->bccRecipientCount < 1000){
-			if(array_key_exists("first", $attributes)){
-				if(array_key_exists("last", $attributes)){
-					$name = $attributes["first"] . " " . $attributes["last"];
+			if(is_array($attributes)){
+				if(array_key_exists("first", $attributes)){
+					$name = $attributes["first"];
+					if(array_key_exists("last", $attributes)){
+						$name = $attributes["first"] . " " . $attributes["last"];
 					}
-				$name = $attributes["first"];
+				}
 			}
-			
-			$addr = $name . " <" . $address . ">";
-			
+			if(isset($name)){
+				$addr = $name . " <" . $address . ">";
+			}
+			else{
+				$addr = $address;
+			}
 			if(isset($this->message["bcc"])){
 				array_push($this->message["bcc"], $addr);
 			}
@@ -92,16 +114,27 @@ class Message{
 			$this->bccRecipientCount++;
 			return true;
 		}
+		else{
+			//DIE HERE WITH EXCEPTION! TOO MANY RECIPIENTS
+		}
 	}
-	public function setFromAddress($address, $name = NULL){
-		if($name != NULL){
+	public function setFromAddress($address, $attributes){
+		if(is_array($attributes)){
+			if(array_key_exists("first", $attributes)){
+				$name = $attributes["first"];
+				if(array_key_exists("last", $attributes)){
+					$name = $attributes["first"] . " " . $attributes["last"];
+				}
+			}
+		}
+		if(isset($name)){
 			$addr = $name . " <" . $address . ">";
 		}
 		else{
-			$addr = $address . " <" . $address . ">";
+			$addr = $address;
 		}
-			$this->message['from'] = $addr;
-			return true;
+		$this->message['from'] = $addr;
+		return true;
 	}
 	public function setSubject($data = NULL){
 		if($data == NULL || $data == ""){
@@ -115,7 +148,7 @@ class Message{
 			$headerName = "h:" . $headerName;
 		}
 		
-		$this->addCustomOption($headerName, $data);
+		$this->message[$headerName] = array($data);
 		return true;
 	}
 	
@@ -167,10 +200,17 @@ class Message{
 	}
 	public function addCampaignId($data){
 		if($this->campaignIdCount < 3){
-			$arr = "o:campaign[".$this->campaignIdCount."]";
-			$this->message[$arr] = $data;
+			if(isset($this->message['o:campaign'])){
+				array_push($this->message['o:campaign'] , $data);
+			}
+			else{
+				$this->message['o:campaign'] = array($data);
+			}
 			$this->campaignIdCount++;
 		return true;	
+		}
+		else{
+			//THROW AN EXCEPTION HERE!! CANT HAVE MORE THAN 3 CAMPAIGNS
 		}
 	}
 	public function setDkim($data){
@@ -204,11 +244,11 @@ class Message{
 		return true;
 	}
 	public function setDeliveryTime($timeDate, $timeZone = NULL){
-		if($timeZone == NULL){
-			$timeZoneObj = new \DateTimeZone(DEFAULT_TIME_ZONE);
+		if(isset($timeZone)){
+			$timeZoneObj = new \DateTimeZone("$timeZone");
 		}
 		else{
-			$timeZoneObj = new \DateTimeZone("$timeZone");
+			$timeZoneObj = new \DateTimeZone(\DEFAULT_TIME_ZONE);
 		}
 		
 		$dateTimeObj = new \DateTime($timeDate, $timeZoneObj);
@@ -223,12 +263,15 @@ class Message{
 			$this->message['v:'.$customName] = $jsonArray;
 		}
 		else{
-			//throw exception here!
+			//throw exception here data is not in an array form!
 			return false;
 		}
 		
 	}
 	public function addCustomOption($optionName, $data){
+		if(!preg_match("/^o:/i", $optionName)){
+			$optionName = "o:" . $optionName;
+		}
 		if(isset($this->message['options'][$optionName])){
 			array_push($this->message['options'][$optionName], $data);
 			return true;

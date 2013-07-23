@@ -12,7 +12,9 @@
     <testsuites>
         <testsuite>
             <directory>./tests/Mailgun/Tests</directory>
+            <exclude>./tests/Mailgun/Tests/Connection/ConnectionTest.php</exclude>
         </testsuite>
     </testsuites>
+
 
 </phpunit>

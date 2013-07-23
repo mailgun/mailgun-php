@@ -12,10 +12,9 @@ use Mailgun\Exceptions\HTTPError;
 
 $client = new Client("key-ca6d168e492611df8307001d60d24a9c-0b27e", "aawdawdad.ninomail.com", true);
 
-//$message = new Message();
-
-$response = $client->sendMessage(array('from' =>"travis@aawdawdad.ninomail.com", 'to' => "travis@tswientek.com", "subject" => "subject here", "text" => "hello", "o:testmode" =>true));
-echo $response->getBody();
+$message = new Message();
+		$message->addCustomData("My-Super-Awesome-Data", array("What" => "Mailgun Rocks!"));
+		var_dump($message->getMessage());
 
 
 //$message = new Mailgun\Common\Message($client);

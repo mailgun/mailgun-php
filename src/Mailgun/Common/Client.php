@@ -4,7 +4,7 @@ namespace Mailgun\Common;
 	
 require dirname(__DIR__) . '/globals.php';
 
-use Guzzle\Http\Client as Guzzler;
+use Guzzle\Http\Client as Guzzle;
 
 use Mailgun\Exceptions\NoDomainsConfigured;
 use Mailgun\Exceptions\HTTPError;
@@ -27,14 +27,14 @@ class Client{
 		$this->domain = $domain;
 		$this->debug = $debug;
 		if($this->debug){
-			$this->client = new Guzzler('https://api.ninomail.com/' . $this->apiVersion . '/', array('ssl.certificate_authority' => false));
+			$this->client = new Guzzle('https://api.ninomail.com/' . $this->apiVersion . '/', array('ssl.certificate_authority' => false));
 			$this->client->setDefaultOption('auth', array ($this->apiUser, $this->apiKey));	
 			$this->client->setDefaultOption('exceptions', false);
 			$this->client->setUserAgent($this->sdkUserAgent . '/' . $this->sdkVersion);
 			$this->validateCredentials();
 		}
 		else{
-			$this->client = new Guzzler('https://' . $this->apiEndpoint . '/' . $this->apiVersion . '/');
+			$this->client = new Guzzle('https://' . $this->apiEndpoint . '/' . $this->apiVersion . '/');
 			$this->client->setDefaultOption('auth', array ($this->apiUser, $this->apiKey));	
 			$this->client->setDefaultOption('exceptions', false);
 			$this->client->setUserAgent($this->sdkUserAgent . '/' . $this->sdkVersion);
