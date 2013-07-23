@@ -1,7 +1,8 @@
 <?PHP
 
-//Message.php - Getters and setters for sending a message. 
-
+/*
+ *	Message.php - Message builder for creating a message object. Pass the message object to the client to send the message.
+*/
 namespace Mailgun\Common;
 	
 require_once 'Globals.php';
@@ -12,18 +13,20 @@ use Mailgun\Exceptions\HTTPError;
 
 class Message{
 
-	private $message;
-	private $sanitized;
-	private $toRecipientCount;
-	private $ccRecipientCount;
-	private $bccRecipientCount;
-	private $attachmentCount;
-	private $campaignIdCount;
-	private $customOptionCount;
+	protected $message;
+	protected $sanitized;
+	protected $toRecipientCount;
+	protected $ccRecipientCount;
+	protected $bccRecipientCount;
+	protected $attachmentCount;
+	protected $campaignIdCount;
+	protected $customOptionCount;
 	
 	public function __construct($message = null){
-
 		$this->message = array();
+		if(isset($message)){
+			$this->message = $message;
+		}
 	    $this->toRecipientCount = 0;
 	    $this->ccRecipientCount = 0;
 	    $this->bccRecipientCount = 0;
@@ -32,42 +35,68 @@ class Message{
 		$this->customOptionCount = 0;
 	}
 
-	public function addToRecipient($address, $name = NULL){
-		if($name != NULL){
+	public function addToRecipient($address, $attributes){
+		if($this->toRecipientCount < 1000){
+			if(array_key_exists("first", $attributes)){
+				if(array_key_exists("last", $attributes)){
+					$name = $attributes["first"] . " " . $attributes["last"];
+					}
+				$name = $attributes["first"];
+			}
+			
 			$addr = $name . " <" . $address . ">";
+			if(isset($this->message["to"])){
+				array_push($this->message["to"], $addr);
+			}
+			else{
+				$this->message["to"] = array($addr);
+			}
+			$this->toRecipientCount++;
+			return true;
 		}
-		else{
-			$addr = $address . " <" . $address . ">";
-		}
-		$arr = "to[".$this->toRecipientCount."]";
-		$this->message[$arr] = $addr;
-		$this->toRecipientCount++;
-		return true;
 	}
+
 	public function addCcRecipient($address, $name = NULL){
-		if($name != NULL){
+		if($this->ccRecipientCount < 1000){
+			if(array_key_exists("first", $attributes)){
+				if(array_key_exists("last", $attributes)){
+					$name = $attributes["first"] . " " . $attributes["last"];
+					}
+				$name = $attributes["first"];
+			}
+			
 			$addr = $name . " <" . $address . ">";
-		}
-		else{
-			$addr = $address . " <" . $address . ">";
-		}
-		$arr = "cc[".$this->ccRecipientCount."]";
-		$this->message[$arr] = $addr;
-		$this->ccRecipientCount++;
-		return true;
-		
+			
+			if(isset($this->message["cc"])){
+				array_push($this->message["cc"], $addr);
+			}
+			else{
+				$this->message["cc"] = array($addr);
+			}
+			$this->ccRecipientCount++;
+			return true;
+		}	
 	}
 	public function addBccRecipient($address, $name = NULL){
-		if($name != NULL){
+		if($this->bccRecipientCount < 1000){
+			if(array_key_exists("first", $attributes)){
+				if(array_key_exists("last", $attributes)){
+					$name = $attributes["first"] . " " . $attributes["last"];
+					}
+				$name = $attributes["first"];
+			}
+			
 			$addr = $name . " <" . $address . ">";
+			
+			if(isset($this->message["bcc"])){
+				array_push($this->message["bcc"], $addr);
+			}
+			else{
+				$this->message["bcc"] = array($addr);
+			}
+			$this->bccRecipientCount++;
+			return true;
 		}
-		else{
-			$addr = $address . " <" . $address . ">";
-		}
-		$arr = "bcc[".$this->bccRecipientCount."]";
-		$this->message[$arr] = $addr;
-		$this->bccRecipientCount++;
-		return true;
 	}
 	public function setFromAddress($address, $name = NULL){
 		if($name != NULL){
@@ -111,9 +140,12 @@ class Message{
 		return true;
 	}
 	public function addAttachment($data){
-		$arr = "attachment[".$this->attachmentCount."]";
-		$this->message[$arr] = $data;
-		$this->attachmentCount++;
+		if(isset($this->message["attachment"])){
+			array_push($this->message["attachment"], $data);
+		}
+		else{
+			$this->message["attachment"] = array($data);
+		}
 		return true;
 	}
 	public function addInlineImage($data){
@@ -176,14 +208,31 @@ class Message{
 		$this->message['o:tracking-clicks'] = $data;
 		return true;
 	}
-	
-	public function setDeliveryTime($data){
-		//BLAH
+	public function setDeliveryTime($timeDate, $timeZone = NULL){
+		if($timeZone == NULL){
+			$timeZoneObj = new \DateTimeZone(DEFAULT_TIME_ZONE);
+		}
+		else{
+			$timeZoneObj = new \DateTimeZone("$timeZone");
+		}
+		
+		$dateTimeObj = new \DateTime($timeDate, $timeZoneObj);
+		$formattedTimeDate = $dateTimeObj->format(\DateTime::RFC2822);
+		$this->message['o:deliverytime'] = $formattedTimeDate;
+		return true;
 	}
-	
 	//Handlers for any new features not defined as a concrete function.
-	public function addCustomData(){}
-	
+	public function addCustomData($customName, $data){
+		if(is_array($data)){
+			$jsonArray = json_encode($data);
+			$this->message['v:'.$customName] = $jsonArray;
+		}
+		else{
+			//throw exception here!
+			return false;
+		}
+		
+	}
 	public function addCustomOption($optionName, $data){
 		if(isset($this->message['options'][$optionName])){
 			array_push($this->message['options'][$optionName], $data);
@@ -194,41 +243,8 @@ class Message{
 			return true;
 		}
 	}
-
 	public function getMessage(){
-
 		return $this->message;
-	}						
+	}				
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ?>

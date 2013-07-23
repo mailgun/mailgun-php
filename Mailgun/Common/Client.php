@@ -1,4 +1,5 @@
 <?PHP
+
 namespace Mailgun\Common;
 	
 require_once 'Globals.php';
@@ -25,9 +26,11 @@ class Client{
 		$this->domain = $domain;
 		$this->debug = $debug;
 		if($this->debug){
-			$this->client = new Guzzler('http://postbin.ryanbigg.com/');
+			$this->client = new Guzzler('https://api.ninomail.com/' . $this->apiVersion . '/', array('ssl.certificate_authority' => false));
+			$this->client->setDefaultOption('auth', array ($this->apiUser, $this->apiKey));	
 			$this->client->setDefaultOption('exceptions', false);
 			$this->client->setUserAgent($this->sdkUserAgent . '/' . $this->sdkVersion);
+			$this->validateCredentials();
 		}
 		else{
 			$this->client = new Guzzler('https://' . $this->apiEndpoint . '/' . $this->apiVersion . '/');
@@ -70,18 +73,45 @@ class Client{
 	
 	public function sendMessage($message){
 		// This is the grand daddy function to send the message and flush all data from variables. 
-		$domain = $this->domain;
-		if($this->debug){
-			$request = $this->client->post("303980cc", array(), $message);
-			$response = $request->send();
-		}
-		else{
-			$request = $this->client->post("$domain/messages", array(), $message);
-			$response = $request->send();
-		}
+		if(array_key_exists("from", $message) && 
+		   array_key_exists("to", $message) && 
+		   array_key_exists("subject", $message) &&
+		   (array_key_exists("text", $message) || array_key_exists("html", $message))){
+				$domain = $this->domain;
+				if($this->debug){
+					$request = $this->client->post("$domain/messages", array(), $message);
+					if(isset($message["attachment"])){
+						foreach($message["attachment"] as $attachments){
+							$request->addPostFile("attachment", $attachments);
+						}
+						unset($message["attachment"]);
+					}
+					if(isset($message["inline"])){
+						foreach($message["inline"] as $inlineAttachments){
+							$request->addPostFile("inline", $inlineAttachments);
+						}
+					}
+					$response = $request->send();
+				}
+			else{
+				$request = $this->client->post("$domain/messages", array(), $message);
+				if(isset($message["attachment"])){
+					foreach($message["attachment"] as $attachments){
+						$request->addPostFile("attachment", $attachments);
+					}
+				unset($message["attachment"]);
+				}
+				if(isset($message["inline"])){
+					foreach($message["inline"] as $inlineAttachments){
+						$request->addPostFile("inline", $inlineAttachments);
+					}
+				}
+				$response = $request->send();
+			}
 		return $response;
-		
 	}
+	//Throw an exception here! Missing required parameters.
+	}	
 }
 
 ?>
