@@ -2,7 +2,7 @@
 
 namespace Mailgun\Common;
 	
-require_once 'globals.php';
+require dirname(__DIR__) . '/globals.php';
 
 use Guzzle\Http\Client as Guzzler;
 

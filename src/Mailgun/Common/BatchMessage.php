@@ -4,7 +4,7 @@
 
 namespace Mailgun\Common;
 	
-require_once 'Globals.php';
+require dirname(__DIR__) . '/globals.php';
 
 use Guzzle\Http\Client as Guzzler;
 use Mailgun\Exceptions\NoDomainsConfigured;

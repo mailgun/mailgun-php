@@ -1,7 +1,7 @@
 <?php
 //require 'vendor/autoload.php';
 
-require dirname(__DIR__) . '/vendor/autoload.php';
+require 'vendor/autoload.php';
 
 use Mailgun\Common\Client;
 use Mailgun\Common\Message;
@@ -12,9 +12,9 @@ use Mailgun\Exceptions\HTTPError;
 
 $client = new Client("key-ca6d168e492611df8307001d60d24a9c-0b27e", "aawdawdad.ninomail.com", true);
 
-$message = new Message(array('from' =>"travis@aawdawdad.ninomail.com", 'to' => "travis@tswientek.com", "subject" => "subject here", "text" => "hello", "o:testmode" =>true));
+//$message = new Message();
 
-$response = $client->sendMessage($message->getMessage());
+$response = $client->sendMessage(array('from' =>"travis@aawdawdad.ninomail.com", 'to' => "travis@tswientek.com", "subject" => "subject here", "text" => "hello", "o:testmode" =>true));
 echo $response->getBody();
 
 
