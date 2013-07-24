@@ -1,7 +1,7 @@
 <?PHP
 namespace Mailgun\Tests\Message;
 
-use Mailgun\Common\Message;
+use Mailgun\Messages\Message;
 
 class MessageTest extends \Mailgun\Tests\MailgunTestCase{
 	public function setUp(){ 
@@ -174,73 +174,3 @@ class MessageTest extends \Mailgun\Tests\MailgunTestCase{
 }
 
 ?>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -2,7 +2,9 @@
 
 namespace Mailgun\Tests;
 
-abstract class MailgunTestCase extends \PHPUnit_Framework_TestCase
+use Guzzle\Tests\GuzzleTestCase;
+
+abstract class MailgunTestCase extends GuzzleTestCase
 {
 	//Will include more stuff here... Just extending PHPUnit for now. 
 } 

@@ -3,14 +3,16 @@
 
 require 'vendor/autoload.php';
 
-use Mailgun\Common\Client;
-use Mailgun\Common\Message;
+use Mailgun\Connection\Client;
+use Mailgun\Messages\Message;
 
-use Mailgun\Exceptions\NoDomainsConfigured;
-use Mailgun\Exceptions\HTTPError;
+use Mailgun\Connection\Exceptions\NoDomainsConfigured;
+use Mailgun\Connection\Exceptions\InvalidCredentials;
+use Mailgun\Connection\Exceptions\MissingRequiredMIMEParameters;
+use Mailgun\Connection\Exceptions\GenericHTTPError;
 
 
-$client = new Client("key-ca6d168e492611df8307001d60d24a9c-0b27e", "aawdawdad.ninomail.com", true);
+$client = new Client("key-ca6d168e492611df83070asdf01d60d24a9c-0b27e", "aawdawdad.ninomail.com", true);
 
 $message = new Message();
 		$message->addCustomData("My-Super-Awesome-Data", array("What" => "Mailgun Rocks!"));

@@ -1,8 +1,8 @@
 <?PHP
 namespace Mailgun\Tests\BatchMessage;
 
-use Mailgun\Common\Client;
-use Mailgun\Common\BatchMessage;
+use Mailgun\Connection\Client;
+use Mailgun\Messages\BatchMessage;
 
 class BatchMessageTest extends \Mailgun\Tests\MailgunTestCase{
 
