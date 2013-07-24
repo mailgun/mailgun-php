@@ -4,16 +4,15 @@
  *	Message.php - Message builder for creating a message object. Pass the message object to the client to send the message.
 */
 namespace Mailgun\Messages;
-	
-use Guzzle\Http\Client as Guzzler;
 
 use Mailgun\Messages\Exceptions\TooManyParameters;
 use Mailgun\Messages\Expcetions\InvalidParameter;
 use Mailgun\Messages\Expcetions\InvalidParameterType;
 
-class Message{
+class MessageBuilder extends Messages{
 
 	protected $message;
+	protected $files;
 	protected $sanitized;
 	protected $toRecipientCount;
 	protected $ccRecipientCount;
@@ -21,15 +20,19 @@ class Message{
 	protected $attachmentCount;
 	protected $campaignIdCount;
 	protected $customOptionCount;
+	protected $httpBroker;
 	
-	public function __construct(){
+	public function __construct($httpBroker){
+		parent::__construct($httpBroker);
 		$this->message = array();
+		$this->files = array();
 	    $this->toRecipientCount = 0;
 	    $this->ccRecipientCount = 0;
 	    $this->bccRecipientCount = 0;
 		$this->attachmentCount = 0;
 		$this->campaignIdCount = 0;
 		$this->customOptionCount = 0;
+		$this->httpBroker = $httpBroker;
 	}
 
 	public function addToRecipient($address, $attributes){
@@ -173,11 +176,11 @@ class Message{
 	}
 	public function addAttachment($data){
 		if(preg_match("/^@/", $data)){
-			if(isset($this->message["attachment"])){
-				array_push($this->message["attachment"], $data);
+			if(isset($this->files["attachment"])){
+				array_push($this->files["attachment"], $data);
 				}	
 				else{
-					$this->message["attachment"] = array($data);
+					$this->files["attachment"] = array($data);
 				}
 			return true;
 		}
@@ -187,12 +190,12 @@ class Message{
 	}
 	public function addInlineImage($data){
 		if(preg_match("/^@/", $data)){
-			if(isset($this->message['inline'])){
-				array_push($this->message['inline'] , $data);
+			if(isset($this->files['inline'])){
+				array_push($this->files['inline'] , $data);
 				return true;
 				}
 			else{
-				$this->message['inline'] = array($data);
+				$this->files['inline'] = array($data);
 				return true;
 			}
 		}
@@ -294,6 +297,9 @@ class Message{
 	}
 	public function getMessage(){
 		return $this->message;
-	}				
+	}
+	public function getFiles(){
+		return $this->files;
+	}
 }
 ?>
