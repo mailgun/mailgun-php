@@ -28,20 +28,19 @@ class HttpBroker{
 		$this->apiKey = $apiKey;
 		$this->workingDomain = $domain;
 		$this->debug = $debug;
-	}
-	
-	public function postRequest($endpointUrl, $postData = array(), $files = array()){
 		if($this->debug){
 			$this->client = new Guzzle('https://api.ninomail.com/' . $this->apiVersion . '/', array('ssl.certificate_authority' => false));
 		}
 		else{
 			$this->client = new Guzzle('https://' . $this->apiEndpoint . '/' . $this->apiVersion . '/');
 		}
-
+		$this->client->setDefaultOption('curl.options', array('CURLOPT_FORBID_REUSE' => true));
 		$this->client->setDefaultOption('auth', array ($this->apiUser, $this->apiKey));	
 		$this->client->setDefaultOption('exceptions', true);
 		$this->client->setUserAgent($this->sdkUserAgent . '/' . $this->sdkVersion);
-		
+	}
+	
+	public function postRequest($endpointUrl, $postData = array(), $files = array()){
 		$request = $this->client->post($endpointUrl, array(), $postData);
 		
 		if(isset($files["attachment"])){
@@ -74,17 +73,6 @@ class HttpBroker{
 	}
 	
 	public function getRequest($endpointUrl, $queryString = array()){
-		if($this->debug){
-			$this->client = new Guzzle('https://api.ninomail.com/' . $this->apiVersion . '/', array('ssl.certificate_authority' => false));
-		}
-		else{
-			$this->client = new Guzzle('https://' . $this->apiEndpoint . '/' . $this->apiVersion . '/');
-		}
-		
-		$this->client->setDefaultOption('auth', array ($this->apiUser, $this->apiKey));	
-		$this->client->setDefaultOption('exceptions', true);
-		$this->client->setUserAgent($this->sdkUserAgent . '/' . $this->sdkVersion);
-
 		$request = $this->client->get($endpointUrl, $queryString);
 		$response = $request->send();
 		$httpResponeCode = $response->getStatusCode();
@@ -106,17 +94,6 @@ class HttpBroker{
 	}
 	
 	public function deleteRequest($endpointUrl){
-		if($this->debug){
-			$this->client = new Guzzle('https://api.ninomail.com/' . $this->apiVersion . '/', array('ssl.certificate_authority' => false));
-		}
-		else{
-			$this->client = new Guzzle('https://' . $this->apiEndpoint . '/' . $this->apiVersion . '/');
-		}
-		
-		$this->client->setDefaultOption('auth', array ($this->apiUser, $this->apiKey));	
-		$this->client->setDefaultOption('exceptions', true);
-		$this->client->setUserAgent($this->sdkUserAgent . '/' . $this->sdkVersion);
-		
 		$request = $this->client->delete($endpointUrl);
 		$response = $request->send();
 		$httpResponeCode = $response->getStatusCode();
@@ -138,16 +115,6 @@ class HttpBroker{
 	}
 	
 	public function putRequest($endpointUrl, $queryString){
-		if($this->debug){
-			$this->client = new Guzzle('https://api.ninomail.com/' . $this->apiVersion . '/', array('ssl.certificate_authority' => false));
-		}
-		else{
-			$this->client = new Guzzle('https://' . $this->apiEndpoint . '/' . $this->apiVersion . '/');
-		}
-		
-		$this->client->setDefaultOption('auth', array ($this->apiUser, $this->apiKey));	
-		$this->client->setDefaultOption('exceptions', true);
-		$this->client->setUserAgent($this->sdkUserAgent . '/' . $this->sdkVersion);
 		$request = $this->client->put($endpointUrl, $queryString);
 		$response = $request->send();
 		$httpResponeCode = $response->getStatusCode();
