@@ -33,12 +33,12 @@ class Unsubscribes{
 		return $response;
 	}
 	
-	public function getAddress($unsubAddress){
+	public function getUnsubscribe($unsubAddress){
 		$requestUrl = $this->endpointUrl . "/" .  urlencode($unsubAddress);
 		$response = $this->httpBroker->getRequest($requestUrl);
 		return $response;
 	}
-	public function getAddresses($limit, $skip){
+	public function getUnsubscribes($limit, $skip){
 		$response = $this->httpBroker->getRequest($this->endpointUrl, array($limit, $skip));
 		return $response;
 	}

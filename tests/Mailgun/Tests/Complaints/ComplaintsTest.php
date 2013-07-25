@@ -1,10 +1,10 @@
 <?PHP
 
-namespace Mailgun\Tests\Unsubscribes;
+namespace Mailgun\Tests\Complaints;
 
 use Mailgun\Tests\MailgunClientTest;
 
-class UnsubscribeTest extends \Mailgun\Tests\MailgunTestCase{
+class ComplaintsTest extends \Mailgun\Tests\MailgunTestCase{
 	
 	private $client; 
 	
@@ -13,26 +13,26 @@ class UnsubscribeTest extends \Mailgun\Tests\MailgunTestCase{
 
 	}
 	public function testAddAddress(){
-		$client = $this->client->Unsubscribes();
+		$client = $this->client->Complaints();
 		$response = $client->addAddress("test@samples.mailgun.org");
 		$httpCode = $response->http_response_code;
 		$this->assertEquals(200, $httpCode);
 	}
 	public function testDeleteAddress(){
-		$client = $this->client->Unsubscribes();
+		$client = $this->client->Complaints();
 		$response = $client->deleteAddress("test@samples.mailgun.org");
 		$httpCode = $response->http_response_code;
 		$this->assertEquals(200, $httpCode);
 	}
 	public function testGetAddress(){
-		$client = $this->client->Unsubscribes();
-		$response = $client->getUnsubscribe("test@samples.mailgun.org");
+		$client = $this->client->Complaints();
+		$response = $client->getComplaint("test@samples.mailgun.org");
 		$httpCode = $response->http_response_code;
 		$this->assertEquals(200, $httpCode);
 	}
 	public function testGetAddresses(){
-		$client = $this->client->Unsubscribes();
-		$response = $client->getUnsubscribes("1", "30");
+		$client = $this->client->Complaints();
+		$response = $client->getComplaints("1", "30");
 		$httpCode = $response->http_response_code;
 		$this->assertEquals(200, $httpCode);
 	}

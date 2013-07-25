@@ -12,7 +12,7 @@ class MailgunClientTest extends MailgunClient
 	
 	public function __construct($apiKey, $domain, $debug = false){
 		$this->httpBroker = new TestBroker($apiKey, $domain, $debug);
-		$this->validateCredentials();
+		return true;
 	}
 } 
 

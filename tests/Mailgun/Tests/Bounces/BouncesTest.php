@@ -1,10 +1,10 @@
 <?PHP
 
-namespace Mailgun\Tests\Unsubscribes;
+namespace Mailgun\Tests\Bounces;
 
 use Mailgun\Tests\MailgunClientTest;
 
-class UnsubscribeTest extends \Mailgun\Tests\MailgunTestCase{
+class BouncesTest extends \Mailgun\Tests\MailgunTestCase{
 	
 	private $client; 
 	
@@ -13,26 +13,26 @@ class UnsubscribeTest extends \Mailgun\Tests\MailgunTestCase{
 
 	}
 	public function testAddAddress(){
-		$client = $this->client->Unsubscribes();
-		$response = $client->addAddress("test@samples.mailgun.org");
+		$client = $this->client->Bounces();
+		$response = $client->addAddress("test@samples.mailgun.org", 550, "This bounced!");
 		$httpCode = $response->http_response_code;
 		$this->assertEquals(200, $httpCode);
 	}
 	public function testDeleteAddress(){
-		$client = $this->client->Unsubscribes();
+		$client = $this->client->Bounces();
 		$response = $client->deleteAddress("test@samples.mailgun.org");
 		$httpCode = $response->http_response_code;
 		$this->assertEquals(200, $httpCode);
 	}
 	public function testGetAddress(){
-		$client = $this->client->Unsubscribes();
-		$response = $client->getUnsubscribe("test@samples.mailgun.org");
+		$client = $this->client->Bounces();
+		$response = $client->getBounce("test@samples.mailgun.org");
 		$httpCode = $response->http_response_code;
 		$this->assertEquals(200, $httpCode);
 	}
 	public function testGetAddresses(){
-		$client = $this->client->Unsubscribes();
-		$response = $client->getUnsubscribes("1", "30");
+		$client = $this->client->Bounces();
+		$response = $client->getBounces("1", "30");
 		$httpCode = $response->http_response_code;
 		$this->assertEquals(200, $httpCode);
 	}

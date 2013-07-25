@@ -41,6 +41,26 @@ class TestBroker extends HttpBroker{
 			}
 			$result->http_response_code = $httpResponseCode;
 		}
+		elseif(preg_match("/\/complaints$/", $endpointUrl)){
+			$httpResponseCode = "200";
+			//$jsonResponseData = json_encode('{"message": "Address has been added to the unsubscribes table","address": "ev@mailgun.net"}');
+			if($httpResponseCode === 200){
+				foreach($jsonResponseData as $key => $value){
+			    	$result->$key = $value;
+				}
+			}
+			$result->http_response_code = $httpResponseCode;
+		}
+		elseif(preg_match("/\/bounces$/", $endpointUrl)){
+			$httpResponseCode = "200";
+			//$jsonResponseData = json_encode('{"message": "Address has been added to the unsubscribes table","address": "ev@mailgun.net"}');
+			if($httpResponseCode === 200){
+				foreach($jsonResponseData as $key => $value){
+			    	$result->$key = $value;
+				}
+			}
+			$result->http_response_code = $httpResponseCode;
+		}
 		else{
 			
 		}
@@ -69,7 +89,42 @@ class TestBroker extends HttpBroker{
 		}
 		elseif(preg_match("/\/unsubscribes/", $endpointUrl)){
 			$httpResponseCode = "200";
-			$jsonResponseData = json_encode('{"total_count": 4,"items": [{"created_at": "Thu, 15 Mar 2012 08:35:02 GMT","tag": "*","id": "4f3b954a6addaa3e196735a2","address":"ev@mailgun.net"},{"created_at": "Thu, 15 Mar 2012 08:35:02 GMT","tag": "tag1","id": "4f3b954a6addaa3e1967359f","address":ev@mailgun.net"},{"created_at": "Wed, 01 Feb 2012 08:09:45 GMT","tag": "Testing Tag","id": "4f28f3494d532a3a823d0d9f","address": "alex@mailgun.net"},{"created_at": "Wed, 01 Feb 2012 08:09:38 GMT","tag": "*","id": "4f28f1024d532a3a823d0d68","address": "alex@mailgun.net"}]}');
+			if($httpResponseCode === 200){
+				foreach($jsonResponseData as $key => $value){
+			    	$result->$key = $value;
+				}
+			}
+			$result->http_response_code = $httpResponseCode;
+		}
+		elseif(preg_match("/\/complaints/", $endpointUrl)){
+			$httpResponseCode = "200";
+			if($httpResponseCode === 200){
+				foreach($jsonResponseData as $key => $value){
+			    	$result->$key = $value;
+				}
+			}
+			$result->http_response_code = $httpResponseCode;
+		}
+		elseif(preg_match("/\/bounces/", $endpointUrl)){
+			$httpResponseCode = "200";
+			if($httpResponseCode === 200){
+				foreach($jsonResponseData as $key => $value){
+			    	$result->$key = $value;
+				}
+			}
+			$result->http_response_code = $httpResponseCode;
+		}
+		elseif(preg_match("/\/stats/", $endpointUrl)){
+			$httpResponseCode = "200";
+			if($httpResponseCode === 200){
+				foreach($jsonResponseData as $key => $value){
+			    	$result->$key = $value;
+				}
+			}
+			$result->http_response_code = $httpResponseCode;
+		}
+		elseif(preg_match("/\/log/", $endpointUrl)){
+			$httpResponseCode = "200";
 			if($httpResponseCode === 200){
 				foreach($jsonResponseData as $key => $value){
 			    	$result->$key = $value;
@@ -91,6 +146,36 @@ class TestBroker extends HttpBroker{
 			$result->http_response_code = $httpResponseCode;
 		}
 		elseif(preg_match("/\/unsubscribes\//", $endpointUrl)){
+			$httpResponseCode = "200";
+			$jsonResponseData = json_encode('{"message": "Unsubscribe event has been removed","address": "ev@mailgun.net"}');
+			if($httpResponseCode === 200){
+				foreach($jsonResponseData as $key => $value){
+			    	$result->$key = $value;
+				}
+			}
+			$result->http_response_code = $httpResponseCode;
+		}
+		elseif(preg_match("/\/complaints\//", $endpointUrl)){
+			$httpResponseCode = "200";
+			$jsonResponseData = json_encode('{"message": "Unsubscribe event has been removed","address": "ev@mailgun.net"}');
+			if($httpResponseCode === 200){
+				foreach($jsonResponseData as $key => $value){
+			    	$result->$key = $value;
+				}
+			}
+			$result->http_response_code = $httpResponseCode;
+		}
+		elseif(preg_match("/\/bounces\//", $endpointUrl)){
+			$httpResponseCode = "200";
+			$jsonResponseData = json_encode('{"message": "Unsubscribe event has been removed","address": "ev@mailgun.net"}');
+			if($httpResponseCode === 200){
+				foreach($jsonResponseData as $key => $value){
+			    	$result->$key = $value;
+				}
+			}
+			$result->http_response_code = $httpResponseCode;
+		}
+		elseif(preg_match("/\/tags\//", $endpointUrl)){
 			$httpResponseCode = "200";
 			$jsonResponseData = json_encode('{"message": "Unsubscribe event has been removed","address": "ev@mailgun.net"}');
 			if($httpResponseCode === 200){
