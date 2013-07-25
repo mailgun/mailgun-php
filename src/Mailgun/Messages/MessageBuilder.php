@@ -1,37 +1,26 @@
 <?PHP
 
-/*
- *	Message.php - Message builder for creating a message object. Pass the message object to the client to send the message.
-*/
 namespace Mailgun\Messages;
 
-use Mailgun\Messages\Exceptions\TooManyParameters;
 use Mailgun\Messages\Expcetions\InvalidParameter;
+use Mailgun\Messages\Exceptions\TooManyParameters;
 use Mailgun\Messages\Expcetions\InvalidParameterType;
 
 class MessageBuilder extends Messages{
 
-	protected $message;
-	protected $files;
+	protected $message = array();
+	protected $files = array();
 	protected $sanitized;
-	protected $toRecipientCount;
-	protected $ccRecipientCount;
-	protected $bccRecipientCount;
-	protected $attachmentCount;
-	protected $campaignIdCount;
-	protected $customOptionCount;
+	protected $toRecipientCount = 0;
+	protected $ccRecipientCount = 0;
+	protected $bccRecipientCount = 0;
+	protected $attachmentCount = 0;
+	protected $campaignIdCount = 0;
+	protected $customOptionCount = 0;
 	protected $httpBroker;
 	
 	public function __construct($httpBroker){
 		parent::__construct($httpBroker);
-		$this->message = array();
-		$this->files = array();
-	    $this->toRecipientCount = 0;
-	    $this->ccRecipientCount = 0;
-	    $this->bccRecipientCount = 0;
-		$this->attachmentCount = 0;
-		$this->campaignIdCount = 0;
-		$this->customOptionCount = 0;
 		$this->httpBroker = $httpBroker;
 	}
 
@@ -46,16 +35,16 @@ class MessageBuilder extends Messages{
 				}
 			}
 			if(isset($name)){
-				$addr = $name . " <" . $address . ">";
+				$compiledAddress = $name . " <" . $address . ">";
 			}
 			else{
-				$addr = $address;
+				$compiledAddress = $address;
 			}
 			if(isset($this->message["to"])){
-				array_push($this->message["to"], $addr);
+				array_push($this->message["to"], $compiledAddress);
 			}
 			else{
-				$this->message["to"] = array($addr);
+				$this->message["to"] = array($compiledAddress);
 			}
 			$this->toRecipientCount++;
 			return true;
@@ -76,16 +65,16 @@ class MessageBuilder extends Messages{
 				}
 			}
 			if(isset($name)){
-				$addr = $name . " <" . $address . ">";
+				$compiledAddress = $name . " <" . $address . ">";
 			}
 			else{
-				$addr = $address;
+				$compiledAddress = $address;
 			}
 			if(isset($this->message["cc"])){
-				array_push($this->message["cc"], $addr);
+				array_push($this->message["cc"], $compiledAddress);
 			}
 			else{
-				$this->message["cc"] = array($addr);
+				$this->message["cc"] = array($compiledAddress);
 			}
 			$this->ccRecipientCount++;
 			return true;
@@ -94,6 +83,7 @@ class MessageBuilder extends Messages{
 			throw new TooManyParameters("You've exceeded the maximum recipient count (1,000) on the cc field.");
 		}
 	}
+	
 	public function addBccRecipient($address, $attributes){
 		if($this->bccRecipientCount < 1000){
 			if(is_array($attributes)){
@@ -105,16 +95,16 @@ class MessageBuilder extends Messages{
 				}
 			}
 			if(isset($name)){
-				$addr = $name . " <" . $address . ">";
+				$compiledAddress = $name . " <" . $address . ">";
 			}
 			else{
-				$addr = $address;
+				$compiledAddress = $address;
 			}
 			if(isset($this->message["bcc"])){
-				array_push($this->message["bcc"], $addr);
+				array_push($this->message["bcc"], $compiledAddress);
 			}
 			else{
-				$this->message["bcc"] = array($addr);
+				$this->message["bcc"] = array($compiledAddress);
 			}
 			$this->bccRecipientCount++;
 			return true;
@@ -123,6 +113,7 @@ class MessageBuilder extends Messages{
 			throw new TooManyParameters("You've exceeded the maximum recipient count (1,000) on the bcc field.");
 		}
 	}
+	
 	public function setFromAddress($address, $attributes){
 		if(isset($attributes)){
 			if(is_array($attributes)){
@@ -138,14 +129,15 @@ class MessageBuilder extends Messages{
 			}
 		}
 		if(isset($name)){
-			$addr = $name . " <" . $address . ">";
+			$compiledAddress = $name . " <" . $address . ">";
 		}
 		else{
-			$addr = $address;
+			$compiledAddress = $address;
 		}
-		$this->message['from'] = $addr;
+		$this->message['from'] = $compiledAddress;
 		return true;
 	}
+	
 	public function setSubject($data = NULL){
 		if($data == NULL || $data == ""){
 			$data = " ";
@@ -153,6 +145,7 @@ class MessageBuilder extends Messages{
 		$this->message['subject'] = $data;
 		return true;
 	}
+	
 	public function addCustomHeader($headerName, $data){
 		if(!preg_match("/^h:/i", $headerName)){
 			$headerName = "h:" . $headerName;
@@ -160,6 +153,7 @@ class MessageBuilder extends Messages{
 		$this->message[$headerName] = array($data);
 		return true;
 	}
+	
 	public function setTextBody($data){
 		if($data == NULL || $data == ""){
 			$data = " ";
@@ -167,6 +161,7 @@ class MessageBuilder extends Messages{
 		$this->message['text'] = $data;
 		return true;
 	}
+	
 	public function setHtmlBody($data){
 		if($data == NULL || $data == ""){
 			$data = " ";
@@ -174,6 +169,7 @@ class MessageBuilder extends Messages{
 		$this->message['html'] = $data;
 		return true;
 	}
+	
 	public function addAttachment($data){
 		if(preg_match("/^@/", $data)){
 			if(isset($this->files["attachment"])){
@@ -188,6 +184,7 @@ class MessageBuilder extends Messages{
 			throw new InvalidParameter("Attachments must be passed with an \"@\" preceding the file path. Web resources not supported.");
 		}
 	}
+	
 	public function addInlineImage($data){
 		if(preg_match("/^@/", $data)){
 			if(isset($this->files['inline'])){
@@ -203,6 +200,7 @@ class MessageBuilder extends Messages{
 			throw new InvalidParameter("Inline images must be passed with an \"@\" preceding the file path. Web resources not supported.");
 		}
 	}
+	
 	public function setTestMode($data){
 		if(filter_var($data, FILTER_VALIDATE_BOOLEAN)){
 			$data = "yes";
@@ -213,6 +211,7 @@ class MessageBuilder extends Messages{
 		$this->message['o:testmode'] = $data;
 		return true;
 	}
+	
 	public function addCampaignId($data){
 		if($this->campaignIdCount < 3){
 			if(isset($this->message['o:campaign'])){
@@ -228,6 +227,7 @@ class MessageBuilder extends Messages{
 			throw new TooManyParameters("You've exceeded the maximum (3) campaigns for a single message.");
 		}
 	}
+	
 	public function setDkim($data){
 		if(filter_var($data, FILTER_VALIDATE_BOOLEAN)){
 			$data = "yes";
@@ -238,6 +238,7 @@ class MessageBuilder extends Messages{
 		$this->message["o:dkim"] = $data;
 		return true;
 	}
+	
 	public function setOpenTracking($data){
 		if(filter_var($data, FILTER_VALIDATE_BOOLEAN)){
 			$data = "yes";
@@ -247,7 +248,8 @@ class MessageBuilder extends Messages{
 		}
 		$this->message['o:tracking-opens'] = $data;
 		return true;
-	}	
+	}
+	
 	public function setClickTracking($data){
 		if(filter_var($data, FILTER_VALIDATE_BOOLEAN)){
 			$data = "yes";
@@ -258,6 +260,7 @@ class MessageBuilder extends Messages{
 		$this->message['o:tracking-clicks'] = $data;
 		return true;
 	}
+	
 	public function setDeliveryTime($timeDate, $timeZone = NULL){
 		if(isset($timeZone)){
 			$timeZoneObj = new \DateTimeZone("$timeZone");
@@ -271,6 +274,7 @@ class MessageBuilder extends Messages{
 		$this->message['o:deliverytime'] = $formattedTimeDate;
 		return true;
 	}
+	
 	public function addCustomData($customName, $data){
 		if(is_array($data)){
 			$jsonArray = json_encode($data);
@@ -282,6 +286,7 @@ class MessageBuilder extends Messages{
 		}
 		
 	}
+	
 	public function addCustomOption($optionName, $data){
 		if(!preg_match("/^o:/i", $optionName)){
 			$optionName = "o:" . $optionName;
@@ -295,9 +300,11 @@ class MessageBuilder extends Messages{
 			return true;
 		}
 	}
+	
 	public function getMessage(){
 		return $this->message;
 	}
+	
 	public function getFiles(){
 		return $this->files;
 	}

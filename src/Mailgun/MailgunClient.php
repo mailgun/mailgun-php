@@ -17,8 +17,8 @@ class MailgunClient{
      * classes created from here.
     */
     
-    public function __construct($apiKey, $domain, $debug = false){
-        $this->httpBroker = new HttpBroker($apiKey, $domain, $debug);
+    public function __construct($apiKey, $workingDomain, $debugMode = false){
+        $this->httpBroker = new HttpBroker($apiKey, $workingDomain, $debugMode);
     }
     
     /* 
@@ -29,18 +29,23 @@ class MailgunClient{
     public function Messages(){
         return new Messages($this->httpBroker);
     }
+    
     public function Unsubscribes(){
         return new Unsubscribes($this->httpBroker);
     }
+    
     public function Complaints(){
         return new Complaints($this->httpBroker);
     }
+    
     public function Bounces(){
         return new Bounces($this->httpBroker);
     }
+    
     public function Stats(){
         return new Stats($this->httpBroker);
     }
+    
     public function Logs(){
         return new Logs($this->httpBroker);
     }   

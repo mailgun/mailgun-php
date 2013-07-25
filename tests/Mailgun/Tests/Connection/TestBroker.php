@@ -22,184 +22,106 @@ class TestBroker extends HttpBroker{
 	
 	public function postRequest($endpointUrl, $postData = array(), $files = array()){
 		if(preg_match("/\/messages$/", $endpointUrl)){
-			$httpResponseCode = "200";
-			$jsonResponseData = json_encode('{"message": "Queued. Thank you.","id": "<20111114174239.25659.5817@samples.mailgun.org>"}');
-			if($httpResponseCode === 200){
-				foreach($jsonResponseData as $key => $value){
-			    	$result->$key = $value;
-				}
-			}
-			$result->http_response_code = $httpResponseCode;
+			return $this->responseHandler($endpointUrl, $httpResponseCode = 200);
 		}
 		elseif(preg_match("/\/unsubscribes$/", $endpointUrl)){
-			$httpResponseCode = "200";
-			$jsonResponseData = json_encode('{"message": "Address has been added to the unsubscribes table","address": "ev@mailgun.net"}');
-			if($httpResponseCode === 200){
-				foreach($jsonResponseData as $key => $value){
-			    	$result->$key = $value;
-				}
-			}
-			$result->http_response_code = $httpResponseCode;
+			return $this->responseHandler($endpointUrl, $httpResponseCode = 200);
 		}
 		elseif(preg_match("/\/complaints$/", $endpointUrl)){
-			$httpResponseCode = "200";
-			//$jsonResponseData = json_encode('{"message": "Address has been added to the unsubscribes table","address": "ev@mailgun.net"}');
-			if($httpResponseCode === 200){
-				foreach($jsonResponseData as $key => $value){
-			    	$result->$key = $value;
-				}
-			}
-			$result->http_response_code = $httpResponseCode;
+			return $this->responseHandler($endpointUrl, $httpResponseCode = 200);
 		}
 		elseif(preg_match("/\/bounces$/", $endpointUrl)){
-			$httpResponseCode = "200";
-			//$jsonResponseData = json_encode('{"message": "Address has been added to the unsubscribes table","address": "ev@mailgun.net"}');
-			if($httpResponseCode === 200){
-				foreach($jsonResponseData as $key => $value){
-			    	$result->$key = $value;
-				}
-			}
-			$result->http_response_code = $httpResponseCode;
+			return $this->responseHandler($endpointUrl, $httpResponseCode = 200);
 		}
 		else{
-			
+			return $this->responseHandler($endpointUrl, $httpResponseCode = 200);
 		}
 		return $result;	
 	}
 	public function getRequest($endpointUrl, $queryString = array()){
 		if($endpointUrl == "domains"){
-			$httpResponseCode = 200;
-			$jsonResponseData = json_decode('{"total_count": 1,"items": [{"created_at": "Wed, 10 Jul 2013 19:26:52 GMT","smtp_login": "postmaster@samples.mailgun.org","name": "samples.mailgun.org","smtp_password": "4rtqo4p6rrx9"}]}');
-			if($httpResponseCode === 200){
-				foreach($jsonResponseData as $key => $value){
-			    	$result->$key = $value;
-				}
-			}
-			$result->http_response_code = $httpResponseCode;
+			return $this->responseHandler($endpointUrl, $httpResponseCode = 200);
 		}
 		elseif(preg_match("/\/unsubscribes\//", $endpointUrl)){
-			$httpResponseCode = "200";
-			$jsonResponseData = json_encode('{"message": "Unsubscribe event has been removed","address": "ev@mailgun.net"}');
-			if($httpResponseCode === 200){
-				foreach($jsonResponseData as $key => $value){
-			    	$result->$key = $value;
-				}
-			}
-			$result->http_response_code = $httpResponseCode;
+			return $this->responseHandler($endpointUrl, $httpResponseCode = 200);
 		}
 		elseif(preg_match("/\/unsubscribes/", $endpointUrl)){
-			$httpResponseCode = "200";
-			if($httpResponseCode === 200){
-				foreach($jsonResponseData as $key => $value){
-			    	$result->$key = $value;
-				}
-			}
-			$result->http_response_code = $httpResponseCode;
+			return $this->responseHandler($endpointUrl, $httpResponseCode = 200);
 		}
 		elseif(preg_match("/\/complaints/", $endpointUrl)){
-			$httpResponseCode = "200";
-			if($httpResponseCode === 200){
-				foreach($jsonResponseData as $key => $value){
-			    	$result->$key = $value;
-				}
-			}
-			$result->http_response_code = $httpResponseCode;
+			return $this->responseHandler($endpointUrl, $httpResponseCode = 200);
 		}
 		elseif(preg_match("/\/bounces/", $endpointUrl)){
-			$httpResponseCode = "200";
-			if($httpResponseCode === 200){
-				foreach($jsonResponseData as $key => $value){
-			    	$result->$key = $value;
-				}
-			}
-			$result->http_response_code = $httpResponseCode;
+			return $this->responseHandler($endpointUrl, $httpResponseCode = 200);
 		}
 		elseif(preg_match("/\/stats/", $endpointUrl)){
-			$httpResponseCode = "200";
-			if($httpResponseCode === 200){
-				foreach($jsonResponseData as $key => $value){
-			    	$result->$key = $value;
-				}
-			}
-			$result->http_response_code = $httpResponseCode;
+			return $this->responseHandler($endpointUrl, $httpResponseCode = 200);
 		}
 		elseif(preg_match("/\/log/", $endpointUrl)){
-			$httpResponseCode = "200";
-			if($httpResponseCode === 200){
-				foreach($jsonResponseData as $key => $value){
-			    	$result->$key = $value;
-				}
-			}
-			$result->http_response_code = $httpResponseCode;
+			return $this->responseHandler($endpointUrl, $httpResponseCode = 200);
+		}
+		else{
+			return $this->responseHandler($endpointUrl, $httpResponseCode = 200);
 		}
 		return $result;
 	}
 	public function deleteRequest($endpointUrl){
 		if($endpointUrl == "domains"){
-			$httpResponseCode = 200;
-			$jsonResponseData = json_decode('asdfasdfasdf');
-			if($httpResponseCode === 200){
-				foreach($jsonResponseData as $key => $value){
-			    	$result->$key = $value;
-				}
-			}
-			$result->http_response_code = $httpResponseCode;
+			return $this->responseHandler($endpointUrl, $httpResponseCode = 200);
 		}
 		elseif(preg_match("/\/unsubscribes\//", $endpointUrl)){
-			$httpResponseCode = "200";
-			$jsonResponseData = json_encode('{"message": "Unsubscribe event has been removed","address": "ev@mailgun.net"}');
-			if($httpResponseCode === 200){
-				foreach($jsonResponseData as $key => $value){
-			    	$result->$key = $value;
-				}
-			}
-			$result->http_response_code = $httpResponseCode;
+			return $this->responseHandler($endpointUrl, $httpResponseCode = 200);
 		}
 		elseif(preg_match("/\/complaints\//", $endpointUrl)){
-			$httpResponseCode = "200";
-			$jsonResponseData = json_encode('{"message": "Unsubscribe event has been removed","address": "ev@mailgun.net"}');
-			if($httpResponseCode === 200){
-				foreach($jsonResponseData as $key => $value){
-			    	$result->$key = $value;
-				}
-			}
-			$result->http_response_code = $httpResponseCode;
+			return $this->responseHandler($endpointUrl, $httpResponseCode = 200);
 		}
 		elseif(preg_match("/\/bounces\//", $endpointUrl)){
-			$httpResponseCode = "200";
-			$jsonResponseData = json_encode('{"message": "Unsubscribe event has been removed","address": "ev@mailgun.net"}');
-			if($httpResponseCode === 200){
-				foreach($jsonResponseData as $key => $value){
-			    	$result->$key = $value;
-				}
-			}
-			$result->http_response_code = $httpResponseCode;
+			return $this->responseHandler($endpointUrl, $httpResponseCode = 200);
 		}
 		elseif(preg_match("/\/tags\//", $endpointUrl)){
-			$httpResponseCode = "200";
-			$jsonResponseData = json_encode('{"message": "Unsubscribe event has been removed","address": "ev@mailgun.net"}');
-			if($httpResponseCode === 200){
-				foreach($jsonResponseData as $key => $value){
-			    	$result->$key = $value;
-				}
-			}
-			$result->http_response_code = $httpResponseCode;
+			return $this->responseHandler($endpointUrl, $httpResponseCode = 200);
+		}
+		else{
+			return $this->responseHandler($endpointUrl, $httpResponseCode = 200);
 		}
 		return $result;	
 	}
 	public function putRequest($endpointUrl, $queryString){
 		if($endpointUrl == "domains"){
-			$httpResponseCode = 200;
-			$jsonResponseData = json_decode('asdfasdfasdf');
-			if($httpResponseCode === 200){
-				foreach($jsonResponseData as $key => $value){
-			    	$result->$key = $value;
-				}
-			}
-			$result->http_response_code = $httpResponseCode;
+			return $this->responseHandler($endpointUrl, $httpResponseCode = 200);
+		}
+		else{
+			return $this->responseHandler($endpointUrl, $httpResponseCode = 200);
 		}
 		return $result;	
 	}
+	public function responseHandler($endpointUrl, $httpResponseCode = 200){
+		if($httpResponseCode === 200){
+			$jsonResponseData = json_decode('{"message": "Some JSON Response Data"}');
+			foreach($jsonResponseData as $key => $value){
+			    $result->http_response_body->$key = $value;
+			}
+		}
+		elseif($httpStatusCode == 400){
+			throw new MissingRequiredMIMEParameters(EXCEPTION_MISSING_REQUIRED_MIME_PARAMETERS);
+		}
+		elseif($httpStatusCode == 401){
+			throw new InvalidCredentials(EXCEPTION_INVALID_CREDENTIALS);
+		}
+		elseif($httpStatusCode == 401){
+			throw new GenericHTTPError(EXCEPTION_INVALID_CREDENTIALS);
+		}
+		elseif($httpStatusCode == 404){
+			throw new MissingEndpoint(EXCEPTION_MISSING_ENDPOINT);
+		}
+		else{
+			throw new GenericHTTPError(EXCEPTION_GENERIC_HTTP_ERROR);
+			return false;
+		}
+		$result->http_response_code = $httpResponseCode;
+		return $result;
+	}
+
 
 }
 
