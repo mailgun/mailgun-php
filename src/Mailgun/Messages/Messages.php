@@ -38,7 +38,12 @@ class Messages{
 		else{
 		throw new MissingRequiredMIMEParameters("You are missing the minimum parameters to send a message.");
 		}
-	}		
+	}
+	
+	public function setMessage($message = array(), $files = array()){
+		$this->message = $message;
+		$this->files = $files;
+	}
 
 	public function MessageBuilder(){
 		return new MessageBuilder($this->httpBroker);
