@@ -9,4 +9,4 @@ php:
 
 before_script:
   - echo 'Installing composer dependencies now!'
-  - composer install --dev
+  - composer install
