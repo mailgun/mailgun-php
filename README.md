@@ -14,7 +14,7 @@ To install the SDK, you will need to be using Composer in your project. If you a
 curl -sS https://getcomposer.org/installer | php
 
 # Add Mailgun as a dependency
-php composer.phar require mailgun/mailgun-php-sdk:~1.0
+php composer.phar require mailgun/mailgun-php-sdk:~0.1
 ``` 
 Next, require Composer's autoloader, in your application, to automatically load the Mailgun SDK in your project:
 ```PHP
