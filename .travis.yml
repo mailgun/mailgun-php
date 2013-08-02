@@ -1,9 +1,10 @@
 language: php
 
 php:
+  - 5.3
   - 5.4
   - 5.5
 
 before_script:
   - echo 'Installing composer dependencies now!'
-  - composer install --dev
+  - composer install

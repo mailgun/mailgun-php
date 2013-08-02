@@ -2,7 +2,8 @@ Mailgun-PHP-SDK
 ===========
 [![Build Status](https://magnum.travis-ci.com/travelton/Mailgun-PHP.png?token=3stPWthMYq4p7xpVNV9Y&branch=master)](https://magnum.travis-ci.com/travelton/Mailgun-PHP)
 
-This is the Mailgun PHP SDK. This SDK contains methods for easily interacting with the Mailgun API. Below are examples to get you started.
+This is the Mailgun PHP SDK. This SDK contains methods for easily interacting with the Mailgun API. Below are examples to get you started. For additional examples, 
+please see our SDK documentation at http://documentation.mailgun.com
 
 Installation
 -----
@@ -13,9 +14,9 @@ To install the SDK, you will need to be using Composer in your project. If you a
 curl -sS https://getcomposer.org/installer | php
 
 # Add Mailgun as a dependency
-php composer.phar require mailgun/mailgun-php-sdk:~1.0
+php composer.phar require mailgun/mailgun-php-sdk:~0.1
 ``` 
-Next, require Composer's autoloader to automatically load the Mailgun SDK in your project:
+Next, require Composer's autoloader, in your application, to automatically load the Mailgun SDK in your project:
 ```PHP
 require 'vendor/autoload.php';
 ```
@@ -24,7 +25,7 @@ Usage
 -----
 Using the SDK should feel simple, if you're already familiar with our API endpoints. If not, no problem... When you're reviewing our documentation, the endpoints are expressed as a class in the SDK to make things easier. 
 
-Here's an example for sending a message: 
+For example, here's how to use the "Messages" API endpoint:
 
 ```php
 # First, instantiate the client with your API credentials and domain. 
@@ -48,7 +49,7 @@ Advanced Usage
 You've sent your first message, awesome! Let's move on to more advanced use cases. 
 
 #### Message Builder
-Message Builder makes creating your messages really intuitive. If you despise arrays, or your workflow is better off defining each part of the MIME separately, use this!
+Message Builder makes creating your messages really intuitive. If you despise arrays, or your workflow is better off defining each part of the message separately, use Message Builder!
 
 ```php
 # First, instantiate the client with your API credentials and domain. 
@@ -81,7 +82,9 @@ $message->sendMessage();
 ```
 
 #### Batch Sending
-Batch sending allows you to submit up to 1,000 messages per API call. This is the best way to send a large amount of messages as quickly as possible. In the example below, we'll use the Message Builder object to create a message. While Message Builder is the preferred method, you can also run "setMessage()" and pass a fully formed array of data.
+Batch sending allows you to submit up to 1,000 messages per API call. This is the best way to send a large amount of messages as quickly as possible. In the example below, we'll use the Message Builder object to create a message. 
+
+_Note: While Message Builder is the preferred method, you can also run "setMessage()" (see above example) to pass a fully formed array of data._
 
 ```php
 # First, instantiate the client with your API credentials and domain. 
