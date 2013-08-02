@@ -64,8 +64,8 @@ class HttpBroker{
 		return $this->responseHandler($response);	
 	}
 	
-	public function putRequest($endpointUrl, $queryString){
-		$request = $this->mgClient->put($endpointUrl, $queryString);
+	public function putRequest($endpointUrl, $putData){
+		$request = $this->mgClient->put($endpointUrl, array(), $putData);
 		$response = $request->send();
 		return $this->responseHandler($response);
 	}
