@@ -1,4 +1,4 @@
-Mailgun-PHP-SDK
+Mailgun-PHP
 ===========
 [![Build Status](https://travis-ci.org/travelton/Mailgun-PHP.png?branch=master)](https://travis-ci.org/travelton/Mailgun-PHP)
 
