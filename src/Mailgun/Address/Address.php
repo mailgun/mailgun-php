@@ -13,7 +13,7 @@ class Address{
 	
 	public function __construct($httpBroker){
 		$this->httpBroker = $httpBroker;
-		$this->endpointUrl = $this->httpBroker->returnWorkingDomain() . "/address";
+		$this->endpointUrl = "address";
 	}
 	
 	public function validateAddress($address){

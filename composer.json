@@ -1,5 +1,5 @@
 {
-    "name": "mailgun/mailgun-sdk-php",
+    "name": "mailgun/mailgun-php",
     "description": "The Mailgun SDK provides methods for all API functions.",
     "require": {
         "guzzle/guzzle": "3.7.1"

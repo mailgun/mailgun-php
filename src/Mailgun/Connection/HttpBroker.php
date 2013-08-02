@@ -24,22 +24,7 @@ class HttpBroker{
 		$this->apiKey = $apiKey;
 		$this->workingDomain = $workingDomain;
 		$this->debugMode = $debugMode;
-		
-	    /* 
-	     * !!WARNING, REMOVE DEBUG CODE BEFORE GOING GA!!
-	    */		
-		
-		if($this->debugMode){
-			$this->mgClient = new Guzzle('https://api.ninomail.com/' . API_VERSION . '/', array('ssl.certificate_authority' => false));
-		}
-		else{
-			$this->mgClient = new Guzzle('https://' . API_ENDPOINT . '/' . API_VERSION . '/');
-		}
-
-	    /* 
-	     * !!WARNING, REMOVE DEBUG CODE BEFORE GOING GA!!
-	    */	
-		
+		$this->mgClient = new Guzzle('https://' . API_ENDPOINT . '/' . API_VERSION . '/');
 		$this->mgClient->setDefaultOption('curl.options', array('CURLOPT_FORBID_REUSE' => true));
 		$this->mgClient->setDefaultOption('auth', array (API_USER, $this->apiKey));	
 		$this->mgClient->setDefaultOption('exceptions', true);
@@ -65,7 +50,10 @@ class HttpBroker{
 	}
 	
 	public function getRequest($endpointUrl, $queryString = array()){
-		$request = $this->mgClient->get($endpointUrl, $queryString);
+		$request = $this->mgClient->get($endpointUrl);
+		foreach($queryString as $queryKey=>$queryValue){
+			$request->getQuery()->set($queryKey, $queryValue);
+		}
 		$response = $request->send();
 		return $this->responseHandler($response);
 	}

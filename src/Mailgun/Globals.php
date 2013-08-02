@@ -8,7 +8,7 @@ const SDK_VERSION = "0.1";
 const SDK_USER_AGENT = "mailgun-sdk-php";
 const DEFAULT_TIME_ZONE = "UTC";
 
-//Exception Messages
+//Common Exception Messages
 
 const EXCEPTION_INVALID_CREDENTIALS = "Your credentials are incorrect.";
 const EXCEPTION_GENERIC_HTTP_ERROR = "An HTTP Error has occurred! Check your network connection and try again.";
