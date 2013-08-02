@@ -33,7 +33,6 @@ Available Functions
 
 `deleteRoute(string $routeId)`  
 
-
 More Documentation
 ------------------
 See the official [Mailgun Docs](http://documentation.mailgun.com/api-routes.html) for more information.

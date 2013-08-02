@@ -35,7 +35,6 @@ Available Functions
 
 `sendMessage()`  
 
-
 Usage - Message Builder
 ---------------------
 Here's how to use the "Messages" API endpoint with Message Builder:
