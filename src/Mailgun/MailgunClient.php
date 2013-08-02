@@ -4,8 +4,11 @@ namespace Mailgun;
 
 use Mailgun\Logs\Logs;
 use Mailgun\Stats\Stats;
+use Mailgun\Lists\Lists;
+use Mailgun\Routes\Routes;
 use Mailgun\Bounces\Bounces;
 use Mailgun\Messages\Messages;
+use Mailgun\Campaigns\Campaigns;
 use Mailgun\Complaints\Complaints;
 use Mailgun\Connection\HttpBroker;
 use Mailgun\Unsubscribes\Unsubscribes;
@@ -48,7 +51,19 @@ class MailgunClient{
     
     public function Logs(){
         return new Logs($this->httpBroker);
-    }   
+    }
+    
+    public function Routes(){
+        return new Routes($this->httpBroker);
+    }
+    
+    public function Campaigns(){
+        return new Campaigns($this->httpBroker);
+    }
+    
+    public function Lists(){
+        return new Lists($this->httpBroker);
+    }
 }
 
 ?>

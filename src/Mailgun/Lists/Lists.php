@@ -1,11 +1,11 @@
 <?PHP
 
 /*
- *	Logs.php - Processing Logs.
+ *	Lists.php - Processing LIsts.
 */
-namespace Mailgun\Logs;
+namespace Mailgun\Lists;
 	
-class Logs{
+class Lists{
 
 	private $httpBroker;
 	private $workingDomain;
@@ -14,10 +14,10 @@ class Logs{
 	
 	public function __construct($httpBroker){
 		$this->httpBroker = $httpBroker;
-		$this->endpointUrl = $this->httpBroker->returnWorkingDomain() . "/log";
+		$this->endpointUrl = $this->httpBroker->returnWorkingDomain() . "/lists";
 	}
 	
-	public function getLogs($limit, $skip){
+	public function getLists($limit, $skip){
 		$response = $this->httpBroker->getRequest($this->endpointUrl, array($limit, $skip));
 		return $response;
 	}
