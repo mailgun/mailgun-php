@@ -1,6 +1,6 @@
 Mailgun-PHP-SDK
 ===========
-[![Build Status](https://magnum.travis-ci.com/travelton/Mailgun-PHP.png?token=3stPWthMYq4p7xpVNV9Y&branch=master)](https://magnum.travis-ci.com/travelton/Mailgun-PHP)
+[![Build Status](https://travis-ci.org/travelton/Mailgun-PHP.png?branch=master)](https://travis-ci.org/travelton/Mailgun-PHP)
 
 This is the Mailgun PHP SDK. This SDK contains methods for easily interacting with the Mailgun API. Below are examples to get you started. For additional examples, 
 please see our SDK documentation at http://documentation.mailgun.com
