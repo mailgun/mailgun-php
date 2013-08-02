@@ -138,45 +138,45 @@ class MessageBuilder extends Messages{
 		return true;
 	}
 	
-	public function setSubject($data = NULL){
-		if($data == NULL || $data == ""){
-			$data = " ";
+	public function setSubject($subject = NULL){
+		if($subject == NULL || $subject == ""){
+			$subject = " ";
 		}
-		$this->message['subject'] = $data;
+		$this->message['subject'] = $subject;
 		return true;
 	}
 	
-	public function addCustomHeader($headerName, $data){
+	public function addCustomHeader($headerName, $headerData){
 		if(!preg_match("/^h:/i", $headerName)){
 			$headerName = "h:" . $headerName;
 		}
-		$this->message[$headerName] = array($data);
+		$this->message[$headerName] = array($headerData);
 		return true;
 	}
 	
-	public function setTextBody($data){
-		if($data == NULL || $data == ""){
-			$data = " ";
+	public function setTextBody($textBody){
+		if($textBody == NULL || $textBody == ""){
+			$textBody = " ";
 		}
-		$this->message['text'] = $data;
+		$this->message['text'] = $textBody;
 		return true;
 	}
 	
-	public function setHtmlBody($data){
-		if($data == NULL || $data == ""){
-			$data = " ";
+	public function setHtmlBody($htmlBody){
+		if($htmlBody == NULL || $htmlBody == ""){
+			$htmlBody = " ";
 		}
-		$this->message['html'] = $data;
+		$this->message['html'] = $htmlBody;
 		return true;
 	}
 	
-	public function addAttachment($data){
-		if(preg_match("/^@/", $data)){
+	public function addAttachment($attachmentPath){
+		if(preg_match("/^@/", $attachmentPath)){
 			if(isset($this->files["attachment"])){
-				array_push($this->files["attachment"], $data);
+				array_push($this->files["attachment"], $attachmentPath);
 				}	
 				else{
-					$this->files["attachment"] = array($data);
+					$this->files["attachment"] = array($attachmentPath);
 				}
 			return true;
 		}
@@ -185,14 +185,14 @@ class MessageBuilder extends Messages{
 		}
 	}
 	
-	public function addInlineImage($data){
-		if(preg_match("/^@/", $data)){
+	public function addInlineImage($inlineImagePath){
+		if(preg_match("/^@/", $inlineImagePath)){
 			if(isset($this->files['inline'])){
-				array_push($this->files['inline'] , $data);
+				array_push($this->files['inline'] , $inlineImagePath);
 				return true;
 				}
 			else{
-				$this->files['inline'] = array($data);
+				$this->files['inline'] = array($inlineImagePath);
 				return true;
 			}
 		}
@@ -201,24 +201,24 @@ class MessageBuilder extends Messages{
 		}
 	}
 	
-	public function setTestMode($data){
-		if(filter_var($data, FILTER_VALIDATE_BOOLEAN)){
-			$data = "yes";
+	public function setTestMode($testMode){
+		if(filter_var($testMode, FILTER_VALIDATE_BOOLEAN)){
+			$testMode = "yes";
 		}
 		else{
-			$data = "no";
+			$testMode = "no";
 		}
-		$this->message['o:testmode'] = $data;
+		$this->message['o:testmode'] = $testMode;
 		return true;
 	}
 	
-	public function addCampaignId($data){
+	public function addCampaignId($campaignId){
 		if($this->campaignIdCount < 3){
 			if(isset($this->message['o:campaign'])){
-				array_push($this->message['o:campaign'] , $data);
+				array_push($this->message['o:campaign'] , $campaignId);
 			}
 			else{
-				$this->message['o:campaign'] = array($data);
+				$this->message['o:campaign'] = array($campaignId);
 			}
 			$this->campaignIdCount++;
 		return true;	
@@ -228,36 +228,36 @@ class MessageBuilder extends Messages{
 		}
 	}
 	
-	public function setDkim($data){
-		if(filter_var($data, FILTER_VALIDATE_BOOLEAN)){
-			$data = "yes";
+	public function setDkim($enabled){
+		if(filter_var($enabled, FILTER_VALIDATE_BOOLEAN)){
+			$enabled = "yes";
 		}
 		else{
-			$data = "no";
+			$enabled = "no";
 		}
-		$this->message["o:dkim"] = $data;
+		$this->message["o:dkim"] = $enabled;
 		return true;
 	}
 	
-	public function setOpenTracking($data){
-		if(filter_var($data, FILTER_VALIDATE_BOOLEAN)){
-			$data = "yes";
+	public function setOpenTracking($enabled){
+		if(filter_var($enabled, FILTER_VALIDATE_BOOLEAN)){
+			$enabled = "yes";
 		}
 		else{
-			$data = "no";
+			$enabled = "no";
 		}
-		$this->message['o:tracking-opens'] = $data;
+		$this->message['o:tracking-opens'] = $enabled;
 		return true;
 	}
 	
-	public function setClickTracking($data){
-		if(filter_var($data, FILTER_VALIDATE_BOOLEAN)){
-			$data = "yes";
+	public function setClickTracking($enabled){
+		if(filter_var($enabled, FILTER_VALIDATE_BOOLEAN)){
+			$enabled = "yes";
 		}
 		else{
-			$data = "no";
+			$enabled = "no";
 		}
-		$this->message['o:tracking-clicks'] = $data;
+		$this->message['o:tracking-clicks'] = $enabled;
 		return true;
 	}
 	
