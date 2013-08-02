@@ -14,7 +14,7 @@ class Lists{
 	
 	public function __construct($httpBroker){
 		$this->httpBroker = $httpBroker;
-		$this->endpointUrl = $this->httpBroker->returnWorkingDomain() . "/lists";
+		$this->endpointUrl = "lists";
 		
 	}
 	

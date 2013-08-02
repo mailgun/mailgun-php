@@ -25,8 +25,8 @@ class Stats{
 		return $response;
 	}
 	
-	public function getStats($limit, $skip){
-		$response = $this->httpBroker->getRequest($this->statsEndpointUrl, array($limit, $skip, $event, $start-date));
+	public function getStats($filterParams = array()){
+		$response = $this->httpBroker->getRequest($this->statsEndpointUrl, $filterParams);
 		return $response;
 	}
 }

@@ -15,7 +15,7 @@ class Routes{
 
 	public function __construct($httpBroker){
 		$this->httpBroker = $httpBroker;
-		$this->endpointUrl = $this->httpBroker->returnWorkingDomain() . "/routes";
+		$this->endpointUrl = "routes";
 	}
 	
 	public function getRoutes($limit, $skip){

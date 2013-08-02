@@ -51,8 +51,8 @@ class HttpBroker{
 	
 	public function getRequest($endpointUrl, $queryString = array()){
 		$request = $this->mgClient->get($endpointUrl);
-		foreach($queryString as $queryKey=>$queryValue){
-			$request->getQuery()->set($queryKey, $queryValue);
+		foreach($queryString as $key=>$value){
+			$request->getQuery()->set($key, $value);
 		}
 		$response = $request->send();
 		return $this->responseHandler($response);
