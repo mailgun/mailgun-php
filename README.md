@@ -50,6 +50,17 @@ $message->sendMessage();
 
 For usage examples on each API endpoint, go to the "src/Mailgun" folder and browse through each API endpoint folder. A README exists in each folder with examples.
 
+[Address](src/Mailgun/Address/)  
+[Bounces](src/Mailgun/Bounces/)  
+[Campaigns](src/Mailgun/Campaigns/)  
+[Complaints](src/Mailgun/Complaints/)  
+[Lists](src/Mailgun/Lists/)  
+[Logs](src/Mailgun/Logs/)  
+[Messages](src/Mailgun/Messages/)  
+[Routes](src/Mailgun/Routes/)  
+[Stats](src/Mailgun/Stats/)  
+[Unsubscribes](src/Mailgun/Unsubscribes/)  
+
 Support and Feedback
 --------------------
 
