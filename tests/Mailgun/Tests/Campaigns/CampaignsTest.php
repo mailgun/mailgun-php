@@ -48,30 +48,30 @@ class CampaignsTest extends \Mailgun\Tests\MailgunTestCase{
 		$this->assertEquals(200, $httpCode);
 	}
 	
-	public function testGetCampaignEvents(12345, array()){
+	public function testGetCampaignEvents(){
 		$client = $this->client->Campaigns();
-		$response = $client->getCampaignEvents(12345);
+		$response = $client->getCampaignEvents(12345, array());
 		$httpCode = $response->http_response_code;
 		$this->assertEquals(200, $httpCode);
 	}
 
-	public function testGetCampaignStats(12345, array()){
+	public function testGetCampaignStats(){
 		$client = $this->client->Campaigns();
-		$response = $client->getCampaignStats(12345);
+		$response = $client->getCampaignStats(12345, array());
 		$httpCode = $response->http_response_code;
 		$this->assertEquals(200, $httpCode);
 	}
 	
-	public function testGetCampaignStats(12345, array()){
+	public function testGetCampaignClicks(){
 		$client = $this->client->Campaigns();
-		$response = $client->getCampaignClicks(12345);
+		$response = $client->getCampaignClicks(12345, array());
 		$httpCode = $response->http_response_code;
 		$this->assertEquals(200, $httpCode);
 	}
 	
-	public function testGetCampaignStats(12345, array()){
+	public function testGetCampaignOpens(){
 		$client = $this->client->Campaigns();
-		$response = $client->getCampaignOpens(12345);
+		$response = $client->getCampaignOpens(12345, array());
 		$httpCode = $response->http_response_code;
 		$this->assertEquals(200, $httpCode);
 	}

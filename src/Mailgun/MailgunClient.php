@@ -7,6 +7,7 @@ use Mailgun\Stats\Stats;
 use Mailgun\Lists\Lists;
 use Mailgun\Routes\Routes;
 use Mailgun\Bounces\Bounces;
+use Mailgun\Address\Address;
 use Mailgun\Messages\Messages;
 use Mailgun\Campaigns\Campaigns;
 use Mailgun\Complaints\Complaints;
@@ -63,6 +64,9 @@ class MailgunClient{
     
     public function Lists(){
         return new Lists($this->httpBroker);
+    }
+    public function Address(){
+        return new Address($this->httpBroker);
     }
 }
 

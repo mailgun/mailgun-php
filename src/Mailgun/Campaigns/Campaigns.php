@@ -49,7 +49,7 @@ class Campaigns{
 	
 	public function deleteCampaign($campaignId){
 		$updatedUrl = $this->endpointUrl . "/" . $campaignId;
-		$response = $this->httpBroker->deleteCampaign($updatedUrl);
+		$response = $this->httpBroker->deleteRequest($updatedUrl);
 		return $response;
 	}
 	
