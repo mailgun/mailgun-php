@@ -18,13 +18,16 @@ curl -sS https://getcomposer.org/installer | php
 # Add Mailgun as a dependency
 php composer.phar require mailgun/mailgun-php-sdk:~0.1
 ``` 
-Next, require Composer's autoloader, in your application, to automatically load the Mailgun SDK in your project:
-```PHP
-require 'vendor/autoload.php';
-```
+
 For shared hosts with SSH access, you might need to run this instead (contact your shared host for assistance): 
 ```
 php -d detect_unicode=Off -r "eval('?>'.file_get_contents('https://getcomposer.org/installer'));"
+```
+
+Next, require Composer's autoloader, in your application, to automatically load the Mailgun SDK in your project:
+```PHP
+require 'vendor/autoload.php';
+use Mailgun\MailgunClient;
 ```
 
 Usage
