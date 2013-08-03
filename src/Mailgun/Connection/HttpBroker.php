@@ -11,6 +11,7 @@ use Mailgun\Connection\Exceptions\GenericHTTPError;
 use Mailgun\Connection\Exceptions\InvalidCredentials;
 use Mailgun\Connection\Exceptions\NoDomainsConfigured;
 use Mailgun\Connection\Exceptions\MissingRequiredMIMEParameters;
+use Mailgun\Connection\Exceptions\MissingEndpoint;
 
 class HttpBroker{
 
@@ -27,7 +28,7 @@ class HttpBroker{
 		$this->mgClient = new Guzzle('https://' . API_ENDPOINT . '/' . API_VERSION . '/');
 		$this->mgClient->setDefaultOption('curl.options', array('CURLOPT_FORBID_REUSE' => true));
 		$this->mgClient->setDefaultOption('auth', array (API_USER, $this->apiKey));	
-		$this->mgClient->setDefaultOption('exceptions', true);
+		$this->mgClient->setDefaultOption('exceptions', false);
 		$this->mgClient->setUserAgent(SDK_USER_AGENT . '/' . SDK_VERSION);
 	}
 	
@@ -78,16 +79,16 @@ class HttpBroker{
 			    $result->http_response_body->$key = $value;
 			}
 		}
-		elseif($httpStatusCode == 400){
+		elseif($httpResponeCode == 400){
 			throw new MissingRequiredMIMEParameters(EXCEPTION_MISSING_REQUIRED_MIME_PARAMETERS);
 		}
-		elseif($httpStatusCode == 401){
+		elseif($httpResponeCode == 401){
 			throw new InvalidCredentials(EXCEPTION_INVALID_CREDENTIALS);
 		}
-		elseif($httpStatusCode == 401){
+		elseif($httpResponeCode == 401){
 			throw new GenericHTTPError(EXCEPTION_INVALID_CREDENTIALS);
 		}
-		elseif($httpStatusCode == 404){
+		elseif($httpResponeCode == 404){
 			throw new MissingEndpoint(EXCEPTION_MISSING_ENDPOINT);
 		}
 		else{
