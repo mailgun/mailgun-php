@@ -17,7 +17,7 @@ $mgClient = new MailgunClient("key-3ax6xnjp29jd6fds4gc373sgvjxteol0", "samples.m
 $stats = $mgClient->Stats();
 
 # Next, get the last 50 stats.
-$stats->getStats(50, 0);
+$stats->getStats(array('limit' => 50, 'skip' => 0, 'event' => 'sent'));
 ```
 
 Available Functions
@@ -25,7 +25,7 @@ Available Functions
 
 `deleteTag(string $tag)`  
 
-`getStats(int $limit, int $skip)`  
+`getStats(array $filterParams)`  
 
 More Documentation
 ------------------

@@ -52,8 +52,10 @@ class HttpBroker{
 	
 	public function getRequest($endpointUrl, $queryString = array()){
 		$request = $this->mgClient->get($endpointUrl);
-		foreach($queryString as $key=>$value){
-			$request->getQuery()->set($key, $value);
+		if(isset($queryString)){
+			foreach($queryString as $key=>$value){
+				$request->getQuery()->set($key, $value);
+			}			
 		}
 		$response = $request->send();
 		return $this->responseHandler($response);
@@ -75,6 +77,8 @@ class HttpBroker{
 		$httpResponeCode = $responseObj->getStatusCode();
 		if($httpResponeCode === 200){
 			$jsonResponseData = $responseObj->json();
+			$result = new \stdClass();
+			$result->http_response_body = new \stdClass();
 			foreach ($jsonResponseData as $key => $value){
 			    $result->http_response_body->$key = $value;
 			}
