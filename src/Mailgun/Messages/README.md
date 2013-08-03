@@ -11,7 +11,7 @@ Here's how to use the "Messages" API endpoint:
 
 ```php
 # First, instantiate the client with your PUBLIC API credentials and domain. 
-$mgClient = new MailgunClient("pubkey-5ogiflzbnjrljiky49qxsiozqef5jxp7", "samples.mailgun.org");
+$mgClient = new MailgunClient("key-3ax6xnjp29jd6fds4gc373sgvjxteol0", "samples.mailgun.org");
 
 # Next, instantiate a Message object on the Messages API endpoint.
 $message = $mgClient->Messages();
@@ -41,7 +41,7 @@ Here's how to use the "Messages" API endpoint with Message Builder:
 
 ```php
 # First, instantiate the client with your PUBLIC API credentials and domain. 
-$mgClient = new MailgunClient("pubkey-5ogiflzbnjrljiky49qxsiozqef5jxp7", "samples.mailgun.org");
+$mgClient = new MailgunClient("key-3ax6xnjp29jd6fds4gc373sgvjxteol0", "samples.mailgun.org");
 
 # Next, instantiate a Message Builder object on the Messages API endpoint.
 $messageBldr = $mgClient->Messages()->MessageBuilder();
