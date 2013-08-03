@@ -17,6 +17,7 @@ class MessageBuilder extends Messages{
 	protected $attachmentCount = 0;
 	protected $campaignIdCount = 0;
 	protected $customOptionCount = 0;
+	protected $tagCount = 0;
 	protected $httpBroker;
 	
 	public function __construct($httpBroker){
@@ -225,6 +226,22 @@ class MessageBuilder extends Messages{
 		}
 		else{
 			throw new TooManyParameters("You've exceeded the maximum (3) campaigns for a single message.");
+		}
+	}
+	
+	public function addTag($tag){
+		if($this->tagCount < 3){
+			if(isset($this->message['o:tag'])){
+				array_push($this->message['o:tag'] , $tag);
+			}
+			else{
+				$this->message['o:tag'] = array($tag);
+			}
+			$this->tagCount++;
+		return true;	
+		}
+		else{
+			throw new TooManyParameters("You've exceeded the maximum (3) tags for a single message.");
 		}
 	}
 	
