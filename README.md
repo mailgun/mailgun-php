@@ -5,6 +5,8 @@ Mailgun-PHP
 This is the Mailgun PHP SDK. This SDK contains methods for easily interacting with the Mailgun API. Below are examples to get you started. For additional examples, 
 please see our SDK documentation at http://documentation.mailgun.com
 
+Current Release: 0.4-Beta
+
 Installation
 ------------
 To install the SDK, you will need to be using Composer in your project. If you aren't using Composer yet, it's really simple! Here's how to install composer and the Mailgun SDK.
