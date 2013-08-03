@@ -11,7 +11,7 @@ Here's how to use the "Address" API endpoint:
 
 ```php
 # First, instantiate the client with your PUBLIC API credentials and domain. 
-$mgClient = new MailgunClient("key-3ax6xnjp29jd6fds4gc373sgvjxteol0", "samples.mailgun.org");
+$mgClient = new MailgunClient("pubkey-5ogiflzbnjrljiky49qxsiozqef5jxp7", "samples.mailgun.org");
 
 # Next, instantiate an Address object on the Address API endpoint.
 $address = $mgClient->Address();
