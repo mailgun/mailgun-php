@@ -7,13 +7,13 @@ namespace Mailgun\Bounces;
 	
 class Bounces{
 
-	private $httpBroker;
+	private $restClient;
 	private $workingDomain;
 	private $endpointUrl;
 	
-	public function __construct($httpBroker){
-		$this->httpBroker = $httpBroker;
-		$this->endpointUrl = $this->httpBroker->returnWorkingDomain() . "/bounces";
+	public function __construct($restClient){
+		$this->restClient = $restClient;
+		$this->endpointUrl = $this->restClient->returnWorkingDomain() . "/bounces";
 	}
 	
 	public function addAddress($bounceAddress, $bounceCode, $bounceError = null){
@@ -23,23 +23,23 @@ class Bounces{
 		else{
 			$postData = array("address" => $bounceAddress, "code" => $bounceCode);
 		}
-		$response = $this->httpBroker->postRequest($this->endpointUrl, $postData);
+		$response = $this->restClient->postRequest($this->endpointUrl, $postData);
 		return $response;
 	}
 	
 	public function deleteAddress($bounceAddress){
 		$requestUrl = $this->endpointUrl . "/" .  urlencode($bounceAddress);
-		$response = $this->httpBroker->deleteRequest($requestUrl);
+		$response = $this->restClient->deleteRequest($requestUrl);
 		return $response;
 	}
 	
 	public function getBounce($bounceAddress){
 		$requestUrl = $this->endpointUrl . "/" .  urlencode($bounceAddress);
-		$response = $this->httpBroker->getRequest($requestUrl);
+		$response = $this->restClient->getRequest($requestUrl);
 		return $response;
 	}
 	public function getBounces($limit, $skip){
-		$response = $this->httpBroker->getRequest($this->endpointUrl, array($limit, $skip));
+		$response = $this->restClient->getRequest($this->endpointUrl, array($limit, $skip));
 		return $response;
 	}
 

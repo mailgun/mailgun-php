@@ -1,9 +1,9 @@
 <?php
 namespace Mailgun\Tests\Connection;
 
-use Mailgun\Connection\HttpBroker;
+use Mailgun\Connection\RestClient;
 
-class TestBroker extends HttpBroker{
+class TestBroker extends RestClient{
 	private $apiKey;
 	protected $domain;
 	protected $debug;

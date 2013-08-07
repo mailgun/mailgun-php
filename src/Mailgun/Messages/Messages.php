@@ -9,17 +9,17 @@ use Mailgun\Messages\Exceptions\MissingRequiredMIMEParameters;
 
 class Messages{
 
-	protected $httpBroker;
+	protected $restClient;
 	protected $workingDomain;
 	protected $endpointUrl;
 	
-	public function __construct($httpBroker){
-		$this->httpBroker = $httpBroker;
-		$this->workingDomain = $this->httpBroker->returnWorkingDomain();
+	public function __construct($restClient){
+		$this->restClient = $restClient;
+		$this->workingDomain = $this->restClient->returnWorkingDomain();
 		$this->endpointUrl = $this->workingDomain . "/messages";
 	}
 	
-	public function sendMessage($message = array(), $files = array()){
+	public function send($message = array(), $files = array()){
 		if(count($message) < 1){
 			$message = $this->message;
 			$files = $this->files;
@@ -37,7 +37,7 @@ class Messages{
 			throw new MissingRequiredMIMEParameters("You are missing the body of the message.");
 		}
 		else{
-			$response = $this->httpBroker->postRequest($this->endpointUrl, $message, $files);
+			$response = $this->restClient->postRequest($this->endpointUrl, $message, $files);
 			return $response;
 		}
 	}
@@ -48,11 +48,11 @@ class Messages{
 	}
 
 	public function MessageBuilder(){
-		return new MessageBuilder($this->httpBroker);
+		return new MessageBuilder($this->restClient);
 	}
 	
 	public function BatchMessage($autoSend = true){
-		return new BatchMessage($this->httpBroker, $autoSend);
+		return new BatchMessage($this->restClient, $autoSend);
 	}
 }
 ?>

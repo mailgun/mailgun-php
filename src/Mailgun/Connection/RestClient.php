@@ -13,7 +13,7 @@ use Mailgun\Connection\Exceptions\NoDomainsConfigured;
 use Mailgun\Connection\Exceptions\MissingRequiredMIMEParameters;
 use Mailgun\Connection\Exceptions\MissingEndpoint;
 
-class HttpBroker{
+class RestClient{
 
 	private $apiKey;
 	protected $workingDomain;

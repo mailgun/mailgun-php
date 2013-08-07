@@ -8,10 +8,10 @@ use Mailgun\Tests\Connection\TestBroker;
 class MailgunClientTest extends MailgunClient
 {
 	protected $debug;
-	protected $httpBroker;
+	protected $restClient;
 	
 	public function __construct($apiKey, $domain, $debug = false){
-		$this->httpBroker = new TestBroker($apiKey, $domain, $debug);
+		$this->restClient = new TestBroker($apiKey, $domain, $debug);
 		return true;
 	}
 } 

@@ -17,13 +17,13 @@ $mgClient = new MailgunClient("pubkey-5ogiflzbnjrljiky49qxsiozqef5jxp7", "sample
 $address = $mgClient->Address();
 
 # Now, validate the address and store the result in $result.
-$result = $address->validateAddress("me@samples.mailgun.org");
+$result = $address->getValidate("me@samples.mailgun.org");
 ```
 
 Available Functions
 -------------------
 
-`validateAddress(string $address);`  
+`getValidate(string $address);`  
 
 More Documentation
 ------------------

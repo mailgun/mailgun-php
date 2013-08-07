@@ -7,34 +7,34 @@ namespace Mailgun\Complaints;
 	
 class Complaints{
 
-	private $httpBroker;
+	private $restClient;
 	private $workingDomain;
 	private $endpointUrl;
 	
-	public function __construct($httpBroker){
-		$this->httpBroker = $httpBroker;
-		$this->endpointUrl = $this->httpBroker->returnWorkingDomain() . "/complaints";
+	public function __construct($restClient){
+		$this->restClient = $restClient;
+		$this->endpointUrl = $this->restClient->returnWorkingDomain() . "/complaints";
 	}
 	
 	public function addAddress($spamAddress){
 		$postData = array("address" => $spamAddress);
-		$response = $this->httpBroker->postRequest($this->endpointUrl, $postData);
+		$response = $this->restClient->postRequest($this->endpointUrl, $postData);
 		return $response;
 	}
 	
 	public function deleteAddress($spamAddress){
 		$requestUrl = $this->endpointUrl . "/" .  urlencode($spamAddress);
-		$response = $this->httpBroker->deleteRequest($requestUrl);
+		$response = $this->restClient->deleteRequest($requestUrl);
 		return $response;
 	}
 	
 	public function getComplaint($spamAddress){
 		$requestUrl = $this->endpointUrl . "/" .  urlencode($spamAddress);
-		$response = $this->httpBroker->getRequest($requestUrl);
+		$response = $this->restClient->getRequest($requestUrl);
 		return $response;
 	}
 	public function getComplaints($limit, $skip){
-		$response = $this->httpBroker->getRequest($this->endpointUrl, array($limit, $skip));
+		$response = $this->restClient->getRequest($this->endpointUrl, array($limit, $skip));
 		return $response;
 	}
 

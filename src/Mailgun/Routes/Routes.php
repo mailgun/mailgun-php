@@ -9,23 +9,23 @@ use Mailgun\Routes\Exceptions\InvalidParameter;
 	
 class Routes{
 
-	private $httpBroker;
+	private $restClient;
 	private $workingDomain;
 	private $endpointUrl;
 
-	public function __construct($httpBroker){
-		$this->httpBroker = $httpBroker;
+	public function __construct($restClient){
+		$this->restClient = $restClient;
 		$this->endpointUrl = "routes";
 	}
 	
 	public function getRoutes($limit, $skip){
-		$response = $this->httpBroker->getRequest($this->endpointUrl, array($limit, $skip));
+		$response = $this->restClient->getRequest($this->endpointUrl, array($limit, $skip));
 		return $response;
 	}
 	
 	public function getRoute($routeId){
 		$updatedUrl = $this->endpointUrl . "/" . $routeId;
-		$response = $this->httpBroker->getRequest($updatedUrl);
+		$response = $this->restClient->getRequest($updatedUrl);
 		return $response;
 	}
 	
@@ -48,7 +48,7 @@ class Routes{
 		
 		$postData = array('priority' => $priority, 'description' => $description, 'expression' => $expression, 'action' => $action);
 	
-		$response = $this->httpBroker->postRequest($this->endpointUrl, $postData);
+		$response = $this->restClient->postRequest($this->endpointUrl, $postData);
 		return $response;
 	}
 
@@ -72,13 +72,13 @@ class Routes{
 		
 		$updatedUrl = $this->endpointUrl . "/" . $routeId;
 		
-		$response = $this->httpBroker->putRequest($updatedUrl, $postData);
+		$response = $this->restClient->putRequest($updatedUrl, $postData);
 		return $response;
 	}
 	
 	public function deleteRoute($routeId){
 		$updatedUrl = $this->endpointUrl . "/" . $routeId;
-		$response = $this->httpBroker->deleteRequest($updatedUrl);
+		$response = $this->restClient->deleteRequest($updatedUrl);
 		return $response;
 	}
 }

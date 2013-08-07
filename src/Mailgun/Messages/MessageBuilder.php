@@ -18,11 +18,11 @@ class MessageBuilder extends Messages{
 	protected $campaignIdCount = 0;
 	protected $customOptionCount = 0;
 	protected $tagCount = 0;
-	protected $httpBroker;
+	protected $restClient;
 	
-	public function __construct($httpBroker){
-		parent::__construct($httpBroker);
-		$this->httpBroker = $httpBroker;
+	public function __construct($restClient){
+		parent::__construct($restClient);
+		$this->restClient = $restClient;
 	}
 
 	public function addToRecipient($address, $attributes){

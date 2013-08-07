@@ -7,24 +7,24 @@ namespace Mailgun\Campaigns;
 	
 class Campaigns{
 
-	private $httpBroker;
+	private $restClient;
 	private $workingDomain;
 	private $endpointUrl;
 
 	
-	public function __construct($httpBroker){
-		$this->httpBroker = $httpBroker;
-		$this->endpointUrl = $this->httpBroker->returnWorkingDomain() . "/campaigns";
+	public function __construct($restClient){
+		$this->restClient = $restClient;
+		$this->endpointUrl = $this->restClient->returnWorkingDomain() . "/campaigns";
 	}
 	
 	public function getCampaigns($limit, $skip){
-		$response = $this->httpBroker->getRequest($this->endpointUrl, array($limit, $skip));
+		$response = $this->restClient->getRequest($this->endpointUrl, array($limit, $skip));
 		return $response;
 	}
 	
 	public function getCampaign($campaignId){
 		$updatedUrl = $this->endpointUrl . "/" . $campaignId;
-		$response = $this->httpBroker->getRequest($updatedUrl);
+		$response = $this->restClient->getRequest($updatedUrl);
 		return $response;
 	}
 	
@@ -33,7 +33,7 @@ class Campaigns{
 			throw new InvalidParameter("The message ID is too long. Limit is 64 characters.");
 		}
 		$postData = array('name' => $name, 'id' => $id);
-		$response = $this->httpBroker->postRequest($this->endpointUrl, $postData);
+		$response = $this->restClient->postRequest($this->endpointUrl, $postData);
 		return $response;
 	}
 	
@@ -43,49 +43,49 @@ class Campaigns{
 		}
 		$updatedUrl = $this->endpointUrl . "/" . $campaignId;
 		$postData = array('name' => $name, 'id' => $id);
-		$response = $this->httpBroker->putRequest($updatedUrl, $postData);
+		$response = $this->restClient->putRequest($updatedUrl, $postData);
 		return $response;
 	}
 	
 	public function deleteCampaign($campaignId){
 		$updatedUrl = $this->endpointUrl . "/" . $campaignId;
-		$response = $this->httpBroker->deleteRequest($updatedUrl);
+		$response = $this->restClient->deleteRequest($updatedUrl);
 		return $response;
 	}
 	
 	public function getCampaignEvents($campaignId, $filterParams = array()){
 		$updatedUrl = $this->endpointUrl . "/" . $campaignId . "/events";
-		$response = $this->httpBroker->getRequest($updatedUrl, $filterParams);
+		$response = $this->restClient->getRequest($updatedUrl, $filterParams);
 		return $response;
 	}
 	
 	public function getCampaignStats($campaignId, $filterParams = array()){
 		$updatedUrl = $this->endpointUrl . "/" . $campaignId . "/stats";
-		$response = $this->httpBroker->getRequest($updatedUrl, $filterParams);
+		$response = $this->restClient->getRequest($updatedUrl, $filterParams);
 		return $response;
 	}
 	
 	public function getCampaignClicks($campaignId, $filterParams = array()){
 		$updatedUrl = $this->endpointUrl . "/" . $campaignId . "/clicks";
-		$response = $this->httpBroker->getRequest($updatedUrl, $filterParams);
+		$response = $this->restClient->getRequest($updatedUrl, $filterParams);
 		return $response;
 	}
 
 	public function getCampaignOpens($campaignId, $filterParams = array()){
 		$updatedUrl = $this->endpointUrl . "/" . $campaignId . "/opens";
-		$response = $this->httpBroker->getRequest($updatedUrl, $filterParams);
+		$response = $this->restClient->getRequest($updatedUrl, $filterParams);
 		return $response;
 	}
 
 	public function getCampaignUnsubscribes($campaignId, $filterParams = array()){
 		$updatedUrl = $this->endpointUrl . "/" . $campaignId . "/unsubscribes";
-		$response = $this->httpBroker->getRequest($updatedUrl, $filterParams);
+		$response = $this->restClient->getRequest($updatedUrl, $filterParams);
 		return $response;
 	}
 	
 	public function getCampaignComplaints($campaignId, $filterParams = array()){
 		$updatedUrl = $this->endpointUrl . "/" . $campaignId . "/clicks";
-		$response = $this->httpBroker->getRequest($updatedUrl, $filterParams);
+		$response = $this->restClient->getRequest($updatedUrl, $filterParams);
 		return $response;
 	}
 }

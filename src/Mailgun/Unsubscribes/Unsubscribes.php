@@ -7,13 +7,13 @@ namespace Mailgun\Unsubscribes;
 	
 class Unsubscribes{
 
-	private $httpBroker;
+	private $restClient;
 	private $workingDomain;
 	private $endpointUrl;
 	
-	public function __construct($httpBroker){
-		$this->httpBroker = $httpBroker;
-		$this->endpointUrl = $this->httpBroker->returnWorkingDomain() . "/unsubscribes";
+	public function __construct($restClient){
+		$this->restClient = $restClient;
+		$this->endpointUrl = $this->restClient->returnWorkingDomain() . "/unsubscribes";
 	}
 	
 	public function addAddress($unsubAddress, $unsubTag = NULL){
@@ -23,23 +23,23 @@ class Unsubscribes{
 		else{
 			$postData = array("address" => $unsubAddress, "tag" => "*");
 		}
-		$response = $this->httpBroker->postRequest($this->endpointUrl, $postData);
+		$response = $this->restClient->postRequest($this->endpointUrl, $postData);
 		return $response;
 	}
 	
 	public function deleteAddress($unsubAddress){
 		$requestUrl = $this->endpointUrl . "/" .  urlencode($unsubAddress);
-		$response = $this->httpBroker->deleteRequest($requestUrl);
+		$response = $this->restClient->deleteRequest($requestUrl);
 		return $response;
 	}
 	
 	public function getUnsubscribe($unsubAddress){
 		$requestUrl = $this->endpointUrl . "/" .  urlencode($unsubAddress);
-		$response = $this->httpBroker->getRequest($requestUrl);
+		$response = $this->restClient->getRequest($requestUrl);
 		return $response;
 	}
 	public function getUnsubscribes($limit, $skip){
-		$response = $this->httpBroker->getRequest($this->endpointUrl, array($limit, $skip));
+		$response = $this->restClient->getRequest($this->endpointUrl, array($limit, $skip));
 		return $response;
 	}
 

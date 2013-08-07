@@ -11,8 +11,8 @@ class BatchMessage extends MessageBuilder{
 	protected $batchRecipientAttributes;
 	protected $autoSend;
 
-	public function __construct($httpBroker, $autoSend){
-		parent::__construct($httpBroker);
+	public function __construct($restClient, $autoSend){
+		parent::__construct($restClient);
 		$this->batchRecipientAttributes = array();
 		$this->autoSend = $autoSend;
 	}
@@ -68,7 +68,7 @@ class BatchMessage extends MessageBuilder{
 		}
 		else{		
 			$this->message["recipient-variables"] = json_encode($this->batchRecipientAttributes);
-			$response = $this->httpBroker->postRequest($this->endpointUrl, $message, $files);
+			$response = $this->restClient->postRequest($this->endpointUrl, $message, $files);
 			$this->batchRecipientAttributes = array();
 			$this->toRecipientCount = 0;
 			unset($this->message["to"]);
