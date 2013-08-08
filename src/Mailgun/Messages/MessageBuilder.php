@@ -6,7 +6,7 @@ use Mailgun\Messages\Expcetions\InvalidParameter;
 use Mailgun\Messages\Exceptions\TooManyParameters;
 use Mailgun\Messages\Expcetions\InvalidParameterType;
 
-class MessageBuilder extends Messages{
+class MessageBuilder{
 
 	protected $message = array();
 	protected $files = array();
@@ -18,11 +18,10 @@ class MessageBuilder extends Messages{
 	protected $campaignIdCount = 0;
 	protected $customOptionCount = 0;
 	protected $tagCount = 0;
-	protected $restClient;
 	
-	public function __construct($restClient){
-		parent::__construct($restClient);
-		$this->restClient = $restClient;
+	
+	public function __get($name){
+		return $this->message;
 	}
 
 	public function addToRecipient($address, $attributes){
@@ -318,10 +317,17 @@ class MessageBuilder extends Messages{
 		}
 	}
 	
-	public function getMessage(){
-		return $this->message;
+	public function addCustomParameter($parameterName, $data){
+		if(isset($this->message[$parameterName])){
+			array_push($this->message[$parameterName], $data);
+			return true;
+		}
+		else{
+			$this->message[$parameterName] = array($data);
+			return true;
+		}
 	}
-	
+
 	public function getFiles(){
 		return $this->files;
 	}

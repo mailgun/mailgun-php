@@ -16,16 +16,12 @@ use Mailgun\Connection\Exceptions\MissingEndpoint;
 class RestClient{
 
 	private $apiKey;
-	protected $workingDomain;
-	protected $debugMode;
 	protected $mgClient;
 	
-	public function __construct($apiKey, $workingDomain, $debugMode = false){
+	public function __construct($apiKey, $apiEndpoint){
 	
 		$this->apiKey = $apiKey;
-		$this->workingDomain = $workingDomain;
-		$this->debugMode = $debugMode;
-		$this->mgClient = new Guzzle('https://' . API_ENDPOINT . '/' . API_VERSION . '/');
+		$this->mgClient = new Guzzle('https://' . $apiEndpoint . '/' . API_VERSION . '/');
 		$this->mgClient->setDefaultOption('curl.options', array('CURLOPT_FORBID_REUSE' => true));
 		$this->mgClient->setDefaultOption('auth', array (API_USER, $this->apiKey));	
 		$this->mgClient->setDefaultOption('exceptions', false);
@@ -101,10 +97,6 @@ class RestClient{
 		}
 		$result->http_response_code = $httpResponeCode;
 		return $result;
-	}
-	
-	public function returnWorkingDomain(){
-		return $this->workingDomain;
 	}
 }
 

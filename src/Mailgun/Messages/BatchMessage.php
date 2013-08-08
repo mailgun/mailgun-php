@@ -6,18 +6,19 @@ use Mailgun\Messages\Exceptions\TooManyParameters;
 use Mailgun\Messages\Exceptions\MissingRequiredMIMEParameters;
 
 
-class BatchMessage extends MessageBuilder{
+class BatchMessage{
 
 	protected $batchRecipientAttributes;
 	protected $autoSend;
+	protected $restClient;
 
 	public function __construct($restClient, $autoSend){
-		parent::__construct($restClient);
 		$this->batchRecipientAttributes = array();
 		$this->autoSend = $autoSend;
+		$this->restClient = $restClient;
 	}
 
-	public function addBatchRecipient($address, $attributes){
+	public function addToRecipient($address, $attributes){
 		//Check for maximum recipient count
 		if($this->toRecipientCount == 1000){
 			//If autoSend is off, do things here.
