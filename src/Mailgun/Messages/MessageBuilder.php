@@ -327,6 +327,15 @@ class MessageBuilder{
 			return true;
 		}
 	}
+	
+	public function setMessage($message = array(), $files = array()){
+		$this->message = $message;
+		$this->files = $files;
+	}
+
+	public function getMessage(){
+		return $this->message;
+	}
 
 	public function getFiles(){
 		return $this->files;

@@ -38,8 +38,8 @@ class Mailgun{
 		return new MessageBuilder();
 	}
 	
-	public function BatchMessage($autoSend = true){
-		return new BatchMessage($this->restClient, $autoSend);
+	public function BatchMessage($workingDomain, $autoSend = true){
+		return new BatchMessage($this->restClient, $workingDomain, $autoSend);
 	}
 }
 

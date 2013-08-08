@@ -1,7 +1,7 @@
 <?PHP
 namespace Mailgun\Tests\Connection;
 
-use Mailgun\Tests\MailgunClientTest;
+use Mailgun\Tests\MailgunTest;
 
 class ConnectionTest extends \Mailgun\Tests\MailgunTestCase{
 
@@ -10,7 +10,7 @@ class ConnectionTest extends \Mailgun\Tests\MailgunTestCase{
 	public function setUp(){ 
 	}
 	public function testNewClientInstantiation(){	
-		$this->client = new MailgunClientTest("My-Super-Awesome-API-Key", "samples.mailgun.org", false);	
+		$this->client = new MailgunTest("My-Super-Awesome-API-Key", "samples.mailgun.org", false);	
 	}
 }
 

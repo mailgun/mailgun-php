@@ -27,44 +27,30 @@ php -d detect_unicode=Off -r "eval('?>'.file_get_contents('https://getcomposer.o
 Next, require Composer's autoloader, in your application, to automatically load the Mailgun SDK in your project:
 ```PHP
 require 'vendor/autoload.php';
-use Mailgun\MailgunClient;
+use Mailgun\Mailgun;
 ```
 
 Usage
 -----
-Using the SDK should feel simple, if you're already familiar with our API endpoints. If not, no problem... When you're reviewing our documentation, the endpoints are expressed as a class in the SDK to make things easier. 
+Using the SDK should feel simple, if you're already familiar with our API endpoints. If not, no problem... When you're reviewing our documentation, use the provided resource URL when creating the HTTP request.
 
 For example, here's how to use the "Messages" API endpoint:
 
 ```php
-# First, instantiate the client with your API credentials and domain. 
-$mgClient = new MailgunClient("key-3ax6xnjp29jd6fds4gc373sgvjxteol0", "samples.mailgun.org");
+# First, instantiate the SDK with your API credentials and define your domain. 
+$mg = new Mailgun("key-example");
+$domain = "example.com";
 
-# Next, instantiate a Message object on the messages API endpoint.
-$message = $mgClient->Messages();
-
-# Now, compose your message.
-$message->setMessage(array('from' => 'me@samples.mailgun.org', 
-                           'to' => 'php-sdk@mailgun.net', 
-                           'subject' => 'The PHP SDK is awesome!', 
-                           'text' => 'It is so simple to send a message.'));
-
-# Finally, send the message.
-$message->sendMessage();
+# Now, compose and send your message.
+$mg->post('{$domain}/messages', array('from'	=> 'bob@example.com', 
+                           			  'to'		=> 'sally@example.com', 
+						   			  'subject'	=> 'The PHP SDK is awesome!', 
+						   			  'text'	=> 'It is so simple to send a message.'));
 ```
 
-For usage examples on each API endpoint, go to the "src/Mailgun" folder and browse through each API endpoint folder. A README exists in each folder with examples.
+For usage examples on each API endpoint, head over to our official documentation pages. 
 
-[Address](src/Mailgun/Address/)  
-[Bounces](src/Mailgun/Bounces/)  
-[Campaigns](src/Mailgun/Campaigns/)  
-[Complaints](src/Mailgun/Complaints/)  
-[Lists](src/Mailgun/Lists/)  
-[Logs](src/Mailgun/Logs/)  
-[Messages](src/Mailgun/Messages/)  
-[Routes](src/Mailgun/Routes/)  
-[Stats](src/Mailgun/Stats/)  
-[Unsubscribes](src/Mailgun/Unsubscribes/)  
+This SDK includes a [Message Builder](src/Mailgun/Messages/README.md) and [Batch Message](src/Mailgun/Messages/README.md) component.
 
 Support and Feedback
 --------------------

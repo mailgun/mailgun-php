@@ -2,20 +2,24 @@
 
 namespace Mailgun\Messages;
 
+use Mailgun\Messages\MessageBuilder;
 use Mailgun\Messages\Exceptions\TooManyParameters;
 use Mailgun\Messages\Exceptions\MissingRequiredMIMEParameters;
 
 
-class BatchMessage{
+class BatchMessage extends MessageBuilder{
 
 	protected $batchRecipientAttributes;
 	protected $autoSend;
 	protected $restClient;
+	protected $workingDomain;
 
-	public function __construct($restClient, $autoSend){
+	public function __construct($restClient, $workingDomain, $autoSend){
 		$this->batchRecipientAttributes = array();
 		$this->autoSend = $autoSend;
 		$this->restClient = $restClient;
+		$this->workingDomain = $workingDomain;
+		$this->endpointUrl = $workingDomain . "/messages";
 	}
 
 	public function addToRecipient($address, $attributes){
@@ -75,6 +79,9 @@ class BatchMessage{
 			unset($this->message["to"]);
 			return $response;
 		}
+	}
+	public function finalize(){
+		return $this->sendMessage();
 	}
 }
 ?>

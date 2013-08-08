@@ -5,19 +5,16 @@ use Mailgun\Connection\RestClient;
 
 class TestBroker extends RestClient{
 	private $apiKey;
-	protected $domain;
-	protected $debug;
 	
-	protected $apiEndpoint = API_ENDPOINT;
+	protected $apiEndpoint;
 	protected $apiVersion = API_VERSION;
 	protected $apiUser = API_USER;
 	protected $sdkVersion = SDK_VERSION;
 	protected $sdkUserAgent = SDK_USER_AGENT;
 
-	public function __construct($apiKey, $domain, $debug = false){
+	public function __construct($apiKey = null, $apiEndpoint = "api.mailgun.net"){
 		$this->apiKey = $apiKey;
-		$this->domain = $domain;
-		$this->debug = $debug;
+		$this->apiEndpoint = $apiEndpoint;
 	}
 	
 	public function postRequest($endpointUrl, $postData = array(), $files = array()){
