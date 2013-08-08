@@ -46,7 +46,7 @@ class BatchMessageTest extends \Mailgun\Tests\MailgunTestCase{
 		$message->setFromAddress("samples@mailgun.org", array("first" => "Test", "last" => "User"));
 		$message->setSubject("This is the subject of the message!");
 		$message->setTextBody("This is the text body of the message!");
-		$message->sendMessage();
+		$message->finalize();
 		$messageObj= $message->getMessage();
 		$this->assertTrue(true, empty($messageObj));
 	}

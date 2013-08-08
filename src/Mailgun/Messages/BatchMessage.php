@@ -27,7 +27,7 @@ class BatchMessage extends MessageBuilder{
 		if($this->toRecipientCount == 1000){
 			//If autoSend is off, do things here.
 			if($this->autoSend == false){
-				throw new TooManyParameters("You've exceeded the maximum recipient count (1,000) on the to field.");
+				throw new TooManyParameters("You've exceeded the maximum recipient count (1,000) on the to field with autosend disabled.");
 			}
 			else{
 				$this->sendMessage();
