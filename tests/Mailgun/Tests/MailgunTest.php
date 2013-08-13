@@ -2,9 +2,6 @@
 
 namespace Mailgun\Tests;
 
-require 'Connection/Constants/Constants.php';
-require 'Messages/Constants/Constants.php';
-
 use Mailgun\Mailgun;
 use Mailgun\Tests\Connection\TestBroker;
 
