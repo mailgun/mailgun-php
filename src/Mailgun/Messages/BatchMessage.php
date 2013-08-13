@@ -26,7 +26,7 @@ class BatchMessage extends MessageBuilder{
 		$this->endpointUrl = $workingDomain . "/messages";
 	}
 
-	public function addToRecipient($address, $variables){
+	public function addToRecipient($address, $variables = null){
 		if($this->toRecipientCount == RECIPIENT_COUNT_LIMIT){
 			if($this->autoSend == false){
 				throw new TooManyParameters(TOO_MANY_RECIPIENTS);
