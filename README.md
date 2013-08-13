@@ -42,10 +42,10 @@ $mg = new Mailgun("key-example");
 $domain = "example.com";
 
 # Now, compose and send your message.
-$mg->post('{$domain}/messages', array('from'    => 'bob@example.com', 
-                                      'to'      => 'sally@example.com', 
-                                      'subject' => 'The PHP SDK is awesome!', 
-                                      'text'    => 'It is so simple to send a message.'));
+$mg->sendMessage($domain, array('from'    => 'bob@example.com', 
+                                'to'      => 'sally@example.com', 
+                                'subject' => 'The PHP SDK is awesome!', 
+                                'text'    => 'It is so simple to send a message.'));
 ```
 
 Or obtain the last 25 log items: 
