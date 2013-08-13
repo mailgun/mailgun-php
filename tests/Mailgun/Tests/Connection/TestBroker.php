@@ -7,91 +7,25 @@ class TestBroker extends RestClient{
 	private $apiKey;
 	
 	protected $apiEndpoint;
-	protected $apiVersion = API_VERSION;
-	protected $apiUser = API_USER;
-	protected $sdkVersion = SDK_VERSION;
-	protected $sdkUserAgent = SDK_USER_AGENT;
 
-	public function __construct($apiKey = null, $apiEndpoint = "api.mailgun.net"){
+	public function __construct($apiKey = null, $apiEndpoint = "api.mailgun.net", $apiVersion = "v2"){
 		$this->apiKey = $apiKey;
 		$this->apiEndpoint = $apiEndpoint;
 	}
 	
-	public function postRequest($endpointUrl, $postData = array(), $files = array()){
-		if(preg_match("/\/messages$/", $endpointUrl)){
-			return $this->responseHandler($endpointUrl, $httpResponseCode = 200);
-		}
-		elseif(preg_match("/\/unsubscribes$/", $endpointUrl)){
-			return $this->responseHandler($endpointUrl, $httpResponseCode = 200);
-		}
-		elseif(preg_match("/\/complaints$/", $endpointUrl)){
-			return $this->responseHandler($endpointUrl, $httpResponseCode = 200);
-		}
-		elseif(preg_match("/\/bounces$/", $endpointUrl)){
-			return $this->responseHandler($endpointUrl, $httpResponseCode = 200);
-		}
-		else{
-			return $this->responseHandler($endpointUrl, $httpResponseCode = 200);
-		}
-		return $result;	
+	public function post($endpointUrl, $postData = array(), $files = array()){
+		return $this->responseHandler($endpointUrl, $httpResponseCode = 200);
 	}
-	public function getRequest($endpointUrl, $queryString = array()){
-		if($endpointUrl == "domains"){
-			return $this->responseHandler($endpointUrl, $httpResponseCode = 200);
-		}
-		elseif(preg_match("/\/unsubscribes\//", $endpointUrl)){
-			return $this->responseHandler($endpointUrl, $httpResponseCode = 200);
-		}
-		elseif(preg_match("/\/unsubscribes/", $endpointUrl)){
-			return $this->responseHandler($endpointUrl, $httpResponseCode = 200);
-		}
-		elseif(preg_match("/\/complaints/", $endpointUrl)){
-			return $this->responseHandler($endpointUrl, $httpResponseCode = 200);
-		}
-		elseif(preg_match("/\/bounces/", $endpointUrl)){
-			return $this->responseHandler($endpointUrl, $httpResponseCode = 200);
-		}
-		elseif(preg_match("/\/stats/", $endpointUrl)){
-			return $this->responseHandler($endpointUrl, $httpResponseCode = 200);
-		}
-		elseif(preg_match("/\/log/", $endpointUrl)){
-			return $this->responseHandler($endpointUrl, $httpResponseCode = 200);
-		}
-		else{
-			return $this->responseHandler($endpointUrl, $httpResponseCode = 200);
-		}
-		return $result;
+	public function get($endpointUrl, $queryString = array()){
+		return $this->responseHandler($endpointUrl, $httpResponseCode = 200);
 	}
-	public function deleteRequest($endpointUrl){
-		if($endpointUrl == "domains"){
-			return $this->responseHandler($endpointUrl, $httpResponseCode = 200);
-		}
-		elseif(preg_match("/\/unsubscribes\//", $endpointUrl)){
-			return $this->responseHandler($endpointUrl, $httpResponseCode = 200);
-		}
-		elseif(preg_match("/\/complaints\//", $endpointUrl)){
-			return $this->responseHandler($endpointUrl, $httpResponseCode = 200);
-		}
-		elseif(preg_match("/\/bounces\//", $endpointUrl)){
-			return $this->responseHandler($endpointUrl, $httpResponseCode = 200);
-		}
-		elseif(preg_match("/\/tags\//", $endpointUrl)){
-			return $this->responseHandler($endpointUrl, $httpResponseCode = 200);
-		}
-		else{
-			return $this->responseHandler($endpointUrl, $httpResponseCode = 200);
-		}
-		return $result;	
+	public function delete($endpointUrl){
+		return $this->responseHandler($endpointUrl, $httpResponseCode = 200);
 	}
-	public function putRequest($endpointUrl, $queryString){
-		if($endpointUrl == "domains"){
-			return $this->responseHandler($endpointUrl, $httpResponseCode = 200);
-		}
-		else{
-			return $this->responseHandler($endpointUrl, $httpResponseCode = 200);
-		}
-		return $result;	
+	public function put($endpointUrl, $queryString){
+		return $this->responseHandler($endpointUrl, $httpResponseCode = 200);
 	}
+	
 	public function responseHandler($endpointUrl, $httpResponseCode = 200){
 		if($httpResponseCode === 200){
 			$result = new \stdClass();
@@ -118,6 +52,7 @@ class TestBroker extends RestClient{
 			return false;
 		}
 		$result->http_response_code = $httpResponseCode;
+		$result->http_endpoint_url = $endpointUrl;
 		return $result;
 	}
 

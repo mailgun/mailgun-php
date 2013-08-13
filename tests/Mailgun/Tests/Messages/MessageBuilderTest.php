@@ -1,5 +1,5 @@
 <?PHP
-namespace Mailgun\Tests\Message;
+namespace Mailgun\Tests\Messages;
 
 use Mailgun\Tests\MailgunTest;
 
@@ -18,25 +18,25 @@ class MessageBuilderTest extends \Mailgun\Tests\MailgunTestCase{
 		$message = $this->client->MessageBuilder();
 		$message->addToRecipient("test@samples.mailgun.org", array("first" => "Test", "last" => "User"));
 		$messageObj = $message->getMessage();
-		$this->assertEquals(array("to" => array("Test User <test@samples.mailgun.org>")), $messageObj);
+		$this->assertEquals(array("to" => array("'Test User' <test@samples.mailgun.org>")), $messageObj);
 	}
 	public function testAddCcRecipient(){
 		$message = $this->client->MessageBuilder();
 		$message->addCcRecipient("test@samples.mailgun.org", array("first" => "Test", "last" => "User"));
 		$messageObj = $message->getMessage();
-		$this->assertEquals(array("cc" => array("Test User <test@samples.mailgun.org>")), $messageObj);
+		$this->assertEquals(array("cc" => array("'Test User' <test@samples.mailgun.org>")), $messageObj);
 	}
 	public function testAddBccRecipient(){
 		$message = $this->client->MessageBuilder();
 		$message->addBccRecipient("test@samples.mailgun.org", array("first" => "Test", "last" => "User"));
 		$messageObj = $message->getMessage();
-		$this->assertEquals(array("bcc" => array("Test User <test@samples.mailgun.org>")), $messageObj);
+		$this->assertEquals(array("bcc" => array("'Test User' <test@samples.mailgun.org>")), $messageObj);
 	}
 	public function testSetFromAddress(){
 		$message = $this->client->MessageBuilder();
 		$message->setFromAddress("test@samples.mailgun.org", array("first" => "Test", "last" => "User"));
 		$messageObj = $message->getMessage();
-		$this->assertEquals(array("from" => "Test User <test@samples.mailgun.org>"), $messageObj);
+		$this->assertEquals(array("from" => array("'Test User' <test@samples.mailgun.org>")), $messageObj);
 	}
 	public function testSetSubject(){
 		$message = $this->client->MessageBuilder();
@@ -166,12 +166,12 @@ class MessageBuilderTest extends \Mailgun\Tests\MailgunTestCase{
 		$messageObj = $message->getMessage();
 		$this->assertEquals(array("v:My-Super-Awesome-Data" => "{\"What\":\"Mailgun Rocks!\"}"), $messageObj);
 	}
-	public function testAddCustomOption(){
+	public function testAddCustomParameter(){
 		$message = $this->client->MessageBuilder();
-		$message->addCustomOption("my-option", "yes");
-		$message->addCustomOption("o:my-other-option", "no");
+		$message->addCustomParameter("my-option", "yes");
+		$message->addCustomParameter("o:my-other-option", "no");
 		$messageObj = $message->getMessage();
-		$this->assertEquals(array("options" => array("o:my-option" => array("yes"), "o:my-other-option" => array("no"))), $messageObj);
+		$this->assertEquals(array("my-option" => array("yes"), "o:my-other-option" => array("no")), $messageObj);
 	}
 }
 

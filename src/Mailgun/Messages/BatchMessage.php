@@ -6,13 +6,17 @@ use Mailgun\Messages\MessageBuilder;
 use Mailgun\Messages\Exceptions\TooManyParameters;
 use Mailgun\Messages\Exceptions\MissingRequiredMIMEParameters;
 
+/* 
+   This class is used for batch sending. See the official documentation
+   for usage instructions. 
+*/
 
 class BatchMessage extends MessageBuilder{
 
-	protected $batchRecipientAttributes;
-	protected $autoSend;
-	protected $restClient;
-	protected $workingDomain;
+	private $batchRecipientAttributes;
+	private $autoSend;
+	private $restClient;
+	private $workingDomain;
 
 	public function __construct($restClient, $workingDomain, $autoSend){
 		$this->batchRecipientAttributes = array();
@@ -22,36 +26,18 @@ class BatchMessage extends MessageBuilder{
 		$this->endpointUrl = $workingDomain . "/messages";
 	}
 
-	public function addToRecipient($address, $attributes){
-		//Check for maximum recipient count
-		if($this->toRecipientCount == 1000){
-			//If autoSend is off, do things here.
+	public function addToRecipient($address, $variables){
+		if($this->toRecipientCount == RECIPIENT_COUNT_LIMIT){
 			if($this->autoSend == false){
-				throw new TooManyParameters("You've exceeded the maximum recipient count (1,000) on the to field with autosend disabled.");
+				throw new TooManyParameters(TOO_MANY_RECIPIENTS);
 			}
-			else{
-				$this->sendMessage();
-			}
-		}
-		if(array_key_exists("first", $attributes)){
-			$name = $attributes["first"];
-			if(array_key_exists("last", $attributes)){
-				$name = $attributes["first"] . " " . $attributes["last"];
-			}
+			$this->sendMessage();
 		}
 		
-		$compiledAddress = $name . " <" . $address . ">";
-		
-		if(isset($this->message["to"])){
-			array_push($this->message["to"], $compiledAddress);
-		}
-		else{
-			$this->message["to"] = array($compiledAddress);
-		}
+		$this->addRecipient("to", $address, $variables);
 		$attributes["id"] = $this->toRecipientCount;
-		$this->batchRecipientAttributes["$address"] = $attributes;
+		$this->batchRecipientAttributes["$address"] = $variables;
 		$this->toRecipientCount++;
-		return true;
 	}
 	
 	public function sendMessage($message = array(), $files = array()){
@@ -60,26 +46,27 @@ class BatchMessage extends MessageBuilder{
 			$files = $this->files;
 		}
 		if(!array_key_exists("from", $message)){
-			throw new MissingRequiredMIMEParameters("You are missing the from parameter for your message.");
+			throw new MissingRequiredMIMEParameters(EXCEPTION_MISSING_REQUIRED_MIME_PARAMETERS);
 		}
 		elseif(!array_key_exists("to", $message)){
-			throw new MissingRequiredMIMEParameters("You are missing a recipient for your message.");
+			throw new MissingRequiredMIMEParameters(EXCEPTION_MISSING_REQUIRED_MIME_PARAMETERS);
 		}
 		elseif(!array_key_exists("subject", $message)){
-			throw new MissingRequiredMIMEParameters("You are missing the subject of the message.");
+			throw new MissingRequiredMIMEParameters(EXCEPTION_MISSING_REQUIRED_MIME_PARAMETERS);
 		}
 		elseif((!array_key_exists("text", $message) && !array_key_exists("html", $message))){
-			throw new MissingRequiredMIMEParameters("You are missing the body of the message.");
+			throw new MissingRequiredMIMEParameters(EXCEPTION_MISSING_REQUIRED_MIME_PARAMETERS);
 		}
 		else{		
 			$this->message["recipient-variables"] = json_encode($this->batchRecipientAttributes);
-			$response = $this->restClient->postRequest($this->endpointUrl, $message, $files);
+			$response = $this->restClient->post($this->endpointUrl, $message, $files);
 			$this->batchRecipientAttributes = array();
 			$this->toRecipientCount = 0;
 			unset($this->message["to"]);
 			return $response;
 		}
 	}
+	
 	public function finalize(){
 		return $this->sendMessage();
 	}

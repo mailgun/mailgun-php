@@ -1,5 +1,5 @@
 <?PHP
-namespace Mailgun\Tests\BatchMessage;
+namespace Mailgun\Tests\Messages;
 
 use Mailgun\Tests\MailgunTest;
 
@@ -9,7 +9,7 @@ class BatchMessageTest extends \Mailgun\Tests\MailgunTestCase{
 	private $sampleDomain = "samples.mailgun.org";
 
 	public function setUp(){ 
-		$this->client = new MailgunTest("My-Super-Awesome-API-Key");	
+		$this->client = new MailgunTest("My-Super-Awesome-API-Key");
 	}
 	public function testBlankInstantiation(){
 		$message = $this->client->BatchMessage($this->sampleDomain);
@@ -19,7 +19,7 @@ class BatchMessageTest extends \Mailgun\Tests\MailgunTestCase{
 		$message = $this->client->BatchMessage($this->sampleDomain);
 		$message->addToRecipient("test@samples.mailgun.org", array("first" => "Test", "last" => "User"));
 		$messageObj= $message->getMessage();
-		$this->assertEquals(array("to" => array("Test User <test@samples.mailgun.org>")), $messageObj);
+		$this->assertEquals(array("to" => array("'Test User' <test@samples.mailgun.org>")), $messageObj);
 	}
 	public function testAddMultipleBatchRecipients(){
 		$message = $this->client->BatchMessage($this->sampleDomain);

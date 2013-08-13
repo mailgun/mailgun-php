@@ -1,8 +1,6 @@
 <?PHP
 
 namespace Mailgun\Connection;
-	
-require dirname(__DIR__) . '/Globals.php';
 
 use Guzzle\Http\Client as Guzzle;
 use Mailgun\MailgunClient;
@@ -13,24 +11,32 @@ use Mailgun\Connection\Exceptions\NoDomainsConfigured;
 use Mailgun\Connection\Exceptions\MissingRequiredMIMEParameters;
 use Mailgun\Connection\Exceptions\MissingEndpoint;
 
+/* 
+   This class is a wrapper for the Guzzle (HTTP Client Library). 
+*/
+
 class RestClient{
 
 	private $apiKey;
 	protected $mgClient;
 	
-	public function __construct($apiKey, $apiEndpoint){
-	
+	public function __construct($apiKey, $apiEndpoint, $apiVersion){	
 		$this->apiKey = $apiKey;
-		$this->mgClient = new Guzzle('https://' . $apiEndpoint . '/' . API_VERSION . '/');
+		$this->mgClient = new Guzzle('https://' . $apiEndpoint . '/' . $apiVersion . '/');
 		$this->mgClient->setDefaultOption('curl.options', array('CURLOPT_FORBID_REUSE' => true));
 		$this->mgClient->setDefaultOption('auth', array (API_USER, $this->apiKey));	
 		$this->mgClient->setDefaultOption('exceptions', false);
 		$this->mgClient->setUserAgent(SDK_USER_AGENT . '/' . SDK_VERSION);
 	}
 	
-	public function postRequest($endpointUrl, $postData = array(), $files = array()){
+	public function post($endpointUrl, $postData = array(), $files = array()){
 		$request = $this->mgClient->post($endpointUrl, array(), $postData);
 		
+		if(isset($files["message"])){
+			foreach($files as $message){
+				$request->addPostFile("message", $message);
+			}
+		}
 		if(isset($files["attachment"])){
 			foreach($files["attachment"] as $attachment){
 				$request->addPostFile("attachment", $attachment);
@@ -41,12 +47,12 @@ class RestClient{
 				$request->addPostFile("inline", $attachment);
 			}
 		}
-		
+
 		$response = $request->send();
 		return $this->responseHandler($response);
 	}
 	
-	public function getRequest($endpointUrl, $queryString = array()){
+	public function get($endpointUrl, $queryString = array()){
 		$request = $this->mgClient->get($endpointUrl);
 		if(isset($queryString)){
 			foreach($queryString as $key=>$value){
@@ -57,13 +63,13 @@ class RestClient{
 		return $this->responseHandler($response);
 	}
 	
-	public function deleteRequest($endpointUrl){
+	public function delete($endpointUrl){
 		$request = $this->mgClient->delete($endpointUrl);
 		$response = $request->send();
 		return $this->responseHandler($response);	
 	}
 	
-	public function putRequest($endpointUrl, $putData){
+	public function put($endpointUrl, $putData){
 		$request = $this->mgClient->put($endpointUrl, array(), $putData);
 		$response = $request->send();
 		return $this->responseHandler($response);
@@ -93,7 +99,6 @@ class RestClient{
 		}
 		else{
 			throw new GenericHTTPError(EXCEPTION_GENERIC_HTTP_ERROR);
-			return false;
 		}
 		$result->http_response_code = $httpResponeCode;
 		return $result;
