@@ -27,7 +27,8 @@ class OptInHandler{
 		$concatStrings = $secretAppId . "" . $urlParameters->r;	
 		
 		if($urlParameters->s == hash('md5', $concatStrings)){
-				return true;
+			$returnArray = array('recipientAddress' => $urlParameters->r, 'mailingList' => $mailingList);
+				return $returnArray;
 		}
 		return false;
 	}
