@@ -8,6 +8,7 @@ use Mailgun\Messages\Messages;
 use Mailgun\Connection\Exceptions;
 use Mailgun\Connection\RestClient;
 use Mailgun\Messages\BatchMessage;
+use Mailgun\Lists\OptInHandler;
 use Mailgun\Messages\MessageBuilder;
 
 /* 
@@ -73,6 +74,10 @@ class Mailgun{
     
 	public function MessageBuilder(){
 		return new MessageBuilder();
+	}
+	
+	public function OptInHandler(){
+		return new OptInHandler();
 	}
 	
 	public function BatchMessage($workingDomain, $autoSend = true){
