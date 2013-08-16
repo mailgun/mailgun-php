@@ -55,8 +55,8 @@ $mg = new Mailgun("key-example");
 $domain = "example.com";
 
 # Now, issue a GET against the Logs endpoint.
-$mg->get('{$domain}/log', array('limit' => 'bob@example.com', 
-                                'skip'  => 'sally@example.com');
+$mg->get("$domain/log", array('limit' => 25, 
+                              'skip'  => 0);
 ```
 
 For usage examples on each API endpoint, head over to our official documentation pages. 
