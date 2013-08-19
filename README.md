@@ -6,7 +6,7 @@ This is the Mailgun PHP SDK. This SDK contains methods for easily interacting wi
 Below are examples to get you started. For additional examples, please see our official documentation 
 at http://documentation.mailgun.com
 
-Current Release: 0.4-Beta
+Current Release: 0.7
 
 Installation
 ------------
@@ -18,7 +18,7 @@ If you aren't using Composer yet, it's really simple! Here's how to install comp
 curl -sS https://getcomposer.org/installer | php
 
 # Add Mailgun as a dependency
-php composer.phar require mailgun/mailgun-php-sdk:~0.1
+php composer.phar require mailgun/mailgun-php-sdk:~0.7
 ``` 
 
 For shared hosts with SSH access, you might need to run this instead (contact your shared host for assistance): 
