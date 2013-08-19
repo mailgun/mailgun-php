@@ -22,7 +22,8 @@ class OptInHandler extends \Mailgun\Tests\MailgunTestCase{
 	
 	public function testGoodHash(){
 		$validation = $this->optInHandler->validateHash('mysupersecretappid', 'eyJzIjoiOGM2NmVmYzYwNzhmNGVkYjFkZGJiY2RhM2M2MmMzMTQiLCJsIjoibXl0ZXN0bGlzdEBleGFtcGxlLmNvbSIsInIiOiJ0ZXN0cmVjaXBpZW50QGV4YW1wbGUuY29tIn0%3D');
-		$this->assertTrue($validation);
+		$this->assertArrayHasKey('recipientAddress', $validation);
+		$this->assertArrayHasKey('mailingList', $validation);
 	}
 	public function testBadHash(){
 		$validation = $this->optInHandler->validateHash('mybadsecretappid', 'eyJzIjoiOGM2NmVmYzYwNzhmNGVkYjFkZGJiY2RhM2M2MmMzMTQiLCJsIjoibXl0ZXN0bGlzdEBleGFtcGxlLmNvbSIsInIiOiJ0ZXN0cmVjaXBpZW50QGV4YW1wbGUuY29tIn0%3D');
