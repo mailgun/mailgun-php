@@ -59,6 +59,53 @@ $mg->get("$domain/log", array('limit' => 25,
                               'skip'  => 0);
 ```
 
+Result
+------
+
+The results, provided by the endpoint, are returned as an object, which you can traverse like an array. 
+
+Example: 
+
+```php
+$mg = new Mailgun("key-example");
+$domain = "example.com";
+
+$result = $mg->get("$domain/log", array('limit' => 25, 
+                              'skip'  => 0);
+
+$httpResponseCode = $result->http_response_code;
+$httpResponseBody = $result->http_response_body;
+```
+
+Example Contents:
+$httpResponseCode will contain an integer. You can find how we use HTTP response codes in our documentation: http://documentation.mailgun.com/api-intro.html?highlight=401#errors
+
+$httpResponseBody will contain an object of the API response. In the above example, a var_dump($result) would contain the following: 
+
+```
+["http_response_body"]=>
+  object(stdClass)#31 (2) {
+    ["total_count"]=>
+    int(62)
+    ["items"]=>
+    array(1) {
+      [0]=>
+      array(5) {
+        ["hap"]=>
+        string(10) "tempfailed"
+        ["created_at"]=>
+        string(29) "Mon, 19 Aug 2013 19:41:33 GMT"
+        ["message"]=>
+        string(155) "Will retry in 14400 seconds: me@samples.mailgun.org → sergeyo@profista.com 'Hello' No MX for [profista.com] Server response: 498 No MX for [profista.com]"
+        ["type"]=>
+        string(4) "warn"
+        ["message_id"]=>
+        string(46) "20130819113429.18813.89868@samples.mailgun.org"
+      }
+    }
+  }
+```
+
 For usage examples on each API endpoint, head over to our official documentation pages. 
 
 This SDK includes a [Message Builder](src/Mailgun/Messages/README.md) and [Batch Message](src/Mailgun/Messages/README.md) component.
