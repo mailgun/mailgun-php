@@ -18,7 +18,7 @@ If you aren't using Composer yet, it's really simple! Here's how to install comp
 curl -sS https://getcomposer.org/installer | php
 
 # Add Mailgun as a dependency
-php composer.phar require mailgun/mailgun-php-sdk:~0.7
+php composer.phar require mailgun/mailgun-php:~0.7
 ``` 
 
 For shared hosts with SSH access, you might need to run this instead (contact your shared host for assistance): 
