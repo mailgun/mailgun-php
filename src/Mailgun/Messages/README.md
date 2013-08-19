@@ -3,12 +3,16 @@ Mailgun - Messages
 
 This is the Mailgun PHP *Message* utilities. 
 
-The below assumes you've already installed the Mailgun PHP SDK in to your project. If not, go back to the master README for instructions.
+The below assumes you've already installed the Mailgun PHP SDK in to your 
+project. If not, go back to the master README for instructions.
 
 There are two utilities included, Message Builder and Batch Message. 
 
-Message Builder: Allows you to build a message object by calling methods for each MIME attribute. 
-Batch Message: Inherits Message Builder and allows you to iterate through recipients from a list. Messages will fire after the 1,000th recipient has been added. 
+Message Builder: Allows you to build a message object by calling methods for 
+each MIME attribute. 
+Batch Message: Inherits Message Builder and allows you to iterate through 
+recipients from a list. Messages will fire after the 1,000th recipient has been 
+added. 
 
 Usage - Message Builder
 -----------------------
@@ -95,7 +99,8 @@ Here's how to use Batch Message to easily handle batch sending jobs.
 $mg = new Mailgun("key-example");
 $domain = "example.com";
 
-# Next, instantiate a Message Builder object from the SDK, pass in your sending domain.
+# Next, instantiate a Message Builder object from the SDK, pass in your sending 
+domain.
 $batchMsg = $mg->BatchMessage($domain);
 
 # Define the from address.
@@ -110,7 +115,8 @@ $batchMsg->addToRecipient("john.doe@samples.mailgun.org", array("first" => "John
 $batchMsg->addToRecipient("sally.doe@samples.mailgun.org", array("first" => "Sally", "last" => "Doe"));
 $batchMsg->addToRecipient("mike.jones@samples.mailgun.org", array("first" => "Mike", "last" => "Jones"));
 ...
-// After 1,000 recipeints, Batch Message will automatically post your message to the messages endpoint. 
+// After 1,000 recipeints, Batch Message will automatically post your message to 
+the messages endpoint. 
 
 // Call finalize() to send any remaining recipients still in the buffer.
 $batchMsg->finalize();
@@ -128,4 +134,5 @@ Available Functions (Inherits all Batch Message and Messages Functions)
 
 More Documentation
 ------------------
-See the official [Mailgun Docs](http://documentation.mailgun.com/api-sending.html) for more information.
+See the official [Mailgun Docs](http://documentation.mailgun.com/api-sending.html) 
+for more information.

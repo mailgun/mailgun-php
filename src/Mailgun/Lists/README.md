@@ -3,7 +3,8 @@ Mailgun - Lists
 
 This is the Mailgun PHP *Lists* utilities. 
 
-The below assumes you've already installed the Mailgun PHP SDK in to your project. If not, go back to the master README for instructions.
+The below assumes you've already installed the Mailgun PHP SDK in to your project. 
+If not, go back to the master README for instructions.
 
 There is currently one utility provided.
 
@@ -93,10 +94,14 @@ if($hashValidation){
 ```
 
 A few notes:  
-1. 'a_secret_passphrase' can be anything. It's used as the *key* in hashing, since your email address will vary.  
-2. validateHash() will return an array containing the recipient address and list address.  
-3. You should *always* send an email confirmation before and after the subscription request.  
-4. WARNING: On $_GET['hash'], you need to sanitize this value to prevent malicious attempts to inject code.  
+1. 'a_secret_passphrase' can be anything. It's used as the *key* in hashing, 
+since your email address will vary.  
+2. validateHash() will return an array containing the recipient address and list 
+address.  
+3. You should *always* send an email confirmation before and after the 
+subscription request.  
+4. WARNING: On $_GET['hash'], you need to sanitize this value to prevent 
+malicious attempts to inject code.  
 
 Available Functions
 -----------------------------------------------------
@@ -107,4 +112,5 @@ Available Functions
 
 More Documentation
 ------------------
-See the official [Mailgun Docs](http://documentation.mailgun.com/api-sending.html) for more information.
+See the official [Mailgun Docs](http://documentation.mailgun.com/api-sending.html) 
+for more information.
