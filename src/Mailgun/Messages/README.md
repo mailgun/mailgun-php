@@ -104,16 +104,16 @@ domain.
 $batchMsg = $mg->BatchMessage($domain);
 
 # Define the from address.
-$batchMsg->setFromAddress("me@samples.mailgun.org", array("first"=>"PHP", "last" => "SDK"));
+$batchMsg->setFromAddress("me@example.com", array("first"=>"PHP", "last" => "SDK"));
 # Define the subject. 
 $batchMsg->setSubject("A Batch Message from the PHP SDK!");
 # Define the body of the message.
 $batchMsg->setTextBody("This is the text body of the message!");
 
 # Next, let's add a few recipients to the batch job.
-$batchMsg->addToRecipient("john.doe@samples.mailgun.org", array("first" => "John", "last" => "Doe"));
-$batchMsg->addToRecipient("sally.doe@samples.mailgun.org", array("first" => "Sally", "last" => "Doe"));
-$batchMsg->addToRecipient("mike.jones@samples.mailgun.org", array("first" => "Mike", "last" => "Jones"));
+$batchMsg->addToRecipient("john.doe@example.com", array("first" => "John", "last" => "Doe"));
+$batchMsg->addToRecipient("sally.doe@example.com", array("first" => "Sally", "last" => "Doe"));
+$batchMsg->addToRecipient("mike.jones@example.com", array("first" => "Mike", "last" => "Jones"));
 ...
 // After 1,000 recipeints, Batch Message will automatically post your message to 
 the messages endpoint. 

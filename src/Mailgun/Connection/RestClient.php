@@ -78,12 +78,9 @@ class RestClient{
 	public function responseHandler($responseObj){
 		$httpResponeCode = $responseObj->getStatusCode();
 		if($httpResponeCode === 200){
-			$jsonResponseData = $responseObj->json();
+			$jsonResponseData = json_decode($responseObj->getBody(), false);
 			$result = new \stdClass();
-			$result->http_response_body = new \stdClass();
-			foreach ($jsonResponseData as $key => $value){
-			    $result->http_response_body->$key = $value;
-			}
+			$result->http_response_body = $jsonResponseData;
 		}
 		elseif($httpResponeCode == 400){
 			throw new MissingRequiredMIMEParameters(EXCEPTION_MISSING_REQUIRED_MIME_PARAMETERS);

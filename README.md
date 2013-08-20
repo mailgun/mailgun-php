@@ -1,6 +1,6 @@
 Mailgun-PHP
 ===========
-[![Build Status](https://travis-ci.org/travelton/Mailgun-PHP.png?branch=master)](https://travis-ci.org/travelton/Mailgun-PHP)
+[![Build Status](https://travis-ci.org/mailgun/mailgun-php.png)](https://travis-ci.org/mailgun/mailgun-php)
 
 This is the Mailgun PHP SDK. This SDK contains methods for easily interacting 
 with the Mailgun API. 
@@ -82,6 +82,12 @@ $result = $mg->get("$domain/log", array('limit' => 25,
 
 $httpResponseCode = $result->http_response_code;
 $httpResponseBody = $result->http_response_body;
+
+# Iterate through the results and echo the message IDs.
+$logItems = $result->http_response_body->items;
+for($logItems as $logItem){
+    echo $logItem->message_id . "\n";
+}
 ```
 
 Example Contents:  
