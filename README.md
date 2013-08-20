@@ -65,8 +65,8 @@ $mg->get("$domain/log", array('limit' => 25,
                               'skip'  => 0);
 ```
 
-Result
-------
+Response
+--------
 
 The results, provided by the endpoint, are returned as an object, which you 
 can traverse like an array. 
