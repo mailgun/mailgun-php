@@ -8,7 +8,7 @@ Below are examples to get you started. For additional examples, please see our
 official documentation 
 at http://documentation.mailgun.com
 
-Current Release: 0.7
+Current Release: 1.0
 
 Installation
 ------------
@@ -22,7 +22,7 @@ composer and the Mailgun SDK.
 curl -sS https://getcomposer.org/installer | php
 
 # Add Mailgun as a dependency
-php composer.phar require mailgun/mailgun-php:~0.7
+php composer.phar require mailgun/mailgun-php:~1.0
 ``` 
 
 For shared hosts with SSH access, you might need to run this instead (contact 
@@ -99,29 +99,29 @@ http://documentation.mailgun.com/api-intro.html?highlight=401#errors
 example, a var_dump($result) would contain the following: 
 
 ```
+object(stdClass)#26 (2) {
 ["http_response_body"]=>
-  object(stdClass)#31 (2) {
+  object(stdClass)#26 (2) {
     ["total_count"]=>
-    int(62)
+    int(12)
     ["items"]=>
     array(1) {
       [0]=>
-      array(5) {
+      object(stdClass)#31 (5) {
         ["hap"]=>
-        string(10) "tempfailed"
+        string(9) "delivered"
         ["created_at"]=>
-        string(29) "Mon, 19 Aug 2013 19:41:33 GMT"
+        string(29) "Tue, 20 Aug 2013 20:24:34 GMT"
         ["message"]=>
-        string(155) "Will retry in 14400 seconds: me@samples.mailgun.org →  
-        sergeyo@profista.com 'Hello' No MX for [profista.com] Server response:   
-        498 No MX for [profista.com]"
+        string(66) "Delivered: me@samples.mailgun.org → travis@mailgunhq.com 'Hello'"
         ["type"]=>
-        string(4) "warn"
+        string(4) "info"
         ["message_id"]=>
-        string(46) "20130819113429.18813.89868@samples.mailgun.org"
+        string(46) "20130820202406.24739.21973@samples.mailgun.org"
       }
     }
   }
+}
 ```
 
 For usage examples on each API endpoint, head over to our official documentation 
