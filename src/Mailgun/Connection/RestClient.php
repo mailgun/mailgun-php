@@ -8,7 +8,7 @@ use Mailgun\MailgunClient;
 use Mailgun\Connection\Exceptions\GenericHTTPError;
 use Mailgun\Connection\Exceptions\InvalidCredentials;
 use Mailgun\Connection\Exceptions\NoDomainsConfigured;
-use Mailgun\Connection\Exceptions\MissingRequiredMIMEParameters;
+use Mailgun\Connection\Exceptions\MissingRequiredParameters;
 use Mailgun\Connection\Exceptions\MissingEndpoint;
 
 /* 
@@ -83,7 +83,7 @@ class RestClient{
 			$result->http_response_body = $jsonResponseData;
 		}
 		elseif($httpResponeCode == 400){
-			throw new MissingRequiredMIMEParameters(EXCEPTION_MISSING_REQUIRED_MIME_PARAMETERS);
+			throw new MissingRequiredParameters(EXCEPTION_MISSING_REQUIRED_PARAMETERS);
 		}
 		elseif($httpResponeCode == 401){
 			throw new InvalidCredentials(EXCEPTION_INVALID_CREDENTIALS);
