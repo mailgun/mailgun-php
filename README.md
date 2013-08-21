@@ -8,7 +8,7 @@ Below are examples to get you started. For additional examples, please see our
 official documentation 
 at http://documentation.mailgun.com
 
-Current Release: 1.0
+Current Release: 1.1
 
 Installation
 ------------
@@ -22,7 +22,7 @@ composer and the Mailgun SDK.
 curl -sS https://getcomposer.org/installer | php
 
 # Add Mailgun as a dependency
-php composer.phar require mailgun/mailgun-php:~1.0
+php composer.phar require mailgun/mailgun-php:~1.1
 ``` 
 
 For shared hosts with SSH access, you might need to run this instead (contact 
@@ -127,8 +127,8 @@ object(stdClass)#26 (2) {
 For usage examples on each API endpoint, head over to our official documentation 
 pages. 
 
-This SDK includes a [Message Builder](src/Mailgun/Messages/README.md) and 
-[Batch Message](src/Mailgun/Messages/README.md) component.
+This SDK includes a [Message Builder](src/Mailgun/Messages/README.md), 
+[Batch Message](src/Mailgun/Messages/README.md) and [Opt-In Handler](src/Mailgun/Lists/README.md) component.
 
 Message Builder allows you to quickly create the array of parameters, required 
 to send a message, by calling a methods for each parameter.
