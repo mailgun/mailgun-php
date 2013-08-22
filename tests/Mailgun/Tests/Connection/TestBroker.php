@@ -30,7 +30,7 @@ class TestBroker extends RestClient{
 		if($httpResponseCode === 200){
 			$result = new \stdClass();
 			$result->http_response_body = new \stdClass();
-			$jsonResponseData = json_decode('{"message": "Some JSON Response Data"}');
+			$jsonResponseData = json_decode('{"message": "Some JSON Response Data", "id": "1234"}');
 			foreach($jsonResponseData as $key => $value){
 			    $result->http_response_body->$key = $value;
 			}

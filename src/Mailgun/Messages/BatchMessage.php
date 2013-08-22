@@ -17,6 +17,7 @@ class BatchMessage extends MessageBuilder{
 	private $autoSend;
 	private $restClient;
 	private $workingDomain;
+	private $messageIds = array();
 
 	public function __construct($restClient, $workingDomain, $autoSend){
 		$this->batchRecipientAttributes = array();
@@ -63,7 +64,8 @@ class BatchMessage extends MessageBuilder{
 			$this->batchRecipientAttributes = array();
 			$this->toRecipientCount = 0;
 			unset($this->message["to"]);
-			return $response;
+			array_push($this->messageIds, $response->http_response_body->id);
+			return $this->messageIds;
 		}
 	}
 	
