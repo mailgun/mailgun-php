@@ -78,7 +78,7 @@ $mg = new Mailgun("key-example");
 $domain = "example.com";
 
 $result = $mg->get("$domain/log", array('limit' => 25, 
-                                        'skip'  => 0);
+                                        'skip'  => 0));
 
 $httpResponseCode = $result->http_response_code;
 $httpResponseBody = $result->http_response_body;
