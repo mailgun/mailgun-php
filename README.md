@@ -62,7 +62,7 @@ $domain = "example.com";
 
 # Now, issue a GET against the Logs endpoint.
 $mg->get("$domain/log", array('limit' => 25, 
-                              'skip'  => 0);
+                              'skip'  => 0));
 ```
 
 Response
