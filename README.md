@@ -85,7 +85,7 @@ $httpResponseBody = $result->http_response_body;
 
 # Iterate through the results and echo the message IDs.
 $logItems = $result->http_response_body->items;
-for($logItems as $logItem){
+foreach($logItems as $logItem){
     echo $logItem->message_id . "\n";
 }
 ```
