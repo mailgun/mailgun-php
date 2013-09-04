@@ -153,6 +153,9 @@ class MessageBuilderTest extends \Mailgun\Tests\MailgunTestCase{
 		$message->setDeliveryTime("January 15, 2014 8:00AM", "UTC");
 		$messageObj = $message->getMessage();
 		$this->assertEquals(array("o:deliverytime" => "Wed, 15 Jan 2014 08:00:00 +0000"), $messageObj);
+		$message->setDeliveryTime("January 15, 2014 8:00AM");
+		$messageObj = $message->getMessage();
+		$this->assertEquals(array("o:deliverytime" => "Wed, 15 Jan 2014 08:00:00 +0000"), $messageObj);
 		$message->setDeliveryTime("1/15/2014 13:50:01", "CDT");
 		$messageObj = $message->getMessage();
 		$this->assertEquals(array("o:deliverytime" => "Wed, 15 Jan 2014 13:50:01 -0600"), $messageObj);
