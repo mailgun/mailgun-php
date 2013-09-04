@@ -51,7 +51,7 @@ class MessageBuilder{
 		if($fullName != null){
 			return "'$fullName' <$address>";
 		}
-		return $baseAddress;
+		return $address;
 	}
 
 	protected function addRecipient($headerName, $address, $variables){
