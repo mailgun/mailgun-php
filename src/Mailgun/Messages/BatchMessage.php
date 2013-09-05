@@ -38,7 +38,6 @@ class BatchMessage extends MessageBuilder{
 		$this->addRecipient("to", $address, $variables);
 		$attributes["id"] = $this->toRecipientCount;
 		$this->batchRecipientAttributes["$address"] = $variables;
-		$this->toRecipientCount++;
 	}
 	
 	public function sendMessage($message = array(), $files = array()){
