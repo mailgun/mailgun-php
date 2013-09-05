@@ -8,7 +8,7 @@ Below are examples to get you started. For additional examples, please see our
 official documentation 
 at http://documentation.mailgun.com
 
-Current Release: 1.1
+Current Release: 1.2
 
 Installation
 ------------
@@ -22,7 +22,7 @@ composer and the Mailgun SDK.
 curl -sS https://getcomposer.org/installer | php
 
 # Add Mailgun as a dependency
-php composer.phar require mailgun/mailgun-php:~1.1
+php composer.phar require mailgun/mailgun-php:~1.2
 ``` 
 
 For shared hosts with SSH access, you might need to run this instead (contact 
