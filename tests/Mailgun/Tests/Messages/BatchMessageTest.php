@@ -50,6 +50,15 @@ class BatchMessageTest extends \Mailgun\Tests\MailgunTestCase{
 		$messageObj= $message->getMessage();
 		$this->assertTrue(true, empty($messageObj));
 	}
+    public function testToRecipientCount() {
+        $message = $this->client->BatchMessage($this->sampleDomain);
+        $message->addToRecipient("test-user@samples.mailgun.org", array("first" => "Test", "last" => "User"));
+        
+        $reflectionClass = new \ReflectionClass(get_class($message));
+        $property = $reflectionClass->getProperty('toRecipientCount');
+        $property->setAccessible(true);
+        $this->assertEquals(1, $property->getValue($message));
+    }
 }
 ?>
 
