@@ -76,28 +76,25 @@ class RestClient{
 	}
 	
 	public function responseHandler($responseObj){
-		$httpResponeCode = $responseObj->getStatusCode();
-		if($httpResponeCode === 200){
+		$httpResponseCode = $responseObj->getStatusCode();
+		if($httpResponseCode === 200){
 			$jsonResponseData = json_decode($responseObj->getBody(), false);
 			$result = new \stdClass();
 			$result->http_response_body = $jsonResponseData;
 		}
-		elseif($httpResponeCode == 400){
+		elseif($httpResponseCode == 400){
 			throw new MissingRequiredParameters(EXCEPTION_MISSING_REQUIRED_PARAMETERS);
 		}
-		elseif($httpResponeCode == 401){
+		elseif($httpResponseCode == 401){
 			throw new InvalidCredentials(EXCEPTION_INVALID_CREDENTIALS);
 		}
-		elseif($httpResponeCode == 401){
-			throw new GenericHTTPError(EXCEPTION_INVALID_CREDENTIALS);
-		}
-		elseif($httpResponeCode == 404){
+		elseif($httpResponseCode == 404){
 			throw new MissingEndpoint(EXCEPTION_MISSING_ENDPOINT);
 		}
 		else{
 			throw new GenericHTTPError(EXCEPTION_GENERIC_HTTP_ERROR);
 		}
-		$result->http_response_code = $httpResponeCode;
+		$result->http_response_code = $httpResponseCode;
 		return $result;
 	}
 }
