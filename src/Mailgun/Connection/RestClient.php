@@ -88,9 +88,6 @@ class RestClient{
 		elseif($httpResponeCode == 401){
 			throw new InvalidCredentials(EXCEPTION_INVALID_CREDENTIALS);
 		}
-		elseif($httpResponeCode == 401){
-			throw new GenericHTTPError(EXCEPTION_INVALID_CREDENTIALS);
-		}
 		elseif($httpResponeCode == 404){
 			throw new MissingEndpoint(EXCEPTION_MISSING_ENDPOINT);
 		}
