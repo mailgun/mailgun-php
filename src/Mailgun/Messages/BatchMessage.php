@@ -58,7 +58,7 @@ class BatchMessage extends MessageBuilder{
 			throw new MissingRequiredMIMEParameters(EXCEPTION_MISSING_REQUIRED_MIME_PARAMETERS);
 		}
 		else{		
-			$this->message["recipient-variables"] = json_encode($this->batchRecipientAttributes);
+			$message["recipient-variables"] = json_encode($this->batchRecipientAttributes);
 			$response = $this->restClient->post($this->endpointUrl, $message, $files);
 			$this->batchRecipientAttributes = array();
 			$this->toRecipientCount = 0;
