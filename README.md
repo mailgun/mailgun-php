@@ -1,6 +1,5 @@
 Mailgun-PHP
 ===========
-[![Build Status](https://travis-ci.org/mailgun/mailgun-php.png)](https://travis-ci.org/mailgun/mailgun-php)
 
 This is the Mailgun PHP SDK. This SDK contains methods for easily interacting 
 with the Mailgun API. 
@@ -8,7 +7,8 @@ Below are examples to get you started. For additional examples, please see our
 official documentation 
 at http://documentation.mailgun.com
 
-Current Release: 1.2
+[![Latest Stable Version](https://poser.pugx.org/mailgun/mailgun-php/v/stable.png)](https://packagist.org/packages/mailgun/mailgun-php)
+[![Build Status](https://travis-ci.org/mailgun/mailgun-php.png)](https://travis-ci.org/mailgun/mailgun-php)
 
 Installation
 ------------
