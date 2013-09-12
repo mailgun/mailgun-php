@@ -38,6 +38,12 @@ class MessageBuilderTest extends \Mailgun\Tests\MailgunTestCase{
 		$messageObj = $message->getMessage();
 		$this->assertEquals(array("from" => array("'Test User' <test@samples.mailgun.org>")), $messageObj);
 	}
+	public function testSetReplyTo(){
+		$message = $this->client->MessageBuilder();
+		$message->setReplyToAddress("test@samples.mailgun.org", array("first" => "Test", "last" => "User"));
+		$messageObj = $message->getMessage();
+		$this->assertEquals(array("h:reply-to" => "'Test User' <test@samples.mailgun.org>"), $messageObj);
+	}
 	public function testSetSubject(){
 		$message = $this->client->MessageBuilder();
 		$message->setSubject("Test Subject");

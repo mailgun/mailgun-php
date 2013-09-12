@@ -64,6 +64,9 @@ class MessageBuilder{
 		if(isset($this->message[$headerName])){
 			array_push($this->message[$headerName], $compiledAddress);
 		}
+		elseif($headerName == "h:reply-to"){
+			$this->message[$headerName] = $compiledAddress;
+		}
 		else{
 			$this->message[$headerName] = array($compiledAddress);
 		}
