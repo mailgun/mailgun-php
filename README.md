@@ -25,10 +25,8 @@ curl -sS https://getcomposer.org/installer | php
 php composer.phar require mailgun/mailgun-php:~1.2
 ``` 
 
-For shared hosts with SSH access, you might need to run this instead (contact 
-your shared host for assistance): 
-```
-php -d detect_unicode=Off -r "eval('?>'.file_get_contents('https://getcomposer.org/installer'));"
+**For shared hosts without SSH access, check out our [Shared Host Instructions](SharedHostInstall.md).**
+
 ```
 
 Next, require Composer's autoloader, in your application, to automatically 
