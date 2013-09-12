@@ -27,8 +27,6 @@ php composer.phar require mailgun/mailgun-php:~1.2
 
 **For shared hosts without SSH access, check out our [Shared Host Instructions](SharedHostInstall.md).**
 
-```
-
 Next, require Composer's autoloader, in your application, to automatically 
 load the Mailgun SDK in your project:
 ```PHP
