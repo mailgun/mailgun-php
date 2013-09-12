@@ -8,8 +8,7 @@ Installation
 ------------
 
 Linux / Mac OSX:  
-*PHP is typically installed by default, consult your distribution documentation.  
-Instructions from [getcomposer.org](http://getcomposer.org/doc/00-intro.md#installation-nix).*  
+*PHP is typically installed by default, consult your distribution documentation. Instructions from [getcomposer.org](http://getcomposer.org/doc/00-intro.md#installation-nix).*  
 
 1. curl -sS https://getcomposer.org/installer | php  
 2. php composer.phar require mailgun/mailgun-php:~1.2  
@@ -18,8 +17,7 @@ Instructions from [getcomposer.org](http://getcomposer.org/doc/00-intro.md#insta
 
 
 Windows:  
-*PHP must be installed on your computer, [download](http://windows.php.net/download/0)* 
-Instructions from [getcomposer.org](http://getcomposer.org/doc/00-intro.md#installation-windows). 
+*PHP must be installed on your computer, [download](http://windows.php.net/download/0). Instructions from [getcomposer.org](http://getcomposer.org/doc/00-intro.md#installation-windows).* 
 
 1. Download and run [Composer-Setup.exe](https://getcomposer.org/Composer-Setup.exe).  
 2. Open a Command Prompt and type "php composer require mailgun/mailgun-php:~1.2".  
