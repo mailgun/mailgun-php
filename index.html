@@ -1,0 +1,188 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>mailgun-php by mailgun</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1 class="header">mailgun-php</h1>
+        <p class="header">Official Mailgun PHP SDK</p>
+
+        <ul>
+          <li class="download"><a class="buttons" href="https://github.com/mailgun/mailgun-php/zipball/master">Download ZIP</a></li>
+          <li class="download"><a class="buttons" href="https://github.com/mailgun/mailgun-php/tarball/master">Download TAR</a></li>
+          <li><a class="buttons github" href="https://github.com/mailgun/mailgun-php">View On GitHub</a></li>
+        </ul>
+
+        <p class="header">This project is maintained by <a class="header name" href="https://github.com/mailgun">mailgun</a></p>
+
+
+      </header>
+      <section>
+        <h1>
+<a name="mailgun-php" class="anchor" href="#mailgun-php"><span class="octicon octicon-link"></span></a>Mailgun-PHP</h1>
+
+<p>This is the Mailgun PHP SDK. This SDK contains methods for easily interacting 
+with the Mailgun API. 
+Below are examples to get you started. For additional examples, please see our 
+official documentation 
+at <a href="http://documentation.mailgun.com">http://documentation.mailgun.com</a></p>
+
+<p><a href="https://packagist.org/packages/mailgun/mailgun-php"><img src="https://poser.pugx.org/mailgun/mailgun-php/v/stable.png" alt="Latest Stable Version"></a>
+<a href="https://travis-ci.org/mailgun/mailgun-php"><img src="https://travis-ci.org/mailgun/mailgun-php.png" alt="Build Status"></a></p>
+
+<h2>
+<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
+
+<p>To install the SDK, you will need to be using <a href="http://getcomposer.org/">Composer</a> 
+in your project. 
+If you aren't using Composer yet, it's really simple! Here's how to install 
+composer and the Mailgun SDK.</p>
+
+<div class="highlight highlight-PHP"><pre><span class="c1"># Install Composer</span>
+<span class="nx">curl</span> <span class="o">-</span><span class="nx">sS</span> <span class="nx">https</span><span class="o">://</span><span class="nx">getcomposer</span><span class="o">.</span><span class="nx">org</span><span class="o">/</span><span class="nx">installer</span> <span class="o">|</span> <span class="nx">php</span>
+
+<span class="c1"># Add Mailgun as a dependency</span>
+<span class="nx">php</span> <span class="nx">composer</span><span class="o">.</span><span class="nx">phar</span> <span class="k">require</span> <span class="nx">mailgun</span><span class="o">/</span><span class="nx">mailgun</span><span class="o">-</span><span class="nx">php</span><span class="o">:~</span><span class="mf">1.2</span>
+</pre></div>
+
+<p>For shared hosts with SSH access, you might need to run this instead (contact 
+your shared host for assistance): </p>
+
+<pre><code>php -d detect_unicode=Off -r "eval('?&gt;'.file_get_contents('https://getcomposer.org/installer'));"
+</code></pre>
+
+<p>Next, require Composer's autoloader, in your application, to automatically 
+load the Mailgun SDK in your project:</p>
+
+<div class="highlight highlight-PHP"><pre><span class="k">require</span> <span class="s1">'vendor/autoload.php'</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Mailgun\Mailgun</span><span class="p">;</span>
+</pre></div>
+
+<h2>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<p>Here's how to send a message using the SDK:</p>
+
+<div class="highlight highlight-php"><pre><span class="c1"># First, instantiate the SDK with your API credentials and define your domain. </span>
+<span class="nv">$mg</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Mailgun</span><span class="p">(</span><span class="s2">"key-example"</span><span class="p">);</span>
+<span class="nv">$domain</span> <span class="o">=</span> <span class="s2">"example.com"</span><span class="p">;</span>
+
+<span class="c1"># Now, compose and send your message.</span>
+<span class="nv">$mg</span><span class="o">-&gt;</span><span class="na">sendMessage</span><span class="p">(</span><span class="nv">$domain</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">'from'</span>    <span class="o">=&gt;</span> <span class="s1">'bob@example.com'</span><span class="p">,</span> 
+                                <span class="s1">'to'</span>      <span class="o">=&gt;</span> <span class="s1">'sally@example.com'</span><span class="p">,</span> 
+                                <span class="s1">'subject'</span> <span class="o">=&gt;</span> <span class="s1">'The PHP SDK is awesome!'</span><span class="p">,</span> 
+                                <span class="s1">'text'</span>    <span class="o">=&gt;</span> <span class="s1">'It is so simple to send a message.'</span><span class="p">));</span>
+</pre></div>
+
+<p>Or obtain the last 25 log items: </p>
+
+<div class="highlight highlight-php"><pre><span class="c1"># First, instantiate the SDK with your API credentials and define your domain. </span>
+<span class="nv">$mg</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Mailgun</span><span class="p">(</span><span class="s2">"key-example"</span><span class="p">);</span>
+<span class="nv">$domain</span> <span class="o">=</span> <span class="s2">"example.com"</span><span class="p">;</span>
+
+<span class="c1"># Now, issue a GET against the Logs endpoint.</span>
+<span class="nv">$mg</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s2">"</span><span class="si">$domain</span><span class="s2">/log"</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">'limit'</span> <span class="o">=&gt;</span> <span class="mi">25</span><span class="p">,</span> 
+                              <span class="s1">'skip'</span>  <span class="o">=&gt;</span> <span class="mi">0</span><span class="p">));</span>
+</pre></div>
+
+<h2>
+<a name="response" class="anchor" href="#response"><span class="octicon octicon-link"></span></a>Response</h2>
+
+<p>The results, provided by the endpoint, are returned as an object, which you 
+can traverse like an array. </p>
+
+<p>Example: </p>
+
+<div class="highlight highlight-php"><pre><span class="nv">$mg</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Mailgun</span><span class="p">(</span><span class="s2">"key-example"</span><span class="p">);</span>
+<span class="nv">$domain</span> <span class="o">=</span> <span class="s2">"example.com"</span><span class="p">;</span>
+
+<span class="nv">$result</span> <span class="o">=</span> <span class="nv">$mg</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s2">"</span><span class="si">$domain</span><span class="s2">/log"</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">'limit'</span> <span class="o">=&gt;</span> <span class="mi">25</span><span class="p">,</span> 
+                                        <span class="s1">'skip'</span>  <span class="o">=&gt;</span> <span class="mi">0</span><span class="p">));</span>
+
+<span class="nv">$httpResponseCode</span> <span class="o">=</span> <span class="nv">$result</span><span class="o">-&gt;</span><span class="na">http_response_code</span><span class="p">;</span>
+<span class="nv">$httpResponseBody</span> <span class="o">=</span> <span class="nv">$result</span><span class="o">-&gt;</span><span class="na">http_response_body</span><span class="p">;</span>
+
+<span class="c1"># Iterate through the results and echo the message IDs.</span>
+<span class="nv">$logItems</span> <span class="o">=</span> <span class="nv">$result</span><span class="o">-&gt;</span><span class="na">http_response_body</span><span class="o">-&gt;</span><span class="na">items</span><span class="p">;</span>
+<span class="k">foreach</span><span class="p">(</span><span class="nv">$logItems</span> <span class="k">as</span> <span class="nv">$logItem</span><span class="p">){</span>
+    <span class="k">echo</span> <span class="nv">$logItem</span><span class="o">-&gt;</span><span class="na">message_id</span> <span class="o">.</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>Example Contents:<br><strong>$httpResponseCode</strong> will contain an integer. You can find how we use HTTP response 
+codes in our documentation: 
+<a href="http://documentation.mailgun.com/api-intro.html?highlight=401#errors">http://documentation.mailgun.com/api-intro.html?highlight=401#errors</a></p>
+
+<p><strong>$httpResponseBody</strong> will contain an object of the API response. In the above 
+example, a var_dump($result) would contain the following: </p>
+
+<pre><code>object(stdClass)#26 (2) {
+["http_response_body"]=&gt;
+  object(stdClass)#26 (2) {
+    ["total_count"]=&gt;
+    int(12)
+    ["items"]=&gt;
+    array(1) {
+      [0]=&gt;
+      object(stdClass)#31 (5) {
+        ["hap"]=&gt;
+        string(9) "delivered"
+        ["created_at"]=&gt;
+        string(29) "Tue, 20 Aug 2013 20:24:34 GMT"
+        ["message"]=&gt;
+        string(66) "Delivered: me@samples.mailgun.org → travis@mailgunhq.com 'Hello'"
+        ["type"]=&gt;
+        string(4) "info"
+        ["message_id"]=&gt;
+        string(46) "20130820202406.24739.21973@samples.mailgun.org"
+      }
+    }
+  }
+}
+</code></pre>
+
+<p>For usage examples on each API endpoint, head over to our official documentation 
+pages. </p>
+
+<p>This SDK includes a <a href="src/Mailgun/Messages/README.md">Message Builder</a>, 
+<a href="src/Mailgun/Messages/README.md">Batch Message</a> and <a href="src/Mailgun/Lists/README.md">Opt-In Handler</a> component.</p>
+
+<p>Message Builder allows you to quickly create the array of parameters, required 
+to send a message, by calling a methods for each parameter.
+Batch Message is an extension of Message Builder, and allows you to easily send 
+a batch message job within a few seconds. The complexity of 
+batch messaging is eliminated! </p>
+
+<h2>
+<a name="support-and-feedback" class="anchor" href="#support-and-feedback"><span class="octicon octicon-link"></span></a>Support and Feedback</h2>
+
+<p>Be sure to visit the Mailgun official 
+<a href="http://documentation.mailgun.com/">documentation website</a> for additional 
+information about our API. </p>
+
+<p>If you find a bug, please submit the issue in Github directly. 
+<a href="https://github.com/mailgun/Mailgun-PHP/issues">Mailgun-PHP Issues</a></p>
+
+<p>As always, if you need additional assistance, drop us a note at 
+<a href="mailto:support@mailgun.com">support@mailgun.com</a>.</p>
+      </section>
+      <footer>
+        <p><small>Hosted on <a href="https://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+		
+  </body>
+</html>
