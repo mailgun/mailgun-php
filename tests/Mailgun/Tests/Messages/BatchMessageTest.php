@@ -59,6 +59,16 @@ class BatchMessageTest extends \Mailgun\Tests\MailgunTestCase{
         $property->setAccessible(true);
         $this->assertEquals(1, $property->getValue($message));
     }
+    public function testDefaultIDInVariables() {
+        $message = $this->client->BatchMessage($this->sampleDomain);
+        $message->addToRecipient("test-user@samples.mailgun.org", array("first" => "Test", "last" => "User"));
+        
+        $reflectionClass = new \ReflectionClass(get_class($message));
+        $property = $reflectionClass->getProperty('batchRecipientAttributes');
+        $property->setAccessible(True);
+        $propertyValue = $property->getValue($message);
+        $this->assertEquals(1, $propertyValue['test-user@samples.mailgun.org']['id']);
+    }
 }
 ?>
 

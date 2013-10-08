@@ -36,7 +36,9 @@ class BatchMessage extends MessageBuilder{
 		}
 		
 		$this->addRecipient("to", $address, $variables);
-		$attributes["id"] = $this->toRecipientCount;
+		if(!array_key_exists("id", $variables)){
+			$variables['id'] = $this->toRecipientCount;
+		} 
 		$this->batchRecipientAttributes["$address"] = $variables;
 	}
 	
