@@ -13,7 +13,21 @@ class MessageBuilderTest extends \Mailgun\Tests\MailgunTestCase{
 		$message = $this->client->MessageBuilder();
 		$this->assertTrue(is_array($message->getMessage()));
 	}
-	
+	public function testCountersSetToZero(){
+		$message = $this->client->MessageBuilder();
+
+		$reflectionClass = new \ReflectionClass(get_class($message));
+        $property = $reflectionClass->getProperty('counters');
+        $property->setAccessible(True);
+        $propertyValue = $property->getValue($message);
+        $this->assertEquals(0, $propertyValue['recipients']['to']);
+        $this->assertEquals(0, $propertyValue['recipients']['cc']);
+        $this->assertEquals(0, $propertyValue['recipients']['bcc']);
+        $this->assertEquals(0, $propertyValue['attributes']['attachment']);
+        $this->assertEquals(0, $propertyValue['attributes']['campaign_id']);
+        $this->assertEquals(0, $propertyValue['attributes']['custom_option']);
+		$this->assertEquals(0, $propertyValue['attributes']['tag']);
+	}
 	public function testAddToRecipient(){
 		$message = $this->client->MessageBuilder();
 		$message->addToRecipient("test@samples.mailgun.org", array("first" => "Test", "last" => "User"));
@@ -32,6 +46,36 @@ class MessageBuilderTest extends \Mailgun\Tests\MailgunTestCase{
 		$messageObj = $message->getMessage();
 		$this->assertEquals(array("bcc" => array("'Test User' <test@samples.mailgun.org>")), $messageObj);
 	}
+    public function testToRecipientCount() {
+        $message = $this->client->MessageBuilder();
+        $message->addToRecipient("test-user@samples.mailgun.org", array("first" => "Test", "last" => "User"));
+        
+        $reflectionClass = new \ReflectionClass(get_class($message));
+        $property = $reflectionClass->getProperty('counters');
+        $property->setAccessible(true);
+        $array = $property->getValue($message);
+        $this->assertEquals(1, $array['recipients']['to']);
+    }
+    public function testCcRecipientCount() {
+        $message = $this->client->MessageBuilder();
+        $message->addCcRecipient("test-user@samples.mailgun.org", array("first" => "Test", "last" => "User"));
+        
+        $reflectionClass = new \ReflectionClass(get_class($message));
+        $property = $reflectionClass->getProperty('counters');
+        $property->setAccessible(true);
+        $array = $property->getValue($message);
+        $this->assertEquals(1, $array['recipients']['cc']);
+    }
+    public function testBccRecipientCount() {
+        $message = $this->client->MessageBuilder();
+        $message->addBccRecipient("test-user@samples.mailgun.org", array("first" => "Test", "last" => "User"));
+        
+        $reflectionClass = new \ReflectionClass(get_class($message));
+        $property = $reflectionClass->getProperty('counters');
+        $property->setAccessible(true);
+        $array = $property->getValue($message);
+        $this->assertEquals(1, $array['recipients']['bcc']);
+    }
 	public function testSetFromAddress(){
 		$message = $this->client->MessageBuilder();
 		$message->setFromAddress("test@samples.mailgun.org", array("first" => "Test", "last" => "User"));

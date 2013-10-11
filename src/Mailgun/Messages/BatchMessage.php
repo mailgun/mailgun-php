@@ -26,18 +26,34 @@ class BatchMessage extends MessageBuilder{
 		$this->workingDomain = $workingDomain;
 		$this->endpointUrl = $workingDomain . "/messages";
 	}
-
-	public function addToRecipient($address, $variables = null){
-		if($this->toRecipientCount == RECIPIENT_COUNT_LIMIT){
-			if($this->autoSend == false){
-				throw new TooManyParameters(TOO_MANY_RECIPIENTS);
+	
+	protected function addRecipient($headerName, $address, $variables){
+		if(array_key_exists($headerName, $this->counters['recipients'])){
+			if($this->counters['recipients'][$headerName] == RECIPIENT_COUNT_LIMIT){
+				if($this->autoSend == false){
+					throw new TooManyParameters(TOO_MANY_RECIPIENTS);
+				}
+				$this->sendMessage();
 			}
-			$this->sendMessage();
 		}
 		
-		$this->addRecipient("to", $address, $variables);
-		if(!array_key_exists("id", $variables)){
-			$variables['id'] = $this->toRecipientCount;
+		$compiledAddress = $this->parseAddress($address, $variables);
+
+		if(isset($this->message[$headerName])){
+			array_push($this->message[$headerName], $compiledAddress);
+		}
+		elseif($headerName == "h:reply-to"){
+			$this->message[$headerName] = $compiledAddress;
+		}
+		else{
+			$this->message[$headerName] = array($compiledAddress);
+		}
+		
+		if(array_key_exists($headerName, $this->counters['recipients'])){
+			$this->counters['recipients'][$headerName] += 1;
+			if(!array_key_exists("id", $variables)){
+				$variables['id'] = $this->counters['recipients'][$headerName];
+			}
 		} 
 		$this->batchRecipientAttributes["$address"] = $variables;
 	}
@@ -63,7 +79,9 @@ class BatchMessage extends MessageBuilder{
 			$message["recipient-variables"] = json_encode($this->batchRecipientAttributes);
 			$response = $this->restClient->post($this->endpointUrl, $message, $files);
 			$this->batchRecipientAttributes = array();
-			$this->toRecipientCount = 0;
+			$this->counters['recipients']['to'] = 0;
+			$this->counters['recipients']['cc'] = 0;
+			$this->counters['recipients']['bcc'] = 0;
 			unset($this->message["to"]);
 			array_push($this->messageIds, $response->http_response_body->id);
 			return $this->messageIds;

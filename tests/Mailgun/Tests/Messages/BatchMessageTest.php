@@ -15,11 +15,56 @@ class BatchMessageTest extends \Mailgun\Tests\MailgunTestCase{
 		$message = $this->client->BatchMessage($this->sampleDomain);
 		$this->assertTrue(is_array($message->getMessage()));
 	}
-	public function testaddToRecipient(){
+	public function testAddRecipient(){
 		$message = $this->client->BatchMessage($this->sampleDomain);
 		$message->addToRecipient("test@samples.mailgun.org", array("first" => "Test", "last" => "User"));
 		$messageObj= $message->getMessage();
 		$this->assertEquals(array("to" => array("'Test User' <test@samples.mailgun.org>")), $messageObj);
+
+		$reflectionClass = new \ReflectionClass(get_class($message));
+        $property = $reflectionClass->getProperty('counters');
+        $property->setAccessible(true);
+        $array = $property->getValue($message);
+        $this->assertEquals(1, $array['recipients']['to']);
+	}
+	public function testRecipientVariablesOnTo(){
+		$message = $this->client->BatchMessage($this->sampleDomain);
+		$message->addToRecipient("test@samples.mailgun.org", array("first" => "Test", "last" => "User"));
+		$messageObj= $message->getMessage();
+		$this->assertEquals(array("to" => array("'Test User' <test@samples.mailgun.org>")), $messageObj);
+		
+		$reflectionClass = new \ReflectionClass(get_class($message));
+        $property = $reflectionClass->getProperty('batchRecipientAttributes');
+        $property->setAccessible(true);
+        $propertyValue = $property->getValue($message);
+        $this->assertEquals("Test", $propertyValue['test@samples.mailgun.org']['first']);
+        $this->assertEquals("User", $propertyValue['test@samples.mailgun.org']['last']);
+	}
+	public function testRecipientVariablesOnCc(){
+		$message = $this->client->BatchMessage($this->sampleDomain);
+		$message->addCcRecipient("test@samples.mailgun.org", array("first" => "Test", "last" => "User"));
+		$messageObj= $message->getMessage();
+		$this->assertEquals(array("cc" => array("'Test User' <test@samples.mailgun.org>")), $messageObj);
+		
+		$reflectionClass = new \ReflectionClass(get_class($message));
+        $property = $reflectionClass->getProperty('batchRecipientAttributes');
+        $property->setAccessible(true);
+        $propertyValue = $property->getValue($message);
+        $this->assertEquals("Test", $propertyValue['test@samples.mailgun.org']['first']);
+        $this->assertEquals("User", $propertyValue['test@samples.mailgun.org']['last']);
+	}
+	public function testRecipientVariablesOnBcc(){
+		$message = $this->client->BatchMessage($this->sampleDomain);
+		$message->addBccRecipient("test@samples.mailgun.org", array("first" => "Test", "last" => "User"));
+		$messageObj= $message->getMessage();
+		$this->assertEquals(array("bcc" => array("'Test User' <test@samples.mailgun.org>")), $messageObj);
+		
+		$reflectionClass = new \ReflectionClass(get_class($message));
+        $property = $reflectionClass->getProperty('batchRecipientAttributes');
+        $property->setAccessible(true);
+        $propertyValue = $property->getValue($message);
+        $this->assertEquals("Test", $propertyValue['test@samples.mailgun.org']['first']);
+        $this->assertEquals("User", $propertyValue['test@samples.mailgun.org']['last']);
 	}
 	public function testAddMultipleBatchRecipients(){
 		$message = $this->client->BatchMessage($this->sampleDomain);
@@ -40,7 +85,7 @@ class BatchMessageTest extends \Mailgun\Tests\MailgunTestCase{
 		$messageObj= $message->getMessage();
 		$this->assertEquals(1, count($messageObj["to"]));
 	}
-	public function testResetOnEndBatchMessage(){
+	public function testAttributeResetOnEndBatchMessage(){
 		$message = $this->client->BatchMessage($this->sampleDomain);
 		$message->addToRecipient("test-user@samples.mailgun.org", array("first" => "Test", "last" => "User"));
 		$message->setFromAddress("samples@mailgun.org", array("first" => "Test", "last" => "User"));
@@ -50,15 +95,6 @@ class BatchMessageTest extends \Mailgun\Tests\MailgunTestCase{
 		$messageObj= $message->getMessage();
 		$this->assertTrue(true, empty($messageObj));
 	}
-    public function testToRecipientCount() {
-        $message = $this->client->BatchMessage($this->sampleDomain);
-        $message->addToRecipient("test-user@samples.mailgun.org", array("first" => "Test", "last" => "User"));
-        
-        $reflectionClass = new \ReflectionClass(get_class($message));
-        $property = $reflectionClass->getProperty('toRecipientCount');
-        $property->setAccessible(true);
-        $this->assertEquals(1, $property->getValue($message));
-    }
     public function testDefaultIDInVariables() {
         $message = $this->client->BatchMessage($this->sampleDomain);
         $message->addToRecipient("test-user@samples.mailgun.org", array("first" => "Test", "last" => "User"));
