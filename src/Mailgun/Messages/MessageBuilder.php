@@ -18,14 +18,13 @@ class MessageBuilder{
 	protected $message = array();
 	protected $variables = array();
 	protected $files = array();
-	protected $sanitized;
-	protected $toRecipientCount = 0;
-	protected $ccRecipientCount = 0;
-	protected $bccRecipientCount = 0;
-	protected $attachmentCount = 0;
-	protected $campaignIdCount = 0;
-	protected $customOptionCount = 0;
-	protected $tagCount = 0;
+	protected $counters = array('recipients' => array('to' => 0, 
+													  'cc' => 0, 
+													  'bcc' => 0), 
+								'attributes' => array('attachment' => 0, 
+													  'campaign_id' => 0, 
+													  'custom_option' => 0, 
+													  'tag' => 0));
 	
 	protected function safeGet($params, $key, $default){
 		if(array_key_exists($key, $params)){
@@ -55,10 +54,6 @@ class MessageBuilder{
 	}
 
 	protected function addRecipient($headerName, $address, $variables){
-		if($headerName == "to" && $this->toRecipientCount > RECIPIENT_COUNT_LIMIT){
-			throw new TooManyParameters(TOO_MANY_PARAMETERS_RECIPIENT);
-		}
-		
 		$compiledAddress = $this->parseAddress($address, $variables);
 
 		if(isset($this->message[$headerName])){
@@ -70,22 +65,31 @@ class MessageBuilder{
 		else{
 			$this->message[$headerName] = array($compiledAddress);
 		}
-		if($headerName == "to"){
-			$this->toRecipientCount++;
+		if(array_key_exists($headerName, $this->counters['recipients'])){
+			$this->counters['recipients'][$headerName] += 1;
 		}
 	}
 	
 	public function addToRecipient($address, $variables = null){
+		if($this->counters['recipients']['to'] > RECIPIENT_COUNT_LIMIT){
+			throw new TooManyParameters(TOO_MANY_PARAMETERS_RECIPIENT);
+		}
 		$this->addRecipient("to", $address, $variables);
 		return end($this->message['to']);
 	}
 	
 	public function addCcRecipient($address, $variables = null){
+		if($this->counters['recipients']['cc'] > RECIPIENT_COUNT_LIMIT){
+			throw new TooManyParameters(TOO_MANY_PARAMETERS_RECIPIENT);
+		}
 		$this->addRecipient("cc", $address, $variables);
 		return end($this->message['cc']);
 	}
 
 	public function addBccRecipient($address, $variables = null){
+		if($this->counters['recipients']['bcc'] > RECIPIENT_COUNT_LIMIT){
+			throw new TooManyParameters(TOO_MANY_PARAMETERS_RECIPIENT);
+		}
 		$this->addRecipient("bcc", $address, $variables);
 		return end($this->message['bcc']);
 	}
@@ -175,14 +179,14 @@ class MessageBuilder{
 	}
 	
 	public function addCampaignId($campaignId){
-		if($this->campaignIdCount < CAMPAIGN_ID_LIMIT){
+		if($this->counters['attributes']['campaign_id'] < CAMPAIGN_ID_LIMIT){
 			if(isset($this->message['o:campaign'])){
 				array_push($this->message['o:campaign'] , $campaignId);
 			}
 			else{
 				$this->message['o:campaign'] = array($campaignId);
 			}
-			$this->campaignIdCount++;
+			$this->counters['attributes']['campaign_id'] += 1;
 		return $this->message['o:campaign'];	
 		}
 		else{
@@ -191,14 +195,14 @@ class MessageBuilder{
 	}
 	
 	public function addTag($tag){
-		if($this->tagCount < TAG_LIMIT){
+		if($this->counters['attributes']['tag'] < TAG_LIMIT){
 			if(isset($this->message['o:tag'])){
 				array_push($this->message['o:tag'] , $tag);
 			}
 			else{
 				$this->message['o:tag'] = array($tag);
 			}
-			$this->tagCount++;
+			$this->counters['attributes']['tag'] += 1;
 		return $this->message['o:tag'];	
 		}
 		else{
