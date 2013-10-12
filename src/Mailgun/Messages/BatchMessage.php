@@ -84,12 +84,15 @@ class BatchMessage extends MessageBuilder{
 			$this->counters['recipients']['bcc'] = 0;
 			unset($this->message["to"]);
 			array_push($this->messageIds, $response->http_response_body->id);
-			return $this->messageIds;
 		}
 	}
 	
 	public function finalize(){
 		return $this->sendMessage();
+	}
+
+	public function getMessageIds(){
+		return $this->messageIds;
 	}
 }
 ?>
