@@ -105,6 +105,16 @@ class BatchMessageTest extends \Mailgun\Tests\MailgunTestCase{
         $propertyValue = $property->getValue($message);
         $this->assertEquals(1, $propertyValue['test-user@samples.mailgun.org']['id']);
     }
+    public function testgetMessageIds() {
+        $message = $this->client->BatchMessage($this->sampleDomain);
+        $message->addToRecipient("test-user@samples.mailgun.org", array("first" => "Test", "last" => "User"));
+        $message->setFromAddress("samples@mailgun.org", array("first" => "Test", "last" => "User"));
+		$message->setSubject("This is the subject of the message!");
+		$message->setTextBody("This is the text body of the message!");
+        $message->finalize();
+
+        $this->assertEquals(array("1234"), $message->getMessageIds());
+    }
 }
 ?>
 
