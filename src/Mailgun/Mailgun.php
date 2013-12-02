@@ -22,8 +22,8 @@ class Mailgun{
     protected $workingDomain;
     protected $restClient;
     
-    public function __construct($apiKey = null, $apiEndpoint = "api.mailgun.net", $apiVersion = "v2"){
-	    $this->restClient = new RestClient($apiKey, $apiEndpoint, $apiVersion);
+    public function __construct($apiKey = null, $apiEndpoint = "api.mailgun.net", $apiVersion = "v2", $ssl = true){
+	    $this->restClient = new RestClient($apiKey, $apiEndpoint, $apiVersion, $ssl);
     }
 
 	public function sendMessage($workingDomain, $postData, $postFiles = array()){

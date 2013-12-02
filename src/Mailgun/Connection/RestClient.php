@@ -20,9 +20,9 @@ class RestClient{
 	private $apiKey;
 	protected $mgClient;
 	
-	public function __construct($apiKey, $apiEndpoint, $apiVersion){	
+	public function __construct($apiKey, $apiEndpoint, $apiVersion, $ssl){
 		$this->apiKey = $apiKey;
-		$this->mgClient = new Guzzle('https://' . $apiEndpoint . '/' . $apiVersion . '/');
+		$this->mgClient = new Guzzle($this->generateEndpoint($apiEndpoint, $apiVersion, $ssl));
 		$this->mgClient->setDefaultOption('curl.options', array('CURLOPT_FORBID_REUSE' => true));
 		$this->mgClient->setDefaultOption('auth', array (API_USER, $this->apiKey));	
 		$this->mgClient->setDefaultOption('exceptions', false);
@@ -96,6 +96,15 @@ class RestClient{
 		}
 		$result->http_response_code = $httpResponseCode;
 		return $result;
+	}
+
+	private function generateEndpoint($apiEndpoint, $apiVersion, $ssl){
+		if(!$ssl){
+			return "http://" . $apiEndpoint . "/" . $apiVersion . "/";
+		}
+		else{
+			return "https://" . $apiEndpoint . "/" . $apiVersion . "/";
+		}
 	}
 }
 
