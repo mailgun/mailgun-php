@@ -120,6 +120,37 @@ object(stdClass)#26 (2) {
 }
 ```
 
+Debugging
+---------
+
+Debugging the PHP SDK can be really helpful when things aren't working quite right. 
+To debug the SDK, here are some suggestions: 
+
+Set the endpoint to Mailgun's Postbin. A Postbin is a web service that allows you to 
+post data, which is then displayed through a browser. This allows you to quickly determine
+what is actually being transmitted to Mailgun's API. 
+
+**Step 1 - Create a new Postbin.**  
+Go to http://bin.mailgun.net. The Postbin will generate a special URL. Save that URL. 
+
+**Step 2 - Instantiate the Mailgun client using Postbin.**  
+
+*Tip: The bin id will be the URL part after bin.mailgun.net. It will be random generated letters and numbers. For example, the bin id in this URL, http://bin.mailgun.net/aecf68de, is "aecf68de".*
+
+```php
+# First, instantiate the SDK with your API credentials and define your domain. 
+$mg = new Mailgun('key-example', 'bin.mailgun.net', 'aecf68de', $ssl = False);
+$domain = 'example.com';
+
+# Now, compose and send your message.
+$mg->sendMessage($domain, array('from'    => 'bob@example.com', 
+                                'to'      => 'sally@example.com', 
+                                'subject' => 'The PHP SDK is awesome!', 
+                                'text'    => 'It is so simple to send a message.'));
+```
+Additional Info
+---------------
+
 For usage examples on each API endpoint, head over to our official documentation 
 pages. 
 
