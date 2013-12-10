@@ -45,7 +45,7 @@ $messageBldr->setDeliveryTime("tomorrow 8:00AM", "PST");
 $messageBldr->setClickTracking(true);
 
 # Finally, send the message.
-$mg->post("{$domain}/messages", $messageBldr->getMessage());
+$mg->post("{$domain}/messages", $messageBldr->getMessage(), $messageBldr->getFiles());
 ```
 
 Available Functions
