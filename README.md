@@ -22,7 +22,7 @@ composer and the Mailgun SDK.
 curl -sS https://getcomposer.org/installer | php
 
 # Add Mailgun as a dependency
-php composer.phar require mailgun/mailgun-php:~1.5
+php composer.phar require mailgun/mailgun-php:~1.6
 ``` 
 
 **For shared hosts without SSH access, check out our [Shared Host Instructions](SharedHostInstall.md).**
