@@ -3,6 +3,9 @@
 Enhancement:
   - adjust file attachment/inline name (#21 @travelton)
 
+Bugfixes:
+  - fixed issue with unordered route actions (#23 @travelton)
+
 ## 1.5 (2013-12-13)
 
 Enhancement:

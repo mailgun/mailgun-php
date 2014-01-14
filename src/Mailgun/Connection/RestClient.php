@@ -6,6 +6,7 @@ use Guzzle\Http\Client as Guzzle;
 use Mailgun\MailgunClient;
 
 use Mailgun\Connection\Exceptions\GenericHTTPError;
+use Guzzle\Http\QueryAggregator\DuplicateAggregator;
 use Mailgun\Connection\Exceptions\InvalidCredentials;
 use Mailgun\Connection\Exceptions\NoDomainsConfigured;
 use Mailgun\Connection\Exceptions\MissingRequiredParameters;
@@ -63,7 +64,8 @@ class RestClient{
 				}			
 			}
 		}
-
+		
+		$request->getPostFields()->setAggregator(new DuplicateAggregator());
 		$response = $request->send();
 		return $this->responseHandler($response);
 	}
@@ -87,6 +89,7 @@ class RestClient{
 	
 	public function put($endpointUrl, $putData){
 		$request = $this->mgClient->put($endpointUrl, array(), $putData);
+		$request->getPostFields()->setAggregator(new DuplicateAggregator());
 		$response = $request->send();
 		return $this->responseHandler($response);
 	}
