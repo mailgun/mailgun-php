@@ -136,13 +136,16 @@ class MessageBuilder{
 		return $this->message['html'];
 	}
 	
-	public function addAttachment($attachmentPath){
+	public function addAttachment($attachmentPath, $attachmentName = null){
 		if(preg_match("/^@/", $attachmentPath)){
 			if(isset($this->files["attachment"])){
-				array_push($this->files["attachment"], $attachmentPath);
+				$attachment = array('filePath'   => $attachmentPath, 
+									'remoteName' => $attachmentName);
+				array_push($this->files["attachment"], $attachment);
 				}	
 				else{
-					$this->files["attachment"] = array($attachmentPath);
+					$this->files["attachment"] = array(array('filePath'   => $attachmentPath, 
+												       'remoteName' => $attachmentName));
 				}
 			return true;
 		}
@@ -151,16 +154,18 @@ class MessageBuilder{
 		}
 	}
 	
-	public function addInlineImage($inlineImagePath){
+	public function addInlineImage($inlineImagePath, $inlineImageName = null){
 		if(preg_match("/^@/", $inlineImagePath)){
 			if(isset($this->files['inline'])){
-				array_push($this->files['inline'] , $inlineImagePath);
-				return true;
+				$inlineAttachment = array('filePath'   => $inlineImagePath,
+										  'remoteName' => $inlineImageName);
+				array_push($this->files['inline'] , $inlineAttachment);
 				}
 			else{
-				$this->files['inline'] = array($inlineImagePath);
-				return true;
+				$this->files['inline'] = array(array('filePath'   => $inlineImagePath,
+										  	   'remoteName' => $inlineImageName));
 			}
+			return true;
 		}
 		else{
 			throw new InvalidParameter(INVALID_PARAMETER_INLINE);

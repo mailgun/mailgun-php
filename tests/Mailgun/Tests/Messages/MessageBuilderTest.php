@@ -117,14 +117,40 @@ class MessageBuilderTest extends \Mailgun\Tests\MailgunTestCase{
 		$message->addAttachment("@../TestAssets/mailgun_icon.png");
 		$message->addAttachment("@../TestAssets/rackspace_logo.png");
 		$messageObj = $message->getFiles();
-		$this->assertEquals(array("attachment" => array("@../TestAssets/mailgun_icon.png", "@../TestAssets/rackspace_logo.png")), $messageObj);
+		$this->assertEquals(array(array('filePath' => "@../TestAssets/mailgun_icon.png",
+								  'remoteName' => null), 
+							array('filePath' => "@../TestAssets/rackspace_logo.png",
+								  'remoteName' => null)), $messageObj["attachment"]);
 	}
 	public function testAddInlineImages(){
 		$message = $this->client->MessageBuilder();
 		$message->addInlineImage("@../TestAssets/mailgun_icon.png");
 		$message->addInlineImage("@../TestAssets/rackspace_logo.png");
 		$messageObj = $message->getFiles();
-		$this->assertEquals(array("inline" => array("@../TestAssets/mailgun_icon.png", "@../TestAssets/rackspace_logo.png")), $messageObj);
+		$this->assertEquals(array(array('filePath' => "@../TestAssets/mailgun_icon.png",
+										'remoteName' => null), 
+							array('filePath' => "@../TestAssets/rackspace_logo.png",
+								  'remoteName' => null)), $messageObj['inline']);
+	}
+	public function testAddAttachmentsPostName(){
+		$message = $this->client->MessageBuilder();
+		$message->addAttachment('@../TestAssets/mailgun_icon.png', 'mg_icon.png');
+		$message->addAttachment('@../TestAssets/rackspace_logo.png', 'rs_logo.png');
+		$messageObj = $message->getFiles();
+		$this->assertEquals(array(array('filePath' => '@../TestAssets/mailgun_icon.png',
+								  'remoteName' => 'mg_icon.png'), 
+							array('filePath' => '@../TestAssets/rackspace_logo.png',
+								  'remoteName' => 'rs_logo.png')), $messageObj["attachment"]);
+	}
+	public function testAddInlineImagePostName(){
+		$message = $this->client->MessageBuilder();
+		$message->addInlineImage('@../TestAssets/mailgun_icon.png', 'mg_icon.png');
+		$message->addInlineImage('@../TestAssets/rackspace_logo.png', 'rs_logo.png');
+		$messageObj = $message->getFiles();
+		$this->assertEquals(array(array('filePath' => '@../TestAssets/mailgun_icon.png',
+										'remoteName' => 'mg_icon.png'), 
+							array('filePath' => '@../TestAssets/rackspace_logo.png',
+								  'remoteName' => 'rs_logo.png')), $messageObj['inline']);
 	}
 	public function testsetTestMode(){
 		$message = $this->client->MessageBuilder();

@@ -6,6 +6,7 @@ use Guzzle\Http\Client as Guzzle;
 use Mailgun\MailgunClient;
 
 use Mailgun\Connection\Exceptions\GenericHTTPError;
+use Guzzle\Http\QueryAggregator\DuplicateAggregator;
 use Mailgun\Connection\Exceptions\InvalidCredentials;
 use Mailgun\Connection\Exceptions\NoDomainsConfigured;
 use Mailgun\Connection\Exceptions\MissingRequiredParameters;
@@ -39,15 +40,32 @@ class RestClient{
 		}
 		if(isset($files["attachment"])){
 			foreach($files["attachment"] as $attachment){
-				$request->addPostFile("attachment", $attachment);
+				// Backward compatibility code
+				if (is_array($attachment)){
+					$request->addPostFile("attachment", 
+										  $attachment['filePath'], null, 
+										  $attachment['remoteName']);	
+				}
+				else{
+					$request->addPostFile("attachment", $attachment);
+				}
 			}
 		}
 		if(isset($files["inline"])){
-			foreach($files["inline"] as $attachment){
-				$request->addPostFile("inline", $attachment);
+			foreach($files["inline"] as $inline){
+				// Backward compatibility code
+				if (is_array($inline)){
+					$request->addPostFile("inline", 
+										  $inline['filePath'], null, 
+										  $inline['remoteName']);	
+				}
+				else{
+					$request->addPostFile("inline", $inline);
+				}			
 			}
 		}
-
+		
+		$request->getPostFields()->setAggregator(new DuplicateAggregator());
 		$response = $request->send();
 		return $this->responseHandler($response);
 	}
@@ -71,6 +89,7 @@ class RestClient{
 	
 	public function put($endpointUrl, $putData){
 		$request = $this->mgClient->put($endpointUrl, array(), $putData);
+		$request->getPostFields()->setAggregator(new DuplicateAggregator());
 		$response = $request->send();
 		return $this->responseHandler($response);
 	}
