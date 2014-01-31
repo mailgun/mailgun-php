@@ -1,3 +1,8 @@
+## 1.7 (2014-1-30)
+
+Bugfixes:
+  - patched bug for attachments related to duplicate aggregator bug in Guzzle (#32 @travelton)
+
 ## 1.6 (2014-1-13)
 
 Enhancement:
