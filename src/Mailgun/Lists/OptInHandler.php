@@ -18,18 +18,28 @@ class OptInHandler{
 	}
 	
 	public function generateHash($mailingList, $secretAppId, $recipientAddress){
-		$concatStrings = $secretAppId . "" . $recipientAddress;		
-		return urlencode(base64_encode(json_encode(array('s' => hash('md5', $concatStrings), 'l' => $mailingList, 'r' => $recipientAddress))));
+		$innerPayload = array('r' => $recipientAddress, 'l' => $mailingList);
+		$encodedInnerPayload = base64_encode(json_encode($innerPayload));
+
+		$innerHash = hash_hmac("sha1", $encodedInnerPayload, $secretAppId);
+		$outerPayload = array('h' => $innerHash, 'p' => $encodedInnerPayload);
+
+		return urlencode(base64_encode(json_encode($outerPayload)));
 	}
 
 	public function validateHash($secretAppId, $uniqueHash){
-		$urlParameters = json_decode(base64_decode(urldecode($uniqueHash)));
-		$concatStrings = $secretAppId . "" . $urlParameters->r;	
-		
-		if($urlParameters->s == hash('md5', $concatStrings)){
-			$returnArray = array('recipientAddress' => $urlParameters->r, 'mailingList' => $urlParameters->l);
-				return $returnArray;
+		$decodedOuterPayload = json_decode(base64_decode(urldecode($uniqueHash)), true);
+
+		$decodedHash = $decodedOuterPayload['h'];
+		$innerPayload = $decodedOuterPayload['p'];
+
+		$decodedInnerPayload = json_decode(base64_decode($innerPayload), true);
+		$computedInnerHash = hash_hmac("sha1", $innerPayload, $secretAppId);
+
+		if($computedInnerHash == $decodedHash){
+			return array('recipientAddress' => $decodedInnerPayload['r'], 'mailingList' => $decodedInnerPayload['l']);
 		}
+
 		return false;
 	}
 }

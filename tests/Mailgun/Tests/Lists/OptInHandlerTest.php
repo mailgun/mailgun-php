@@ -16,17 +16,17 @@ class OptInHandler extends \Mailgun\Tests\MailgunTestCase{
 	
 	public function testReturnOfGenerateHash(){
 		$generatedHash = $this->optInHandler->generateHash('mytestlist@example.com', 'mysupersecretappid', 'testrecipient@example.com');
-		$knownHash = "eyJzIjoiOGM2NmVmYzYwNzhmNGVkYjFkZGJiY2RhM2M2MmMzMTQiLCJsIjoibXl0ZXN0bGlzdEBleGFtcGxlLmNvbSIsInIiOiJ0ZXN0cmVjaXBpZW50QGV4YW1wbGUuY29tIn0%3D";
+		$knownHash = "eyJoIjoiMTllODc2YWNkMWRmNzk4NTc0ZTU0YzhjMzIzOTNiYTNjNzdhNGMxOCIsInAiOiJleUp5SWpvaWRHVnpkSEpsWTJsd2FXVnVkRUJsZUdGdGNHeGxMbU52YlNJc0ltd2lPaUp0ZVhSbGMzUnNhWE4wUUdWNFlXMXdiR1V1WTI5dEluMD0ifQ%3D%3D";
 		$this->assertEquals($generatedHash, $knownHash);
 	}
 	
 	public function testGoodHash(){
-		$validation = $this->optInHandler->validateHash('mysupersecretappid', 'eyJzIjoiOGM2NmVmYzYwNzhmNGVkYjFkZGJiY2RhM2M2MmMzMTQiLCJsIjoibXl0ZXN0bGlzdEBleGFtcGxlLmNvbSIsInIiOiJ0ZXN0cmVjaXBpZW50QGV4YW1wbGUuY29tIn0%3D');
+		$validation = $this->optInHandler->validateHash('mysupersecretappid', 'eyJoIjoiMTllODc2YWNkMWRmNzk4NTc0ZTU0YzhjMzIzOTNiYTNjNzdhNGMxOCIsInAiOiJleUp5SWpvaWRHVnpkSEpsWTJsd2FXVnVkRUJsZUdGdGNHeGxMbU52YlNJc0ltd2lPaUp0ZVhSbGMzUnNhWE4wUUdWNFlXMXdiR1V1WTI5dEluMD0ifQ%3D%3D');
 		$this->assertArrayHasKey('recipientAddress', $validation);
 		$this->assertArrayHasKey('mailingList', $validation);
 	}
 	public function testBadHash(){
-		$validation = $this->optInHandler->validateHash('mybadsecretappid', 'eyJzIjoiOGM2NmVmYzYwNzhmNGVkYjFkZGJiY2RhM2M2MmMzMTQiLCJsIjoibXl0ZXN0bGlzdEBleGFtcGxlLmNvbSIsInIiOiJ0ZXN0cmVjaXBpZW50QGV4YW1wbGUuY29tIn0%3D');
+		$validation = $this->optInHandler->validateHash('mybadsecretappid', 'eyJoIjoiMTllODc2YWNkMWRmNzk4NTc0ZTU0YzhjMzIzOTNiYTNjNzdhNGMxOCIsInAiOiJleUp5SWpvaWRHVnpkSEpsWTJsd2FXVnVkRUJsZUdGdGNHeGxMbU52YlNJc0ltd2lPaUp0ZVhSbGMzUnNhWE4wUUdWNFlXMXdiR1V1WTI5dEluMD0ifQ%3D%3D');
 		$this->assertFalse($validation);
 	}
 }
