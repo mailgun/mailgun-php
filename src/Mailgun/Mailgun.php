@@ -47,8 +47,8 @@ class Mailgun{
 		    	throw $ex;
 	    	}
 			$result = $this->post("$workingDomain/messages.mime", $postData, array("message" => $tempFile));
-			fclose($fileName);
-	    		unlink($fileName);
+			fclose($tempFile);
+	    	unlink($tempFile);
 			return $result;
 	    }
 	    else{
