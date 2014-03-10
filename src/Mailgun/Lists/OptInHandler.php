@@ -2,7 +2,7 @@
 
 namespace Mailgun\Lists;
 
-use Mailgun\Messages\Expcetions\InvalidParameter;
+use Mailgun\Messages\Exceptions\InvalidParameter;
 use Mailgun\Messages\Exceptions\TooManyParameters;
 use Mailgun\Messages\Expcetions\InvalidParameterType;
 
