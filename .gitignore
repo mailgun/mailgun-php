@@ -7,3 +7,4 @@ mailgun_icon.png
 build
 composer.lock
 nbproject/*
+.idea

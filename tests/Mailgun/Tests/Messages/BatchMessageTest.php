@@ -1,7 +1,7 @@
 <?PHP
 namespace Mailgun\Tests\Messages;
 
-use Mailgun\Tests\MailgunTest;
+use Mailgun\Tests\Mock\Mailgun;
 
 class BatchMessageTest extends \Mailgun\Tests\MailgunTestCase{
 
@@ -9,7 +9,7 @@ class BatchMessageTest extends \Mailgun\Tests\MailgunTestCase{
 	private $sampleDomain = "samples.mailgun.org";
 
 	public function setUp(){ 
-		$this->client = new MailgunTest("My-Super-Awesome-API-Key");
+		$this->client = new Mailgun("My-Super-Awesome-API-Key");
 	}
 	public function testBlankInstantiation(){
 		$message = $this->client->BatchMessage($this->sampleDomain);
@@ -114,6 +114,35 @@ class BatchMessageTest extends \Mailgun\Tests\MailgunTestCase{
         $message->finalize();
 
         $this->assertEquals(array("1234"), $message->getMessageIds());
+    }
+
+    public function testInvalidMissingRequiredMIMEParametersExceptionGetsFlungNoFrom()
+    {
+        $this->setExpectedException("\\Mailgun\\Messages\\Exceptions\\MissingRequiredMIMEParameters");
+
+        $message = $this->client->BatchMessage($this->sampleDomain);
+        $message->sendMessage(array(1,2,3));
+    }
+    public function testInvalidMissingRequiredMIMEParametersExceptionGetsFlungNoTo()
+    {
+        $this->setExpectedException("\\Mailgun\\Messages\\Exceptions\\MissingRequiredMIMEParameters");
+
+        $message = $this->client->BatchMessage($this->sampleDomain);
+        $message->sendMessage(array("from" => 1, 2,3));
+    }
+    public function testInvalidMissingRequiredMIMEParametersExceptionGetsFlungNoSubject()
+    {
+        $this->setExpectedException("\\Mailgun\\Messages\\Exceptions\\MissingRequiredMIMEParameters");
+
+        $message = $this->client->BatchMessage($this->sampleDomain);
+        $message->sendMessage(array("from" => 1, "to" => 2,3));
+    }
+    public function testInvalidMissingRequiredMIMEParametersExceptionGetsFlungNoTextOrHtml()
+    {
+        $this->setExpectedException("\\Mailgun\\Messages\\Exceptions\\MissingRequiredMIMEParameters");
+
+        $message = $this->client->BatchMessage($this->sampleDomain);
+        $message->sendMessage(array("from" => 1,"to" => 2,"subject" => 3));
     }
 }
 ?>
