@@ -115,6 +115,35 @@ class BatchMessageTest extends \Mailgun\Tests\MailgunTestCase{
 
         $this->assertEquals(array("1234"), $message->getMessageIds());
     }
+
+    public function testInvalidMissingRequiredMIMEParametersExceptionGetsFlungNoFrom()
+    {
+        $this->setExpectedException("\\Mailgun\\Messages\\Exceptions\\MissingRequiredMIMEParameters");
+
+        $message = $this->client->BatchMessage($this->sampleDomain);
+        $message->sendMessage([1,2,3]);
+    }
+    public function testInvalidMissingRequiredMIMEParametersExceptionGetsFlungNoTo()
+    {
+        $this->setExpectedException("\\Mailgun\\Messages\\Exceptions\\MissingRequiredMIMEParameters");
+
+        $message = $this->client->BatchMessage($this->sampleDomain);
+        $message->sendMessage(["from" => 1, 2,3]);
+    }
+    public function testInvalidMissingRequiredMIMEParametersExceptionGetsFlungNoSubject()
+    {
+        $this->setExpectedException("\\Mailgun\\Messages\\Exceptions\\MissingRequiredMIMEParameters");
+
+        $message = $this->client->BatchMessage($this->sampleDomain);
+        $message->sendMessage(["from" => 1, "to" => 2,3]);
+    }
+    public function testInvalidMissingRequiredMIMEParametersExceptionGetsFlungNoTextOrHtml()
+    {
+        $this->setExpectedException("\\Mailgun\\Messages\\Exceptions\\MissingRequiredMIMEParameters");
+
+        $message = $this->client->BatchMessage($this->sampleDomain);
+        $message->sendMessage(["from" => 1,"to" => 2,"subject" => 3]);
+    }
 }
 ?>
 

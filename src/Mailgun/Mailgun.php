@@ -17,7 +17,7 @@ use Mailgun\Messages\MessageBuilder;
 */
 
 class Mailgun{
-        
+
     protected $workingDomain;
     protected $restClient;
     
@@ -43,12 +43,12 @@ class Mailgun{
 	   		fwrite($fileHandle, $postFiles);
 
 			$result = $this->post("$workingDomain/messages.mime", $postData, array("message" => $tempFile));
-            fclose($fileName);
-            unlink($fileName);
+            fclose($fileHandle);
+            unlink($tempFile);
 			return $result;
 	    }
 	    else{
-			throw new Exceptions\git (EXCEPTION_MISSING_REQUIRED_MIME_PARAMETERS);
+			throw new Exceptions\MissingRequiredMIMEParameters(EXCEPTION_MISSING_REQUIRED_MIME_PARAMETERS);
 	    }
 	}
 
