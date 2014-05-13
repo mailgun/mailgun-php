@@ -1,7 +1,7 @@
 <?PHP
 namespace Mailgun\Tests\Lists;
 
-use Mailgun\Tests\MailgunTest;
+use Mailgun\Tests\Mock\Mailgun;
 
 class OptInHandler extends \Mailgun\Tests\MailgunTestCase{
 
@@ -10,7 +10,7 @@ class OptInHandler extends \Mailgun\Tests\MailgunTestCase{
 	private $optInHandler;
 
 	public function setUp(){ 
-		$this->client = new MailgunTest("My-Super-Awesome-API-Key");
+		$this->client = new Mailgun("My-Super-Awesome-API-Key");
 		$this->optInHandler = $this->client->OptInHandler();
 	}
 	

@@ -1,11 +1,11 @@
 <?PHP
 
-namespace Mailgun\Tests;
+namespace Mailgun\Tests\Mock;
 
-use Mailgun\Mailgun;
-use Mailgun\Tests\Connection\TestBroker;
+use Mailgun\Mailgun as Base;
+use Mailgun\Tests\Mock\Connection\TestBroker;
 
-class MailgunTest extends Mailgun
+class Mailgun extends Base
 {
 	protected $debug;
 	protected $restClient;

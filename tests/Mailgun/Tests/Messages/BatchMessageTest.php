@@ -1,7 +1,7 @@
 <?PHP
 namespace Mailgun\Tests\Messages;
 
-use Mailgun\Tests\MailgunTest;
+use Mailgun\Tests\Mock\Mailgun;
 
 class BatchMessageTest extends \Mailgun\Tests\MailgunTestCase{
 
@@ -9,7 +9,7 @@ class BatchMessageTest extends \Mailgun\Tests\MailgunTestCase{
 	private $sampleDomain = "samples.mailgun.org";
 
 	public function setUp(){ 
-		$this->client = new MailgunTest("My-Super-Awesome-API-Key");
+		$this->client = new Mailgun("My-Super-Awesome-API-Key");
 	}
 	public function testBlankInstantiation(){
 		$message = $this->client->BatchMessage($this->sampleDomain);

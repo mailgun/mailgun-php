@@ -1,13 +1,13 @@
 <?PHP
 namespace Mailgun\Tests\Messages;
 
-use Mailgun\Tests\MailgunTest;
+use Mailgun\Tests\Mock\Mailgun;
 
 class MessageBuilderTest extends \Mailgun\Tests\MailgunTestCase{
 	private $client;
 
 	public function setUp(){ 
-		$this->client = new MailgunTest("My-Super-Awesome-API-Key", "samples.mailgun.org", false);	
+		$this->client = new Mailgun("My-Super-Awesome-API-Key", "samples.mailgun.org", false);
 	}
 	public function testBlankInstantiation(){
 		$message = $this->client->MessageBuilder();
