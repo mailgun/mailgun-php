@@ -47,12 +47,12 @@ class Mailgun{
 		    	throw $ex;
 	    	}
 			$result = $this->post("$workingDomain/messages.mime", $postData, array("message" => $tempFile));
+            fclose($fileName);
+            unlink($fileName);
 			return $result;
-			fclose($fileName);
-	    	unlink($fileName);
 	    }
 	    else{
-			throw new Exceptions\MissingRequiredMIMEParameters(EXCEPTION_MISSING_REQUIRED_MIME_PARAMETERS);
+			throw new Exceptions\git (EXCEPTION_MISSING_REQUIRED_MIME_PARAMETERS);
 	    }
 	}
 
