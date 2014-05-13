@@ -38,14 +38,11 @@ class Mailgun{
 			return $this->post("$workingDomain/messages", $postData, $postFiles);    
 	    }
 	    else if(is_string($postFiles)){
-	    	try{
-	    		$tempFile = tempnam(sys_get_temp_dir(), "MG_TMP_MIME");
-	    		$fileHandle = fopen($tempFile, "w");
-	    		fwrite($fileHandle, $postFiles);
-	    	}
-	    	catch(Exception $ex){
-		    	throw $ex;
-	    	}
+
+	    	$tempFile = tempnam(sys_get_temp_dir(), "MG_TMP_MIME");
+	   		$fileHandle = fopen($tempFile, "w");
+	   		fwrite($fileHandle, $postFiles);
+
 			$result = $this->post("$workingDomain/messages.mime", $postData, array("message" => $tempFile));
             fclose($fileName);
             unlink($fileName);
