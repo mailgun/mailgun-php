@@ -18,7 +18,6 @@ use Mailgun\Messages\MessageBuilder;
 
 class Mailgun{
         
-    private $apiKey;
     protected $workingDomain;
     protected $restClient;
     
