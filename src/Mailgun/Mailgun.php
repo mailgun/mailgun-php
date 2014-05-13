@@ -2,10 +2,10 @@
 
 namespace Mailgun;
 
-require 'Constants/Constants.php';
+require_once 'Constants/Constants.php';
 
 use Mailgun\Messages\Messages;
-use Mailgun\Connection\Exceptions;
+use Mailgun\Messages\Exceptions;
 use Mailgun\Connection\RestClient;
 use Mailgun\Messages\BatchMessage;
 use Mailgun\Lists\OptInHandler;
@@ -52,7 +52,7 @@ class Mailgun{
 	    	unlink($fileName);
 	    }
 	    else{
-			throw new MissingRequiredMIMEParameters(EXCEPTION_MISSING_REQUIRED_MIME_PARAMETERS);
+			throw new Exceptions\MissingRequiredMIMEParameters(EXCEPTION_MISSING_REQUIRED_MIME_PARAMETERS);
 	    }
 	}
 
