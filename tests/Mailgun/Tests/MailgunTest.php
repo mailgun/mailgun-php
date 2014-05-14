@@ -3,7 +3,8 @@ namespace Mailgun\Tests\Lists;
 
 use Mailgun\Mailgun;
 
-class MailgunTest extends \Mailgun\Tests\MailgunTestCase{
+class MailgunTest extends \Mailgun\Tests\MailgunTestCase
+{
 
     public function testSendMessageMissingRequiredMIMEParametersExceptionGetsFlung()
     {
