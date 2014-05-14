@@ -3,16 +3,20 @@ namespace Mailgun\Tests\Messages;
 
 use Mailgun\Tests\Mock\Mailgun;
 
-class StandardMessageTest extends \Mailgun\Tests\MailgunTestCase{
+class StandardMessageTest extends \Mailgun\Tests\MailgunTestCase
+{
 
-	private $client;
-	private $sampleDomain = "samples.mailgun.org";
+    private $client;
+    private $sampleDomain = "samples.mailgun.org";
 
-	public function setUp(){ 
-		$this->client = new Mailgun("My-Super-Awesome-API-Key");
-	}
-	public function testSendMIMEMessage(){
-		$customMime = "Received: by luna.mailgun.net with SMTP mgrt 8728174999085; Mon, 10 Jun 2013 09:50:58 +0000
+    public function setUp()
+    {
+        $this->client = new Mailgun("My-Super-Awesome-API-Key");
+    }
+
+    public function testSendMIMEMessage()
+    {
+        $customMime     = "Received: by luna.mailgun.net with SMTP mgrt 8728174999085; Mon, 10 Jun 2013 09:50:58 +0000
 					Mime-Version: 1.0
 					Content-Type: text/plain; charset=\"ascii\"
 					Subject: This is the Subject!
@@ -25,16 +29,22 @@ class StandardMessageTest extends \Mailgun\Tests\MailgunTestCase{
 					Sender: test@test.mailgun.com
 
 					Mailgun is testing!";
-		$envelopeFields = array('to' => 'test@test.mailgun.org');
-		$result = $this->client->sendMessage("test.mailgun.org", $envelopeFields, $customMime);
-		$this->assertEquals("test.mailgun.org/messages.mime", $result->http_endpoint_url);
-	}
-	
-	public function testSendMessage(){
-		$message = array('to' => 'test@test.mailgun.org', 'from' => 'sender@test.mailgun.org', 'subject' => 'This is my test subject', 'text' => 'Testing!');
-		$result = $this->client->sendMessage("test.mailgun.org", $message);
-		$this->assertEquals("test.mailgun.org/messages", $result->http_endpoint_url);
-		
-	}
+        $envelopeFields = array('to' => 'test@test.mailgun.org');
+        $result         = $this->client->sendMessage("test.mailgun.org", $envelopeFields, $customMime);
+        $this->assertEquals("test.mailgun.org/messages.mime", $result->http_endpoint_url);
+    }
+
+    public function testSendMessage()
+    {
+        $message = array('to'      => 'test@test.mailgun.org',
+                         'from'    => 'sender@test.mailgun.org',
+                         'subject' => 'This is my test subject',
+                         'text'    => 'Testing!'
+        );
+        $result  = $this->client->sendMessage("test.mailgun.org", $message);
+        $this->assertEquals("test.mailgun.org/messages", $result->http_endpoint_url);
+
+    }
 }
+
 ?>
