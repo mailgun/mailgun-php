@@ -347,7 +347,7 @@ class MessageBuilderTest extends \Mailgun\Tests\MailgunTestCase
 
     public function testSetMessage()
     {
-        $message        = [1, 2, 3, 4, 5];
+        $message        = array(1, 2, 3, 4, 5);
         $messageBuilder = $this->client->MessageBuilder();
         $messageBuilder->setMessage($message);
 
