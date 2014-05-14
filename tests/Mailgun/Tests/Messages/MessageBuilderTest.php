@@ -254,6 +254,14 @@ class MessageBuilderTest extends \Mailgun\Tests\MailgunTestCase{
 		$messageObj = $message->getMessage();
 		$this->assertEquals(array("my-option" => array("yes"), "o:my-other-option" => array("no")), $messageObj);
 	}
+
+    public function testSetMessage(){
+        $message = [1,2,3,4,5];
+        $messageBuilder = $this->client->MessageBuilder();
+        $messageBuilder->setMessage($message);
+
+        $this->assertEquals($message, $messageBuilder->getMessage());
+    }
 }
 
 ?>
