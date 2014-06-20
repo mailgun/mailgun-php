@@ -175,5 +175,6 @@ information about our API.
 If you find a bug, please submit the issue in Github directly. 
 [Mailgun-PHP Issues](https://github.com/mailgun/Mailgun-PHP/issues)
 
-As always, if you need additional assistance, drop us a note at 
-[support@mailgun.com](mailto:support@mailgun.com).
+As always, if you need additional assistance, drop us a note through your Control Panel at
+[https://mailgun.com/cp/support](https://mailgun.com/cp/support).
+
