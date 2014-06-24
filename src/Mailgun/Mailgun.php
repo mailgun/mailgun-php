@@ -20,8 +20,10 @@ class Mailgun{
 
     protected $workingDomain;
     protected $restClient;
+    protected $apiKey;
     
     public function __construct($apiKey = null, $apiEndpoint = "api.mailgun.net", $apiVersion = "v2", $ssl = true){
+	    $this->apiKey = $apiKey;
 	    $this->restClient = new RestClient($apiKey, $apiEndpoint, $apiVersion, $ssl);
     }
 
@@ -50,6 +52,31 @@ class Mailgun{
 	    else{
 			throw new Exceptions\MissingRequiredMIMEParameters(EXCEPTION_MISSING_REQUIRED_MIME_PARAMETERS);
 	    }
+	}
+	
+	public function verifyWebhookSignature($postData = NULL) {
+		/*
+		 * This function checks the signature in a POST request to see if it is
+		 * authentic.
+		 *
+		 * Pass an array of parameters.  If you pass nothing, $_POST will be
+		 * used instead.
+		 *
+		 * If this function returns FALSE, you must not process the request.
+		 * You should reject the request with status code 403 Forbidden.
+		 */
+		if(is_null($postData)) {
+		    $postData = $_POST;
+		}
+		$hmac = hash_hmac('sha256', "{$postData["timestamp"]}{$postData["token"]}", $this->apiKey);
+		$sig = $postData['signature'];
+		if(function_exists('hash_equals')) {
+			// hash_equals is constant time, but will not be introduced until PHP 5.6
+			return hash_equals($hmac, $sig);
+		}
+		else {
+			return ($hmac == $sig);
+		}
 	}
 
 	public function post($endpointUrl, $postData = array(), $files = array()){
