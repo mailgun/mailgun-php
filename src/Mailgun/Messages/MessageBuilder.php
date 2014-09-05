@@ -169,26 +169,22 @@ class MessageBuilder
 
     public function addAttachment($attachmentPath, $attachmentName = null)
     {
-        if (preg_match("/^@/", $attachmentPath)) {
-            if (isset($this->files["attachment"])) {
-                $attachment = array(
+        if (isset($this->files["attachment"])) {
+            $attachment = array(
+                'filePath'   => $attachmentPath,
+                'remoteName' => $attachmentName
+            );
+            array_push($this->files["attachment"], $attachment);
+        } else {
+            $this->files["attachment"] = array(
+                array(
                     'filePath'   => $attachmentPath,
                     'remoteName' => $attachmentName
-                );
-                array_push($this->files["attachment"], $attachment);
-            } else {
-                $this->files["attachment"] = array(
-                    array(
-                        'filePath'   => $attachmentPath,
-                        'remoteName' => $attachmentName
-                    )
-                );
-            }
-
-            return true;
-        } else {
-            throw new InvalidParameter(INVALID_PARAMETER_ATTACHMENT);
+                )
+            );
         }
+
+        return true;
     }
 
     public function addInlineImage($inlineImagePath, $inlineImageName = null)
