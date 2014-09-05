@@ -25,6 +25,13 @@ class Mailgun{
 	    $this->restClient = new RestClient($apiKey, $apiEndpoint, $apiVersion, $ssl);
     }
 
+	/**
+	 * @param string $workingDomain
+	 * @param array $postData
+	 * @param array $postFiles
+	 * @throws Exceptions\MissingRequiredMIMEParameters
+	 * @return \stdClass
+	 */
 	public function sendMessage($workingDomain, $postData, $postFiles = array()){
 	
 	/* 
