@@ -91,12 +91,7 @@ class RestClient{
 	}
 	
 	public function get($endpointUrl, $queryString = array()){
-		$request = $this->mgClient->get($endpointUrl);
-		if(isset($queryString)){
-			foreach($queryString as $key=>$value){
-				$request->getQuery()->set($key, $value);
-			}			
-		}
+		$request = $this->mgClient->get($endpointUrl, null, $queryString);
 		$response = $request->send();
 		return $this->responseHandler($response);
 	}
