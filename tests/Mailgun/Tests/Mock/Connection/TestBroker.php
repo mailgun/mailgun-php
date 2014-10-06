@@ -65,6 +65,3 @@ class TestBroker extends RestClient
 
 
 }
-
-
-?>

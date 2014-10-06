@@ -6,9 +6,9 @@ use Mailgun\Messages\MessageBuilder;
 use Mailgun\Messages\Exceptions\TooManyParameters;
 use Mailgun\Messages\Exceptions\MissingRequiredMIMEParameters;
 
-/* 
+/*
    This class is used for batch sending. See the official documentation
-   for usage instructions. 
+   for usage instructions.
 */
 
 class BatchMessage extends MessageBuilder{
@@ -26,7 +26,7 @@ class BatchMessage extends MessageBuilder{
 		$this->workingDomain = $workingDomain;
 		$this->endpointUrl = $workingDomain . "/messages";
 	}
-	
+
 	protected function addRecipient($headerName, $address, $variables){
 		if(array_key_exists($headerName, $this->counters['recipients'])){
 			if($this->counters['recipients'][$headerName] == RECIPIENT_COUNT_LIMIT){
@@ -36,7 +36,7 @@ class BatchMessage extends MessageBuilder{
 				$this->sendMessage();
 			}
 		}
-		
+
 		$compiledAddress = $this->parseAddress($address, $variables);
 
 		if(isset($this->message[$headerName])){
@@ -48,16 +48,16 @@ class BatchMessage extends MessageBuilder{
 		else{
 			$this->message[$headerName] = array($compiledAddress);
 		}
-		
+
 		if(array_key_exists($headerName, $this->counters['recipients'])){
 			$this->counters['recipients'][$headerName] += 1;
 			if(!array_key_exists("id", $variables)){
 				$variables['id'] = $this->counters['recipients'][$headerName];
 			}
-		} 
+		}
 		$this->batchRecipientAttributes["$address"] = $variables;
 	}
-	
+
 	public function sendMessage($message = array(), $files = array()){
 		if(count($message) < 1){
 			$message = $this->message;
@@ -75,7 +75,7 @@ class BatchMessage extends MessageBuilder{
 		elseif((!array_key_exists("text", $message) && !array_key_exists("html", $message))){
 			throw new MissingRequiredMIMEParameters(EXCEPTION_MISSING_REQUIRED_MIME_PARAMETERS);
 		}
-		else{		
+		else{
 			$message["recipient-variables"] = json_encode($this->batchRecipientAttributes);
 			$response = $this->restClient->post($this->endpointUrl, $message, $files);
 			$this->batchRecipientAttributes = array();
@@ -86,7 +86,7 @@ class BatchMessage extends MessageBuilder{
 			array_push($this->messageIds, $response->http_response_body->id);
 		}
 	}
-	
+
 	public function finalize(){
 		return $this->sendMessage();
 	}
@@ -95,4 +95,3 @@ class BatchMessage extends MessageBuilder{
 		return $this->messageIds;
 	}
 }
-?>

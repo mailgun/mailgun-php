@@ -11,30 +11,30 @@ use Mailgun\Messages\BatchMessage;
 use Mailgun\Lists\OptInHandler;
 use Mailgun\Messages\MessageBuilder;
 
-/* 
-   This class is the base class for the Mailgun SDK. 
-   See the official documentation for usage instructions. 
+/*
+   This class is the base class for the Mailgun SDK.
+   See the official documentation for usage instructions.
 */
 
 class Mailgun{
 
     protected $workingDomain;
     protected $restClient;
-    
+
     public function __construct($apiKey = null, $apiEndpoint = "api.mailgun.net", $apiVersion = "v2", $ssl = true){
 	    $this->restClient = new RestClient($apiKey, $apiEndpoint, $apiVersion, $ssl);
     }
 
 	public function sendMessage($workingDomain, $postData, $postFiles = array()){
-	
-	/* 
+
+	/*
        This function allows the sending of a fully formed message OR a custom
-	   MIME string. If sending MIME, the string must be passed in to the 3rd 
-	   position of the function call. 
+	   MIME string. If sending MIME, the string must be passed in to the 3rd
+	   position of the function call.
 	*/
-	
+
 	    if(is_array($postFiles)){
-			return $this->post("$workingDomain/messages", $postData, $postFiles);    
+			return $this->post("$workingDomain/messages", $postData, $postFiles);
 	    }
 	    else if(is_string($postFiles)){
 
@@ -55,30 +55,28 @@ class Mailgun{
 	public function post($endpointUrl, $postData = array(), $files = array()){
 		return $this->restClient->post($endpointUrl, $postData, $files);
 	}
-	
+
 	public function get($endpointUrl, $queryString = array()){
 		return $this->restClient->get($endpointUrl, $queryString);
 	}
-	
+
 	public function delete($endpointUrl){
 		return $this->restClient->delete($endpointUrl);
 	}
-	
+
 	public function put($endpointUrl, $putData){
 		return $this->restClient->put($endpointUrl, $putData);
 	}
-    
+
 	public function MessageBuilder(){
 		return new MessageBuilder();
 	}
-	
+
 	public function OptInHandler(){
 		return new OptInHandler();
 	}
-	
+
 	public function BatchMessage($workingDomain, $autoSend = true){
 		return new BatchMessage($this->restClient, $workingDomain, $autoSend);
 	}
 }
-
-?>

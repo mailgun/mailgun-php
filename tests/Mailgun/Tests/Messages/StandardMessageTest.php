@@ -46,5 +46,3 @@ class StandardMessageTest extends \Mailgun\Tests\MailgunTestCase
 
     }
 }
-
-?>

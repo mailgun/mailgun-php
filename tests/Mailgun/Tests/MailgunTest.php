@@ -14,5 +14,3 @@ class MailgunTest extends \Mailgun\Tests\MailgunTestCase
         $client->sendMessage("test.mailgun.com", "etss", 1);
     }
 }
-
-?>

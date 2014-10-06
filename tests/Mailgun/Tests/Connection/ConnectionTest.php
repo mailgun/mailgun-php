@@ -17,5 +17,3 @@ class ConnectionTest extends \Mailgun\Tests\MailgunTestCase
         $this->client = new Mailgun("My-Super-Awesome-API-Key", "samples.mailgun.org", false);
     }
 }
-
-?>

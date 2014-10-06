@@ -46,5 +46,3 @@ class OptInHandler extends \Mailgun\Tests\MailgunTestCase
         $this->assertFalse($validation);
     }
 }
-
-?>
