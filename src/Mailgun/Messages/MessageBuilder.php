@@ -6,11 +6,11 @@ use Mailgun\Messages\Exceptions\InvalidParameter;
 use Mailgun\Messages\Exceptions\TooManyParameters;
 use Mailgun\Messages\Exceptions\InvalidParameterType;
 
-/* 
-   This class is used for composing a properly formed 
-   message object. Dealing with arrays can be cumbersome, 
-   this class makes the process easier. See the official 
-   documentation for usage instructions. 
+/*
+   This class is used for composing a properly formed
+   message object. Dealing with arrays can be cumbersome,
+   this class makes the process easier. See the official
+   documentation for usage instructions.
 */
 
 class MessageBuilder
@@ -353,5 +353,3 @@ class MessageBuilder
         return $this->files;
     }
 }
-
-?>

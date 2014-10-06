@@ -15,6 +15,3 @@ class Mailgun extends Base
         $this->restClient = new TestBroker($apiKey, $apiEndpoint, $apiVersion);
     }
 }
-
-
-?>

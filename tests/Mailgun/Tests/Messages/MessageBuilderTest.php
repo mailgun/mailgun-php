@@ -354,5 +354,3 @@ class MessageBuilderTest extends \Mailgun\Tests\MailgunTestCase
         $this->assertEquals($message, $messageBuilder->getMessage());
     }
 }
-
-?>
