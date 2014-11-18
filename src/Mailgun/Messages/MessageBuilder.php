@@ -314,15 +314,7 @@ class MessageBuilder
 
     public function addCustomData($customName, $data)
     {
-        if (is_array($data)) {
-            $jsonArray                         = json_encode($data);
-            $this->message['v:' . $customName] = $jsonArray;
-
-            return $this->message['v:' . $customName];
-        } else {
-            throw new InvalidParameter(INVALID_PARAMETER_NON_ARRAY);
-        }
-
+        $this->message['v:' . $customName] = json_encode($data);
     }
 
     public function addCustomParameter($parameterName, $data)
