@@ -117,9 +117,11 @@ class RestClient{
 	public function responseHandler($responseObj){
 		$httpResponseCode = $responseObj->getStatusCode();
 		if($httpResponseCode === 200){
-			$jsonResponseData = json_decode($responseObj->getBody(), false);
+			$data = (string) $responseObj->getBody();
+			$jsonResponseData = json_decode($data, false);
 			$result = new \stdClass();
-			$result->http_response_body = $jsonResponseData;
+			// return response data as json if possible, raw if not
+			$result->http_response_body = $data && $jsonResponseData === null ? $data : $jsonResponseData;
 		}
 		elseif($httpResponseCode == 400){
 			throw new MissingRequiredParameters(EXCEPTION_MISSING_REQUIRED_PARAMETERS);
