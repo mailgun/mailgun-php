@@ -131,7 +131,7 @@ class RestClient{
 			throw new MissingEndpoint(EXCEPTION_MISSING_ENDPOINT);
 		}
 		else{
-			throw new GenericHTTPError(EXCEPTION_GENERIC_HTTP_ERROR);
+			throw new GenericHTTPError(EXCEPTION_GENERIC_HTTP_ERROR, $httpResponseCode, $responseObj->getBody());
 		}
 		$result->http_response_code = $httpResponseCode;
 		return $result;
