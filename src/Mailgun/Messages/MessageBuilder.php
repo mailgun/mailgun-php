@@ -169,26 +169,22 @@ class MessageBuilder
 
     public function addAttachment($attachmentPath, $attachmentName = null)
     {
-        if (preg_match("/^@/", $attachmentPath)) {
-            if (isset($this->files["attachment"])) {
-                $attachment = array(
+        if (isset($this->files["attachment"])) {
+            $attachment = array(
+                'filePath'   => $attachmentPath,
+                'remoteName' => $attachmentName
+            );
+            array_push($this->files["attachment"], $attachment);
+        } else {
+            $this->files["attachment"] = array(
+                array(
                     'filePath'   => $attachmentPath,
                     'remoteName' => $attachmentName
-                );
-                array_push($this->files["attachment"], $attachment);
-            } else {
-                $this->files["attachment"] = array(
-                    array(
-                        'filePath'   => $attachmentPath,
-                        'remoteName' => $attachmentName
-                    )
-                );
-            }
-
-            return true;
-        } else {
-            throw new InvalidParameter(INVALID_PARAMETER_ATTACHMENT);
+                )
+            );
         }
+
+        return true;
     }
 
     public function addInlineImage($inlineImagePath, $inlineImageName = null)
@@ -314,15 +310,7 @@ class MessageBuilder
 
     public function addCustomData($customName, $data)
     {
-        if (is_array($data)) {
-            $jsonArray                         = json_encode($data);
-            $this->message['v:' . $customName] = $jsonArray;
-
-            return $this->message['v:' . $customName];
-        } else {
-            throw new InvalidParameter(INVALID_PARAMETER_NON_ARRAY);
-        }
-
+        $this->message['v:' . $customName] = json_encode($data);
     }
 
     public function addCustomParameter($parameterName, $data)
