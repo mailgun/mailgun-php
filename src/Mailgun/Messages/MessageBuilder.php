@@ -7,13 +7,14 @@ use Mailgun\Constants\ExceptionMessages;
 use Mailgun\Messages\Exceptions\InvalidParameter;
 use Mailgun\Messages\Exceptions\TooManyParameters;
 
-/*
-   This class is used for composing a properly formed
-   message object. Dealing with arrays can be cumbersome,
-   this class makes the process easier. See the official
-   documentation for usage instructions.
-*/
-
+/**
+ * This class is used for composing a properly formed
+ * message object. Dealing with arrays can be cumbersome,
+ * this class makes the process easier. See the official
+ * documentation (link below) for usage instructions.
+ *
+ * @link https://github.com/mailgun/mailgun-php/blob/master/src/Mailgun/Messages/README.md
+ */
 class MessageBuilder
 {
     /**
