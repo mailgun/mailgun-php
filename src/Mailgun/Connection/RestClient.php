@@ -13,10 +13,9 @@ use Mailgun\Connection\Exceptions\MissingEndpoint;
 use Mailgun\Constants\Api;
 use Mailgun\Constants\ExceptionMessages;
 
-/*
-   This class is a wrapper for the Guzzle (HTTP Client Library).
-*/
-
+/**
+ * This class is a wrapper for the Guzzle (HTTP Client Library).
+ */
 class RestClient {
 
     /**
