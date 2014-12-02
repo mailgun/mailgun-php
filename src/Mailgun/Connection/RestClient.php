@@ -3,35 +3,61 @@
 namespace Mailgun\Connection;
 
 use Guzzle\Http\Client as Guzzle;
-use Mailgun\MailgunClient;
 
 use Mailgun\Connection\Exceptions\GenericHTTPError;
 use Guzzle\Http\QueryAggregator\DuplicateAggregator;
 use Guzzle\Http\QueryAggregator\PhpAggregator;
 use Mailgun\Connection\Exceptions\InvalidCredentials;
-use Mailgun\Connection\Exceptions\NoDomainsConfigured;
 use Mailgun\Connection\Exceptions\MissingRequiredParameters;
 use Mailgun\Connection\Exceptions\MissingEndpoint;
+use Mailgun\Constants\Api;
+use Mailgun\Constants\ExceptionMessages;
 
-/*
-   This class is a wrapper for the Guzzle (HTTP Client Library).
-*/
+/**
+ * This class is a wrapper for the Guzzle (HTTP Client Library).
+ */
+class RestClient {
 
-class RestClient{
-
+    /**
+     * @var string
+     */
 	private $apiKey;
+
+    /**
+     * @var Guzzle
+     */
 	protected $mgClient;
+
+    /**
+     * @var bool
+     */
 	protected $hasFiles = False;
 
+    /**
+     * @param string $apiKey
+     * @param string $apiEndpoint
+     * @param string $apiVersion
+     * @param bool $ssl
+     */
 	public function __construct($apiKey, $apiEndpoint, $apiVersion, $ssl){
 		$this->apiKey = $apiKey;
 		$this->mgClient = new Guzzle($this->generateEndpoint($apiEndpoint, $apiVersion, $ssl));
 		$this->mgClient->setDefaultOption('curl.options', array('CURLOPT_FORBID_REUSE' => true));
-		$this->mgClient->setDefaultOption('auth', array (API_USER, $this->apiKey));
+		$this->mgClient->setDefaultOption('auth', array (Api::API_USER, $this->apiKey));
 		$this->mgClient->setDefaultOption('exceptions', false);
-		$this->mgClient->setUserAgent(SDK_USER_AGENT . '/' . SDK_VERSION);
+		$this->mgClient->setUserAgent(Api::SDK_USER_AGENT . '/' . Api::SDK_VERSION);
 	}
 
+    /**
+     * @param string $endpointUrl
+     * @param array $postData
+     * @param array $files
+     * @return \stdClass
+     * @throws GenericHTTPError
+     * @throws InvalidCredentials
+     * @throws MissingEndpoint
+     * @throws MissingRequiredParameters
+     */
 	public function post($endpointUrl, $postData = array(), $files = array()){
 		$request = $this->mgClient->post($endpointUrl, array(), $postData);
 
@@ -90,6 +116,15 @@ class RestClient{
 		return $this->responseHandler($response);
 	}
 
+    /**
+     * @param string $endpointUrl
+     * @param array $queryString
+     * @return \stdClass
+     * @throws GenericHTTPError
+     * @throws InvalidCredentials
+     * @throws MissingEndpoint
+     * @throws MissingRequiredParameters
+     */
 	public function get($endpointUrl, $queryString = array()){
 		$request = $this->mgClient->get($endpointUrl);
 		if(isset($queryString)){
@@ -101,12 +136,29 @@ class RestClient{
 		return $this->responseHandler($response);
 	}
 
+    /**
+     * @param string $endpointUrl
+     * @return \stdClass
+     * @throws GenericHTTPError
+     * @throws InvalidCredentials
+     * @throws MissingEndpoint
+     * @throws MissingRequiredParameters
+     */
 	public function delete($endpointUrl){
 		$request = $this->mgClient->delete($endpointUrl);
 		$response = $request->send();
 		return $this->responseHandler($response);
 	}
 
+    /**
+     * @param string $endpointUrl
+     * @param array $putData
+     * @return \stdClass
+     * @throws GenericHTTPError
+     * @throws InvalidCredentials
+     * @throws MissingEndpoint
+     * @throws MissingRequiredParameters
+     */
 	public function put($endpointUrl, $putData){
 		$request = $this->mgClient->put($endpointUrl, array(), $putData);
 		$request->getPostFields()->setAggregator(new DuplicateAggregator());
@@ -114,6 +166,14 @@ class RestClient{
 		return $this->responseHandler($response);
 	}
 
+    /**
+     * @param \Guzzle\Http\Message\Response $responseObj
+     * @return \stdClass
+     * @throws GenericHTTPError
+     * @throws InvalidCredentials
+     * @throws MissingEndpoint
+     * @throws MissingRequiredParameters
+     */
 	public function responseHandler($responseObj){
 		$httpResponseCode = $responseObj->getStatusCode();
 		if($httpResponseCode === 200){
@@ -124,21 +184,27 @@ class RestClient{
 			$result->http_response_body = $data && $jsonResponseData === null ? $data : $jsonResponseData;
 		}
 		elseif($httpResponseCode == 400){
-			throw new MissingRequiredParameters(EXCEPTION_MISSING_REQUIRED_PARAMETERS);
+			throw new MissingRequiredParameters(ExceptionMessages::EXCEPTION_MISSING_REQUIRED_PARAMETERS);
 		}
 		elseif($httpResponseCode == 401){
-			throw new InvalidCredentials(EXCEPTION_INVALID_CREDENTIALS);
+			throw new InvalidCredentials(ExceptionMessages::EXCEPTION_INVALID_CREDENTIALS);
 		}
 		elseif($httpResponseCode == 404){
-			throw new MissingEndpoint(EXCEPTION_MISSING_ENDPOINT);
+			throw new MissingEndpoint(ExceptionMessages::EXCEPTION_MISSING_ENDPOINT);
 		}
 		else{
-			throw new GenericHTTPError(EXCEPTION_GENERIC_HTTP_ERROR, $httpResponseCode, $responseObj->getBody());
+			throw new GenericHTTPError(ExceptionMessages::EXCEPTION_GENERIC_HTTP_ERROR, $httpResponseCode, $responseObj->getBody());
 		}
 		$result->http_response_code = $httpResponseCode;
 		return $result;
 	}
 
+    /**
+     * @param string $apiEndpoint
+     * @param string $apiVersion
+     * @param bool $ssl
+     * @return string
+     */
 	private function generateEndpoint($apiEndpoint, $apiVersion, $ssl){
 		if(!$ssl){
 			return "http://" . $apiEndpoint . "/" . $apiVersion . "/";
