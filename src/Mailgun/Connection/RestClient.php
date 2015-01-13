@@ -199,6 +199,10 @@ class RestClient {
 		return $result;
 	}
 
+    /**
+     * @param \Guzzle\Http\Message\Response $responseObj
+     * @return string
+     */
 	protected function getResponseExceptionMessage(\Guzzle\Http\Message\Response $responseObj){
 		$body = (string)$responseObj->getBody();
 		$response = json_decode($body);
