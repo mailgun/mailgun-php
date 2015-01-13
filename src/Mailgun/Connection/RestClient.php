@@ -176,30 +176,21 @@ class RestClient {
      */
 	public function responseHandler($responseObj){
 		$httpResponseCode = $responseObj->getStatusCode();
-		$data = (string) $responseObj->getBody();
-		$jsonResponseData = json_decode($data, false);
 		if($httpResponseCode === 200){
+			$data = (string) $responseObj->getBody();
+			$jsonResponseData = json_decode($data, false);
 			$result = new \stdClass();
 			// return response data as json if possible, raw if not
 			$result->http_response_body = $data && $jsonResponseData === null ? $data : $jsonResponseData;
 		}
 		elseif($httpResponseCode == 400){
-			throw new MissingRequiredParameters(
-				EXCEPTION_MISSING_REQUIRED_PARAMETERS .
-				"\n" . 'Response: "' . $data && $jsonResponseData === null ? $data : $jsonResponseData->message .'"'
-			);
+			throw new MissingRequiredParameters(EXCEPTION_MISSING_REQUIRED_PARAMETERS . $this->getResponseExceptionMessage($responseObj));
 		}
 		elseif($httpResponseCode == 401){
-			throw new InvalidCredentials(
-				EXCEPTION_INVALID_CREDENTIALS  .
-				"\n" . 'Response: "' . $data && $jsonResponseData === null ? $data : $jsonResponseData->message .'"'
-			);
+			throw new InvalidCredentials(EXCEPTION_INVALID_CREDENTIALS);
 		}
 		elseif($httpResponseCode == 404){
-			throw new MissingEndpoint(
-				EXCEPTION_MISSING_ENDPOINT  .
-				"\n" . 'Response: "' . $data && $jsonResponseData === null ? $data : $jsonResponseData->message .'"'
-			);
+			throw new MissingEndpoint(EXCEPTION_MISSING_ENDPOINT  . $this->getResponseExceptionMessage($responseObj));
 		}
 		else{
 			throw new GenericHTTPError(ExceptionMessages::EXCEPTION_GENERIC_HTTP_ERROR, $httpResponseCode, $responseObj->getBody());
@@ -207,6 +198,14 @@ class RestClient {
 		$result->http_response_code = $httpResponseCode;
 		return $result;
 	}
+
+    protected function getResponseExceptionMessage(\Guzzle\Http\Message\Response $responseObj){
+        $body = (string)$responseObj->getBody();
+        $response = json_decode($body);
+        if (json_last_error() == JSON_ERROR_NONE && isset($response->message)) {
+            return " " . $response->message;
+        }
+    }
 
     /**
      * @param string $apiEndpoint
