@@ -184,13 +184,13 @@ class RestClient {
 			$result->http_response_body = $data && $jsonResponseData === null ? $data : $jsonResponseData;
 		}
 		elseif($httpResponseCode == 400){
-			throw new MissingRequiredParameters(EXCEPTION_MISSING_REQUIRED_PARAMETERS . $this->getResponseExceptionMessage($responseObj));
+			throw new MissingRequiredParameters(ExceptionMessages::EXCEPTION_MISSING_REQUIRED_PARAMETERS . $this->getResponseExceptionMessage($responseObj));
 		}
 		elseif($httpResponseCode == 401){
-			throw new InvalidCredentials(EXCEPTION_INVALID_CREDENTIALS);
+			throw new InvalidCredentials(ExceptionMessages::EXCEPTION_INVALID_CREDENTIALS);
 		}
 		elseif($httpResponseCode == 404){
-			throw new MissingEndpoint(EXCEPTION_MISSING_ENDPOINT  . $this->getResponseExceptionMessage($responseObj));
+			throw new MissingEndpoint(ExceptionMessages::EXCEPTION_MISSING_ENDPOINT  . $this->getResponseExceptionMessage($responseObj));
 		}
 		else{
 			throw new GenericHTTPError(ExceptionMessages::EXCEPTION_GENERIC_HTTP_ERROR, $httpResponseCode, $responseObj->getBody());
