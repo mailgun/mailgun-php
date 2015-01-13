@@ -184,19 +184,31 @@ class RestClient {
 			$result->http_response_body = $data && $jsonResponseData === null ? $data : $jsonResponseData;
 		}
 		elseif($httpResponseCode == 400){
-			throw new MissingRequiredParameters(ExceptionMessages::EXCEPTION_MISSING_REQUIRED_PARAMETERS);
+			throw new MissingRequiredParameters(ExceptionMessages::EXCEPTION_MISSING_REQUIRED_PARAMETERS . $this->getResponseExceptionMessage($responseObj));
 		}
 		elseif($httpResponseCode == 401){
 			throw new InvalidCredentials(ExceptionMessages::EXCEPTION_INVALID_CREDENTIALS);
 		}
 		elseif($httpResponseCode == 404){
-			throw new MissingEndpoint(ExceptionMessages::EXCEPTION_MISSING_ENDPOINT);
+			throw new MissingEndpoint(ExceptionMessages::EXCEPTION_MISSING_ENDPOINT  . $this->getResponseExceptionMessage($responseObj));
 		}
 		else{
 			throw new GenericHTTPError(ExceptionMessages::EXCEPTION_GENERIC_HTTP_ERROR, $httpResponseCode, $responseObj->getBody());
 		}
 		$result->http_response_code = $httpResponseCode;
 		return $result;
+	}
+
+    /**
+     * @param \Guzzle\Http\Message\Response $responseObj
+     * @return string
+     */
+	protected function getResponseExceptionMessage(\Guzzle\Http\Message\Response $responseObj){
+		$body = (string)$responseObj->getBody();
+		$response = json_decode($body);
+		if (json_last_error() == JSON_ERROR_NONE && isset($response->message)) {
+			return " " . $response->message;
+		}
 	}
 
     /**
