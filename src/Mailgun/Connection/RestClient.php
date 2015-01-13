@@ -199,13 +199,13 @@ class RestClient {
 		return $result;
 	}
 
-    protected function getResponseExceptionMessage(\Guzzle\Http\Message\Response $responseObj){
-        $body = (string)$responseObj->getBody();
-        $response = json_decode($body);
-        if (json_last_error() == JSON_ERROR_NONE && isset($response->message)) {
-            return " " . $response->message;
-        }
-    }
+	protected function getResponseExceptionMessage(\Guzzle\Http\Message\Response $responseObj){
+		$body = (string)$responseObj->getBody();
+		$response = json_decode($body);
+		if (json_last_error() == JSON_ERROR_NONE && isset($response->message)) {
+			return " " . $response->message;
+		}
+	}
 
     /**
      * @param string $apiEndpoint
