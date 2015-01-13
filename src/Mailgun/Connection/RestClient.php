@@ -176,8 +176,8 @@ class RestClient {
      */
 	public function responseHandler($responseObj){
 		$httpResponseCode = $responseObj->getStatusCode();
-        $data = (string) $responseObj->getBody();
-        $jsonResponseData = json_decode($data, false);
+		$data = (string) $responseObj->getBody();
+		$jsonResponseData = json_decode($data, false);
 		if($httpResponseCode === 200){
 			$result = new \stdClass();
 			// return response data as json if possible, raw if not
@@ -185,21 +185,21 @@ class RestClient {
 		}
 		elseif($httpResponseCode == 400){
 			throw new MissingRequiredParameters(
-                EXCEPTION_MISSING_REQUIRED_PARAMETERS .
-                "\n" . 'Response: "' . $data && $jsonResponseData === null ? $data : $jsonResponseData->message .'"'
-            );
+            	EXCEPTION_MISSING_REQUIRED_PARAMETERS .
+            	"\n" . 'Response: "' . $data && $jsonResponseData === null ? $data : $jsonResponseData->message .'"'
+			);
 		}
 		elseif($httpResponseCode == 401){
 			throw new InvalidCredentials(
-                EXCEPTION_INVALID_CREDENTIALS  .
-                "\n" . 'Response: "' . $data && $jsonResponseData === null ? $data : $jsonResponseData->message .'"'
-            );
+            	EXCEPTION_INVALID_CREDENTIALS  .
+            	"\n" . 'Response: "' . $data && $jsonResponseData === null ? $data : $jsonResponseData->message .'"'
+			);
 		}
 		elseif($httpResponseCode == 404){
 			throw new MissingEndpoint(
-                EXCEPTION_MISSING_ENDPOINT  .
-                "\n" . 'Response: "' . $data && $jsonResponseData === null ? $data : $jsonResponseData->message .'"'
-            );
+            	EXCEPTION_MISSING_ENDPOINT  .
+            	"\n" . 'Response: "' . $data && $jsonResponseData === null ? $data : $jsonResponseData->message .'"'
+			);
 		}
 		else{
 			throw new GenericHTTPError(ExceptionMessages::EXCEPTION_GENERIC_HTTP_ERROR, $httpResponseCode, $responseObj->getBody());
