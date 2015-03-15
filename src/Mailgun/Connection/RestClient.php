@@ -59,7 +59,7 @@ class RestClient {
      * @throws MissingRequiredParameters
      */
 	public function post($endpointUrl, $postData = array(), $files = array()){
-		$request = $this->mgClient->post($endpointUrl, array(), $postData);
+		$request = $this->mgClient->post(ltrim($endpointUrl, '/'), array(), $postData);
 
 		if(isset($files["message"])){
 			$this->hasFiles = True;
@@ -126,7 +126,7 @@ class RestClient {
      * @throws MissingRequiredParameters
      */
 	public function get($endpointUrl, $queryString = array()){
-		$request = $this->mgClient->get($endpointUrl);
+		$request = $this->mgClient->get(ltrim($endpointUrl, '/'));
 		if(isset($queryString)){
 			foreach($queryString as $key=>$value){
 				$request->getQuery()->set($key, $value);
@@ -145,7 +145,7 @@ class RestClient {
      * @throws MissingRequiredParameters
      */
 	public function delete($endpointUrl){
-		$request = $this->mgClient->delete($endpointUrl);
+		$request = $this->mgClient->delete(ltrim($endpointUrl, '/'));
 		$response = $request->send();
 		return $this->responseHandler($response);
 	}
@@ -160,7 +160,7 @@ class RestClient {
      * @throws MissingRequiredParameters
      */
 	public function put($endpointUrl, $putData){
-		$request = $this->mgClient->put($endpointUrl, array(), $putData);
+		$request = $this->mgClient->put(ltrim($endpointUrl, '/'), array(), $putData);
 		$request->getPostFields()->setAggregator(new DuplicateAggregator());
 		$response = $request->send();
 		return $this->responseHandler($response);
