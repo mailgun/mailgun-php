@@ -9,7 +9,7 @@ class TestBroker extends RestClient
 
     protected $apiEndpoint;
 
-    public function __construct($apiKey = null, $apiEndpoint = "api.mailgun.net", $apiVersion = "v2")
+    public function __construct($apiKey = null, $apiEndpoint = "api.mailgun.net", $apiVersion = "v3")
     {
         $this->apiKey      = $apiKey;
         $this->apiEndpoint = $apiEndpoint;
