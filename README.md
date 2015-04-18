@@ -165,6 +165,15 @@ Batch Message is an extension of Message Builder, and allows you to easily send
 a batch message job within a few seconds. The complexity of 
 batch messaging is eliminated! 
 
+Framework integration
+---------------------
+
+If you are using a framework you might consider these composer packages to make the framework integration easier. 
+
+* [tehplague/swiftmailer-mailgun-bundle](https://github.com/tehplague/swiftmailer-mailgun-bundle) for Symfony2
+* [Bogardo/Mailgun](https://github.com/Bogardo/Mailgun) for Laravel 4
+* [katanyoo/yii2-mailgun-mailer](https://github.com/katanyoo/yii2-mailgun-mailer) for Yii2
+
 Support and Feedback
 --------------------
 
