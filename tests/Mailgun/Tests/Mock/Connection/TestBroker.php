@@ -1,7 +1,11 @@
 <?php
 namespace Mailgun\Tests\Mock\Connection;
 
+use Mailgun\Connection\Exceptions\GenericHTTPError;
+use Mailgun\Connection\Exceptions\InvalidCredentials;
+use Mailgun\Connection\Exceptions\MissingEndpoint;
 use Mailgun\Connection\RestClient;
+use Mailgun\Messages\Exceptions\MissingRequiredMIMEParameters;
 
 class TestBroker extends RestClient
 {
@@ -17,25 +21,25 @@ class TestBroker extends RestClient
 
     public function post($endpointUrl, $postData = array(), $files = array())
     {
-        return $this->responseHandler($endpointUrl, $httpResponseCode = 200);
+        return $this->testResponseHandler($endpointUrl, $httpResponseCode = 200);
     }
 
     public function get($endpointUrl, $queryString = array())
     {
-        return $this->responseHandler($endpointUrl, $httpResponseCode = 200);
+        return $this->testResponseHandler($endpointUrl, $httpResponseCode = 200);
     }
 
     public function delete($endpointUrl)
     {
-        return $this->responseHandler($endpointUrl, $httpResponseCode = 200);
+        return $this->testResponseHandler($endpointUrl, $httpResponseCode = 200);
     }
 
     public function put($endpointUrl, $queryString)
     {
-        return $this->responseHandler($endpointUrl, $httpResponseCode = 200);
+        return $this->testResponseHandler($endpointUrl, $httpResponseCode = 200);
     }
 
-    public function responseHandler($endpointUrl, $httpResponseCode = 200)
+    public function testResponseHandler($endpointUrl, $httpResponseCode = 200)
     {
         if ($httpResponseCode === 200) {
             $result                     = new \stdClass();
@@ -44,13 +48,13 @@ class TestBroker extends RestClient
             foreach ($jsonResponseData as $key => $value) {
                 $result->http_response_body->$key = $value;
             }
-        } elseif ($httpStatusCode == 400) {
+        } elseif ($httpResponseCode == 400) {
             throw new MissingRequiredMIMEParameters(EXCEPTION_MISSING_REQUIRED_MIME_PARAMETERS);
-        } elseif ($httpStatusCode == 401) {
+        } elseif ($httpResponseCode == 401) {
             throw new InvalidCredentials(EXCEPTION_INVALID_CREDENTIALS);
-        } elseif ($httpStatusCode == 401) {
+        } elseif ($httpResponseCode == 401) {
             throw new GenericHTTPError(EXCEPTION_INVALID_CREDENTIALS);
-        } elseif ($httpStatusCode == 404) {
+        } elseif ($httpResponseCode == 404) {
             throw new MissingEndpoint(EXCEPTION_MISSING_ENDPOINT);
         } else {
             throw new GenericHTTPError(EXCEPTION_GENERIC_HTTP_ERROR);
