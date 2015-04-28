@@ -39,9 +39,8 @@ class RestClient
     {
         $this->apiKey = $apiKey;
         $this->mgClient = new Guzzle([
-            'base_url' => $this->generateEndpoint($apiEndpoint, $apiVersion, $ssl),
-            'defaults' => [
-                'debug' => true,
+            'base_url'=>$this->generateEndpoint($apiEndpoint, $apiVersion, $ssl),
+            'defaults'=>[
                 'auth' => array(Api::API_USER, $this->apiKey),
                 'exceptions' => false,
                 'config' => ['curl' => [ CURLOPT_FORBID_REUSE => true ]],
@@ -74,8 +73,12 @@ class RestClient
         $fields = ['message', 'attachment', 'inline'];
         foreach ($fields as $fieldName) {
             if (isset($files[$fieldName])) {
-                foreach ($files[$fieldName] as $file) {
-                    $this->addFile($postBody, $fieldName, $file);
+                if (is_array($files[$fieldName])) {
+                    foreach ($files[$fieldName] as $file) {
+                        $this->addFile($postBody, $fieldName, $file);
+                    }
+                } else {
+                    $this->addFile($postBody, $fieldName, $files[$fieldName]);
                 }
             }
         }
