@@ -10,7 +10,7 @@ class Mailgun extends Base
     protected $debug;
     protected $restClient;
 
-    public function __construct($apiKey = null, $apiEndpoint = "api.mailgun.net", $apiVersion = "v2")
+    public function __construct($apiKey = null, $apiEndpoint = "api.mailgun.net", $apiVersion = "v3")
     {
         $this->restClient = new TestBroker($apiKey, $apiEndpoint, $apiVersion);
     }
