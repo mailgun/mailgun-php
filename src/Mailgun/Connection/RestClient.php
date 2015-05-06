@@ -184,7 +184,7 @@ class RestClient
      *
      * @return string
      */
-    protected function getResponseExceptionMessage(\Guzzle\Http\Message\Response $responseObj)
+    protected function getResponseExceptionMessage(\GuzzleHttp\Message\Response $responseObj)
     {
         $body = (string) $responseObj->getBody();
         $response = json_decode($body);
