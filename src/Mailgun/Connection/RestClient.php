@@ -3,16 +3,15 @@
 namespace Mailgun\Connection;
 
 use GuzzleHttp\Client as Guzzle;
-use GuzzleHttp\Message\ResponseInterface;
-use GuzzleHttp\Post\PostBodyInterface;
-use GuzzleHttp\Post\PostFile;
-use GuzzleHttp\Query;
+use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Response;
 use Mailgun\Connection\Exceptions\GenericHTTPError;
 use Mailgun\Connection\Exceptions\InvalidCredentials;
 use Mailgun\Connection\Exceptions\MissingRequiredParameters;
 use Mailgun\Connection\Exceptions\MissingEndpoint;
 use Mailgun\Constants\Api;
 use Mailgun\Constants\ExceptionMessages;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * This class is a wrapper for the Guzzle (HTTP Client Library).
@@ -39,14 +38,12 @@ class RestClient
     {
         $this->apiKey = $apiKey;
         $this->mgClient = new Guzzle([
-            'base_url'=>$this->generateEndpoint($apiEndpoint, $apiVersion, $ssl),
-            'defaults'=>[
-                'auth' => array(Api::API_USER, $this->apiKey),
-                'exceptions' => false,
-                'config' => ['curl' => [ CURLOPT_FORBID_REUSE => true ]],
-                'headers' => [
-                    'User-Agent' => Api::SDK_USER_AGENT.'/'.Api::SDK_VERSION,
-                ],
+            'base_uri'=>$this->generateEndpoint($apiEndpoint, $apiVersion, $ssl),
+            'auth' => array(Api::API_USER, $this->apiKey),
+            'exceptions' => false,
+            'config' => ['curl' => [ CURLOPT_FORBID_REUSE => true ]],
+            'headers' => [
+                'User-Agent' => Api::SDK_USER_AGENT.'/'.Api::SDK_VERSION,
             ],
         ]);
     }
@@ -65,26 +62,47 @@ class RestClient
      */
     public function post($endpointUrl, $postData = array(), $files = array())
     {
-        $request = $this->mgClient->createRequest('POST', $endpointUrl, ['body' => $postData]);
-        /** @var \GuzzleHttp\Post\PostBodyInterface $postBody */
-        $postBody = $request->getBody();
-        $postBody->setAggregator(Query::duplicateAggregator());
+        $request = new Request('post', $endpointUrl);
+        $postFiles = [];
 
         $fields = ['message', 'attachment', 'inline'];
         foreach ($fields as $fieldName) {
             if (isset($files[$fieldName])) {
                 if (is_array($files[$fieldName])) {
                     foreach ($files[$fieldName] as $file) {
-                        $this->addFile($postBody, $fieldName, $file);
+                        $postFiles[] = $this->addFile($fieldName, $file);
                     }
                 } else {
-                    $this->addFile($postBody, $fieldName, $files[$fieldName]);
+                    $postFiles[] = $this->addFile($fieldName, $files[$fieldName]);
                 }
             }
         }
 
-        $response = $this->mgClient->send($request);
+        $postDataMultipart = [];
+        foreach($postData AS $key => $value)
+        {
+            if (is_array($value))
+            {
+                foreach($value AS $subValue)
+                {
+                    $postDataMultipart[] = [
+                        'name' => $key,
+                        'contents' => $subValue
+                    ];
+                }
+            }
+            else
+            {
+                $postDataMultipart[] = [
+                    'name' => $key,
+                    'contents' => $value
+                ];
+            }
+        }
 
+        $response = $this->mgClient->send($request, [
+            'multipart' => array_merge($postDataMultipart, $postFiles)
+        ]);
         return $this->responseHandler($response);
     }
 
@@ -102,7 +120,6 @@ class RestClient
     public function get($endpointUrl, $queryString = array())
     {
         $response = $this->mgClient->get($endpointUrl, ['query' => $queryString]);
-
         return $this->responseHandler($response);
     }
 
@@ -119,7 +136,6 @@ class RestClient
     public function delete($endpointUrl)
     {
         $response = $this->mgClient->delete($endpointUrl);
-
         return $this->responseHandler($response);
     }
 
@@ -136,18 +152,12 @@ class RestClient
      */
     public function put($endpointUrl, $putData)
     {
-        $request = $this->mgClient->createRequest('PUT', $endpointUrl, ['body' => $putData]);
-        /** @var \GuzzleHttp\Post\PostBodyInterface $postBody */
-        $postBody = $request->getBody();
-        $postBody->setAggregator(Query::duplicateAggregator());
-
-        $response = $this->mgClient->send($request);
-
+        $response = $this->mgClient->request('PUT', $endpointUrl, ['body' => $putData]);
         return $this->responseHandler($response);
     }
 
     /**
-     * @param ResponseInterface $responseObj
+     * @param Response $responseObj
      *
      * @return \stdClass
      *
@@ -180,11 +190,11 @@ class RestClient
     }
 
     /**
-     * @param \Guzzle\Http\Message\Response $responseObj
+     * @param Response $responseObj
      *
      * @return string
      */
-    protected function getResponseExceptionMessage(\GuzzleHttp\Message\Response $responseObj)
+    protected function getResponseExceptionMessage(Response $responseObj)
     {
         $body = (string) $responseObj->getBody();
         $response = json_decode($body);
@@ -200,7 +210,7 @@ class RestClient
      *
      * @return string
      */
-    private function generateEndpoint($apiEndpoint, $apiVersion, $ssl)
+    protected function generateEndpoint($apiEndpoint, $apiVersion, $ssl)
     {
         if (!$ssl) {
             return "http://".$apiEndpoint."/".$apiVersion."/";
@@ -212,11 +222,11 @@ class RestClient
     /**
      * Add a file to the postBody.
      *
-     * @param PostBodyInterface $postBody
+     * @param \GuzzleHttp\Psr7\Stream            $postBody
      * @param string            $fieldName
      * @param string|array      $filePath
      */
-    private function addFile(PostBodyInterface $postBody, $fieldName, $filePath)
+    protected function addFile($fieldName, $filePath)
     {
         $filename = null;
         // Backward compatibility code
@@ -230,6 +240,10 @@ class RestClient
             $filePath = substr($filePath, 1);
         }
 
-        $postBody->addFile(new PostFile($fieldName, fopen($filePath, 'r'), $filename));
+        return [
+            'name' => $fieldName,
+            'contents' => fopen($filePath, 'r'),
+            'filename' => $filename
+        ];
     }
 }
