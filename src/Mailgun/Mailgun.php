@@ -85,6 +85,9 @@ class Mailgun{
         if(is_null($postData)) {
             $postData = $_POST;
         }
+        if(!isset($postData['timestamp']) || !isset($postData['token']) || !isset($postData['signature'])) {
+            return false;
+        }
         $hmac = hash_hmac('sha256', "{$postData["timestamp"]}{$postData["token"]}", $this->apiKey);
         $sig = $postData['signature'];
         if(function_exists('hash_equals')) {

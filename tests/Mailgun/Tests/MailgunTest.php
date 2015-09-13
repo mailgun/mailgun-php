@@ -33,4 +33,10 @@ class MailgunTest extends \Mailgun\Tests\MailgunTestCase
         );
         assert(!$client->verifyWebhookSignature($postData));
     }
+
+    public function testVerifyWebhookEmptyRequest() {
+        $client = new Mailgun('key-3ax6xnjp29jd6fds4gc373sgvjxteol0');
+        $postData = array();
+        assert(!$client->verifyWebhookSignature($postData));
+    }
 }
