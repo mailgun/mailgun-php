@@ -69,7 +69,8 @@ Guzzle Configuration
 Mailgun uses Guzzle to handle HTTP requests.  Here's how you would configure the default options
 for Guzzle...
 
-```$mg = new MailGun('key-example');
+```PHP
+$mg = new MailGun('key-example');
 
 $mg->configureRestClient(array(
     'timeout' => 300,
