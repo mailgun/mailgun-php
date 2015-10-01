@@ -63,6 +63,22 @@ $mg->get("$domain/log", array('limit' => 25,
                               'skip'  => 0));
 ```
 
+Guzzle Configuration
+--------------------
+
+Mailgun uses Guzzle to handle HTTP requests.  Here's how you would configure the default options
+for Guzzle...
+
+```$mg = new MailGun('key-example');
+
+$mg->configureRestClient(array(
+    'timeout' => 300,
+    'connect_timeout' => 300
+));
+```
+
+For a complete list of Guzzle options see the [Guzzle options page](https://guzzle.readthedocs.org/en/latest/request-options.html).
+
 Response
 --------
 
@@ -164,15 +180,6 @@ to send a message, by calling a methods for each parameter.
 Batch Message is an extension of Message Builder, and allows you to easily send 
 a batch message job within a few seconds. The complexity of 
 batch messaging is eliminated! 
-
-Framework integration
----------------------
-
-If you are using a framework you might consider these composer packages to make the framework integration easier. 
-
-* [tehplague/swiftmailer-mailgun-bundle](https://github.com/tehplague/swiftmailer-mailgun-bundle) for Symfony2
-* [Bogardo/Mailgun](https://github.com/Bogardo/Mailgun) for Laravel 4
-* [katanyoo/yii2-mailgun-mailer](https://github.com/katanyoo/yii2-mailgun-mailer) for Yii2
 
 Support and Feedback
 --------------------

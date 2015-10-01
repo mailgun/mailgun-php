@@ -39,6 +39,20 @@ class Mailgun{
     }
 
     /**
+     *  This function allows the configuration of the RestClient, for example
+     *  the "timeout" and "connnect_timeout" options of Guzzle.  See here for
+     *  list of options accepted by Guzzle.
+     *  https://guzzle.readthedocs.org/en/latest/request-options.html
+     *
+     * @param array $config
+     */
+    public function configureRestClient(array $config) {
+        foreach($config as $option => $value) {
+            $this->restClient->setDefaultOption($option, $value);
+        }
+    }
+
+    /**
      *  This function allows the sending of a fully formed message OR a custom
      *  MIME string. If sending MIME, the string must be passed in to the 3rd
      *  position of the function call.

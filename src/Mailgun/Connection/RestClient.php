@@ -51,6 +51,10 @@ class RestClient
         ]);
     }
 
+    public function setDefaultOption($option, $value) {
+        $this->mgClient->setDefaultOption($option, $value);
+    }
+
     /**
      * @param string $endpointUrl
      * @param array  $postData
