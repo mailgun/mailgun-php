@@ -57,15 +57,17 @@ class RestClient
         }
 
         $headers['User-Agent'] = Api::SDK_USER_AGENT.'/'.Api::SDK_VERSION;
-        $headers['Authorization'] = 'Basic '. base64_encode(sprintf("%s:%s",Api::API_USER, $this->apiKey));
+        $headers['Authorization'] = 'Basic '.base64_encode(sprintf('%s:%s', Api::API_USER, $this->apiKey));
 
         if (!empty($files)) {
             $body = new MultipartStream($files);
             $headers['Content-Type'] = 'multipart/form-data; boundary='.$body->getBoundary();
         }
-        $request = new Request($method, $this->apiEndpoint.$uri, $headers, $body);
 
-        return $this->httpClient->sendRequest($request);
+        $request = new Request($method, $this->apiEndpoint.$uri, $headers, $body);
+        $response = $this->httpClient->sendRequest($request);
+
+        return $this->responseHandler($response);
     }
 
     /**
@@ -114,13 +116,7 @@ class RestClient
             }
         }
 
-        $response = $this->send('POST', $endpointUrl,
-            [],
-            [],
-            array_merge($postDataMultipart, $postFiles)
-        );
-
-        return $this->responseHandler($response);
+        return $this->send('POST', $endpointUrl, [], [], array_merge($postDataMultipart, $postFiles));
     }
 
     /**
@@ -136,9 +132,7 @@ class RestClient
      */
     public function get($endpointUrl, $queryString = array())
     {
-        $response = $this->send('GET', $endpointUrl.'?'.http_build_query($queryString));
-
-        return $this->responseHandler($response);
+        return $this->send('GET', $endpointUrl.'?'.http_build_query($queryString));
     }
 
     /**
@@ -153,9 +147,7 @@ class RestClient
      */
     public function delete($endpointUrl)
     {
-        $response = $this->send('DELETE', $endpointUrl);
-
-        return $this->responseHandler($response);
+        return $this->send('DELETE', $endpointUrl);
     }
 
     /**
@@ -171,9 +163,7 @@ class RestClient
      */
     public function put($endpointUrl, $putData)
     {
-        $response = $this->send('PUT', $endpointUrl, [], $putData);
-
-        return $this->responseHandler($response);
+        return $this->send('PUT', $endpointUrl, [], $putData);
     }
 
     /**
@@ -242,8 +232,8 @@ class RestClient
     /**
      * Prepare a file for the postBody.
      *
-     * @param string                  $fieldName
-     * @param string|array            $filePath
+     * @param string       $fieldName
+     * @param string|array $filePath
      */
     protected function prepareFile($fieldName, $filePath)
     {
