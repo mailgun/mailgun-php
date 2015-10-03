@@ -2,6 +2,8 @@
 
 namespace Mailgun\Connection;
 
+use GuzzleHttp\Psr7\MultipartStream;
+use GuzzleHttp\Psr7\Request;
 use Mailgun\Connection\Exceptions\GenericHTTPError;
 use Mailgun\Connection\Exceptions\InvalidCredentials;
 use Mailgun\Connection\Exceptions\MissingRequiredParameters;
@@ -41,17 +43,6 @@ class RestClient
     {
         $this->apiKey = $apiKey;
         $this->apiEndpoint = $this->generateEndpoint($apiHost, $apiVersion, $ssl);
-
-        //TODO remove me
-        $this->mgClient = new Guzzle([
-            'base_uri' => $this->generateEndpoint($apiHost, $apiVersion, $ssl),
-            'auth' => array(Api::API_USER, $this->apiKey),
-            'exceptions' => false,
-            'config' => ['curl' => [CURLOPT_FORBID_REUSE => true]],
-            'headers' => [
-                'User-Agent' => Api::SDK_USER_AGENT.'/'.Api::SDK_VERSION,
-            ],
-        ]);
     }
 
     /**
@@ -59,16 +50,22 @@ class RestClient
      *
      * @return HttpClient
      */
-    protected function send($method, $uri, array $headers = [], $body = null)
+    protected function send($method, $uri, array $headers = [], $body = [], $files = [])
     {
         if ($this->httpClient === null) {
             $this->httpClient = new HttpClient();
         }
 
         $headers['User-Agent'] = Api::SDK_USER_AGENT.'/'.Api::SDK_VERSION;
+        $headers['Authorization'] = 'Basic '. base64_encode(sprintf("%s:%s",Api::API_USER, $this->apiKey));
 
+        if (!empty($files)) {
+            $body = new MultipartStream($files);
+            $headers['Content-Type'] = 'multipart/form-data; boundary='.$body->getBoundary();
+        }
+        $request = new Request($method, $this->apiEndpoint.$uri, $headers, $body);
 
-        return $this->httpClient->send($method, $this->apiEndpoint.$uri, $headers, $body);
+        return $this->httpClient->sendRequest($request);
     }
 
     /**
@@ -85,7 +82,6 @@ class RestClient
      */
     public function post($endpointUrl, $postData = array(), $files = array())
     {
-        $request = new Request('post', $endpointUrl);
         $postFiles = [];
 
         $fields = ['message', 'attachment', 'inline'];
@@ -118,9 +114,11 @@ class RestClient
             }
         }
 
-        $response = $this->send('POST', $endpointUrl, [
-            'multipart' => array_merge($postDataMultipart, $postFiles),
-        ]);
+        $response = $this->send('POST', $endpointUrl,
+            [],
+            [],
+            array_merge($postDataMultipart, $postFiles)
+        );
 
         return $this->responseHandler($response);
     }
