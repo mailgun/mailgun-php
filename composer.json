@@ -8,7 +8,7 @@
     "require-dev": {
         "php": ">=5.4.0",
         "phpunit/phpunit": "~4.6",
-        "php-http/guzzle6-adapter": "^0.1.0"
+        "php-http/guzzle5-adapter": "^0.1.0"
     },
     "autoload": {
         "psr-0": {
