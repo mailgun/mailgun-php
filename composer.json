@@ -2,11 +2,12 @@
     "name": "mailgun/mailgun-php",
     "description": "The Mailgun SDK provides methods for all API functions.",
     "require": {
-        "guzzlehttp/guzzle": "~6.0"
+        "happyr/http-auto-discovery": "dev-master"
     },
     "require-dev": {
         "php": ">=5.4.0",
-        "phpunit/phpunit": "~4.6"
+        "phpunit/phpunit": "~4.6",
+        "php-http/guzzle6-adapter": "^0.1.0"
     },
     "autoload": {
         "psr-0": {

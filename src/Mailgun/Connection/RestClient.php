@@ -2,15 +2,13 @@
 
 namespace Mailgun\Connection;
 
-use GuzzleHttp\Client as Guzzle;
-use GuzzleHttp\Psr7\Request;
-use GuzzleHttp\Psr7\Response;
 use Mailgun\Connection\Exceptions\GenericHTTPError;
 use Mailgun\Connection\Exceptions\InvalidCredentials;
 use Mailgun\Connection\Exceptions\MissingRequiredParameters;
 use Mailgun\Connection\Exceptions\MissingEndpoint;
 use Mailgun\Constants\Api;
 use Mailgun\Constants\ExceptionMessages;
+use Happyr\HttpAutoDiscovery\Client as HttpClient;
 use Psr\Http\Message\ResponseInterface;
 
 /**
@@ -24,28 +22,53 @@ class RestClient
     private $apiKey;
 
     /**
-     * @var Guzzle
+     * @var HttpClient
      */
-    protected $mgClient;
+    protected $httpClient;
+
+    /**
+     * @var string
+     */
+    protected $apiEndpoint;
 
     /**
      * @param string $apiKey
-     * @param string $apiEndpoint
+     * @param string $apiHost
      * @param string $apiVersion
      * @param bool   $ssl
      */
-    public function __construct($apiKey, $apiEndpoint, $apiVersion, $ssl)
+    public function __construct($apiKey, $apiHost, $apiVersion, $ssl)
     {
         $this->apiKey = $apiKey;
+        $this->apiEndpoint = $this->generateEndpoint($apiHost, $apiVersion, $ssl);
+
+        //TODO remove me
         $this->mgClient = new Guzzle([
-            'base_uri'=>$this->generateEndpoint($apiEndpoint, $apiVersion, $ssl),
+            'base_uri' => $this->generateEndpoint($apiHost, $apiVersion, $ssl),
             'auth' => array(Api::API_USER, $this->apiKey),
             'exceptions' => false,
-            'config' => ['curl' => [ CURLOPT_FORBID_REUSE => true ]],
+            'config' => ['curl' => [CURLOPT_FORBID_REUSE => true]],
             'headers' => [
                 'User-Agent' => Api::SDK_USER_AGENT.'/'.Api::SDK_VERSION,
             ],
         ]);
+    }
+
+    /**
+     * Get a HttpClient.
+     *
+     * @return HttpClient
+     */
+    protected function send($method, $uri, array $headers = [], $body = null)
+    {
+        if ($this->httpClient === null) {
+            $this->httpClient = new HttpClient();
+        }
+
+        $headers['User-Agent'] = Api::SDK_USER_AGENT.'/'.Api::SDK_VERSION;
+
+
+        return $this->httpClient->send($method, $this->apiEndpoint.$uri, $headers, $body);
     }
 
     /**
@@ -70,39 +93,35 @@ class RestClient
             if (isset($files[$fieldName])) {
                 if (is_array($files[$fieldName])) {
                     foreach ($files[$fieldName] as $file) {
-                        $postFiles[] = $this->addFile($fieldName, $file);
+                        $postFiles[] = $this->prepareFile($fieldName, $file);
                     }
                 } else {
-                    $postFiles[] = $this->addFile($fieldName, $files[$fieldName]);
+                    $postFiles[] = $this->prepareFile($fieldName, $files[$fieldName]);
                 }
             }
         }
 
         $postDataMultipart = [];
-        foreach($postData AS $key => $value)
-        {
-            if (is_array($value))
-            {
-                foreach($value AS $subValue)
-                {
+        foreach ($postData as $key => $value) {
+            if (is_array($value)) {
+                foreach ($value as $subValue) {
                     $postDataMultipart[] = [
                         'name' => $key,
-                        'contents' => $subValue
+                        'contents' => $subValue,
                     ];
                 }
-            }
-            else
-            {
+            } else {
                 $postDataMultipart[] = [
                     'name' => $key,
-                    'contents' => $value
+                    'contents' => $value,
                 ];
             }
         }
 
-        $response = $this->mgClient->send($request, [
-            'multipart' => array_merge($postDataMultipart, $postFiles)
+        $response = $this->send('POST', $endpointUrl, [
+            'multipart' => array_merge($postDataMultipart, $postFiles),
         ]);
+
         return $this->responseHandler($response);
     }
 
@@ -119,7 +138,8 @@ class RestClient
      */
     public function get($endpointUrl, $queryString = array())
     {
-        $response = $this->mgClient->get($endpointUrl, ['query' => $queryString]);
+        $response = $this->send('GET', $endpointUrl.'?'.http_build_query($queryString));
+
         return $this->responseHandler($response);
     }
 
@@ -135,7 +155,8 @@ class RestClient
      */
     public function delete($endpointUrl)
     {
-        $response = $this->mgClient->delete($endpointUrl);
+        $response = $this->send('DELETE', $endpointUrl);
+
         return $this->responseHandler($response);
     }
 
@@ -152,12 +173,13 @@ class RestClient
      */
     public function put($endpointUrl, $putData)
     {
-        $response = $this->mgClient->request('PUT', $endpointUrl, ['body' => $putData]);
+        $response = $this->send('PUT', $endpointUrl, [], $putData);
+
         return $this->responseHandler($response);
     }
 
     /**
-     * @param Response $responseObj
+     * @param ResponseInterface $responseObj
      *
      * @return \stdClass
      *
@@ -166,7 +188,7 @@ class RestClient
      * @throws MissingEndpoint
      * @throws MissingRequiredParameters
      */
-    public function responseHandler($responseObj)
+    public function responseHandler(ResponseInterface $responseObj)
     {
         $httpResponseCode = $responseObj->getStatusCode();
         if ($httpResponseCode === 200) {
@@ -190,16 +212,16 @@ class RestClient
     }
 
     /**
-     * @param Response $responseObj
+     * @param ResponseInterface $responseObj
      *
      * @return string
      */
-    protected function getResponseExceptionMessage(Response $responseObj)
+    protected function getResponseExceptionMessage(ResponseInterface $responseObj)
     {
         $body = (string) $responseObj->getBody();
         $response = json_decode($body);
         if (json_last_error() == JSON_ERROR_NONE && isset($response->message)) {
-            return " ".$response->message;
+            return ' '.$response->message;
         }
     }
 
@@ -213,20 +235,19 @@ class RestClient
     protected function generateEndpoint($apiEndpoint, $apiVersion, $ssl)
     {
         if (!$ssl) {
-            return "http://".$apiEndpoint."/".$apiVersion."/";
+            return 'http://'.$apiEndpoint.'/'.$apiVersion.'/';
         } else {
-            return "https://".$apiEndpoint."/".$apiVersion."/";
+            return 'https://'.$apiEndpoint.'/'.$apiVersion.'/';
         }
     }
 
     /**
-     * Add a file to the postBody.
+     * Prepare a file for the postBody.
      *
-     * @param \GuzzleHttp\Psr7\Stream            $postBody
-     * @param string            $fieldName
-     * @param string|array      $filePath
+     * @param string                  $fieldName
+     * @param string|array            $filePath
      */
-    protected function addFile($fieldName, $filePath)
+    protected function prepareFile($fieldName, $filePath)
     {
         $filename = null;
         // Backward compatibility code
@@ -243,7 +264,7 @@ class RestClient
         return [
             'name' => $fieldName,
             'contents' => fopen($filePath, 'r'),
-            'filename' => $filename
+            'filename' => $filename,
         ];
     }
 }
