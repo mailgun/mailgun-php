@@ -4,13 +4,14 @@ namespace Mailgun\Connection;
 
 use GuzzleHttp\Psr7\MultipartStream;
 use GuzzleHttp\Psr7\Request;
+use Http\Adapter\HttpAdapter;
+use Http\Discovery\HttpAdapterDiscovery;
 use Mailgun\Connection\Exceptions\GenericHTTPError;
 use Mailgun\Connection\Exceptions\InvalidCredentials;
 use Mailgun\Connection\Exceptions\MissingRequiredParameters;
 use Mailgun\Connection\Exceptions\MissingEndpoint;
 use Mailgun\Constants\Api;
 use Mailgun\Constants\ExceptionMessages;
-use Happyr\HttpAutoDiscovery\Client as HttpClient;
 use Psr\Http\Message\ResponseInterface;
 
 /**
@@ -24,9 +25,9 @@ class RestClient
     private $apiKey;
 
     /**
-     * @var HttpClient
+     * @var HttpAdapter
      */
-    protected $httpClient;
+    protected $httpAdapter;
 
     /**
      * @var string
@@ -39,21 +40,30 @@ class RestClient
      * @param string $apiVersion
      * @param bool   $ssl
      */
-    public function __construct($apiKey, $apiHost, $apiVersion, $ssl)
+    public function __construct($apiKey, $apiHost, $apiVersion, $ssl, HttpAdapter $adapter = null)
     {
         $this->apiKey = $apiKey;
+        $this->httpAdapter = $httpAdapter;
         $this->apiEndpoint = $this->generateEndpoint($apiHost, $apiVersion, $ssl);
     }
 
     /**
-     * Get a HttpClient.
+     * @param string $method
+     * @param string $uri
+     * @param array $headers
+     * @param array $body
+     * @param array $files
      *
-     * @return HttpClient
+     * @return \stdClass
+     * @throws GenericHTTPError
+     * @throws InvalidCredentials
+     * @throws MissingEndpoint
+     * @throws MissingRequiredParameters
      */
     protected function send($method, $uri, array $headers = [], $body = [], $files = [])
     {
-        if ($this->httpClient === null) {
-            $this->httpClient = new HttpClient();
+        if ($this->httpAdapter === null) {
+            $this->httpAdapter = HttpAdapterDiscovery::find();
         }
 
         $headers['User-Agent'] = Api::SDK_USER_AGENT.'/'.Api::SDK_VERSION;
@@ -65,7 +75,7 @@ class RestClient
         }
 
         $request = new Request($method, $this->apiEndpoint.$uri, $headers, $body);
-        $response = $this->httpClient->sendRequest($request);
+        $response = $this->httpAdapter->sendRequest($request);
 
         return $this->responseHandler($response);
     }
