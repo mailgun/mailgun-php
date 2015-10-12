@@ -35,32 +35,34 @@ class RestClient
     protected $apiEndpoint;
 
     /**
-     * @param string $apiKey
-     * @param string $apiHost
-     * @param string $apiVersion
-     * @param bool   $ssl
+     * @param string      $apiKey
+     * @param string      $apiHost
+     * @param string      $apiVersion
+     * @param bool        $ssl
+     * @param HttpAdapter $adapter
      */
     public function __construct($apiKey, $apiHost, $apiVersion, $ssl, HttpAdapter $adapter = null)
     {
         $this->apiKey = $apiKey;
-        $this->httpAdapter = $httpAdapter;
+        $this->httpAdapter = $adapter;
         $this->apiEndpoint = $this->generateEndpoint($apiHost, $apiVersion, $ssl);
     }
 
     /**
      * @param string $method
      * @param string $uri
-     * @param array $headers
-     * @param array $body
-     * @param array $files
+     * @param array  $body
+     * @param array  $files
+     * @param array  $headers
      *
      * @return \stdClass
+     *
      * @throws GenericHTTPError
      * @throws InvalidCredentials
      * @throws MissingEndpoint
      * @throws MissingRequiredParameters
      */
-    protected function send($method, $uri, array $headers = [], $body = [], $files = [])
+    protected function send($method, $uri, $body = null, $files = [], array $headers = [])
     {
         if ($this->httpAdapter === null) {
             $this->httpAdapter = HttpAdapterDiscovery::find();
@@ -126,7 +128,7 @@ class RestClient
             }
         }
 
-        return $this->send('POST', $endpointUrl, [], [], array_merge($postDataMultipart, $postFiles));
+        return $this->send('POST', $endpointUrl, [], array_merge($postDataMultipart, $postFiles));
     }
 
     /**
@@ -173,7 +175,7 @@ class RestClient
      */
     public function put($endpointUrl, $putData)
     {
-        return $this->send('PUT', $endpointUrl, [], $putData);
+        return $this->send('PUT', $endpointUrl, $putData);
     }
 
     /**
