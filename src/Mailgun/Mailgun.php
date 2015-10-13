@@ -33,6 +33,7 @@ class Mailgun{
      * @param string $apiEndpoint
      * @param string $apiVersion
      * @param bool $ssl
+     * @param HttpAdapter $adapter
      */
     public function __construct(
         $apiKey = null,
