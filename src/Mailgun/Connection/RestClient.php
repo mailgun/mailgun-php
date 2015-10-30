@@ -4,7 +4,7 @@ namespace Mailgun\Connection;
 
 use GuzzleHttp\Psr7\MultipartStream;
 use GuzzleHttp\Psr7\Request;
-use Http\Adapter\HttpAdapter;
+use Http\Client\HttpClient;
 use Http\Discovery\HttpAdapterDiscovery;
 use Mailgun\Connection\Exceptions\GenericHTTPError;
 use Mailgun\Connection\Exceptions\InvalidCredentials;
@@ -25,9 +25,9 @@ class RestClient
     private $apiKey;
 
     /**
-     * @var HttpAdapter
+     * @var HttpClient
      */
-    protected $httpAdapter;
+    protected $httpClient;
 
     /**
      * @var string
@@ -39,12 +39,12 @@ class RestClient
      * @param string      $apiHost
      * @param string      $apiVersion
      * @param bool        $ssl
-     * @param HttpAdapter $adapter
+     * @param HttpClient  $httpClient
      */
-    public function __construct($apiKey, $apiHost, $apiVersion, $ssl, HttpAdapter $adapter = null)
+    public function __construct($apiKey, $apiHost, $apiVersion, $ssl, HttpClient $httpClient = null)
     {
         $this->apiKey = $apiKey;
-        $this->httpAdapter = $adapter;
+        $this->httpClient = $httpClient;
         $this->apiEndpoint = $this->generateEndpoint($apiHost, $apiVersion, $ssl);
     }
 
@@ -64,8 +64,8 @@ class RestClient
      */
     protected function send($method, $uri, $body = null, $files = [], array $headers = [])
     {
-        if ($this->httpAdapter === null) {
-            $this->httpAdapter = HttpAdapterDiscovery::find();
+        if ($this->httpClient === null) {
+            $this->httpClient = HttpAdapterDiscovery::find();
         }
 
         $headers['User-Agent'] = Api::SDK_USER_AGENT.'/'.Api::SDK_VERSION;
@@ -77,7 +77,7 @@ class RestClient
         }
 
         $request = new Request($method, $this->apiEndpoint.$uri, $headers, $body);
-        $response = $this->httpAdapter->sendRequest($request);
+        $response = $this->httpClient->sendRequest($request);
 
         return $this->responseHandler($response);
     }

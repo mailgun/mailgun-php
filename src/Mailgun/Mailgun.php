@@ -3,6 +3,7 @@
 namespace Mailgun;
 
 use Http\Adapter\HttpAdapter;
+use Http\Client\HttpClient;
 use Mailgun\Constants\ExceptionMessages;
 use Mailgun\Messages\Exceptions;
 use Mailgun\Connection\RestClient;
@@ -33,17 +34,17 @@ class Mailgun{
      * @param string $apiEndpoint
      * @param string $apiVersion
      * @param bool $ssl
-     * @param HttpAdapter $adapter
+     * @param HttpAdapter $httpClient
      */
     public function __construct(
         $apiKey = null,
         $apiEndpoint = "api.mailgun.net",
         $apiVersion = "v3",
         $ssl = true,
-        HttpAdapter $adapter = null
+        HttpClient $httpClient = null
     ) {
         $this->apiKey = $apiKey;
-        $this->restClient = new RestClient($apiKey, $apiEndpoint, $apiVersion, $ssl, $adapter);
+        $this->restClient = new RestClient($apiKey, $apiEndpoint, $apiVersion, $ssl, $httpClient);
     }
 
     /**
