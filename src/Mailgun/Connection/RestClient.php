@@ -5,7 +5,7 @@ namespace Mailgun\Connection;
 use GuzzleHttp\Psr7\MultipartStream;
 use GuzzleHttp\Psr7\Request;
 use Http\Client\HttpClient;
-use Http\Discovery\HttpAdapterDiscovery;
+use Http\Discovery\HttpClientDiscovery;
 use Mailgun\Connection\Exceptions\GenericHTTPError;
 use Mailgun\Connection\Exceptions\InvalidCredentials;
 use Mailgun\Connection\Exceptions\MissingRequiredParameters;
@@ -64,9 +64,7 @@ class RestClient
      */
     protected function send($method, $uri, $body = null, $files = [], array $headers = [])
     {
-        if ($this->httpClient === null) {
-            $this->httpClient = HttpAdapterDiscovery::find();
-        }
+        $client = $this->getHttpClient();
 
         $headers['User-Agent'] = Api::SDK_USER_AGENT.'/'.Api::SDK_VERSION;
         $headers['Authorization'] = 'Basic '.base64_encode(sprintf('%s:%s', Api::API_USER, $this->apiKey));
@@ -77,7 +75,7 @@ class RestClient
         }
 
         $request = new Request($method, $this->apiEndpoint.$uri, $headers, $body);
-        $response = $this->httpClient->sendRequest($request);
+        $response = $client->sendRequest($request);
 
         return $this->responseHandler($response);
     }
@@ -266,5 +264,19 @@ class RestClient
             'contents' => fopen($filePath, 'r'),
             'filename' => $filename,
         ];
+    }
+
+
+    /**
+     *
+     * @return HttpClient
+     */
+    protected function getHttpClient()
+    {
+        if ($this->httpClient === null) {
+            $this->httpClient = HttpClientDiscovery::find();
+        }
+
+        return $this->httpClient;
     }
 }
