@@ -5,13 +5,12 @@
         "php": ">=5.4.0",
         "guzzlehttp/psr7": "~1.2",
         "php-http/client-implementation": "@dev",
-        "php-http/discovery": "dev-master"
+        "php-http/discovery": "~0.2"
     },
     "require-dev": {
         "phpunit/phpunit": "~4.6",
         "php-http/guzzle6-adapter": "dev-master",
-        "php-http/httplug": "dev-master",
-        "php-http/message-factory": "dev-master"
+        "php-http/httplug": "dev-master"
     },
     "autoload": {
         "psr-0": {

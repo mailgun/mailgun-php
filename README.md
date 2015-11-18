@@ -25,12 +25,13 @@ curl -sS https://getcomposer.org/installer | php
 php composer.phar require mailgun/mailgun-php:~1.7.2
 ```
 
-You do also need to choose what library to use when you are sending messages. Consult the
+You do also need to choose what library to use when you are sending http messages. Consult the
 [php-http/adapter-implementation](https://packagist.org/providers/php-http/adapter-implementation) virtual package to
-find adapters to use. Example:
+find adapters to use. For more information about virtual packages please refer to 
+[Httplug](http://docs.httplug.io/en/latest/virtual-package/). Example:
 
 ```bash
-php composer.phar require php-http/guzzle6-adapter:^0.1.0
+php composer.phar require php-http/guzzle6-adapter:dev-master
 ```
 
 **For shared hosts without SSH access, check out our [Shared Host Instructions](SharedHostInstall.md).**
