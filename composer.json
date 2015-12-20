@@ -4,13 +4,13 @@
     "require": {
         "php": ">=5.4.0",
         "guzzlehttp/psr7": "~1.2",
-        "php-http/client-implementation": "@dev",
-        "php-http/discovery": "~0.2"
+        "php-http/client-implementation": "1.0",
+        "php-http/discovery": "^0.4"
     },
     "require-dev": {
         "phpunit/phpunit": "~4.6",
-        "php-http/guzzle6-adapter": "dev-master",
-        "php-http/httplug": "dev-master"
+        "php-http/guzzle5-adapter": "dev-master",
+        "php-http/httplug": "v1.0.0-beta"
     },
     "autoload": {
         "psr-0": {
