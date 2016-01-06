@@ -28,14 +28,20 @@ class Mailgun{
     protected $apiKey;
 
     /**
+     * @var null|string
+     */
+    protected $ssl_file;
+
+    /**
      * @param string|null $apiKey
      * @param string $apiEndpoint
      * @param string $apiVersion
      * @param bool $ssl
      */
-    public function __construct($apiKey = null, $apiEndpoint = "api.mailgun.net", $apiVersion = "v3", $ssl = true){
+    public function __construct($apiKey = null, $ssl_file = null , $apiEndpoint = "api.mailgun.net", $apiVersion = "v3", $ssl = true){
         $this->apiKey = $apiKey;
-        $this->restClient = new RestClient($apiKey, $apiEndpoint, $apiVersion, $ssl);
+        $this->ssl_file = $ssl_file;
+        $this->restClient = new RestClient($apiKey, $ssl_file, $apiEndpoint, $apiVersion, $ssl);
     }
 
     /**

@@ -30,25 +30,50 @@ class RestClient
     protected $mgClient;
 
     /**
+     * @var string
+     */
+    protected $ssl_file;
+
+    /**
      * @param string $apiKey
+     * @param string $ssl_file
      * @param string $apiEndpoint
      * @param string $apiVersion
      * @param bool   $ssl
      */
-    public function __construct($apiKey, $apiEndpoint, $apiVersion, $ssl)
+    public function __construct($apiKey, $ssl_file, $apiEndpoint, $apiVersion, $ssl)
     {
+
         $this->apiKey = $apiKey;
+        $this->ssl_file = $ssl_file;
         $this->mgClient = new Guzzle([
             'base_url'=>$this->generateEndpoint($apiEndpoint, $apiVersion, $ssl),
             'defaults'=>[
                 'auth' => array(Api::API_USER, $this->apiKey),
                 'exceptions' => false,
-                'config' => ['curl' => [ CURLOPT_FORBID_REUSE => true ]],
+                'config' => [ 'curl' => $this->curlOpt($this->ssl_file) ],
                 'headers' => [
                     'User-Agent' => Api::SDK_USER_AGENT.'/'.Api::SDK_VERSION,
                 ],
             ],
         ]);
+    }
+
+    /**
+     * Function to handle curl config
+     * @param null|string $ssl_file 
+     * @return array
+     */
+    private function curlOpt($file)
+    {
+        $settings = ([ CURLOPT_FORBID_REUSE => true ]);
+
+        if($file != null)
+        {
+            $settings[CURLOPT_CAINFO] = $file;   
+        }
+
+        return $settings;
     }
 
     /**
