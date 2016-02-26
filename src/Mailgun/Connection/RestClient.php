@@ -64,8 +64,6 @@ class RestClient
      */
     protected function send($method, $uri, $body = null, $files = [], array $headers = [])
     {
-        $client = $this->getHttpClient();
-
         $headers['User-Agent'] = Api::SDK_USER_AGENT.'/'.Api::SDK_VERSION;
         $headers['Authorization'] = 'Basic '.base64_encode(sprintf('%s:%s', Api::API_USER, $this->apiKey));
 
@@ -75,7 +73,7 @@ class RestClient
         }
 
         $request = new Request($method, $this->apiEndpoint.$uri, $headers, $body);
-        $response = $client->sendRequest($request);
+        $response = $this->getHttpClient()->sendRequest($request);
 
         return $this->responseHandler($response);
     }

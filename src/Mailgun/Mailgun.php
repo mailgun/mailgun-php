@@ -37,11 +37,19 @@ class Mailgun{
      */
     public function __construct(
         $apiKey = null,
-        $apiEndpoint = "api.mailgun.net",
-        $apiVersion = "v3",
+        $apiEndpoint = null,
+        $apiVersion = null,
         $ssl = true,
         HttpClient $httpClient = null
     ) {
+        if (empty($apiEndpoint)) {
+            $apiEndpoint = "api.mailgun.net";
+        }
+
+        if (empty($apiVersion)) {
+            $apiVersion = "v3";
+        }
+
         $this->apiKey = $apiKey;
         $this->restClient = new RestClient($apiKey, $apiEndpoint, $apiVersion, $ssl, $httpClient);
     }

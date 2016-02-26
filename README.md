@@ -31,8 +31,19 @@ find adapters to use. For more information about virtual packages please refer t
 [Httplug](http://docs.httplug.io/en/latest/virtual-package/). Example:
 
 ```bash
-php composer.phar require php-http/guzzle6-adapter:dev-master
+php composer.phar require php-http/guzzle6-adapter:^1.0
 ```
+
+When creating a new `Mailgun` object you must provide an instance of the `HttpClient`.
+
+```php
+$client = new \Http\Adapter\Guzzle6\Client();
+$mailgun = new \Mailgun\Mailgun('api_key', null, null, true, $client);
+```
+
+You could also rely on the [auto discovery feature of Httplug](http://docs.php-http.org/en/latest/discovery.html). This 
+means that you need to install `puli/composer-plugin` and put a puli.phar in your project root.  
+
 
 **For shared hosts without SSH access, check out our [Shared Host Instructions](SharedHostInstall.md).**
 
