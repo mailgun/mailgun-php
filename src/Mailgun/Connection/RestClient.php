@@ -9,8 +9,8 @@ use GuzzleHttp\Post\PostFile;
 use GuzzleHttp\Query;
 use Mailgun\Connection\Exceptions\GenericHTTPError;
 use Mailgun\Connection\Exceptions\InvalidCredentials;
-use Mailgun\Connection\Exceptions\MissingRequiredParameters;
 use Mailgun\Connection\Exceptions\MissingEndpoint;
+use Mailgun\Connection\Exceptions\MissingRequiredParameters;
 use Mailgun\Constants\Api;
 use Mailgun\Constants\ExceptionMessages;
 
@@ -39,12 +39,12 @@ class RestClient
     {
         $this->apiKey = $apiKey;
         $this->mgClient = new Guzzle([
-            'base_url'=>$this->generateEndpoint($apiEndpoint, $apiVersion, $ssl),
-            'defaults'=>[
-                'auth' => array(Api::API_USER, $this->apiKey),
+            'base_url' => $this->generateEndpoint($apiEndpoint, $apiVersion, $ssl),
+            'defaults' => [
+                'auth'       => [Api::API_USER, $this->apiKey],
                 'exceptions' => false,
-                'config' => ['curl' => [ CURLOPT_FORBID_REUSE => true ]],
-                'headers' => [
+                'config'     => ['curl' => [CURLOPT_FORBID_REUSE => true]],
+                'headers'    => [
                     'User-Agent' => Api::SDK_USER_AGENT.'/'.Api::SDK_VERSION,
                 ],
             ],
@@ -56,14 +56,14 @@ class RestClient
      * @param array  $postData
      * @param array  $files
      *
-     * @return \stdClass
-     *
      * @throws GenericHTTPError
      * @throws InvalidCredentials
      * @throws MissingEndpoint
      * @throws MissingRequiredParameters
+     *
+     * @return \stdClass
      */
-    public function post($endpointUrl, $postData = array(), $files = array())
+    public function post($endpointUrl, $postData = [], $files = [])
     {
         $request = $this->mgClient->createRequest('POST', $endpointUrl, ['body' => $postData]);
         /** @var \GuzzleHttp\Post\PostBodyInterface $postBody */
@@ -92,14 +92,14 @@ class RestClient
      * @param string $endpointUrl
      * @param array  $queryString
      *
-     * @return \stdClass
-     *
      * @throws GenericHTTPError
      * @throws InvalidCredentials
      * @throws MissingEndpoint
      * @throws MissingRequiredParameters
+     *
+     * @return \stdClass
      */
-    public function get($endpointUrl, $queryString = array())
+    public function get($endpointUrl, $queryString = [])
     {
         $response = $this->mgClient->get($endpointUrl, ['query' => $queryString]);
 
@@ -109,12 +109,12 @@ class RestClient
     /**
      * @param string $endpointUrl
      *
-     * @return \stdClass
-     *
      * @throws GenericHTTPError
      * @throws InvalidCredentials
      * @throws MissingEndpoint
      * @throws MissingRequiredParameters
+     *
+     * @return \stdClass
      */
     public function delete($endpointUrl)
     {
@@ -127,12 +127,12 @@ class RestClient
      * @param string $endpointUrl
      * @param array  $putData
      *
-     * @return \stdClass
-     *
      * @throws GenericHTTPError
      * @throws InvalidCredentials
      * @throws MissingEndpoint
      * @throws MissingRequiredParameters
+     *
+     * @return \stdClass
      */
     public function put($endpointUrl, $putData)
     {
@@ -149,12 +149,12 @@ class RestClient
     /**
      * @param ResponseInterface $responseObj
      *
-     * @return \stdClass
-     *
      * @throws GenericHTTPError
      * @throws InvalidCredentials
      * @throws MissingEndpoint
      * @throws MissingRequiredParameters
+     *
+     * @return \stdClass
      */
     public function responseHandler($responseObj)
     {
@@ -189,7 +189,7 @@ class RestClient
         $body = (string) $responseObj->getBody();
         $response = json_decode($body);
         if (json_last_error() == JSON_ERROR_NONE && isset($response->message)) {
-            return " ".$response->message;
+            return ' '.$response->message;
         }
     }
 
@@ -203,9 +203,9 @@ class RestClient
     private function generateEndpoint($apiEndpoint, $apiVersion, $ssl)
     {
         if (!$ssl) {
-            return "http://".$apiEndpoint."/".$apiVersion."/";
+            return 'http://'.$apiEndpoint.'/'.$apiVersion.'/';
         } else {
-            return "https://".$apiEndpoint."/".$apiVersion."/";
+            return 'https://'.$apiEndpoint.'/'.$apiVersion.'/';
         }
     }
 
