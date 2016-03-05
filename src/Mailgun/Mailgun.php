@@ -30,28 +30,16 @@ class Mailgun{
 
     /**
      * @param string|null $apiKey
-     * @param string $apiEndpoint
-     * @param string $apiVersion
-     * @param bool $ssl
      * @param HttpClient $httpClient
+     * @param string $apiEndpoint
      */
     public function __construct(
         $apiKey = null,
-        $apiEndpoint = null,
-        $apiVersion = null,
-        $ssl = true,
-        HttpClient $httpClient = null
+        HttpClient $httpClient = null,
+        $apiEndpoint = 'api.mailgun.net'
     ) {
-        if (empty($apiEndpoint)) {
-            $apiEndpoint = "api.mailgun.net";
-        }
-
-        if (empty($apiVersion)) {
-            $apiVersion = "v3";
-        }
-
         $this->apiKey = $apiKey;
-        $this->restClient = new RestClient($apiKey, $apiEndpoint, $apiVersion, $ssl, $httpClient);
+        $this->restClient = new RestClient($apiKey, $apiEndpoint, $httpClient);
     }
 
     /**
@@ -146,6 +134,30 @@ class Mailgun{
      */
     public function put($endpointUrl, $putData){
         return $this->restClient->put($endpointUrl, $putData);
+    }
+
+    /**
+     * @param string $apiVersion
+     *
+     * @return Mailgun
+     */
+    public function setApiVersion($apiVersion)
+    {
+        $this->restClient->setApiVersion($apiVersion);
+
+        return $this;
+    }
+
+    /**
+     * @param boolean $sslEnabled
+     *
+     * @return Mailgun
+     */
+    public function setSslEnabled($sslEnabled)
+    {
+        $this->restClient->setSslEnabled($sslEnabled);
+
+        return $this;
     }
 
     /**

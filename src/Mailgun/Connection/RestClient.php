@@ -20,6 +20,7 @@ use Psr\Http\Message\ResponseInterface;
 class RestClient
 {
     /**
+     * Your API key
      * @var string
      */
     private $apiKey;
@@ -32,20 +33,30 @@ class RestClient
     /**
      * @var string
      */
-    protected $apiEndpoint;
+    protected $apiHost;
+
+    /**
+     * The version of the API to use
+     * @var string
+     */
+    protected $apiVersion = 'v2';
+
+    /**
+     * If we should use SSL or not
+     * @var bool
+     */
+    protected $sslEnabled = true;
 
     /**
      * @param string      $apiKey
      * @param string      $apiHost
-     * @param string      $apiVersion
-     * @param bool        $ssl
      * @param HttpClient  $httpClient
      */
-    public function __construct($apiKey, $apiHost, $apiVersion, $ssl, HttpClient $httpClient = null)
+    public function __construct($apiKey, $apiHost, HttpClient $httpClient = null)
     {
         $this->apiKey = $apiKey;
+        $this->apiHost = $apiHost;
         $this->httpClient = $httpClient;
-        $this->apiEndpoint = $this->generateEndpoint($apiHost, $apiVersion, $ssl);
     }
 
     /**
@@ -72,7 +83,7 @@ class RestClient
             $headers['Content-Type'] = 'multipart/form-data; boundary='.$body->getBoundary();
         }
 
-        $request = new Request($method, $this->apiEndpoint.$uri, $headers, $body);
+        $request = new Request($method, $this->getApiUrl($uri), $headers, $body);
         $response = $this->getHttpClient()->sendRequest($request);
 
         return $this->responseHandler($response);
@@ -222,22 +233,6 @@ class RestClient
     }
 
     /**
-     * @param string $apiEndpoint
-     * @param string $apiVersion
-     * @param bool   $ssl
-     *
-     * @return string
-     */
-    protected function generateEndpoint($apiEndpoint, $apiVersion, $ssl)
-    {
-        if (!$ssl) {
-            return 'http://'.$apiEndpoint.'/'.$apiVersion.'/';
-        } else {
-            return 'https://'.$apiEndpoint.'/'.$apiVersion.'/';
-        }
-    }
-
-    /**
      * Prepare a file for the postBody.
      *
      * @param string       $fieldName
@@ -276,5 +271,56 @@ class RestClient
         }
 
         return $this->httpClient;
+    }
+
+    /**
+     * @param $uri
+     *
+     * @return string
+     */
+    private function getApiUrl($uri)
+    {
+        return $this->generateEndpoint($this->apiHost, $this->apiVersion, $this->sslEnabled).$uri;
+    }
+
+
+    /**
+     * @param string $apiEndpoint
+     * @param string $apiVersion
+     * @param bool   $ssl
+     *
+     * @return string
+     */
+    private function generateEndpoint($apiEndpoint, $apiVersion, $ssl)
+    {
+        if (!$ssl) {
+            return 'http://'.$apiEndpoint.'/'.$apiVersion.'/';
+        } else {
+            return 'https://'.$apiEndpoint.'/'.$apiVersion.'/';
+        }
+    }
+
+    /**
+     * @param string $apiVersion
+     *
+     * @return RestClient
+     */
+    public function setApiVersion($apiVersion)
+    {
+        $this->apiVersion = $apiVersion;
+
+        return $this;
+    }
+
+    /**
+     * @param boolean $sslEnabled
+     *
+     * @return RestClient
+     */
+    public function setSslEnabled($sslEnabled)
+    {
+        $this->sslEnabled = $sslEnabled;
+
+        return $this;
     }
 }

@@ -38,7 +38,7 @@ When creating a new `Mailgun` object you must provide an instance of the `HttpCl
 
 ```php
 $client = new \Http\Adapter\Guzzle6\Client();
-$mailgun = new \Mailgun\Mailgun('api_key', null, null, true, $client);
+$mailgun = new \Mailgun\Mailgun('api_key', $client);
 ```
 
 You could also rely on the [auto discovery feature of Httplug](http://docs.php-http.org/en/latest/discovery.html). This 
@@ -161,7 +161,9 @@ Go to http://bin.mailgun.net. The Postbin will generate a special URL. Save that
 
 ```php
 # First, instantiate the SDK with your API credentials and define your domain. 
-$mg = new Mailgun('key-example', 'bin.mailgun.net', 'aecf68de', $ssl = False);
+$mg = new Mailgun('key-example', null, 'bin.mailgun.net');
+$mg->setApiVersion('aecf68de');
+$mg->setSslEnabled('false');
 $domain = 'example.com';
 
 # Now, compose and send your message.
