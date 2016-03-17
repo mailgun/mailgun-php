@@ -219,17 +219,27 @@ class RestClient
     private function addFile(PostBodyInterface $postBody, $fieldName, $filePath)
     {
         $filename = null;
-        // Backward compatibility code
-        if (is_array($filePath)) {
-            $filename = $filePath['remoteName'];
-            $filePath = $filePath['filePath'];
+        $fileContent = null;
+
+        if (is_array($filePath) && isset($filePath['fileContent'])) {
+            // File from memory
+            $filename = $filePath['filename'];
+            $fileContent = $filePath['fileContent'];
+        } else {
+            // Backward compatibility code
+            if (is_array($filePath) && isset($filePath['filePath'])) {
+                $filename = $filePath['remoteName'];
+                $filePath = $filePath['filePath'];
+            }
+
+            $fileContent = fopen($filePath, 'r');
+
+            // Remove leading @ symbol
+            if (strpos($filePath, '@') === 0) {
+                $filePath = substr($filePath, 1);
+            }
         }
 
-        // Remove leading @ symbol
-        if (strpos($filePath, '@') === 0) {
-            $filePath = substr($filePath, 1);
-        }
-
-        $postBody->addFile(new PostFile($fieldName, fopen($filePath, 'r'), $filename));
+        $postBody->addFile(new PostFile($fieldName, $fileContent, $filename));
     }
 }
