@@ -9,7 +9,7 @@ class MessageBuilderTest extends \Mailgun\Tests\MailgunTestCase
 
     public function setUp()
     {
-        $this->client = new Mailgun("My-Super-Awesome-API-Key", "samples.mailgun.org", false);
+        $this->client = new Mailgun();
     }
 
     public function testBlankInstantiation()

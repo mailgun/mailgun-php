@@ -2,17 +2,17 @@
 
 namespace Mailgun\Connection;
 
-use GuzzleHttp\Client as Guzzle;
-use GuzzleHttp\Message\ResponseInterface;
-use GuzzleHttp\Post\PostBodyInterface;
-use GuzzleHttp\Post\PostFile;
-use GuzzleHttp\Query;
+use GuzzleHttp\Psr7\MultipartStream;
+use GuzzleHttp\Psr7\Request;
+use Http\Client\HttpClient;
+use Http\Discovery\HttpClientDiscovery;
 use Mailgun\Connection\Exceptions\GenericHTTPError;
 use Mailgun\Connection\Exceptions\InvalidCredentials;
 use Mailgun\Connection\Exceptions\MissingRequiredParameters;
 use Mailgun\Connection\Exceptions\MissingEndpoint;
 use Mailgun\Constants\Api;
 use Mailgun\Constants\ExceptionMessages;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * This class is a wrapper for the Guzzle (HTTP Client Library).
@@ -20,35 +20,73 @@ use Mailgun\Constants\ExceptionMessages;
 class RestClient
 {
     /**
+     * Your API key
      * @var string
      */
     private $apiKey;
 
     /**
-     * @var Guzzle
+     * @var HttpClient
      */
-    protected $mgClient;
+    protected $httpClient;
 
     /**
-     * @param string $apiKey
-     * @param string $apiEndpoint
-     * @param string $apiVersion
-     * @param bool   $ssl
+     * @var string
      */
-    public function __construct($apiKey, $apiEndpoint, $apiVersion, $ssl)
+    protected $apiHost;
+
+    /**
+     * The version of the API to use
+     * @var string
+     */
+    protected $apiVersion = 'v2';
+
+    /**
+     * If we should use SSL or not
+     * @var bool
+     */
+    protected $sslEnabled = true;
+
+    /**
+     * @param string      $apiKey
+     * @param string      $apiHost
+     * @param HttpClient  $httpClient
+     */
+    public function __construct($apiKey, $apiHost, HttpClient $httpClient = null)
     {
         $this->apiKey = $apiKey;
-        $this->mgClient = new Guzzle([
-            'base_url'=>$this->generateEndpoint($apiEndpoint, $apiVersion, $ssl),
-            'defaults'=>[
-                'auth' => array(Api::API_USER, $this->apiKey),
-                'exceptions' => false,
-                'config' => ['curl' => [ CURLOPT_FORBID_REUSE => true ]],
-                'headers' => [
-                    'User-Agent' => Api::SDK_USER_AGENT.'/'.Api::SDK_VERSION,
-                ],
-            ],
-        ]);
+        $this->apiHost = $apiHost;
+        $this->httpClient = $httpClient;
+    }
+
+    /**
+     * @param string $method
+     * @param string $uri
+     * @param array  $body
+     * @param array  $files
+     * @param array  $headers
+     *
+     * @return \stdClass
+     *
+     * @throws GenericHTTPError
+     * @throws InvalidCredentials
+     * @throws MissingEndpoint
+     * @throws MissingRequiredParameters
+     */
+    protected function send($method, $uri, $body = null, $files = [], array $headers = [])
+    {
+        $headers['User-Agent'] = Api::SDK_USER_AGENT.'/'.Api::SDK_VERSION;
+        $headers['Authorization'] = 'Basic '.base64_encode(sprintf('%s:%s', Api::API_USER, $this->apiKey));
+
+        if (!empty($files)) {
+            $body = new MultipartStream($files);
+            $headers['Content-Type'] = 'multipart/form-data; boundary='.$body->getBoundary();
+        }
+
+        $request = new Request($method, $this->getApiUrl($uri), $headers, $body);
+        $response = $this->getHttpClient()->sendRequest($request);
+
+        return $this->responseHandler($response);
     }
 
     /**
@@ -65,27 +103,39 @@ class RestClient
      */
     public function post($endpointUrl, $postData = array(), $files = array())
     {
-        $request = $this->mgClient->createRequest('POST', $endpointUrl, ['body' => $postData]);
-        /** @var \GuzzleHttp\Post\PostBodyInterface $postBody */
-        $postBody = $request->getBody();
-        $postBody->setAggregator(Query::duplicateAggregator());
+        $postFiles = [];
 
         $fields = ['message', 'attachment', 'inline'];
         foreach ($fields as $fieldName) {
             if (isset($files[$fieldName])) {
                 if (is_array($files[$fieldName])) {
                     foreach ($files[$fieldName] as $file) {
-                        $this->addFile($postBody, $fieldName, $file);
+                        $postFiles[] = $this->prepareFile($fieldName, $file);
                     }
                 } else {
-                    $this->addFile($postBody, $fieldName, $files[$fieldName]);
+                    $postFiles[] = $this->prepareFile($fieldName, $files[$fieldName]);
                 }
             }
         }
 
-        $response = $this->mgClient->send($request);
+        $postDataMultipart = [];
+        foreach ($postData as $key => $value) {
+            if (is_array($value)) {
+                foreach ($value as $subValue) {
+                    $postDataMultipart[] = [
+                        'name' => $key,
+                        'contents' => $subValue,
+                    ];
+                }
+            } else {
+                $postDataMultipart[] = [
+                    'name' => $key,
+                    'contents' => $value,
+                ];
+            }
+        }
 
-        return $this->responseHandler($response);
+        return $this->send('POST', $endpointUrl, [], array_merge($postDataMultipart, $postFiles));
     }
 
     /**
@@ -101,9 +151,7 @@ class RestClient
      */
     public function get($endpointUrl, $queryString = array())
     {
-        $response = $this->mgClient->get($endpointUrl, ['query' => $queryString]);
-
-        return $this->responseHandler($response);
+        return $this->send('GET', $endpointUrl.'?'.http_build_query($queryString));
     }
 
     /**
@@ -118,9 +166,7 @@ class RestClient
      */
     public function delete($endpointUrl)
     {
-        $response = $this->mgClient->delete($endpointUrl);
-
-        return $this->responseHandler($response);
+        return $this->send('DELETE', $endpointUrl);
     }
 
     /**
@@ -136,14 +182,7 @@ class RestClient
      */
     public function put($endpointUrl, $putData)
     {
-        $request = $this->mgClient->createRequest('PUT', $endpointUrl, ['body' => $putData]);
-        /** @var \GuzzleHttp\Post\PostBodyInterface $postBody */
-        $postBody = $request->getBody();
-        $postBody->setAggregator(Query::duplicateAggregator());
-
-        $response = $this->mgClient->send($request);
-
-        return $this->responseHandler($response);
+        return $this->send('PUT', $endpointUrl, $putData);
     }
 
     /**
@@ -156,7 +195,7 @@ class RestClient
      * @throws MissingEndpoint
      * @throws MissingRequiredParameters
      */
-    public function responseHandler($responseObj)
+    public function responseHandler(ResponseInterface $responseObj)
     {
         $httpResponseCode = $responseObj->getStatusCode();
         if ($httpResponseCode === 200) {
@@ -180,43 +219,26 @@ class RestClient
     }
 
     /**
-     * @param \Guzzle\Http\Message\Response $responseObj
+     * @param ResponseInterface $responseObj
      *
      * @return string
      */
-    protected function getResponseExceptionMessage(\GuzzleHttp\Message\Response $responseObj)
+    protected function getResponseExceptionMessage(ResponseInterface $responseObj)
     {
         $body = (string) $responseObj->getBody();
         $response = json_decode($body);
         if (json_last_error() == JSON_ERROR_NONE && isset($response->message)) {
-            return " ".$response->message;
+            return ' '.$response->message;
         }
     }
 
     /**
-     * @param string $apiEndpoint
-     * @param string $apiVersion
-     * @param bool   $ssl
+     * Prepare a file for the postBody.
      *
-     * @return string
+     * @param string       $fieldName
+     * @param string|array $filePath
      */
-    private function generateEndpoint($apiEndpoint, $apiVersion, $ssl)
-    {
-        if (!$ssl) {
-            return "http://".$apiEndpoint."/".$apiVersion."/";
-        } else {
-            return "https://".$apiEndpoint."/".$apiVersion."/";
-        }
-    }
-
-    /**
-     * Add a file to the postBody.
-     *
-     * @param PostBodyInterface $postBody
-     * @param string            $fieldName
-     * @param string|array      $filePath
-     */
-    private function addFile(PostBodyInterface $postBody, $fieldName, $filePath)
+    protected function prepareFile($fieldName, $filePath)
     {
         $filename = null;
         // Backward compatibility code
@@ -230,6 +252,75 @@ class RestClient
             $filePath = substr($filePath, 1);
         }
 
-        $postBody->addFile(new PostFile($fieldName, fopen($filePath, 'r'), $filename));
+        return [
+            'name' => $fieldName,
+            'contents' => fopen($filePath, 'r'),
+            'filename' => $filename,
+        ];
+    }
+
+
+    /**
+     *
+     * @return HttpClient
+     */
+    protected function getHttpClient()
+    {
+        if ($this->httpClient === null) {
+            $this->httpClient = HttpClientDiscovery::find();
+        }
+
+        return $this->httpClient;
+    }
+
+    /**
+     * @param $uri
+     *
+     * @return string
+     */
+    private function getApiUrl($uri)
+    {
+        return $this->generateEndpoint($this->apiHost, $this->apiVersion, $this->sslEnabled).$uri;
+    }
+
+
+    /**
+     * @param string $apiEndpoint
+     * @param string $apiVersion
+     * @param bool   $ssl
+     *
+     * @return string
+     */
+    private function generateEndpoint($apiEndpoint, $apiVersion, $ssl)
+    {
+        if (!$ssl) {
+            return 'http://'.$apiEndpoint.'/'.$apiVersion.'/';
+        } else {
+            return 'https://'.$apiEndpoint.'/'.$apiVersion.'/';
+        }
+    }
+
+    /**
+     * @param string $apiVersion
+     *
+     * @return RestClient
+     */
+    public function setApiVersion($apiVersion)
+    {
+        $this->apiVersion = $apiVersion;
+
+        return $this;
+    }
+
+    /**
+     * @param boolean $sslEnabled
+     *
+     * @return RestClient
+     */
+    public function setSslEnabled($sslEnabled)
+    {
+        $this->sslEnabled = $sslEnabled;
+
+        return $this;
     }
 }
