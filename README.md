@@ -22,7 +22,7 @@ composer and the Mailgun SDK.
 curl -sS https://getcomposer.org/installer | php
 
 # Add Mailgun as a dependency
-php composer.phar require mailgun/mailgun-php:~1.7.2
+php composer.phar require mailgun/mailgun-php:~2.0
 ```
 
 You do also need to choose what library to use when you are sending http messages. Consult the
