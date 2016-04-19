@@ -276,11 +276,13 @@ class MessageBuilder
     /**
      * @param string $inlineImagePath
      * @param string|null $inlineImageName
+     *
+     * @return bool|true
      * @throws InvalidParameter
      */
     public function addInlineImage($inlineImagePath, $inlineImageName = null)
     {
-        if (preg_match("/^@/", $inlineImagePath)) {
+        if (strpos($inlineImagePath, '@') === 0) {
             if (isset($this->files['inline'])) {
                 $inlineAttachment = array(
                     'filePath'   => $inlineImagePath,
