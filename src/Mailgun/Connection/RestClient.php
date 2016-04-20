@@ -206,24 +206,18 @@ class RestClient
                 $result = new \stdClass();
                 // return response data as json if possible, raw if not
                 $result->http_response_body = $data && $jsonResponseData === null ? $data : $jsonResponseData;
-                break;
+                $result->http_response_code = $httpResponseCode;
+
+                return $result;
             case 400:
                 throw new MissingRequiredParameters(ExceptionMessages::EXCEPTION_MISSING_REQUIRED_PARAMETERS . $this->getResponseExceptionMessage($responseObj));
-                break;
             case 401:
                 throw new InvalidCredentials(ExceptionMessages::EXCEPTION_INVALID_CREDENTIALS);
-                break;
             case 404:
                 throw new MissingEndpoint(ExceptionMessages::EXCEPTION_MISSING_ENDPOINT . $this->getResponseExceptionMessage($responseObj));
-                break;
             default:
                 throw new GenericHTTPError(ExceptionMessages::EXCEPTION_GENERIC_HTTP_ERROR, $httpResponseCode, $responseObj->getBody());
-                break;
         }
-
-        $result->http_response_code = $httpResponseCode;
-
-        return $result;
     }
 
     /**
