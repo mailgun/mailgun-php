@@ -47,9 +47,10 @@ class Mailgun{
      *  MIME string. If sending MIME, the string must be passed in to the 3rd
      *  position of the function call.
      *
-     * @param string $workingDomain
-     * @param array $postData
+     * @param $workingDomain
+     * @param $postData
      * @param array $postFiles
+     * @return \stdClass
      * @throws Exceptions\MissingRequiredMIMEParameters
      */
     public function sendMessage($workingDomain, $postData, $postFiles = array()){
