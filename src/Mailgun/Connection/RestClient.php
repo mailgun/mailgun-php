@@ -83,6 +83,7 @@ class RestClient
             $headers['Content-Type'] = 'multipart/form-data; boundary='.$body->getBoundary();
         } elseif (is_array($body)) {
             $body = http_build_query($body);
+            $headers['Content-Type'] = 'application/x-www-form-urlencoded';
         }
 
         $request = new Request($method, $this->getApiUrl($uri), $headers, $body);
