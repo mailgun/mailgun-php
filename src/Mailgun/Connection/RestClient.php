@@ -2,10 +2,10 @@
 
 namespace Mailgun\Connection;
 
-use GuzzleHttp\Psr7\MultipartStream;
-use GuzzleHttp\Psr7\Request;
 use Http\Client\HttpClient;
 use Http\Discovery\HttpClientDiscovery;
+use Http\Discovery\MessageFactoryDiscovery;
+use Http\Message\MultipartStream\MultipartStreamBuilder;
 use Mailgun\Connection\Exceptions\GenericHTTPError;
 use Mailgun\Connection\Exceptions\InvalidCredentials;
 use Mailgun\Connection\Exceptions\MissingRequiredParameters;
@@ -15,7 +15,7 @@ use Mailgun\Constants\ExceptionMessages;
 use Psr\Http\Message\ResponseInterface;
 
 /**
- * This class is a wrapper for the Guzzle (HTTP Client Library).
+ * This class is a wrapper for the HTTP client.
  */
 class RestClient
 {
@@ -79,14 +79,18 @@ class RestClient
         $headers['Authorization'] = 'Basic '.base64_encode(sprintf('%s:%s', Api::API_USER, $this->apiKey));
 
         if (!empty($files)) {
-            $body = new MultipartStream($files);
-            $headers['Content-Type'] = 'multipart/form-data; boundary='.$body->getBoundary();
+            $builder = new MultipartStreamBuilder();
+            foreach ($files as $file) {
+                $builder->addResource($file['name'], $file['contents'], $file);
+            }
+            $body = $builder->build();
+            $headers['Content-Type'] = 'multipart/form-data; boundary='.$builder->getBoundary();
         } elseif (is_array($body)) {
             $body = http_build_query($body);
             $headers['Content-Type'] = 'application/x-www-form-urlencoded';
         }
 
-        $request = new Request($method, $this->getApiUrl($uri), $headers, $body);
+        $request = MessageFactoryDiscovery::find()->createRequest($method, $this->getApiUrl($uri), $headers, $body);
         $response = $this->getHttpClient()->sendRequest($request);
 
         return $this->responseHandler($response);

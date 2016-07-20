@@ -42,7 +42,7 @@ $mailgun = new \Mailgun\Mailgun('api_key', $client);
 ```
 
 You could also rely on the [auto discovery feature of Httplug](http://docs.php-http.org/en/latest/discovery.html). This 
-means that you need to install `puli/composer-plugin` and put a puli.phar in your project root.  
+means that we will try to find an installed client automatically. 
 
 
 **For shared hosts without SSH access, check out our [Shared Host Instructions](SharedHostInstall.md).**
