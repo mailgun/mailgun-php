@@ -19,7 +19,7 @@ class TestBroker extends RestClient
         $this->apiEndpoint = $apiHost;
     }
 
-    public function post($endpointUrl, $postData = array(), $files = array())
+    public function post($endpointUrl, array $postData = array(), $files = array())
     {
         return $this->testResponseHandler($endpointUrl, $httpResponseCode = 200);
     }

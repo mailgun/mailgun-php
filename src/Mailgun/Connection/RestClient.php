@@ -62,7 +62,7 @@ class RestClient
     /**
      * @param string $method
      * @param string $uri
-     * @param array  $body
+     * @param mixed  $body
      * @param array  $files
      * @param array  $headers
      *
@@ -81,6 +81,9 @@ class RestClient
         if (!empty($files)) {
             $body = new MultipartStream($files);
             $headers['Content-Type'] = 'multipart/form-data; boundary='.$body->getBoundary();
+        } elseif (is_array($body)) {
+            $body = http_build_query($body);
+            $headers['Content-Type'] = 'application/x-www-form-urlencoded';
         }
 
         $request = new Request($method, $this->getApiUrl($uri), $headers, $body);
@@ -101,7 +104,7 @@ class RestClient
      * @throws MissingEndpoint
      * @throws MissingRequiredParameters
      */
-    public function post($endpointUrl, $postData = array(), $files = array())
+    public function post($endpointUrl, array $postData = array(), $files = array())
     {
         $postFiles = [];
 
@@ -171,7 +174,7 @@ class RestClient
 
     /**
      * @param string $endpointUrl
-     * @param array  $putData
+     * @param mixed  $putData
      *
      * @return \stdClass
      *
