@@ -50,7 +50,6 @@ class Mailgun{
      * @param string $workingDomain
      * @param array $postData
      * @param array $postFiles
-     *
      * @return \stdClass
      * @throws Exceptions\MissingRequiredMIMEParameters
      */
