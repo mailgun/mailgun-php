@@ -115,7 +115,7 @@ $batchMsg->addToRecipient("john.doe@example.com", array("first" => "John", "last
 $batchMsg->addToRecipient("sally.doe@example.com", array("first" => "Sally", "last" => "Doe"));
 $batchMsg->addToRecipient("mike.jones@example.com", array("first" => "Mike", "last" => "Jones"));
 ...
-// After 1,000 recipeints, Batch Message will automatically post your message to 
+// After 1,000 recipients, Batch Message will automatically post your message to 
 the messages endpoint. 
 
 // Call finalize() to send any remaining recipients still in the buffer.
