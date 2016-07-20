@@ -83,6 +83,23 @@ $mg->get("$domain/log", array('limit' => 25,
                               'skip'  => 0));
 ```
 
+Guzzle Configuration
+--------------------
+
+Mailgun uses Guzzle to handle HTTP requests.  Here's how you would configure the default options
+for Guzzle...
+
+```PHP
+$mg = new MailGun('key-example');
+
+$mg->configureRestClient(array(
+    'timeout' => 300,
+    'connect_timeout' => 300
+));
+```
+
+For a complete list of Guzzle options see the [Guzzle options page](https://guzzle.readthedocs.org/en/latest/request-options.html).
+
 Response
 --------
 

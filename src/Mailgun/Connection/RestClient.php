@@ -96,6 +96,10 @@ class RestClient
         return $this->responseHandler($response);
     }
 
+    public function setDefaultOption($option, $value) {
+        $this->mgClient->setDefaultOption($option, $value);
+    }
+
     /**
      * @param string $endpointUrl
      * @param array  $postData
