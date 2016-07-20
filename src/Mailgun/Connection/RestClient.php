@@ -197,25 +197,27 @@ class RestClient
      */
     public function responseHandler(ResponseInterface $responseObj)
     {
-        $httpResponseCode = $responseObj->getStatusCode();
-        if ($httpResponseCode === 200) {
-            $data = (string) $responseObj->getBody();
-            $jsonResponseData = json_decode($data, false);
-            $result = new \stdClass();
-            // return response data as json if possible, raw if not
-            $result->http_response_body = $data && $jsonResponseData === null ? $data : $jsonResponseData;
-        } elseif ($httpResponseCode == 400) {
-            throw new MissingRequiredParameters(ExceptionMessages::EXCEPTION_MISSING_REQUIRED_PARAMETERS.$this->getResponseExceptionMessage($responseObj));
-        } elseif ($httpResponseCode == 401) {
-            throw new InvalidCredentials(ExceptionMessages::EXCEPTION_INVALID_CREDENTIALS);
-        } elseif ($httpResponseCode == 404) {
-            throw new MissingEndpoint(ExceptionMessages::EXCEPTION_MISSING_ENDPOINT.$this->getResponseExceptionMessage($responseObj));
-        } else {
-            throw new GenericHTTPError(ExceptionMessages::EXCEPTION_GENERIC_HTTP_ERROR, $httpResponseCode, $responseObj->getBody());
-        }
-        $result->http_response_code = $httpResponseCode;
+        $httpResponseCode = (int)$responseObj->getStatusCode();
 
-        return $result;
+        switch ($httpResponseCode) {
+            case 200:
+                $data = (string)$responseObj->getBody();
+                $jsonResponseData = json_decode($data, false);
+                $result = new \stdClass();
+                // return response data as json if possible, raw if not
+                $result->http_response_body = $data && $jsonResponseData === null ? $data : $jsonResponseData;
+                $result->http_response_code = $httpResponseCode;
+
+                return $result;
+            case 400:
+                throw new MissingRequiredParameters(ExceptionMessages::EXCEPTION_MISSING_REQUIRED_PARAMETERS . $this->getResponseExceptionMessage($responseObj));
+            case 401:
+                throw new InvalidCredentials(ExceptionMessages::EXCEPTION_INVALID_CREDENTIALS);
+            case 404:
+                throw new MissingEndpoint(ExceptionMessages::EXCEPTION_MISSING_ENDPOINT . $this->getResponseExceptionMessage($responseObj));
+            default:
+                throw new GenericHTTPError(ExceptionMessages::EXCEPTION_GENERIC_HTTP_ERROR, $httpResponseCode, $responseObj->getBody());
+        }
     }
 
     /**
@@ -230,6 +232,8 @@ class RestClient
         if (json_last_error() == JSON_ERROR_NONE && isset($response->message)) {
             return ' '.$response->message;
         }
+
+        return '';
     }
 
     /**
@@ -237,6 +241,8 @@ class RestClient
      *
      * @param string       $fieldName
      * @param string|array $filePath
+     *
+     * @return array
      */
     protected function prepareFile($fieldName, $filePath)
     {
@@ -293,11 +299,7 @@ class RestClient
      */
     private function generateEndpoint($apiEndpoint, $apiVersion, $ssl)
     {
-        if (!$ssl) {
-            return 'http://'.$apiEndpoint.'/'.$apiVersion.'/';
-        } else {
-            return 'https://'.$apiEndpoint.'/'.$apiVersion.'/';
-        }
+        return ($ssl ? 'https://' : 'http://') . $apiEndpoint . '/' . $apiVersion . '/';
     }
 
     /**

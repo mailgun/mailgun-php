@@ -50,6 +50,8 @@ class Mailgun{
      * @param string $workingDomain
      * @param array $postData
      * @param array $postFiles
+     *
+     * @return \stdClass
      * @throws Exceptions\MissingRequiredMIMEParameters
      */
     public function sendMessage($workingDomain, $postData, $postFiles = array()){
@@ -86,7 +88,7 @@ class Mailgun{
      * @return bool
      */
     public function verifyWebhookSignature($postData = NULL) {
-        if(is_null($postData)) {
+        if($postData === null) {
             $postData = $_POST;
         }
         $hmac = hash_hmac('sha256', "{$postData["timestamp"]}{$postData["token"]}", $this->apiKey);
