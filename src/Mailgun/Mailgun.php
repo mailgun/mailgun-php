@@ -100,7 +100,7 @@ class Mailgun{
             return hash_equals($hmac, $sig);
         }
         else {
-            return ($hmac == $sig);
+            return ($hmac === $sig);
         }
     }
 
