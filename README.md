@@ -163,7 +163,7 @@ Go to http://bin.mailgun.net. The Postbin will generate a special URL. Save that
 # First, instantiate the SDK with your API credentials and define your domain. 
 $mg = new Mailgun('key-example', null, 'bin.mailgun.net');
 $mg->setApiVersion('aecf68de');
-$mg->setSslEnabled('false');
+$mg->setSslEnabled(false);
 $domain = 'example.com';
 
 # Now, compose and send your message.
