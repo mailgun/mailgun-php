@@ -89,7 +89,7 @@ class BatchMessage extends MessageBuilder{
 
 		if(array_key_exists($headerName, $this->counters['recipients'])){
 			$this->counters['recipients'][$headerName] += 1;
-			if(!array_key_exists("id", $variables)){
+			if(is_array($variables) && !array_key_exists("id", $variables)){
 				$variables['id'] = $this->counters['recipients'][$headerName];
 			}
 		}
