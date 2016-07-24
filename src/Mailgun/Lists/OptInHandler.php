@@ -19,11 +19,11 @@ class OptInHandler
      */
     public function generateHash($mailingList, $secretAppId, $recipientAddress)
     {
-        $innerPayload = array('r' => $recipientAddress, 'l' => $mailingList);
+        $innerPayload = ['r' => $recipientAddress, 'l' => $mailingList];
         $encodedInnerPayload = base64_encode(json_encode($innerPayload));
 
         $innerHash = hash_hmac('sha1', $encodedInnerPayload, $secretAppId);
-        $outerPayload = array('h' => $innerHash, 'p' => $encodedInnerPayload);
+        $outerPayload = ['h' => $innerHash, 'p' => $encodedInnerPayload];
 
         return urlencode(base64_encode(json_encode($outerPayload)));
     }
@@ -45,7 +45,7 @@ class OptInHandler
         $computedInnerHash = hash_hmac('sha1', $innerPayload, $secretAppId);
 
         if ($computedInnerHash == $decodedHash) {
-            return array('recipientAddress' => $decodedInnerPayload['r'], 'mailingList' => $decodedInnerPayload['l']);
+            return ['recipientAddress' => $decodedInnerPayload['r'], 'mailingList' => $decodedInnerPayload['l']];
         }
 
         return false;

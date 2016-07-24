@@ -20,34 +20,34 @@ class MessageBuilder
     /**
      * @var array
      */
-    protected $message = array();
+    protected $message = [];
 
     /**
      * @var array
      */
-    protected $variables = array();
+    protected $variables = [];
 
     /**
      * @var array
      */
-    protected $files = array();
+    protected $files = [];
 
     /**
      * @var array
      */
-    protected $counters = array(
-        'recipients' => array(
-            'to' => 0,
-            'cc' => 0,
+    protected $counters = [
+        'recipients' => [
+            'to'  => 0,
+            'cc'  => 0,
             'bcc' => 0,
-        ),
-        'attributes' => array(
-            'attachment' => 0,
-            'campaign_id' => 0,
+        ],
+        'attributes' => [
+            'attachment'    => 0,
+            'campaign_id'   => 0,
             'custom_option' => 0,
-            'tag' => 0,
-        ),
-    );
+            'tag'           => 0,
+        ],
+    ];
 
     /**
      * @param array  $params
@@ -115,7 +115,7 @@ class MessageBuilder
         } elseif ($headerName == 'h:reply-to') {
             $this->message[$headerName] = $compiledAddress;
         } else {
-            $this->message[$headerName] = array($compiledAddress);
+            $this->message[$headerName] = [$compiledAddress];
         }
         if (array_key_exists($headerName, $this->counters['recipients'])) {
             $this->counters['recipients'][$headerName] += 1;
@@ -126,9 +126,9 @@ class MessageBuilder
      * @param string     $address
      * @param array|null $variables
      *
-     * @return mixed
-     *
      * @throws TooManyParameters
+     *
+     * @return mixed
      */
     public function addToRecipient($address, $variables = null)
     {
@@ -144,9 +144,9 @@ class MessageBuilder
      * @param string     $address
      * @param array|null $variables
      *
-     * @return mixed
-     *
      * @throws TooManyParameters
+     *
+     * @return mixed
      */
     public function addCcRecipient($address, $variables = null)
     {
@@ -162,9 +162,9 @@ class MessageBuilder
      * @param string     $address
      * @param array|null $variables
      *
-     * @return mixed
-     *
      * @throws TooManyParameters
+     *
+     * @return mixed
      */
     public function addBccRecipient($address, $variables = null)
     {
@@ -228,7 +228,7 @@ class MessageBuilder
         if (!preg_match('/^h:/i', $headerName)) {
             $headerName = 'h:'.$headerName;
         }
-        $this->message[$headerName] = array($headerData);
+        $this->message[$headerName] = [$headerData];
 
         return $this->message[$headerName];
     }
@@ -272,18 +272,18 @@ class MessageBuilder
     public function addAttachment($attachmentPath, $attachmentName = null)
     {
         if (isset($this->files['attachment'])) {
-            $attachment = array(
-                'filePath' => $attachmentPath,
+            $attachment = [
+                'filePath'   => $attachmentPath,
                 'remoteName' => $attachmentName,
-            );
+            ];
             array_push($this->files['attachment'], $attachment);
         } else {
-            $this->files['attachment'] = array(
-                array(
-                    'filePath' => $attachmentPath,
+            $this->files['attachment'] = [
+                [
+                    'filePath'   => $attachmentPath,
                     'remoteName' => $attachmentName,
-                ),
-            );
+                ],
+            ];
         }
 
         return true;
@@ -293,26 +293,26 @@ class MessageBuilder
      * @param string      $inlineImagePath
      * @param string|null $inlineImageName
      *
-     * @return bool|true
-     *
      * @throws InvalidParameter
+     *
+     * @return bool|true
      */
     public function addInlineImage($inlineImagePath, $inlineImageName = null)
     {
         if (strpos($inlineImagePath, '@') === 0) {
             if (isset($this->files['inline'])) {
-                $inlineAttachment = array(
-                    'filePath' => $inlineImagePath,
+                $inlineAttachment = [
+                    'filePath'   => $inlineImagePath,
                     'remoteName' => $inlineImageName,
-                );
+                ];
                 array_push($this->files['inline'], $inlineAttachment);
             } else {
-                $this->files['inline'] = array(
-                    array(
-                        'filePath' => $inlineImagePath,
+                $this->files['inline'] = [
+                    [
+                        'filePath'   => $inlineImagePath,
                         'remoteName' => $inlineImageName,
-                    ),
-                );
+                    ],
+                ];
             }
 
             return true;
@@ -341,9 +341,9 @@ class MessageBuilder
     /**
      * @param string|int $campaignId
      *
-     * @return string|int
-     *
      * @throws TooManyParameters
+     *
+     * @return string|int
      */
     public function addCampaignId($campaignId)
     {
@@ -351,7 +351,7 @@ class MessageBuilder
             if (isset($this->message['o:campaign'])) {
                 array_push($this->message['o:campaign'], $campaignId);
             } else {
-                $this->message['o:campaign'] = array($campaignId);
+                $this->message['o:campaign'] = [$campaignId];
             }
             $this->counters['attributes']['campaign_id'] += 1;
 
@@ -372,7 +372,7 @@ class MessageBuilder
             if (isset($this->message['o:tag'])) {
                 array_push($this->message['o:tag'], $tag);
             } else {
-                $this->message['o:tag'] = array($tag);
+                $this->message['o:tag'] = [$tag];
             }
             $this->counters['attributes']['tag'] += 1;
 
@@ -478,7 +478,7 @@ class MessageBuilder
 
             return $this->message[$parameterName];
         } else {
-            $this->message[$parameterName] = array($data);
+            $this->message[$parameterName] = [$data];
 
             return $this->message[$parameterName];
         }
