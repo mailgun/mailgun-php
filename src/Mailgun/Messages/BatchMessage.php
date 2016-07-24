@@ -15,14 +15,13 @@ use Mailgun\Messages\Exceptions\MissingRequiredMIMEParameters;
  */
 class BatchMessage extends MessageBuilder
 {
-
     /**
      * @var array
      */
     private $batchRecipientAttributes;
 
     /**
-     * @var boolean
+     * @var bool
      */
     private $autoSend;
 
@@ -40,16 +39,16 @@ class BatchMessage extends MessageBuilder
      * @var array
      */
     private $messageIds = array();
-    
+
     /**
-     * @var string 
+     * @var string
      */
     private $endpointUrl;
 
     /**
      * @param \Mailgun\Connection\RestClient $restClient
      * @param string                         $workingDomain
-     * @param boolean                        $autoSend
+     * @param bool                           $autoSend
      */
     public function __construct($restClient, $workingDomain, $autoSend)
     {
@@ -57,21 +56,22 @@ class BatchMessage extends MessageBuilder
         $this->autoSend = $autoSend;
         $this->restClient = $restClient;
         $this->workingDomain = $workingDomain;
-        $this->endpointUrl = $workingDomain . "/messages";
+        $this->endpointUrl = $workingDomain.'/messages';
     }
 
     /**
      * @param string $headerName
      * @param string $address
      * @param array  $variables
+     *
      * @throws MissingRequiredMIMEParameters
      * @throws TooManyParameters
      */
     protected function addRecipient($headerName, $address, $variables)
     {
-        if(array_key_exists($headerName, $this->counters['recipients'])) {
-            if($this->counters['recipients'][$headerName] == Api::RECIPIENT_COUNT_LIMIT) {
-                if($this->autoSend == false) {
+        if (array_key_exists($headerName, $this->counters['recipients'])) {
+            if ($this->counters['recipients'][$headerName] == Api::RECIPIENT_COUNT_LIMIT) {
+                if ($this->autoSend == false) {
                     throw new TooManyParameters(ExceptionMessages::TOO_MANY_RECIPIENTS);
                 }
                 $this->sendMessage();
@@ -80,19 +80,17 @@ class BatchMessage extends MessageBuilder
 
         $compiledAddress = $this->parseAddress($address, $variables);
 
-        if(isset($this->message[$headerName])) {
+        if (isset($this->message[$headerName])) {
             array_push($this->message[$headerName], $compiledAddress);
-        }
-        elseif($headerName == "h:reply-to") {
+        } elseif ($headerName == 'h:reply-to') {
             $this->message[$headerName] = $compiledAddress;
-        }
-        else{
+        } else {
             $this->message[$headerName] = array($compiledAddress);
         }
 
-        if(array_key_exists($headerName, $this->counters['recipients'])) {
+        if (array_key_exists($headerName, $this->counters['recipients'])) {
             $this->counters['recipients'][$headerName] += 1;
-            if(!array_key_exists("id", $variables)) {
+            if (!array_key_exists('id', $variables)) {
                 $variables['id'] = $this->counters['recipients'][$headerName];
             }
         }
@@ -102,34 +100,31 @@ class BatchMessage extends MessageBuilder
     /**
      * @param array $message
      * @param array $files
+     *
      * @throws MissingRequiredMIMEParameters
      */
     public function sendMessage($message = array(), $files = array())
     {
-        if(count($message) < 1) {
+        if (count($message) < 1) {
             $message = $this->message;
             $files = $this->files;
         }
-        if(!array_key_exists("from", $message)) {
+        if (!array_key_exists('from', $message)) {
             throw new MissingRequiredMIMEParameters(ExceptionMessages::EXCEPTION_MISSING_REQUIRED_MIME_PARAMETERS);
-        }
-        elseif(!array_key_exists("to", $message)) {
+        } elseif (!array_key_exists('to', $message)) {
             throw new MissingRequiredMIMEParameters(ExceptionMessages::EXCEPTION_MISSING_REQUIRED_MIME_PARAMETERS);
-        }
-        elseif(!array_key_exists("subject", $message)) {
+        } elseif (!array_key_exists('subject', $message)) {
             throw new MissingRequiredMIMEParameters(ExceptionMessages::EXCEPTION_MISSING_REQUIRED_MIME_PARAMETERS);
-        }
-        elseif((!array_key_exists("text", $message) && !array_key_exists("html", $message))) {
+        } elseif ((!array_key_exists('text', $message) && !array_key_exists('html', $message))) {
             throw new MissingRequiredMIMEParameters(ExceptionMessages::EXCEPTION_MISSING_REQUIRED_MIME_PARAMETERS);
-        }
-        else{
-            $message["recipient-variables"] = json_encode($this->batchRecipientAttributes);
+        } else {
+            $message['recipient-variables'] = json_encode($this->batchRecipientAttributes);
             $response = $this->restClient->post($this->endpointUrl, $message, $files);
             $this->batchRecipientAttributes = array();
             $this->counters['recipients']['to'] = 0;
             $this->counters['recipients']['cc'] = 0;
             $this->counters['recipients']['bcc'] = 0;
-            unset($this->message["to"]);
+            unset($this->message['to']);
             array_push($this->messageIds, $response->http_response_body->id);
         }
     }

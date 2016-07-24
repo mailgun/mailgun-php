@@ -37,22 +37,23 @@ class MessageBuilder
      */
     protected $counters = array(
         'recipients' => array(
-            'to'  => 0,
-            'cc'  => 0,
-            'bcc' => 0
+            'to' => 0,
+            'cc' => 0,
+            'bcc' => 0,
         ),
         'attributes' => array(
-            'attachment'    => 0,
-            'campaign_id'   => 0,
+            'attachment' => 0,
+            'campaign_id' => 0,
             'custom_option' => 0,
-            'tag'           => 0
-        )
+            'tag' => 0,
+        ),
     );
 
     /**
      * @param array  $params
      * @param string $key
      * @param mixed  $default
+     *
      * @return mixed
      */
     protected function safeGet($params, $key, $default)
@@ -66,23 +67,25 @@ class MessageBuilder
 
     /**
      * @param array $params
+     *
      * @return mixed|string
      */
     protected function getFullName($params)
     {
-        if (array_key_exists("first", $params)) {
-            $first = $this->safeGet($params, "first", "");
-            $last  = $this->safeGet($params, "last", "");
+        if (array_key_exists('first', $params)) {
+            $first = $this->safeGet($params, 'first', '');
+            $last = $this->safeGet($params, 'last', '');
 
             return trim("$first $last");
         }
 
-        return $this->safeGet($params, "full_name", "");
+        return $this->safeGet($params, 'full_name', '');
     }
 
     /**
      * @param string $address
      * @param array  $variables
+     *
      * @return string
      */
     protected function parseAddress($address, $variables)
@@ -109,7 +112,7 @@ class MessageBuilder
 
         if (isset($this->message[$headerName])) {
             array_push($this->message[$headerName], $compiledAddress);
-        } elseif ($headerName == "h:reply-to") {
+        } elseif ($headerName == 'h:reply-to') {
             $this->message[$headerName] = $compiledAddress;
         } else {
             $this->message[$headerName] = array($compiledAddress);
@@ -122,7 +125,9 @@ class MessageBuilder
     /**
      * @param string     $address
      * @param array|null $variables
+     *
      * @return mixed
+     *
      * @throws TooManyParameters
      */
     public function addToRecipient($address, $variables = null)
@@ -130,7 +135,7 @@ class MessageBuilder
         if ($this->counters['recipients']['to'] > Api::RECIPIENT_COUNT_LIMIT) {
             throw new TooManyParameters(ExceptionMessages::TOO_MANY_PARAMETERS_RECIPIENT);
         }
-        $this->addRecipient("to", $address, $variables);
+        $this->addRecipient('to', $address, $variables);
 
         return end($this->message['to']);
     }
@@ -138,7 +143,9 @@ class MessageBuilder
     /**
      * @param string     $address
      * @param array|null $variables
+     *
      * @return mixed
+     *
      * @throws TooManyParameters
      */
     public function addCcRecipient($address, $variables = null)
@@ -146,7 +153,7 @@ class MessageBuilder
         if ($this->counters['recipients']['cc'] > Api::RECIPIENT_COUNT_LIMIT) {
             throw new TooManyParameters(ExceptionMessages::TOO_MANY_PARAMETERS_RECIPIENT);
         }
-        $this->addRecipient("cc", $address, $variables);
+        $this->addRecipient('cc', $address, $variables);
 
         return end($this->message['cc']);
     }
@@ -154,7 +161,9 @@ class MessageBuilder
     /**
      * @param string     $address
      * @param array|null $variables
+     *
      * @return mixed
+     *
      * @throws TooManyParameters
      */
     public function addBccRecipient($address, $variables = null)
@@ -162,7 +171,7 @@ class MessageBuilder
         if ($this->counters['recipients']['bcc'] > Api::RECIPIENT_COUNT_LIMIT) {
             throw new TooManyParameters(ExceptionMessages::TOO_MANY_PARAMETERS_RECIPIENT);
         }
-        $this->addRecipient("bcc", $address, $variables);
+        $this->addRecipient('bcc', $address, $variables);
 
         return end($this->message['bcc']);
     }
@@ -170,11 +179,12 @@ class MessageBuilder
     /**
      * @param string     $address
      * @param array|null $variables
+     *
      * @return mixed
      */
     public function setFromAddress($address, $variables = null)
     {
-        $this->addRecipient("from", $address, $variables);
+        $this->addRecipient('from', $address, $variables);
 
         return $this->message['from'];
     }
@@ -182,23 +192,25 @@ class MessageBuilder
     /**
      * @param string     $address
      * @param array|null $variables
+     *
      * @return mixed
      */
     public function setReplyToAddress($address, $variables = null)
     {
-        $this->addRecipient("h:reply-to", $address, $variables);
+        $this->addRecipient('h:reply-to', $address, $variables);
 
         return $this->message['h:reply-to'];
     }
 
     /**
      * @param string $subject
+     *
      * @return mixed
      */
-    public function setSubject($subject = "")
+    public function setSubject($subject = '')
     {
-        if ($subject == null || $subject == "") {
-            $subject = " ";
+        if ($subject == null || $subject == '') {
+            $subject = ' ';
         }
         $this->message['subject'] = $subject;
 
@@ -208,12 +220,13 @@ class MessageBuilder
     /**
      * @param string $headerName
      * @param mixed  $headerData
+     *
      * @return mixed
      */
     public function addCustomHeader($headerName, $headerData)
     {
-        if (!preg_match("/^h:/i", $headerName)) {
-            $headerName = "h:" . $headerName;
+        if (!preg_match('/^h:/i', $headerName)) {
+            $headerName = 'h:'.$headerName;
         }
         $this->message[$headerName] = array($headerData);
 
@@ -222,12 +235,13 @@ class MessageBuilder
 
     /**
      * @param string $textBody
+     *
      * @return string
      */
     public function setTextBody($textBody)
     {
-        if ($textBody == null || $textBody == "") {
-            $textBody = " ";
+        if ($textBody == null || $textBody == '') {
+            $textBody = ' ';
         }
         $this->message['text'] = $textBody;
 
@@ -236,12 +250,13 @@ class MessageBuilder
 
     /**
      * @param string $htmlBody
+     *
      * @return string
      */
     public function setHtmlBody($htmlBody)
     {
-        if ($htmlBody == null || $htmlBody == "") {
-            $htmlBody = " ";
+        if ($htmlBody == null || $htmlBody == '') {
+            $htmlBody = ' ';
         }
         $this->message['html'] = $htmlBody;
 
@@ -251,22 +266,23 @@ class MessageBuilder
     /**
      * @param string      $attachmentPath
      * @param string|null $attachmentName
+     *
      * @return bool
      */
     public function addAttachment($attachmentPath, $attachmentName = null)
     {
-        if (isset($this->files["attachment"])) {
+        if (isset($this->files['attachment'])) {
             $attachment = array(
-                'filePath'   => $attachmentPath,
-                'remoteName' => $attachmentName
+                'filePath' => $attachmentPath,
+                'remoteName' => $attachmentName,
             );
-            array_push($this->files["attachment"], $attachment);
+            array_push($this->files['attachment'], $attachment);
         } else {
-            $this->files["attachment"] = array(
+            $this->files['attachment'] = array(
                 array(
-                    'filePath'   => $attachmentPath,
-                    'remoteName' => $attachmentName
-                )
+                    'filePath' => $attachmentPath,
+                    'remoteName' => $attachmentName,
+                ),
             );
         }
 
@@ -278,6 +294,7 @@ class MessageBuilder
      * @param string|null $inlineImageName
      *
      * @return bool|true
+     *
      * @throws InvalidParameter
      */
     public function addInlineImage($inlineImagePath, $inlineImageName = null)
@@ -285,16 +302,16 @@ class MessageBuilder
         if (strpos($inlineImagePath, '@') === 0) {
             if (isset($this->files['inline'])) {
                 $inlineAttachment = array(
-                    'filePath'   => $inlineImagePath,
-                    'remoteName' => $inlineImageName
+                    'filePath' => $inlineImagePath,
+                    'remoteName' => $inlineImageName,
                 );
                 array_push($this->files['inline'], $inlineAttachment);
             } else {
                 $this->files['inline'] = array(
                     array(
-                        'filePath'   => $inlineImagePath,
-                        'remoteName' => $inlineImageName
-                    )
+                        'filePath' => $inlineImagePath,
+                        'remoteName' => $inlineImageName,
+                    ),
                 );
             }
 
@@ -305,15 +322,16 @@ class MessageBuilder
     }
 
     /**
-     * @param boolean $testMode
+     * @param bool $testMode
+     *
      * @return string
      */
     public function setTestMode($testMode)
     {
         if (filter_var($testMode, FILTER_VALIDATE_BOOLEAN)) {
-            $testMode = "yes";
+            $testMode = 'yes';
         } else {
-            $testMode = "no";
+            $testMode = 'no';
         }
         $this->message['o:testmode'] = $testMode;
 
@@ -322,7 +340,9 @@ class MessageBuilder
 
     /**
      * @param string|int $campaignId
+     *
      * @return string|int
+     *
      * @throws TooManyParameters
      */
     public function addCampaignId($campaignId)
@@ -343,6 +363,7 @@ class MessageBuilder
 
     /**
      * @param string $tag
+     *
      * @throws TooManyParameters
      */
     public function addTag($tag)
@@ -362,31 +383,33 @@ class MessageBuilder
     }
 
     /**
-     * @param boolean $enabled
+     * @param bool $enabled
+     *
      * @return mixed
      */
     public function setDkim($enabled)
     {
         if (filter_var($enabled, FILTER_VALIDATE_BOOLEAN)) {
-            $enabled = "yes";
+            $enabled = 'yes';
         } else {
-            $enabled = "no";
+            $enabled = 'no';
         }
-        $this->message["o:dkim"] = $enabled;
+        $this->message['o:dkim'] = $enabled;
 
-        return $this->message["o:dkim"];
+        return $this->message['o:dkim'];
     }
 
     /**
-     * @param boolean $enabled
+     * @param bool $enabled
+     *
      * @return string
      */
     public function setOpenTracking($enabled)
     {
         if (filter_var($enabled, FILTER_VALIDATE_BOOLEAN)) {
-            $enabled = "yes";
+            $enabled = 'yes';
         } else {
-            $enabled = "no";
+            $enabled = 'no';
         }
         $this->message['o:tracking-opens'] = $enabled;
 
@@ -394,17 +417,18 @@ class MessageBuilder
     }
 
     /**
-     * @param boolean $enabled
+     * @param bool $enabled
+     *
      * @return string
      */
     public function setClickTracking($enabled)
     {
         if (filter_var($enabled, FILTER_VALIDATE_BOOLEAN)) {
-            $enabled = "yes";
-        } elseif ($enabled == "html") {
-            $enabled = "html";
+            $enabled = 'yes';
+        } elseif ($enabled == 'html') {
+            $enabled = 'html';
         } else {
-            $enabled = "no";
+            $enabled = 'no';
         }
         $this->message['o:tracking-clicks'] = $enabled;
 
@@ -414,6 +438,7 @@ class MessageBuilder
     /**
      * @param string      $timeDate
      * @param string|null $timeZone
+     *
      * @return string
      */
     public function setDeliveryTime($timeDate, $timeZone = null)
@@ -424,8 +449,8 @@ class MessageBuilder
             $timeZoneObj = new \DateTimeZone(Api::DEFAULT_TIME_ZONE);
         }
 
-        $dateTimeObj                     = new \DateTime($timeDate, $timeZoneObj);
-        $formattedTimeDate               = $dateTimeObj->format(\DateTime::RFC2822);
+        $dateTimeObj = new \DateTime($timeDate, $timeZoneObj);
+        $formattedTimeDate = $dateTimeObj->format(\DateTime::RFC2822);
         $this->message['o:deliverytime'] = $formattedTimeDate;
 
         return $this->message['o:deliverytime'];
@@ -437,12 +462,13 @@ class MessageBuilder
      */
     public function addCustomData($customName, $data)
     {
-        $this->message['v:' . $customName] = json_encode($data);
+        $this->message['v:'.$customName] = json_encode($data);
     }
 
     /**
      * @param string $parameterName
      * @param mixed  $data
+     *
      * @return mixed
      */
     public function addCustomParameter($parameterName, $data)
