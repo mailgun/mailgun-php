@@ -50,9 +50,9 @@ class MessageBuilder
     );
 
     /**
-     * @param array $params
+     * @param array  $params
      * @param string $key
-     * @param mixed $default
+     * @param mixed  $default
      * @return mixed
      */
     protected function safeGet($params, $key, $default)
@@ -82,7 +82,7 @@ class MessageBuilder
 
     /**
      * @param string $address
-     * @param array $variables
+     * @param array  $variables
      * @return string
      */
     protected function parseAddress($address, $variables)
@@ -101,7 +101,7 @@ class MessageBuilder
     /**
      * @param string $headerName
      * @param string $address
-     * @param array $variables
+     * @param array  $variables
      */
     protected function addRecipient($headerName, $address, $variables)
     {
@@ -120,7 +120,7 @@ class MessageBuilder
     }
 
     /**
-     * @param string $address
+     * @param string     $address
      * @param array|null $variables
      * @return mixed
      * @throws TooManyParameters
@@ -136,7 +136,7 @@ class MessageBuilder
     }
 
     /**
-     * @param string $address
+     * @param string     $address
      * @param array|null $variables
      * @return mixed
      * @throws TooManyParameters
@@ -152,7 +152,7 @@ class MessageBuilder
     }
 
     /**
-     * @param string $address
+     * @param string     $address
      * @param array|null $variables
      * @return mixed
      * @throws TooManyParameters
@@ -168,7 +168,7 @@ class MessageBuilder
     }
 
     /**
-     * @param string $address
+     * @param string     $address
      * @param array|null $variables
      * @return mixed
      */
@@ -180,7 +180,7 @@ class MessageBuilder
     }
 
     /**
-     * @param string $address
+     * @param string     $address
      * @param array|null $variables
      * @return mixed
      */
@@ -207,7 +207,7 @@ class MessageBuilder
 
     /**
      * @param string $headerName
-     * @param mixed $headerData
+     * @param mixed  $headerData
      * @return mixed
      */
     public function addCustomHeader($headerName, $headerData)
@@ -249,7 +249,7 @@ class MessageBuilder
     }
 
     /**
-     * @param string $attachmentPath
+     * @param string      $attachmentPath
      * @param string|null $attachmentName
      * @return bool
      */
@@ -274,7 +274,7 @@ class MessageBuilder
     }
 
     /**
-     * @param string $inlineImagePath
+     * @param string      $inlineImagePath
      * @param string|null $inlineImageName
      *
      * @return bool|true
@@ -412,7 +412,7 @@ class MessageBuilder
     }
 
     /**
-     * @param string $timeDate
+     * @param string      $timeDate
      * @param string|null $timeZone
      * @return string
      */
@@ -433,7 +433,7 @@ class MessageBuilder
 
     /**
      * @param string $customName
-     * @param mixed $data
+     * @param mixed  $data
      */
     public function addCustomData($customName, $data)
     {
@@ -442,7 +442,7 @@ class MessageBuilder
 
     /**
      * @param string $parameterName
-     * @param mixed $data
+     * @param mixed  $data
      * @return mixed
      */
     public function addCustomParameter($parameterName, $data)

@@ -1,4 +1,6 @@
 <?php
 namespace Mailgun\Connection\Exceptions;
 
-class InvalidCredentials extends \Exception{}
+class InvalidCredentials extends \Exception
+{
+}

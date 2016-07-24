@@ -21,6 +21,7 @@ class RestClient
 {
     /**
      * Your API key
+     *
      * @var string
      */
     private $apiKey;
@@ -37,20 +38,22 @@ class RestClient
 
     /**
      * The version of the API to use
+     *
      * @var string
      */
     protected $apiVersion = 'v2';
 
     /**
      * If we should use SSL or not
+     *
      * @var bool
      */
     protected $sslEnabled = true;
 
     /**
-     * @param string      $apiKey
-     * @param string      $apiHost
-     * @param HttpClient  $httpClient
+     * @param string     $apiKey
+     * @param string     $apiHost
+     * @param HttpClient $httpClient
      */
     public function __construct($apiKey, $apiHost, HttpClient $httpClient = null)
     {
@@ -207,23 +210,23 @@ class RestClient
         $httpResponseCode = (int)$responseObj->getStatusCode();
 
         switch ($httpResponseCode) {
-            case 200:
-                $data = (string)$responseObj->getBody();
-                $jsonResponseData = json_decode($data, false);
-                $result = new \stdClass();
-                // return response data as json if possible, raw if not
-                $result->http_response_body = $data && $jsonResponseData === null ? $data : $jsonResponseData;
-                $result->http_response_code = $httpResponseCode;
+        case 200:
+            $data = (string)$responseObj->getBody();
+            $jsonResponseData = json_decode($data, false);
+            $result = new \stdClass();
+            // return response data as json if possible, raw if not
+            $result->http_response_body = $data && $jsonResponseData === null ? $data : $jsonResponseData;
+            $result->http_response_code = $httpResponseCode;
 
-                return $result;
-            case 400:
-                throw new MissingRequiredParameters(ExceptionMessages::EXCEPTION_MISSING_REQUIRED_PARAMETERS . $this->getResponseExceptionMessage($responseObj));
-            case 401:
-                throw new InvalidCredentials(ExceptionMessages::EXCEPTION_INVALID_CREDENTIALS);
-            case 404:
-                throw new MissingEndpoint(ExceptionMessages::EXCEPTION_MISSING_ENDPOINT . $this->getResponseExceptionMessage($responseObj));
-            default:
-                throw new GenericHTTPError(ExceptionMessages::EXCEPTION_GENERIC_HTTP_ERROR, $httpResponseCode, $responseObj->getBody());
+            return $result;
+        case 400:
+            throw new MissingRequiredParameters(ExceptionMessages::EXCEPTION_MISSING_REQUIRED_PARAMETERS . $this->getResponseExceptionMessage($responseObj));
+        case 401:
+            throw new InvalidCredentials(ExceptionMessages::EXCEPTION_INVALID_CREDENTIALS);
+        case 404:
+            throw new MissingEndpoint(ExceptionMessages::EXCEPTION_MISSING_ENDPOINT . $this->getResponseExceptionMessage($responseObj));
+        default:
+            throw new GenericHTTPError(ExceptionMessages::EXCEPTION_GENERIC_HTTP_ERROR, $httpResponseCode, $responseObj->getBody());
         }
     }
 

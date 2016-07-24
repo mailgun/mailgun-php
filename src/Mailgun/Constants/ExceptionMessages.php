@@ -4,7 +4,8 @@
 namespace Mailgun\Constants;
 
 
-class ExceptionMessages {
+class ExceptionMessages
+{
     const EXCEPTION_INVALID_CREDENTIALS = "Your credentials are incorrect.";
     const EXCEPTION_GENERIC_HTTP_ERROR = "An HTTP Error has occurred! Check your network connection and try again.";
     const EXCEPTION_MISSING_REQUIRED_PARAMETERS = "The parameters passed to the API were invalid. Check your inputs!";

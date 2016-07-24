@@ -16,7 +16,8 @@ use Mailgun\Messages\MessageBuilder;
  *
  * @link https://github.com/mailgun/mailgun-php/blob/master/README.md
  */
-class Mailgun{
+class Mailgun
+{
 
     /**
      * @var RestClient
@@ -30,8 +31,8 @@ class Mailgun{
 
     /**
      * @param string|null $apiKey
-     * @param HttpClient $httpClient
-     * @param string $apiEndpoint
+     * @param HttpClient  $httpClient
+     * @param string      $apiEndpoint
      */
     public function __construct(
         $apiKey = null,
@@ -47,17 +48,18 @@ class Mailgun{
      *  MIME string. If sending MIME, the string must be passed in to the 3rd
      *  position of the function call.
      *
-     * @param string $workingDomain
-     * @param array $postData
-     * @param array $postFiles
+     * @param  string $workingDomain
+     * @param  array  $postData
+     * @param  array  $postFiles
      * @return \stdClass
      * @throws Exceptions\MissingRequiredMIMEParameters
      */
-    public function sendMessage($workingDomain, $postData, $postFiles = array()){
-        if(is_array($postFiles)){
+    public function sendMessage($workingDomain, $postData, $postFiles = array())
+    {
+        if(is_array($postFiles)) {
             return $this->post("$workingDomain/messages", $postData, $postFiles);
         }
-        else if(is_string($postFiles)){
+        else if(is_string($postFiles)) {
 
             $tempFile = tempnam(sys_get_temp_dir(), "MG_TMP_MIME");
             $fileHandle = fopen($tempFile, "w");
@@ -83,10 +85,11 @@ class Mailgun{
      * If this function returns FALSE, you must not process the request.
      * You should reject the request with status code 403 Forbidden.
      *
-     * @param array|null $postData
+     * @param  array|null $postData
      * @return bool
      */
-    public function verifyWebhookSignature($postData = NULL) {
+    public function verifyWebhookSignature($postData = null) 
+    {
         if($postData === null) {
             $postData = $_POST;
         }
@@ -106,20 +109,22 @@ class Mailgun{
 
     /**
      * @param string $endpointUrl
-     * @param array $postData
-     * @param array $files
+     * @param array  $postData
+     * @param array  $files
      * @return \stdClass
      */
-    public function post($endpointUrl, $postData = array(), $files = array()){
+    public function post($endpointUrl, $postData = array(), $files = array())
+    {
         return $this->restClient->post($endpointUrl, $postData, $files);
     }
 
     /**
      * @param string $endpointUrl
-     * @param array $queryString
+     * @param array  $queryString
      * @return \stdClass
      */
-    public function get($endpointUrl, $queryString = array()){
+    public function get($endpointUrl, $queryString = array())
+    {
         return $this->restClient->get($endpointUrl, $queryString);
     }
 
@@ -127,16 +132,18 @@ class Mailgun{
      * @param string $endpointUrl
      * @return \stdClass
      */
-    public function delete($endpointUrl){
+    public function delete($endpointUrl)
+    {
         return $this->restClient->delete($endpointUrl);
     }
 
     /**
      * @param string $endpointUrl
-     * @param array $putData
+     * @param array  $putData
      * @return \stdClass
      */
-    public function put($endpointUrl, $putData){
+    public function put($endpointUrl, $putData)
+    {
         return $this->restClient->put($endpointUrl, $putData);
     }
 
@@ -167,23 +174,26 @@ class Mailgun{
     /**
      * @return MessageBuilder
      */
-    public function MessageBuilder(){
+    public function MessageBuilder()
+    {
         return new MessageBuilder();
     }
 
     /**
      * @return OptInHandler
      */
-    public function OptInHandler(){
+    public function OptInHandler()
+    {
         return new OptInHandler();
     }
 
     /**
      * @param string $workingDomain
-     * @param bool $autoSend
+     * @param bool   $autoSend
      * @return BatchMessage
      */
-    public function BatchMessage($workingDomain, $autoSend = true){
+    public function BatchMessage($workingDomain, $autoSend = true)
+    {
         return new BatchMessage($this->restClient, $workingDomain, $autoSend);
     }
 }

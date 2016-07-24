@@ -4,7 +4,8 @@
 namespace Mailgun\Constants;
 
 
-class Api {
+class Api
+{
     const API_USER = "api";
     const SDK_VERSION = "1.7";
     const SDK_USER_AGENT = "mailgun-sdk-php";

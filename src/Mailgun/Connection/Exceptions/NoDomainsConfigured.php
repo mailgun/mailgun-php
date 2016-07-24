@@ -1,4 +1,6 @@
 <?php
 namespace Mailgun\Connection\Exceptions;
 
-class NoDomainsConfigured extends \Exception{}
+class NoDomainsConfigured extends \Exception
+{
+}
