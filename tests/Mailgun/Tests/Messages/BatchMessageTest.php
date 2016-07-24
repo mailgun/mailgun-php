@@ -82,7 +82,7 @@ class BatchMessageTest extends \Mailgun\Tests\MailgunTestCase
     public function testAddMultipleBatchRecipients()
     {
         $message = $this->client->BatchMessage($this->sampleDomain);
-        for ($i = 0; $i < 100; $i++) {
+        for ($i = 0; $i < 100; ++$i) {
             $message->addToRecipient("$i@samples.mailgun.org", ['first' => 'Test', 'last' => "User $i"]);
         }
         $messageObj = $message->getMessage();
@@ -95,7 +95,7 @@ class BatchMessageTest extends \Mailgun\Tests\MailgunTestCase
         $message->setFromAddress('samples@mailgun.org', ['first' => 'Test', 'last' => 'User']);
         $message->setSubject('This is the subject of the message!');
         $message->setTextBody('This is the text body of the message!');
-        for ($i = 0; $i < 1001; $i++) {
+        for ($i = 0; $i < 1001; ++$i) {
             $message->addToRecipient("$i@samples.mailgun.org", ['first' => 'Test', 'last' => "User $i"]);
         }
         $messageObj = $message->getMessage();
