@@ -47,8 +47,6 @@ means that we will try to find an installed client automatically.
 
 **For shared hosts without SSH access, check out our [Shared Host Instructions](SharedHostInstall.md).**
 
-**Rather just download the files? [Library Download](https://9f67cbbd1116d8afb399-7760483f5d1e5f28c2d253278a2a5045.ssl.cf2.rackcdn.com/mailgun-php-1.7.2.zip).**
-
 Next, require Composer's autoloader, in your application, to automatically 
 load the Mailgun SDK in your project:
 ```PHP
