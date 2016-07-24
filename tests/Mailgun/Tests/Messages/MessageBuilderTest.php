@@ -153,11 +153,11 @@ class MessageBuilderTest extends \Mailgun\Tests\MailgunTestCase
         $this->assertEquals(
             [
                 [
-                    'filePath'   => '@../TestAssets/mailgun_icon.png',
+                    'filePath' => '@../TestAssets/mailgun_icon.png',
                     'remoteName' => null,
                 ],
                 [
-                    'filePath'   => '@../TestAssets/rackspace_logo.png',
+                    'filePath' => '@../TestAssets/rackspace_logo.png',
                     'remoteName' => null,
                 ],
             ],
@@ -174,11 +174,11 @@ class MessageBuilderTest extends \Mailgun\Tests\MailgunTestCase
         $this->assertEquals(
             [
                 [
-                    'filePath'   => '@../TestAssets/mailgun_icon.png',
+                    'filePath' => '@../TestAssets/mailgun_icon.png',
                     'remoteName' => null,
                 ],
                 [
-                    'filePath'   => '@../TestAssets/rackspace_logo.png',
+                    'filePath' => '@../TestAssets/rackspace_logo.png',
                     'remoteName' => null,
                 ],
             ],
@@ -195,11 +195,11 @@ class MessageBuilderTest extends \Mailgun\Tests\MailgunTestCase
         $this->assertEquals(
             [
                 [
-                    'filePath'   => '@../TestAssets/mailgun_icon.png',
+                    'filePath' => '@../TestAssets/mailgun_icon.png',
                     'remoteName' => 'mg_icon.png',
                 ],
                 [
-                    'filePath'   => '@../TestAssets/rackspace_logo.png',
+                    'filePath' => '@../TestAssets/rackspace_logo.png',
                     'remoteName' => 'rs_logo.png',
                 ],
             ],
@@ -216,11 +216,11 @@ class MessageBuilderTest extends \Mailgun\Tests\MailgunTestCase
         $this->assertEquals(
             [
                 [
-                    'filePath'   => '@../TestAssets/mailgun_icon.png',
+                    'filePath' => '@../TestAssets/mailgun_icon.png',
                     'remoteName' => 'mg_icon.png',
                 ],
                 [
-                    'filePath'   => '@../TestAssets/rackspace_logo.png',
+                    'filePath' => '@../TestAssets/rackspace_logo.png',
                     'remoteName' => 'rs_logo.png',
                 ],
             ],

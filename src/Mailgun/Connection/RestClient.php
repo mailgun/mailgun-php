@@ -133,13 +133,13 @@ class RestClient
             if (is_array($value)) {
                 foreach ($value as $subValue) {
                     $postDataMultipart[] = [
-                        'name'     => $key,
+                        'name' => $key,
                         'contents' => $subValue,
                     ];
                 }
             } else {
                 $postDataMultipart[] = [
-                    'name'     => $key,
+                    'name' => $key,
                     'contents' => $value,
                 ];
             }
@@ -269,7 +269,7 @@ class RestClient
         }
 
         return [
-            'name'     => $fieldName,
+            'name' => $fieldName,
             'contents' => fopen($filePath, 'r'),
             'filename' => $filename,
         ];
