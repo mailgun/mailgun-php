@@ -8,8 +8,8 @@ use Http\Discovery\MessageFactoryDiscovery;
 use Http\Message\MultipartStream\MultipartStreamBuilder;
 use Mailgun\Connection\Exceptions\GenericHTTPError;
 use Mailgun\Connection\Exceptions\InvalidCredentials;
-use Mailgun\Connection\Exceptions\MissingRequiredParameters;
 use Mailgun\Connection\Exceptions\MissingEndpoint;
+use Mailgun\Connection\Exceptions\MissingRequiredParameters;
 use Mailgun\Constants\Api;
 use Mailgun\Constants\ExceptionMessages;
 use Psr\Http\Message\ResponseInterface;
@@ -69,12 +69,12 @@ class RestClient
      * @param array  $files
      * @param array  $headers
      *
-     * @return \stdClass
-     *
      * @throws GenericHTTPError
      * @throws InvalidCredentials
      * @throws MissingEndpoint
      * @throws MissingRequiredParameters
+     *
+     * @return \stdClass
      */
     protected function send($method, $uri, $body = null, $files = [], array $headers = [])
     {
@@ -104,14 +104,14 @@ class RestClient
      * @param array  $postData
      * @param array  $files
      *
-     * @return \stdClass
-     *
      * @throws GenericHTTPError
      * @throws InvalidCredentials
      * @throws MissingEndpoint
      * @throws MissingRequiredParameters
+     *
+     * @return \stdClass
      */
-    public function post($endpointUrl, array $postData = array(), $files = array())
+    public function post($endpointUrl, array $postData = [], $files = [])
     {
         $postFiles = [];
 
@@ -133,13 +133,13 @@ class RestClient
             if (is_array($value)) {
                 foreach ($value as $subValue) {
                     $postDataMultipart[] = [
-                        'name' => $key,
+                        'name'     => $key,
                         'contents' => $subValue,
                     ];
                 }
             } else {
                 $postDataMultipart[] = [
-                    'name' => $key,
+                    'name'     => $key,
                     'contents' => $value,
                 ];
             }
@@ -152,14 +152,14 @@ class RestClient
      * @param string $endpointUrl
      * @param array  $queryString
      *
-     * @return \stdClass
-     *
      * @throws GenericHTTPError
      * @throws InvalidCredentials
      * @throws MissingEndpoint
      * @throws MissingRequiredParameters
+     *
+     * @return \stdClass
      */
-    public function get($endpointUrl, $queryString = array())
+    public function get($endpointUrl, $queryString = [])
     {
         return $this->send('GET', $endpointUrl.'?'.http_build_query($queryString));
     }
@@ -167,12 +167,12 @@ class RestClient
     /**
      * @param string $endpointUrl
      *
-     * @return \stdClass
-     *
      * @throws GenericHTTPError
      * @throws InvalidCredentials
      * @throws MissingEndpoint
      * @throws MissingRequiredParameters
+     *
+     * @return \stdClass
      */
     public function delete($endpointUrl)
     {
@@ -183,12 +183,12 @@ class RestClient
      * @param string $endpointUrl
      * @param mixed  $putData
      *
-     * @return \stdClass
-     *
      * @throws GenericHTTPError
      * @throws InvalidCredentials
      * @throws MissingEndpoint
      * @throws MissingRequiredParameters
+     *
+     * @return \stdClass
      */
     public function put($endpointUrl, $putData)
     {
@@ -198,12 +198,12 @@ class RestClient
     /**
      * @param ResponseInterface $responseObj
      *
-     * @return \stdClass
-     *
      * @throws GenericHTTPError
      * @throws InvalidCredentials
      * @throws MissingEndpoint
      * @throws MissingRequiredParameters
+     *
+     * @return \stdClass
      */
     public function responseHandler(ResponseInterface $responseObj)
     {
@@ -269,7 +269,7 @@ class RestClient
         }
 
         return [
-            'name' => $fieldName,
+            'name'     => $fieldName,
             'contents' => fopen($filePath, 'r'),
             'filename' => $filename,
         ];

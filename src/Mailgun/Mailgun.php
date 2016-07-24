@@ -3,11 +3,11 @@
 namespace Mailgun;
 
 use Http\Client\HttpClient;
-use Mailgun\Constants\ExceptionMessages;
-use Mailgun\Messages\Exceptions;
 use Mailgun\Connection\RestClient;
-use Mailgun\Messages\BatchMessage;
+use Mailgun\Constants\ExceptionMessages;
 use Mailgun\Lists\OptInHandler;
+use Mailgun\Messages\BatchMessage;
+use Mailgun\Messages\Exceptions;
 use Mailgun\Messages\MessageBuilder;
 
 /**
@@ -51,11 +51,11 @@ class Mailgun
      * @param array  $postData
      * @param array  $postFiles
      *
-     * @return \stdClass
-     *
      * @throws Exceptions\MissingRequiredMIMEParameters
+     *
+     * @return \stdClass
      */
-    public function sendMessage($workingDomain, $postData, $postFiles = array())
+    public function sendMessage($workingDomain, $postData, $postFiles = [])
     {
         if (is_array($postFiles)) {
             return $this->post("$workingDomain/messages", $postData, $postFiles);
@@ -64,7 +64,7 @@ class Mailgun
             $fileHandle = fopen($tempFile, 'w');
             fwrite($fileHandle, $postFiles);
 
-            $result = $this->post("$workingDomain/messages.mime", $postData, array('message' => $tempFile));
+            $result = $this->post("$workingDomain/messages.mime", $postData, ['message' => $tempFile]);
             fclose($fileHandle);
             unlink($tempFile);
 
@@ -113,7 +113,7 @@ class Mailgun
      *
      * @return \stdClass
      */
-    public function post($endpointUrl, $postData = array(), $files = array())
+    public function post($endpointUrl, $postData = [], $files = [])
     {
         return $this->restClient->post($endpointUrl, $postData, $files);
     }
@@ -124,7 +124,7 @@ class Mailgun
      *
      * @return \stdClass
      */
-    public function get($endpointUrl, $queryString = array())
+    public function get($endpointUrl, $queryString = [])
     {
         return $this->restClient->get($endpointUrl, $queryString);
     }

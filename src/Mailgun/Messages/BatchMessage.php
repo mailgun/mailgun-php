@@ -4,8 +4,8 @@ namespace Mailgun\Messages;
 
 use Mailgun\Constants\Api;
 use Mailgun\Constants\ExceptionMessages;
-use Mailgun\Messages\Exceptions\TooManyParameters;
 use Mailgun\Messages\Exceptions\MissingRequiredMIMEParameters;
+use Mailgun\Messages\Exceptions\TooManyParameters;
 
 /**
  * This class is used for batch sending. See the official documentation (link below)
@@ -38,7 +38,7 @@ class BatchMessage extends MessageBuilder
     /**
      * @var array
      */
-    private $messageIds = array();
+    private $messageIds = [];
 
     /**
      * @var string
@@ -52,7 +52,7 @@ class BatchMessage extends MessageBuilder
      */
     public function __construct($restClient, $workingDomain, $autoSend)
     {
-        $this->batchRecipientAttributes = array();
+        $this->batchRecipientAttributes = [];
         $this->autoSend = $autoSend;
         $this->restClient = $restClient;
         $this->workingDomain = $workingDomain;
@@ -85,7 +85,7 @@ class BatchMessage extends MessageBuilder
         } elseif ($headerName == 'h:reply-to') {
             $this->message[$headerName] = $compiledAddress;
         } else {
-            $this->message[$headerName] = array($compiledAddress);
+            $this->message[$headerName] = [$compiledAddress];
         }
 
         if (array_key_exists($headerName, $this->counters['recipients'])) {
@@ -103,7 +103,7 @@ class BatchMessage extends MessageBuilder
      *
      * @throws MissingRequiredMIMEParameters
      */
-    public function sendMessage($message = array(), $files = array())
+    public function sendMessage($message = [], $files = [])
     {
         if (count($message) < 1) {
             $message = $this->message;
@@ -120,7 +120,7 @@ class BatchMessage extends MessageBuilder
         } else {
             $message['recipient-variables'] = json_encode($this->batchRecipientAttributes);
             $response = $this->restClient->post($this->endpointUrl, $message, $files);
-            $this->batchRecipientAttributes = array();
+            $this->batchRecipientAttributes = [];
             $this->counters['recipients']['to'] = 0;
             $this->counters['recipients']['cc'] = 0;
             $this->counters['recipients']['bcc'] = 0;
