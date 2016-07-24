@@ -37,15 +37,15 @@ class MessageBuilder
      */
     protected $counters = [
         'recipients' => [
-            'to' => 0,
-            'cc' => 0,
+            'to'  => 0,
+            'cc'  => 0,
             'bcc' => 0,
         ],
         'attributes' => [
-            'attachment' => 0,
-            'campaign_id' => 0,
+            'attachment'    => 0,
+            'campaign_id'   => 0,
             'custom_option' => 0,
-            'tag' => 0,
+            'tag'           => 0,
         ],
     ];
 
@@ -273,14 +273,14 @@ class MessageBuilder
     {
         if (isset($this->files['attachment'])) {
             $attachment = [
-                'filePath' => $attachmentPath,
+                'filePath'   => $attachmentPath,
                 'remoteName' => $attachmentName,
             ];
             array_push($this->files['attachment'], $attachment);
         } else {
             $this->files['attachment'] = [
                 [
-                    'filePath' => $attachmentPath,
+                    'filePath'   => $attachmentPath,
                     'remoteName' => $attachmentName,
                 ],
             ];
@@ -302,14 +302,14 @@ class MessageBuilder
         if (strpos($inlineImagePath, '@') === 0) {
             if (isset($this->files['inline'])) {
                 $inlineAttachment = [
-                    'filePath' => $inlineImagePath,
+                    'filePath'   => $inlineImagePath,
                     'remoteName' => $inlineImageName,
                 ];
                 array_push($this->files['inline'], $inlineAttachment);
             } else {
                 $this->files['inline'] = [
                     [
-                        'filePath' => $inlineImagePath,
+                        'filePath'   => $inlineImagePath,
                         'remoteName' => $inlineImageName,
                     ],
                 ];
