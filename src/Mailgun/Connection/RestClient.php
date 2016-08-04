@@ -119,8 +119,10 @@ class RestClient
         foreach ($fields as $fieldName) {
             if (isset($files[$fieldName])) {
                 if (is_array($files[$fieldName])) {
+                    $fileIndex = 0;
                     foreach ($files[$fieldName] as $file) {
-                        $postFiles[] = $this->prepareFile($fieldName, $file);
+                        $postFiles[] = $this->prepareFile($fieldName, $file, $fileIndex);
+                        $fileIndex++;
                     }
                 } else {
                     $postFiles[] = $this->prepareFile($fieldName, $files[$fieldName]);
@@ -251,10 +253,11 @@ class RestClient
      *
      * @param string       $fieldName
      * @param string|array $filePath
+     * @param integer      $fileIndex
      *
      * @return array
      */
-    protected function prepareFile($fieldName, $filePath)
+    protected function prepareFile($fieldName, $filePath, $fileIndex=0)
     {
         $filename = null;
         // Backward compatibility code
@@ -267,6 +270,9 @@ class RestClient
         if (strpos($filePath, '@') === 0) {
             $filePath = substr($filePath, 1);
         }
+
+        // Add index for multiple file support
+        $fieldName .= '[' . $fileIndex . ']';
 
         return [
             'name'     => $fieldName,
