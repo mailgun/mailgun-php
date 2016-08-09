@@ -1,4 +1,5 @@
 <?php
+
 namespace Mailgun\Tests\Mock\Connection;
 
 use Mailgun\Connection\Exceptions\GenericHTTPError;
@@ -13,18 +14,18 @@ class TestBroker extends RestClient
 
     protected $apiEndpoint;
 
-    public function __construct($apiKey = null, $apiEndpoint = "api.mailgun.net", $apiVersion = "v3")
+    public function __construct($apiKey = null, $apiHost = 'api.mailgun.net', $apiVersion = 'v3')
     {
-        $this->apiKey      = $apiKey;
-        $this->apiEndpoint = $apiEndpoint;
+        $this->apiKey = $apiKey;
+        $this->apiEndpoint = $apiHost;
     }
 
-    public function post($endpointUrl, $postData = array(), $files = array())
+    public function post($endpointUrl, array $postData = [], $files = [])
     {
         return $this->testResponseHandler($endpointUrl, $httpResponseCode = 200);
     }
 
-    public function get($endpointUrl, $queryString = array())
+    public function get($endpointUrl, $queryString = [])
     {
         return $this->testResponseHandler($endpointUrl, $httpResponseCode = 200);
     }
@@ -42,9 +43,9 @@ class TestBroker extends RestClient
     public function testResponseHandler($endpointUrl, $httpResponseCode = 200)
     {
         if ($httpResponseCode === 200) {
-            $result                     = new \stdClass();
+            $result = new \stdClass();
             $result->http_response_body = new \stdClass();
-            $jsonResponseData           = json_decode('{"message": "Some JSON Response Data", "id": "1234"}');
+            $jsonResponseData = json_decode('{"message": "Some JSON Response Data", "id": "1234"}');
             foreach ($jsonResponseData as $key => $value) {
                 $result->http_response_body->$key = $value;
             }
@@ -62,10 +63,8 @@ class TestBroker extends RestClient
             return false;
         }
         $result->http_response_code = $httpResponseCode;
-        $result->http_endpoint_url  = $endpointUrl;
+        $result->http_endpoint_url = $endpointUrl;
 
         return $result;
     }
-
-
 }

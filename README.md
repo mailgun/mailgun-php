@@ -22,12 +22,30 @@ composer and the Mailgun SDK.
 curl -sS https://getcomposer.org/installer | php
 
 # Add Mailgun as a dependency
-php composer.phar require mailgun/mailgun-php:~1.7.2
-``` 
+php composer.phar require mailgun/mailgun-php:~2.0
+```
+
+You do also need to choose what library to use when you are sending http messages. Consult the
+[php-http/client-implementation](https://packagist.org/providers/php-http/client-implementation) virtual package to
+find adapters to use. For more information about virtual packages please refer to 
+[Httplug](http://docs.httplug.io/en/latest/virtual-package/). Example:
+
+```bash
+php composer.phar require php-http/guzzle6-adapter:^1.0
+```
+
+When creating a new `Mailgun` object you must provide an instance of the `HttpClient`.
+
+```php
+$client = new \Http\Adapter\Guzzle6\Client();
+$mailgun = new \Mailgun\Mailgun('api_key', $client);
+```
+
+You could also rely on the [auto discovery feature of Httplug](http://docs.php-http.org/en/latest/discovery.html). This 
+means that we will try to find an installed client automatically. 
+
 
 **For shared hosts without SSH access, check out our [Shared Host Instructions](SharedHostInstall.md).**
-
-**Rather just download the files? [Library Download](https://9f67cbbd1116d8afb399-7760483f5d1e5f28c2d253278a2a5045.ssl.cf2.rackcdn.com/mailgun-php-1.7.2.zip).**
 
 Next, require Composer's autoloader, in your application, to automatically 
 load the Mailgun SDK in your project:
@@ -141,7 +159,9 @@ Go to http://bin.mailgun.net. The Postbin will generate a special URL. Save that
 
 ```php
 # First, instantiate the SDK with your API credentials and define your domain. 
-$mg = new Mailgun('key-example', 'bin.mailgun.net', 'aecf68de', $ssl = False);
+$mg = new Mailgun('key-example', null, 'bin.mailgun.net');
+$mg->setApiVersion('aecf68de');
+$mg->setSslEnabled(false);
 $domain = 'example.com';
 
 # Now, compose and send your message.

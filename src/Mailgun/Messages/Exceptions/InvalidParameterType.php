@@ -1,4 +1,7 @@
 <?php
+
 namespace Mailgun\Messages\Exceptions;
 
-class InvalidParameterType extends \Exception{}
+class InvalidParameterType extends \Exception
+{
+}
