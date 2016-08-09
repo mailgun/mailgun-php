@@ -280,7 +280,7 @@ class RestClient
 
         return [
             'name'     => $fieldName,
-            'contents' => fopen($filePath, 'r'),
+            'contents' => $fileContent,
             'filename' => $filename,
         ];
     }
