@@ -27,5 +27,5 @@ class SendMessageTest extends \PHPUnit_Framework_TestCase
             'to'      => 'alice@example.com',
             'subject' => 'Foo',
             'text'    => 'Bar'));
-        }
+    }
 }

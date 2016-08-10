@@ -56,11 +56,11 @@ class ComplexMessageTest extends \Mailgun\Tests\MailgunTestCase
             'inline' => [
               [
                 'remoteName'=> 'mailgun_icon1.png',
-                'filePath' => 'tests/Mailgun/Tests/TestAssets/mailgun_icon1.png'
+                'filePath' => 'tests/TestAssets/mailgun_icon1.png'
               ],
               [
                 'remoteName'=> 'mailgun_icon2.png',
-                'filePath' => 'tests/Mailgun/Tests/TestAssets/mailgun_icon2.png'
+                'filePath' => 'tests/TestAssets/mailgun_icon2.png'
               ]
             ]
         ];

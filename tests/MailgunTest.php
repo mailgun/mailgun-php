@@ -1,6 +1,6 @@
 <?PHP
 
-namespace Mailgun\Tests\Lists;
+namespace Mailgun\Tests;
 
 use Mailgun\Mailgun;
 
