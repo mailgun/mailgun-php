@@ -26,7 +26,10 @@ class NoSamePostNameTest extends \PHPUnit_Framework_TestCase
 
         $builder = $mailgun->MessageBuilder();
         $builder->setFromAddress("bob@example.com");
-        $builder->addToRecipient("alice@example.com");
+        $builder->addToRecipient("to1@example.com");
+        $builder->addToRecipient("tp2@example.com");
+        $builder->addBccRecipient("bcc1@example.com");
+        $builder->addBccRecipient("bcc2@example.com");
         $builder->setSubject("Foo");
         $builder->setTextBody("Bar");
 
