@@ -133,9 +133,10 @@ class RestClient
         $postDataMultipart = [];
         foreach ($postData as $key => $value) {
             if (is_array($value)) {
+                $index = 0;
                 foreach ($value as $subValue) {
                     $postDataMultipart[] = [
-                        'name'     => $key,
+                        'name'     => sprintf('%s[%d]', $key, $index++),
                         'contents' => $subValue,
                     ];
                 }
