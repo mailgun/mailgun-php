@@ -10,18 +10,13 @@ class InlineFileTest extends \PHPUnit_Framework_TestCase
 {
     public function testSimpleExample()
     {
-        // Create a Closure that validates the $files parameter to RestClient::send()
         $fileValidator = function($files) {
-            // Validate standard params
-            $this->assertContains(['name'=>'from',    'contents'=>'bob@example.com'], $files);
-            $this->assertContains(['name'=>'to',      'contents'=>'alice@example.com'], $files);
-            $this->assertContains(['name'=>'subject', 'contents'=>'Foo'], $files);
-            $this->assertContains(['name'=>'text',    'contents'=>'Bar'], $files);
-
             $fileNames = [
                 ['name'=>'inline[0]', 'filename'=>'foo.png'],
                 ['name'=>'inline[1]', 'filename'=>'bar.png']
             ];
+
+            // Make sure that both files exists
             foreach ($fileNames as $idx => $fileName) {
                 foreach ($files as $file) {
                     if ($file['name'] === $fileName['name'] && $file['filename'] === $fileName['filename']) {
