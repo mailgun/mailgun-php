@@ -274,12 +274,12 @@ class RestClient
                 $filePath = $filePath['filePath'];
             }
 
-            $fileContent = fopen($filePath, 'r');
-
             // Remove leading @ symbol
             if (strpos($filePath, '@') === 0) {
                 $filePath = substr($filePath, 1);
             }
+
+            $fileContent = fopen($filePath, 'r');
         }
 
         // Add index for multiple file support
