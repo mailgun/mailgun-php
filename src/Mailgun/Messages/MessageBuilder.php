@@ -295,30 +295,21 @@ class MessageBuilder
      *
      * @throws InvalidParameter
      *
-     * @return bool|true
+     * @return bool
      */
     public function addInlineImage($inlineImagePath, $inlineImageName = null)
     {
-        if (strpos($inlineImagePath, '@') === 0) {
-            if (isset($this->files['inline'])) {
-                $inlineAttachment = [
-                    'filePath'   => $inlineImagePath,
-                    'remoteName' => $inlineImageName,
-                ];
-                array_push($this->files['inline'], $inlineAttachment);
-            } else {
-                $this->files['inline'] = [
-                    [
-                        'filePath'   => $inlineImagePath,
-                        'remoteName' => $inlineImageName,
-                    ],
-                ];
-            }
-
-            return true;
-        } else {
+        if (strpos($inlineImagePath, '@') !== 0) {
             throw new InvalidParameter(ExceptionMessages::INVALID_PARAMETER_INLINE);
         }
+
+        $this->files['inline'][] = [
+            'filePath'   => $inlineImagePath,
+            'remoteName' => $inlineImageName,
+        ];
+
+        return true;
+
     }
 
     /**

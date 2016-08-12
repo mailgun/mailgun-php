@@ -8,3 +8,4 @@ build
 composer.lock
 nbproject/*
 .idea
+phpunit.phar
