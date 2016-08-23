@@ -1,5 +1,12 @@
 <?PHP
 
+/*
+ * Copyright (C) 2013-2016 Mailgun
+ *
+ * This software may be modified and distributed under the terms
+ * of the MIT license.  See the LICENSE file for details.
+ */
+
 namespace Mailgun\Connection;
 
 use Http\Client\HttpClient;
@@ -254,11 +261,11 @@ class RestClient
      *
      * @param string       $fieldName
      * @param string|array $filePath
-     * @param integer      $fileIndex
+     * @param int          $fileIndex
      *
      * @return array
      */
-    protected function prepareFile($fieldName, $filePath, $fileIndex=0)
+    protected function prepareFile($fieldName, $filePath, $fileIndex = 0)
     {
         $filename = null;
         // Backward compatibility code
@@ -273,7 +280,7 @@ class RestClient
         }
 
         // Add index for multiple file support
-        $fieldName .= '[' . $fileIndex . ']';
+        $fieldName .= '['.$fileIndex.']';
 
         return [
             'name'     => $fieldName,
