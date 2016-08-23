@@ -1,26 +1,32 @@
 <?php
 
+/*
+ * Copyright (C) 2013-2016 Mailgun
+ *
+ * This software may be modified and distributed under the terms
+ * of the MIT license.  See the LICENSE file for details.
+ */
+
 namespace Mailgun\Tests\Functional;
 
 /**
- *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
 class InlineFileTest extends \PHPUnit_Framework_TestCase
 {
     public function testSimpleExample()
     {
-        $fileValidator = function($files) {
+        $fileValidator = function ($files) {
             $fileNames = [
-                ['name'=>'inline[0]', 'filename'=>'foo.png'],
-                ['name'=>'inline[1]', 'filename'=>'bar.png']
+                ['name' => 'inline[0]', 'filename' => 'foo.png'],
+                ['name' => 'inline[1]', 'filename' => 'bar.png'],
             ];
 
             // Make sure that both files exists
             foreach ($fileNames as $idx => $fileName) {
                 foreach ($files as $file) {
                     if ($file['name'] === $fileName['name'] && $file['filename'] === $fileName['filename']) {
-                        unset ($fileNames[$idx]);
+                        unset($fileNames[$idx]);
                         break;
                     }
                 }
@@ -33,14 +39,14 @@ class InlineFileTest extends \PHPUnit_Framework_TestCase
         $mailgun = MockedMailgun::create($this, 'POST', 'domain/messages', [], $fileValidator);
 
         $builder = $mailgun->MessageBuilder();
-        $builder->setFromAddress("bob@example.com");
-        $builder->addToRecipient("alice@example.com");
-        $builder->setSubject("Foo");
-        $builder->setTextBody("Bar");
+        $builder->setFromAddress('bob@example.com');
+        $builder->addToRecipient('alice@example.com');
+        $builder->setSubject('Foo');
+        $builder->setTextBody('Bar');
 
-        $builder->addInlineImage("@./tests/TestAssets/mailgun_icon1.png", 'foo.png');
-        $builder->addInlineImage("@./tests/TestAssets/mailgun_icon2.png", 'bar.png');
+        $builder->addInlineImage('@./tests/TestAssets/mailgun_icon1.png', 'foo.png');
+        $builder->addInlineImage('@./tests/TestAssets/mailgun_icon2.png', 'bar.png');
 
-        $mailgun->post("domain/messages", $builder->getMessage(), $builder->getFiles());
+        $mailgun->post('domain/messages', $builder->getMessage(), $builder->getFiles());
     }
 }
