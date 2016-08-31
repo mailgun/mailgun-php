@@ -65,7 +65,7 @@ Available Functions
 
 `string setHtmlBody(string $htmlBody)`  
 
-`bool addAttachment(string $attachmentPath)`  
+`bool addAttachment(string $attachmentPath, $attachmentName = null)`  
 
 `bool addInlineImage(string $inlineImagePath)`  
 
