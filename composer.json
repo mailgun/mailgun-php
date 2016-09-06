@@ -22,7 +22,7 @@
             "Mailgun\\Tests\\": "tests/"
         }
     },
-    "license": "MIT",
+    "license": "Apache",
     "authors": [
         {
             "name": "Travis Swientek",
