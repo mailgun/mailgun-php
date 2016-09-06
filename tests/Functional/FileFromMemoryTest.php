@@ -12,6 +12,7 @@ class FileFromMemoryTest extends \PHPUnit_Framework_TestCase
     public function testAddFileFromMemory()
     {
         $fileValidator = function($files) {
+            // Get only the attachments so the properties can be converted to a format we like
             $attachments = array_filter($files, function($f) {
                 return strpos($f['name'], 'attachment') !== false;
             });
