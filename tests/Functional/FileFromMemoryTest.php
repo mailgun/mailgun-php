@@ -12,17 +12,30 @@ class FileFromMemoryTest extends \PHPUnit_Framework_TestCase
     public function testAddFileFromMemory()
     {
         $fileValidator = function($files) {
-            $this->assertContains(['name'=>'from',    'contents'=>'bob@example.com'], $files);
-            $this->assertContains(['name'=>'to',      'contents'=>'alice@example.com'], $files);
-            $this->assertContains(['name'=>'subject', 'contents'=>'Foo'], $files);
-            $this->assertContains(['name'=>'text',    'contents'=>'Bar'], $files);
-            $this->assertContains(['name'=>'attachment[0]', 'contents'=>'First file content', 'filename' => 'file1.txt'], $files);
-            $this->assertContains(['name'=>'attachment[1]', 'contents'=>'Second file content', 'filename' => 'file2.txt'], $files);
+            $fileChecks = [
+                ['name'=>'attachment[0]', 'contents'=>'File content', 'filename' => 'file1.txt'],
+                ['name'=>'attachment[1]', 'filename' => 'mailgun_icon1.png']
+            ];
+
+            // Make sure that both files exists
+            foreach ($fileChecks as $idx => $fileCheck) {
+                foreach ($files as $file) {
+                    if ($file['name'] === $fileCheck['name'] && 
+                        $file['filename'] === $fileCheck['filename'] && 
+                        (!isset($fileCheck['contents']) || $fileCheck['contents'] === $file['contents'])) {
+                        
+                        unset ($fileChecks[$idx]);
+                        break;
+                    }
+                }
+            }
+
+            $this->assertEmpty($fileChecks, 'Files could not be found');
         };
 
         $attachments = [
-            ['filename' => 'file1.txt', 'fileContent' => 'First file content'],
-            ['filename' => 'file2.txt', 'fileContent' => 'Second file content']
+            ['filename' => 'file1.txt', 'fileContent' => "File content"],
+            ['filePath' => "./tests/TestAssets/mailgun_icon1.png", 'remoteName' => 'mailgun_icon1.png']
         ];
 
         $mailgun = MockedMailgun::create($this, 'POST', 'domain/messages', [], $fileValidator);
