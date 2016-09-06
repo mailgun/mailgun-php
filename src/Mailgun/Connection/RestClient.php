@@ -261,12 +261,14 @@ class RestClient
     protected function prepareFile($fieldName, $filePath, $fileIndex=0)
     {
         $filename = null;
-        $fileContent = null;
+        $resource = null;
 
         if (is_array($filePath) && isset($filePath['fileContent'])) {
             // File from memory
             $filename = $filePath['filename'];
-            $fileContent = $filePath['fileContent'];
+            $resource = fopen('php://temp', 'r+');
+            fwrite($resource, $filePath['fileContent']);
+            rewind($resource);
         } else {
             // Backward compatibility code
             if (is_array($filePath) && isset($filePath['filePath'])) {
@@ -279,7 +281,7 @@ class RestClient
                 $filePath = substr($filePath, 1);
             }
 
-            $fileContent = fopen($filePath, 'r');
+            $resource = fopen($filePath, 'r');
         }
 
         // Add index for multiple file support
@@ -287,7 +289,7 @@ class RestClient
 
         return [
             'name'     => $fieldName,
-            'contents' => $fileContent,
+            'contents' => $resource,
             'filename' => $filename,
         ];
     }
