@@ -26,7 +26,7 @@ called HTTPlug. This will give you the flexibilty to choose what PSR-7 implement
 If you just want to get started quickly you should run the following command: 
 
 ```bash
-php composer.phar require mailgun/mailgun-php php-http/curl-client guzzlehttp/psr7 php-http/message
+php composer.phar require mailgun/mailgun-php php-http/curl-client guzzlehttp/psr7
 ```
 **For shared hosts without SSH access, check out our [Shared Host Instructions](SharedHostInstall.md).**
 
