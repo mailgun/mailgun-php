@@ -46,7 +46,7 @@ class BatchMessageTest extends \Mailgun\Tests\MailgunTestCase
         $message = $this->client->BatchMessage($this->sampleDomain);
         $message->addToRecipient('test@samples.mailgun.org', 'this-is-not-an-array');
         $messageObj = $message->getMessage();
-        $this->assertEquals(['to' => ["test@samples.mailgun.org"]], $messageObj);
+        $this->assertEquals(['to' => ['test@samples.mailgun.org']], $messageObj);
 
         $reflectionClass = new \ReflectionClass(get_class($message));
         $property = $reflectionClass->getProperty('counters');
