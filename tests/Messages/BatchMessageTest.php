@@ -41,6 +41,20 @@ class BatchMessageTest extends \Mailgun\Tests\MailgunTestCase
         $this->assertEquals(1, $array['recipients']['to']);
     }
 
+    public function testAddRecipientWithoutFirstAndLastName()
+    {
+        $message = $this->client->BatchMessage($this->sampleDomain);
+        $message->addToRecipient('test@samples.mailgun.org', 'this-is-not-an-array');
+        $messageObj = $message->getMessage();
+        $this->assertEquals(['to' => ['test@samples.mailgun.org']], $messageObj);
+
+        $reflectionClass = new \ReflectionClass(get_class($message));
+        $property = $reflectionClass->getProperty('counters');
+        $property->setAccessible(true);
+        $array = $property->getValue($message);
+        $this->assertEquals(1, $array['recipients']['to']);
+    }
+
     public function testRecipientVariablesOnTo()
     {
         $message = $this->client->BatchMessage($this->sampleDomain);
