@@ -173,6 +173,7 @@ class Mailgun
      * @param bool $sslEnabled
      *
      * @return Mailgun
+     * @deprecated This will be removed in 3.0. Mailgun does not support non-secure connections to their API.
      */
     public function setSslEnabled($sslEnabled)
     {
