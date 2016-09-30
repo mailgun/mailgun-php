@@ -54,6 +54,7 @@ class RestClient
      * If we should use SSL or not.
      *
      * @var bool
+     * @deprecated To be removed in 3.0
      */
     protected $sslEnabled = true;
 
@@ -351,6 +352,7 @@ class RestClient
      * @param bool $sslEnabled
      *
      * @return RestClient
+     * @deprecated To be removed in 3.0
      */
     public function setSslEnabled($sslEnabled)
     {
