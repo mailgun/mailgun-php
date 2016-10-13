@@ -36,6 +36,19 @@ class Mailgun
     protected $apiKey;
 
     /**
+     * @var array [string => string]
+     */
+    private $regions = [
+        'si' => 'si.api.mailgun.net',
+        'so' => 'so.api.mailgun.net',
+    ];
+
+    /**
+     * @var array [string => RestClient]
+     */
+    private $regionClients = [];
+
+    /**
      * @param string|null $apiKey
      * @param HttpClient  $httpClient
      * @param string      $apiEndpoint
@@ -47,6 +60,51 @@ class Mailgun
     ) {
         $this->apiKey = $apiKey;
         $this->restClient = new RestClient($apiKey, $apiEndpoint, $httpClient);
+
+        $this->initializeRegionClients($httpClient);
+    }
+
+    /**
+     * This function creates clients for each individual region. Messages are
+     * only accessible from the region that received them, so having a mapping
+     * of region -> client seems reasonable.
+     *
+     * @param HttpClient|null $httpClient
+     *
+     * @return bool
+     */
+    private function initializeRegionClients(HttpClient $httpClient = null)
+    {
+        foreach ($this->regions as $region => $apiUrl) {
+            $this->regionClients[$region] = new RestClient(
+                $this->apiKey,
+                $apiUrl,
+                $httpClient
+            );
+        }
+
+        return true;
+    }
+
+    /**
+     * Tries to select the correct API region for a URL through simple
+     * comparisons with the known region URLs. If none are matched, null is
+     * returned.
+     *
+     * @param string $url
+     *
+     * @return \string
+     */
+    private function regionForUrl($url)
+    {
+        foreach ($this->regions as $region => $apiUrl) {
+            if (strpos($url, 'https://' . $apiUrl) === 0) {
+                return $region;
+            }
+        }
+
+        // Region in URL does *not* exist in the regions mapping.
+        return null;
     }
 
     /**
@@ -166,6 +224,14 @@ class Mailgun
     {
         $this->restClient->setApiVersion($apiVersion);
 
+        foreach ($this->regionClients as $regionClient) {
+            if ($regionClient === null) {
+                continue;
+            }
+
+            $regionClient->setApiVersion($apiVersion);
+        }
+
         return $this;
     }
 
@@ -207,5 +273,30 @@ class Mailgun
     public function BatchMessage($workingDomain, $autoSend = true)
     {
         return new BatchMessage($this->restClient, $workingDomain, $autoSend);
+    }
+
+    /**
+     * @param string $messageUrl
+     *
+     * @return \stdClass|null
+     */
+    public function getMessageFromUrl($messageUrl)
+    {
+        if ($messageUrl === null) {
+            return;
+        }
+
+        $reqPath = parse_url($messageUrl, PHP_URL_PATH);
+        $region = $this->regionForUrl($messageUrl);
+        $regionClient = $this->regionClients[$region];
+
+        // Use substr to trim off the API version path component.
+        $versionPrefix = "/{$regionClient->getApiVersion()}/";
+        $query = substr(
+            $reqPath,
+            strlen($versionPrefix)
+        );
+
+        return $regionClient->get($query, []);
     }
 }
