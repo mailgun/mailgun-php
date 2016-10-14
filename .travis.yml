@@ -1,5 +1,5 @@
 language: php
- 
+
 php:
   - 5.5
   - 5.6
@@ -11,6 +11,9 @@ before_install:
 
 install:
   - travis_retry composer install
+  - travis_retry composer require --dev 'phpunit/php-code-coverage=^2.2.4'
 
 script:
-  - phpunit
+  - phpunit -c phpunit.xml.dist --testsuite unit --coverage-text
+  - phpunit -c phpunit.xml.dist --testsuite functional --coverage-text
+  - '[[ "${TRAVIS_PULL_REQUEST}" == "false" ]] && ( phpunit -c phpunit.xml.dist --testsuite integration --coverage-text ) || ( echo "Testing PR - No integration tests available")'

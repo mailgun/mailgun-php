@@ -8,6 +8,34 @@ namespace Mailgun\Tests\Api;
  */
 abstract class TestCase extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * Private Mailgun API key.
+     *
+     * @var string
+     */
+    protected $apiPrivKey;
+
+    /**
+     * Public Mailgun API key.
+     *
+     * @var string
+     */
+    protected $apiPubKey;
+
+    /**
+     * Domain used for API testing.
+     *
+     * @var string
+     */
+    protected $testDomain;
+
+    public function __construct()
+    {
+        $this->apiPrivKey = getenv('MAILGUN_PRIV_KEY');
+        $this->apiPubKey = getenv('MAILGUN_PUB_KEY');
+        $this->testDomain = getenv('MAILGUN_DOMAIN');
+    }
+
     abstract protected function getApiClass();
 
     protected function getApiMock()
@@ -28,8 +56,20 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
             ->getMock();
 
         return $this->getMockBuilder($this->getApiClass())
-            ->setMethods(['get', 'post', 'postRaw', 'delete', 'put'])
+            ->setMethods(
+                [
+                    'get',
+                    'post', 'postRaw', 'postMultipart',
+                    'delete', 'deleteMultipart',
+                    'put', 'putMultipart',
+                ]
+            )
             ->setConstructorArgs([$httpClient, $requestClient, $serializer])
             ->getMock();
+    }
+
+    protected function getMailgunClient()
+    {
+        return new \Mailgun\Mailgun($this->apiPrivKey);
     }
 }

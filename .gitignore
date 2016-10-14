@@ -9,3 +9,4 @@ composer.lock
 nbproject/*
 .idea
 phpunit.phar
+modd.conf
