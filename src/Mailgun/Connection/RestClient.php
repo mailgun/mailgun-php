@@ -349,6 +349,14 @@ class RestClient
     }
 
     /**
+     * @return string
+     */
+    public function getApiVersion()
+    {
+        return $this->apiVersion;
+    }
+
+    /**
      * @param bool $sslEnabled
      *
      * @return RestClient
