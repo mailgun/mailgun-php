@@ -30,9 +30,9 @@ class SendMessageTest extends \PHPUnit_Framework_TestCase
         $mailgun = MockedMailgun::create($this, 'POST', 'domain/messages', [], $fileValidator);
 
         $mailgun->sendMessage('domain', [
-            'from'    => 'bob@example.com',
-            'to'      => 'alice@example.com',
+            'from' => 'bob@example.com',
+            'to' => 'alice@example.com',
             'subject' => 'Foo',
-            'text'    => 'Bar', ]);
+            'text' => 'Bar', ]);
     }
 }

@@ -20,7 +20,7 @@ class FileFromMemoryTest extends \PHPUnit_Framework_TestCase
             // Convert resources to strings
             $attachments = array_map(function ($f) {
                 return [
-                    'name'     => $f['name'],
+                    'name' => $f['name'],
                     'contents' => fread($f['contents'], 50),
                     'filename' => $f['filename'],
                 ];
@@ -40,10 +40,10 @@ class FileFromMemoryTest extends \PHPUnit_Framework_TestCase
         $mailgun = MockedMailgun::create($this, 'POST', 'domain/messages', [], $fileValidator);
 
         $mailgun->sendMessage('domain', [
-            'from'       => 'bob@example.com',
-            'to'         => 'alice@example.com',
-            'subject'    => 'Foo',
-            'text'       => 'Bar', ], [
+            'from' => 'bob@example.com',
+            'to' => 'alice@example.com',
+            'subject' => 'Foo',
+            'text' => 'Bar', ], [
             'attachment' => $attachments,
             ]);
     }

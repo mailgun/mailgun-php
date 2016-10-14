@@ -53,21 +53,21 @@ class ComplexMessageTest extends \Mailgun\Tests\MailgunTestCase
     public function testSendComplexMessage()
     {
         $message = [
-          'to'      => 'test@test.mailgun.org',
-          'from'    => 'sender@test.mailgun.org',
+          'to' => 'test@test.mailgun.org',
+          'from' => 'sender@test.mailgun.org',
           'subject' => 'This is my test subject',
-          'text'    => 'Testing!',
+          'text' => 'Testing!',
         ];
 
         $files = [
             'inline' => [
               [
                 'remoteName' => 'mailgun_icon1.png',
-                'filePath'   => 'tests/TestAssets/mailgun_icon1.png',
+                'filePath' => 'tests/TestAssets/mailgun_icon1.png',
               ],
               [
                 'remoteName' => 'mailgun_icon2.png',
-                'filePath'   => 'tests/TestAssets/mailgun_icon2.png',
+                'filePath' => 'tests/TestAssets/mailgun_icon2.png',
               ],
             ],
         ];
@@ -84,27 +84,27 @@ class ComplexMessageTest extends \Mailgun\Tests\MailgunTestCase
         foreach ($result->files as $file) {
             if ($file['name'] == 'to') {
                 $this->assertEquals($file['contents'], 'test@test.mailgun.org');
-                $testCount++;
+                ++$testCount;
             }
             if ($file['name'] == 'from') {
                 $this->assertEquals($file['contents'], 'sender@test.mailgun.org');
-                $testCount++;
+                ++$testCount;
             }
             if ($file['name'] == 'subject') {
                 $this->assertEquals($file['contents'], 'This is my test subject');
-                $testCount++;
+                ++$testCount;
             }
             if ($file['name'] == 'text') {
                 $this->assertEquals($file['contents'], 'Testing!');
-                $testCount++;
+                ++$testCount;
             }
             if ($file['name'] == 'inline[0]') {
                 $this->assertEquals($file['filename'], 'mailgun_icon1.png');
-                $testCount++;
+                ++$testCount;
             }
             if ($file['name'] == 'inline[1]') {
                 $this->assertEquals($file['filename'], 'mailgun_icon2.png');
-                $testCount++;
+                ++$testCount;
             }
         }
 

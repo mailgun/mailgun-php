@@ -43,10 +43,10 @@ class StandardMessageTest extends \Mailgun\Tests\MailgunTestCase
 
     public function testSendMessage()
     {
-        $message = ['to'           => 'test@test.mailgun.org',
-                         'from'    => 'sender@test.mailgun.org',
+        $message = ['to' => 'test@test.mailgun.org',
+                         'from' => 'sender@test.mailgun.org',
                          'subject' => 'This is my test subject',
-                         'text'    => 'Testing!',
+                         'text' => 'Testing!',
         ];
         $result = $this->client->sendMessage('test.mailgun.org', $message);
         $this->assertEquals('test.mailgun.org/messages', $result->http_endpoint_url);
