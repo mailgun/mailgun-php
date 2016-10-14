@@ -9,6 +9,8 @@
 
 namespace Mailgun\Messages\Exceptions;
 
-class InvalidParameter extends \Exception
+use Mailgun\Exception;
+
+class InvalidParameter extends \Exception implements Exception
 {
 }

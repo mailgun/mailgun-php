@@ -9,6 +9,8 @@
 
 namespace Mailgun\Messages\Exceptions;
 
-class TooManyParameters extends \Exception
+use Mailgun\Exception;
+
+class TooManyParameters extends \Exception implements Exception
 {
 }

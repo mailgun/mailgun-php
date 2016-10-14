@@ -9,19 +9,25 @@
 
 namespace Mailgun;
 
+use Http\Client\Common\HttpMethodsClient;
+use Http\Client\Common\PluginClient;
 use Http\Client\HttpClient;
+use Http\Discovery\HttpClientDiscovery;
+use Http\Discovery\MessageFactoryDiscovery;
+use Http\Discovery\UriFactoryDiscovery;
 use Mailgun\Connection\RestClient;
 use Mailgun\Constants\ExceptionMessages;
 use Mailgun\Lists\OptInHandler;
 use Mailgun\Messages\BatchMessage;
 use Mailgun\Messages\Exceptions;
 use Mailgun\Messages\MessageBuilder;
+use Http\Client\Common\Plugin;
+
 
 /**
  * This class is the base class for the Mailgun SDK.
- * See the official documentation (link below) for usage instructions.
  *
- * @link https://github.com/mailgun/mailgun-php/blob/master/README.md
+ * @method Api\Stats stats()
  */
 class Mailgun
 {
@@ -36,6 +42,11 @@ class Mailgun
     protected $apiKey;
 
     /**
+     * @var HttpMethodsClient
+     */
+    private $httpClient;
+
+    /**
      * @param string|null $apiKey
      * @param HttpClient  $httpClient
      * @param string      $apiEndpoint
@@ -47,6 +58,55 @@ class Mailgun
     ) {
         $this->apiKey = $apiKey;
         $this->restClient = new RestClient($apiKey, $apiEndpoint, $httpClient);
+
+        $plugins = [
+            new Plugin\AddHostPlugin(UriFactoryDiscovery::find()->createUri('https://api.mailgun.net')),
+            new Plugin\HeaderDefaultsPlugin([
+                'User-Agent'  => 'mailgun-sdk-php/v2 (https://github.com/mailgun/mailgun-php)',
+                'Authorization' => 'Basic '.base64_encode(sprintf('api:%s', $apiKey))
+            ]),
+        ];
+
+        $this->httpClient = new HttpMethodsClient(
+            new PluginClient($httpClient ?: HttpClientDiscovery::find(), $plugins),
+            MessageFactoryDiscovery::find()
+        );
+    }
+
+    /**
+     * @param string $name
+     *
+     * @throws \InvalidArgumentException
+     *
+     * @return mixed
+     */
+    public function api($name)
+    {
+        switch ($name) {
+            case 'stats':
+                $api = new Api\Stats($this);
+                break;
+            default:
+                throw new \InvalidArgumentException(sprintf('Undefined api instance called: "%s"', $name));
+        }
+
+        return $api;
+    }
+
+    /**
+     * @param string $name
+     *
+     * @throws \BadMethodCallException
+     *
+     * @return mixed
+     */
+    public function __call($name, $args)
+    {
+        try {
+            return $this->api($name);
+        } catch (\InvalidArgumentException $e) {
+            throw new \BadMethodCallException(sprintf('Undefined method called: "%s"', $name));
+        }
     }
 
     /**
@@ -208,5 +268,13 @@ class Mailgun
     public function BatchMessage($workingDomain, $autoSend = true)
     {
         return new BatchMessage($this->restClient, $workingDomain, $autoSend);
+    }
+
+    /**
+     * @return HttpMethodsClient
+     */
+    public function getHttpClient()
+    {
+        return $this->httpClient;
     }
 }
