@@ -13,7 +13,7 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
     protected function getApiMock()
     {
         $httpClient = $this->getMockBuilder('Http\Client\HttpClient')
-            ->setMethods(array('sendRequest'))
+            ->setMethods(['sendRequest'])
             ->getMock();
         $httpClient
             ->expects($this->any())
@@ -22,8 +22,8 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
         $client = new \Mailgun\Mailgun('api-key', $httpClient);
 
         return $this->getMockBuilder($this->getApiClass())
-            ->setMethods(array('get', 'post', 'postRaw', 'delete', 'put'))
-            ->setConstructorArgs(array($client))
+            ->setMethods(['get', 'post', 'postRaw', 'delete', 'put'])
+            ->setConstructorArgs([$client])
             ->getMock();
     }
 }

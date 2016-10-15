@@ -37,7 +37,7 @@ abstract class AbstractApi
      *
      * @return array|string
      */
-    protected function get($path, array $parameters = array(), $requestHeaders = array())
+    protected function get($path, array $parameters = [], $requestHeaders = [])
     {
         if (count($parameters) > 0) {
             $path .= '?'.http_build_query($parameters);
@@ -59,7 +59,7 @@ abstract class AbstractApi
      * @param array  $parameters     POST parameters to be JSON encoded.
      * @param array  $requestHeaders Request headers.
      */
-    protected function post($path, array $parameters = array(), $requestHeaders = array())
+    protected function post($path, array $parameters = [], $requestHeaders = [])
     {
         return $this->postRaw(
             $path,
@@ -77,7 +77,7 @@ abstract class AbstractApi
      *
      * @return array|string
      */
-    protected function postRaw($path, $body, $requestHeaders = array())
+    protected function postRaw($path, $body, $requestHeaders = [])
     {
         try {
             $response = $this->mailgun->getHttpClient()->post(
@@ -99,7 +99,7 @@ abstract class AbstractApi
      * @param array  $parameters     POST parameters to be JSON encoded.
      * @param array  $requestHeaders Request headers.
      */
-    protected function put($path, array $parameters = array(), $requestHeaders = array())
+    protected function put($path, array $parameters = [], $requestHeaders = [])
     {
         try {
             $response = $this->mailgun->getHttpClient()->put(
@@ -121,7 +121,7 @@ abstract class AbstractApi
      * @param array  $parameters     POST parameters to be JSON encoded.
      * @param array  $requestHeaders Request headers.
      */
-    protected function delete($path, array $parameters = array(), $requestHeaders = array())
+    protected function delete($path, array $parameters = [], $requestHeaders = [])
     {
         try {
             $response = $this->mailgun->getHttpClient()->delete(

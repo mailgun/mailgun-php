@@ -5,7 +5,7 @@ namespace Mailgun\Api;
 use Mailgun\Assert;
 
 /**
- * {@link https://documentation.mailgun.com/api-stats.html}
+ * {@link https://documentation.mailgun.com/api-stats.html}.
  *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */

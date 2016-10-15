@@ -23,7 +23,6 @@ use Mailgun\Messages\Exceptions;
 use Mailgun\Messages\MessageBuilder;
 use Http\Client\Common\Plugin;
 
-
 /**
  * This class is the base class for the Mailgun SDK.
  *
@@ -62,8 +61,8 @@ class Mailgun
         $plugins = [
             new Plugin\AddHostPlugin(UriFactoryDiscovery::find()->createUri('https://api.mailgun.net')),
             new Plugin\HeaderDefaultsPlugin([
-                'User-Agent'  => 'mailgun-sdk-php/v2 (https://github.com/mailgun/mailgun-php)',
-                'Authorization' => 'Basic '.base64_encode(sprintf('api:%s', $apiKey))
+                'User-Agent' => 'mailgun-sdk-php/v2 (https://github.com/mailgun/mailgun-php)',
+                'Authorization' => 'Basic '.base64_encode(sprintf('api:%s', $apiKey)),
             ]),
         ];
 
