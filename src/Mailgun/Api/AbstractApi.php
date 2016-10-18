@@ -6,6 +6,8 @@ use Mailgun\Exception\HttpServerException;
 use Mailgun\HttpClient\ResponseMediator;
 use Mailgun\Mailgun;
 use Http\Client\Exception as HttplugException;
+use Mailgun\Serializer\ResponseSerializer;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
@@ -21,11 +23,18 @@ abstract class AbstractApi
     protected $mailgun;
 
     /**
+     * @var ResponseSerializer
+     */
+    protected $serializer;
+
+    /**
+     *
      * @param Mailgun $client
      */
-    public function __construct(Mailgun $mailgun)
+    public function __construct(Mailgun $mailgun, ResponseSerializer $serializer)
     {
         $this->mailgun = $mailgun;
+        $this->serializer = $serializer;
     }
 
     /**
@@ -35,7 +44,7 @@ abstract class AbstractApi
      * @param array  $parameters     GET parameters.
      * @param array  $requestHeaders Request Headers.
      *
-     * @return array|string
+     * @return ResponseInterface
      */
     protected function get($path, array $parameters = [], $requestHeaders = [])
     {
@@ -49,7 +58,7 @@ abstract class AbstractApi
             throw HttpServerException::networkError($e);
         }
 
-        return ResponseMediator::getContent($response);
+        return $response;
     }
 
     /**
@@ -58,6 +67,8 @@ abstract class AbstractApi
      * @param string $path           Request path.
      * @param array  $parameters     POST parameters to be JSON encoded.
      * @param array  $requestHeaders Request headers.
+     *
+     * @return ResponseInterface
      */
     protected function post($path, array $parameters = [], $requestHeaders = [])
     {
@@ -75,7 +86,7 @@ abstract class AbstractApi
      * @param string $body           Request body.
      * @param array  $requestHeaders Request headers.
      *
-     * @return array|string
+     * @return ResponseInterface
      */
     protected function postRaw($path, $body, $requestHeaders = [])
     {
@@ -89,7 +100,7 @@ abstract class AbstractApi
             throw HttpServerException::networkError($e);
         }
 
-        return ResponseMediator::getContent($response);
+        return $response;
     }
 
     /**
@@ -98,6 +109,8 @@ abstract class AbstractApi
      * @param string $path           Request path.
      * @param array  $parameters     POST parameters to be JSON encoded.
      * @param array  $requestHeaders Request headers.
+     *
+     * @return ResponseInterface
      */
     protected function put($path, array $parameters = [], $requestHeaders = [])
     {
@@ -111,7 +124,7 @@ abstract class AbstractApi
             throw HttpServerException::networkError($e);
         }
 
-        return ResponseMediator::getContent($response);
+        return $response;
     }
 
     /**
@@ -120,6 +133,8 @@ abstract class AbstractApi
      * @param string $path           Request path.
      * @param array  $parameters     POST parameters to be JSON encoded.
      * @param array  $requestHeaders Request headers.
+     *
+     * @return ResponseInterface
      */
     protected function delete($path, array $parameters = [], $requestHeaders = [])
     {
@@ -133,7 +148,7 @@ abstract class AbstractApi
             throw HttpServerException::networkError($e);
         }
 
-        return ResponseMediator::getContent($response);
+        return $response;
     }
 
     /**

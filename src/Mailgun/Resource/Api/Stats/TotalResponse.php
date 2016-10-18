@@ -2,10 +2,12 @@
 
 namespace Mailgun\Resource\Api\Stats;
 
+use Mailgun\Resource\CreatableFromArray;
+
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
-class TotalResponse
+class TotalResponse implements CreatableFromArray
 {
     /**
      * @var \DateTime

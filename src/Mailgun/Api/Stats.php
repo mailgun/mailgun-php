@@ -17,18 +17,18 @@ class Stats extends AbstractApi
     {
         Assert::stringNotEmpty($domain);
 
-        $data = $this->get(sprintf('/v3/%s/stats/total', rawurlencode($domain)), $params);
+        $response = $this->get(sprintf('/v3/%s/stats/total', rawurlencode($domain)), $params);
 
-        return TotalResponse::createFromArray($data);
+        return $this->serializer->deserialze($response, TotalResponse::class);
     }
 
     public function all($domain, array $params = [])
     {
         Assert::stringNotEmpty($domain);
 
-        $data = $this->get(sprintf('/v3/%s/stats', rawurlencode($domain)), $params);
+        $response = $this->get(sprintf('/v3/%s/stats', rawurlencode($domain)), $params);
 
-        return AllResponse::createFromArray($data);
+        return $this->serializer->deserialze($response, AllResponse::class);
 
     }
 }
