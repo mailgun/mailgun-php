@@ -44,7 +44,7 @@ abstract class AbstractApi
      *
      * @return ResponseInterface
      */
-    protected function get($path, array $parameters = [], $requestHeaders = [])
+    protected function get($path, array $parameters = [], array $requestHeaders = [])
     {
         if (count($parameters) > 0) {
             $path .= '?'.http_build_query($parameters);
@@ -68,7 +68,7 @@ abstract class AbstractApi
      *
      * @return ResponseInterface
      */
-    protected function post($path, array $parameters = [], $requestHeaders = [])
+    protected function post($path, array $parameters = [], array $requestHeaders = [])
     {
         return $this->postRaw($path, $this->createJsonBody($parameters), $requestHeaders);
     }
@@ -82,7 +82,7 @@ abstract class AbstractApi
      *
      * @return ResponseInterface
      */
-    protected function postRaw($path, $body, $requestHeaders = [])
+    protected function postRaw($path, $body, array $requestHeaders = [])
     {
         try {
             $response = $this->httpClient->post($path, $requestHeaders, $body);
@@ -102,7 +102,7 @@ abstract class AbstractApi
      *
      * @return ResponseInterface
      */
-    protected function put($path, array $parameters = [], $requestHeaders = [])
+    protected function put($path, array $parameters = [], array $requestHeaders = [])
     {
         try {
             $response = $this->httpClient->put($path, $requestHeaders, $this->createJsonBody($parameters));
@@ -122,7 +122,7 @@ abstract class AbstractApi
      *
      * @return ResponseInterface
      */
-    protected function delete($path, array $parameters = [], $requestHeaders = [])
+    protected function delete($path, array $parameters = [], array $requestHeaders = [])
     {
         try {
             $response = $this->httpClient->delete($path, $requestHeaders, $this->createJsonBody($parameters));
