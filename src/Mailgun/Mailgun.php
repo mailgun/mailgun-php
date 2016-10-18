@@ -22,6 +22,8 @@ use Mailgun\Messages\BatchMessage;
 use Mailgun\Messages\Exceptions;
 use Mailgun\Messages\MessageBuilder;
 use Http\Client\Common\Plugin;
+use Mailgun\Serializer\ObjectSerializer;
+use Mailgun\Serializer\ResponseSerializer;
 
 /**
  * This class is the base class for the Mailgun SDK.
@@ -46,16 +48,24 @@ class Mailgun
     private $httpClient;
 
     /**
-     * @param string|null $apiKey
-     * @param HttpClient  $httpClient
-     * @param string      $apiEndpoint
+     * @var ResponseSerializer
+     */
+    private $serializer;
+
+    /**
+     * @param string|null             $apiKey
+     * @param HttpClient|null         $httpClient
+     * @param string                  $apiEndpoint
+     * @param ResponseSerializer|null $serializer
      */
     public function __construct(
         $apiKey = null,
         HttpClient $httpClient = null,
-        $apiEndpoint = 'api.mailgun.net'
+        $apiEndpoint = 'api.mailgun.net',
+        ResponseSerializer $serializer = null
     ) {
         $this->apiKey = $apiKey;
+        $this->serializer = $serializer ?: new ObjectSerializer();
         $this->restClient = new RestClient($apiKey, $apiEndpoint, $httpClient);
 
         $plugins = [
@@ -83,7 +93,7 @@ class Mailgun
     {
         switch ($name) {
             case 'stats':
-                $api = new Api\Stats($this);
+                $api = new Api\Stats($this->httpClient, $this->serializer);
                 break;
             default:
                 throw new \InvalidArgumentException(sprintf('Undefined api instance called: "%s"', $name));
@@ -267,13 +277,5 @@ class Mailgun
     public function BatchMessage($workingDomain, $autoSend = true)
     {
         return new BatchMessage($this->restClient, $workingDomain, $autoSend);
-    }
-
-    /**
-     * @return HttpMethodsClient
-     */
-    public function getHttpClient()
-    {
-        return $this->httpClient;
     }
 }

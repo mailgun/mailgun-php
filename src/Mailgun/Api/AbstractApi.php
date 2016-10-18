@@ -2,10 +2,11 @@
 
 namespace Mailgun\Api;
 
+use Http\Client\Common\HttpMethodsClient;
 use Mailgun\Exception\HttpServerException;
-use Mailgun\HttpClient\ResponseMediator;
-use Mailgun\Mailgun;
 use Http\Client\Exception as HttplugException;
+use Mailgun\Serializer\ResponseSerializer;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
@@ -14,18 +15,25 @@ use Http\Client\Exception as HttplugException;
 abstract class AbstractApi
 {
     /**
-     * The client.
+     * The HTTP client.
      *
-     * @var Mailgun
+     * @var HttpMethodsClient
      */
-    protected $mailgun;
+    protected $httpClient;
 
     /**
-     * @param Mailgun $client
+     * @var ResponseSerializer
      */
-    public function __construct(Mailgun $mailgun)
+    protected $serializer;
+
+    /**
+     * @param HttpMethodsClient  $httpClient
+     * @param ResponseSerializer $serializer
+     */
+    public function __construct(HttpMethodsClient $httpClient, ResponseSerializer $serializer)
     {
-        $this->mailgun = $mailgun;
+        $this->httpClient = $httpClient;
+        $this->serializer = $serializer;
     }
 
     /**
@@ -35,7 +43,7 @@ abstract class AbstractApi
      * @param array  $parameters     GET parameters.
      * @param array  $requestHeaders Request Headers.
      *
-     * @return array|string
+     * @return ResponseInterface
      */
     protected function get($path, array $parameters = [], $requestHeaders = [])
     {
@@ -44,12 +52,12 @@ abstract class AbstractApi
         }
 
         try {
-            $response = $this->mailgun->getHttpClient()->get($path, $requestHeaders);
+            $response = $this->httpClient->get($path, $requestHeaders);
         } catch (HttplugException\NetworkException $e) {
             throw HttpServerException::networkError($e);
         }
 
-        return ResponseMediator::getContent($response);
+        return $response;
     }
 
     /**
@@ -58,14 +66,12 @@ abstract class AbstractApi
      * @param string $path           Request path.
      * @param array  $parameters     POST parameters to be JSON encoded.
      * @param array  $requestHeaders Request headers.
+     *
+     * @return ResponseInterface
      */
     protected function post($path, array $parameters = [], $requestHeaders = [])
     {
-        return $this->postRaw(
-            $path,
-            $this->createJsonBody($parameters),
-            $requestHeaders
-        );
+        return $this->postRaw($path, $this->createJsonBody($parameters), $requestHeaders);
     }
 
     /**
@@ -75,21 +81,17 @@ abstract class AbstractApi
      * @param string $body           Request body.
      * @param array  $requestHeaders Request headers.
      *
-     * @return array|string
+     * @return ResponseInterface
      */
     protected function postRaw($path, $body, $requestHeaders = [])
     {
         try {
-            $response = $this->mailgun->getHttpClient()->post(
-                $path,
-                $requestHeaders,
-                $body
-            );
+            $response = $this->httpClient->post($path, $requestHeaders, $body);
         } catch (HttplugException\NetworkException $e) {
             throw HttpServerException::networkError($e);
         }
 
-        return ResponseMediator::getContent($response);
+        return $response;
     }
 
     /**
@@ -98,20 +100,18 @@ abstract class AbstractApi
      * @param string $path           Request path.
      * @param array  $parameters     POST parameters to be JSON encoded.
      * @param array  $requestHeaders Request headers.
+     *
+     * @return ResponseInterface
      */
     protected function put($path, array $parameters = [], $requestHeaders = [])
     {
         try {
-            $response = $this->mailgun->getHttpClient()->put(
-                $path,
-                $requestHeaders,
-                $this->createJsonBody($parameters)
-            );
+            $response = $this->httpClient->put($path, $requestHeaders, $this->createJsonBody($parameters));
         } catch (HttplugException\NetworkException $e) {
             throw HttpServerException::networkError($e);
         }
 
-        return ResponseMediator::getContent($response);
+        return $response;
     }
 
     /**
@@ -120,20 +120,18 @@ abstract class AbstractApi
      * @param string $path           Request path.
      * @param array  $parameters     POST parameters to be JSON encoded.
      * @param array  $requestHeaders Request headers.
+     *
+     * @return ResponseInterface
      */
     protected function delete($path, array $parameters = [], $requestHeaders = [])
     {
         try {
-            $response = $this->mailgun->getHttpClient()->delete(
-                $path,
-                $requestHeaders,
-                $this->createJsonBody($parameters)
-            );
+            $response = $this->httpClient->delete($path, $requestHeaders, $this->createJsonBody($parameters));
         } catch (HttplugException\NetworkException $e) {
             throw HttpServerException::networkError($e);
         }
 
-        return ResponseMediator::getContent($response);
+        return $response;
     }
 
     /**
