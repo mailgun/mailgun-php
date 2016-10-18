@@ -13,6 +13,12 @@ use Mailgun\Resource\Api\Stats\TotalResponse;
  */
 class Stats extends AbstractApi
 {
+    /**
+     * @param string $domain
+     * @param array $params
+     *
+     * @return TotalResponse|array
+     */
     public function total($domain, array $params = [])
     {
         Assert::stringNotEmpty($domain);
@@ -22,6 +28,12 @@ class Stats extends AbstractApi
         return $this->serializer->deserialze($response, TotalResponse::class);
     }
 
+    /**
+     * @param $domain
+     * @param array $params
+     *
+     * @return AllResponse|array
+     */
     public function all($domain, array $params = [])
     {
         Assert::stringNotEmpty($domain);
@@ -29,6 +41,5 @@ class Stats extends AbstractApi
         $response = $this->get(sprintf('/v3/%s/stats', rawurlencode($domain)), $params);
 
         return $this->serializer->deserialze($response, AllResponse::class);
-
     }
 }

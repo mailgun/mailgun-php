@@ -10,7 +10,6 @@ use Psr\Http\Message\ResponseInterface;
 
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
- * @author Contributors of https://github.com/KnpLabs/php-github-api
  */
 abstract class AbstractApi
 {
