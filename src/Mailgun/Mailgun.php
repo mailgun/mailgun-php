@@ -9,19 +9,17 @@
 
 namespace Mailgun;
 
+use Guzzle\Http\Message\Request;
 use Http\Client\Common\HttpMethodsClient;
-use Http\Client\Common\PluginClient;
 use Http\Client\HttpClient;
-use Http\Discovery\HttpClientDiscovery;
 use Http\Discovery\MessageFactoryDiscovery;
-use Http\Discovery\UriFactoryDiscovery;
+use Http\Message\RequestFactory;
 use Mailgun\Connection\RestClient;
 use Mailgun\Constants\ExceptionMessages;
 use Mailgun\Lists\OptInHandler;
 use Mailgun\Messages\BatchMessage;
 use Mailgun\Messages\Exceptions;
 use Mailgun\Messages\MessageBuilder;
-use Http\Client\Common\Plugin;
 use Mailgun\Serializer\ObjectSerializer;
 use Mailgun\Serializer\ResponseSerializer;
 
@@ -53,33 +51,39 @@ class Mailgun
     private $serializer;
 
     /**
-     * @param string|null             $apiKey
-     * @param HttpClient|null         $httpClient
-     * @param string                  $apiEndpoint
-     * @param ResponseSerializer|null $serializer
+     * @var RequestFactory
+     */
+    private $requestFactory;
+
+    /**
+     * @param string|null                 $apiKey
+     * @param HttpClient|null             $httpClient
+     * @param string                      $apiEndpoint
+     * @param ResponseSerializer|null     $serializer
+     * @param HttpClientConfigurator|null $clientConfigurator
      */
     public function __construct(
         $apiKey = null,
         HttpClient $httpClient = null,
         $apiEndpoint = 'api.mailgun.net',
-        ResponseSerializer $serializer = null
+        ResponseSerializer $serializer = null,
+        HttpClientConfigurator $clientConfigurator = null
     ) {
         $this->apiKey = $apiKey;
         $this->serializer = $serializer ?: new ObjectSerializer();
         $this->restClient = new RestClient($apiKey, $apiEndpoint, $httpClient);
 
-        $plugins = [
-            new Plugin\AddHostPlugin(UriFactoryDiscovery::find()->createUri('https://api.mailgun.net')),
-            new Plugin\HeaderDefaultsPlugin([
-                'User-Agent' => 'mailgun-sdk-php/v2 (https://github.com/mailgun/mailgun-php)',
-                'Authorization' => 'Basic '.base64_encode(sprintf('api:%s', $apiKey)),
-            ]),
-        ];
+        if (null === $clientConfigurator) {
+            $clientConfigurator = new HttpClientConfigurator();
+            // To be backward compatible
+            if ($apiEndpoint !== 'api.mailgun.net') {
+                $clientConfigurator->setEndpoint($apiEndpoint);
+            }
+        }
+        $clientConfigurator->setApiKey($apiKey);
 
-        $this->httpClient = new HttpMethodsClient(
-            new PluginClient($httpClient ?: HttpClientDiscovery::find(), $plugins),
-            MessageFactoryDiscovery::find()
-        );
+        $this->httpClient = $clientConfigurator->configure($httpClient);
+        $this->requestFactory = MessageFactoryDiscovery::find();
     }
 
     /**
@@ -93,7 +97,7 @@ class Mailgun
     {
         switch ($name) {
             case 'stats':
-                $api = new Api\Stats($this->httpClient, $this->serializer);
+                $api = new Api\Stats($this->httpClient, $this->requestFactory, $this->serializer);
                 break;
             default:
                 throw new \InvalidArgumentException(sprintf('Undefined api instance called: "%s"', $name));

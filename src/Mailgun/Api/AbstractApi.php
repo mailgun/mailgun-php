@@ -3,6 +3,8 @@
 namespace Mailgun\Api;
 
 use Http\Client\Common\HttpMethodsClient;
+use Http\Client\HttpClient;
+use Http\Message\RequestFactory;
 use Mailgun\Exception\HttpServerException;
 use Http\Client\Exception as HttplugException;
 use Mailgun\Serializer\ResponseSerializer;
@@ -26,12 +28,14 @@ abstract class AbstractApi
     protected $serializer;
 
     /**
-     * @param HttpMethodsClient  $httpClient
+     *
+     * @param HttpClient $httpClient
+     * @param RequestFactory $requestFactory
      * @param ResponseSerializer $serializer
      */
-    public function __construct(HttpMethodsClient $httpClient, ResponseSerializer $serializer)
+    public function __construct(HttpClient $httpClient, RequestFactory $requestFactory, ResponseSerializer $serializer)
     {
-        $this->httpClient = $httpClient;
+        $this->httpClient = new HttpMethodsClient($httpClient, $requestFactory);
         $this->serializer = $serializer;
     }
 

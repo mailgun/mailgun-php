@@ -6,5 +6,4 @@ use Mailgun\Exception;
 
 class SerializeException extends \RuntimeException implements Exception
 {
-
 }
