@@ -41,7 +41,7 @@ class AllResponse implements CreatableFromArray
             $items[] = new Item($i['id'], $i['event'], $i['total_count'], $i['tags'], new \DateTime($i['created_at']));
         }
 
-        return new self($data['total_count'],  $items);
+        return new self($data['total_count'], $items);
     }
 
     /**

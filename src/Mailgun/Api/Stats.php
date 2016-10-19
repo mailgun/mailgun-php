@@ -15,7 +15,7 @@ class Stats extends AbstractApi
 {
     /**
      * @param string $domain
-     * @param array $params
+     * @param array  $params
      *
      * @return TotalResponse|array
      */
