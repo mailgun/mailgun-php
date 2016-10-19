@@ -9,7 +9,6 @@
 
 namespace Mailgun;
 
-use Guzzle\Http\Message\Request;
 use Http\Client\Common\HttpMethodsClient;
 use Http\Client\HttpClient;
 use Http\Discovery\MessageFactoryDiscovery;
@@ -32,6 +31,8 @@ class Mailgun
 {
     /**
      * @var RestClient
+     *
+     * @depracated Will be removed in 3.0
      */
     protected $restClient;
 
@@ -64,26 +65,34 @@ class Mailgun
      */
     public function __construct(
         $apiKey = null,
-        HttpClient $httpClient = null,
-        $apiEndpoint = 'api.mailgun.net',
+        HttpClient $httpClient = null, /* Deprecated, will be removed in 3.0 */
+        $apiEndpoint = 'api.mailgun.net', /* Deprecated, will be removed in 3.0 */
         ResponseSerializer $serializer = null,
         HttpClientConfigurator $clientConfigurator = null
     ) {
         $this->apiKey = $apiKey;
-        $this->serializer = $serializer ?: new ObjectSerializer();
         $this->restClient = new RestClient($apiKey, $apiEndpoint, $httpClient);
 
         if (null === $clientConfigurator) {
             $clientConfigurator = new HttpClientConfigurator();
-            // To be backward compatible
+
+            /*
+             * To be backward compatible
+             */
             if ($apiEndpoint !== 'api.mailgun.net') {
                 $clientConfigurator->setEndpoint($apiEndpoint);
             }
+            if ($httpClient !== null) {
+                $clientConfigurator->setHttpClient($httpClient);
+            }
         }
+
         $clientConfigurator->setApiKey($apiKey);
 
-        $this->httpClient = $clientConfigurator->configure($httpClient);
+        $this->httpClient = $clientConfigurator->createConfiguredClient();
         $this->requestFactory = MessageFactoryDiscovery::find();
+        $this->serializer = $serializer ?: new ObjectSerializer();
+
     }
 
     /**

@@ -32,11 +32,15 @@ class HttpClientConfigurator
     private $uriFactory;
 
     /**
-     * @param HttpClient|null $client
+     * @var HttpClient
+     */
+    private $httpClient;
+
+    /**
      *
      * @return PluginClient
      */
-    public function configure(HttpClient $client = null)
+    public function createConfiguredClient()
     {
         $plugins = [
             new Plugin\AddHostPlugin($this->getUriFactory()->createUri($this->getEndpoint())),
@@ -46,7 +50,7 @@ class HttpClientConfigurator
             ]),
         ];
 
-        return new PluginClient($client ?: HttpClientDiscovery::find(), $plugins);
+        return new PluginClient($this->getHttpClient(), $plugins);
     }
 
     /**
@@ -109,6 +113,30 @@ class HttpClientConfigurator
     public function setUriFactory(UriFactory $uriFactory)
     {
         $this->uriFactory = $uriFactory;
+
+        return $this;
+    }
+
+    /**
+     * @return HttpClient
+     */
+    private function getHttpClient()
+    {
+        if ($this->httpClient === null) {
+            $this->httpClient = HttpClientDiscovery::find();
+        }
+
+        return $this->httpClient;
+    }
+
+    /**
+     * @param HttpClient $httpClient
+     *
+     * @return HttpClientConfigurator
+     */
+    public function setHttpClient(HttpClient $httpClient)
+    {
+        $this->httpClient = $httpClient;
 
         return $this;
     }
