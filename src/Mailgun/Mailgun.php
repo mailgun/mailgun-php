@@ -24,8 +24,6 @@ use Mailgun\Serializer\ResponseSerializer;
 
 /**
  * This class is the base class for the Mailgun SDK.
- *
- * @method Api\Stats stats()
  */
 class Mailgun
 {
@@ -93,42 +91,6 @@ class Mailgun
         $this->requestFactory = MessageFactoryDiscovery::find();
         $this->serializer = $serializer ?: new ObjectSerializer();
 
-    }
-
-    /**
-     * @param string $name
-     *
-     * @throws \InvalidArgumentException
-     *
-     * @return mixed
-     */
-    public function api($name)
-    {
-        switch ($name) {
-            case 'stats':
-                $api = new Api\Stats($this->httpClient, $this->requestFactory, $this->serializer);
-                break;
-            default:
-                throw new \InvalidArgumentException(sprintf('Undefined api instance called: "%s"', $name));
-        }
-
-        return $api;
-    }
-
-    /**
-     * @param string $name
-     *
-     * @throws \BadMethodCallException
-     *
-     * @return mixed
-     */
-    public function __call($name, $args)
-    {
-        try {
-            return $this->api($name);
-        } catch (\InvalidArgumentException $e) {
-            throw new \BadMethodCallException(sprintf('Undefined method called: "%s"', $name));
-        }
     }
 
     /**
@@ -290,5 +252,13 @@ class Mailgun
     public function BatchMessage($workingDomain, $autoSend = true)
     {
         return new BatchMessage($this->restClient, $workingDomain, $autoSend);
+    }
+
+    /**
+     * @return Api\Stats
+     */
+    public function getStatsApi()
+    {
+        return new Api\Stats($this->httpClient, $this->requestFactory, $this->serializer);
     }
 }

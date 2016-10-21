@@ -32,7 +32,7 @@ class AllResponse implements CreatableFromArray
     /**
      * @param array $data
      *
-     * @return TotalResponse
+     * @return AllResponse
      */
     public static function createFromArray(array $data)
     {
