@@ -90,7 +90,6 @@ class Mailgun
         $this->httpClient = $clientConfigurator->createConfiguredClient();
         $this->requestFactory = MessageFactoryDiscovery::find();
         $this->serializer = $serializer ?: new ObjectSerializer();
-
     }
 
     /**

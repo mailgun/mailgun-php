@@ -37,7 +37,6 @@ class HttpClientConfigurator
     private $httpClient;
 
     /**
-     *
      * @return PluginClient
      */
     public function createConfiguredClient()
