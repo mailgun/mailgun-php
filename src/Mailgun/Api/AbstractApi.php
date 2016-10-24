@@ -20,7 +20,7 @@ abstract class AbstractApi
      *
      * @var HttpMethodsClient
      */
-    protected $httpClient;
+    private $httpClient;
 
     /**
      * @var ResponseSerializer
