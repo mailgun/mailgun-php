@@ -7,7 +7,7 @@ use Http\Client\HttpClient;
 use Http\Message\RequestFactory;
 use Mailgun\Exception\HttpServerException;
 use Http\Client\Exception as HttplugException;
-use Mailgun\Serializer\ResponseSerializer;
+use Mailgun\Serializer\ResponseDeserializer;
 use Psr\Http\Message\ResponseInterface;
 
 /**
@@ -23,16 +23,16 @@ abstract class AbstractApi
     private $httpClient;
 
     /**
-     * @var ResponseSerializer
+     * @var ResponseDeserializer
      */
     protected $serializer;
 
     /**
      * @param HttpClient         $httpClient
      * @param RequestFactory     $requestFactory
-     * @param ResponseSerializer $serializer
+     * @param ResponseDeserializer $serializer
      */
-    public function __construct(HttpClient $httpClient, RequestFactory $requestFactory, ResponseSerializer $serializer)
+    public function __construct(HttpClient $httpClient, RequestFactory $requestFactory, ResponseDeserializer $serializer)
     {
         $this->httpClient = new HttpMethodsClient($httpClient, $requestFactory);
         $this->serializer = $serializer;

@@ -5,9 +5,9 @@ namespace Mailgun\Serializer;
 use Psr\Http\Message\ResponseInterface;
 
 /**
- * Serialize a PSR-7 response to something else.
+ * Deserialize a PSR-7 response to something else.
  */
-interface ResponseSerializer
+interface ResponseDeserializer
 {
     /**
      * @param ResponseInterface $response
@@ -15,5 +15,5 @@ interface ResponseSerializer
      *
      * @return mixed
      */
-    public function deserialze(ResponseInterface $response, $class);
+    public function deserialize(ResponseInterface $response, $class);
 }

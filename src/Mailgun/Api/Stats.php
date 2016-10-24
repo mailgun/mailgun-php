@@ -25,7 +25,7 @@ class Stats extends AbstractApi
 
         $response = $this->get(sprintf('/v3/%s/stats/total', rawurlencode($domain)), $params);
 
-        return $this->serializer->deserialze($response, TotalResponse::class);
+        return $this->serializer->deserialize($response, TotalResponse::class);
     }
 
     /**
@@ -40,6 +40,6 @@ class Stats extends AbstractApi
 
         $response = $this->get(sprintf('/v3/%s/stats', rawurlencode($domain)), $params);
 
-        return $this->serializer->deserialze($response, AllResponse::class);
+        return $this->serializer->deserialize($response, AllResponse::class);
     }
 }

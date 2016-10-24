@@ -19,8 +19,8 @@ use Mailgun\Lists\OptInHandler;
 use Mailgun\Messages\BatchMessage;
 use Mailgun\Messages\Exceptions;
 use Mailgun\Messages\MessageBuilder;
-use Mailgun\Serializer\ObjectSerializer;
-use Mailgun\Serializer\ResponseSerializer;
+use Mailgun\Serializer\ObjectDeserializer;
+use Mailgun\Serializer\ResponseDeserializer;
 
 /**
  * This class is the base class for the Mailgun SDK.
@@ -45,7 +45,7 @@ class Mailgun
     private $httpClient;
 
     /**
-     * @var ResponseSerializer
+     * @var ResponseDeserializer
      */
     private $serializer;
 
@@ -58,14 +58,14 @@ class Mailgun
      * @param string|null                 $apiKey
      * @param HttpClient|null             $httpClient
      * @param string                      $apiEndpoint
-     * @param ResponseSerializer|null     $serializer
+     * @param ResponseDeserializer|null     $serializer
      * @param HttpClientConfigurator|null $clientConfigurator
      */
     public function __construct(
         $apiKey = null,
         HttpClient $httpClient = null, /* Deprecated, will be removed in 3.0 */
         $apiEndpoint = 'api.mailgun.net', /* Deprecated, will be removed in 3.0 */
-        ResponseSerializer $serializer = null,
+        ResponseDeserializer $serializer = null,
         HttpClientConfigurator $clientConfigurator = null
     ) {
         $this->apiKey = $apiKey;
@@ -89,7 +89,7 @@ class Mailgun
 
         $this->httpClient = $clientConfigurator->createConfiguredClient();
         $this->requestFactory = MessageFactoryDiscovery::find();
-        $this->serializer = $serializer ?: new ObjectSerializer();
+        $this->serializer = $serializer ?: new ObjectDeserializer();
     }
 
     /**

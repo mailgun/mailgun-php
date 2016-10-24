@@ -10,7 +10,7 @@ use Psr\Http\Message\ResponseInterface;
  *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
-class ArraySerializer implements ResponseSerializer
+class ArrayDeserializer implements ResponseDeserializer
 {
     /**
      * @param ResponseInterface $response
@@ -18,7 +18,7 @@ class ArraySerializer implements ResponseSerializer
      *
      * @return array
      */
-    public function deserialze(ResponseInterface $response, $class)
+    public function deserialize(ResponseInterface $response, $class)
     {
         $body = $response->getBody()->__toString();
         if (strpos($response->getHeaderLine('Content-Type'), 'application/json') !== 0) {
