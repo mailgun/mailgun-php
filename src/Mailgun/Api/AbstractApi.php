@@ -28,8 +28,8 @@ abstract class AbstractApi
     protected $serializer;
 
     /**
-     * @param HttpClient         $httpClient
-     * @param RequestFactory     $requestFactory
+     * @param HttpClient           $httpClient
+     * @param RequestFactory       $requestFactory
      * @param ResponseDeserializer $serializer
      */
     public function __construct(HttpClient $httpClient, RequestFactory $requestFactory, ResponseDeserializer $serializer)

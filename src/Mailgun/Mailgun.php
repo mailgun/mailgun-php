@@ -58,7 +58,7 @@ class Mailgun
      * @param string|null                 $apiKey
      * @param HttpClient|null             $httpClient
      * @param string                      $apiEndpoint
-     * @param ResponseDeserializer|null     $serializer
+     * @param ResponseDeserializer|null   $serializer
      * @param HttpClientConfigurator|null $clientConfigurator
      */
     public function __construct(

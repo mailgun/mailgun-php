@@ -11,7 +11,7 @@ use Psr\Http\Message\ResponseInterface;
  *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
-class ObjectDeserializer implements ResponseDeserializer
+class ObjectSerializer implements ResponseDeserializer
 {
     /**
      * @param ResponseInterface $response

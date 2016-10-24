@@ -30,7 +30,7 @@ class StatsTest extends TestCase
     }
 
     /**
-     * expectedException \Mailgun\Exception\InvalidArgumentException
+     * expectedException \Mailgun\Exception\InvalidArgumentException.
      */
     //public function testTotalInvalidArgument()
     //{
@@ -53,7 +53,7 @@ class StatsTest extends TestCase
         $api->all('domain', $data);
     }
 
-    /**
+    /*
      * expectedException \Mailgun\Exception\InvalidArgumentException
      */
     //public function testAllInvalidArgument()

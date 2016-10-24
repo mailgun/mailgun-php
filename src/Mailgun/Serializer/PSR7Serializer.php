@@ -9,7 +9,7 @@ use Psr\Http\Message\ResponseInterface;
  *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
-class PSR7Deserializer implements ResponseDeserializer
+class PSR7Serializer implements ResponseDeserializer
 {
     /**
      * @param ResponseInterface $response
