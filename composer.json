@@ -6,7 +6,9 @@
         "php-http/httplug": "^1.0",
         "php-http/multipart-stream-builder": "^0.1",
         "php-http/message": "^1.0",
-        "php-http/discovery": "^1.0"
+        "php-http/client-common": "^1.0",
+        "php-http/discovery": "^1.0",
+        "webmozart/assert": "^1.1"
     },
     "require-dev": {
         "phpunit/phpunit": "~4.6",

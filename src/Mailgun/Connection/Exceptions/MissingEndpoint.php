@@ -9,6 +9,8 @@
 
 namespace Mailgun\Connection\Exceptions;
 
-class MissingEndpoint extends \Exception
+use Mailgun\Exception;
+
+class MissingEndpoint extends \Exception implements Exception
 {
 }

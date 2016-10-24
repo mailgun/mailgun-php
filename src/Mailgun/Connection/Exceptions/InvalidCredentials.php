@@ -9,6 +9,8 @@
 
 namespace Mailgun\Connection\Exceptions;
 
-class InvalidCredentials extends \Exception
+use Mailgun\Exception;
+
+class InvalidCredentials extends \Exception implements Exception
 {
 }

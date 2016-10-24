@@ -9,6 +9,8 @@
 
 namespace Mailgun\Connection\Exceptions;
 
-class MissingRequiredParameters extends \Exception
+use Mailgun\Exception;
+
+class MissingRequiredParameters extends \Exception implements Exception
 {
 }

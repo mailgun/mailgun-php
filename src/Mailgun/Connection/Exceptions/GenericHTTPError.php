@@ -9,7 +9,9 @@
 
 namespace Mailgun\Connection\Exceptions;
 
-class GenericHTTPError extends \Exception
+use Mailgun\Exception;
+
+class GenericHTTPError extends \Exception implements Exception
 {
     protected $httpResponseCode;
     protected $httpResponseBody;

@@ -9,6 +9,8 @@
 
 namespace Mailgun\Connection\Exceptions;
 
-class NoDomainsConfigured extends \Exception
+use Mailgun\Exception;
+
+class NoDomainsConfigured extends \Exception implements Exception
 {
 }

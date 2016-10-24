@@ -9,24 +9,28 @@
 
 namespace Mailgun;
 
+use Http\Client\Common\HttpMethodsClient;
 use Http\Client\HttpClient;
+use Http\Discovery\MessageFactoryDiscovery;
+use Http\Message\RequestFactory;
 use Mailgun\Connection\RestClient;
 use Mailgun\Constants\ExceptionMessages;
 use Mailgun\Lists\OptInHandler;
 use Mailgun\Messages\BatchMessage;
 use Mailgun\Messages\Exceptions;
 use Mailgun\Messages\MessageBuilder;
+use Mailgun\Serializer\ObjectSerializer;
+use Mailgun\Serializer\ResponseDeserializer;
 
 /**
  * This class is the base class for the Mailgun SDK.
- * See the official documentation (link below) for usage instructions.
- *
- * @link https://github.com/mailgun/mailgun-php/blob/master/README.md
  */
 class Mailgun
 {
     /**
      * @var RestClient
+     *
+     * @depracated Will be removed in 3.0
      */
     protected $restClient;
 
@@ -36,17 +40,56 @@ class Mailgun
     protected $apiKey;
 
     /**
-     * @param string|null $apiKey
-     * @param HttpClient  $httpClient
-     * @param string      $apiEndpoint
+     * @var HttpMethodsClient
+     */
+    private $httpClient;
+
+    /**
+     * @var ResponseDeserializer
+     */
+    private $serializer;
+
+    /**
+     * @var RequestFactory
+     */
+    private $requestFactory;
+
+    /**
+     * @param string|null                 $apiKey
+     * @param HttpClient|null             $httpClient
+     * @param string                      $apiEndpoint
+     * @param ResponseDeserializer|null   $serializer
+     * @param HttpClientConfigurator|null $clientConfigurator
      */
     public function __construct(
         $apiKey = null,
-        HttpClient $httpClient = null,
-        $apiEndpoint = 'api.mailgun.net'
+        HttpClient $httpClient = null, /* Deprecated, will be removed in 3.0 */
+        $apiEndpoint = 'api.mailgun.net', /* Deprecated, will be removed in 3.0 */
+        ResponseDeserializer $serializer = null,
+        HttpClientConfigurator $clientConfigurator = null
     ) {
         $this->apiKey = $apiKey;
         $this->restClient = new RestClient($apiKey, $apiEndpoint, $httpClient);
+
+        if (null === $clientConfigurator) {
+            $clientConfigurator = new HttpClientConfigurator();
+
+            /*
+             * To be backward compatible
+             */
+            if ($apiEndpoint !== 'api.mailgun.net') {
+                $clientConfigurator->setEndpoint($apiEndpoint);
+            }
+            if ($httpClient !== null) {
+                $clientConfigurator->setHttpClient($httpClient);
+            }
+        }
+
+        $clientConfigurator->setApiKey($apiKey);
+
+        $this->httpClient = $clientConfigurator->createConfiguredClient();
+        $this->requestFactory = MessageFactoryDiscovery::find();
+        $this->serializer = $serializer ?: new ObjectSerializer();
     }
 
     /**
@@ -208,5 +251,13 @@ class Mailgun
     public function BatchMessage($workingDomain, $autoSend = true)
     {
         return new BatchMessage($this->restClient, $workingDomain, $autoSend);
+    }
+
+    /**
+     * @return Api\Stats
+     */
+    public function getStatsApi()
+    {
+        return new Api\Stats($this->httpClient, $this->requestFactory, $this->serializer);
     }
 }
