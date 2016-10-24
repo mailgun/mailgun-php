@@ -23,7 +23,7 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
             ->setMethods(['createRequest', 'createResponse'])
             ->getMock();
 
-        $serializer = $this->getMockBuilder('Mailgun\Serializer\ResponseSerializer')
+        $serializer = $this->getMockBuilder('Mailgun\Serializer\ResponseDeserializer')
             ->setMethods(['deserialize'])
             ->getMock();
 
