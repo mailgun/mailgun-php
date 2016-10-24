@@ -19,11 +19,17 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
             ->expects($this->any())
             ->method('sendRequest');
 
-        $client = new \Mailgun\Mailgun('api-key', $httpClient);
+        $requestClient = $this->getMockBuilder('Http\Message\MessageFactory')
+            ->setMethods(['createRequest', 'createResponse'])
+            ->getMock();
+
+        $serializer = $this->getMockBuilder('Mailgun\Serializer\ResponseSerializer')
+            ->setMethods(['deserialze'])
+            ->getMock();
 
         return $this->getMockBuilder($this->getApiClass())
             ->setMethods(['get', 'post', 'postRaw', 'delete', 'put'])
-            ->setConstructorArgs([$client])
+            ->setConstructorArgs([$httpClient, $requestClient, $serializer])
             ->getMock();
     }
 }

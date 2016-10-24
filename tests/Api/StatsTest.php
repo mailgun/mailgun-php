@@ -2,6 +2,8 @@
 
 namespace Mailgun\Tests\Api;
 
+use GuzzleHttp\Psr7\Response;
+
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
@@ -21,7 +23,8 @@ class StatsTest extends TestCase
         $api = $this->getApiMock();
         $api->expects($this->once())
             ->method('get')
-            ->with('/v3/domain/stats/total', $data);
+            ->with('/v3/domain/stats/total', $data)
+            ->willReturn(new Response());
 
         $api->total('domain', $data);
     }
@@ -45,7 +48,8 @@ class StatsTest extends TestCase
         $api = $this->getApiMock();
         $api->expects($this->once())
             ->method('get')
-            ->with('/v3/domain/stats', $data);
+            ->with('/v3/domain/stats', $data)
+            ->willReturn(new Response());
 
         $api->all('domain', $data);
     }
