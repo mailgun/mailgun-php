@@ -260,4 +260,12 @@ class Mailgun
     {
         return new Api\Stats($this->httpClient, $this->requestFactory, $this->serializer);
     }
+
+    /**
+     * @return Api\Domain
+     */
+    public function getDomainApi()
+    {
+        return new Api\Domain($this->httpClient, $this->requestFactory, $this->serializer);
+    }
 }
