@@ -51,20 +51,21 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
             ->setMethods(['createRequest', 'createResponse'])
             ->getMock();
 
-        $serializer = $this->getMockBuilder('Mailgun\Serializer\ResponseDeserializer')
+        $deserializer = $this->getMockBuilder('Mailgun\Deserializer\ResponseDeserializer')
             ->setMethods(['deserialize'])
             ->getMock();
 
         return $this->getMockBuilder($this->getApiClass())
             ->setMethods(
                 [
+                    'deserialize',
                     'get',
                     'post', 'postRaw', 'postMultipart',
                     'delete', 'deleteMultipart',
                     'put', 'putMultipart',
                 ]
             )
-            ->setConstructorArgs([$httpClient, $requestClient, $serializer])
+            ->setConstructorArgs([$httpClient, $requestClient, $deserializer])
             ->getMock();
     }
 

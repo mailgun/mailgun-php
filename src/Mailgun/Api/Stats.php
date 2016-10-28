@@ -3,8 +3,6 @@
 namespace Mailgun\Api;
 
 use Mailgun\Assert;
-use Mailgun\Resource\Api\Stats\AllResponse;
-use Mailgun\Resource\Api\Stats\TotalResponse;
 
 /**
  * {@link https://documentation.mailgun.com/api-stats.html}.
@@ -17,7 +15,7 @@ class Stats extends AbstractApi
      * @param string $domain
      * @param array  $params
      *
-     * @return TotalResponse|array
+     * @return array
      */
     public function total($domain, array $params = [])
     {
@@ -25,14 +23,14 @@ class Stats extends AbstractApi
 
         $response = $this->get(sprintf('/v3/%s/stats/total', rawurlencode($domain)), $params);
 
-        return $this->serializer->deserialize($response, TotalResponse::class);
+        return $this->deserializeResp($response);
     }
 
     /**
      * @param $domain
      * @param array $params
      *
-     * @return AllResponse|array
+     * @return array
      */
     public function all($domain, array $params = [])
     {
@@ -40,6 +38,6 @@ class Stats extends AbstractApi
 
         $response = $this->get(sprintf('/v3/%s/stats', rawurlencode($domain)), $params);
 
-        return $this->serializer->deserialize($response, AllResponse::class);
+        return $this->deserializeResp($response);
     }
 }

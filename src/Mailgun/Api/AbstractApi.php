@@ -3,16 +3,15 @@
 namespace Mailgun\Api;
 
 use Http\Client\Common\HttpMethodsClient;
-use Http\Client\HttpClient;
 use Http\Client\Exception as HttplugException;
+use Http\Client\HttpClient;
 use Http\Discovery\MessageFactoryDiscovery;
 use Http\Discovery\StreamFactoryDiscovery;
-use Http\Message\RequestFactory;
 use Http\Message\MultipartStream\MultipartStreamBuilder;
+use Http\Message\RequestFactory;
 use Mailgun\Assert;
+use Mailgun\Deserializer\ResponseDeserializer;
 use Mailgun\Exception\HttpServerException;
-use Mailgun\Serializer\ResponseDeserializer;
-use Mailgun\Resource\Api\SimpleResponse;
 use Psr\Http\Message\ResponseInterface;
 
 /**
@@ -35,31 +34,24 @@ abstract class AbstractApi
     /**
      * @param HttpClient           $httpClient
      * @param RequestFactory       $requestFactory
-     * @param ResponseDeserializer $serializer
+     * @param ResponseDeserializer $deserializer
      */
-    public function __construct(HttpClient $httpClient, RequestFactory $requestFactory, ResponseDeserializer $serializer)
+    public function __construct(HttpClient $httpClient, RequestFactory $requestFactory, ResponseDeserializer $deserializer)
     {
         $this->httpClient = new HttpMethodsClient($httpClient, $requestFactory);
-        $this->serializer = $serializer;
+        $this->deserializer = $deserializer;
     }
 
     /**
-     * Attempts to safely deserialize the response into the given class.
-     * If the HTTP return code != 200, deserializes into SimpleResponse::class
-     * to contain the error message and any other information provided.
+     * Shortcut call to deserialize an API response.
      *
      * @param ResponseInterface $response
-     * @param string            $className
      *
-     * @return $class|SimpleResponse
+     * @return mixed
      */
-    protected function safeDeserialize(ResponseInterface $response, $className)
+    protected function deserializeResp(ResponseInterface $response)
     {
-        if ($response->getStatusCode() !== 200) {
-            return $this->serializer->deserialize($response, SimpleResponse::class);
-        } else {
-            return $this->serializer->deserialize($response, $className);
-        }
+        return $this->deserializer->deserialize($response);
     }
 
     /**

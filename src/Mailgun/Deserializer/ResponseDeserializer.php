@@ -1,6 +1,6 @@
 <?php
 
-namespace Mailgun\Serializer;
+namespace Mailgun\Deserializer;
 
 use Psr\Http\Message\ResponseInterface;
 
@@ -11,9 +11,8 @@ interface ResponseDeserializer
 {
     /**
      * @param ResponseInterface $response
-     * @param string            $class
      *
      * @return mixed
      */
-    public function deserialize(ResponseInterface $response, $class);
+    public function deserialize(ResponseInterface $response);
 }

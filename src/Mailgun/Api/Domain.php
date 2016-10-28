@@ -10,13 +10,6 @@
 namespace Mailgun\Api;
 
 use Mailgun\Assert;
-use Mailgun\Resource\Api\Domain\ComplexDomain;
-use Mailgun\Resource\Api\Domain\Credential;
-use Mailgun\Resource\Api\Domain\CredentialListResponse;
-use Mailgun\Resource\Api\Domain\DeliverySettingsResponse;
-use Mailgun\Resource\Api\Domain\DeliverySettingsUpdateResponse;
-use Mailgun\Resource\Api\Domain\DomainListResponse;
-use Mailgun\Resource\Api\SimpleResponse;
 
 /**
  * {@link https://documentation.mailgun.com/api-domains.html}.
@@ -45,7 +38,7 @@ class Domain extends AbstractApi
 
         $response = $this->get('/v3/domains', $params);
 
-        return $this->serializer->deserialize($response, DomainListResponse::class);
+        return $this->deserializeResp($response);
     }
 
     /**
@@ -61,7 +54,7 @@ class Domain extends AbstractApi
 
         $response = $this->get(sprintf('/v3/domains/%s', $domain));
 
-        return $this->serializer->deserialize($response, ComplexDomain::class);
+        return $this->deserializeResp($response);
     }
 
     /**
@@ -93,7 +86,7 @@ class Domain extends AbstractApi
 
         $response = $this->postMultipart('/v3/domains', $params);
 
-        return $this->safeDeserialize($response, ComplexDomain::class);
+        return $this->deserializeResp($response);
     }
 
     /**
@@ -110,7 +103,7 @@ class Domain extends AbstractApi
 
         $response = $this->delete(sprintf('/v3/domains/%s', $domain));
 
-        return $this->serializer->deserialize($response, SimpleResponse::class);
+        return $this->deserializeResp($response);
     }
 
     /**
@@ -135,7 +128,7 @@ class Domain extends AbstractApi
 
         $response = $this->get(sprintf('/v3/domains/%s/credentials', $domain), $params);
 
-        return $this->safeDeserialize($response, CredentialListResponse::class);
+        return $this->deserializeResp($response);
     }
 
     /**
@@ -161,7 +154,7 @@ class Domain extends AbstractApi
 
         $response = $this->postMultipart(sprintf('/v3/domains/%s/credentials', $domain), $params);
 
-        return $this->serializer->deserialize($response, SimpleResponse::class);
+        return $this->deserializeResp($response);
     }
 
     /**
@@ -193,7 +186,7 @@ class Domain extends AbstractApi
             $params
         );
 
-        return $this->serializer->deserialize($response, SimpleResponse::class);
+        return $this->deserializeResp($response);
     }
 
     /**
@@ -217,7 +210,7 @@ class Domain extends AbstractApi
             )
         );
 
-        return $this->serializer->deserialize($response, SimpleResponse::class);
+        return $this->deserializeResp($response);
     }
 
     /**
@@ -233,7 +226,7 @@ class Domain extends AbstractApi
 
         $response = $this->get(sprintf('/v3/domains/%s/connection', $domain));
 
-        return $this->serializer->deserialize($response, DeliverySettingsResponse::class);
+        return $this->deserializeResp($response);
     }
 
     /**
@@ -264,6 +257,6 @@ class Domain extends AbstractApi
 
         $response = $this->putMultipart(sprintf('/v3/domains/%s/connection', $domain), $params);
 
-        return $this->serializer->deserialize($response, DeliverySettingsUpdateResponse::class);
+        return $this->deserializeResp($response);
     }
 }
