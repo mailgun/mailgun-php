@@ -1,6 +1,6 @@
 <?php
 
-namespace Mailgun\Serializer;
+namespace Mailgun\Deserializer;
 
 use Mailgun\Exception\SerializeException;
 use Psr\Http\Message\ResponseInterface;
@@ -10,15 +10,14 @@ use Psr\Http\Message\ResponseInterface;
  *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
-class ArraySerializer implements ResponseDeserializer
+class ArrayDeserializer implements ResponseDeserializer
 {
     /**
      * @param ResponseInterface $response
-     * @param string            $class
      *
      * @return array
      */
-    public function deserialize(ResponseInterface $response, $class)
+    public function deserialize(ResponseInterface $response)
     {
         $body = $response->getBody()->__toString();
         if (strpos($response->getHeaderLine('Content-Type'), 'application/json') !== 0) {

@@ -19,8 +19,8 @@ use Mailgun\Lists\OptInHandler;
 use Mailgun\Messages\BatchMessage;
 use Mailgun\Messages\Exceptions;
 use Mailgun\Messages\MessageBuilder;
-use Mailgun\Serializer\ObjectSerializer;
-use Mailgun\Serializer\ResponseDeserializer;
+use Mailgun\Deserializer\ArrayDeserializer;
+use Mailgun\Deserializer\ResponseDeserializer;
 
 /**
  * This class is the base class for the Mailgun SDK.
@@ -89,7 +89,7 @@ class Mailgun
 
         $this->httpClient = $clientConfigurator->createConfiguredClient();
         $this->requestFactory = MessageFactoryDiscovery::find();
-        $this->serializer = $serializer ?: new ObjectSerializer();
+        $this->serializer = $serializer ?: new ArrayDeserializer();
     }
 
     /**
