@@ -9,12 +9,12 @@
 namespace Mailgun\Resource\Api\Domain;
 
 use Mailgun\Assert;
-use Mailgun\Resource\CreatableFromArray;
+use Mailgun\Resource\ApiResponse;
 
 /**
  * @author Sean Johnson <sean@mailgun.com>
  */
-class Credential implements CreatableFromArray
+final class CredentialResponseItem
 {
     /**
      * @var int|null
@@ -39,9 +39,9 @@ class Credential implements CreatableFromArray
     /**
      * @param array $data
      *
-     * @return Credential
+     * @return CredentialResponseItem
      */
-    public static function createFromArray(array $data)
+    public static function create(array $data)
     {
         Assert::keyExists($data, 'created_at');
         Assert::keyExists($data, 'mailbox');
@@ -71,7 +71,7 @@ class Credential implements CreatableFromArray
      * @param string    $mailbox
      * @param string    $login
      */
-    public function __construct($sizeBytes, \DateTime $createdAt, $mailbox, $login)
+    private function __construct($sizeBytes, \DateTime $createdAt, $mailbox, $login)
     {
         $this->sizeBytes = $sizeBytes;
         $this->createdAt = $createdAt;

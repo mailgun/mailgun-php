@@ -177,7 +177,7 @@ abstract class AbstractApi
      *
      * @return ResponseInterface
      */
-    protected function delete($path, array $parameters = [], array $requestHeaders = [])
+    protected function httpDelete($path, array $parameters = [], array $requestHeaders = [])
     {
         try {
             $response = $this->httpClient->delete($path, $requestHeaders, $this->createJsonBody($parameters));

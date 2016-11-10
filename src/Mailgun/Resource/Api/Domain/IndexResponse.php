@@ -10,12 +10,13 @@
 namespace Mailgun\Resource\Api\Domain;
 
 use Mailgun\Assert;
-use Mailgun\Resource\CreatableFromArray;
+use Mailgun\Resource\ApiResponse;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * @author Sean Johnson <sean@mailgun.com>
  */
-class DomainListResponse implements CreatableFromArray
+final class IndexResponse implements ApiResponse
 {
     /**
      * @var int
@@ -30,9 +31,9 @@ class DomainListResponse implements CreatableFromArray
     /**
      * @param array $data
      *
-     * @return DomainListResponse|array|ResponseInterface
+     * @return IndexResponse|array|ResponseInterface
      */
-    public static function createFromArray(array $data)
+    public static function create(array $data)
     {
         $items = [];
 
@@ -40,24 +41,7 @@ class DomainListResponse implements CreatableFromArray
         Assert::keyExists($data, 'items');
 
         foreach ($data['items'] as $item) {
-            Assert::keyExists($item, 'name');
-            Assert::keyExists($item, 'smtp_login');
-            Assert::keyExists($item, 'smtp_password');
-            Assert::keyExists($item, 'wildcard');
-            Assert::keyExists($item, 'spam_action');
-            Assert::keyExists($item, 'state');
-            Assert::keyExists($item, 'created_at');
-
-            $items[] = SimpleDomain::createFromArray($item);
-            $items[] = new SimpleDomain(
-                $item['name'],
-                $item['smtp_login'],
-                $item['smtp_password'],
-                $item['wildcard'],
-                $item['spam_action'],
-                $item['state'],
-                new \DateTime($item['created_at'])
-            );
+            $items[] = Domain::create($item);
         }
 
         return new self($data['total_count'], $items);
@@ -67,7 +51,7 @@ class DomainListResponse implements CreatableFromArray
      * @param int            $totalCount
      * @param SimpleDomain[] $items
      */
-    public function __construct($totalCount, array $items)
+    private function __construct($totalCount, array $items)
     {
         Assert::integer($totalCount);
         Assert::isArray($items);

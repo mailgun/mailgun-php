@@ -2,10 +2,12 @@
 
 namespace Mailgun\Resource\Api\Stats;
 
+use Mailgun\Assert;
+
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
-class TotalStats
+class TotalResponseItem
 {
     /**
      * @var \DateTime
@@ -27,13 +29,23 @@ class TotalStats
      */
     private $failed;
 
+    public static function create(array $data)
+    {
+        Assert::string($data['time']);
+        Assert::isArray($data['accepted']);
+        Assert::isArray($data['delivered']);
+        Assert::isArray($data['failed']);
+
+        return new self(new \DateTime($data['time']), $data['accepted'], $data['delivered'], $data['failed']);
+    }
+
     /**
      * @param \DateTime $time
      * @param array     $accepted
      * @param array     $delivered
      * @param array     $failed
      */
-    public function __construct(\DateTime $time, array $accepted, array $delivered, array $failed)
+    private function __construct(\DateTime $time, array $accepted, array $delivered, array $failed)
     {
         $this->time = $time;
         $this->accepted = $accepted;

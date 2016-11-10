@@ -60,7 +60,7 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
                 [
                     'get',
                     'post', 'postRaw', 'postMultipart',
-                    'delete', 'deleteMultipart',
+                    'deleteHttp', 'deleteMultipart',
                     'put', 'putMultipart',
                 ]
             )

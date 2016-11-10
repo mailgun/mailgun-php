@@ -9,13 +9,17 @@
 
 namespace Mailgun\Tests\Integration;
 
+use Mailgun\Api\Domain;
+use Mailgun\Resource\Api\Domain\CreateCredentialResponse;
+use Mailgun\Resource\Api\Domain\CreateResponse;
+use Mailgun\Resource\Api\Domain\DeleteCredentialResponse;
+use Mailgun\Resource\Api\Domain\DeleteResponse;
+use Mailgun\Resource\Api\Domain\UpdateCredentialResponse;
 use Mailgun\Tests\Api\TestCase;
-use Mailgun\Resource\Api\SimpleResponse;
-use Mailgun\Resource\Api\Domain\Credential;
-use Mailgun\Resource\Api\Domain\CredentialListResponse;
-use Mailgun\Resource\Api\Domain\DeliverySettingsResponse;
-use Mailgun\Resource\Api\Domain\DeliverySettingsUpdateResponse;
-use Mailgun\Resource\Api\Domain\SimpleDomain;
+use Mailgun\Resource\Api\Domain\CredentialResponseItem;
+use Mailgun\Resource\Api\Domain\CredentialResponse;
+use Mailgun\Resource\Api\Domain\ConnectionResponse;
+use Mailgun\Resource\Api\Domain\UpdateConnectionResponse;
 
 /**
  * @author Sean Johnson <sean@mailgun.com>
@@ -31,11 +35,11 @@ class DomainApiTest extends TestCase
      * Performs `GET /v3/domains` and ensures $this->testDomain exists
      * in the returned list.
      */
-    public function testDomainsList()
+    public function testIndex()
     {
         $mg = $this->getMailgunClient();
 
-        $domainList = $mg->getDomainApi()->listAll();
+        $domainList = $mg->getDomainApi()->index();
         $found = false;
         foreach ($domainList->getDomains() as $domain) {
             if ($domain->getName() === $this->testDomain) {
@@ -43,7 +47,7 @@ class DomainApiTest extends TestCase
             }
         }
 
-        $this->assertContainsOnlyInstancesOf(SimpleDomain::class, $domainList->getDomains());
+        $this->assertContainsOnlyInstancesOf(Domain::class, $domainList->getDomains());
         $this->assertTrue($found);
     }
 
@@ -55,7 +59,7 @@ class DomainApiTest extends TestCase
     {
         $mg = $this->getMailgunClient();
 
-        $domain = $mg->getDomainApi()->info($this->testDomain);
+        $domain = $mg->getDomainApi()->show($this->testDomain);
         $this->assertNotNull($domain);
         $this->assertNotNull($domain->getDomain());
         $this->assertNotNull($domain->getInboundDNSRecords());
@@ -70,9 +74,9 @@ class DomainApiTest extends TestCase
     {
         $mg = $this->getMailgunClient();
 
-        $ret = $mg->getDomainApi()->remove('example.notareal.tld');
+        $ret = $mg->getDomainApi()->delete('example.notareal.tld');
         $this->assertNotNull($ret);
-        $this->assertInstanceOf(SimpleResponse::class, $ret);
+        $this->assertInstanceOf(DeleteResponse::class, $ret);
         $this->assertEquals('Domain not found', $ret->getMessage());
     }
 
@@ -111,7 +115,7 @@ class DomainApiTest extends TestCase
             false                       // wildcard domain?
         );
         $this->assertNotNull($domain);
-        $this->assertInstanceOf(SimpleResponse::class, $domain);
+        $this->assertInstanceOf(CreateResponse::class, $domain);
         $this->assertEquals('This domain name is already taken', $domain->getMessage());
     }
 
@@ -122,9 +126,9 @@ class DomainApiTest extends TestCase
     {
         $mg = $this->getMailgunClient();
 
-        $ret = $mg->getDomainApi()->remove('example.notareal.tld');
+        $ret = $mg->getDomainApi()->delete('example.notareal.tld');
         $this->assertNotNull($ret);
-        $this->assertInstanceOf(SimpleResponse::class, $ret);
+        $this->assertInstanceOf(DeleteResponse::class, $ret);
         $this->assertEquals('Domain has been deleted', $ret->getMessage());
     }
 
@@ -136,13 +140,13 @@ class DomainApiTest extends TestCase
     {
         $mg = $this->getMailgunClient();
 
-        $ret = $mg->getDomainApi()->newCredential(
+        $ret = $mg->getDomainApi()->createCredential(
             $this->testDomain,
             'user-test@'.$this->testDomain,
             'Password.01!'
         );
         $this->assertNotNull($ret);
-        $this->assertInstanceOf(SimpleResponse::class, $ret);
+        $this->assertInstanceOf(CreateResponse::class, $ret);
         $this->assertEquals('Created 1 credentials pair(s)', $ret->getMessage());
     }
 
@@ -156,13 +160,13 @@ class DomainApiTest extends TestCase
     {
         $mg = $this->getMailgunClient();
 
-        $ret = $mg->getDomainApi()->newCredential(
+        $ret = $mg->getDomainApi()->createCredential(
             $this->testDomain,
             'user-test',
             'ExtremelyLongPasswordThatCertainlyWillNotBeAccepted'
         );
         $this->assertNotNull($ret);
-        $this->assertInstanceOf(SimpleResponse::class, $ret);
+        $this->assertInstanceOf(CreateCredentialResponse::class, $ret);
     }
 
     /**
@@ -175,13 +179,13 @@ class DomainApiTest extends TestCase
     {
         $mg = $this->getMailgunClient();
 
-        $ret = $mg->getDomainApi()->newCredential(
+        $ret = $mg->getDomainApi()->createCredential(
             $this->testDomain,
             'user-test',
             'no'
         );
         $this->assertNotNull($ret);
-        $this->assertInstanceOf(SimpleResponse::class, $ret);
+        $this->assertInstanceOf(CreateCredentialResponse::class, $ret);
     }
 
     /**
@@ -193,10 +197,10 @@ class DomainApiTest extends TestCase
 
         $found = false;
 
-        $ret = $mg->getDomainApi()->listCredentials($this->testDomain);
+        $ret = $mg->getDomainApi()->credentials($this->testDomain);
         $this->assertNotNull($ret);
-        $this->assertInstanceOf(CredentialListResponse::class, $ret);
-        $this->assertContainsOnlyInstancesOf(Credential::class, $ret->getCredentials());
+        $this->assertInstanceOf(CredentialResponse::class, $ret);
+        $this->assertContainsOnlyInstancesOf(CredentialResponseItem::class, $ret->getCredentials());
 
         foreach ($ret->getCredentials() as $cred) {
             if ($cred->getLogin() === 'user-test@'.$this->testDomain) {
@@ -214,9 +218,9 @@ class DomainApiTest extends TestCase
     {
         $mg = $this->getMailgunClient();
 
-        $ret = $mg->getDomainApi()->listCredentials('mailgun.org');
+        $ret = $mg->getDomainApi()->credentials('mailgun.org');
         $this->assertNotNull($ret);
-        $this->assertInstanceOf(SimpleResponse::class, $ret);
+        $this->assertInstanceOf(CredentialResponse::class, $ret);
         $this->assertEquals('Domain not found: mailgun.org', $ret->getMessage());
     }
 
@@ -236,7 +240,7 @@ class DomainApiTest extends TestCase
             'Password..02!'
         );
         $this->assertNotNull($ret);
-        $this->assertInstanceOf(SimpleResponse::class, $ret);
+        $this->assertInstanceOf(UpdateCredentialResponse::class, $ret);
         $this->assertEquals('Password changed', $ret->getMessage());
     }
 
@@ -293,7 +297,7 @@ class DomainApiTest extends TestCase
             $login
         );
         $this->assertNotNull($ret);
-        $this->assertInstanceOf(SimpleResponse::class, $ret);
+        $this->assertInstanceOf(DeleteCredentialResponse::class, $ret);
         $this->assertEquals('Credentials have been deleted', $ret->getMessage());
         $this->assertEquals($login, $ret->getSpec());
     }
@@ -313,7 +317,7 @@ class DomainApiTest extends TestCase
             $login
         );
         $this->assertNotNull($ret);
-        $this->assertInstanceOf(SimpleResponse::class, $ret);
+        $this->assertInstanceOf(DeleteCredentialResponse::class, $ret);
         $this->assertEquals('Credentials not found', $ret->getMessage());
     }
 
@@ -324,9 +328,9 @@ class DomainApiTest extends TestCase
     {
         $mg = $this->getMailgunClient();
 
-        $ret = $mg->getDomainApi()->getDeliverySettings($this->testDomain);
+        $ret = $mg->getDomainApi()->connection($this->testDomain);
         $this->assertNotNull($ret);
-        $this->assertInstanceOf(DeliverySettingsResponse::class, $ret);
+        $this->assertInstanceOf(ConnectionResponse::class, $ret);
         $this->assertTrue(is_bool($ret->getSkipVerification()));
         $this->assertTrue(is_bool($ret->getRequireTLS()));
     }
@@ -338,13 +342,13 @@ class DomainApiTest extends TestCase
     {
         $mg = $this->getMailgunClient();
 
-        $ret = $mg->getDomainApi()->updateDeliverySettings(
+        $ret = $mg->getDomainApi()->updateConnection(
             $this->testDomain,
             true,
             false
         );
         $this->assertNotNull($ret);
-        $this->assertInstanceOf(DeliverySettingsUpdateResponse::class, $ret);
+        $this->assertInstanceOf(UpdateConnectionResponse::class, $ret);
         $this->assertEquals('Domain connection settings have been updated, may take 10 minutes to fully propagate', $ret->getMessage());
         $this->assertEquals(true, $ret->getRequireTLS());
         $this->assertEquals(false, $ret->getSkipVerification());

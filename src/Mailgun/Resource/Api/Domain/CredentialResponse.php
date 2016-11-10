@@ -10,12 +10,12 @@
 namespace Mailgun\Resource\Api\Domain;
 
 use Mailgun\Assert;
-use Mailgun\Resource\CreatableFromArray;
+use Mailgun\Resource\ApiResponse;
 
 /**
  * @author Sean Johnson <sean@mailgun.com>
  */
-class CredentialListResponse implements CreatableFromArray
+final class CredentialResponse implements ApiResponse
 {
     /**
      * @var int
@@ -23,16 +23,16 @@ class CredentialListResponse implements CreatableFromArray
     private $totalCount;
 
     /**
-     * @var Credential[]
+     * @var CredentialResponseItem[]
      */
     private $items;
 
     /**
      * @param array $data
      *
-     * @return CredentialListResponse|array|ResponseInterface
+     * @return CredentialResponse
      */
-    public static function createFromArray(array $data)
+    public static function create(array $data)
     {
         $items = [];
 
@@ -40,7 +40,7 @@ class CredentialListResponse implements CreatableFromArray
         Assert::keyExists($data, 'items');
 
         foreach ($data['items'] as $item) {
-            $items[] = Credential::createFromArray($item);
+            $items[] = CredentialResponseItem::create($item);
         }
 
         return new self($data['total_count'], $items);
@@ -48,9 +48,9 @@ class CredentialListResponse implements CreatableFromArray
 
     /**
      * @param int          $totalCount
-     * @param Credential[] $items
+     * @param CredentialResponseItem[] $items
      */
-    public function __construct($totalCount, array $items)
+    private function __construct($totalCount, array $items)
     {
         Assert::integer($totalCount);
         Assert::isArray($items);
@@ -69,7 +69,7 @@ class CredentialListResponse implements CreatableFromArray
     }
 
     /**
-     * @return Credential[]
+     * @return CredentialResponseItem[]
      */
     public function getCredentials()
     {
