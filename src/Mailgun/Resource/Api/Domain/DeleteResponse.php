@@ -25,7 +25,7 @@ final class DeleteResponse implements ApiResponse
     /**
      * @param array $data
      *
-     * @return DeleteResponse
+     * @return self
      */
     public static function create(array $data)
     {

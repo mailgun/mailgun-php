@@ -25,7 +25,7 @@ final class UpdateCredentialResponse implements ApiResponse
     /**
      * @param array $data
      *
-     * @return UpdateCredentialResponse
+     * @return self
      */
     public static function create(array $data)
     {

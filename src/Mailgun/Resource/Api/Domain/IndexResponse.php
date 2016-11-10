@@ -31,7 +31,7 @@ final class IndexResponse implements ApiResponse
     /**
      * @param array $data
      *
-     * @return IndexResponse|array|ResponseInterface
+     * @return self
      */
     public static function create(array $data)
     {

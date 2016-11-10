@@ -52,6 +52,11 @@ final class Domain
      */
     private $state;
 
+    /**
+     * @param array $data
+     *
+     * @return self
+     */
     public static function create(array $data)
     {
         Assert::keyExists($data, 'name');

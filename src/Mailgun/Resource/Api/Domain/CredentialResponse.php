@@ -30,7 +30,7 @@ final class CredentialResponse implements ApiResponse
     /**
      * @param array $data
      *
-     * @return CredentialResponse
+     * @return self
      */
     public static function create(array $data)
     {

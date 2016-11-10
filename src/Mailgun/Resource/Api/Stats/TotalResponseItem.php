@@ -29,6 +29,11 @@ class TotalResponseItem
      */
     private $failed;
 
+    /**
+     * @param array $data
+     *
+     * @return self
+     */
     public static function create(array $data)
     {
         Assert::string($data['time']);

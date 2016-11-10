@@ -34,6 +34,11 @@ final class AllResponseItem
      */
     private $createdAt;
 
+    /**
+     * @param array $data
+     *
+     * @return self
+     */
     public static function create(array $data)
     {
         Assert::string($data['id']);

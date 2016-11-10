@@ -34,7 +34,7 @@ final class ShowResponse implements ApiResponse
     /**
      * @param array $data
      *
-     * @return ShowResponse
+     * @return self
      */
     public static function create(array $data)
     {

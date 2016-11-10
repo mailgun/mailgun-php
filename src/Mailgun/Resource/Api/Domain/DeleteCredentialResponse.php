@@ -31,7 +31,7 @@ final class DeleteCredentialResponse implements ApiResponse
     /**
      * @param array $data
      *
-     * @return DeleteCredentialResponse
+     * @return self
      */
     public static function create(array $data)
     {

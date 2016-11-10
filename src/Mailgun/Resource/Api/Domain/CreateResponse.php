@@ -33,7 +33,7 @@ final class CreateResponse implements ApiResponse
     /**
      * @param array $data
      *
-     * @return CreateResponse
+     * @return self
      */
     public static function create(array $data)
     {

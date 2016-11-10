@@ -38,7 +38,7 @@ final class CredentialResponseItem
     /**
      * @param array $data
      *
-     * @return CredentialResponseItem
+     * @return self
      */
     public static function create(array $data)
     {
@@ -56,7 +56,7 @@ final class CredentialResponseItem
         Assert::string($mailbox);
         Assert::string($login);
 
-        return new static(
+        return new self(
             $sizeBytes,
             $createdAt,
             $mailbox,

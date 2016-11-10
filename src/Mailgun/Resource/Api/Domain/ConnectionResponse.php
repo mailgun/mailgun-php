@@ -29,7 +29,7 @@ final class ConnectionResponse implements ApiResponse
     /**
      * @param array $data
      *
-     * @return ConnectionResponse
+     * @return self
      */
     public static function create(array $data)
     {
@@ -40,7 +40,7 @@ final class ConnectionResponse implements ApiResponse
         Assert::keyExists($connSettings, 'skip_verification');
         Assert::keyExists($connSettings, 'require_tls');
 
-        return new static(
+        return new self(
             $connSettings['skip_verification'],
             $connSettings['require_tls']
         );

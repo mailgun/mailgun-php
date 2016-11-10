@@ -46,7 +46,7 @@ final class TotalResponse implements ApiResponse
     /**
      * @param array $data
      *
-     * @return TotalResponse
+     * @return self
      */
     public static function create(array $data)
     {

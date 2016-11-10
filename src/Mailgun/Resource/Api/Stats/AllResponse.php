@@ -32,7 +32,7 @@ final class AllResponse implements ApiResponse
     /**
      * @param array $data
      *
-     * @return AllResponse
+     * @return self
      */
     public static function create(array $data)
     {

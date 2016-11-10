@@ -34,7 +34,7 @@ final class UpdateConnectionResponse implements ApiResponse
     /**
      * @param array $data
      *
-     * @return UpdateConnectionResponse
+     * @return self
      */
     public static function create(array $data)
     {
