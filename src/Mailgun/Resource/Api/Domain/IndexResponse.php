@@ -11,7 +11,6 @@ namespace Mailgun\Resource\Api\Domain;
 
 use Mailgun\Assert;
 use Mailgun\Resource\ApiResponse;
-use Psr\Http\Message\ResponseInterface;
 
 /**
  * @author Sean Johnson <sean@mailgun.com>
