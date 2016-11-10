@@ -9,7 +9,6 @@
 namespace Mailgun\Resource\Api\Domain;
 
 use Mailgun\Assert;
-use Mailgun\Resource\ApiResponse;
 
 /**
  * Represents a single DNS record for a domain.

@@ -20,7 +20,7 @@ final class AllResponse implements ApiResponse
     private $items;
 
     /**
-     * @param int    $totalCount
+     * @param int               $totalCount
      * @param AllResponseItem[] $items
      */
     private function __construct($totalCount, array $items)

@@ -9,7 +9,6 @@
 namespace Mailgun\Resource\Api\Domain;
 
 use Mailgun\Assert;
-use Mailgun\Resource\ApiResponse;
 
 /**
  * Represents domain information in its simplest form.
@@ -73,7 +72,6 @@ final class Domain
             new \DateTime($data['created_at'])
         );
     }
-
 
     /**
      * @param string    $name

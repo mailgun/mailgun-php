@@ -43,7 +43,6 @@ final class AllResponseItem
         Assert::string($data['created_at']);
 
         return new self($data['id'], $data['event'], $data['total_count'], $data['tags'], new \DateTime($data['created_at']));
-
     }
 
     /**

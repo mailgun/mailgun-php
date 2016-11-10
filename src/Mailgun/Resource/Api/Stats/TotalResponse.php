@@ -30,9 +30,9 @@ final class TotalResponse implements ApiResponse
     private $stats;
 
     /**
-     * @param \DateTime    $start
-     * @param \DateTime    $end
-     * @param string       $resolution
+     * @param \DateTime           $start
+     * @param \DateTime           $end
+     * @param string              $resolution
      * @param TotalResponseItem[] $stats
      */
     private function __construct(\DateTime $start, \DateTime $end, $resolution, array $stats)

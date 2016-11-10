@@ -57,11 +57,10 @@ final class CreateResponse implements ApiResponse
     }
 
     /**
-     *
-     * @param Domain $domainInfo
-     * @param DnsRecord[]        $rxRecords
-     * @param DnsRecord[]        $txRecords
-     * @param string $message
+     * @param Domain      $domainInfo
+     * @param DnsRecord[] $rxRecords
+     * @param DnsRecord[] $txRecords
+     * @param string      $message
      */
     private function __construct(Domain $domainInfo, array $rxRecords, array $txRecords, $message)
     {

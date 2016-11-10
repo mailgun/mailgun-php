@@ -47,7 +47,7 @@ final class CredentialResponse implements ApiResponse
     }
 
     /**
-     * @param int          $totalCount
+     * @param int                      $totalCount
      * @param CredentialResponseItem[] $items
      */
     private function __construct($totalCount, array $items)

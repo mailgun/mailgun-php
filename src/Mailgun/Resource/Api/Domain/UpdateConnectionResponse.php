@@ -10,7 +10,6 @@ namespace Mailgun\Resource\Api\Domain;
 
 use Mailgun\Assert;
 use Mailgun\Resource\ApiResponse;
-use Mailgun\Resource\Api\SimpleResponse;
 
 /**
  * @author Sean Johnson <sean@mailgun.com>

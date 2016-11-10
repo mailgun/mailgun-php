@@ -57,9 +57,9 @@ final class ShowResponse implements ApiResponse
     }
 
     /**
-     * @param Domain $domainInfo
-     * @param DnsRecord[]        $rxRecords
-     * @param DnsRecord[]        $txRecords
+     * @param Domain      $domainInfo
+     * @param DnsRecord[] $rxRecords
+     * @param DnsRecord[] $txRecords
      */
     private function __construct(Domain $domainInfo, array $rxRecords, array $txRecords)
     {

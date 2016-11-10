@@ -15,13 +15,11 @@ use Mailgun\Resource\Api\Domain\CreateResponse;
 use Mailgun\Resource\Api\Domain\DeleteCredentialResponse;
 use Mailgun\Resource\Api\Domain\DeleteResponse;
 use Mailgun\Resource\Api\Domain\ShowResponse;
-use Mailgun\Resource\Api\Domain\CredentialResponseItem;
 use Mailgun\Resource\Api\Domain\CredentialResponse;
 use Mailgun\Resource\Api\Domain\ConnectionResponse;
 use Mailgun\Resource\Api\Domain\UpdateConnectionResponse;
 use Mailgun\Resource\Api\Domain\IndexResponse;
 use Mailgun\Resource\Api\Domain\UpdateCredentialResponse;
-use Mailgun\Resource\Api\SimpleResponse;
 use Psr\Http\Message\ResponseInterface;
 
 /**
