@@ -27,7 +27,7 @@ use Psr\Http\Message\ResponseInterface;
  *
  * @author Sean Johnson <sean@mailgun.com>
  */
-class Domain extends AbstractApi
+class Domain extends HttpApi
 {
     /**
      * Returns a list of domains on the account.

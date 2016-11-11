@@ -11,7 +11,7 @@ use Mailgun\Resource\Api\Stats\TotalResponse;
  *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
-class Stats extends AbstractApi
+class Stats extends HttpApi
 {
     /**
      * @param string $domain

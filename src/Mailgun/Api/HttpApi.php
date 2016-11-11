@@ -18,7 +18,7 @@ use Psr\Http\Message\ResponseInterface;
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
-abstract class AbstractApi
+abstract class HttpApi
 {
     /**
      * The HTTP client.
