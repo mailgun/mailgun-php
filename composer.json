@@ -31,5 +31,8 @@
             "email": "travis@mailgunhq.com"
         }
     ],
-    "minimum-stability": "stable"
+    "scripts": {
+        "test": "vendor/bin/phpunit --testsuite unit && vendor/bin/phpunit --testsuite functional",
+        "test-coverage": "vendor/bin/phpunit --testsuite integration --coverage-text --coverage-clover=build/coverage.xml"
+    }
 }
