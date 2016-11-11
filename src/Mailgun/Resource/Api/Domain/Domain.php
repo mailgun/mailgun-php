@@ -9,14 +9,13 @@
 namespace Mailgun\Resource\Api\Domain;
 
 use Mailgun\Assert;
-use Mailgun\Resource\CreatableFromArray;
 
 /**
  * Represents domain information in its simplest form.
  *
  * @author Sean Johnson <sean@ramcloud.io>
  */
-class SimpleDomain implements CreatableFromArray
+final class Domain
 {
     /**
      * @var \DateTime
@@ -56,12 +55,10 @@ class SimpleDomain implements CreatableFromArray
     /**
      * @param array $data
      *
-     * @return SimpleDomain
+     * @return self
      */
-    public static function createFromArray(array $data)
+    public static function create(array $data)
     {
-        Assert::isArray($data);
-
         Assert::keyExists($data, 'name');
         Assert::keyExists($data, 'smtp_login');
         Assert::keyExists($data, 'smtp_password');
@@ -70,7 +67,7 @@ class SimpleDomain implements CreatableFromArray
         Assert::keyExists($data, 'state');
         Assert::keyExists($data, 'created_at');
 
-        return new static(
+        return new self(
             $data['name'],
             $data['smtp_login'],
             $data['smtp_password'],
@@ -90,16 +87,8 @@ class SimpleDomain implements CreatableFromArray
      * @param string    $state
      * @param \DateTime $createdAt
      */
-    public function __construct($name, $smtpLogin, $smtpPassword, $wildcard, $spamAction, $state, \DateTime $createdAt)
+    private function __construct($name, $smtpLogin, $smtpPassword, $wildcard, $spamAction, $state, \DateTime $createdAt)
     {
-        Assert::string($name);
-        Assert::string($smtpLogin);
-        Assert::string($smtpPassword);
-        Assert::boolean($wildcard);
-        Assert::string($spamAction);
-        Assert::string($state);
-        Assert::isInstanceOf($createdAt, '\DateTime');
-
         $this->name = $name;
         $this->smtpLogin = $smtpLogin;
         $this->smtpPassword = $smtpPassword;

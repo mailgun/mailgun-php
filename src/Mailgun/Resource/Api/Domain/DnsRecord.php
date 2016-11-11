@@ -9,14 +9,13 @@
 namespace Mailgun\Resource\Api\Domain;
 
 use Mailgun\Assert;
-use Mailgun\Resource\CreatableFromArray;
 
 /**
  * Represents a single DNS record for a domain.
  *
  * @author Sean Johnson <sean@mailgun.com>
  */
-class DomainDnsRecord implements CreatableFromArray
+final class DnsRecord
 {
     /**
      * @var string|null
@@ -46,27 +45,20 @@ class DomainDnsRecord implements CreatableFromArray
     /**
      * @param array $data
      *
-     * @return DomainDnsRecord[]|array|ResponseInterface
+     * @return self
      */
-    public static function createFromArray(array $data)
+    public static function create(array $data)
     {
-        $items = [];
+        $name = isset($data['name']) ? $data['name'] : null;
+        $priority = isset($data['priority']) ? $data['priority'] : null;
 
-        foreach ($data as $item) {
-            Assert::keyExists($item, 'record_type');
-            Assert::keyExists($item, 'value');
-            Assert::keyExists($item, 'valid');
+        Assert::nullOrString($name);
+        Assert::string($data['record_type']);
+        Assert::string($data['value']);
+        Assert::nullOrString($priority);
+        Assert::string($data['valid']);
 
-            $items[] = new static(
-                array_key_exists('name', $item) ? $item['name'] : null,
-                $item['record_type'],
-                $item['value'],
-                array_key_exists('priority', $item) ? $item['priority'] : null,
-                $item['valid']
-            );
-        }
-
-        return $items;
+        return new self($name, $data['record_type'], $data['value'], $priority, $data['valid']);
     }
 
     /**
@@ -76,14 +68,8 @@ class DomainDnsRecord implements CreatableFromArray
      * @param string|null $priority Record priority, used for MX
      * @param string      $valid    DNS record has been added to domain DNS?
      */
-    public function __construct($name, $type, $value, $priority, $valid)
+    private function __construct($name, $type, $value, $priority, $valid)
     {
-        Assert::nullOrString($name);
-        Assert::string($type);
-        Assert::string($value);
-        Assert::nullOrString($priority);
-        Assert::string($valid);
-
         $this->name = $name;
         $this->type = $type;
         $this->value = $value;
@@ -108,7 +94,7 @@ class DomainDnsRecord implements CreatableFromArray
     }
 
     /**
-     * @return value
+     * @return string
      */
     public function getValue()
     {

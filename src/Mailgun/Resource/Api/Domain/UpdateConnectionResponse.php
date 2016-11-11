@@ -9,14 +9,18 @@
 namespace Mailgun\Resource\Api\Domain;
 
 use Mailgun\Assert;
-use Mailgun\Resource\CreatableFromArray;
-use Mailgun\Resource\Api\SimpleResponse;
+use Mailgun\Resource\ApiResponse;
 
 /**
  * @author Sean Johnson <sean@mailgun.com>
  */
-class DeliverySettingsUpdateResponse extends SimpleResponse implements CreatableFromArray
+final class UpdateConnectionResponse implements ApiResponse
 {
+    /**
+     * @var string
+     */
+    private $message;
+
     /**
      * @var bool
      */
@@ -30,9 +34,9 @@ class DeliverySettingsUpdateResponse extends SimpleResponse implements Creatable
     /**
      * @param array $data
      *
-     * @return SettingsUpdateResponse
+     * @return self
      */
-    public static function createFromArray(array $data)
+    public static function create(array $data)
     {
         Assert::keyExists($data, 'message');
         Assert::keyExists($data, 'skip_verification');
@@ -46,7 +50,7 @@ class DeliverySettingsUpdateResponse extends SimpleResponse implements Creatable
         Assert::boolean($noVerify);
         Assert::boolean($requireTLS);
 
-        return new static(
+        return new self(
             $message,
             $noVerify,
             $requireTLS
@@ -58,7 +62,7 @@ class DeliverySettingsUpdateResponse extends SimpleResponse implements Creatable
      * @param bool   $noVerify
      * @param bool   $requireTLS
      */
-    public function __construct($message, $noVerify, $requireTLS)
+    private function __construct($message, $noVerify, $requireTLS)
     {
         $this->message = $message;
         $this->noVerify = $noVerify;

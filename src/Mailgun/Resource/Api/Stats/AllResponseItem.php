@@ -2,7 +2,12 @@
 
 namespace Mailgun\Resource\Api\Stats;
 
-class Item
+use Mailgun\Assert;
+
+/**
+ * @author Tobias Nyholm <tobias.nyholm@gmail.com>
+ */
+final class AllResponseItem
 {
     /**
      * @var string
@@ -30,13 +35,29 @@ class Item
     private $createdAt;
 
     /**
+     * @param array $data
+     *
+     * @return self
+     */
+    public static function create(array $data)
+    {
+        Assert::string($data['id']);
+        Assert::string($data['event']);
+        Assert::string($data['total_count']);
+        Assert::isArray($data['tags']);
+        Assert::string($data['created_at']);
+
+        return new self($data['id'], $data['event'], $data['total_count'], $data['tags'], new \DateTime($data['created_at']));
+    }
+
+    /**
      * @param string    $id
      * @param string    $event
      * @param string    $totalCount
      * @param \string[] $tags
      * @param \DateTime $createdAt
      */
-    public function __construct($id, $event, $totalCount, array $tags, \DateTime $createdAt)
+    private function __construct($id, $event, $totalCount, array $tags, \DateTime $createdAt)
     {
         $this->id = $id;
         $this->event = $event;

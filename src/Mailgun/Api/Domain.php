@@ -10,13 +10,17 @@
 namespace Mailgun\Api;
 
 use Mailgun\Assert;
-use Mailgun\Resource\Api\Domain\ComplexDomain;
-use Mailgun\Resource\Api\Domain\Credential;
-use Mailgun\Resource\Api\Domain\CredentialListResponse;
-use Mailgun\Resource\Api\Domain\DeliverySettingsResponse;
-use Mailgun\Resource\Api\Domain\DeliverySettingsUpdateResponse;
-use Mailgun\Resource\Api\Domain\DomainListResponse;
-use Mailgun\Resource\Api\SimpleResponse;
+use Mailgun\Resource\Api\Domain\CreateCredentialResponse;
+use Mailgun\Resource\Api\Domain\CreateResponse;
+use Mailgun\Resource\Api\Domain\DeleteCredentialResponse;
+use Mailgun\Resource\Api\Domain\DeleteResponse;
+use Mailgun\Resource\Api\Domain\ShowResponse;
+use Mailgun\Resource\Api\Domain\CredentialResponse;
+use Mailgun\Resource\Api\Domain\ConnectionResponse;
+use Mailgun\Resource\Api\Domain\UpdateConnectionResponse;
+use Mailgun\Resource\Api\Domain\IndexResponse;
+use Mailgun\Resource\Api\Domain\UpdateCredentialResponse;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * {@link https://documentation.mailgun.com/api-domains.html}.
@@ -31,9 +35,9 @@ class Domain extends AbstractApi
      * @param int $limit
      * @param int $skip
      *
-     * @return DomainListResponse
+     * @return IndexResponse
      */
-    public function listAll($limit = 100, $skip = 0)
+    public function index($limit = 100, $skip = 0)
     {
         Assert::integer($limit);
         Assert::integer($skip);
@@ -43,9 +47,9 @@ class Domain extends AbstractApi
             'skip' => $skip,
         ];
 
-        $response = $this->get('/v3/domains', $params);
+        $response = $this->httpGet('/v3/domains', $params);
 
-        return $this->serializer->deserialize($response, DomainListResponse::class);
+        return $this->serializer->deserialize($response, IndexResponse::class);
     }
 
     /**
@@ -53,15 +57,15 @@ class Domain extends AbstractApi
      *
      * @param string $domain Name of the domain.
      *
-     * @return ComplexDomain|array|ResponseInterface
+     * @return ShowResponse|array|ResponseInterface
      */
-    public function info($domain)
+    public function show($domain)
     {
         Assert::stringNotEmpty($domain);
 
-        $response = $this->get(sprintf('/v3/domains/%s', $domain));
+        $response = $this->httpGet(sprintf('/v3/domains/%s', $domain));
 
-        return $this->serializer->deserialize($response, ComplexDomain::class);
+        return $this->serializer->deserialize($response, ShowResponse::class);
     }
 
     /**
@@ -74,7 +78,7 @@ class Domain extends AbstractApi
      * @param string $spamAction `disable` or `tag` - inbound spam filtering.
      * @param bool   $wildcard   Domain will accept email for subdomains.
      *
-     * @return ComplexDomain|array|ResponseInterface
+     * @return CreateResponse|array|ResponseInterface
      */
     public function create($domain, $smtpPass, $spamAction, $wildcard)
     {
@@ -93,7 +97,7 @@ class Domain extends AbstractApi
 
         $response = $this->postMultipart('/v3/domains', $params);
 
-        return $this->safeDeserialize($response, ComplexDomain::class);
+        return $this->safeDeserialize($response, CreateResponse::class);
     }
 
     /**
@@ -102,15 +106,15 @@ class Domain extends AbstractApi
      *
      * @param string $domain Name of the domain.
      *
-     * @return SimpleResponse|array|ResponseInterface
+     * @return DeleteResponse|array|ResponseInterface
      */
-    public function remove($domain)
+    public function delete($domain)
     {
         Assert::stringNotEmpty($domain);
 
-        $response = $this->delete(sprintf('/v3/domains/%s', $domain));
+        $response = $this->httpDelete(sprintf('/v3/domains/%s', $domain));
 
-        return $this->serializer->deserialize($response, SimpleResponse::class);
+        return $this->serializer->deserialize($response, DeleteResponse::class);
     }
 
     /**
@@ -120,9 +124,9 @@ class Domain extends AbstractApi
      * @param int    $limit  Number of credentials to return
      * @param int    $skip   Number of credentials to omit from the list
      *
-     * @return CredentialsListResponse
+     * @return CredentialResponse
      */
-    public function listCredentials($domain, $limit = 100, $skip = 0)
+    public function credentials($domain, $limit = 100, $skip = 0)
     {
         Assert::stringNotEmpty($domain);
         Assert::integer($limit);
@@ -133,9 +137,9 @@ class Domain extends AbstractApi
             'skip' => $skip,
         ];
 
-        $response = $this->get(sprintf('/v3/domains/%s/credentials', $domain), $params);
+        $response = $this->httpGet(sprintf('/v3/domains/%s/credentials', $domain), $params);
 
-        return $this->safeDeserialize($response, CredentialListResponse::class);
+        return $this->safeDeserialize($response, CredentialResponse::class);
     }
 
     /**
@@ -145,9 +149,9 @@ class Domain extends AbstractApi
      * @param string $login    SMTP Username.
      * @param string $password SMTP Password. Length min 5, max 32.
      *
-     * @return Credential|array|ResponseInterface
+     * @return CreateCredentialResponse|array|ResponseInterface
      */
-    public function newCredential($domain, $login, $password)
+    public function createCredential($domain, $login, $password)
     {
         Assert::stringNotEmpty($domain);
         Assert::stringNotEmpty($login);
@@ -161,7 +165,7 @@ class Domain extends AbstractApi
 
         $response = $this->postMultipart(sprintf('/v3/domains/%s/credentials', $domain), $params);
 
-        return $this->serializer->deserialize($response, SimpleResponse::class);
+        return $this->serializer->deserialize($response, CreateCredentialResponse::class);
     }
 
     /**
@@ -171,7 +175,7 @@ class Domain extends AbstractApi
      * @param string $login  SMTP Username.
      * @param string $pass   New SMTP Password. Length min 5, max 32.
      *
-     * @return SimpleResponse|array|ResponseInterface
+     * @return UpdateCredentialResponse|array|ResponseInterface
      */
     public function updateCredential($domain, $login, $pass)
     {
@@ -193,7 +197,7 @@ class Domain extends AbstractApi
             $params
         );
 
-        return $this->serializer->deserialize($response, SimpleResponse::class);
+        return $this->serializer->deserialize($response, UpdateCredentialResponse::class);
     }
 
     /**
@@ -202,7 +206,7 @@ class Domain extends AbstractApi
      * @param string $domain Name of the domain.
      * @param string $login  SMTP Username.
      *
-     * @return SimpleResponse|array|ResponseInterface
+     * @return DeleteCredentialResponse|array|ResponseInterface
      */
     public function deleteCredential($domain, $login)
     {
@@ -217,7 +221,7 @@ class Domain extends AbstractApi
             )
         );
 
-        return $this->serializer->deserialize($response, SimpleResponse::class);
+        return $this->serializer->deserialize($response, DeleteCredentialResponse::class);
     }
 
     /**
@@ -225,15 +229,15 @@ class Domain extends AbstractApi
      *
      * @param string $domain Name of the domain.
      *
-     * @return DeliverySettingsResponse|array|ResponseInterface
+     * @return ConnectionResponse|array|ResponseInterface
      */
-    public function getDeliverySettings($domain)
+    public function connection($domain)
     {
         Assert::stringNotEmpty($domain);
 
-        $response = $this->get(sprintf('/v3/domains/%s/connection', $domain));
+        $response = $this->httpGet(sprintf('/v3/domains/%s/connection', $domain));
 
-        return $this->serializer->deserialize($response, DeliverySettingsResponse::class);
+        return $this->serializer->deserialize($response, ConnectionResponse::class);
     }
 
     /**
@@ -244,9 +248,9 @@ class Domain extends AbstractApi
      * @param bool|null $requireTLS Enforces that messages are sent only over a TLS connection.
      * @param bool|null $noVerify   Disables TLS certificate and hostname verification.
      *
-     * @return DeliverySettingsResponse|array|ResponseInterface
+     * @return UpdateConnectionResponse|array|ResponseInterface
      */
-    public function updateDeliverySettings($domain, $requireTLS, $noVerify)
+    public function updateConnection($domain, $requireTLS, $noVerify)
     {
         Assert::stringNotEmpty($domain);
         Assert::nullOrBoolean($requireTLS);
@@ -264,6 +268,6 @@ class Domain extends AbstractApi
 
         $response = $this->putMultipart(sprintf('/v3/domains/%s/connection', $domain), $params);
 
-        return $this->serializer->deserialize($response, DeliverySettingsUpdateResponse::class);
+        return $this->serializer->deserialize($response, UpdateConnectionResponse::class);
     }
 }

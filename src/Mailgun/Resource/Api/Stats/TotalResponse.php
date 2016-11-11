@@ -2,12 +2,12 @@
 
 namespace Mailgun\Resource\Api\Stats;
 
-use Mailgun\Resource\CreatableFromArray;
+use Mailgun\Resource\ApiResponse;
 
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
-class TotalResponse implements CreatableFromArray
+final class TotalResponse implements ApiResponse
 {
     /**
      * @var \DateTime
@@ -25,17 +25,17 @@ class TotalResponse implements CreatableFromArray
     private $resolution;
 
     /**
-     * @var TotalStats[]
+     * @var TotalResponseItem[]
      */
     private $stats;
 
     /**
-     * @param \DateTime    $start
-     * @param \DateTime    $end
-     * @param string       $resolution
-     * @param TotalStats[] $stats
+     * @param \DateTime           $start
+     * @param \DateTime           $end
+     * @param string              $resolution
+     * @param TotalResponseItem[] $stats
      */
-    public function __construct(\DateTime $start, \DateTime $end, $resolution, array $stats)
+    private function __construct(\DateTime $start, \DateTime $end, $resolution, array $stats)
     {
         $this->start = $start;
         $this->end = $end;
@@ -46,13 +46,13 @@ class TotalResponse implements CreatableFromArray
     /**
      * @param array $data
      *
-     * @return TotalResponse
+     * @return self
      */
-    public static function createFromArray(array $data)
+    public static function create(array $data)
     {
         $stats = [];
         foreach ($data['stats'] as $s) {
-            $stats[] = new TotalStats(new \DateTime($s['time']), $s['accepted'], $s['delivered'], $s['failed']);
+            $stats[] = TotalResponseItem::create($s);
         }
 
         return new self(new \DateTime($data['start']), new \DateTime($data['end']), $data['resolution'], $stats);
@@ -83,7 +83,7 @@ class TotalResponse implements CreatableFromArray
     }
 
     /**
-     * @return TotalStats[]
+     * @return TotalResponseItem[]
      */
     public function getStats()
     {

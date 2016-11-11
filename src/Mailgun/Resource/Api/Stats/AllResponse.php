@@ -2,12 +2,12 @@
 
 namespace Mailgun\Resource\Api\Stats;
 
-use Mailgun\Resource\CreatableFromArray;
+use Mailgun\Resource\ApiResponse;
 
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
-class AllResponse implements CreatableFromArray
+final class AllResponse implements ApiResponse
 {
     /**
      * @var int
@@ -15,15 +15,15 @@ class AllResponse implements CreatableFromArray
     private $totalCount;
 
     /**
-     * @var Item[]
+     * @var AllResponseItem[]
      */
     private $items;
 
     /**
-     * @param int    $totalCount
-     * @param Item[] $items
+     * @param int               $totalCount
+     * @param AllResponseItem[] $items
      */
-    public function __construct($totalCount, array $items)
+    private function __construct($totalCount, array $items)
     {
         $this->totalCount = $totalCount;
         $this->items = $items;
@@ -32,13 +32,13 @@ class AllResponse implements CreatableFromArray
     /**
      * @param array $data
      *
-     * @return AllResponse
+     * @return self
      */
-    public static function createFromArray(array $data)
+    public static function create(array $data)
     {
         $items = [];
         foreach ($data['items'] as $i) {
-            $items[] = new Item($i['id'], $i['event'], $i['total_count'], $i['tags'], new \DateTime($i['created_at']));
+            $items[] = AllResponseItem::create($i);
         }
 
         return new self($data['total_count'], $items);
@@ -53,7 +53,7 @@ class AllResponse implements CreatableFromArray
     }
 
     /**
-     * @return Item[]
+     * @return AllResponseItem[]
      */
     public function getItems()
     {

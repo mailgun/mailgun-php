@@ -3,7 +3,7 @@
 namespace Mailgun\Serializer;
 
 use Mailgun\Exception\SerializeException;
-use Mailgun\Resource\CreatableFromArray;
+use Mailgun\Resource\ApiResponse;
 use Psr\Http\Message\ResponseInterface;
 
 /**
@@ -31,7 +31,7 @@ class ObjectSerializer implements ResponseDeserializer
             throw new SerializeException(sprintf('Error (%d) when trying to json_decode response', json_last_error()));
         }
 
-        if (is_subclass_of($class, CreatableFromArray::class)) {
+        if (is_subclass_of($class, ApiResponse::class)) {
             $object = call_user_func($class.'::createFromArray', $data);
         } else {
             $object = new $class($data);

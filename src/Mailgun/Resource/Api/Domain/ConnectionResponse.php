@@ -9,12 +9,12 @@
 namespace Mailgun\Resource\Api\Domain;
 
 use Mailgun\Assert;
-use Mailgun\Resource\CreatableFromArray;
+use Mailgun\Resource\ApiResponse;
 
 /**
  * @author Sean Johnson <sean@mailgun.com>
  */
-class DeliverySettingsResponse implements CreatableFromArray
+final class ConnectionResponse implements ApiResponse
 {
     /**
      * @var bool
@@ -29,9 +29,9 @@ class DeliverySettingsResponse implements CreatableFromArray
     /**
      * @param array $data
      *
-     * @return DeliverySettingsResponse
+     * @return self
      */
-    public static function createFromArray(array $data)
+    public static function create(array $data)
     {
         Assert::keyExists($data, 'connection');
         Assert::isArray($data['connection']);
@@ -40,7 +40,7 @@ class DeliverySettingsResponse implements CreatableFromArray
         Assert::keyExists($connSettings, 'skip_verification');
         Assert::keyExists($connSettings, 'require_tls');
 
-        return new static(
+        return new self(
             $connSettings['skip_verification'],
             $connSettings['require_tls']
         );
@@ -50,7 +50,7 @@ class DeliverySettingsResponse implements CreatableFromArray
      * @param bool $noVerify   Disable remote TLS certificate verification
      * @param bool $requireTLS Requires TLS for all outbound communication
      */
-    public function __construct($noVerify, $requireTLS)
+    private function __construct($noVerify, $requireTLS)
     {
         $this->noVerify = $noVerify;
         $this->requireTLS = $requireTLS;
