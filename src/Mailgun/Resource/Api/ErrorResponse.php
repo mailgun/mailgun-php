@@ -1,13 +1,16 @@
 <?php
 
-namespace Mailgun\Resource\Api\Domain;
+/**
+ * Copyright (C) 2013-2016 Mailgun.
+ *
+ * This software may be modified and distributed under the terms
+ * of the MIT license.  See the LICENSE file for details.
+ */
+namespace Mailgun\Resource\Api;
 
 use Mailgun\Resource\ApiResponse;
 
-/**
- * @author Tobias Nyholm <tobias.nyholm@gmail.com>
- */
-final class DeleteCredentialResponse implements ApiResponse
+final class ErrorResponse implements ApiResponse
 {
     /**
      * @var string
@@ -15,27 +18,21 @@ final class DeleteCredentialResponse implements ApiResponse
     private $message;
 
     /**
-     * @var error
+     * @var string
      */
     private $error;
 
     /**
-     * @var string
+     * @param string $error
      */
-    private $spec;
-
-    /**
-     * @param string $message
-     */
-    private function __construct($message, $error, $spec)
+    private function __construct($message, $error)
     {
         $this->message = $message;
         $this->error = $error;
-        $this->spec = $spec;
     }
 
     /**
-     * @param array $data
+     * @param array data
      *
      * @return self
      */
@@ -43,8 +40,7 @@ final class DeleteCredentialResponse implements ApiResponse
     {
         return new self(
             isset($data['message']) ? $data['message'] : null,
-            isset($data['error']) ? $data['error'] : null,
-            isset($data['spec']) ? $data['spec'] : null
+            isset($data['error']) ? $data['error'] : null
         );
     }
 
@@ -62,13 +58,5 @@ final class DeleteCredentialResponse implements ApiResponse
     public function getError()
     {
         return $this->error;
-    }
-
-    /**
-     * @return string
-     */
-    public function getSpec()
-    {
-        return $this->spec;
     }
 }

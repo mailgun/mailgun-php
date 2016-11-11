@@ -25,7 +25,7 @@ class Stats extends HttpApi
 
         $response = $this->httpGet(sprintf('/v3/%s/stats/total', rawurlencode($domain)), $params);
 
-        return $this->serializer->deserialize($response, TotalResponse::class);
+        return $this->deserializer->deserialize($response, TotalResponse::class);
     }
 
     /**
@@ -40,6 +40,6 @@ class Stats extends HttpApi
 
         $response = $this->httpGet(sprintf('/v3/%s/stats', rawurlencode($domain)), $params);
 
-        return $this->serializer->deserialize($response, AllResponse::class);
+        return $this->deserializer->deserialize($response, AllResponse::class);
     }
 }

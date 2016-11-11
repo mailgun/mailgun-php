@@ -10,15 +10,15 @@
 namespace Mailgun\Api;
 
 use Mailgun\Assert;
+use Mailgun\Resource\Api\Domain\ConnectionResponse;
 use Mailgun\Resource\Api\Domain\CreateCredentialResponse;
 use Mailgun\Resource\Api\Domain\CreateResponse;
+use Mailgun\Resource\Api\Domain\CredentialResponse;
 use Mailgun\Resource\Api\Domain\DeleteCredentialResponse;
 use Mailgun\Resource\Api\Domain\DeleteResponse;
-use Mailgun\Resource\Api\Domain\ShowResponse;
-use Mailgun\Resource\Api\Domain\CredentialResponse;
-use Mailgun\Resource\Api\Domain\ConnectionResponse;
-use Mailgun\Resource\Api\Domain\UpdateConnectionResponse;
 use Mailgun\Resource\Api\Domain\IndexResponse;
+use Mailgun\Resource\Api\Domain\ShowResponse;
+use Mailgun\Resource\Api\Domain\UpdateConnectionResponse;
 use Mailgun\Resource\Api\Domain\UpdateCredentialResponse;
 use Psr\Http\Message\ResponseInterface;
 
@@ -49,7 +49,7 @@ class Domain extends HttpApi
 
         $response = $this->httpGet('/v3/domains', $params);
 
-        return $this->serializer->deserialize($response, IndexResponse::class);
+        return $this->deserializer->deserialize($response, IndexResponse::class);
     }
 
     /**
@@ -65,7 +65,7 @@ class Domain extends HttpApi
 
         $response = $this->httpGet(sprintf('/v3/domains/%s', $domain));
 
-        return $this->serializer->deserialize($response, ShowResponse::class);
+        return $this->deserializer->deserialize($response, ShowResponse::class);
     }
 
     /**
@@ -95,7 +95,7 @@ class Domain extends HttpApi
             'wildcard' => $wildcard,
         ];
 
-        $response = $this->postMultipart('/v3/domains', $params);
+        $response = $this->httpPostMultipart('/v3/domains', $params);
 
         return $this->safeDeserialize($response, CreateResponse::class);
     }
@@ -114,7 +114,7 @@ class Domain extends HttpApi
 
         $response = $this->httpDelete(sprintf('/v3/domains/%s', $domain));
 
-        return $this->serializer->deserialize($response, DeleteResponse::class);
+        return $this->deserializer->deserialize($response, DeleteResponse::class);
     }
 
     /**
@@ -163,9 +163,9 @@ class Domain extends HttpApi
             'password' => $password,
         ];
 
-        $response = $this->postMultipart(sprintf('/v3/domains/%s/credentials', $domain), $params);
+        $response = $this->httpPostMultipart(sprintf('/v3/domains/%s/credentials', $domain), $params);
 
-        return $this->serializer->deserialize($response, CreateCredentialResponse::class);
+        return $this->deserializer->deserialize($response, CreateCredentialResponse::class);
     }
 
     /**
@@ -188,7 +188,7 @@ class Domain extends HttpApi
             'password' => $pass,
         ];
 
-        $response = $this->putMultipart(
+        $response = $this->httpPutMultipart(
             sprintf(
                 '/v3/domains/%s/credentials/%s',
                 $domain,
@@ -197,7 +197,7 @@ class Domain extends HttpApi
             $params
         );
 
-        return $this->serializer->deserialize($response, UpdateCredentialResponse::class);
+        return $this->deserializer->deserialize($response, UpdateCredentialResponse::class);
     }
 
     /**
@@ -213,7 +213,7 @@ class Domain extends HttpApi
         Assert::stringNotEmpty($domain);
         Assert::stringNotEmpty($login);
 
-        $response = $this->delete(
+        $response = $this->httpDelete(
             sprintf(
                 '/v3/domains/%s/credentials/%s',
                 $domain,
@@ -221,7 +221,7 @@ class Domain extends HttpApi
             )
         );
 
-        return $this->serializer->deserialize($response, DeleteCredentialResponse::class);
+        return $this->deserializer->deserialize($response, DeleteCredentialResponse::class);
     }
 
     /**
@@ -237,7 +237,7 @@ class Domain extends HttpApi
 
         $response = $this->httpGet(sprintf('/v3/domains/%s/connection', $domain));
 
-        return $this->serializer->deserialize($response, ConnectionResponse::class);
+        return $this->deserializer->deserialize($response, ConnectionResponse::class);
     }
 
     /**
@@ -266,8 +266,8 @@ class Domain extends HttpApi
             $params['skip_verification'] = $noVerify ? 'true' : 'false';
         }
 
-        $response = $this->putMultipart(sprintf('/v3/domains/%s/connection', $domain), $params);
+        $response = $this->httpPutMultipart(sprintf('/v3/domains/%s/connection', $domain), $params);
 
-        return $this->serializer->deserialize($response, UpdateConnectionResponse::class);
+        return $this->deserializer->deserialize($response, UpdateConnectionResponse::class);
     }
 }

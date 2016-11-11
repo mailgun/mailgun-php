@@ -15,11 +15,17 @@ final class DeleteResponse implements ApiResponse
     private $message;
 
     /**
+     * @var string
+     */
+    private $error;
+
+    /**
      * @param string $message
      */
-    private function __construct($message)
+    private function __construct($message, $error)
     {
         $this->message = $message;
+        $this->error = $error;
     }
 
     /**
@@ -29,7 +35,10 @@ final class DeleteResponse implements ApiResponse
      */
     public static function create(array $data)
     {
-        return new self($data['message']);
+        return new self(
+            isset($data['message']) ? $data['message'] : null,
+            isset($data['error']) ? $data['error'] : null
+        );
     }
 
     /**
@@ -38,5 +47,13 @@ final class DeleteResponse implements ApiResponse
     public function getMessage()
     {
         return $this->message;
+    }
+
+    /**
+     * @return string
+     */
+    public function getError()
+    {
+        return $this->error;
     }
 }

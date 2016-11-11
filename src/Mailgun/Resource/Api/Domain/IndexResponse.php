@@ -54,7 +54,7 @@ final class IndexResponse implements ApiResponse
     {
         Assert::integer($totalCount);
         Assert::isArray($items);
-        Assert::allIsInstanceOf($items, 'Mailgun\Resource\Api\Domain\SimpleDomain');
+        Assert::allIsInstanceOf($items, 'Mailgun\Resource\Api\Domain\Domain');
 
         $this->totalCount = $totalCount;
         $this->items = $items;

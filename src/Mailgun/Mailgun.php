@@ -19,8 +19,8 @@ use Mailgun\Lists\OptInHandler;
 use Mailgun\Messages\BatchMessage;
 use Mailgun\Messages\Exceptions;
 use Mailgun\Messages\MessageBuilder;
-use Mailgun\Serializer\ModelSerializer;
-use Mailgun\Serializer\ResponseDeserializer;
+use Mailgun\Deserializer\ModelDeserializer;
+use Mailgun\Deserializer\ResponseDeserializer;
 
 /**
  * This class is the base class for the Mailgun SDK.
@@ -47,7 +47,7 @@ class Mailgun
     /**
      * @var ResponseDeserializer
      */
-    private $serializer;
+    private $deserializer;
 
     /**
      * @var RequestFactory
@@ -58,14 +58,14 @@ class Mailgun
      * @param string|null                 $apiKey
      * @param HttpClient|null             $httpClient
      * @param string                      $apiEndpoint
-     * @param ResponseDeserializer|null   $serializer
+     * @param ResponseDeserializer|null   $deserializer
      * @param HttpClientConfigurator|null $clientConfigurator
      */
     public function __construct(
         $apiKey = null,
         HttpClient $httpClient = null, /* Deprecated, will be removed in 3.0 */
         $apiEndpoint = 'api.mailgun.net', /* Deprecated, will be removed in 3.0 */
-        ResponseDeserializer $serializer = null,
+        ResponseDeserializer $deserializer = null,
         HttpClientConfigurator $clientConfigurator = null
     ) {
         $this->apiKey = $apiKey;
@@ -89,7 +89,7 @@ class Mailgun
 
         $this->httpClient = $clientConfigurator->createConfiguredClient();
         $this->requestFactory = MessageFactoryDiscovery::find();
-        $this->serializer = $serializer ?: new ModelSerializer();
+        $this->deserializer = $deserializer ?: new ModelDeserializer();
     }
 
     /**
@@ -258,7 +258,7 @@ class Mailgun
      */
     public function getStatsApi()
     {
-        return new Api\Stats($this->httpClient, $this->requestFactory, $this->serializer);
+        return new Api\Stats($this->httpClient, $this->requestFactory, $this->deserializer);
     }
 
     /**
@@ -266,6 +266,6 @@ class Mailgun
      */
     public function getDomainApi()
     {
-        return new Api\Domain($this->httpClient, $this->requestFactory, $this->serializer);
+        return new Api\Domain($this->httpClient, $this->requestFactory, $this->deserializer);
     }
 }

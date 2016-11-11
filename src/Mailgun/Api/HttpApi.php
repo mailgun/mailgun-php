@@ -3,16 +3,16 @@
 namespace Mailgun\Api;
 
 use Http\Client\Common\HttpMethodsClient;
-use Http\Client\HttpClient;
 use Http\Client\Exception as HttplugException;
+use Http\Client\HttpClient;
 use Http\Discovery\MessageFactoryDiscovery;
 use Http\Discovery\StreamFactoryDiscovery;
-use Http\Message\RequestFactory;
 use Http\Message\MultipartStream\MultipartStreamBuilder;
+use Http\Message\RequestFactory;
 use Mailgun\Assert;
+use Mailgun\Deserializer\ResponseDeserializer;
 use Mailgun\Exception\HttpServerException;
-use Mailgun\Serializer\ResponseDeserializer;
-use Mailgun\Resource\Api\SimpleResponse;
+use Mailgun\Resource\Api\ErrorResponse;
 use Psr\Http\Message\ResponseInterface;
 
 /**
@@ -37,10 +37,10 @@ abstract class HttpApi
      * @param RequestFactory       $requestFactory
      * @param ResponseDeserializer $serializer
      */
-    public function __construct(HttpClient $httpClient, RequestFactory $requestFactory, ResponseDeserializer $serializer)
+    public function __construct(HttpClient $httpClient, RequestFactory $requestFactory, ResponseDeserializer $deserializer)
     {
         $this->httpClient = new HttpMethodsClient($httpClient, $requestFactory);
-        $this->serializer = $serializer;
+        $this->deserializer = $deserializer;
     }
 
     /**
@@ -56,9 +56,9 @@ abstract class HttpApi
     protected function safeDeserialize(ResponseInterface $response, $className)
     {
         if ($response->getStatusCode() !== 200) {
-            return $this->serializer->deserialize($response, SimpleResponse::class);
+            return $this->deserializer->deserialize($response, ErrorResponse::class);
         } else {
-            return $this->serializer->deserialize($response, $className);
+            return $this->deserializer->deserialize($response, $className);
         }
     }
 
@@ -109,7 +109,7 @@ abstract class HttpApi
      *
      * @return ResponseInterface
      */
-    protected function postMultipart($path, array $parameters = [], array $requestHeaders = [])
+    protected function httpPostMultipart($path, array $parameters = [], array $requestHeaders = [])
     {
         return $this->doMultipart('POST', $path, $parameters, $requestHeaders);
     }
@@ -163,7 +163,7 @@ abstract class HttpApi
      *
      * @return ResponseInterface
      */
-    protected function putMultipart($path, array $parameters = [], array $requestHeaders = [])
+    protected function httpPutMultipart($path, array $parameters = [], array $requestHeaders = [])
     {
         return $this->doMultipart('PUT', $path, $parameters, $requestHeaders);
     }
@@ -197,7 +197,7 @@ abstract class HttpApi
      *
      * @return ResponseInterface
      */
-    protected function deleteMultipart($path, array $parameters = [], array $requestHeaders = [])
+    protected function httpDeleteMultipart($path, array $parameters = [], array $requestHeaders = [])
     {
         return $this->doMultipart('DELETE', $path, $parameters, $requestHeaders);
     }

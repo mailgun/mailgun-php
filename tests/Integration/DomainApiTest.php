@@ -10,16 +10,17 @@
 namespace Mailgun\Tests\Integration;
 
 use Mailgun\Api\Domain;
+use Mailgun\Resource\Api\ErrorResponse;
 use Mailgun\Resource\Api\Domain\CreateCredentialResponse;
-use Mailgun\Resource\Api\Domain\CreateResponse;
 use Mailgun\Resource\Api\Domain\DeleteCredentialResponse;
 use Mailgun\Resource\Api\Domain\DeleteResponse;
-use Mailgun\Resource\Api\Domain\UpdateCredentialResponse;
-use Mailgun\Tests\Api\TestCase;
+use Mailgun\Resource\Api\Domain\Domain as DomainObject;
 use Mailgun\Resource\Api\Domain\CredentialResponseItem;
 use Mailgun\Resource\Api\Domain\CredentialResponse;
 use Mailgun\Resource\Api\Domain\ConnectionResponse;
 use Mailgun\Resource\Api\Domain\UpdateConnectionResponse;
+use Mailgun\Resource\Api\Domain\UpdateCredentialResponse;
+use Mailgun\Tests\Api\TestCase;
 
 /**
  * @author Sean Johnson <sean@mailgun.com>
@@ -28,7 +29,7 @@ class DomainApiTest extends TestCase
 {
     protected function getApiClass()
     {
-        return 'Mailgun\Api\Domains';
+        return 'Mailgun\Api\Domain';
     }
 
     /**
@@ -47,7 +48,7 @@ class DomainApiTest extends TestCase
             }
         }
 
-        $this->assertContainsOnlyInstancesOf(Domain::class, $domainList->getDomains());
+        $this->assertContainsOnlyInstancesOf(DomainObject::class, $domainList->getDomains());
         $this->assertTrue($found);
     }
 
@@ -70,7 +71,7 @@ class DomainApiTest extends TestCase
     /**
      * Performs `DELETE /v3/domains/<domain>` on a non-existent domain.
      */
-    public function testRemoveDomain_NoExist()
+    public function testRemoveDomainNoExist()
     {
         $mg = $this->getMailgunClient();
 
@@ -104,7 +105,7 @@ class DomainApiTest extends TestCase
      * Performs `POST /v3/domains` to attempt to create a domain with duplicate
      * values.
      */
-    public function testDomainCreate_DuplicateValues()
+    public function testDomainCreateDuplicateValues()
     {
         $mg = $this->getMailgunClient();
 
@@ -115,7 +116,7 @@ class DomainApiTest extends TestCase
             false                       // wildcard domain?
         );
         $this->assertNotNull($domain);
-        $this->assertInstanceOf(CreateResponse::class, $domain);
+        $this->assertInstanceOf(ErrorResponse::class, $domain);
         $this->assertEquals('This domain name is already taken', $domain->getMessage());
     }
 
@@ -146,7 +147,7 @@ class DomainApiTest extends TestCase
             'Password.01!'
         );
         $this->assertNotNull($ret);
-        $this->assertInstanceOf(CreateResponse::class, $ret);
+        $this->assertInstanceOf(CreateCredentialResponse::class, $ret);
         $this->assertEquals('Created 1 credentials pair(s)', $ret->getMessage());
     }
 
@@ -220,7 +221,7 @@ class DomainApiTest extends TestCase
 
         $ret = $mg->getDomainApi()->credentials('mailgun.org');
         $this->assertNotNull($ret);
-        $this->assertInstanceOf(CredentialResponse::class, $ret);
+        $this->assertInstanceOf(ErrorResponse::class, $ret);
         $this->assertEquals('Domain not found: mailgun.org', $ret->getMessage());
     }
 

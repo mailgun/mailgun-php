@@ -11,6 +11,7 @@ namespace Mailgun\Resource\Api\Domain;
 
 use Mailgun\Assert;
 use Mailgun\Resource\ApiResponse;
+use Mailgun\Resource\Api\ErrorResponse;
 
 /**
  * @author Sean Johnson <sean@mailgun.com>
@@ -34,16 +35,17 @@ final class CredentialResponse implements ApiResponse
      */
     public static function create(array $data)
     {
-        $items = [];
+        if (array_key_exists('items', $data) && array_key_exists('total_count', $data)) {
+            $items = [];
 
-        Assert::keyExists($data, 'total_count');
-        Assert::keyExists($data, 'items');
+            foreach ($data['items'] as $item) {
+                $items[] = CredentialResponseItem::create($item);
+            }
 
-        foreach ($data['items'] as $item) {
-            $items[] = CredentialResponseItem::create($item);
+            return new self($data['total_count'], $items);
+        } else {
+            return ErrorResponse::create($data);
         }
-
-        return new self($data['total_count'], $items);
     }
 
     /**
@@ -54,7 +56,7 @@ final class CredentialResponse implements ApiResponse
     {
         Assert::integer($totalCount);
         Assert::isArray($items);
-        Assert::allIsInstanceOf($items, 'Mailgun\Resource\Api\Domain\Credential');
+        Assert::allIsInstanceOf($items, 'Mailgun\Resource\Api\Domain\CredentialResponseItem');
 
         $this->totalCount = $totalCount;
         $this->items = $items;

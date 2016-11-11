@@ -1,6 +1,6 @@
 <?php
 
-namespace Mailgun\Serializer;
+namespace Mailgun\Deserializer;
 
 use Psr\Http\Message\ResponseInterface;
 
