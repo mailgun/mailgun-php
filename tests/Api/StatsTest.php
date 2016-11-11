@@ -22,7 +22,7 @@ class StatsTest extends TestCase
 
         $api = $this->getApiMock();
         $api->expects($this->once())
-            ->method('get')
+            ->method('httpGet')
             ->with('/v3/domain/stats/total', $data)
             ->willReturn(new Response());
 
@@ -47,7 +47,7 @@ class StatsTest extends TestCase
 
         $api = $this->getApiMock();
         $api->expects($this->once())
-            ->method('get')
+            ->method('httpGet')
             ->with('/v3/domain/stats', $data)
             ->willReturn(new Response());
 
