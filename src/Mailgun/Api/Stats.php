@@ -23,7 +23,7 @@ class Stats extends AbstractApi
     {
         Assert::stringNotEmpty($domain);
 
-        $response = $this->get(sprintf('/v3/%s/stats/total', rawurlencode($domain)), $params);
+        $response = $this->httpGet(sprintf('/v3/%s/stats/total', rawurlencode($domain)), $params);
 
         return $this->serializer->deserialize($response, TotalResponse::class);
     }
@@ -38,7 +38,7 @@ class Stats extends AbstractApi
     {
         Assert::stringNotEmpty($domain);
 
-        $response = $this->get(sprintf('/v3/%s/stats', rawurlencode($domain)), $params);
+        $response = $this->httpGet(sprintf('/v3/%s/stats', rawurlencode($domain)), $params);
 
         return $this->serializer->deserialize($response, AllResponse::class);
     }

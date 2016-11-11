@@ -47,7 +47,7 @@ class Domain extends AbstractApi
             'skip' => $skip,
         ];
 
-        $response = $this->get('/v3/domains', $params);
+        $response = $this->httpGet('/v3/domains', $params);
 
         return $this->serializer->deserialize($response, IndexResponse::class);
     }
@@ -63,7 +63,7 @@ class Domain extends AbstractApi
     {
         Assert::stringNotEmpty($domain);
 
-        $response = $this->get(sprintf('/v3/domains/%s', $domain));
+        $response = $this->httpGet(sprintf('/v3/domains/%s', $domain));
 
         return $this->serializer->deserialize($response, ShowResponse::class);
     }
@@ -137,7 +137,7 @@ class Domain extends AbstractApi
             'skip' => $skip,
         ];
 
-        $response = $this->get(sprintf('/v3/domains/%s/credentials', $domain), $params);
+        $response = $this->httpGet(sprintf('/v3/domains/%s/credentials', $domain), $params);
 
         return $this->safeDeserialize($response, CredentialResponse::class);
     }
@@ -235,7 +235,7 @@ class Domain extends AbstractApi
     {
         Assert::stringNotEmpty($domain);
 
-        $response = $this->get(sprintf('/v3/domains/%s/connection', $domain));
+        $response = $this->httpGet(sprintf('/v3/domains/%s/connection', $domain));
 
         return $this->serializer->deserialize($response, ConnectionResponse::class);
     }
