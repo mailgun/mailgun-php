@@ -11,7 +11,7 @@ use Psr\Http\Message\ResponseInterface;
  *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
-class ObjectSerializer implements ResponseDeserializer
+class ModelSerializer implements ResponseDeserializer
 {
     /**
      * @param ResponseInterface $response
@@ -23,7 +23,7 @@ class ObjectSerializer implements ResponseDeserializer
     {
         $body = $response->getBody()->__toString();
         if (strpos($response->getHeaderLine('Content-Type'), 'application/json') !== 0) {
-            throw new SerializeException('The ObjectSerializer cannot deserialize response with Content-Type:'.$response->getHeaderLine('Content-Type'));
+            throw new SerializeException('The ModelSerializer cannot deserialize response with Content-Type:'.$response->getHeaderLine('Content-Type'));
         }
 
         $data = json_decode($body, true);
@@ -32,7 +32,7 @@ class ObjectSerializer implements ResponseDeserializer
         }
 
         if (is_subclass_of($class, ApiResponse::class)) {
-            $object = call_user_func($class.'::createFromArray', $data);
+            $object = call_user_func($class.'::create', $data);
         } else {
             $object = new $class($data);
         }

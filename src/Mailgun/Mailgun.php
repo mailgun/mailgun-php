@@ -19,7 +19,7 @@ use Mailgun\Lists\OptInHandler;
 use Mailgun\Messages\BatchMessage;
 use Mailgun\Messages\Exceptions;
 use Mailgun\Messages\MessageBuilder;
-use Mailgun\Serializer\ObjectSerializer;
+use Mailgun\Serializer\ModelSerializer;
 use Mailgun\Serializer\ResponseDeserializer;
 
 /**
@@ -89,7 +89,7 @@ class Mailgun
 
         $this->httpClient = $clientConfigurator->createConfiguredClient();
         $this->requestFactory = MessageFactoryDiscovery::find();
-        $this->serializer = $serializer ?: new ObjectSerializer();
+        $this->serializer = $serializer ?: new ModelSerializer();
     }
 
     /**
