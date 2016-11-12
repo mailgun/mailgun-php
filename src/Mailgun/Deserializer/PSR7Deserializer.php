@@ -1,6 +1,6 @@
 <?php
 
-namespace Mailgun\Serializer;
+namespace Mailgun\Deserializer;
 
 use Psr\Http\Message\ResponseInterface;
 
@@ -9,7 +9,7 @@ use Psr\Http\Message\ResponseInterface;
  *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
-class PSR7Serializer implements ResponseDeserializer
+class PSR7Deserializer implements ResponseDeserializer
 {
     /**
      * @param ResponseInterface $response

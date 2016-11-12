@@ -1,8 +1,8 @@
 <?php
 
-namespace Mailgun\Serializer;
+namespace Mailgun\Deserializer;
 
-use Mailgun\Exception\SerializeException;
+use Mailgun\Exception\DeserializeException;
 use Mailgun\Resource\ApiResponse;
 use Psr\Http\Message\ResponseInterface;
 
@@ -11,7 +11,7 @@ use Psr\Http\Message\ResponseInterface;
  *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
-class ModelSerializer implements ResponseDeserializer
+class ModelDeserializer implements ResponseDeserializer
 {
     /**
      * @param ResponseInterface $response
@@ -23,12 +23,12 @@ class ModelSerializer implements ResponseDeserializer
     {
         $body = $response->getBody()->__toString();
         if (strpos($response->getHeaderLine('Content-Type'), 'application/json') !== 0) {
-            throw new SerializeException('The ModelSerializer cannot deserialize response with Content-Type:'.$response->getHeaderLine('Content-Type'));
+            throw new DeserializeException('The ModelDeserializer cannot deserialize response with Content-Type:'.$response->getHeaderLine('Content-Type'));
         }
 
         $data = json_decode($body, true);
         if (JSON_ERROR_NONE !== json_last_error()) {
-            throw new SerializeException(sprintf('Error (%d) when trying to json_decode response', json_last_error()));
+            throw new DeserializeException(sprintf('Error (%d) when trying to json_decode response', json_last_error()));
         }
 
         if (is_subclass_of($class, ApiResponse::class)) {
