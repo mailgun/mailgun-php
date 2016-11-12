@@ -80,7 +80,7 @@ abstract class HttpApi
 
         try {
             $response = $this->httpClient->sendRequest(
-                $this->requestBuilder->create('get', $path, $requestHeaders)
+                $this->requestBuilder->create('GET', $path, $requestHeaders)
             );
         } catch (HttplugException\NetworkException $e) {
             throw HttpServerException::networkError($e);
@@ -138,7 +138,7 @@ abstract class HttpApi
     {
         try {
             $response = $this->httpClient->sendRequest(
-                $this->requestBuilder->create('put', $path, $requestHeaders, $this->createJsonBody($parameters))
+                $this->requestBuilder->create('PUT', $path, $requestHeaders, $this->createJsonBody($parameters))
             );
         } catch (HttplugException\NetworkException $e) {
             throw HttpServerException::networkError($e);
@@ -160,7 +160,7 @@ abstract class HttpApi
     {
         try {
             $response = $this->httpClient->sendRequest(
-                $this->requestBuilder->create('delete', $path, $requestHeaders, $this->createJsonBody($parameters))
+                $this->requestBuilder->create('DELETE', $path, $requestHeaders, $this->createJsonBody($parameters))
             );
         } catch (HttplugException\NetworkException $e) {
             throw HttpServerException::networkError($e);
