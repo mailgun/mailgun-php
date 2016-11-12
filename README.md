@@ -11,7 +11,7 @@ at http://documentation.mailgun.com
 [![StyleCI](https://styleci.io/repos/11654443/shield?branch=master)](https://styleci.io/repos/11654443)
 
 **This is the documentation for dev-master. You find documentation for the latest stable 
-release [here](/tree/v2.1.2).**
+release [here](https://github.com/mailgun/mailgun-php/tree/v2.1.2).**
 
 ## Installation
 
