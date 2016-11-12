@@ -50,9 +50,9 @@ class Mailgun
     private $deserializer;
 
     /**
-     * @var RequestFactory
+     * @var RequestBuilder
      */
-    private $requestFactory;
+    private $requestBuilder;
 
     /**
      * @param string|null                 $apiKey
@@ -60,13 +60,15 @@ class Mailgun
      * @param string                      $apiEndpoint
      * @param ResponseDeserializer|null   $deserializer
      * @param HttpClientConfigurator|null $clientConfigurator
+     * @param RequestBuilder|null         $requestBuilder
      */
     public function __construct(
         $apiKey = null,
         HttpClient $httpClient = null, /* Deprecated, will be removed in 3.0 */
         $apiEndpoint = 'api.mailgun.net', /* Deprecated, will be removed in 3.0 */
         ResponseDeserializer $deserializer = null,
-        HttpClientConfigurator $clientConfigurator = null
+        HttpClientConfigurator $clientConfigurator = null,
+        RequestBuilder $requestBuilder = null
     ) {
         $this->apiKey = $apiKey;
         $this->restClient = new RestClient($apiKey, $apiEndpoint, $httpClient);
@@ -88,7 +90,7 @@ class Mailgun
         $clientConfigurator->setApiKey($apiKey);
 
         $this->httpClient = $clientConfigurator->createConfiguredClient();
-        $this->requestFactory = MessageFactoryDiscovery::find();
+        $this->requestBuilder = $requestBuilder ?: new RequestBuilder();
         $this->deserializer = $deserializer ?: new ModelDeserializer();
     }
 
@@ -258,7 +260,7 @@ class Mailgun
      */
     public function getStatsApi()
     {
-        return new Api\Stats($this->httpClient, $this->requestFactory, $this->deserializer);
+        return new Api\Stats($this->httpClient, $this->requestBuilder, $this->deserializer);
     }
 
     /**
@@ -266,6 +268,6 @@ class Mailgun
      */
     public function getDomainApi()
     {
-        return new Api\Domain($this->httpClient, $this->requestFactory, $this->deserializer);
+        return new Api\Domain($this->httpClient, $this->requestBuilder, $this->deserializer);
     }
 }
