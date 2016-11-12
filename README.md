@@ -197,7 +197,7 @@ We are currently building a new object oriented API client. Feel free to contrib
 
 If you want to run the tests you should run the following commands: 
 
-```bash
+```terminal
 git clone git@github.com:mailgun/mailgun-php.git
 cd mailgun-php
 composer update
