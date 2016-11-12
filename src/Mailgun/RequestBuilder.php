@@ -3,14 +3,11 @@
 namespace Mailgun;
 
 use Http\Discovery\MessageFactoryDiscovery;
-use Http\Message\MessageFactory;
 use Http\Message\MultipartStream\MultipartStreamBuilder;
 use Http\Message\RequestFactory;
 use Psr\Http\Message\RequestInterface;
 
 /**
- *
- *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
 class RequestBuilder
@@ -33,12 +30,12 @@ class RequestBuilder
      * @param array             $headers
      * @param array|string|null $body    Request body. If body is an array we will send a as multipart stream request.
      *                                   If array, each array *item* MUST look like:
-     *                                     array (
-     *                                         'content' => string|resource|StreamInterface,
-     *                                         'name'    => string,
-     *                                         'filename'=> string (optional)
-     *                                         'headers' => array (optinal) ['header-name' => 'header-value']
-     *                                     )
+     *                                   array (
+     *                                   'content' => string|resource|StreamInterface,
+     *                                   'name'    => string,
+     *                                   'filename'=> string (optional)
+     *                                   'headers' => array (optinal) ['header-name' => 'header-value']
+     *                                   )
      *
      * @return RequestInterface
      */

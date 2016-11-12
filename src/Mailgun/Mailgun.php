@@ -11,8 +11,6 @@ namespace Mailgun;
 
 use Http\Client\Common\HttpMethodsClient;
 use Http\Client\HttpClient;
-use Http\Discovery\MessageFactoryDiscovery;
-use Http\Message\RequestFactory;
 use Mailgun\Connection\RestClient;
 use Mailgun\Constants\ExceptionMessages;
 use Mailgun\Lists\OptInHandler;

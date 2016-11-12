@@ -2,14 +2,8 @@
 
 namespace Mailgun\Api;
 
-use Http\Client\Common\HttpMethodsClient;
 use Http\Client\Exception as HttplugException;
 use Http\Client\HttpClient;
-use Http\Discovery\MessageFactoryDiscovery;
-use Http\Discovery\StreamFactoryDiscovery;
-use Http\Message\MultipartStream\MultipartStreamBuilder;
-use Http\Message\RequestFactory;
-use Mailgun\Assert;
 use Mailgun\Deserializer\ResponseDeserializer;
 use Mailgun\Exception\HttpServerException;
 use Mailgun\RequestBuilder;
@@ -39,9 +33,8 @@ abstract class HttpApi
     protected $requestBuilder;
 
     /**
-     *
-     * @param HttpClient $httpClient
-     * @param RequestBuilder $requestBuilder
+     * @param HttpClient           $httpClient
+     * @param RequestBuilder       $requestBuilder
      * @param ResponseDeserializer $deserializer
      */
     public function __construct(HttpClient $httpClient, RequestBuilder $requestBuilder, ResponseDeserializer $deserializer)
