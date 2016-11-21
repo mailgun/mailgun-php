@@ -10,6 +10,9 @@ at http://documentation.mailgun.com
 [![Build Status](https://travis-ci.org/mailgun/mailgun-php.png)](https://travis-ci.org/mailgun/mailgun-php)
 [![StyleCI](https://styleci.io/repos/11654443/shield?branch=master)](https://styleci.io/repos/11654443)
 
+**This is the documentation for dev-master. You find documentation for the latest stable 
+release [here](https://github.com/mailgun/mailgun-php/tree/v2.1.2).**
+
 ## Installation
 
 To install the SDK, you will need to be using [Composer](http://getcomposer.org/) 
@@ -181,6 +184,26 @@ If you are using a framework you might consider these composer packages to make 
 * [Bogardo/Mailgun](https://github.com/Bogardo/Mailgun) for Laravel 4
 * [katanyoo/yii2-mailgun-mailer](https://github.com/katanyoo/yii2-mailgun-mailer) for Yii2
 
+## Contribute
+
+We are currently building a new object oriented API client. Feel free to contribute in any way. As an example you may: 
+* Trying out dev-master the code
+* Create issues if you find problems
+* Reply to other people's issues
+* Review PRs
+* Write PR. You find our current milestone [here](https://github.com/mailgun/mailgun-php/milestone/1) 
+
+### Running the test code
+
+If you want to run the tests you should run the following commands: 
+
+```terminal
+git clone git@github.com:mailgun/mailgun-php.git
+cd mailgun-php
+composer update
+composer test
+```
+
 ## Support and Feedback
 
 Be sure to visit the Mailgun official 
@@ -188,7 +211,7 @@ Be sure to visit the Mailgun official
 information about our API. 
 
 If you find a bug, please submit the issue in Github directly. 
-[Mailgun-PHP Issues](https://github.com/mailgun/Mailgun-PHP/issues)
+[Mailgun-PHP Issues](https://github.com/mailgun/mailgun-php/issues)
 
 As always, if you need additional assistance, drop us a note through your Control Panel at
 [https://mailgun.com/cp/support](https://mailgun.com/cp/support).
