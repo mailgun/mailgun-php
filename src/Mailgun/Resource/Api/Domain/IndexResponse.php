@@ -47,7 +47,7 @@ final class IndexResponse implements ApiResponse
     }
 
     /**
-     * @param int            $totalCount
+     * @param int      $totalCount
      * @param Domain[] $items
      */
     private function __construct($totalCount, array $items)
