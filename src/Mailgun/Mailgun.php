@@ -256,7 +256,7 @@ class Mailgun
     /**
      * @return Api\Stats
      */
-    public function getStatsApi()
+    public function stats()
     {
         return new Api\Stats($this->httpClient, $this->requestFactory, $this->deserializer);
     }
@@ -264,7 +264,7 @@ class Mailgun
     /**
      * @return Api\Domain
      */
-    public function getDomainApi()
+    public function domains()
     {
         return new Api\Domain($this->httpClient, $this->requestFactory, $this->deserializer);
     }
