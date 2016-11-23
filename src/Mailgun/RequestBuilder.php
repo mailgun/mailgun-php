@@ -42,7 +42,7 @@ class RequestBuilder
     public function create($method, $uri, array $headers = [], $body = null)
     {
         if (!is_array($body)) {
-            return $this->requestFactory->createRequest($method, $uri, $headers, $body);
+            return $this->getRequestFactory()->createRequest($method, $uri, $headers, $body);
         }
 
         $builder = $this->getMultipartStreamBuilder();
@@ -60,7 +60,7 @@ class RequestBuilder
 
         $headers['Content-Type'] = 'multipart/form-data; boundary='.$boundary;
 
-        return $this->requestFactory->createRequest($method, $uri, $headers, $multipartStream);
+        return $this->getRequestFactory()->createRequest($method, $uri, $headers, $multipartStream);
     }
 
     /**
@@ -76,6 +76,18 @@ class RequestBuilder
     }
 
     /**
+     * @param RequestFactory $requestFactory
+     *
+     * @return RequestBuilder
+     */
+    public function setRequestFactory($requestFactory)
+    {
+        $this->requestFactory = $requestFactory;
+
+        return $this;
+    }
+
+    /**
      * @return MultipartStreamBuilder
      */
     private function getMultipartStreamBuilder()
@@ -85,5 +97,17 @@ class RequestBuilder
         }
 
         return $this->multipartStreamBuilder;
+    }
+
+    /**
+     * @param MultipartStreamBuilder $multipartStreamBuilder
+     *
+     * @return RequestBuilder
+     */
+    public function setMultipartStreamBuilder($multipartStreamBuilder)
+    {
+        $this->multipartStreamBuilder = $multipartStreamBuilder;
+
+        return $this;
     }
 }
