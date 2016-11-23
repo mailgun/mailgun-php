@@ -47,8 +47,8 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
             ->expects($this->any())
             ->method('sendRequest');
 
-        $requestClient = $this->getMockBuilder('Http\Message\MessageFactory')
-            ->setMethods(['createRequest', 'createResponse'])
+        $requestClient = $this->getMockBuilder('Mailgun\RequestBuilder')
+            ->setMethods(['create'])
             ->getMock();
 
         $deserializer = $this->getMockBuilder('Mailgun\Deserializer\ResponseDeserializer')
@@ -56,14 +56,7 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
             ->getMock();
 
         return $this->getMockBuilder($this->getApiClass())
-            ->setMethods(
-                [
-                    'httpGet',
-                    'httpPost', 'httpPostRaw', 'postMultipart',
-                    'httpDelete', 'deleteMultipart',
-                    'httPut', 'putMultipart',
-                ]
-            )
+            ->setMethods(['httpGet', 'httpPost', 'httpPostRaw', 'httpDelete', 'httPut'])
             ->setConstructorArgs([$httpClient, $requestClient, $deserializer])
             ->getMock();
     }

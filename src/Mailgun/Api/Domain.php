@@ -163,7 +163,7 @@ class Domain extends HttpApi
             'password' => $password,
         ];
 
-        $response = $this->httpPostMultipart(sprintf('/v3/domains/%s/credentials', $domain), $params);
+        $response = $this->httpPost(sprintf('/v3/domains/%s/credentials', $domain), $params);
 
         return $this->deserializer->deserialize($response, CreateCredentialResponse::class);
     }
@@ -188,14 +188,7 @@ class Domain extends HttpApi
             'password' => $pass,
         ];
 
-        $response = $this->httpPutMultipart(
-            sprintf(
-                '/v3/domains/%s/credentials/%s',
-                $domain,
-                $login
-            ),
-            $params
-        );
+        $response = $this->httpPut(sprintf('/v3/domains/%s/credentials/%s', $domain, $login), $params);
 
         return $this->deserializer->deserialize($response, UpdateCredentialResponse::class);
     }

@@ -2,16 +2,11 @@
 
 namespace Mailgun\Api;
 
-use Http\Client\Common\HttpMethodsClient;
 use Http\Client\Exception as HttplugException;
 use Http\Client\HttpClient;
-use Http\Discovery\MessageFactoryDiscovery;
-use Http\Discovery\StreamFactoryDiscovery;
-use Http\Message\MultipartStream\MultipartStreamBuilder;
-use Http\Message\RequestFactory;
-use Mailgun\Assert;
 use Mailgun\Deserializer\ResponseDeserializer;
 use Mailgun\Exception\HttpServerException;
+use Mailgun\RequestBuilder;
 use Mailgun\Resource\Api\ErrorResponse;
 use Psr\Http\Message\ResponseInterface;
 
@@ -23,7 +18,7 @@ abstract class HttpApi
     /**
      * The HTTP client.
      *
-     * @var HttpMethodsClient
+     * @var HttpClient
      */
     private $httpClient;
 
@@ -33,13 +28,19 @@ abstract class HttpApi
     protected $serializer;
 
     /**
-     * @param HttpClient           $httpClient
-     * @param RequestFactory       $requestFactory
-     * @param ResponseDeserializer $serializer
+     * @var RequestBuilder
      */
-    public function __construct(HttpClient $httpClient, RequestFactory $requestFactory, ResponseDeserializer $deserializer)
+    protected $requestBuilder;
+
+    /**
+     * @param HttpClient           $httpClient
+     * @param RequestBuilder       $requestBuilder
+     * @param ResponseDeserializer $deserializer
+     */
+    public function __construct(HttpClient $httpClient, RequestBuilder $requestBuilder, ResponseDeserializer $deserializer)
     {
-        $this->httpClient = new HttpMethodsClient($httpClient, $requestFactory);
+        $this->httpClient = $httpClient;
+        $this->requestBuilder = $requestBuilder;
         $this->deserializer = $deserializer;
     }
 
@@ -78,7 +79,9 @@ abstract class HttpApi
         }
 
         try {
-            $response = $this->httpClient->get($path, $requestHeaders);
+            $response = $this->httpClient->sendRequest(
+                $this->requestBuilder->create('GET', $path, $requestHeaders)
+            );
         } catch (HttplugException\NetworkException $e) {
             throw HttpServerException::networkError($e);
         }
@@ -101,32 +104,20 @@ abstract class HttpApi
     }
 
     /**
-     * Send a POST request with parameters encoded as multipart-stream form data.
-     *
-     * @param string $path           Request path.
-     * @param array  $parameters     POST parameters to be mutipart-stream-encoded.
-     * @param array  $requestHeaders Request headers.
-     *
-     * @return ResponseInterface
-     */
-    protected function httpPostMultipart($path, array $parameters = [], array $requestHeaders = [])
-    {
-        return $this->doMultipart('POST', $path, $parameters, $requestHeaders);
-    }
-
-    /**
      * Send a POST request with raw data.
      *
-     * @param string $path           Request path.
-     * @param string $body           Request body.
-     * @param array  $requestHeaders Request headers.
+     * @param string       $path           Request path.
+     * @param array|string $body           Request body.
+     * @param array        $requestHeaders Request headers.
      *
      * @return ResponseInterface
      */
     protected function httpPostRaw($path, $body, array $requestHeaders = [])
     {
         try {
-            $response = $this->httpClient->post($path, $requestHeaders, $body);
+            $response = $this->httpClient->sendRequest(
+                $this->requestBuilder->create('POST', $path, $requestHeaders, $body)
+            );
         } catch (HttplugException\NetworkException $e) {
             throw HttpServerException::networkError($e);
         }
@@ -146,26 +137,14 @@ abstract class HttpApi
     protected function httpPut($path, array $parameters = [], array $requestHeaders = [])
     {
         try {
-            $response = $this->httpClient->put($path, $requestHeaders, $this->createJsonBody($parameters));
+            $response = $this->httpClient->sendRequest(
+                $this->requestBuilder->create('PUT', $path, $requestHeaders, $this->createJsonBody($parameters))
+            );
         } catch (HttplugException\NetworkException $e) {
             throw HttpServerException::networkError($e);
         }
 
         return $response;
-    }
-
-    /**
-     * Send a PUT request with parameters encoded as multipart-stream form data.
-     *
-     * @param string $path           Request path.
-     * @param array  $parameters     PUT parameters to be mutipart-stream-encoded.
-     * @param array  $requestHeaders Request headers.
-     *
-     * @return ResponseInterface
-     */
-    protected function httpPutMultipart($path, array $parameters = [], array $requestHeaders = [])
-    {
-        return $this->doMultipart('PUT', $path, $parameters, $requestHeaders);
     }
 
     /**
@@ -180,66 +159,14 @@ abstract class HttpApi
     protected function httpDelete($path, array $parameters = [], array $requestHeaders = [])
     {
         try {
-            $response = $this->httpClient->delete($path, $requestHeaders, $this->createJsonBody($parameters));
+            $response = $this->httpClient->sendRequest(
+                $this->requestBuilder->create('DELETE', $path, $requestHeaders, $this->createJsonBody($parameters))
+            );
         } catch (HttplugException\NetworkException $e) {
             throw HttpServerException::networkError($e);
         }
 
         return $response;
-    }
-
-    /**
-     * Send a DELETE request with parameters encoded as multipart-stream form data.
-     *
-     * @param string $path           Request path.
-     * @param array  $parameters     DELETE parameters to be mutipart-stream-encoded.
-     * @param array  $requestHeaders Request headers.
-     *
-     * @return ResponseInterface
-     */
-    protected function httpDeleteMultipart($path, array $parameters = [], array $requestHeaders = [])
-    {
-        return $this->doMultipart('DELETE', $path, $parameters, $requestHeaders);
-    }
-
-    /**
-     * Send a request with parameters encoded as multipart-stream form data.
-     *
-     * @param string $type           Request type. (POST, PUT, etc.)
-     * @param string $path           Request path.
-     * @param array  $parameters     POST parameters to be mutipart-stream-encoded.
-     * @param array  $requestHeaders Request headers.
-     *
-     * @return ResponseInterface
-     */
-    protected function doMultipart($type, $path, array $parameters = [], array $requestHeaders = [])
-    {
-        Assert::oneOf(
-            $type,
-            [
-                'DELETE',
-                'POST',
-                'PUT',
-            ]
-        );
-
-        $streamFactory = StreamFactoryDiscovery::find();
-        $builder = new MultipartStreamBuilder($streamFactory);
-        foreach ($parameters as $k => $v) {
-            $builder->addResource($k, $v);
-        }
-
-        $multipartStream = $builder->build();
-        $boundary = $builder->getBoundary();
-
-        $request = MessageFactoryDiscovery::find()->createRequest(
-            $type,
-            $path,
-            ['Content-Type' => 'multipart/form-data; boundary='.$boundary],
-            $multipartStream
-        );
-
-        return $this->httpClient->sendRequest($request);
     }
 
     /**
