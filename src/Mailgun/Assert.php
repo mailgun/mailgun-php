@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * Copyright (C) 2013-2016 Mailgun
+ *
+ * This software may be modified and distributed under the terms
+ * of the MIT license.  See the LICENSE file for details.
+ */
+
 namespace Mailgun;
 
 use Mailgun\Exception\InvalidArgumentException;
@@ -11,8 +18,8 @@ use Mailgun\Exception\InvalidArgumentException;
  */
 class Assert extends \Webmozart\Assert\Assert
 {
-    protected static function createInvalidArgumentException($message)
+    protected static function reportInvalidArgument($message)
     {
-        return new InvalidArgumentException($message);
+        throw new InvalidArgumentException($message);
     }
 }

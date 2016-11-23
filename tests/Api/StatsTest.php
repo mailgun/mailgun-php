@@ -29,15 +29,14 @@ class StatsTest extends TestCase
         $api->total('domain', $data);
     }
 
-    // /**
-    //  * @expectedException \Mailgun\Exception\InvalidArgumentException
-    //  */
-    // public function testTotalInvalidArgument()
-    // {
-    //     $api = $this->getApiMock();
-    //
-    //     $api->total('');
-    // }
+    /**
+     * @expectedException \Mailgun\Exception\InvalidArgumentException
+     */
+    public function testTotalInvalidArgument()
+    {
+        $api = $this->getApiMock();
+        $api->total('');
+    }
 
     public function testAll()
     {
@@ -54,13 +53,13 @@ class StatsTest extends TestCase
         $api->all('domain', $data);
     }
 
-    // /**
-    //  * @expectedException \Mailgun\Exception\InvalidArgumentException
-    //  */
-    // public function testAllInvalidArgument()
-    // {
-    //     $api = $this->getApiMock();
-    //
-    //     $api->all('');
-    // }
+    /**
+     * @expectedException \Mailgun\Exception\InvalidArgumentException
+     */
+    public function testAllInvalidArgument()
+    {
+        $api = $this->getApiMock();
+
+        $api->all('');
+    }
 }
