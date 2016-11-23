@@ -6,11 +6,10 @@ use Mailgun\RequestBuilder;
 
 class RequestBuilderTest extends \PHPUnit_Framework_TestCase
 {
-
     public function testCreateSimpleStream()
     {
         $builder = new RequestBuilder();
-        $request = $builder->create('GET', 'http://foo.bar', ['Content-Type'=>'application/json'], 'content');
+        $request = $builder->create('GET', 'http://foo.bar', ['Content-Type' => 'application/json'], 'content');
 
         $body = $request->getBody()->__toString();
         $contentType = $request->getHeaderLine('Content-Type');
@@ -19,14 +18,13 @@ class RequestBuilderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('application/json', $contentType);
     }
 
-
     public function testCreateMultipartStream()
     {
-        $item0 = ['content'=>'foobar', 'name'=>'username'];
-        $item1 = ['content'=>'Stockholm', 'name'=>'city'];
+        $item0 = ['content' => 'foobar', 'name' => 'username'];
+        $item1 = ['content' => 'Stockholm', 'name' => 'city'];
 
         $builder = new RequestBuilder();
-        $request = $builder->create('GET', 'http://foo.bar', ['Content-Type'=>'application/json'], [$item0, $item1]);
+        $request = $builder->create('GET', 'http://foo.bar', ['Content-Type' => 'application/json'], [$item0, $item1]);
 
         $body = $request->getBody()->__toString();
         $contentType = $request->getHeaderLine('Content-Type');
