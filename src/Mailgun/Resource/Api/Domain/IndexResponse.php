@@ -23,7 +23,7 @@ final class IndexResponse implements ApiResponse
     private $totalCount;
 
     /**
-     * @var SimpleDomain[]
+     * @var Domain[]
      */
     private $items;
 
@@ -48,7 +48,7 @@ final class IndexResponse implements ApiResponse
 
     /**
      * @param int            $totalCount
-     * @param SimpleDomain[] $items
+     * @param Domain[] $items
      */
     private function __construct($totalCount, array $items)
     {
@@ -69,7 +69,7 @@ final class IndexResponse implements ApiResponse
     }
 
     /**
-     * @return SimpleDomain[]
+     * @return Domain[]
      */
     public function getDomains()
     {
