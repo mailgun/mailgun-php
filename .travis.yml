@@ -24,7 +24,6 @@ install:
 
 script:
   - if ! [[ "$TRAVIS_PULL_REQUEST" = false ]]; then TEST_COMMAND="composer test"; elif [[ "$COVERAGE" = true ]]; then TEST_COMMAND="composer test-coverage"; else TEST_COMMAND="composer test-all"; fi
-  - echo $TEST_COMMAND
   - $TEST_COMMAND
 
 after_success:
