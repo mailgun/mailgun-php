@@ -17,18 +17,23 @@ matrix:
     fast_finish: true
     include:
         - php: 5.5
-          env: COMPOSER_FLAGS="--prefer-stable --prefer-lowest" COVERAGE=true
+          env: COMPOSER_FLAGS="--prefer-stable --prefer-lowest" PREFER_COVERAGE=true
 
 install:
     - travis_retry composer update ${COMPOSER_FLAGS} --prefer-source --no-interaction
 
+before_script:
+  - TEST_COMMAND="composer test-all"
+  - if ! [[ "$TRAVIS_PULL_REQUEST" = false ]]; then TEST_COMMAND="composer test"; fi
+  - if [[ "$PREFER_COVERAGE" = true ]] && [[ "$TRAVIS_PULL_REQUEST" = false ]]; then TEST_COMMAND="composer test-coverage" COVERAGE=true; fi
+
 script:
-  - if ! [[ "$TRAVIS_PULL_REQUEST" = false ]]; then TEST_COMMAND="composer test"; elif [[ "$COVERAGE" = true ]]; then TEST_COMMAND="composer test-coverage"; else TEST_COMMAND="composer test-all"; fi
+  - echo $TEST_COMMAND
   - $TEST_COMMAND
 
 after_success:
-    - if [[ "$COVERAGE" = true ]] && [[ "$TRAVIS_PULL_REQUEST" = false ]]; then wget https://scrutinizer-ci.com/ocular.phar; fi
-    - if [[ "$COVERAGE" = true ]] && [[ "$TRAVIS_PULL_REQUEST" = false ]]; then php ocular.phar code-coverage:upload --format=php-clover build/coverage.xml; fi
+    - if [[ "$COVERAGE" = true ]]; then wget https://scrutinizer-ci.com/ocular.phar; fi
+    - if [[ "$COVERAGE" = true ]]; then php ocular.phar code-coverage:upload --format=php-clover build/coverage.xml; fi
 
 
 notifications:
