@@ -6,9 +6,12 @@ Below are examples to get you started. For additional examples, please see our
 official documentation 
 at http://documentation.mailgun.com
 
-[![Latest Stable Version](https://poser.pugx.org/mailgun/mailgun-php/v/stable.png)](https://packagist.org/packages/mailgun/mailgun-php)
-[![Build Status](https://travis-ci.org/mailgun/mailgun-php.png)](https://travis-ci.org/mailgun/mailgun-php)
+[![Latest Version](https://img.shields.io/github/release/mailgun/mailgun-php.svg?style=flat-square)](https://github.com/mailgun/mailgun-php/releases)
+[![Build Status](https://img.shields.io/travis/mailgun/mailgun-php.svg?style=flat-square)](https://travis-ci.org/mailgun/mailgun-php)
 [![StyleCI](https://styleci.io/repos/11654443/shield?branch=master)](https://styleci.io/repos/11654443)
+[![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/mailgun/mailgun-php.svg?style=flat-square)](https://scrutinizer-ci.com/g/mailgun/mailgun-php)
+[![Quality Score](https://img.shields.io/scrutinizer/g/mailgun/mailgun-php.svg?style=flat-square)](https://scrutinizer-ci.com/g/mailgun/mailgun-php)
+[![Total Downloads](https://img.shields.io/packagist/dt/mailgun/mailgun-php.svg?style=flat-square)](https://packagist.org/packages/mailgun/mailgun-php)
 
 **This is the documentation for dev-master. You find documentation for the latest stable 
 release [here](https://github.com/mailgun/mailgun-php/tree/v2.1.2).**
