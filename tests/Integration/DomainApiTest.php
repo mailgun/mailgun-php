@@ -40,7 +40,7 @@ class DomainApiTest extends TestCase
     {
         $mg = $this->getMailgunClient();
 
-        $domainList = $mg->getDomainApi()->index();
+        $domainList = $mg->domains()->index();
         $found = false;
         foreach ($domainList->getDomains() as $domain) {
             if ($domain->getName() === $this->testDomain) {
@@ -60,7 +60,7 @@ class DomainApiTest extends TestCase
     {
         $mg = $this->getMailgunClient();
 
-        $domain = $mg->getDomainApi()->show($this->testDomain);
+        $domain = $mg->domains()->show($this->testDomain);
         $this->assertNotNull($domain);
         $this->assertNotNull($domain->getDomain());
         $this->assertNotNull($domain->getInboundDNSRecords());
@@ -75,7 +75,7 @@ class DomainApiTest extends TestCase
     {
         $mg = $this->getMailgunClient();
 
-        $ret = $mg->getDomainApi()->delete('example.notareal.tld');
+        $ret = $mg->domains()->delete('example.notareal.tld');
         $this->assertNotNull($ret);
         $this->assertInstanceOf(DeleteResponse::class, $ret);
         $this->assertEquals('Domain not found', $ret->getMessage());
@@ -89,7 +89,7 @@ class DomainApiTest extends TestCase
     {
         $mg = $this->getMailgunClient();
 
-        $domain = $mg->getDomainApi()->create(
+        $domain = $mg->domains()->create(
             'example.notareal.tld',     // domain name
             'exampleOrgSmtpPassword12', // smtp password
             'tag',                      // default spam action
@@ -109,7 +109,7 @@ class DomainApiTest extends TestCase
     {
         $mg = $this->getMailgunClient();
 
-        $domain = $mg->getDomainApi()->create(
+        $domain = $mg->domains()->create(
             'example.notareal.tld',     // domain name
             'exampleOrgSmtpPassword12', // smtp password
             'tag',                      // default spam action
@@ -127,7 +127,7 @@ class DomainApiTest extends TestCase
     {
         $mg = $this->getMailgunClient();
 
-        $ret = $mg->getDomainApi()->delete('example.notareal.tld');
+        $ret = $mg->domains()->delete('example.notareal.tld');
         $this->assertNotNull($ret);
         $this->assertInstanceOf(DeleteResponse::class, $ret);
         $this->assertEquals('Domain has been deleted', $ret->getMessage());
@@ -141,7 +141,7 @@ class DomainApiTest extends TestCase
     {
         $mg = $this->getMailgunClient();
 
-        $ret = $mg->getDomainApi()->createCredential(
+        $ret = $mg->domains()->createCredential(
             $this->testDomain,
             'user-test@'.$this->testDomain,
             'Password.01!'
@@ -161,7 +161,7 @@ class DomainApiTest extends TestCase
     {
         $mg = $this->getMailgunClient();
 
-        $ret = $mg->getDomainApi()->createCredential(
+        $ret = $mg->domains()->createCredential(
             $this->testDomain,
             'user-test',
             'ExtremelyLongPasswordThatCertainlyWillNotBeAccepted'
@@ -180,7 +180,7 @@ class DomainApiTest extends TestCase
     {
         $mg = $this->getMailgunClient();
 
-        $ret = $mg->getDomainApi()->createCredential(
+        $ret = $mg->domains()->createCredential(
             $this->testDomain,
             'user-test',
             'no'
@@ -198,7 +198,7 @@ class DomainApiTest extends TestCase
 
         $found = false;
 
-        $ret = $mg->getDomainApi()->credentials($this->testDomain);
+        $ret = $mg->domains()->credentials($this->testDomain);
         $this->assertNotNull($ret);
         $this->assertInstanceOf(CredentialResponse::class, $ret);
         $this->assertContainsOnlyInstancesOf(CredentialResponseItem::class, $ret->getCredentials());
@@ -219,7 +219,7 @@ class DomainApiTest extends TestCase
     {
         $mg = $this->getMailgunClient();
 
-        $ret = $mg->getDomainApi()->credentials('mailgun.org');
+        $ret = $mg->domains()->credentials('mailgun.org');
         $this->assertNotNull($ret);
         $this->assertInstanceOf(ErrorResponse::class, $ret);
         $this->assertEquals('Domain not found: mailgun.org', $ret->getMessage());
@@ -235,7 +235,7 @@ class DomainApiTest extends TestCase
 
         $mg = $this->getMailgunClient();
 
-        $ret = $mg->getDomainApi()->updateCredential(
+        $ret = $mg->domains()->updateCredential(
             $this->testDomain,
             $login,
             'Password..02!'
@@ -256,7 +256,7 @@ class DomainApiTest extends TestCase
 
         $mg = $this->getMailgunClient();
 
-        $ret = $mg->getDomainApi()->updateCredential(
+        $ret = $mg->domains()->updateCredential(
             $this->testDomain,
             $login,
             'ThisIsAnExtremelyLongPasswordThatSurelyWontBeAccepted'
@@ -275,7 +275,7 @@ class DomainApiTest extends TestCase
 
         $mg = $this->getMailgunClient();
 
-        $ret = $mg->getDomainApi()->updateCredential(
+        $ret = $mg->domains()->updateCredential(
             $this->testDomain,
             $login,
             'no'
@@ -293,7 +293,7 @@ class DomainApiTest extends TestCase
 
         $mg = $this->getMailgunClient();
 
-        $ret = $mg->getDomainApi()->deleteCredential(
+        $ret = $mg->domains()->deleteCredential(
             $this->testDomain,
             $login
         );
@@ -313,7 +313,7 @@ class DomainApiTest extends TestCase
 
         $mg = $this->getMailgunClient();
 
-        $ret = $mg->getDomainApi()->deleteCredential(
+        $ret = $mg->domains()->deleteCredential(
             $this->testDomain,
             $login
         );
@@ -329,7 +329,7 @@ class DomainApiTest extends TestCase
     {
         $mg = $this->getMailgunClient();
 
-        $ret = $mg->getDomainApi()->connection($this->testDomain);
+        $ret = $mg->domains()->connection($this->testDomain);
         $this->assertNotNull($ret);
         $this->assertInstanceOf(ConnectionResponse::class, $ret);
         $this->assertTrue(is_bool($ret->getSkipVerification()));
@@ -343,7 +343,7 @@ class DomainApiTest extends TestCase
     {
         $mg = $this->getMailgunClient();
 
-        $ret = $mg->getDomainApi()->updateConnection(
+        $ret = $mg->domains()->updateConnection(
             $this->testDomain,
             true,
             false
