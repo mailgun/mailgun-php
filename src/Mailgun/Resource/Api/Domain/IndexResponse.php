@@ -4,8 +4,9 @@
  * Copyright (C) 2013-2016 Mailgun
  *
  * This software may be modified and distributed under the terms
- * of the MIT license.  See the LICENSE file for details.
+ * of the MIT license. See the LICENSE file for details.
  */
+
 
 namespace Mailgun\Resource\Api\Domain;
 
@@ -23,7 +24,7 @@ final class IndexResponse implements ApiResponse
     private $totalCount;
 
     /**
-     * @var SimpleDomain[]
+     * @var Domain[]
      */
     private $items;
 
@@ -47,8 +48,8 @@ final class IndexResponse implements ApiResponse
     }
 
     /**
-     * @param int            $totalCount
-     * @param SimpleDomain[] $items
+     * @param int      $totalCount
+     * @param Domain[] $items
      */
     private function __construct($totalCount, array $items)
     {
@@ -69,7 +70,7 @@ final class IndexResponse implements ApiResponse
     }
 
     /**
-     * @return SimpleDomain[]
+     * @return Domain[]
      */
     public function getDomains()
     {
