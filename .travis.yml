@@ -23,13 +23,13 @@ install:
     - travis_retry composer update ${COMPOSER_FLAGS} --prefer-source --no-interaction
 
 script:
-  - if [[ "${TRAVIS_PULL_REQUEST}" = true ]]; then TEST_COMMAND="composer test"; elif [[ "$COVERAGE" = true ]]; then TEST_COMMAND="composer test-coverage"; else TEST_COMMAND="composer test-all"; fi
+  - if [[ "$TRAVIS_PULL_REQUEST" = true ]]; then TEST_COMMAND="composer test"; elif [[ "$COVERAGE" = true ]]; then TEST_COMMAND="composer test-coverage"; else TEST_COMMAND="composer test-all"; fi
   - echo $TEST_COMMAND
   - $TEST_COMMAND
 
 after_success:
-    - if [[ "$COVERAGE" = true ]] && [[ "${TRAVIS_PULL_REQUEST}" = false ]]; then wget https://scrutinizer-ci.com/ocular.phar; fi
-    - if [[ "$COVERAGE" = true ]] && [[ "${TRAVIS_PULL_REQUEST}" = false ]]; then php ocular.phar code-coverage:upload --format=php-clover build/coverage.xml; fi
+    - if [[ "$COVERAGE" = true ]] && [[ "$TRAVIS_PULL_REQUEST" = false ]]; then wget https://scrutinizer-ci.com/ocular.phar; fi
+    - if [[ "$COVERAGE" = true ]] && [[ "$TRAVIS_PULL_REQUEST" = false ]]; then php ocular.phar code-coverage:upload --format=php-clover build/coverage.xml; fi
 
 
 notifications:
