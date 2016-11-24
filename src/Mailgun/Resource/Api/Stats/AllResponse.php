@@ -44,11 +44,19 @@ final class AllResponse implements ApiResponse
     public static function create(array $data)
     {
         $items = [];
-        foreach ($data['items'] as $i) {
-            $items[] = AllResponseItem::create($i);
+        if (isset($data['items'])) {
+            foreach ($data['items'] as $i) {
+                $items[] = AllResponseItem::create($i);
+            }
         }
 
-        return new self($data['total_count'], $items);
+        if (isset($data['total_count'])) {
+            $count = $data['total_count'];
+        } else {
+            $count = count($items);
+        }
+
+        return new self($count, $items);
     }
 
     /**

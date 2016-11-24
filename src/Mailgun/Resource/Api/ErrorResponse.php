@@ -33,7 +33,7 @@ final class ErrorResponse implements ApiResponse
     }
 
     /**
-     * @param array data
+     * @param array
      *
      * @return self
      */

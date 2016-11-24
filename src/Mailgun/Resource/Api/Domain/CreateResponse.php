@@ -9,7 +9,6 @@
 
 namespace Mailgun\Resource\Api\Domain;
 
-use Mailgun\Assert;
 use Mailgun\Resource\ApiResponse;
 
 /**
@@ -44,23 +43,32 @@ final class CreateResponse implements ApiResponse
      */
     public static function create(array $data)
     {
-        Assert::keyExists($data, 'domain');
-        Assert::keyExists($data, 'message');
-        Assert::keyExists($data, 'receiving_dns_records');
-        Assert::keyExists($data, 'sending_dns_records');
-
-        $domain = Domain::create($data['domain']);
         $rx = [];
         $tx = [];
+        $domain = null;
+        $message = null;
 
-        foreach ($data['receiving_dns_records'] as $item) {
-            $rx[] = DnsRecord::create($item);
-        }
-        foreach ($data['sending_dns_records'] as $item) {
-            $tx[] = DnsRecord::create($item);
+        if (isset($data['domain'])) {
+            $domain = Domain::create($data['domain']);
         }
 
-        return new self($domain, $rx, $tx, $data['message']);
+        if (isset($data['message'])) {
+            $message = $data['message'];
+        }
+
+        if (isset($data['receiving_dns_records'])) {
+            foreach ($data['receiving_dns_records'] as $item) {
+                $rx[] = DnsRecord::create($item);
+            }
+        }
+
+        if (isset($data['sending_dns_records'])) {
+            foreach ($data['sending_dns_records'] as $item) {
+                $tx[] = DnsRecord::create($item);
+            }
+        }
+
+        return new self($domain, $rx, $tx, $message);
     }
 
     /**

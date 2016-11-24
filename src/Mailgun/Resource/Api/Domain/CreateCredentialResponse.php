@@ -36,7 +36,7 @@ final class CreateCredentialResponse implements ApiResponse
      */
     public static function create(array $data)
     {
-        return new self($data['message']);
+        return new self(isset($data['message']) ? $data['message'] : null);
     }
 
     /**

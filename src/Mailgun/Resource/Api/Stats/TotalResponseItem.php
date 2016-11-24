@@ -9,8 +9,6 @@
 
 namespace Mailgun\Resource\Api\Stats;
 
-use Mailgun\Assert;
-
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
@@ -43,12 +41,12 @@ class TotalResponseItem
      */
     public static function create(array $data)
     {
-        Assert::string($data['time']);
-        Assert::isArray($data['accepted']);
-        Assert::isArray($data['delivered']);
-        Assert::isArray($data['failed']);
-
-        return new self(new \DateTime($data['time']), $data['accepted'], $data['delivered'], $data['failed']);
+        return new self(
+            isset($data['time']) ? new \DateTime($data['time']) : null,
+            isset($data['accepted']) ? $data['accepted'] : null,
+            isset($data['delivered']) ? $data['delivered'] : null,
+            isset($data['failed']) ? $data['failed'] : null
+        );
     }
 
     /**

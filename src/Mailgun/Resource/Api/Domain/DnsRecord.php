@@ -9,8 +9,6 @@
 
 namespace Mailgun\Resource\Api\Domain;
 
-use Mailgun\Assert;
-
 /**
  * Represents a single DNS record for a domain.
  *
@@ -52,14 +50,11 @@ final class DnsRecord
     {
         $name = isset($data['name']) ? $data['name'] : null;
         $priority = isset($data['priority']) ? $data['priority'] : null;
+        $recordType = isset($data['record_type']) ? $data['record_type'] : null;
+        $value = isset($data['value']) ? $data['value'] : null;
+        $valid = isset($data['valid']) ? $data['valid'] : null;
 
-        Assert::nullOrString($name);
-        Assert::string($data['record_type']);
-        Assert::string($data['value']);
-        Assert::nullOrString($priority);
-        Assert::string($data['valid']);
-
-        return new self($name, $data['record_type'], $data['value'], $priority, $data['valid']);
+        return new self($name, $recordType, $value, $priority, $valid);
     }
 
     /**

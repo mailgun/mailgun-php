@@ -9,7 +9,6 @@
 
 namespace Mailgun\Resource\Api\Domain;
 
-use Mailgun\Assert;
 use Mailgun\Resource\ApiResponse;
 
 /**
@@ -34,16 +33,14 @@ final class ConnectionResponse implements ApiResponse
      */
     public static function create(array $data)
     {
-        Assert::keyExists($data, 'connection');
-        Assert::isArray($data['connection']);
+        if (!isset($data['connection'])) {
+            return;
+        }
         $connSettings = $data['connection'];
 
-        Assert::keyExists($connSettings, 'skip_verification');
-        Assert::keyExists($connSettings, 'require_tls');
-
         return new self(
-            $connSettings['skip_verification'],
-            $connSettings['require_tls']
+            isset($connSettings['skip_verification']) ? $connSettings['skip_verification'] : null,
+            isset($connSettings['require_tls']) ? $connSettings['require_tls'] : null
         );
     }
 

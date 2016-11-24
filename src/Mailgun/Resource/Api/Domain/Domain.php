@@ -9,8 +9,6 @@
 
 namespace Mailgun\Resource\Api\Domain;
 
-use Mailgun\Assert;
-
 /**
  * Represents domain information in its simplest form.
  *
@@ -60,22 +58,14 @@ final class Domain
      */
     public static function create(array $data)
     {
-        Assert::keyExists($data, 'name');
-        Assert::keyExists($data, 'smtp_login');
-        Assert::keyExists($data, 'smtp_password');
-        Assert::keyExists($data, 'wildcard');
-        Assert::keyExists($data, 'spam_action');
-        Assert::keyExists($data, 'state');
-        Assert::keyExists($data, 'created_at');
-
         return new self(
-            $data['name'],
-            $data['smtp_login'],
-            $data['smtp_password'],
-            $data['wildcard'],
-            $data['spam_action'],
-            $data['state'],
-            new \DateTime($data['created_at'])
+            isset($data['name']) ? $data['name'] : null,
+            isset($data['smtp_login']) ? $data['smtp_login'] : null,
+            isset($data['smtp_password']) ? $data['smtp_password'] : null,
+            isset($data['wildcard']) ? $data['wildcard'] : null,
+            isset($data['spam_action']) ? $data['spam_action'] : null,
+            isset($data['state']) ? $data['state'] : null,
+            isset($data['created_at']) ? new \DateTime($data['created_at']) : null
         );
     }
 

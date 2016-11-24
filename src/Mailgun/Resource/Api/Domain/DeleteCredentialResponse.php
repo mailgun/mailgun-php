@@ -22,7 +22,7 @@ final class DeleteCredentialResponse implements ApiResponse
     private $message;
 
     /**
-     * @var error
+     * @var string
      */
     private $error;
 
@@ -33,6 +33,8 @@ final class DeleteCredentialResponse implements ApiResponse
 
     /**
      * @param string $message
+     * @param string $error
+     * @param string $spec
      */
     private function __construct($message, $error, $spec)
     {
