@@ -4,7 +4,7 @@
  * Copyright (C) 2013-2016 Mailgun
  *
  * This software may be modified and distributed under the terms
- * of the MIT license.  See the LICENSE file for details.
+ * of the MIT license. See the LICENSE file for details.
  */
 
 namespace Mailgun\Tests\Integration;
@@ -155,7 +155,7 @@ class DomainApiTest extends TestCase
      * Performs `POST /v3/domains/<domain>/credentials` to attempt to add an invalid
      * credential pair.
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException \Mailgun\Exception\InvalidArgumentException
      */
     public function testCreateCredentialBadPasswordLong()
     {
@@ -174,7 +174,7 @@ class DomainApiTest extends TestCase
      * Performs `POST /v3/domains/<domain>/credentials` to attempt to add an invalid
      * credential pair.
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException \Mailgun\Exception\InvalidArgumentException
      */
     public function testCreateCredentialBadPasswordShort()
     {
@@ -248,7 +248,7 @@ class DomainApiTest extends TestCase
     /**
      * Performs `PUT /v3/domains/<domain>/credentials/<login>` with a bad password.
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException \Mailgun\Exception\InvalidArgumentException
      */
     public function testUpdateCredentialBadPasswordLong()
     {
@@ -267,7 +267,7 @@ class DomainApiTest extends TestCase
     /**
      * Performs `PUT /v3/domains/<domain>/credentials/<login>` with a bad password.
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException \Mailgun\Exception\InvalidArgumentException
      */
     public function testUpdateCredentialBadPasswordShort()
     {

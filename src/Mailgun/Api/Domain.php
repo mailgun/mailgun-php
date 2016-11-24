@@ -95,7 +95,7 @@ class Domain extends HttpApi
             'wildcard' => $wildcard,
         ];
 
-        $response = $this->httpPostMultipart('/v3/domains', $params);
+        $response = $this->httpPost('/v3/domains', $params);
 
         return $this->safeDeserialize($response, CreateResponse::class);
     }
@@ -259,7 +259,7 @@ class Domain extends HttpApi
             $params['skip_verification'] = $noVerify ? 'true' : 'false';
         }
 
-        $response = $this->httpPutMultipart(sprintf('/v3/domains/%s/connection', $domain), $params);
+        $response = $this->httpPut(sprintf('/v3/domains/%s/connection', $domain), $params);
 
         return $this->deserializer->deserialize($response, UpdateConnectionResponse::class);
     }
