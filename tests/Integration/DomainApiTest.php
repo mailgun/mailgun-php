@@ -7,6 +7,7 @@
  * of the MIT license. See the LICENSE file for details.
  */
 
+
 namespace Mailgun\Tests\Integration;
 
 use Mailgun\Api\Domain;
