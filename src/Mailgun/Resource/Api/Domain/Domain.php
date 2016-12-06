@@ -7,7 +7,6 @@
  * of the MIT license. See the LICENSE file for details.
  */
 
-
 namespace Mailgun\Resource\Api\Domain;
 
 /**

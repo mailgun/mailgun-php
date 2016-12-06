@@ -4,7 +4,7 @@
  * Copyright (C) 2013-2016 Mailgun
  *
  * This software may be modified and distributed under the terms
- * of the MIT license.  See the LICENSE file for details.
+ * of the MIT license. See the LICENSE file for details.
  */
 
 namespace Mailgun\Messages;
@@ -20,7 +20,7 @@ use Mailgun\Messages\Exceptions\TooManyParameters;
  * this class makes the process easier. See the official
  * documentation (link below) for usage instructions.
  *
- * @link https://github.com/mailgun/mailgun-php/blob/master/src/Mailgun/Messages/README.md
+ * @see https://github.com/mailgun/mailgun-php/blob/master/src/Mailgun/Messages/README.md
  */
 class MessageBuilder
 {
