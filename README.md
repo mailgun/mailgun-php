@@ -1,5 +1,7 @@
 # Mailgun PHP client
 
+[![Join the chat at https://gitter.im/mailgun/mailgun-php](https://badges.gitter.im/mailgun/mailgun-php.svg)](https://gitter.im/mailgun/mailgun-php?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 This is the Mailgun PHP SDK. This SDK contains methods for easily interacting 
 with the Mailgun API. 
 Below are examples to get you started. For additional examples, please see our 
