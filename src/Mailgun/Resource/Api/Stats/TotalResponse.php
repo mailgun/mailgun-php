@@ -4,8 +4,9 @@
  * Copyright (C) 2013-2016 Mailgun
  *
  * This software may be modified and distributed under the terms
- * of the MIT license.  See the LICENSE file for details.
+ * of the MIT license. See the LICENSE file for details.
  */
+
 
 namespace Mailgun\Resource\Api\Stats;
 
@@ -58,11 +59,17 @@ final class TotalResponse implements ApiResponse
     public static function create(array $data)
     {
         $stats = [];
-        foreach ($data['stats'] as $s) {
-            $stats[] = TotalResponseItem::create($s);
+        if (isset($data['status'])) {
+            foreach ($data['stats'] as $s) {
+                $stats[] = TotalResponseItem::create($s);
+            }
         }
 
-        return new self(new \DateTime($data['start']), new \DateTime($data['end']), $data['resolution'], $stats);
+        $start = isset($data['start']) ? new \DateTime($data['start']) : null;
+        $end = isset($data['end']) ? new \DateTime($data['end']) : null;
+        $resolution = isset($data['resolution']) ? $data['resolution'] : null;
+
+        return new self($start, $end, $resolution, $stats);
     }
 
     /**

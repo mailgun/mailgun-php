@@ -4,8 +4,9 @@
  * Copyright (C) 2013-2016 Mailgun
  *
  * This software may be modified and distributed under the terms
- * of the MIT license.  See the LICENSE file for details.
+ * of the MIT license. See the LICENSE file for details.
  */
+
 
 namespace Mailgun\Resource\Api\Domain;
 
@@ -22,7 +23,7 @@ final class DeleteCredentialResponse implements ApiResponse
     private $message;
 
     /**
-     * @var error
+     * @var string
      */
     private $error;
 
@@ -33,6 +34,8 @@ final class DeleteCredentialResponse implements ApiResponse
 
     /**
      * @param string $message
+     * @param string $error
+     * @param string $spec
      */
     private function __construct($message, $error, $spec)
     {

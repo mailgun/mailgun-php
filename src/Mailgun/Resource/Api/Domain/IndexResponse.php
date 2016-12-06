@@ -10,7 +10,6 @@
 
 namespace Mailgun\Resource\Api\Domain;
 
-use Mailgun\Assert;
 use Mailgun\Resource\ApiResponse;
 
 /**
@@ -37,14 +36,19 @@ final class IndexResponse implements ApiResponse
     {
         $items = [];
 
-        Assert::keyExists($data, 'total_count');
-        Assert::keyExists($data, 'items');
-
-        foreach ($data['items'] as $item) {
-            $items[] = Domain::create($item);
+        if (isset($data['items'])) {
+            foreach ($data['items'] as $item) {
+                $items[] = Domain::create($item);
+            }
         }
 
-        return new self($data['total_count'], $items);
+        if (isset($data['total_count'])) {
+            $count = $data['total_count'];
+        } else {
+            $count = count($items);
+        }
+
+        return new self($count, $items);
     }
 
     /**
@@ -53,10 +57,6 @@ final class IndexResponse implements ApiResponse
      */
     private function __construct($totalCount, array $items)
     {
-        Assert::integer($totalCount);
-        Assert::isArray($items);
-        Assert::allIsInstanceOf($items, 'Mailgun\Resource\Api\Domain\Domain');
-
         $this->totalCount = $totalCount;
         $this->items = $items;
     }

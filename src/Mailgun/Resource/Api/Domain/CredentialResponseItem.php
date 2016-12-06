@@ -4,12 +4,11 @@
  * Copyright (C) 2013-2016 Mailgun
  *
  * This software may be modified and distributed under the terms
- * of the MIT license.  See the LICENSE file for details.
+ * of the MIT license. See the LICENSE file for details.
  */
 
-namespace Mailgun\Resource\Api\Domain;
 
-use Mailgun\Assert;
+namespace Mailgun\Resource\Api\Domain;
 
 /**
  * @author Sean Johnson <sean@mailgun.com>
@@ -43,26 +42,12 @@ final class CredentialResponseItem
      */
     public static function create(array $data)
     {
-        Assert::keyExists($data, 'created_at');
-        Assert::keyExists($data, 'mailbox');
-        Assert::keyExists($data, 'login');
+        $sizeBytes = isset($data['size_bytes']) ? $data['size_bytes'] : null;
+        $mailbox = isset($data['mailbox']) ? $data['mailbox'] : null;
+        $login = isset($data['login']) ? $data['login'] : null;
+        $createdAt = isset($data['created_at']) ? new \DateTime($data['created_at']) : null;
 
-        $sizeBytes = array_key_exists('size_bytes', $data) ? $data['size_bytes'] : null;
-        $createdAt = new \DateTime($data['created_at']);
-        $mailbox = $data['mailbox'];
-        $login = $data['login'];
-
-        Assert::nullOrInteger($sizeBytes);
-        Assert::isInstanceOf($createdAt, '\DateTime');
-        Assert::string($mailbox);
-        Assert::string($login);
-
-        return new self(
-            $sizeBytes,
-            $createdAt,
-            $mailbox,
-            $login
-        );
+        return new self($sizeBytes, $createdAt, $mailbox, $login);
     }
 
     /**

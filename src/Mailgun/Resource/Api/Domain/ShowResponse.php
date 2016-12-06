@@ -4,12 +4,12 @@
  * Copyright (C) 2013-2016 Mailgun
  *
  * This software may be modified and distributed under the terms
- * of the MIT license.  See the LICENSE file for details.
+ * of the MIT license. See the LICENSE file for details.
  */
+
 
 namespace Mailgun\Resource\Api\Domain;
 
-use Mailgun\Assert;
 use Mailgun\Resource\ApiResponse;
 
 /**
@@ -39,19 +39,24 @@ final class ShowResponse implements ApiResponse
      */
     public static function create(array $data)
     {
-        Assert::keyExists($data, 'domain');
-        Assert::keyExists($data, 'receiving_dns_records');
-        Assert::keyExists($data, 'sending_dns_records');
-
-        $domain = Domain::create($data['domain']);
         $rx = [];
         $tx = [];
+        $domain = null;
 
-        foreach ($data['receiving_dns_records'] as $item) {
-            $rx[] = DnsRecord::create($item);
+        if (isset($data['domain'])) {
+            $domain = Domain::create($data['domain']);
         }
-        foreach ($data['sending_dns_records'] as $item) {
-            $tx[] = DnsRecord::create($item);
+
+        if (isset($data['receiving_dns_records'])) {
+            foreach ($data['receiving_dns_records'] as $item) {
+                $rx[] = DnsRecord::create($item);
+            }
+        }
+
+        if (isset($data['sending_dns_records'])) {
+            foreach ($data['sending_dns_records'] as $item) {
+                $tx[] = DnsRecord::create($item);
+            }
         }
 
         return new self($domain, $rx, $tx);

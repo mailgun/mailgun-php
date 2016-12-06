@@ -4,12 +4,11 @@
  * Copyright (C) 2013-2016 Mailgun
  *
  * This software may be modified and distributed under the terms
- * of the MIT license.  See the LICENSE file for details.
+ * of the MIT license. See the LICENSE file for details.
  */
 
-namespace Mailgun\Resource\Api\Stats;
 
-use Mailgun\Assert;
+namespace Mailgun\Resource\Api\Stats;
 
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
@@ -48,13 +47,13 @@ final class AllResponseItem
      */
     public static function create(array $data)
     {
-        Assert::string($data['id']);
-        Assert::string($data['event']);
-        Assert::string($data['total_count']);
-        Assert::isArray($data['tags']);
-        Assert::string($data['created_at']);
-
-        return new self($data['id'], $data['event'], $data['total_count'], $data['tags'], new \DateTime($data['created_at']));
+        return new self(
+            isset($data['id']) ? $data['id'] : null,
+            isset($data['event']) ? $data['event'] : null,
+            isset($data['total_count']) ? $data['total_count'] : null,
+            isset($data['tags']) ? $data['tags'] : null,
+            isset($data['created_at']) ? new \DateTime($data['created_at']) : null
+        );
     }
 
     /**
