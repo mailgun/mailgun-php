@@ -10,8 +10,9 @@
          testSuiteLoaderClass="PHPUnit_Runner_StandardTestSuiteLoader">
 
     <testsuites>
-        <testsuite>
+        <testsuite name="all">
             <directory>tests</directory>
+            <exclude>tests/Integration</exclude>
         </testsuite>
 
         <testsuite name="unit">
