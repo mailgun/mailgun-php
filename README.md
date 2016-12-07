@@ -86,7 +86,7 @@ doc blocks on the response classes. This provide an excellet IDE integration.
  
 ```php
 $mg = new Mailgun("key-example");
-$dns = $mq->domains()->show('example.com')->getInboundDNSRecords();
+$dns = $mg->domains()->show('example.com')->getInboundDNSRecords();
 
 foreach ($dns as $record) {
   echo $record->getType();
@@ -100,9 +100,9 @@ to the Mailgun class.
 use Mailgun\Deserializer\ArrayDeserializer;
 
 $mg = new Mailgun("key-example", null, null, new ArrayDeserializer());
-$data = $mq->domains()->show('example.com');
+$data = $mg->domains()->show('example.com');
 
-foreach ($data['receiving_dns_records' as $record) {
+foreach ($data['receiving_dns_records'] as $record) {
   echo isset($record['record_type']) ? $record['record_type'] : null;
 }
 ```
