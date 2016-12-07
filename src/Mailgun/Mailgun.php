@@ -268,4 +268,12 @@ class Mailgun
     {
         return new Api\Domain($this->httpClient, $this->requestBuilder, $this->deserializer);
     }
+
+    /**
+     * @return Api\Event
+     */
+    public function event()
+    {
+        return new Api\Event($this->httpClient, $this->requestBuilder, $this->deserializer);
+    }
 }
