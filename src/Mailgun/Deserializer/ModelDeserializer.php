@@ -29,8 +29,9 @@ class ModelDeserializer implements ResponseDeserializer
     public function deserialize(ResponseInterface $response, $class)
     {
         $body = $response->getBody()->__toString();
-        if (strpos($response->getHeaderLine('Content-Type'), 'application/json') !== 0) {
-            throw new DeserializeException('The ModelDeserializer cannot deserialize response with Content-Type:'.$response->getHeaderLine('Content-Type'));
+        $contentType = $response->getHeaderLine('Content-Type');
+        if (strpos($contentType, 'application/json') !== 0 && strpos($contentType, 'application/octet-stream') !== 0) {
+            throw new DeserializeException('The ModelDeserializer cannot deserialize response with Content-Type: '.$contentType);
         }
 
         $data = json_decode($body, true);

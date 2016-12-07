@@ -272,8 +272,24 @@ class Mailgun
     /**
      * @return Api\Event
      */
-    public function event()
+    public function events()
     {
         return new Api\Event($this->httpClient, $this->requestBuilder, $this->deserializer);
+    }
+
+    /**
+     * @return Api\Webhook
+     */
+    public function webhooks()
+    {
+        return new Api\Webhook($this->httpClient, $this->requestBuilder, $this->deserializer);
+    }
+
+    /**
+     * @return Api\Message
+     */
+    public function messages()
+    {
+        return new Api\Message($this->httpClient, $this->requestBuilder, $this->deserializer);
     }
 }
