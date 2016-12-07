@@ -107,7 +107,9 @@ abstract class HttpApi
      */
     protected function httpPost($path, array $parameters = [], array $requestHeaders = [])
     {
-        return $this->httpPostRaw($path, $this->createJsonBody($parameters), $requestHeaders);
+        $body = http_build_query($parameters);
+        $requestHeaders['Content-Type'] = 'application/x-www-form-urlencoded';
+        return $this->httpPostRaw($path, $body, $requestHeaders);
     }
 
     /**
@@ -143,9 +145,10 @@ abstract class HttpApi
      */
     protected function httpPut($path, array $parameters = [], array $requestHeaders = [])
     {
+        $requestHeaders['Content-Type'] = 'application/x-www-form-urlencoded';
         try {
             $response = $this->httpClient->sendRequest(
-                $this->requestBuilder->create('PUT', $path, $requestHeaders, $this->createJsonBody($parameters))
+                $this->requestBuilder->create('PUT', $path, $requestHeaders, http_build_query($parameters))
             );
         } catch (HttplugException\NetworkException $e) {
             throw HttpServerException::networkError($e);
@@ -165,26 +168,15 @@ abstract class HttpApi
      */
     protected function httpDelete($path, array $parameters = [], array $requestHeaders = [])
     {
+        $requestHeaders['Content-Type'] = 'application/x-www-form-urlencoded';
         try {
             $response = $this->httpClient->sendRequest(
-                $this->requestBuilder->create('DELETE', $path, $requestHeaders, $this->createJsonBody($parameters))
+                $this->requestBuilder->create('DELETE', $path, $requestHeaders, http_build_query($parameters))
             );
         } catch (HttplugException\NetworkException $e) {
             throw HttpServerException::networkError($e);
         }
 
         return $response;
-    }
-
-    /**
-     * Create a JSON encoded version of an array of parameters.
-     *
-     * @param array $parameters Request parameters
-     *
-     * @return null|string
-     */
-    protected function createJsonBody(array $parameters)
-    {
-        return (count($parameters) === 0) ? null : json_encode($parameters, empty($parameters) ? JSON_FORCE_OBJECT : 0);
     }
 }

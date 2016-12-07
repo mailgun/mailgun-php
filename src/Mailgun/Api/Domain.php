@@ -49,7 +49,7 @@ class Domain extends HttpApi
 
         $response = $this->httpGet('/v3/domains', $params);
 
-        return $this->deserializer->deserialize($response, IndexResponse::class);
+        return $this->safeDeserialize($response, IndexResponse::class);
     }
 
     /**
@@ -65,7 +65,7 @@ class Domain extends HttpApi
 
         $response = $this->httpGet(sprintf('/v3/domains/%s', $domain));
 
-        return $this->deserializer->deserialize($response, ShowResponse::class);
+        return $this->safeDeserialize($response, ShowResponse::class);
     }
 
     /**
@@ -114,7 +114,7 @@ class Domain extends HttpApi
 
         $response = $this->httpDelete(sprintf('/v3/domains/%s', $domain));
 
-        return $this->deserializer->deserialize($response, DeleteResponse::class);
+        return $this->safeDeserialize($response, DeleteResponse::class);
     }
 
     /**
@@ -165,7 +165,7 @@ class Domain extends HttpApi
 
         $response = $this->httpPost(sprintf('/v3/domains/%s/credentials', $domain), $params);
 
-        return $this->deserializer->deserialize($response, CreateCredentialResponse::class);
+        return $this->safeDeserialize($response, CreateCredentialResponse::class);
     }
 
     /**
@@ -190,7 +190,7 @@ class Domain extends HttpApi
 
         $response = $this->httpPut(sprintf('/v3/domains/%s/credentials/%s', $domain, $login), $params);
 
-        return $this->deserializer->deserialize($response, UpdateCredentialResponse::class);
+        return $this->safeDeserialize($response, UpdateCredentialResponse::class);
     }
 
     /**
@@ -214,7 +214,7 @@ class Domain extends HttpApi
             )
         );
 
-        return $this->deserializer->deserialize($response, DeleteCredentialResponse::class);
+        return $this->safeDeserialize($response, DeleteCredentialResponse::class);
     }
 
     /**
@@ -230,7 +230,7 @@ class Domain extends HttpApi
 
         $response = $this->httpGet(sprintf('/v3/domains/%s/connection', $domain));
 
-        return $this->deserializer->deserialize($response, ConnectionResponse::class);
+        return $this->safeDeserialize($response, ConnectionResponse::class);
     }
 
     /**
@@ -261,6 +261,6 @@ class Domain extends HttpApi
 
         $response = $this->httpPut(sprintf('/v3/domains/%s/connection', $domain), $params);
 
-        return $this->deserializer->deserialize($response, UpdateConnectionResponse::class);
+        return $this->safeDeserialize($response, UpdateConnectionResponse::class);
     }
 }
