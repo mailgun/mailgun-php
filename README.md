@@ -81,61 +81,35 @@ $mg->get("$domain/log", array('limit' => 25,
 
 ### Response
 
-The results, provided by the endpoint, are returned as an object, which you 
-can traverse like an array. 
-
-Example: 
-
+The results of a API call is, by default, a domain object. This will make it easy
+to understand the response without reading the documentation. One can just read the
+doc blocks on the response classes. This provide an excellet IDE integration.
+ 
 ```php
 $mg = new Mailgun("key-example");
-$domain = "example.com";
+$dns = $mg->domains()->show('example.com')->getInboundDNSRecords();
 
-$result = $mg->get("$domain/log", array('limit' => 25, 
-                                        'skip'  => 0));
-
-$httpResponseCode = $result->http_response_code;
-$httpResponseBody = $result->http_response_body;
-
-# Iterate through the results and echo the message IDs.
-$logItems = $result->http_response_body->items;
-foreach($logItems as $logItem){
-    echo $logItem->message_id . "\n";
+foreach ($dns as $record) {
+  echo $record->getType();
 }
 ```
 
-Example Contents:  
-**$httpResponseCode** will contain an integer. You can find how we use HTTP response 
-codes in our documentation: 
-http://documentation.mailgun.com/api-intro.html?highlight=401#errors
+If you rather be working with array then object you can inject the `ArrayDeserializer`
+to the Mailgun class. 
 
-**$httpResponseBody** will contain an object of the API response. In the above 
-example, a var_dump($result) would contain the following: 
+```php
+use Mailgun\Deserializer\ArrayDeserializer;
 
-```
-object(stdClass)#26 (2) {
-["http_response_body"]=>
-  object(stdClass)#26 (2) {
-    ["total_count"]=>
-    int(12)
-    ["items"]=>
-    array(1) {
-      [0]=>
-      object(stdClass)#31 (5) {
-        ["hap"]=>
-        string(9) "delivered"
-        ["created_at"]=>
-        string(29) "Tue, 20 Aug 2013 20:24:34 GMT"
-        ["message"]=>
-        string(66) "Delivered: me@samples.mailgun.org → travis@mailgunhq.com 'Hello'"
-        ["type"]=>
-        string(4) "info"
-        ["message_id"]=>
-        string(46) "20130820202406.24739.21973@samples.mailgun.org"
-      }
-    }
-  }
+$mg = new Mailgun("key-example", null, null, new ArrayDeserializer());
+$data = $mg->domains()->show('example.com');
+
+foreach ($data['receiving_dns_records'] as $record) {
+  echo isset($record['record_type']) ? $record['record_type'] : null;
 }
 ```
+
+You could also use the `PSR7Deserializer` to get a PSR7 Response returned from 
+the API calls. 
 
 ### Debugging
 
