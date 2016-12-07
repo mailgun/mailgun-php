@@ -107,7 +107,7 @@ foreach ($data['receiving_dns_records'] as $record) {
 }
 ```
 
-You could also use the `PSR7Deserializer` to get a raw PSR7 Response returned from 
+You could also use the `PSR7Deserializer` to get a PSR7 Response returned from 
 the API calls. 
 
 ### Debugging
