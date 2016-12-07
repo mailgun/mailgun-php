@@ -2,6 +2,9 @@
 
 namespace Mailgun\Resource\Api\Event;
 
+/**
+ * @author Tobias Nyholm <tobias.nyholm@gmail.com>
+ */
 class Event
 {
     /**

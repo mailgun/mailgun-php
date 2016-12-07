@@ -6,8 +6,6 @@ use Mailgun\Resource\Api\PaginationResponse;
 use Mailgun\Resource\ApiResponse;
 
 /**
- *
- *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
 class EventResponse implements ApiResponse
