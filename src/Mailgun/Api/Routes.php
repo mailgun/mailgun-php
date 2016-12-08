@@ -9,6 +9,9 @@
 
 namespace Mailgun\Api;
 
+use Mailgun\Assert;
+use Mailgun\Resource\Api\Routes\Response\IndexResponse;
+
 /**
  * {@link https://documentation.mailgun.com/api-routes.html}.
  *
@@ -23,10 +26,21 @@ class Routes extends HttpApi
      * @param int $limit Maximum number of records to return. (100 by default)
      * @param int $skip  Number of records to skip. (0 by default)
      *
-     * @return
+     * @return IndexResponse
      */
     public function index($limit = 100, $skip = 0)
     {
+        Assert::integer($limit);
+        Assert::integer($skip);
+
+        $params = [
+            'limit' => $limit,
+            'skip' => $skip,
+        ];
+
+        $response = $this->httpGet('/v3/routes', $params);
+
+        return $this->safeDeserialize($response, IndexResponse::class);
     }
 
     /**
