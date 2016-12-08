@@ -11,6 +11,7 @@ namespace Mailgun\Api;
 
 use Mailgun\Assert;
 use Mailgun\Resource\Api\Routes\Dto\RouteDto;
+use Mailgun\Resource\Api\Routes\Response\CreateResponse;
 use Mailgun\Resource\Api\Routes\Response\IndexResponse;
 use Mailgun\Resource\Api\Routes\Response\ShowResponse;
 
@@ -70,10 +71,25 @@ class Routes extends HttpApi
      * @param string $description An arbitrary string
      * @param int    $priority    Integer: smaller number indicates higher priority. Higher priority routes are handled first. Defaults to 0.
      *
-     * @return
+     * @return CreateResponse
      */
     public function create($expression, array $actions, $description, $priority = 0)
     {
+        Assert::string($expression);
+        Assert::isArray($actions);
+        Assert::string($description);
+        Assert::integer($priority);
+
+        $params = [
+            'priority' => $priority,
+            'expression' => $expression,
+            'action' => $actions,
+            'description' => $description,
+        ];
+
+        $response = $this->httpPost('/v3/routes', $params);
+
+        return $this->safeDeserialize($response, CreateResponse::class);
     }
 
     /**
