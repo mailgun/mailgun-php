@@ -12,6 +12,7 @@ namespace Mailgun\Api;
 use Mailgun\Assert;
 use Mailgun\Resource\Api\Routes\Dto\RouteDto;
 use Mailgun\Resource\Api\Routes\Response\CreateResponse;
+use Mailgun\Resource\Api\Routes\Response\DeleteResponse;
 use Mailgun\Resource\Api\Routes\Response\IndexResponse;
 use Mailgun\Resource\Api\Routes\Response\ShowResponse;
 
@@ -55,8 +56,7 @@ class Routes extends HttpApi
      */
     public function show($routeId)
     {
-        Assert::notEmpty($routeId);
-        Assert::string($routeId);
+        Assert::stringNotEmpty($routeId);
 
         $response = $this->httpGet(sprintf('/v3/routes/%s', $routeId));
 
@@ -110,8 +110,17 @@ class Routes extends HttpApi
 
     /**
      * Deletes a Route based on the ID.
+     *
+     * @param string $routeId Route ID returned by the Routes::index() method
+     *
+     * @return DeleteResponse
      */
-    public function delete()
+    public function delete($routeId)
     {
+        Assert::stringNotEmpty($routeId);
+
+        $response = $this->httpDelete(sprintf('/v3/routes/%s', $routeId));
+
+        return $this->safeDeserialize($response, DeleteResponse::class);
     }
 }
