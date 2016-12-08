@@ -16,4 +16,64 @@ namespace Mailgun\Api;
  */
 class Routes extends HttpApi
 {
+    /**
+     * Fetches the list of Routes. Note that Routes are defined globally,
+     * per account, not per domain as most of other API calls.
+     *
+     * @param int $limit Maximum number of records to return. (100 by default)
+     * @param int $skip  Number of records to skip. (0 by default)
+     *
+     * @return
+     */
+    public function index($limit = 100, $skip = 0)
+    {
+    }
+
+    /**
+     * Returns a single Route object based on its ID.
+     *
+     * @param string $routeId Route ID returned by the Routes::index() method
+     *
+     * @return
+     */
+    public function show($routeId)
+    {
+    }
+
+    /**
+     * Creates a new Route.
+     *
+     * @param string $expression  A filter expression like "match_recipient('.*@gmail.com')"
+     * @param array  $actions     Route action. This action is executed when the expression evaluates to True. Example: "forward('alice@example.com')"
+     * @param string $description An arbitrary string
+     * @param int    $priority    Integer: smaller number indicates higher priority. Higher priority routes are handled first. Defaults to 0.
+     *
+     * @return
+     */
+    public function create($expression, array $actions, $description, $priority = 0)
+    {
+    }
+
+    /**
+     * Updates a given Route by ID. All parameters are optional.
+     * This API call only updates the specified fields leaving others unchanged.
+     *
+     * @param string      $routeId     Route ID returned by the Routes::index() method
+     * @param string|null $expression  A filter expression like "match_recipient('.*@gmail.com')"
+     * @param array|null  $actions     Route action. This action is executed when the expression evaluates to True. Example: "forward('alice@example.com')"
+     * @param string|null $description An arbitrary string
+     * @param int|null    $priority    Integer: smaller number indicates higher priority. Higher priority routes are handled first. Defaults to 0.
+     *
+     * @return
+     */
+    public function update($routeId, $expression = null, array $actions = null, $description = null, $priority = null)
+    {
+    }
+
+    /**
+     * Deletes a Route based on the ID.
+     */
+    public function delete()
+    {
+    }
 }
