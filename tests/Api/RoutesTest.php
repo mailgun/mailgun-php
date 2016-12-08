@@ -14,6 +14,9 @@ namespace Mailgun\Tests\Api;
  */
 class RoutesTest extends TestCase
 {
+    /**
+     * {@inheritdoc}
+     */
     protected function getApiClass()
     {
         return 'Mailgun\Api\Routes';
