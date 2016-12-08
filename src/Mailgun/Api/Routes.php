@@ -15,6 +15,7 @@ use Mailgun\Resource\Api\Routes\Response\CreateResponse;
 use Mailgun\Resource\Api\Routes\Response\DeleteResponse;
 use Mailgun\Resource\Api\Routes\Response\IndexResponse;
 use Mailgun\Resource\Api\Routes\Response\ShowResponse;
+use Mailgun\Resource\Api\Routes\Response\UpdateResponse;
 
 /**
  * {@link https://documentation.mailgun.com/api-routes.html}.
@@ -102,10 +103,38 @@ class Routes extends HttpApi
      * @param string|null $description An arbitrary string
      * @param int|null    $priority    Integer: smaller number indicates higher priority. Higher priority routes are handled first. Defaults to 0.
      *
-     * @return
+     * @return UpdateResponse
      */
     public function update($routeId, $expression = null, array $actions = null, $description = null, $priority = null)
     {
+        Assert::stringNotEmpty($routeId);
+
+        $params = [];
+
+        if (is_string($expression) && 0 < strlen($expression)) {
+            $params['expression'] = trim($expression);
+        }
+
+        if (is_array($actions)) {
+            foreach ($actions as $action) {
+                Assert::stringNotEmpty($action);
+
+                $params['action'] = isset($params['action']) ? $params['action'] : [];
+                $params['action'][] = $action;
+            }
+        }
+
+        if (is_string($description) && 0 < strlen($description)) {
+            $params['description'] = trim($description);
+        }
+
+        if (is_int($priority)) {
+            $params['priority'] = $priority;
+        }
+
+        $response = $this->httpPut(sprintf('/v3/routes/%s', $routeId), $params);
+
+        return $this->safeDeserialize($response, UpdateResponse::class);
     }
 
     /**
