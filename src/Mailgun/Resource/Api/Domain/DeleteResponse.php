@@ -28,6 +28,7 @@ final class DeleteResponse implements ApiResponse
 
     /**
      * @param string $message
+     * @param string $error
      */
     private function __construct($message, $error)
     {
