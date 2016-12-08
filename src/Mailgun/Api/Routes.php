@@ -10,7 +10,9 @@
 namespace Mailgun\Api;
 
 use Mailgun\Assert;
+use Mailgun\Resource\Api\Routes\Dto\RouteDto;
 use Mailgun\Resource\Api\Routes\Response\IndexResponse;
+use Mailgun\Resource\Api\Routes\Response\ShowResponse;
 
 /**
  * {@link https://documentation.mailgun.com/api-routes.html}.
@@ -48,10 +50,16 @@ class Routes extends HttpApi
      *
      * @param string $routeId Route ID returned by the Routes::index() method
      *
-     * @return
+     * @return RouteDto
      */
     public function show($routeId)
     {
+        Assert::notEmpty($routeId);
+        Assert::string($routeId);
+
+        $response = $this->httpGet(sprintf('/v3/routes/%s', $routeId));
+
+        return $this->safeDeserialize($response, ShowResponse::class);
     }
 
     /**
