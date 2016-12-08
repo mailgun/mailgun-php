@@ -15,7 +15,7 @@ use Mailgun\Resource\ApiResponse;
 /**
  * @author David Garcia <me@davidgarcia.cat>
  */
-class ShowResponse implements ApiResponse
+final class ShowResponse implements ApiResponse
 {
     /**
      * Create an API response object from the HTTP response from the API server.
