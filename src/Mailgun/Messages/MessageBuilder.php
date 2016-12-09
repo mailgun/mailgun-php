@@ -142,6 +142,9 @@ class MessageBuilder
         if ($this->counters['recipients']['to'] > Api::RECIPIENT_COUNT_LIMIT) {
             throw new TooManyParameters(ExceptionMessages::TOO_MANY_PARAMETERS_RECIPIENT);
         }
+
+        $variables = is_array($variables) ? $variables : [];
+
         $this->addRecipient('to', $address, $variables);
 
         return end($this->message['to']);
@@ -160,6 +163,9 @@ class MessageBuilder
         if ($this->counters['recipients']['cc'] > Api::RECIPIENT_COUNT_LIMIT) {
             throw new TooManyParameters(ExceptionMessages::TOO_MANY_PARAMETERS_RECIPIENT);
         }
+
+        $variables = is_array($variables) ? $variables : [];
+
         $this->addRecipient('cc', $address, $variables);
 
         return end($this->message['cc']);
@@ -178,6 +184,9 @@ class MessageBuilder
         if ($this->counters['recipients']['bcc'] > Api::RECIPIENT_COUNT_LIMIT) {
             throw new TooManyParameters(ExceptionMessages::TOO_MANY_PARAMETERS_RECIPIENT);
         }
+
+        $variables = is_array($variables) ? $variables : [];
+
         $this->addRecipient('bcc', $address, $variables);
 
         return end($this->message['bcc']);
@@ -191,6 +200,8 @@ class MessageBuilder
      */
     public function setFromAddress($address, $variables = null)
     {
+        $variables = is_array($variables) ? $variables : [];
+
         $this->addRecipient('from', $address, $variables);
 
         return $this->message['from'];
@@ -204,6 +215,8 @@ class MessageBuilder
      */
     public function setReplyToAddress($address, $variables = null)
     {
+        $variables = is_array($variables) ? $variables : [];
+
         $this->addRecipient('h:reply-to', $address, $variables);
 
         return $this->message['h:reply-to'];

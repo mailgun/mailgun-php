@@ -270,7 +270,6 @@ class RestClient
     protected function prepareFile($fieldName, $filePath, $fileIndex = 0)
     {
         $filename = null;
-        $resource = null;
 
         if (is_array($filePath) && isset($filePath['fileContent'])) {
             // File from memory
@@ -316,7 +315,7 @@ class RestClient
     }
 
     /**
-     * @param $uri
+     * @param string $uri
      *
      * @return string
      */

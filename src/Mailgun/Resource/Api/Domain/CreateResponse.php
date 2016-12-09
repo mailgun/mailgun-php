@@ -82,6 +82,7 @@ final class CreateResponse implements ApiResponse
         $this->domain = $domainInfo;
         $this->inboundDnsRecords = $rxRecords;
         $this->outboundDnsRecords = $txRecords;
+        $this->message = $message;
     }
 
     /**

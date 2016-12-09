@@ -339,14 +339,6 @@ class ShowResponse implements ApiResponse
     }
 
     /**
-     * @param array $attachments
-     */
-    private function setAttachments(array $attachments)
-    {
-        $this->attachments = $attachments;
-    }
-
-    /**
      * @return string
      */
     public function getMessageUrl()
@@ -368,14 +360,6 @@ class ShowResponse implements ApiResponse
     public function getContentIdMap()
     {
         return $this->contentIdMap;
-    }
-
-    /**
-     * @param string $contentIdMap
-     */
-    private function setContentIdMap($contentIdMap)
-    {
-        $this->contentIdMap = $contentIdMap;
     }
 
     /**
