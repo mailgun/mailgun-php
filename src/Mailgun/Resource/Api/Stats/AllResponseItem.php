@@ -96,7 +96,7 @@ final class AllResponseItem
     }
 
     /**
-     * @return \string[]
+     * @return string[]
      */
     public function getTags()
     {
