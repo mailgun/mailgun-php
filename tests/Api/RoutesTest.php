@@ -14,11 +14,36 @@ namespace Mailgun\Tests\Api;
  */
 class RoutesTest extends TestCase
 {
+    protected function setUp()
+    {
+        $this->markTestSkipped('Routes API tests not implemented yet.');
+    }
+
     /**
      * {@inheritdoc}
      */
     protected function getApiClass()
     {
         return 'Mailgun\Api\Routes';
+    }
+
+    public function testGetRoutesCollection()
+    {
+    }
+
+    public function testGetRoutesResource()
+    {
+    }
+
+    public function testPostRouteResource()
+    {
+    }
+
+    public function testUpdateRouteResource()
+    {
+    }
+
+    public function testDeleteRouteResource()
+    {
     }
 }
