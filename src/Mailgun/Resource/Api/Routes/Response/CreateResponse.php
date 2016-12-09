@@ -41,8 +41,8 @@ final class CreateResponse implements ApiResponse
     /**
      * CreateResponse Private Constructor.
      *
-     * @param string|null   $message
-     * @param Route|null $route
+     * @param string|null $message
+     * @param Route|null  $route
      */
     private function __construct($message = null, Route $route = null)
     {

@@ -84,7 +84,7 @@ final class Route
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getId()
     {
@@ -92,7 +92,7 @@ final class Route
     }
 
     /**
-     * @return mixed
+     * @return Action[]
      */
     public function getActions()
     {
@@ -100,7 +100,7 @@ final class Route
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getDescription()
     {
@@ -108,7 +108,7 @@ final class Route
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getFilter()
     {
@@ -116,7 +116,7 @@ final class Route
     }
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getPriority()
     {
@@ -124,7 +124,7 @@ final class Route
     }
 
     /**
-     * @return mixed
+     * @return \DateTime
      */
     public function getCreatedAt()
     {

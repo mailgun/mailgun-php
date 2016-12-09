@@ -50,7 +50,7 @@ final class IndexResponse implements ApiResponse
     }
 
     /**
-     * @param int        $totalCount
+     * @param int     $totalCount
      * @param Route[] $items
      */
     private function __construct($totalCount, array $items)
