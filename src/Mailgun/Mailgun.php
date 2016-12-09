@@ -277,6 +277,9 @@ class Mailgun
         return new Api\Event($this->httpClient, $this->requestBuilder, $this->deserializer);
     }
 
+    /**
+     * @return Api\Routes
+     */
     public function routes()
     {
         return new Api\Routes($this->httpClient, $this->requestBuilder, $this->deserializer);
