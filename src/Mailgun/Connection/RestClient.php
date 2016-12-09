@@ -315,7 +315,7 @@ class RestClient
     }
 
     /**
-     * @param $uri
+     * @param string $uri
      *
      * @return string
      */
