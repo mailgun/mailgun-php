@@ -12,7 +12,7 @@ namespace Mailgun\Resource\Api\Routes\Dto;
 /**
  * @author David Garcia <me@davidgarcia.cat>
  */
-final class ActionDto
+final class Action
 {
     /**
      * @var string
@@ -20,11 +20,11 @@ final class ActionDto
     private $action;
 
     /**
-     * ActionDto Named Constructor to build several Action DTOs provided by an Array.
+     * Action Named Constructor to build several Action DTOs provided by an Array.
      *
      * @param array $data
      *
-     * @return ActionDto[]
+     * @return Action[]
      */
     public static function createMultiple(array $data)
     {
@@ -38,7 +38,7 @@ final class ActionDto
     }
 
     /**
-     * ActionDto Private Constructor.
+     * Action Private Constructor.
      *
      * @param $action
      */

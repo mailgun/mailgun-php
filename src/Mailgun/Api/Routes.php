@@ -10,7 +10,6 @@
 namespace Mailgun\Api;
 
 use Mailgun\Assert;
-use Mailgun\Resource\Api\Routes\Dto\RouteDto;
 use Mailgun\Resource\Api\Routes\Response\CreateResponse;
 use Mailgun\Resource\Api\Routes\Response\DeleteResponse;
 use Mailgun\Resource\Api\Routes\Response\IndexResponse;

@@ -9,7 +9,7 @@
 
 namespace Mailgun\Resource\Api\Routes\Response;
 
-use Mailgun\Resource\Api\Routes\Dto\RouteDto;
+use Mailgun\Resource\Api\Routes\Dto\Route;
 use Mailgun\Resource\ApiResponse;
 
 /**
@@ -23,7 +23,7 @@ final class CreateResponse implements ApiResponse
     private $message;
 
     /**
-     * @var RouteDto
+     * @var Route
      */
     private $route;
 
@@ -33,7 +33,7 @@ final class CreateResponse implements ApiResponse
     public static function create(array $data)
     {
         $message = isset($data['message']) ? $data['message'] : null;
-        $route = isset($data['route']) ? RouteDto::create($data['route']) : null;
+        $route = isset($data['route']) ? Route::create($data['route']) : null;
 
         return new self($message, $route);
     }
@@ -42,9 +42,9 @@ final class CreateResponse implements ApiResponse
      * CreateResponse Private Constructor.
      *
      * @param string|null   $message
-     * @param RouteDto|null $route
+     * @param Route|null $route
      */
-    private function __construct($message = null, RouteDto $route = null)
+    private function __construct($message = null, Route $route = null)
     {
         $this->message = $message;
         $this->route = $route;
@@ -59,7 +59,7 @@ final class CreateResponse implements ApiResponse
     }
 
     /**
-     * @return RouteDto
+     * @return Route
      */
     public function getRoute()
     {

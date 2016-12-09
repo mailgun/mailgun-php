@@ -12,7 +12,7 @@ namespace Mailgun\Resource\Api\Routes\Dto;
 /**
  * @author David Garcia <me@davidgarcia.cat>
  */
-final class RouteDto
+final class Route
 {
     /**
      * @var string
@@ -30,7 +30,7 @@ final class RouteDto
     private $filter;
 
     /**
-     * @var ActionDto[]
+     * @var Action[]
      */
     private $actions;
 
@@ -45,11 +45,11 @@ final class RouteDto
     private $createdAt;
 
     /**
-     * RouteDto Named Constructor.
+     * Route Named Constructor.
      *
      * @param array $data
      *
-     * @return RouteDto
+     * @return Route
      */
     public static function create(array $data)
     {
@@ -64,7 +64,7 @@ final class RouteDto
     }
 
     /**
-     * RouteDto Private Constructor.
+     * Route Private Constructor.
      *
      * @param string    $id
      * @param int       $priority
@@ -78,7 +78,7 @@ final class RouteDto
         $this->id = $id;
         $this->priority = $priority;
         $this->filter = $expression;
-        $this->actions = ActionDto::createMultiple($actions);
+        $this->actions = Action::createMultiple($actions);
         $this->description = $description;
         $this->createdAt = $createdAt;
     }

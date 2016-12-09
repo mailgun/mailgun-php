@@ -9,7 +9,7 @@
 
 namespace Mailgun\Resource\Api\Routes\Response;
 
-use Mailgun\Resource\Api\Routes\Dto\RouteDto;
+use Mailgun\Resource\Api\Routes\Dto\Route;
 use Mailgun\Resource\ApiResponse;
 
 /**
@@ -23,7 +23,7 @@ final class IndexResponse implements ApiResponse
     private $totalCount;
 
     /**
-     * @var RouteDto[]
+     * @var Route[]
      */
     private $items;
 
@@ -36,7 +36,7 @@ final class IndexResponse implements ApiResponse
 
         if (isset($data['items'])) {
             foreach ($data['items'] as $item) {
-                $items[] = RouteDto::create($item);
+                $items[] = Route::create($item);
             }
         }
 
@@ -51,7 +51,7 @@ final class IndexResponse implements ApiResponse
 
     /**
      * @param int        $totalCount
-     * @param RouteDto[] $items
+     * @param Route[] $items
      */
     private function __construct($totalCount, array $items)
     {
@@ -68,7 +68,7 @@ final class IndexResponse implements ApiResponse
     }
 
     /**
-     * @return RouteDto[]
+     * @return Route[]
      */
     public function getRoutes()
     {
