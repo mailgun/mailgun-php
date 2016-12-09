@@ -32,7 +32,7 @@ abstract class HttpApi
     /**
      * @var ResponseDeserializer
      */
-    protected $serializer;
+    protected $deserializer;
 
     /**
      * @var RequestBuilder
