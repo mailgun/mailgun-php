@@ -14,7 +14,7 @@ use Mailgun\Resource\ApiResponse;
 /**
  * @author David Garcia <me@davidgarcia.cat>
  */
-class UpdateResponse implements ApiResponse
+final class UpdateResponse implements ApiResponse
 {
     /**
      * @var string
