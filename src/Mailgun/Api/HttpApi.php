@@ -59,7 +59,7 @@ abstract class HttpApi
      * @param ResponseInterface $response
      * @param string            $className
      *
-     * @return $class|SimpleResponse
+     * @return object $class
      */
     protected function safeDeserialize(ResponseInterface $response, $className)
     {
