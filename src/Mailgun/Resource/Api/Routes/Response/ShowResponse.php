@@ -18,18 +18,37 @@ use Mailgun\Resource\ApiResponse;
 final class ShowResponse implements ApiResponse
 {
     /**
-     * Create an API response object from the HTTP response from the API server.
-     *
-     * @param array $data
-     *
-     * @return RouteDto
+     * @var RouteDto|null
+     */
+    private $route;
+
+    /**
+     * {@inheritdoc}
      */
     public static function create(array $data)
     {
         if (isset($data['route'])) {
-            return RouteDto::create($data['route']);
+            return new self(RouteDto::create($data['route']));
         }
 
-        return RouteDto::create([]);
+        return new self();
+    }
+
+    /**
+     * ShowResponse constructor.
+     *
+     * @param RouteDto|null $route
+     */
+    private function __construct(RouteDto $route = null)
+    {
+        $this->route = $route;
+    }
+
+    /**
+     * @return RouteDto|null
+     */
+    public function getRoute()
+    {
+        return $this->route;
     }
 }
