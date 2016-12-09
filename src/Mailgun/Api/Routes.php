@@ -25,8 +25,7 @@ use Mailgun\Resource\Api\Routes\Response\UpdateResponse;
 class Routes extends HttpApi
 {
     /**
-     * Fetches the list of Routes. Note that Routes are defined globally,
-     * per account, not per domain as most of other API calls.
+     * Fetches the list of Routes.
      *
      * @param int $limit Maximum number of records to return. (100 by default)
      * @param int $skip  Number of records to skip. (0 by default)
