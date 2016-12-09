@@ -7,12 +7,12 @@
  * of the MIT license. See the LICENSE file for details.
  */
 
-namespace Mailgun\Resource\Api\Domain;
+namespace Mailgun\Resource\Api\Routes\Response;
 
 use Mailgun\Resource\ApiResponse;
 
 /**
- * @author Tobias Nyholm <tobias.nyholm@gmail.com>
+ * @author David Garcia <me@davidgarcia.cat>
  */
 final class DeleteResponse implements ApiResponse
 {
@@ -27,16 +27,6 @@ final class DeleteResponse implements ApiResponse
     private $error;
 
     /**
-     * @param string $message
-     * @param string $error
-     */
-    private function __construct($message, $error)
-    {
-        $this->message = $message;
-        $this->error = $error;
-    }
-
-    /**
      * @param array $data
      *
      * @return self
@@ -47,6 +37,16 @@ final class DeleteResponse implements ApiResponse
             isset($data['message']) ? $data['message'] : null,
             isset($data['error']) ? $data['error'] : null
         );
+    }
+
+    /**
+     * @param string $message
+     * @param string $error
+     */
+    private function __construct($message, $error)
+    {
+        $this->message = $message;
+        $this->error = $error;
     }
 
     /**

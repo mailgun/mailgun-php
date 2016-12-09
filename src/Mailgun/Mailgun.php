@@ -278,6 +278,14 @@ class Mailgun
     }
 
     /**
+     * @return Api\Routes
+     */
+    public function routes()
+    {
+        return new Api\Routes($this->httpClient, $this->requestBuilder, $this->deserializer);
+    }
+
+    /**
      * @return Api\Webhook
      */
     public function webhooks()
