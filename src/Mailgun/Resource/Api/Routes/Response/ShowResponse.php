@@ -9,7 +9,7 @@
 
 namespace Mailgun\Resource\Api\Routes\Response;
 
-use Mailgun\Resource\Api\Routes\Dto\Route;
+use Mailgun\Resource\Api\Routes\Route;
 use Mailgun\Resource\ApiResponse;
 
 /**

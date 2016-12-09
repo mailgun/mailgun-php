@@ -7,7 +7,7 @@
  * of the MIT license. See the LICENSE file for details.
  */
 
-namespace Mailgun\Resource\Api\Routes\Dto;
+namespace Mailgun\Resource\Api\Routes;
 
 /**
  * @author David Garcia <me@davidgarcia.cat>
