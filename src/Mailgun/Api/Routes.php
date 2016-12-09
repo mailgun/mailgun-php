@@ -54,7 +54,7 @@ class Routes extends HttpApi
      *
      * @param string $routeId Route ID returned by the Routes::index() method
      *
-     * @return RouteDto
+     * @return ShowResponse
      */
     public function show($routeId)
     {
