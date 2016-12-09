@@ -78,7 +78,7 @@ class BatchMessage extends MessageBuilder
     {
         if (array_key_exists($headerName, $this->counters['recipients'])) {
             if ($this->counters['recipients'][$headerName] == Api::RECIPIENT_COUNT_LIMIT) {
-                if ($this->autoSend == false) {
+                if (false === $this->autoSend) {
                     throw new TooManyParameters(ExceptionMessages::TOO_MANY_RECIPIENTS);
                 }
                 $this->sendMessage();
