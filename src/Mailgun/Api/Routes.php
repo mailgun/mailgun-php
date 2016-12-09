@@ -109,10 +109,14 @@ class Routes extends HttpApi
     public function update($routeId, $expression = null, array $actions = [], $description = null, $priority = null)
     {
         Assert::stringNotEmpty($routeId);
+        Assert::nullOrString($expression);
+        Assert::isArray($actions);
+        Assert::nullOrString($description);
+        Assert::nullOrInteger($priority);
 
         $params = [];
 
-        if (is_string($expression) && 0 < strlen($expression)) {
+        if (!empty($expression)) {
             $params['expression'] = trim($expression);
         }
 
@@ -123,11 +127,11 @@ class Routes extends HttpApi
             $params['action'][] = $action;
         }
 
-        if (is_string($description) && 0 < strlen($description)) {
+        if (!empty($description)) {
             $params['description'] = trim($description);
         }
 
-        if (is_int($priority)) {
+        if (!empty($priority)) {
             $params['priority'] = $priority;
         }
 
