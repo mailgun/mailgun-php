@@ -59,28 +59,28 @@ final class RouteDto
             isset($data['expression']) ? $data['expression'] : null,
             isset($data['actions']) ? $data['actions'] : [],
             isset($data['description']) ? $data['description'] : null,
-            isset($data['created_at']) ? $data['created_at'] : null
+            isset($data['created_at']) ? new \DateTime($data['created_at']) : null
         );
     }
 
     /**
      * RouteDto Private Constructor.
      *
-     * @param string $id
-     * @param int    $priority
-     * @param string $expression
-     * @param array  $actions
-     * @param string $description
-     * @param string $createdAt
+     * @param string    $id
+     * @param int       $priority
+     * @param string    $expression
+     * @param array     $actions
+     * @param string    $description
+     * @param \DateTime $createdAt
      */
-    private function __construct($id, $priority, $expression, $actions, $description, $createdAt)
+    private function __construct($id, $priority, $expression, $actions, $description, \DateTime $createdAt = null)
     {
         $this->id = $id;
         $this->priority = $priority;
         $this->filter = $expression;
         $this->actions = ActionDto::createMultiple($actions);
         $this->description = $description;
-        $this->createdAt = !is_null($createdAt) ? new \DateTime($createdAt) : $createdAt;
+        $this->createdAt = $createdAt;
     }
 
     /**
