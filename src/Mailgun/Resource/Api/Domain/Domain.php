@@ -72,7 +72,7 @@ final class Domain
     /**
      * @param string    $name
      * @param string    $smtpLogin
-     * @param string    $smtpPass
+     * @param string    $smtpPassword
      * @param bool      $wildcard
      * @param string    $spamAction
      * @param string    $state
