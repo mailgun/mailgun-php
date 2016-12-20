@@ -133,7 +133,6 @@ class MessageBuilderTest extends \Mailgun\Tests\MailgunTestCase
         $message->addCustomHeader('My-Header', '123');
         $messageObj = $message->getMessage();
         $this->assertEquals(['h:My-Header' => '123'], $messageObj);
-
     }
 
     public function testAddMultipleCustomHeader()
