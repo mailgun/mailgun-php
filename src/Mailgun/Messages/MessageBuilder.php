@@ -248,7 +248,16 @@ class MessageBuilder
         if (!preg_match('/^h:/i', $headerName)) {
             $headerName = 'h:'.$headerName;
         }
-        $this->message[$headerName] = [$headerData];
+
+        if (array_key_exists($headerName, $this->message)) {
+            if (is_array($this->message[$headerName])) {
+                $this->message[$headerName][] = $headerData;
+            } else {
+                $this->message[$headerName] = [$this->message[$headerName], $headerData];
+            }
+        } else {
+            $this->message[$headerName] = $headerData;
+        }
 
         return $this->message[$headerName];
     }
