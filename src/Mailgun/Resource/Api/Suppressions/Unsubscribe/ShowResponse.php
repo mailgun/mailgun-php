@@ -99,4 +99,3 @@ class ShowResponse implements ApiResponse
         $this->created_at = $created_at;
     }
 }
-
