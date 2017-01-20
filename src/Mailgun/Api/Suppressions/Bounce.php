@@ -10,12 +10,10 @@
 namespace Mailgun\Api;
 
 use Mailgun\Assert;
-use Mailgun\Api\Pagination;
 use Mailgun\Resource\Api\Suppressions\Bounce\CreateResponse;
 use Mailgun\Resource\Api\Suppressions\Bounce\DeleteResponse;
 use Mailgun\Resource\Api\Suppressions\Bounce\IndexResponse;
 use Mailgun\Resource\Api\Suppressions\Bounce\ShowResponse;
-use Mailgun\Resource\Api\Suppressions\Bounce\UpdateResponse;
 
 /**
  * @author Sean Johnson <sean@mailgun.com>
@@ -72,8 +70,8 @@ class Bounce extends HttpApi
             'address' => $address,
         ];
 
-        foreach ([ 'code' => $code, 'error' => $error, 'created_at' => $createdAt ] as $k => $v) {
-            if ( !empty($v) ) {
+        foreach (['code' => $code, 'error' => $error, 'created_at' => $createdAt] as $k => $v) {
+            if (!empty($v)) {
                 $params[$k] = $v;
             }
         }
