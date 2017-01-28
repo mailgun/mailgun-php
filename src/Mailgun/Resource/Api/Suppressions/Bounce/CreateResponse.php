@@ -14,6 +14,6 @@ use Mailgun\Resource\Api\Suppressions\BaseResponse;
 /**
  * @author Sean Johnson <sean@mailgun.com>
  */
-class CreateResponse extends BaseResponse
+final class CreateResponse extends BaseResponse
 {
 }

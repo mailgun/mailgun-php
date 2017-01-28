@@ -16,6 +16,8 @@ use Mailgun\Resource\Api\Suppressions\Bounce\IndexResponse;
 use Mailgun\Resource\Api\Suppressions\Bounce\ShowResponse;
 
 /**
+ * @see https://documentation.mailgun.com/api-suppressions.html#bounces
+ *
  * @author Sean Johnson <sean@mailgun.com>
  */
 class Bounce extends HttpApi
@@ -23,14 +25,16 @@ class Bounce extends HttpApi
     use Pagination;
 
     /**
-     * @param string $domain
+     * @param string $domain Domain to list bounces for
+     * @param int    $limit  optional
      *
      * @return IndexResponse
      */
     public function index($domain, $limit = 100)
     {
+        Assert::string($domain);
         Assert::notEmpty($domain);
-        Assert::range($limit, 1, 10000, 'Limit parameter must be between 1 and 10000');
+        Assert::range($limit, 1, 10000, '"Limit" parameter must be between 1 and 10000');
 
         $params = [
             'limit' => $limit,
@@ -42,43 +46,43 @@ class Bounce extends HttpApi
     }
 
     /**
-     * @param string $domain
-     * @param string $address
+     * @param string $domain  Domain to show bounce from
+     * @param string $address Bounce address to show
      *
      * @return ShowResponse
      */
     public function show($domain, $address)
     {
+        Assert::string($domain);
+        Assert::string($address);
         Assert::notEmpty($domain);
         Assert::notEmpty($address);
+
         $response = $this->httpGet(sprintf('/v3/%s/bounces/%s', $domain, $address));
 
         return $this->safeDeserialize($response, ShowResponse::class);
     }
 
     /**
-     * @param string         $domain
-     * @param string         $address
-     * @param string|null    $code      optional
-     * @param string|null    $error     optional
-     * @param \DateTime|null $createdAt optional
+     * @param string $domain  Domain to create a bounce for
+     * @param string $address Address to create a bounce for
+     * @param array  $params  optional
+     *
+     * $params may optionally contain:
+     *   ['code']      => (string)
+     *   ['error']     => (string)
+     *   ['createdAt'] => (\DateTime)
      *
      * @return CreateResponse
      */
-    public function create($domain, $address, $code = null, $error = null, $createdAt = null)
+    public function create($domain, $address, array $params = [])
     {
+        Assert::string($domain);
+        Assert::string($address);
         Assert::notEmpty($domain);
         Assert::notEmpty($address);
 
-        $params = [
-            'address' => $address,
-        ];
-
-        foreach (['code' => $code, 'error' => $error, 'created_at' => $createdAt] as $k => $v) {
-            if (!empty($v)) {
-                $params[$k] = $v;
-            }
-        }
+        $params['address'] = $address;
 
         $response = $this->httpPost(sprintf('/v3/%s/bounces', $domain), $params);
 
@@ -86,74 +90,35 @@ class Bounce extends HttpApi
     }
 
     /**
-     * @param string $domain
-     * @param string $address
+     * @param string $domain  Domain to delete a bounce for
+     * @param string $address Bounce address to delete
      *
      * @return DeleteResponse
      */
     public function delete($domain, $address)
     {
+        Assert::string($domain);
+        Assert::string($address);
         Assert::notEmpty($domain);
         Assert::notEmpty($address);
+
         $response = $this->httpDelete(sprintf('/v3/%s/bounces/%s', $domain, $address));
 
         return $this->safeDeserialize($response, DeleteResponse::class);
     }
 
     /**
-     * @param string $domain
+     * @param string $domain Domain to delete all bounces for
      *
      * @return DeleteResponse
      */
     public function deleteAll($domain)
     {
+        Assert::string($domain);
         Assert::notEmpty($domain);
+
         $response = $this->httpDelete(sprintf('/v3/%s/bounces', $domain));
 
         return $this->safeDeserialize($response, DeleteResponse::class);
-    }
-
-    /*
-     * INDEX PAGINATION
-     */
-
-    /**
-     * @param IndexResponse $index
-     *
-     * @return IndexResponse|null
-     */
-    public function getPaginationNext(IndexResponse $index)
-    {
-        return $this->getPaginationUrl($index->getNextUrl(), IndexResponse::class);
-    }
-
-    /**
-     * @param IndexResponse $index
-     *
-     * @return IndexResponse|null
-     */
-    public function getPaginationPrevious(IndexResponse $index)
-    {
-        return $this->getPaginationUrl($index->getPreviousUrl(), IndexResponse::class);
-    }
-
-    /**
-     * @param IndexResponse $index
-     *
-     * @return IndexResponse|null
-     */
-    public function getPaginationFirst(IndexResponse $index)
-    {
-        return $this->getPaginationUrl($index->getFirstUrl(), IndexResponse::class);
-    }
-
-    /**
-     * @param IndexResponse $index
-     *
-     * @return IndexResponse|null
-     */
-    public function getPaginationLast(IndexResponse $index)
-    {
-        return $this->getPaginationUrl($index->getLastUrl(), IndexResponse::class);
     }
 }

@@ -14,6 +14,8 @@ use Mailgun\Deserializer\ResponseDeserializer;
 use Mailgun\RequestBuilder;
 
 /**
+ * @see https://documentation.mailgun.com/api-suppressions.html
+ *
  * @author Sean Johnson <sean@mailgun.com>
  */
 class Suppressions

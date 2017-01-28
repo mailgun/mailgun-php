@@ -32,7 +32,7 @@ abstract class BaseResponse implements ApiResponse
      * @param string $address
      * @param string $message
      */
-    public function __construct($address, $message)
+    private function __construct($address, $message)
     {
         $this->address = $address;
         $this->message = $message;
