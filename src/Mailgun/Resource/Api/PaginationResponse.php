@@ -46,7 +46,7 @@ trait PaginationResponse
     /**
      * @return string
      */
-    public function getFistUrl()
+    public function getFirstUrl()
     {
         if (!isset($this->paging['first'])) {
             return;
