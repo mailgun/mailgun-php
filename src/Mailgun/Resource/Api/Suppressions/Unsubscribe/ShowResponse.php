@@ -14,7 +14,7 @@ use Mailgun\Resource\ApiResponse;
 /**
  * @author Sean Johnson <sean@mailgun.com>
  */
-class ShowResponse implements ApiResponse
+final class ShowResponse implements ApiResponse
 {
     /**
      * @var string
@@ -34,7 +34,7 @@ class ShowResponse implements ApiResponse
     /**
      * @param string $address
      */
-    public function __construct($address)
+    private function __construct($address)
     {
         $this->address = $address;
         $this->createdAt = new \DateTime();

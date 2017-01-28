@@ -9,13 +9,14 @@
 
 namespace Mailgun\Resource\Api\Suppressions\Complaint;
 
-use Mailgun\Resource\Api\PaginationResponse;
 use Mailgun\Resource\ApiResponse;
+use Mailgun\Resource\Api\PaginationResponse;
+use Mailgun\Resource\Api\PagingProvider;
 
 /**
  * @author Sean Johnson <sean@mailgun.com>
  */
-class IndexResponse implements ApiResponse
+final class IndexResponse implements ApiResponse, PagingProvider
 {
     use PaginationResponse;
 
@@ -28,7 +29,7 @@ class IndexResponse implements ApiResponse
      * @param Complaint[] $items
      * @param array       $paging
      */
-    public function __construct(array $items, array $paging)
+    private function __construct(array $items, array $paging)
     {
         $this->items = $items;
         $this->paging = $paging;

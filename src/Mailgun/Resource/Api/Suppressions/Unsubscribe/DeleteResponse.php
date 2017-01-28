@@ -14,6 +14,6 @@ use Mailgun\Resource\Api\Suppressions\BaseResponse;
 /**
  * @author Sean Johnson <sean@mailgun.com>
  */
-class DeleteResponse extends BaseResponse
+final class DeleteResponse extends BaseResponse
 {
 }
