@@ -95,17 +95,22 @@ class MessageBuilder
      *
      * @return string
      */
-    protected function parseAddress($address, $variables)
+    protected function parseAddress($address, $variables, $nonRecipient = false)
     {
         if (!is_array($variables)) {
             return $address;
         }
         $fullName = $this->getFullName($variables);
         if ($fullName != null) {
-            return "'$fullName' <$address>";
-        }
+            if ($nonRecipient === true) {
+                $fullName = preg_replace('/(?<!\\\)"/', '\"', $fullName);
+                return "\"$fullName\" <$address>";
+            }
+            $fullName = preg_replace('/(?<!\\\)"/', '\\\\\\\\\"', $fullName);
+            return '"\"'.$fullName.'\""'." <$address>";
+        }        
 
-        return $address;
+        return $address;      
     }
 
     /**
@@ -113,9 +118,9 @@ class MessageBuilder
      * @param string $address
      * @param array  $variables
      */
-    protected function addRecipient($headerName, $address, $variables)
+    protected function addRecipient($headerName, $address, $variables, $nonRecipient = false)
     {
-        $compiledAddress = $this->parseAddress($address, $variables);
+        $compiledAddress = $this->parseAddress($address, $variables, $nonRecipient);
 
         if (isset($this->message[$headerName])) {
             array_push($this->message[$headerName], $compiledAddress);
@@ -202,7 +207,7 @@ class MessageBuilder
     {
         $variables = is_array($variables) ? $variables : [];
 
-        $this->addRecipient('from', $address, $variables);
+        $this->addRecipient('from', $address, $variables, true);
 
         return $this->message['from'];
     }
@@ -217,7 +222,7 @@ class MessageBuilder
     {
         $variables = is_array($variables) ? $variables : [];
 
-        $this->addRecipient('h:reply-to', $address, $variables);
+        $this->addRecipient('h:reply-to', $address, $variables, true);
 
         return $this->message['h:reply-to'];
     }
