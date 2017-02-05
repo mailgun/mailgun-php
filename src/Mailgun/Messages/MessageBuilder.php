@@ -108,9 +108,9 @@ class MessageBuilder
             }
             $fullName = preg_replace('/(?<!\\\)"/', '\\\\\\\\\"', $fullName);
             return '"\"'.$fullName.'\""'." <$address>";
-        }        
+        }
 
-        return $address;      
+        return $address;
     }
 
     /**
