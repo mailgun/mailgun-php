@@ -104,9 +104,11 @@ class MessageBuilder
         if ($fullName != null) {
             if ($nonRecipient === true) {
                 $fullName = preg_replace('/(?<!\\\)"/', '\"', $fullName);
+
                 return "\"$fullName\" <$address>";
             }
             $fullName = preg_replace('/(?<!\\\)"/', '\\\\\\\\\"', $fullName);
+
             return '"\"'.$fullName.'\""'." <$address>";
         }
 
