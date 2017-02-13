@@ -49,4 +49,20 @@ class MailgunTest extends \Mailgun\Tests\MailgunTestCase
         $postData = [];
         assert(!$client->verifyWebhookSignature($postData));
     }
+
+    public function testGetAttachmentOk() {
+        $attachmentUrl = 'http://example.com';
+        $client = new Mailgun('key-3ax6xnjp29jd6fds4gc373sgvjxteol0');
+        $response = $client->getAttachment($attachmentUrl);
+
+        $this->assertInstanceOf('stdClass', $response);
+        $this->assertEquals($response->http_response_code, 200);
+    }
+
+    public function testGetAttachmentFail() {
+        $this->setExpectedException('\\Mailgun\\Connection\\Exceptions\\GenericHTTPError');
+        $attachmentUrl = 'https://api.mailgun.net/non.existing.uri/1/2/3';
+        $client = new Mailgun('key-3ax6xnjp29jd6fds4gc373sgvjxteol0');
+        $client->getAttachment($attachmentUrl);
+    }
 }
