@@ -109,6 +109,25 @@ class RestClient
     }
 
     /**
+     * @param string $url
+     *
+     * @throws GenericHTTPError
+     * @throws InvalidCredentials
+     * @throws MissingEndpoint
+     * @throws MissingRequiredParameters
+     *
+     * @return \stdClass
+     */
+    public function getAttachment($url)
+    {
+        $headers['User-Agent'] = Api::SDK_USER_AGENT . '/' . Api::SDK_VERSION;
+        $headers['Authorization'] = 'Basic ' . base64_encode(sprintf('%s:%s', Api::API_USER, $this->apiKey));
+        $request = MessageFactoryDiscovery::find()->createRequest('get', $url, $headers);
+        $response = HttpClientDiscovery::find()->sendRequest($request);
+        return $this->responseHandler($response);
+    }
+
+    /**
      * @param string $endpointUrl
      * @param array  $postData
      * @param array  $files
