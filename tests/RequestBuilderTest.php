@@ -40,6 +40,6 @@ class RequestBuilderTest extends \PHPUnit_Framework_TestCase
         $this->assertContains('username', $body);
         $this->assertContains('Stockholm', $body);
         $this->assertContains('city', $body);
-        $this->assertRegExp('|^multipart/form-data; boundary=[0-9a-z]+$|si', $contentType);
+        $this->assertRegExp("|^multipart/form-data; boundary=(?P<quote>\"?)[\w\Q\'()+,-./:=?\E]{1,69}(?P=quote)$|s", $contentType);
     }
 }

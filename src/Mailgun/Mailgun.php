@@ -300,4 +300,12 @@ class Mailgun
     {
         return new Api\Message($this->httpClient, $this->requestBuilder, $this->deserializer);
     }
+
+    /**
+     * @return Api\Suppressions
+     */
+    public function suppressions()
+    {
+        return new Api\Suppressions($this->httpClient, $this->requestBuilder, $this->deserializer);
+    }
 }
