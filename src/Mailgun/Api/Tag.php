@@ -102,7 +102,7 @@ final class Tag extends HttpApi
         Assert::stringNotEmpty($tag);
 
         $response = $this->httpGet(sprintf('/v3/%s/tags/%s/stats', $domain, $tag), $params);
-        
+
         return $this->safeDeserialize($response, StatisticsResponse::class);
     }
 

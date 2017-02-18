@@ -69,10 +69,10 @@ class TagTest extends TestCase
         $api = $this->getApiMock();
         $api->expects($this->once())
             ->method('httpGet')
-            ->with('/v3/domain/tags/foo/stats', ['event'=>'foo'])
+            ->with('/v3/domain/tags/foo/stats', ['event' => 'foo'])
             ->willReturn(new Response());
 
-        $api->stats('domain', 'foo', ['event'=>'foo']);
+        $api->stats('domain', 'foo', ['event' => 'foo']);
     }
 
     public function testDelete()
