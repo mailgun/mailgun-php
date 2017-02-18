@@ -15,7 +15,6 @@ final class UpdateResponse implements ApiResponse
     private $message;
 
     /**
-     *
      * @param string $message
      */
     private function __construct($message)
@@ -35,6 +34,4 @@ final class UpdateResponse implements ApiResponse
     {
         return $this->message;
     }
-
-
 }

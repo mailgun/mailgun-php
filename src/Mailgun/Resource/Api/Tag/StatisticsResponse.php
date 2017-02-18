@@ -37,13 +37,12 @@ final class StatisticsResponse implements ApiResponse
     private $stats;
 
     /**
-     *
-     * @param string $tag
-     * @param string $description
+     * @param string    $tag
+     * @param string    $description
      * @param \DateTime $start
      * @param \DateTime $end
-     * @param string $resolution
-     * @param array $stats
+     * @param string    $resolution
+     * @param array     $stats
      */
     private function __construct($tag, $description, \DateTime $start, \DateTime $end, $resolution, array $stats)
     {

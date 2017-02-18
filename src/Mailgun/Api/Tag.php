@@ -22,7 +22,7 @@ use Psr\Http\Message\ResponseInterface;
  *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
-class Tag extends HttpApi
+final class Tag extends HttpApi
 {
     /**
      * Returns a list of tags.
@@ -102,9 +102,7 @@ class Tag extends HttpApi
         Assert::stringNotEmpty($tag);
 
         $response = $this->httpGet(sprintf('/v3/%s/tags/%s/stats', $domain, $tag), $params);
-
-        // TODO catch 400.
-
+        
         return $this->safeDeserialize($response, StatisticsResponse::class);
     }
 

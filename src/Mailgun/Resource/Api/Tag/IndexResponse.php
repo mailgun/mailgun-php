@@ -2,11 +2,13 @@
 
 namespace Mailgun\Resource\Api\Tag;
 
-
 use Mailgun\Resource\Api\PaginationResponse;
 use Mailgun\Resource\ApiResponse;
 
-class IndexResponse implements ApiResponse
+/**
+ * @author Tobias Nyholm <tobias.nyholm@gmail.com>
+ */
+final class IndexResponse implements ApiResponse
 {
     use PaginationResponse;
 
@@ -17,7 +19,7 @@ class IndexResponse implements ApiResponse
 
     /**
      * @param Tag[] $items
-     * @param array   $paging
+     * @param array $paging
      */
     public function __construct(array $items, array $paging)
     {

@@ -15,7 +15,6 @@ final class DeleteResponse implements ApiResponse
     private $message;
 
     /**
-     *
      * @param string $message
      */
     private function __construct($message)
@@ -35,6 +34,4 @@ final class DeleteResponse implements ApiResponse
     {
         return $this->message;
     }
-
-
 }
