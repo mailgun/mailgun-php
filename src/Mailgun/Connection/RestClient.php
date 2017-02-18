@@ -96,7 +96,7 @@ class RestClient
                 $builder->addResource($file['name'], $file['contents'], $file);
             }
             $body = $builder->build();
-            $headers['Content-Type'] = 'multipart/form-data; boundary='.$builder->getBoundary();
+            $headers['Content-Type'] = 'multipart/form-data; boundary="'.$builder->getBoundary().'"';
         } elseif (is_array($body)) {
             $body = http_build_query($body);
             $headers['Content-Type'] = 'application/x-www-form-urlencoded';
