@@ -22,7 +22,7 @@ use Psr\Http\Message\ResponseInterface;
  *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
-final class Tag extends HttpApi
+class Tag extends HttpApi
 {
     /**
      * Returns a list of tags.
