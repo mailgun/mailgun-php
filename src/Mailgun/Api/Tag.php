@@ -10,6 +10,11 @@
 namespace Mailgun\Api;
 
 use Mailgun\Assert;
+use Mailgun\Resource\Api\Tag\DeleteResponse;
+use Mailgun\Resource\Api\Tag\IndexResponse;
+use Mailgun\Resource\Api\Tag\ShowResponse;
+use Mailgun\Resource\Api\Tag\StatisticsResponse;
+use Mailgun\Resource\Api\Tag\UpdateResponse;
 use Psr\Http\Message\ResponseInterface;
 
 /**
@@ -91,12 +96,14 @@ class Tag extends HttpApi
      *
      * @return StatisticsResponse|ResponseInterface
      */
-    public function stats($domain, $tag)
+    public function stats($domain, $tag, array $params)
     {
         Assert::stringNotEmpty($domain);
         Assert::stringNotEmpty($tag);
 
-        $response = $this->httpGet(sprintf('/v3/%s/tags/%s/stats', $domain, $tag));
+        $response = $this->httpGet(sprintf('/v3/%s/tags/%s/stats', $domain, $tag), $params);
+
+        // TODO catch 400.
 
         return $this->safeDeserialize($response, StatisticsResponse::class);
     }
