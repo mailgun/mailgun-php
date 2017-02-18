@@ -63,7 +63,7 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
             ->getMock();
 
         return $this->getMockBuilder($this->getApiClass())
-            ->setMethods(['httpGet', 'httpPost', 'httpPostRaw', 'httpDelete', 'httPut'])
+            ->setMethods(['httpGet', 'httpPost', 'httpPostRaw', 'httpDelete', 'httpPut'])
             ->setConstructorArgs([$httpClient, $requestClient, $deserializer])
             ->getMock();
     }

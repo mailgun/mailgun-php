@@ -270,6 +270,14 @@ class Mailgun
     }
 
     /**
+     * @return Api\Tag
+     */
+    public function tag()
+    {
+        return new Api\Tag($this->httpClient, $this->requestBuilder, $this->deserializer);
+    }
+
+    /**
      * @return Api\Event
      */
     public function events()
