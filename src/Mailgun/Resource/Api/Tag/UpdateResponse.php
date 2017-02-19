@@ -29,6 +29,11 @@ final class UpdateResponse implements ApiResponse
         $this->message = $message;
     }
 
+    /**
+     * @param array $data
+     *
+     * @return UpdateResponse
+     */
     public static function create(array $data)
     {
         return new self($data['message']);

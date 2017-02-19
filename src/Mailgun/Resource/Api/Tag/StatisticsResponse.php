@@ -20,10 +20,12 @@ final class StatisticsResponse implements ApiResponse
      * @var string
      */
     private $tag;
+
     /**
      * @var string
      */
     private $description;
+
     /**
      * @var string
      */
@@ -33,6 +35,7 @@ final class StatisticsResponse implements ApiResponse
      * @var \DateTime
      */
     private $start;
+
     /**
      * @var \DateTime
      */

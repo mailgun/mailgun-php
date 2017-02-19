@@ -93,6 +93,7 @@ class Tag extends HttpApi
      *
      * @param string $domain Name of the domain
      * @param string $tag
+     * @param array  $params
      *
      * @return StatisticsResponse|ResponseInterface
      */
@@ -100,6 +101,7 @@ class Tag extends HttpApi
     {
         Assert::stringNotEmpty($domain);
         Assert::stringNotEmpty($tag);
+        Assert::isArray($params);
 
         $response = $this->httpGet(sprintf('/v3/%s/tags/%s/stats', $domain, $tag), $params);
 

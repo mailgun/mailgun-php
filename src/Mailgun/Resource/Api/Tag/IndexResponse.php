@@ -34,6 +34,11 @@ final class IndexResponse implements ApiResponse
         $this->paging = $paging;
     }
 
+    /**
+     * @param array $data
+     *
+     * @return IndexResponse
+     */
     public static function create(array $data)
     {
         $items = [];

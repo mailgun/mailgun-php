@@ -29,6 +29,11 @@ final class DeleteResponse implements ApiResponse
         $this->message = $message;
     }
 
+    /**
+     * @param array $data
+     *
+     * @return DeleteResponse
+     */
     public static function create(array $data)
     {
         return new self($data['message']);
