@@ -12,6 +12,7 @@ namespace Mailgun\Api;
 use Http\Client\Exception as HttplugException;
 use Http\Client\HttpClient;
 use Mailgun\Deserializer\ResponseDeserializer;
+use Mailgun\Exception\HttpClientException;
 use Mailgun\Exception\HttpServerException;
 use Mailgun\RequestBuilder;
 use Mailgun\Resource\Api\ErrorResponse;
@@ -59,14 +60,18 @@ abstract class HttpApi
      * @param ResponseInterface $response
      * @param string            $className
      *
+     * @throws HttpClientException
+     *
      * @return object $class
      */
     protected function safeDeserialize(ResponseInterface $response, $className)
     {
-        if ($response->getStatusCode() !== 200) {
-            return $this->deserializer->deserialize($response, ErrorResponse::class);
-        } else {
+        if ($response->getStatusCode() === 200) {
             return $this->deserializer->deserialize($response, $className);
+        } elseif ($response->getStatusCode() === 401) {
+            throw HttpClientException::unauthorized();
+        } else {
+            return $this->deserializer->deserialize($response, ErrorResponse::class);
         }
     }
 
