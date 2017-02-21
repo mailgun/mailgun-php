@@ -27,7 +27,7 @@ final class Route
     /**
      * @var string
      */
-    private $filter;
+    private $expression;
 
     /**
      * @var Action[]
@@ -77,7 +77,7 @@ final class Route
     {
         $this->id = $id;
         $this->priority = $priority;
-        $this->filter = $expression;
+        $this->expression = $expression;
         $this->actions = Action::createMultiple($actions);
         $this->description = $description;
         $this->createdAt = $createdAt;
@@ -110,9 +110,9 @@ final class Route
     /**
      * @return string
      */
-    public function getFilter()
+    public function getExpression()
     {
-        return $this->filter;
+        return $this->expression;
     }
 
     /**
