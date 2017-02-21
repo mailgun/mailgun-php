@@ -9,7 +9,7 @@
 
 namespace Mailgun\Model\Suppressions;
 
-use Mailgun\Resource\ApiResponse;
+use Mailgun\Model\ApiResponse;
 
 /**
  * Serves only as an abstract base for suppressions API code.

@@ -9,7 +9,7 @@
 
 namespace Mailgun\Model\Routes\Response;
 
-use Mailgun\Resource\ApiResponse;
+use Mailgun\Model\ApiResponse;
 
 /**
  * @author David Garcia <me@davidgarcia.cat>

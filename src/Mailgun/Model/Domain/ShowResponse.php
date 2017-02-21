@@ -9,7 +9,7 @@
 
 namespace Mailgun\Model\Domain;
 
-use Mailgun\Resource\ApiResponse;
+use Mailgun\Model\ApiResponse;
 
 /**
  * @author Sean Johnson <sean@mailgun.com>

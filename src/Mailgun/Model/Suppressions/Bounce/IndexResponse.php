@@ -9,7 +9,7 @@
 
 namespace Mailgun\Model\Suppressions\Bounce;
 
-use Mailgun\Resource\ApiResponse;
+use Mailgun\Model\ApiResponse;
 use Mailgun\Model\PaginationResponse;
 use Mailgun\Model\PagingProvider;
 

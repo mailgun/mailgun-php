@@ -9,7 +9,7 @@
 
 namespace Mailgun\Model\Stats;
 
-use Mailgun\Resource\ApiResponse;
+use Mailgun\Model\ApiResponse;
 
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>

@@ -11,7 +11,7 @@ namespace Mailgun\Model\Tag;
 
 use Mailgun\Model\PaginationResponse;
 use Mailgun\Model\PagingProvider;
-use Mailgun\Resource\ApiResponse;
+use Mailgun\Model\ApiResponse;
 
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>

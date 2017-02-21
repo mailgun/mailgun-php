@@ -11,7 +11,7 @@ namespace Mailgun\Model\Event;
 
 use Mailgun\Model\PagingProvider;
 use Mailgun\Model\PaginationResponse;
-use Mailgun\Resource\ApiResponse;
+use Mailgun\Model\ApiResponse;
 
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>

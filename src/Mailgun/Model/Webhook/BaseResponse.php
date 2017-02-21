@@ -9,7 +9,7 @@
 
 namespace Mailgun\Model\Webhook;
 
-use Mailgun\Resource\ApiResponse;
+use Mailgun\Model\ApiResponse;
 
 /**
  * This is only mean to be the base response for Webhook API.

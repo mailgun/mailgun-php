@@ -7,7 +7,7 @@
  * of the MIT license. See the LICENSE file for details.
  */
 
-namespace Mailgun\Resource;
+namespace Mailgun\Model;
 
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
