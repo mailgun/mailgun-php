@@ -10,10 +10,10 @@
 namespace Mailgun\Api;
 
 use Mailgun\Assert;
-use Mailgun\Resource\Api\Suppressions\Bounce\CreateResponse;
-use Mailgun\Resource\Api\Suppressions\Bounce\DeleteResponse;
-use Mailgun\Resource\Api\Suppressions\Bounce\IndexResponse;
-use Mailgun\Resource\Api\Suppressions\Bounce\ShowResponse;
+use Mailgun\Model\Suppressions\Bounce\CreateResponse;
+use Mailgun\Model\Suppressions\Bounce\DeleteResponse;
+use Mailgun\Model\Suppressions\Bounce\IndexResponse;
+use Mailgun\Model\Suppressions\Bounce\ShowResponse;
 
 /**
  * @see https://documentation.mailgun.com/api-suppressions.html#bounces

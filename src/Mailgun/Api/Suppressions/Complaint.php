@@ -10,10 +10,10 @@
 namespace Mailgun\Api;
 
 use Mailgun\Assert;
-use Mailgun\Resource\Api\Suppressions\Complaint\CreateResponse;
-use Mailgun\Resource\Api\Suppressions\Complaint\DeleteResponse;
-use Mailgun\Resource\Api\Suppressions\Complaint\IndexResponse;
-use Mailgun\Resource\Api\Suppressions\Complaint\ShowResponse;
+use Mailgun\Model\Suppressions\Complaint\CreateResponse;
+use Mailgun\Model\Suppressions\Complaint\DeleteResponse;
+use Mailgun\Model\Suppressions\Complaint\IndexResponse;
+use Mailgun\Model\Suppressions\Complaint\ShowResponse;
 
 /**
  * @see https://documentation.mailgun.com/api-suppressions.html#complaints

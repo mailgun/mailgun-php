@@ -10,8 +10,8 @@
 namespace Mailgun\Api;
 
 use Mailgun\Assert;
-use Mailgun\Resource\Api\Stats\AllResponse;
-use Mailgun\Resource\Api\Stats\TotalResponse;
+use Mailgun\Model\Stats\AllResponse;
+use Mailgun\Model\Stats\TotalResponse;
 
 /**
  * {@link https://documentation.mailgun.com/api-stats.html}.

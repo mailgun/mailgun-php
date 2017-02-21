@@ -15,7 +15,7 @@ use Mailgun\Deserializer\ResponseDeserializer;
 use Mailgun\Exception\HttpClientException;
 use Mailgun\Exception\HttpServerException;
 use Mailgun\RequestBuilder;
-use Mailgun\Resource\Api\ErrorResponse;
+use Mailgun\Model\ErrorResponse;
 use Psr\Http\Message\ResponseInterface;
 
 /**

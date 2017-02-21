@@ -10,10 +10,10 @@
 namespace Mailgun\Api;
 
 use Mailgun\Assert;
-use Mailgun\Resource\Api\Suppressions\Unsubscribe\CreateResponse;
-use Mailgun\Resource\Api\Suppressions\Unsubscribe\DeleteResponse;
-use Mailgun\Resource\Api\Suppressions\Unsubscribe\IndexResponse;
-use Mailgun\Resource\Api\Suppressions\Unsubscribe\ShowResponse;
+use Mailgun\Model\Suppressions\Unsubscribe\CreateResponse;
+use Mailgun\Model\Suppressions\Unsubscribe\DeleteResponse;
+use Mailgun\Model\Suppressions\Unsubscribe\IndexResponse;
+use Mailgun\Model\Suppressions\Unsubscribe\ShowResponse;
 
 /**
  * @see https://documentation.mailgun.com/api-suppressions.html#unsubscribes

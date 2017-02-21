@@ -10,11 +10,11 @@
 namespace Mailgun\Api;
 
 use Mailgun\Assert;
-use Mailgun\Resource\Api\Routes\Response\CreateResponse;
-use Mailgun\Resource\Api\Routes\Response\DeleteResponse;
-use Mailgun\Resource\Api\Routes\Response\IndexResponse;
-use Mailgun\Resource\Api\Routes\Response\ShowResponse;
-use Mailgun\Resource\Api\Routes\Response\UpdateResponse;
+use Mailgun\Model\Routes\Response\CreateResponse;
+use Mailgun\Model\Routes\Response\DeleteResponse;
+use Mailgun\Model\Routes\Response\IndexResponse;
+use Mailgun\Model\Routes\Response\ShowResponse;
+use Mailgun\Model\Routes\Response\UpdateResponse;
 
 /**
  * {@link https://documentation.mailgun.com/api-routes.html}.
