@@ -10,7 +10,6 @@
 namespace Mailgun\Tests\Integration;
 
 use Mailgun\Api\Domain;
-use Mailgun\Model\ErrorResponse;
 use Mailgun\Model\Domain\CreateCredentialResponse;
 use Mailgun\Model\Domain\DeleteCredentialResponse;
 use Mailgun\Model\Domain\DeleteResponse;
@@ -70,15 +69,15 @@ class DomainApiTest extends TestCase
 
     /**
      * Performs `DELETE /v3/domains/<domain>` on a non-existent domain.
+     *
+     * @expectedException \Mailgun\Exception\HttpClientException
+     * @expectedExceptionCode 404
      */
     public function testRemoveDomainNoExist()
     {
         $mg = $this->getMailgunClient();
 
-        $ret = $mg->domains()->delete('example.notareal.tld');
-        $this->assertNotNull($ret);
-        $this->assertInstanceOf(DeleteResponse::class, $ret);
-        $this->assertEquals('Domain not found', $ret->getMessage());
+        $mg->domains()->delete('example.notareal.tld');
     }
 
     /**
@@ -104,20 +103,20 @@ class DomainApiTest extends TestCase
     /**
      * Performs `POST /v3/domains` to attempt to create a domain with duplicate
      * values.
+     *
+     * @expectedException \Mailgun\Exception\HttpClientException
+     * @expectedExceptionCode 400
      */
     public function testDomainCreateDuplicateValues()
     {
         $mg = $this->getMailgunClient();
 
-        $domain = $mg->domains()->create(
+        $mg->domains()->create(
             'example.notareal.tld',     // domain name
             'exampleOrgSmtpPassword12', // smtp password
             'tag',                      // default spam action
             false                       // wildcard domain?
         );
-        $this->assertNotNull($domain);
-        $this->assertInstanceOf(ErrorResponse::class, $domain);
-        $this->assertEquals('This domain name is already taken', $domain->getMessage());
     }
 
     /**
@@ -214,15 +213,15 @@ class DomainApiTest extends TestCase
 
     /**
      * Performs `GET /v3/domains/<domain>/credentials` on a non-existent domain.
+     *
+     * @expectedException \Mailgun\Exception\HttpClientException
+     * @expectedExceptionCode 404
      */
     public function testListCredentialsBadDomain()
     {
         $mg = $this->getMailgunClient();
 
-        $ret = $mg->domains()->credentials('mailgun.org');
-        $this->assertNotNull($ret);
-        $this->assertInstanceOf(ErrorResponse::class, $ret);
-        $this->assertEquals('Domain not found: mailgun.org', $ret->getMessage());
+        $mg->domains()->credentials('mailgun.org');
     }
 
     /**
@@ -306,6 +305,9 @@ class DomainApiTest extends TestCase
     /**
      * Performs `DELETE /v3/domains/<domain>/credentials/<login>` to remove an invalid
      * credential pair from a domain.
+     *
+     * @expectedException \Mailgun\Exception\HttpClientException
+     * @expectedExceptionCode 404
      */
     public function testRemoveCredentialNoExist()
     {
@@ -313,13 +315,10 @@ class DomainApiTest extends TestCase
 
         $mg = $this->getMailgunClient();
 
-        $ret = $mg->domains()->deleteCredential(
+        $mg->domains()->deleteCredential(
             $this->testDomain,
             $login
         );
-        $this->assertNotNull($ret);
-        $this->assertInstanceOf(DeleteCredentialResponse::class, $ret);
-        $this->assertEquals('Credentials not found', $ret->getMessage());
     }
 
     /**
