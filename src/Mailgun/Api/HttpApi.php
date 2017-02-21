@@ -129,18 +129,16 @@ abstract class HttpApi
     }
 
     /**
-     * Send a POST request with JSON-encoded parameters.
+     * Send a POST request with parameters.
      *
      * @param string $path           Request path
-     * @param array  $parameters     POST parameters to be JSON encoded
+     * @param array  $parameters     POST parameters
      * @param array  $requestHeaders Request headers
      *
      * @return ResponseInterface
      */
     protected function httpPost($path, array $parameters = [], array $requestHeaders = [])
     {
-        $requestHeaders['Content-Type'] = 'application/x-www-form-urlencoded';
-
         return $this->httpPostRaw($path, $this->createRequestBody($parameters), $requestHeaders);
     }
 
@@ -167,18 +165,16 @@ abstract class HttpApi
     }
 
     /**
-     * Send a PUT request with JSON-encoded parameters.
+     * Send a PUT request.
      *
      * @param string $path           Request path
-     * @param array  $parameters     POST parameters to be JSON encoded
+     * @param array  $parameters     PUT parameters
      * @param array  $requestHeaders Request headers
      *
      * @return ResponseInterface
      */
     protected function httpPut($path, array $parameters = [], array $requestHeaders = [])
     {
-        $requestHeaders['Content-Type'] = 'application/x-www-form-urlencoded';
-
         try {
             $response = $this->httpClient->sendRequest(
                 $this->requestBuilder->create('PUT', $path, $requestHeaders, $this->createRequestBody($parameters))
@@ -191,18 +187,16 @@ abstract class HttpApi
     }
 
     /**
-     * Send a DELETE request with JSON-encoded parameters.
+     * Send a DELETE request.
      *
      * @param string $path           Request path
-     * @param array  $parameters     POST parameters to be JSON encoded
+     * @param array  $parameters     DELETE parameters
      * @param array  $requestHeaders Request headers
      *
      * @return ResponseInterface
      */
     protected function httpDelete($path, array $parameters = [], array $requestHeaders = [])
     {
-        $requestHeaders['Content-Type'] = 'application/x-www-form-urlencoded';
-
         try {
             $response = $this->httpClient->sendRequest(
                 $this->requestBuilder->create('DELETE', $path, $requestHeaders, $this->createRequestBody($parameters))
@@ -215,14 +209,27 @@ abstract class HttpApi
     }
 
     /**
-     * Create a JSON encoded version of an array of parameters.
+     * Prepare a set of key-value-pairs to be encoded as multipart/form-data.
      *
      * @param array $parameters Request parameters
      *
-     * @return null|string
+     * @return array
      */
     protected function createRequestBody(array $parameters)
     {
-        return (count($parameters) === 0) ? null : http_build_query($parameters);
+        $resources = [];
+        foreach ($parameters as $key => $values) {
+            if (!is_array($values)) {
+                $values = [$values];
+            }
+            foreach ($values as $value) {
+                $resources[] = [
+                    'name' => $key,
+                    'content' => $value,
+                ];
+            }
+        }
+
+        return $resources;
     }
 }
