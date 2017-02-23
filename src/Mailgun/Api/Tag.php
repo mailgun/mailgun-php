@@ -10,11 +10,11 @@
 namespace Mailgun\Api;
 
 use Mailgun\Assert;
-use Mailgun\Resource\Api\Tag\DeleteResponse;
-use Mailgun\Resource\Api\Tag\IndexResponse;
-use Mailgun\Resource\Api\Tag\ShowResponse;
-use Mailgun\Resource\Api\Tag\StatisticsResponse;
-use Mailgun\Resource\Api\Tag\UpdateResponse;
+use Mailgun\Model\Tag\DeleteResponse;
+use Mailgun\Model\Tag\IndexResponse;
+use Mailgun\Model\Tag\ShowResponse;
+use Mailgun\Model\Tag\StatisticsResponse;
+use Mailgun\Model\Tag\UpdateResponse;
 use Psr\Http\Message\ResponseInterface;
 
 /**

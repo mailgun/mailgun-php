@@ -11,8 +11,8 @@ namespace Mailgun\Api;
 
 use Mailgun\Assert;
 use Mailgun\Exception\InvalidArgumentException;
-use Mailgun\Resource\Api\Message\SendResponse;
-use Mailgun\Resource\Api\Message\ShowResponse;
+use Mailgun\Model\Message\SendResponse;
+use Mailgun\Model\Message\ShowResponse;
 
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>

@@ -10,7 +10,7 @@
 namespace Mailgun\Deserializer;
 
 use Mailgun\Exception\DeserializeException;
-use Mailgun\Resource\ApiResponse;
+use Mailgun\Model\ApiResponse;
 use Psr\Http\Message\ResponseInterface;
 
 /**

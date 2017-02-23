@@ -10,7 +10,7 @@
 namespace Mailgun\Api;
 
 use Mailgun\Assert;
-use Mailgun\Resource\Api\Event\EventResponse;
+use Mailgun\Model\Event\EventResponse;
 
 /**
  * {@link https://documentation.mailgun.com/api-events.html}.

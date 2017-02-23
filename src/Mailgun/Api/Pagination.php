@@ -10,7 +10,7 @@
 namespace Mailgun\Api;
 
 use Mailgun\Assert;
-use Mailgun\Resource\Api\PagingProvider;
+use Mailgun\Model\PagingProvider;
 use Psr\Http\Message\ResponseInterface;
 
 /**

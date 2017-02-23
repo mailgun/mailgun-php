@@ -10,11 +10,11 @@
 namespace Mailgun\Api;
 
 use Mailgun\Assert;
-use Mailgun\Resource\Api\Webhook\CreateResponse;
-use Mailgun\Resource\Api\Webhook\DeleteResponse;
-use Mailgun\Resource\Api\Webhook\IndexResponse;
-use Mailgun\Resource\Api\Webhook\ShowResponse;
-use Mailgun\Resource\Api\Webhook\UpdateResponse;
+use Mailgun\Model\Webhook\CreateResponse;
+use Mailgun\Model\Webhook\DeleteResponse;
+use Mailgun\Model\Webhook\IndexResponse;
+use Mailgun\Model\Webhook\ShowResponse;
+use Mailgun\Model\Webhook\UpdateResponse;
 
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>

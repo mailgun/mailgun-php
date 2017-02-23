@@ -10,16 +10,16 @@
 namespace Mailgun\Api;
 
 use Mailgun\Assert;
-use Mailgun\Resource\Api\Domain\ConnectionResponse;
-use Mailgun\Resource\Api\Domain\CreateCredentialResponse;
-use Mailgun\Resource\Api\Domain\CreateResponse;
-use Mailgun\Resource\Api\Domain\CredentialResponse;
-use Mailgun\Resource\Api\Domain\DeleteCredentialResponse;
-use Mailgun\Resource\Api\Domain\DeleteResponse;
-use Mailgun\Resource\Api\Domain\IndexResponse;
-use Mailgun\Resource\Api\Domain\ShowResponse;
-use Mailgun\Resource\Api\Domain\UpdateConnectionResponse;
-use Mailgun\Resource\Api\Domain\UpdateCredentialResponse;
+use Mailgun\Model\Domain\ConnectionResponse;
+use Mailgun\Model\Domain\CreateCredentialResponse;
+use Mailgun\Model\Domain\CreateResponse;
+use Mailgun\Model\Domain\CredentialResponse;
+use Mailgun\Model\Domain\DeleteCredentialResponse;
+use Mailgun\Model\Domain\DeleteResponse;
+use Mailgun\Model\Domain\IndexResponse;
+use Mailgun\Model\Domain\ShowResponse;
+use Mailgun\Model\Domain\UpdateConnectionResponse;
+use Mailgun\Model\Domain\UpdateCredentialResponse;
 use Psr\Http\Message\ResponseInterface;
 
 /**

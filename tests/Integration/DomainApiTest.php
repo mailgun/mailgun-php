@@ -10,16 +10,16 @@
 namespace Mailgun\Tests\Integration;
 
 use Mailgun\Api\Domain;
-use Mailgun\Resource\Api\ErrorResponse;
-use Mailgun\Resource\Api\Domain\CreateCredentialResponse;
-use Mailgun\Resource\Api\Domain\DeleteCredentialResponse;
-use Mailgun\Resource\Api\Domain\DeleteResponse;
-use Mailgun\Resource\Api\Domain\Domain as DomainObject;
-use Mailgun\Resource\Api\Domain\CredentialResponseItem;
-use Mailgun\Resource\Api\Domain\CredentialResponse;
-use Mailgun\Resource\Api\Domain\ConnectionResponse;
-use Mailgun\Resource\Api\Domain\UpdateConnectionResponse;
-use Mailgun\Resource\Api\Domain\UpdateCredentialResponse;
+use Mailgun\Model\ErrorResponse;
+use Mailgun\Model\Domain\CreateCredentialResponse;
+use Mailgun\Model\Domain\DeleteCredentialResponse;
+use Mailgun\Model\Domain\DeleteResponse;
+use Mailgun\Model\Domain\Domain as DomainObject;
+use Mailgun\Model\Domain\CredentialResponseItem;
+use Mailgun\Model\Domain\CredentialResponse;
+use Mailgun\Model\Domain\ConnectionResponse;
+use Mailgun\Model\Domain\UpdateConnectionResponse;
+use Mailgun\Model\Domain\UpdateCredentialResponse;
 use Mailgun\Tests\Api\TestCase;
 
 /**
