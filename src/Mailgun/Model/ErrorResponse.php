@@ -9,7 +9,6 @@
 
 namespace Mailgun\Model;
 
-
 final class ErrorResponse implements ApiResponse
 {
     /**
