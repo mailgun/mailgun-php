@@ -21,7 +21,7 @@ use Mailgun\RequestBuilder;
  *
  * @author Sean Johnson <sean@mailgun.com>
  */
-class Suppression extends HttpApi
+class Suppression
 {
     /**
      * @var HttpClient
