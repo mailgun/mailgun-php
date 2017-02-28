@@ -58,7 +58,7 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
             ->setMethods(['create'])
             ->getMock();
 
-        $hydrator = $this->getMockBuilder('Mailgun\Hydator\Hydrator')
+        $hydrator = $this->getMockBuilder('Mailgun\Hydrator\Hydrator')
             ->setMethods(['deserialize'])
             ->getMock();
 
