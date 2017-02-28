@@ -180,6 +180,16 @@ class Mailgun
     }
 
     /**
+     * @param string $url
+     *
+     * @return \stdClass
+     */
+    public function getAttachment($url)
+    {
+        return $this->restClient->getAttachment($url);
+    }
+
+    /**
      * @param string $endpointUrl
      *
      * @return \stdClass
