@@ -56,7 +56,7 @@ class Mailgun
      * @param string|null                 $apiKey
      * @param HttpClient|null             $httpClient
      * @param string                      $apiEndpoint
-     * @param Hydrator|null   $hydrator
+     * @param Hydrator|null               $hydrator
      * @param HttpClientConfigurator|null $clientConfigurator
      * @param RequestBuilder|null         $requestBuilder
      */
