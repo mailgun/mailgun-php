@@ -10,7 +10,10 @@
 namespace Mailgun\Api;
 
 use Http\Client\HttpClient;
-use Mailgun\Deserializer\ResponseDeserializer;
+use Mailgun\Api\Supression\Bounce;
+use Mailgun\Api\Supression\Complaint;
+use Mailgun\Api\Supression\Unsubscribe;
+use Mailgun\Hydrator\Hydrator;
 use Mailgun\RequestBuilder;
 
 /**
@@ -18,7 +21,7 @@ use Mailgun\RequestBuilder;
  *
  * @author Sean Johnson <sean@mailgun.com>
  */
-class Suppressions
+class Suppression extends HttpApi
 {
     /**
      * @var HttpClient
@@ -31,43 +34,43 @@ class Suppressions
     private $requestBuilder;
 
     /**
-     * @var ResponseDeserializer
+     * @var Hydrator
      */
-    private $deserializer;
+    private $hydrator;
 
     /**
      * @param HttpClient           $httpClient
      * @param RequestBuilder       $requestBuilder
-     * @param ResponseDeserializer $deserializer
+     * @param Hydrator $hydrator
      */
-    public function __construct(HttpClient $httpClient, RequestBuilder $requestBuilder, ResponseDeserializer $deserializer)
+    public function __construct(HttpClient $httpClient, RequestBuilder $requestBuilder, Hydrator $hydrator)
     {
         $this->httpClient = $httpClient;
         $this->requestBuilder = $requestBuilder;
-        $this->deserializer = $deserializer;
+        $this->hydrator = $hydrator;
     }
 
     /**
-     * @return Suppressions\Bounce
+     * @return Bounce
      */
     public function bounces()
     {
-        return new Suppressions\Bounce($this->httpClient, $this->requestBuilder, $this->deserializer);
+        return new Bounce($this->httpClient, $this->requestBuilder, $this->hydrator);
     }
 
     /**
-     * @return Suppressions\Complaint
+     * @return Complaint
      */
     public function complaints()
     {
-        return new Suppressions\Complaint($this->httpClient, $this->requestBuilder, $this->deserializer);
+        return new Complaint($this->httpClient, $this->requestBuilder, $this->hydrator);
     }
 
     /**
-     * @return Suppressions\Unsubscribe
+     * @return Unsubscribe
      */
     public function unsubscribes()
     {
-        return new Suppressions\Unsubscribe($this->httpClient, $this->requestBuilder, $this->deserializer);
+        return new Unsubscribe($this->httpClient, $this->requestBuilder, $this->hydrator);
     }
 }

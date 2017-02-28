@@ -58,13 +58,13 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
             ->setMethods(['create'])
             ->getMock();
 
-        $deserializer = $this->getMockBuilder('Mailgun\Deserializer\ResponseDeserializer')
+        $hydrator = $this->getMockBuilder('Mailgun\Hydator\Hydrator')
             ->setMethods(['deserialize'])
             ->getMock();
 
         return $this->getMockBuilder($this->getApiClass())
             ->setMethods(['httpGet', 'httpPost', 'httpPostRaw', 'httpDelete', 'httpPut'])
-            ->setConstructorArgs([$httpClient, $requestClient, $deserializer])
+            ->setConstructorArgs([$httpClient, $requestClient, $hydrator])
             ->getMock();
     }
 

@@ -11,7 +11,8 @@ namespace Mailgun\Api;
 
 use Http\Client\Exception as HttplugException;
 use Http\Client\HttpClient;
-use Mailgun\Deserializer\ResponseDeserializer;
+use Mailgun\Hydrator\Hydrator;
+use Mailgun\Hydrator\NoopHydrator;
 use Mailgun\Exception\HttpClientException;
 use Mailgun\Exception\HttpServerException;
 use Mailgun\RequestBuilder;
@@ -31,9 +32,9 @@ abstract class HttpApi
     private $httpClient;
 
     /**
-     * @var ResponseDeserializer
+     * @var Hydrator
      */
-    protected $deserializer;
+    protected $hydrator;
 
     /**
      * @var RequestBuilder
@@ -41,15 +42,17 @@ abstract class HttpApi
     protected $requestBuilder;
 
     /**
-     * @param HttpClient           $httpClient
-     * @param RequestBuilder       $requestBuilder
-     * @param ResponseDeserializer $deserializer
+     * @param HttpClient     $httpClient
+     * @param RequestBuilder $requestBuilder
+     * @param Hydrator       $hydrator
      */
-    public function __construct(HttpClient $httpClient, RequestBuilder $requestBuilder, ResponseDeserializer $deserializer)
+    public function __construct(HttpClient $httpClient, RequestBuilder $requestBuilder, Hydrator $hydrator)
     {
         $this->httpClient = $httpClient;
         $this->requestBuilder = $requestBuilder;
-        $this->deserializer = $deserializer;
+        if (!$hydrator instanceof NoopHydrator) {
+            $this->hydrator = $hydrator;
+        }
     }
 
     /**
@@ -64,14 +67,18 @@ abstract class HttpApi
      *
      * @return object $class
      */
-    protected function safeDeserialize(ResponseInterface $response, $className)
+    protected function safeHydrate(ResponseInterface $response, $className)
     {
+        if (!$this->hydrator) {
+            return $response;
+        }
+
         if ($response->getStatusCode() === 200) {
-            return $this->deserializer->deserialize($response, $className);
+            return $this->hydrator->deserialize($response, $className);
         } elseif ($response->getStatusCode() === 401) {
             throw HttpClientException::unauthorized();
         } else {
-            return $this->deserializer->deserialize($response, ErrorResponse::class);
+            return $this->hydrator->deserialize($response, ErrorResponse::class);
         }
     }
 

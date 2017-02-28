@@ -17,8 +17,8 @@ use Mailgun\Lists\OptInHandler;
 use Mailgun\Messages\BatchMessage;
 use Mailgun\Messages\Exceptions;
 use Mailgun\Messages\MessageBuilder;
-use Mailgun\Deserializer\ModelDeserializer;
-use Mailgun\Deserializer\ResponseDeserializer;
+use Mailgun\Hydrator\ModelHydrator;
+use Mailgun\Hydrator\Hydrator;
 
 /**
  * This class is the base class for the Mailgun SDK.
@@ -43,9 +43,9 @@ class Mailgun
     private $httpClient;
 
     /**
-     * @var ResponseDeserializer
+     * @var Hydrator
      */
-    private $deserializer;
+    private $hydrator;
 
     /**
      * @var RequestBuilder
@@ -56,7 +56,7 @@ class Mailgun
      * @param string|null                 $apiKey
      * @param HttpClient|null             $httpClient
      * @param string                      $apiEndpoint
-     * @param ResponseDeserializer|null   $deserializer
+     * @param Hydrator|null   $hydrator
      * @param HttpClientConfigurator|null $clientConfigurator
      * @param RequestBuilder|null         $requestBuilder
      */
@@ -64,7 +64,7 @@ class Mailgun
         $apiKey = null,
         HttpClient $httpClient = null, /* Deprecated, will be removed in 3.0 */
         $apiEndpoint = 'api.mailgun.net', /* Deprecated, will be removed in 3.0 */
-        ResponseDeserializer $deserializer = null,
+        Hydrator $hydrator = null,
         HttpClientConfigurator $clientConfigurator = null,
         RequestBuilder $requestBuilder = null
     ) {
@@ -89,7 +89,7 @@ class Mailgun
 
         $this->httpClient = $clientConfigurator->createConfiguredClient();
         $this->requestBuilder = $requestBuilder ?: new RequestBuilder();
-        $this->deserializer = $deserializer ?: new ModelDeserializer();
+        $this->hydrator = $hydrator ?: new ModelHydrator();
     }
 
     /**
@@ -268,7 +268,7 @@ class Mailgun
      */
     public function stats()
     {
-        return new Api\Stats($this->httpClient, $this->requestBuilder, $this->deserializer);
+        return new Api\Stats($this->httpClient, $this->requestBuilder, $this->hydrator);
     }
 
     /**
@@ -276,15 +276,15 @@ class Mailgun
      */
     public function domains()
     {
-        return new Api\Domain($this->httpClient, $this->requestBuilder, $this->deserializer);
+        return new Api\Domain($this->httpClient, $this->requestBuilder, $this->hydrator);
     }
 
     /**
      * @return Api\Tag
      */
-    public function tag()
+    public function tags()
     {
-        return new Api\Tag($this->httpClient, $this->requestBuilder, $this->deserializer);
+        return new Api\Tag($this->httpClient, $this->requestBuilder, $this->hydrator);
     }
 
     /**
@@ -292,7 +292,7 @@ class Mailgun
      */
     public function events()
     {
-        return new Api\Event($this->httpClient, $this->requestBuilder, $this->deserializer);
+        return new Api\Event($this->httpClient, $this->requestBuilder, $this->hydrator);
     }
 
     /**
@@ -300,7 +300,7 @@ class Mailgun
      */
     public function routes()
     {
-        return new Api\Routes($this->httpClient, $this->requestBuilder, $this->deserializer);
+        return new Api\Routes($this->httpClient, $this->requestBuilder, $this->hydrator);
     }
 
     /**
@@ -308,7 +308,7 @@ class Mailgun
      */
     public function webhooks()
     {
-        return new Api\Webhook($this->httpClient, $this->requestBuilder, $this->deserializer);
+        return new Api\Webhook($this->httpClient, $this->requestBuilder, $this->hydrator);
     }
 
     /**
@@ -316,14 +316,14 @@ class Mailgun
      */
     public function messages()
     {
-        return new Api\Message($this->httpClient, $this->requestBuilder, $this->deserializer);
+        return new Api\Message($this->httpClient, $this->requestBuilder, $this->hydrator);
     }
 
     /**
-     * @return Api\Suppressions
+     * @return Api\Suppression
      */
     public function suppressions()
     {
-        return new Api\Suppressions($this->httpClient, $this->requestBuilder, $this->deserializer);
+        return new Api\Suppression($this->httpClient, $this->requestBuilder, $this->hydrator);
     }
 }

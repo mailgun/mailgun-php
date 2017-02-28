@@ -43,7 +43,7 @@ class Tag extends HttpApi
 
         $response = $this->httpGet(sprintf('/v3/%s/tags', $domain), $params);
 
-        return $this->safeDeserialize($response, IndexResponse::class);
+        return $this->safeHydrate($response, IndexResponse::class);
     }
 
     /**
@@ -61,7 +61,7 @@ class Tag extends HttpApi
 
         $response = $this->httpGet(sprintf('/v3/%s/tags/%s', $domain, $tag));
 
-        return $this->safeDeserialize($response, ShowResponse::class);
+        return $this->safeHydrate($response, ShowResponse::class);
     }
 
     /**
@@ -85,7 +85,7 @@ class Tag extends HttpApi
 
         $response = $this->httpPut(sprintf('/v3/%s/tags/%s', $domain, $tag), $params);
 
-        return $this->safeDeserialize($response, UpdateResponse::class);
+        return $this->safeHydrate($response, UpdateResponse::class);
     }
 
     /**
@@ -105,7 +105,7 @@ class Tag extends HttpApi
 
         $response = $this->httpGet(sprintf('/v3/%s/tags/%s/stats', $domain, $tag), $params);
 
-        return $this->safeDeserialize($response, StatisticsResponse::class);
+        return $this->safeHydrate($response, StatisticsResponse::class);
     }
 
     /**
@@ -123,6 +123,6 @@ class Tag extends HttpApi
 
         $response = $this->httpDelete(sprintf('/v3/%s/tags/%s', $domain, $tag));
 
-        return $this->safeDeserialize($response, DeleteResponse::class);
+        return $this->safeHydrate($response, DeleteResponse::class);
     }
 }

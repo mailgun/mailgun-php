@@ -49,7 +49,7 @@ class Domain extends HttpApi
 
         $response = $this->httpGet('/v3/domains', $params);
 
-        return $this->safeDeserialize($response, IndexResponse::class);
+        return $this->safeHydrate($response, IndexResponse::class);
     }
 
     /**
@@ -65,7 +65,7 @@ class Domain extends HttpApi
 
         $response = $this->httpGet(sprintf('/v3/domains/%s', $domain));
 
-        return $this->safeDeserialize($response, ShowResponse::class);
+        return $this->safeHydrate($response, ShowResponse::class);
     }
 
     /**
@@ -97,7 +97,7 @@ class Domain extends HttpApi
 
         $response = $this->httpPost('/v3/domains', $params);
 
-        return $this->safeDeserialize($response, CreateResponse::class);
+        return $this->safeHydrate($response, CreateResponse::class);
     }
 
     /**
@@ -114,7 +114,7 @@ class Domain extends HttpApi
 
         $response = $this->httpDelete(sprintf('/v3/domains/%s', $domain));
 
-        return $this->safeDeserialize($response, DeleteResponse::class);
+        return $this->safeHydrate($response, DeleteResponse::class);
     }
 
     /**
@@ -139,7 +139,7 @@ class Domain extends HttpApi
 
         $response = $this->httpGet(sprintf('/v3/domains/%s/credentials', $domain), $params);
 
-        return $this->safeDeserialize($response, CredentialResponse::class);
+        return $this->safeHydrate($response, CredentialResponse::class);
     }
 
     /**
@@ -165,7 +165,7 @@ class Domain extends HttpApi
 
         $response = $this->httpPost(sprintf('/v3/domains/%s/credentials', $domain), $params);
 
-        return $this->safeDeserialize($response, CreateCredentialResponse::class);
+        return $this->safeHydrate($response, CreateCredentialResponse::class);
     }
 
     /**
@@ -190,7 +190,7 @@ class Domain extends HttpApi
 
         $response = $this->httpPut(sprintf('/v3/domains/%s/credentials/%s', $domain, $login), $params);
 
-        return $this->safeDeserialize($response, UpdateCredentialResponse::class);
+        return $this->safeHydrate($response, UpdateCredentialResponse::class);
     }
 
     /**
@@ -214,7 +214,7 @@ class Domain extends HttpApi
             )
         );
 
-        return $this->safeDeserialize($response, DeleteCredentialResponse::class);
+        return $this->safeHydrate($response, DeleteCredentialResponse::class);
     }
 
     /**
@@ -230,7 +230,7 @@ class Domain extends HttpApi
 
         $response = $this->httpGet(sprintf('/v3/domains/%s/connection', $domain));
 
-        return $this->safeDeserialize($response, ConnectionResponse::class);
+        return $this->safeHydrate($response, ConnectionResponse::class);
     }
 
     /**
@@ -261,6 +261,6 @@ class Domain extends HttpApi
 
         $response = $this->httpPut(sprintf('/v3/domains/%s/connection', $domain), $params);
 
-        return $this->safeDeserialize($response, UpdateConnectionResponse::class);
+        return $this->safeHydrate($response, UpdateConnectionResponse::class);
     }
 }

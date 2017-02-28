@@ -7,7 +7,7 @@
  * of the MIT license. See the LICENSE file for details.
  */
 
-namespace Mailgun\Deserializer;
+namespace Mailgun\Hydrator;
 
 use Psr\Http\Message\ResponseInterface;
 
@@ -16,16 +16,16 @@ use Psr\Http\Message\ResponseInterface;
  *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
-class PSR7Deserializer implements ResponseDeserializer
+class NoopHydrator implements Hydrator
 {
     /**
      * @param ResponseInterface $response
      * @param string            $class
      *
-     * @return ResponseInterface
+     * @throws \LogicException
      */
     public function deserialize(ResponseInterface $response, $class)
     {
-        return $response;
+        throw new \LogicException('The NoopHydrator should never be called');
     }
 }

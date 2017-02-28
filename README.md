@@ -94,13 +94,13 @@ foreach ($dns as $record) {
 }
 ```
 
-If you rather be working with array then object you can inject the `ArrayDeserializer`
+If you rather be working with array then object you can inject the `ArrayHydrator`
 to the Mailgun class. 
 
 ```php
-use Mailgun\Deserializer\ArrayDeserializer;
+use Mailgun\Hydrator\ArrayHydator;
 
-$mg = new Mailgun("key-example", null, null, new ArrayDeserializer());
+$mg = new Mailgun("key-example", null, null, new ArrayHydator());
 $data = $mg->domains()->show('example.com');
 
 foreach ($data['receiving_dns_records'] as $record) {
@@ -108,7 +108,7 @@ foreach ($data['receiving_dns_records'] as $record) {
 }
 ```
 
-You could also use the `PSR7Deserializer` to get a PSR7 Response returned from 
+You could also use the `NoopHydrator` to get a PSR7 Response returned from 
 the API calls. 
 
 ### Debugging

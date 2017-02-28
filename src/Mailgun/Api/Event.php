@@ -33,7 +33,7 @@ class Event extends HttpApi
 
         $response = $this->httpGet(sprintf('/v3/%s/events', $domain), $params);
 
-        return $this->safeDeserialize($response, EventResponse::class);
+        return $this->safeHydrate($response, EventResponse::class);
     }
 
     /**
