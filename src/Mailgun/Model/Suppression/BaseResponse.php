@@ -7,12 +7,12 @@
  * of the MIT license. See the LICENSE file for details.
  */
 
-namespace Mailgun\Model\Suppressions;
+namespace Mailgun\Model\Suppression;
 
 use Mailgun\Model\ApiResponse;
 
 /**
- * Serves only as an abstract base for suppressions API code.
+ * Serves only as an abstract base for Suppression API code.
  *
  * @author Sean Johnson <sean@mailgun.com>
  */

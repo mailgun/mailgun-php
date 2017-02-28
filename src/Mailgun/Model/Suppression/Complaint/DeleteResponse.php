@@ -7,13 +7,13 @@
  * of the MIT license. See the LICENSE file for details.
  */
 
-namespace Mailgun\Model\Suppressions\Complaint;
+namespace Mailgun\Model\Suppression\Complaint;
 
-use Mailgun\Model\Suppressions\BaseResponse;
+use Mailgun\Model\Suppression\BaseResponse;
 
 /**
  * @author Sean Johnson <sean@mailgun.com>
  */
-final class CreateResponse extends BaseResponse
+final class DeleteResponse extends BaseResponse
 {
 }

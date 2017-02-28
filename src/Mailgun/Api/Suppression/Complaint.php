@@ -7,13 +7,15 @@
  * of the MIT license. See the LICENSE file for details.
  */
 
-namespace Mailgun\Api;
+namespace Mailgun\Api\Supression;
 
+use Mailgun\Api\HttpApi;
+use Mailgun\Api\Pagination;
 use Mailgun\Assert;
-use Mailgun\Model\Suppressions\Complaint\CreateResponse;
-use Mailgun\Model\Suppressions\Complaint\DeleteResponse;
-use Mailgun\Model\Suppressions\Complaint\IndexResponse;
-use Mailgun\Model\Suppressions\Complaint\ShowResponse;
+use Mailgun\Model\Suppression\Complaint\CreateResponse;
+use Mailgun\Model\Suppression\Complaint\DeleteResponse;
+use Mailgun\Model\Suppression\Complaint\IndexResponse;
+use Mailgun\Model\Suppression\Complaint\ShowResponse;
 
 /**
  * @see https://documentation.mailgun.com/api-suppressions.html#complaints
@@ -41,7 +43,7 @@ class Complaint extends HttpApi
 
         $response = $this->httpGet(sprintf('/v3/%s/complaints', $domain), $params);
 
-        return $this->safeDeserialize($response, IndexResponse::class);
+        return $this->safeHydrate($response, IndexResponse::class);
     }
 
     /**
@@ -56,7 +58,7 @@ class Complaint extends HttpApi
         Assert::stringNotEmpty($address);
         $response = $this->httpGet(sprintf('/v3/%s/complaints/%s', $domain, $address));
 
-        return $this->safeDeserialize($response, ShowResponse::class);
+        return $this->safeHydrate($response, ShowResponse::class);
     }
 
     /**
@@ -75,7 +77,7 @@ class Complaint extends HttpApi
 
         $response = $this->httpPost(sprintf('/v3/%s/complaints', $domain), $params);
 
-        return $this->safeDeserialize($response, CreateResponse::class);
+        return $this->safeHydrate($response, CreateResponse::class);
     }
 
     /**
@@ -91,7 +93,7 @@ class Complaint extends HttpApi
 
         $response = $this->httpDelete(sprintf('/v3/%s/complaints/%s', $domain, $address));
 
-        return $this->safeDeserialize($response, DeleteResponse::class);
+        return $this->safeHydrate($response, DeleteResponse::class);
     }
 
     /**
@@ -105,6 +107,6 @@ class Complaint extends HttpApi
 
         $response = $this->httpDelete(sprintf('/v3/%s/complaints', $domain));
 
-        return $this->safeDeserialize($response, DeleteResponse::class);
+        return $this->safeHydrate($response, DeleteResponse::class);
     }
 }

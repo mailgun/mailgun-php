@@ -7,7 +7,7 @@
  * of the MIT license. See the LICENSE file for details.
  */
 
-namespace Mailgun\Model\Suppressions\Bounce;
+namespace Mailgun\Model\Suppression\Bounce;
 
 use Mailgun\Model\ApiResponse;
 
@@ -55,13 +55,13 @@ final class ShowResponse implements ApiResponse
         $bounce = new self($data['address']);
 
         if (isset($data['code'])) {
-            $this->setCode($data['code']);
+            $bounce->setCode($data['code']);
         }
         if (isset($data['error'])) {
-            $this->setError($data['error']);
+            $bounce->setError($data['error']);
         }
         if (isset($data['created_at'])) {
-            $this->setCreatedAt(new \DateTime($data['created_at']));
+            $bounce->setCreatedAt(new \DateTime($data['created_at']));
         }
 
         return $bounce;
