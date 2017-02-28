@@ -104,6 +104,8 @@ class Mailgun
      * @throws Exceptions\MissingRequiredMIMEParameters
      *
      * @return \stdClass
+     *
+     * @deprecated Use Mailgun->message() instead. Will be removed in 3.0
      */
     public function sendMessage($workingDomain, $postData, $postFiles = [])
     {
@@ -137,6 +139,8 @@ class Mailgun
      * @param array|null $postData
      *
      * @return bool
+     *
+     * @deprecated Use Mailgun->webhook() instead. Will be removed in 3.0
      */
     public function verifyWebhookSignature($postData = null)
     {
@@ -162,6 +166,8 @@ class Mailgun
      * @param array  $files
      *
      * @return \stdClass
+     *
+     * @deprecated Will be removed in 3.0
      */
     public function post($endpointUrl, $postData = [], $files = [])
     {
@@ -173,6 +179,8 @@ class Mailgun
      * @param array  $queryString
      *
      * @return \stdClass
+     *
+     * @deprecated Will be removed in 3.0
      */
     public function get($endpointUrl, $queryString = [])
     {
@@ -183,6 +191,8 @@ class Mailgun
      * @param string $url
      *
      * @return \stdClass
+     *
+     * @deprecated Will be removed in 3.0
      */
     public function getAttachment($url)
     {
@@ -193,6 +203,8 @@ class Mailgun
      * @param string $endpointUrl
      *
      * @return \stdClass
+     *
+     * @deprecated Will be removed in 3.0
      */
     public function delete($endpointUrl)
     {
@@ -204,6 +216,8 @@ class Mailgun
      * @param array  $putData
      *
      * @return \stdClass
+     *
+     * @deprecated Will be removed in 3.0
      */
     public function put($endpointUrl, $putData)
     {
@@ -214,6 +228,8 @@ class Mailgun
      * @param string $apiVersion
      *
      * @return Mailgun
+     *
+     * @deprecated Will be removed in 3.0
      */
     public function setApiVersion($apiVersion)
     {
@@ -238,6 +254,8 @@ class Mailgun
 
     /**
      * @return MessageBuilder
+     *
+     * @deprecated Will be removed in 3.0
      */
     public function MessageBuilder()
     {
@@ -246,6 +264,8 @@ class Mailgun
 
     /**
      * @return OptInHandler
+     *
+     * @deprecated Will be removed in 3.0
      */
     public function OptInHandler()
     {
@@ -257,6 +277,8 @@ class Mailgun
      * @param bool   $autoSend
      *
      * @return BatchMessage
+     *
+     * @deprecated Will be removed in 3.0
      */
     public function BatchMessage($workingDomain, $autoSend = true)
     {
