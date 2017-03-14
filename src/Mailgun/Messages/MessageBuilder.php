@@ -117,10 +117,10 @@ class MessageBuilder
     {
         $compiledAddress = $this->parseAddress($address, $variables);
 
-        if (isset($this->message[$headerName])) {
-            array_push($this->message[$headerName], $compiledAddress);
-        } elseif ($headerName == 'h:reply-to') {
+        if ($headerName === 'h:reply-to') {
             $this->message[$headerName] = $compiledAddress;
+        } elseif (isset($this->message[$headerName])) {
+            array_push($this->message[$headerName], $compiledAddress);
         } else {
             $this->message[$headerName] = [$compiledAddress];
         }
