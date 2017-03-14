@@ -114,6 +114,7 @@ class MessageBuilderTest extends \Mailgun\Tests\MailgunTestCase
     public function testSetReplyTo()
     {
         $message = $this->client->MessageBuilder();
+        $message->setReplyToAddress('overwritten@samples.mailgun.org');
         $message->setReplyToAddress('test@samples.mailgun.org', ['first' => 'Test', 'last' => 'User']);
         $messageObj = $message->getMessage();
         $this->assertEquals(['h:reply-to' => "'Test User' <test@samples.mailgun.org>"], $messageObj);
