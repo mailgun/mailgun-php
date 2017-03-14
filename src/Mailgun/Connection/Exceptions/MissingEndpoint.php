@@ -11,6 +11,9 @@ namespace Mailgun\Connection\Exceptions;
 
 use Mailgun\Exception;
 
+/**
+ * @deprecated Will be removed in 3.0
+ */
 class MissingEndpoint extends \Exception implements Exception
 {
 }

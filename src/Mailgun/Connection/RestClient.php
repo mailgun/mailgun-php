@@ -23,6 +23,8 @@ use Psr\Http\Message\ResponseInterface;
 
 /**
  * This class is a wrapper for the HTTP client.
+ *
+ * @deprecated Will be removed in 3.0
  */
 class RestClient
 {
