@@ -7,7 +7,7 @@
  * of the MIT license. See the LICENSE file for details.
  */
 
-namespace Mailgun\Deserializer;
+namespace Mailgun\Hydrator;
 
 use Mailgun\Exception\DeserializeException;
 use Mailgun\Model\ApiResponse;
@@ -18,7 +18,7 @@ use Psr\Http\Message\ResponseInterface;
  *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
-class ModelDeserializer implements ResponseDeserializer
+class ModelHydrator implements Hydrator
 {
     /**
      * @param ResponseInterface $response
@@ -31,7 +31,7 @@ class ModelDeserializer implements ResponseDeserializer
         $body = $response->getBody()->__toString();
         $contentType = $response->getHeaderLine('Content-Type');
         if (strpos($contentType, 'application/json') !== 0 && strpos($contentType, 'application/octet-stream') !== 0) {
-            throw new DeserializeException('The ModelDeserializer cannot deserialize response with Content-Type: '.$contentType);
+            throw new DeserializeException('The ModelHydrator cannot hydrate response with Content-Type: '.$contentType);
         }
 
         $data = json_decode($body, true);

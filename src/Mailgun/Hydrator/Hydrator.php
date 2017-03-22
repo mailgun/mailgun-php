@@ -7,14 +7,14 @@
  * of the MIT license. See the LICENSE file for details.
  */
 
-namespace Mailgun\Deserializer;
+namespace Mailgun\Hydrator;
 
 use Psr\Http\Message\ResponseInterface;
 
 /**
  * Deserialize a PSR-7 response to something else.
  */
-interface ResponseDeserializer
+interface Hydrator
 {
     /**
      * @param ResponseInterface $response

@@ -45,7 +45,7 @@ class Routes extends HttpApi
 
         $response = $this->httpGet('/v3/routes', $params);
 
-        return $this->safeDeserialize($response, IndexResponse::class);
+        return $this->safeHydrate($response, IndexResponse::class);
     }
 
     /**
@@ -61,7 +61,7 @@ class Routes extends HttpApi
 
         $response = $this->httpGet(sprintf('/v3/routes/%s', $routeId));
 
-        return $this->safeDeserialize($response, ShowResponse::class);
+        return $this->safeHydrate($response, ShowResponse::class);
     }
 
     /**
@@ -90,7 +90,7 @@ class Routes extends HttpApi
 
         $response = $this->httpPost('/v3/routes', $params);
 
-        return $this->safeDeserialize($response, CreateResponse::class);
+        return $this->safeHydrate($response, CreateResponse::class);
     }
 
     /**
@@ -136,7 +136,7 @@ class Routes extends HttpApi
 
         $response = $this->httpPut(sprintf('/v3/routes/%s', $routeId), $params);
 
-        return $this->safeDeserialize($response, UpdateResponse::class);
+        return $this->safeHydrate($response, UpdateResponse::class);
     }
 
     /**
@@ -152,6 +152,6 @@ class Routes extends HttpApi
 
         $response = $this->httpDelete(sprintf('/v3/routes/%s', $routeId));
 
-        return $this->safeDeserialize($response, DeleteResponse::class);
+        return $this->safeHydrate($response, DeleteResponse::class);
     }
 }

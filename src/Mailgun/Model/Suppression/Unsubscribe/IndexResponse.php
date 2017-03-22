@@ -7,7 +7,7 @@
  * of the MIT license. See the LICENSE file for details.
  */
 
-namespace Mailgun\Model\Suppressions\Complaint;
+namespace Mailgun\Model\Suppression\Unsubscribe;
 
 use Mailgun\Model\ApiResponse;
 use Mailgun\Model\PaginationResponse;
@@ -21,13 +21,13 @@ final class IndexResponse implements ApiResponse, PagingProvider
     use PaginationResponse;
 
     /**
-     * @var Complaint[]
+     * @var Unsubscribe[]
      */
     private $items;
 
     /**
-     * @param Complaint[] $items
-     * @param array       $paging
+     * @param Unsubscribe[] $items
+     * @param array         $paging
      */
     private function __construct(array $items, array $paging)
     {
@@ -42,18 +42,18 @@ final class IndexResponse implements ApiResponse, PagingProvider
      */
     public static function create(array $data)
     {
-        $complaints = [];
+        $unsubscribes = [];
         if (isset($data['items'])) {
             foreach ($data['items'] as $item) {
-                $complaints[] = Complaint::create($item);
+                $unsubscribes[] = Unsubscribes::create($item);
             }
         }
 
-        return new self($complaints, $data['paging']);
+        return new self($unsubscribes, $data['paging']);
     }
 
     /**
-     * @return Complaint[]
+     * @return Unsubscribe[]
      */
     public function getItems()
     {

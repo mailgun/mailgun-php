@@ -7,7 +7,7 @@
  * of the MIT license. See the LICENSE file for details.
  */
 
-namespace Mailgun\Model\Suppressions\Complaint;
+namespace Mailgun\Model\Suppression\Unsubscribe;
 
 use Mailgun\Model\ApiResponse;
 
@@ -20,6 +20,11 @@ final class ShowResponse implements ApiResponse
      * @var string
      */
     private $address;
+
+    /**
+     * @var string
+     */
+    private $tag;
 
     /**
      * @var \DateTime
@@ -42,13 +47,16 @@ final class ShowResponse implements ApiResponse
      */
     public static function create(array $data)
     {
-        $bounce = new self($data['address']);
+        $unsubscribe = new self($data['address']);
 
+        if (isset($data['tag'])) {
+            $unsubscribe->setTag($data['tag']);
+        }
         if (isset($data['created_at'])) {
-            $this->setCreatedAt(new \DateTime($data['created_at']));
+            $unsubscribe->setCreatedAt(new \DateTime($data['created_at']));
         }
 
-        return $bounce;
+        return $unsubscribe;
     }
 
     /**
@@ -57,6 +65,22 @@ final class ShowResponse implements ApiResponse
     public function getAddress()
     {
         return $this->address;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTag()
+    {
+        return $this->tag;
+    }
+
+    /**
+     * @param string $tag
+     */
+    private function setTag($tag)
+    {
+        $this->tag = $tag;
     }
 
     /**

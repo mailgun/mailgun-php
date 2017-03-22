@@ -7,9 +7,9 @@
  * of the MIT license. See the LICENSE file for details.
  */
 
-namespace Mailgun\Model\Suppressions\Unsubscribe;
+namespace Mailgun\Model\Suppression\Bounce;
 
-use Mailgun\Model\Suppressions\BaseResponse;
+use Mailgun\Model\Suppression\BaseResponse;
 
 /**
  * @author Sean Johnson <sean@mailgun.com>

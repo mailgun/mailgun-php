@@ -68,7 +68,7 @@ class Message extends HttpApi
 
         $response = $this->httpPostRaw(sprintf('/v3/%s/messages', $domain), $postDataMultipart);
 
-        return $this->safeDeserialize($response, SendResponse::class);
+        return $this->safeHydrate($response, SendResponse::class);
     }
 
     /**
@@ -90,7 +90,7 @@ class Message extends HttpApi
 
         $response = $this->httpGet($url, [], $headers);
 
-        return $this->safeDeserialize($response, ShowResponse::class);
+        return $this->safeHydrate($response, ShowResponse::class);
     }
 
     /**

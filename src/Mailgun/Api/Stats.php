@@ -32,7 +32,7 @@ class Stats extends HttpApi
 
         $response = $this->httpGet(sprintf('/v3/%s/stats/total', rawurlencode($domain)), $params);
 
-        return $this->safeDeserialize($response, TotalResponse::class);
+        return $this->safeHydrate($response, TotalResponse::class);
     }
 
     /**
@@ -47,6 +47,6 @@ class Stats extends HttpApi
 
         $response = $this->httpGet(sprintf('/v3/%s/stats', rawurlencode($domain)), $params);
 
-        return $this->safeDeserialize($response, AllResponse::class);
+        return $this->safeHydrate($response, AllResponse::class);
     }
 }
