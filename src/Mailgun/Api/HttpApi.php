@@ -11,6 +11,7 @@ namespace Mailgun\Api;
 
 use Http\Client\Exception as HttplugException;
 use Http\Client\HttpClient;
+use Mailgun\Exception\UnknownErrorException;
 use Mailgun\Hydrator\Hydrator;
 use Mailgun\Hydrator\NoopHydrator;
 use Mailgun\Exception\HttpClientException;
@@ -55,30 +56,48 @@ abstract class HttpApi
         }
     }
 
+
     /**
-     * Attempts to safely deserialize the response into the given class.
-     * If the HTTP return code != 200, deserializes into SimpleResponse::class
-     * to contain the error message and any other information provided.
-     *
      * @param ResponseInterface $response
-     * @param string            $className
+     * @param string $class
      *
-     * @throws HttpClientException
-     *
-     * @return object $class
+     * @return mixed|array|ResponseInterface
      */
-    protected function safeHydrate(ResponseInterface $response, $className)
+    protected function hydrateResponse(ResponseInterface $response, $class)
     {
         if (!$this->hydrator) {
             return $response;
         }
 
-        if ($response->getStatusCode() === 200) {
-            return $this->hydrator->deserialize($response, $className);
-        } elseif ($response->getStatusCode() === 401) {
-            throw HttpClientException::unauthorized();
+        if ($response->getStatusCode() !== 200) {
+            $this->handleErrors($response);
+        }
+
+        return $this->hydrator->hydrate($response, $class);
+    }
+
+    /**
+     * Throw the correct exception for this error.
+     *
+     * @param ResponseInterface $response
+     *
+     * @throws \Exception
+     */
+    protected function handleErrors(ResponseInterface $response)
+    {
+        $statusCode = $response->getStatusCode();
+        if (400 === $statusCode) {
+            throw HttpClientException::badRequest($response);
+        } elseif (401 === $statusCode) {
+            throw HttpClientException::unauthorized($response);
+        } elseif (402 === $statusCode) {
+            throw HttpClientException::requestFailed($response);
+        } elseif (404 === $statusCode) {
+            throw HttpClientException::notFound($response);
+        } elseif (500 <= $statusCode) {
+            throw HttpServerException::serverError($statusCode);
         } else {
-            return $this->hydrator->deserialize($response, ErrorResponse::class);
+            throw new UnknownErrorException();
         }
     }
 

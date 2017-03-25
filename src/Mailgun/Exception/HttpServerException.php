@@ -14,7 +14,7 @@ use Mailgun\Exception;
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
-class HttpServerException extends \RuntimeException implements Exception
+final class HttpServerException extends \RuntimeException implements Exception
 {
     public static function serverError($httpStatus = 500)
     {

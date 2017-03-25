@@ -22,5 +22,5 @@ interface Hydrator
      *
      * @return mixed
      */
-    public function deserialize(ResponseInterface $response, $class);
+    public function hydrate(ResponseInterface $response, $class);
 }

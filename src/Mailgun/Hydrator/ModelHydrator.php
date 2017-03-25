@@ -26,7 +26,7 @@ class ModelHydrator implements Hydrator
      *
      * @return ResponseInterface
      */
-    public function deserialize(ResponseInterface $response, $class)
+    public function hydrate(ResponseInterface $response, $class)
     {
         $body = $response->getBody()->__toString();
         $contentType = $response->getHeaderLine('Content-Type');

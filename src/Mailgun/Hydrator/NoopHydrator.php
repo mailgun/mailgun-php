@@ -24,7 +24,7 @@ class NoopHydrator implements Hydrator
      *
      * @throws \LogicException
      */
-    public function deserialize(ResponseInterface $response, $class)
+    public function hydrate(ResponseInterface $response, $class)
     {
         throw new \LogicException('The NoopHydrator should never be called');
     }
