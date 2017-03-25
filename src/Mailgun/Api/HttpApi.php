@@ -62,6 +62,8 @@ abstract class HttpApi
      * @param string $class
      *
      * @return mixed|array|ResponseInterface
+     *
+     * @throws \Exception
      */
     protected function hydrateResponse(ResponseInterface $response, $class)
     {
