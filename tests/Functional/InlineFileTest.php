@@ -36,7 +36,7 @@ class InlineFileTest extends \PHPUnit_Framework_TestCase
         };
 
         // Create the mocked mailgun client. We use $this->assertEquals on $method, $uri and $body parameters.
-        $mailgun = MockedMailgun::create($this, 'POST', 'domain/messages', [], $fileValidator);
+        $mailgun = MockedMailgun::createMock($this, 'POST', 'domain/messages', [], $fileValidator);
 
         $builder = $mailgun->MessageBuilder();
         $builder->setFromAddress('bob@example.com');

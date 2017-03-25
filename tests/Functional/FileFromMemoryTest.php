@@ -44,7 +44,7 @@ class FileFromMemoryTest extends \PHPUnit_Framework_TestCase
             ['filePath' => './tests/TestAssets/text_file.txt', 'remoteName' => 'text_file.txt'],
         ];
 
-        $mailgun = MockedMailgun::create($this, 'POST', 'domain/messages', [], $fileValidator);
+        $mailgun = MockedMailgun::createMock($this, 'POST', 'domain/messages', [], $fileValidator);
 
         $mailgun->sendMessage('domain', [
             'from' => 'bob@example.com',

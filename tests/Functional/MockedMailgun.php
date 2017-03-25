@@ -44,7 +44,7 @@ final class MockedMailgun extends Mailgun
      * @param \Closure|array              $filesValidator
      * @param \Closure|array              $headersValidator
      */
-    public static function create(
+    public static function createMock(
         \PHPUnit_Framework_TestCase $testCase,
         $methodValidator,
         $uriValidator,
