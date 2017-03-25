@@ -17,7 +17,6 @@ use Mailgun\Hydrator\NoopHydrator;
 use Mailgun\Exception\HttpClientException;
 use Mailgun\Exception\HttpServerException;
 use Mailgun\RequestBuilder;
-use Mailgun\Model\ErrorResponse;
 use Psr\Http\Message\ResponseInterface;
 
 /**
@@ -56,10 +55,9 @@ abstract class HttpApi
         }
     }
 
-
     /**
      * @param ResponseInterface $response
-     * @param string $class
+     * @param string            $class
      *
      * @return mixed|array|ResponseInterface
      *
@@ -71,7 +69,7 @@ abstract class HttpApi
             return $response;
         }
 
-        if ($response->getStatusCode() !== 200) {
+        if ($response->getStatusCode() !== 200 || $response->getStatusCode() !== 201) {
             $this->handleErrors($response);
         }
 
@@ -88,27 +86,28 @@ abstract class HttpApi
     protected function handleErrors(ResponseInterface $response)
     {
         $statusCode = $response->getStatusCode();
-        if (400 === $statusCode) {
-            throw HttpClientException::badRequest($response);
-        } elseif (401 === $statusCode) {
-            throw HttpClientException::unauthorized($response);
-        } elseif (402 === $statusCode) {
-            throw HttpClientException::requestFailed($response);
-        } elseif (404 === $statusCode) {
-            throw HttpClientException::notFound($response);
-        } elseif (500 <= $statusCode) {
-            throw HttpServerException::serverError($statusCode);
-        } else {
-            throw new UnknownErrorException();
+        switch ($statusCode) {
+            case 400:
+                throw HttpClientException::badRequest($response);
+            case 401:
+                throw HttpClientException::unauthorized($response);
+            case 402:
+                throw HttpClientException::requestFailed($response);
+            case 404:
+                throw HttpClientException::notFound($response);
+            case 500 <= $statusCode:
+                throw HttpServerException::serverError($statusCode);
+            default:
+                throw new UnknownErrorException();
         }
     }
 
     /**
      * Send a GET request with query parameters.
      *
-     * @param string $path           Request path.
-     * @param array  $parameters     GET parameters.
-     * @param array  $requestHeaders Request Headers.
+     * @param string $path           Request path
+     * @param array  $parameters     GET parameters
+     * @param array  $requestHeaders Request Headers
      *
      * @return ResponseInterface
      */
@@ -132,9 +131,9 @@ abstract class HttpApi
     /**
      * Send a POST request with JSON-encoded parameters.
      *
-     * @param string $path           Request path.
-     * @param array  $parameters     POST parameters to be JSON encoded.
-     * @param array  $requestHeaders Request headers.
+     * @param string $path           Request path
+     * @param array  $parameters     POST parameters to be JSON encoded
+     * @param array  $requestHeaders Request headers
      *
      * @return ResponseInterface
      */
@@ -146,9 +145,9 @@ abstract class HttpApi
     /**
      * Send a POST request with raw data.
      *
-     * @param string       $path           Request path.
-     * @param array|string $body           Request body.
-     * @param array        $requestHeaders Request headers.
+     * @param string       $path           Request path
+     * @param array|string $body           Request body
+     * @param array        $requestHeaders Request headers
      *
      * @return ResponseInterface
      */
@@ -168,9 +167,9 @@ abstract class HttpApi
     /**
      * Send a PUT request with JSON-encoded parameters.
      *
-     * @param string $path           Request path.
-     * @param array  $parameters     POST parameters to be JSON encoded.
-     * @param array  $requestHeaders Request headers.
+     * @param string $path           Request path
+     * @param array  $parameters     POST parameters to be JSON encoded
+     * @param array  $requestHeaders Request headers
      *
      * @return ResponseInterface
      */
@@ -190,9 +189,9 @@ abstract class HttpApi
     /**
      * Send a DELETE request with JSON-encoded parameters.
      *
-     * @param string $path           Request path.
-     * @param array  $parameters     POST parameters to be JSON encoded.
-     * @param array  $requestHeaders Request headers.
+     * @param string $path           Request path
+     * @param array  $parameters     POST parameters to be JSON encoded
+     * @param array  $requestHeaders Request headers
      *
      * @return ResponseInterface
      */
