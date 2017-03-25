@@ -93,6 +93,35 @@ class Mailgun
     }
 
     /**
+     * @param HttpClientConfigurator $httpClientConfigurator
+     * @param Hydrator|null          $hydrator
+     * @param RequestBuilder|null    $requestBuilder
+     *
+     * @return Mailgun
+     */
+    public static function configure(
+        HttpClientConfigurator $httpClientConfigurator,
+        Hydrator $hydrator = null,
+        RequestBuilder $requestBuilder = null
+    ) {
+        $httpClient = $httpClientConfigurator->createConfiguredClient();
+
+        return new self($httpClient, $hydrator, $requestBuilder);
+    }
+
+    /**
+     * @param string $apiKey
+     *
+     * @return Mailgun
+     */
+    public static function create($apiKey)
+    {
+        $httpClientConfigurator = (new HttpClientConfigurator())->setApiKey($apiKey);
+
+        return self::configure($httpClientConfigurator);
+    }
+
+    /**
      *  This function allows the sending of a fully formed message OR a custom
      *  MIME string. If sending MIME, the string must be passed in to the 3rd
      *  position of the function call.
