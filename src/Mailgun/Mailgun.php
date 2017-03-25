@@ -13,12 +13,14 @@ use Http\Client\Common\HttpMethodsClient;
 use Http\Client\HttpClient;
 use Mailgun\Connection\RestClient;
 use Mailgun\Constants\ExceptionMessages;
+use Mailgun\HttpClient\Plugin\History;
 use Mailgun\Lists\OptInHandler;
 use Mailgun\Messages\BatchMessage;
 use Mailgun\Messages\Exceptions;
 use Mailgun\Messages\MessageBuilder;
 use Mailgun\Hydrator\ModelHydrator;
 use Mailgun\Hydrator\Hydrator;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * This class is the base class for the Mailgun SDK.
@@ -51,6 +53,13 @@ class Mailgun
      * @var RequestBuilder
      */
     private $requestBuilder;
+
+    /**
+     * This is a object that holds the last response from the API.
+     *
+     * @var History
+     */
+    private $responseHistory = null;
 
     /**
      * @param string|null                 $apiKey
@@ -158,6 +167,14 @@ class Mailgun
         } else {
             return $hmac === $sig;
         }
+    }
+
+    /**
+     * @return ResponseInterface|null
+     */
+    public function getLastResponse()
+    {
+        return $this->responseHistory->getLastResponse();
     }
 
     /**

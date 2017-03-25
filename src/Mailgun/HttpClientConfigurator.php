@@ -15,6 +15,7 @@ use Http\Discovery\HttpClientDiscovery;
 use Http\Discovery\UriFactoryDiscovery;
 use Http\Message\UriFactory;
 use Http\Client\Common\Plugin;
+use Mailgun\HttpClient\Plugin\History;
 
 /**
  * Configure a HTTP client.
@@ -44,6 +45,16 @@ class HttpClientConfigurator
     private $httpClient;
 
     /**
+     * @var History
+     */
+    private $responseHistory;
+
+    public function __construct()
+    {
+        $this->responseHistory = new History();
+    }
+
+    /**
      * @return PluginClient
      */
     public function createConfiguredClient()
@@ -54,6 +65,7 @@ class HttpClientConfigurator
                 'User-Agent' => 'mailgun-sdk-php/v2 (https://github.com/mailgun/mailgun-php)',
                 'Authorization' => 'Basic '.base64_encode(sprintf('api:%s', $this->getApiKey())),
             ]),
+            new Plugin\HistoryPlugin($this->responseHistory),
         ];
 
         return new PluginClient($this->getHttpClient(), $plugins);
@@ -145,5 +157,13 @@ class HttpClientConfigurator
         $this->httpClient = $httpClient;
 
         return $this;
+    }
+
+    /**
+     * @return History
+     */
+    public function getResponseHistory()
+    {
+        return $this->responseHistory;
     }
 }
