@@ -19,6 +19,7 @@ use Mailgun\Messages\Exceptions;
 use Mailgun\Messages\MessageBuilder;
 use Mailgun\Hydrator\ModelHydrator;
 use Mailgun\Hydrator\Hydrator;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * This class is the base class for the Mailgun SDK.
@@ -51,6 +52,13 @@ class Mailgun
      * @var RequestBuilder
      */
     private $requestBuilder;
+
+    /**
+     * This is the last response from the API.
+     *
+     * @var ResponseInterface|null
+     */
+    private $lastResponse = null;
 
     /**
      * @param string|null                 $apiKey
@@ -90,6 +98,35 @@ class Mailgun
         $this->httpClient = $clientConfigurator->createConfiguredClient();
         $this->requestBuilder = $requestBuilder ?: new RequestBuilder();
         $this->hydrator = $hydrator ?: new ModelHydrator();
+    }
+
+    /**
+     * @param HttpClientConfigurator $httpClientConfigurator
+     * @param Hydrator|null          $hydrator
+     * @param RequestBuilder|null    $requestBuilder
+     *
+     * @return Mailgun
+     */
+    public static function configure(
+        HttpClientConfigurator $httpClientConfigurator,
+        Hydrator $hydrator = null,
+        RequestBuilder $requestBuilder = null
+    ) {
+        $httpClient = $httpClientConfigurator->createConfiguredClient();
+
+        return new self($httpClient, $hydrator, $requestBuilder);
+    }
+
+    /**
+     * @param string $apiKey
+     *
+     * @return Mailgun
+     */
+    public static function create($apiKey)
+    {
+        $httpClientConfigurator = (new HttpClientConfigurator())->setApiKey($apiKey);
+
+        return self::configure($httpClientConfigurator);
     }
 
     /**
