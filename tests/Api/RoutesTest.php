@@ -38,6 +38,4 @@ class RoutesTest extends TestCase
     {
         return 'Mailgun\Api\Routes';
     }
-
-
 }
