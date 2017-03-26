@@ -14,7 +14,7 @@ use GuzzleHttp\Psr7\Response;
 /**
  * @author David Garcia <me@davidgarcia.cat>
  */
-class RoutesTest extends TestCase
+class RouteTest extends TestCase
 {
     protected function setUp()
     {
@@ -36,6 +36,6 @@ class RoutesTest extends TestCase
      */
     protected function getApiClass()
     {
-        return 'Mailgun\Api\Routes';
+        return 'Mailgun\Api\Route';
     }
 }

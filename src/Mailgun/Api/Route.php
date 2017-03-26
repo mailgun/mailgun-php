@@ -21,7 +21,7 @@ use Mailgun\Model\Routes\Response\UpdateResponse;
  *
  * @author David Garcia <me@davidgarcia.cat>
  */
-class Routes extends HttpApi
+class Route extends HttpApi
 {
     /**
      * Fetches the list of Routes.
