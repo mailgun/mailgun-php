@@ -23,7 +23,7 @@ class MessageBuilderHeaderTest extends \PHPUnit_Framework_TestCase
         };
 
         // Create the mocked mailgun client.
-        $mailgun = MockedMailgun::create($this, 'POST', 'domain/messages', [], $messageValidator);
+        $mailgun = MockedMailgun::createMock($this, 'POST', 'domain/messages', [], $messageValidator);
 
         $builder = $mailgun->MessageBuilder();
 
