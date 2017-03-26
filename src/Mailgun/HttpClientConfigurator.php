@@ -16,6 +16,7 @@ use Http\Discovery\UriFactoryDiscovery;
 use Http\Message\UriFactory;
 use Http\Client\Common\Plugin;
 use Mailgun\HttpClient\Plugin\History;
+use Mailgun\HttpClient\Plugin\ReplaceUriPlugin;
 
 /**
  * Configure a HTTP client.
@@ -28,6 +29,13 @@ final class HttpClientConfigurator
      * @var string
      */
     private $endpoint = 'https://api.mailgun.net';
+
+    /**
+     * If debug is true we will send all the request to the endpoint without appending any path.
+     *
+     * @var bool
+     */
+    private $debug = false;
 
     /**
      * @var string
@@ -60,7 +68,7 @@ final class HttpClientConfigurator
     public function createConfiguredClient()
     {
         $plugins = [
-            new Plugin\AddHostPlugin($this->getUriFactory()->createUri($this->getEndpoint())),
+            new Plugin\AddHostPlugin($this->getUriFactory()->createUri($this->endpoint)),
             new Plugin\HeaderDefaultsPlugin([
                 'User-Agent' => 'mailgun-sdk-php/v2 (https://github.com/mailgun/mailgun-php)',
                 'Authorization' => 'Basic '.base64_encode(sprintf('api:%s', $this->getApiKey())),
@@ -68,15 +76,23 @@ final class HttpClientConfigurator
             new Plugin\HistoryPlugin($this->responseHistory),
         ];
 
+        if ($this->debug) {
+            $plugins[] = new ReplaceUriPlugin($this->getUriFactory()->createUri($this->endpoint));
+        }
+
         return new PluginClient($this->getHttpClient(), $plugins);
     }
 
     /**
-     * @return string
+     * @param bool $debug
+     *
+     * @return HttpClientConfigurator
      */
-    private function getEndpoint()
+    public function setDebug($debug)
     {
-        return $this->endpoint;
+        $this->debug = $debug;
+
+        return $this;
     }
 
     /**
