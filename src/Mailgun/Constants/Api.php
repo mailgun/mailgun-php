@@ -9,6 +9,9 @@
 
 namespace Mailgun\Constants;
 
+/**
+ * @deprecated Will be removed in 3.0
+ */
 class Api
 {
     const API_USER = 'api';
