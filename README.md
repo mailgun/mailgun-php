@@ -57,36 +57,26 @@ use Mailgun\Mailgun;
 Here's how to send a message using the SDK:
 
 ```php
-# First, instantiate the SDK with your API credentials and define your domain. 
-$mg = new Mailgun("key-example");
-$domain = "example.com";
+# First, instantiate the SDK with your API credentials
+$mg = Mailgun::create('key-example');
 
 # Now, compose and send your message.
-$mg->sendMessage($domain, array('from'    => 'bob@example.com', 
-                                'to'      => 'sally@example.com', 
-                                'subject' => 'The PHP SDK is awesome!', 
-                                'text'    => 'It is so simple to send a message.'));
-```
-
-Or obtain the last 25 log items: 
-```php
-# First, instantiate the SDK with your API credentials and define your domain. 
-$mg = new Mailgun("key-example");
-$domain = "example.com";
-
-# Now, issue a GET against the Logs endpoint.
-$mg->get("$domain/log", array('limit' => 25, 
-                              'skip'  => 0));
+$mg->message()->send('example.com', [
+  'from'    => 'bob@example.com', 
+  'to'      => 'sally@example.com', 
+  'subject' => 'The PHP SDK is awesome!', 
+  'text'    => 'It is so simple to send a message.'
+]);
 ```
 
 ### Response
 
 The results of a API call is, by default, a domain object. This will make it easy
 to understand the response without reading the documentation. One can just read the
-doc blocks on the response classes. This provide an excellet IDE integration.
+doc blocks on the response classes. This provide an excellent IDE integration.
  
 ```php
-$mg = new Mailgun("key-example");
+$mg = Mailgun::create('key-example');
 $dns = $mg->domains()->show('example.com')->getInboundDNSRecords();
 
 foreach ($dns as $record) {
@@ -100,7 +90,10 @@ to the Mailgun class.
 ```php
 use Mailgun\Hydrator\ArrayHydator;
 
-$mg = new Mailgun("key-example", null, null, new ArrayHydator());
+$configurator = new HttpClientConfigurator();
+$configurator->setApiKey('key-example');
+
+$mg = Mailgun::configure($configurator, new ArrayHydator());
 $data = $mg->domains()->show('example.com');
 
 foreach ($data['receiving_dns_records'] as $record) {
@@ -110,6 +103,8 @@ foreach ($data['receiving_dns_records'] as $record) {
 
 You could also use the `NoopHydrator` to get a PSR7 Response returned from 
 the API calls. 
+
+**Warning: When using `NoopHydrator` there will be no exceptions on a non-200 response.**
 
 ### Debugging
 

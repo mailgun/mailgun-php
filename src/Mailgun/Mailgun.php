@@ -62,41 +62,23 @@ class Mailgun
     private $responseHistory = null;
 
     /**
-     * @param string|null                 $apiKey
-     * @param HttpClient|null             $httpClient
-     * @param string                      $apiEndpoint
-     * @param Hydrator|null               $hydrator
-     * @param HttpClientConfigurator|null $clientConfigurator
-     * @param RequestBuilder|null         $requestBuilder
+     * @param string|null         $apiKey
+     * @param HttpClient|null     $httpClient
+     * @param string              $apiEndpoint
+     * @param Hydrator|null       $hydrator
+     * @param RequestBuilder|null $requestBuilder
      */
     public function __construct(
-        $apiKey = null,
-        HttpClient $httpClient = null, /* Deprecated, will be removed in 3.0 */
+        $apiKey = null, /* Deprecated, will be removed in 3.0 */
+        HttpClient $httpClient = null,
         $apiEndpoint = 'api.mailgun.net', /* Deprecated, will be removed in 3.0 */
         Hydrator $hydrator = null,
-        HttpClientConfigurator $clientConfigurator = null,
         RequestBuilder $requestBuilder = null
     ) {
         $this->apiKey = $apiKey;
         $this->restClient = new RestClient($apiKey, $apiEndpoint, $httpClient);
 
-        if (null === $clientConfigurator) {
-            $clientConfigurator = new HttpClientConfigurator();
-
-            /*
-             * To be backward compatible
-             */
-            if ($apiEndpoint !== 'api.mailgun.net') {
-                $clientConfigurator->setEndpoint($apiEndpoint);
-            }
-            if ($httpClient !== null) {
-                $clientConfigurator->setHttpClient($httpClient);
-            }
-        }
-
-        $clientConfigurator->setApiKey($apiKey);
-
-        $this->httpClient = $clientConfigurator->createConfiguredClient();
+        $this->httpClient = $httpClient;
         $this->requestBuilder = $requestBuilder ?: new RequestBuilder();
         $this->hydrator = $hydrator ?: new ModelHydrator();
     }
@@ -115,7 +97,7 @@ class Mailgun
     ) {
         $httpClient = $httpClientConfigurator->createConfiguredClient();
 
-        return new self($httpClient, $hydrator, $requestBuilder);
+        return new self(null, $httpClient, 'api.mailgun.net', $hydrator, $requestBuilder);
     }
 
     /**
