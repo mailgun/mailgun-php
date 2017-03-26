@@ -23,6 +23,11 @@ final class HttpClientException extends \RuntimeException implements Exception
     private $response;
 
     /**
+     * @var array
+     */
+    private $responseBody;
+
+    /**
      * @param string                 $message
      * @param int                    $code
      * @param ResponseInterface|null $response
@@ -30,7 +35,16 @@ final class HttpClientException extends \RuntimeException implements Exception
     public function __construct($message, $code, ResponseInterface $response = null)
     {
         parent::__construct($message, $code);
-        $this->response = $response;
+
+        if ($response) {
+            $this->response = $response;
+            $body = $response->getBody()->__toString();
+            if (strpos($response->getHeaderLine('Content-Type'), 'application/json') !== 0) {
+                $this->responseBody['message'] = $body;
+            } else {
+                $this->responseBody = json_decode($body, true);
+            }
+        }
     }
 
     public static function badRequest(ResponseInterface $response = null)
@@ -59,5 +73,13 @@ final class HttpClientException extends \RuntimeException implements Exception
     public function getResponse()
     {
         return $this->response;
+    }
+
+    /**
+     * @return array
+     */
+    public function getResponseBody()
+    {
+        return $this->responseBody;
     }
 }
