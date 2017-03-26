@@ -7,9 +7,9 @@
  * of the MIT license. See the LICENSE file for details.
  */
 
-namespace Mailgun\Model\Routes\Response;
+namespace Mailgun\Model\Route\Response;
 
-use Mailgun\Model\Routes\Route;
+use Mailgun\Model\Route\Route;
 use Mailgun\Model\ApiResponse;
 
 /**
