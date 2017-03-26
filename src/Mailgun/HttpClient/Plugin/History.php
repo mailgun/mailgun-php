@@ -19,7 +19,7 @@ use Psr\Http\Message\ResponseInterface;
  *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
-class History implements Journal
+final class History implements Journal
 {
     /**
      * @var ResponseInterface

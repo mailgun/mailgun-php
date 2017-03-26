@@ -22,7 +22,7 @@ use Mailgun\HttpClient\Plugin\History;
  *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
-class HttpClientConfigurator
+final class HttpClientConfigurator
 {
     /**
      * @var string
