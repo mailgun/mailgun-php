@@ -150,6 +150,12 @@ class ShowResponse implements ApiResponse
         if (isset($data['body-mime'])) {
             $response->setBodyMime($data['body-mime']);
         }
+        if (isset($data['attachments'])) {
+            $response->setAttachments($data['attachments']);
+        }
+        if (isset($data['content-id-map'])) {
+            $response->setContentIdMap($data['content-id-map']);
+        }
 
         return $response;
     }
@@ -339,6 +345,14 @@ class ShowResponse implements ApiResponse
     }
 
     /**
+     * @param array $attachments
+     */
+    private function setAttachments($attachments)
+    {
+        $this->attachments = $attachments;
+    }
+
+    /**
      * @return string
      */
     public function getMessageUrl()
@@ -360,6 +374,14 @@ class ShowResponse implements ApiResponse
     public function getContentIdMap()
     {
         return $this->contentIdMap;
+    }
+
+    /**
+     * @param string $contentIdMap
+     */
+    public function setContentIdMap($contentIdMap)
+    {
+        $this->contentIdMap = $contentIdMap;
     }
 
     /**
