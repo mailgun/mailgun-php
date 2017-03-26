@@ -14,6 +14,6 @@ use Mailgun\Exception;
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
-class InvalidArgumentException extends \InvalidArgumentException implements Exception
+final class InvalidArgumentException extends \InvalidArgumentException implements Exception
 {
 }

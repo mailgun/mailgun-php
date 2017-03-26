@@ -20,7 +20,7 @@ trait Pagination
 {
     abstract protected function httpGet($path, array $parameters = [], array $requestHeaders = []);
 
-    abstract protected function safeHydrate(ResponseInterface $response, $className);
+    abstract protected function hydrateResponse(ResponseInterface $response, $className);
 
     /**
      * @param PagingProvider $response
@@ -78,6 +78,6 @@ trait Pagination
 
         $response = $this->httpGet($url);
 
-        return $this->safeHydrate($response, $class);
+        return $this->hydrateResponse($response, $class);
     }
 }

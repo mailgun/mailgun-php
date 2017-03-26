@@ -31,7 +31,7 @@ class Webhook extends HttpApi
         Assert::notEmpty($domain);
         $response = $this->httpGet(sprintf('/v3/domains/%s/webhooks', $domain));
 
-        return $this->safeHydrate($response, IndexResponse::class);
+        return $this->hydrateResponse($response, IndexResponse::class);
     }
 
     /**
@@ -46,7 +46,7 @@ class Webhook extends HttpApi
         Assert::notEmpty($webhook);
         $response = $this->httpGet(sprintf('/v3/domains/%s/webhooks/%s', $domain, $webhook));
 
-        return $this->safeHydrate($response, ShowResponse::class);
+        return $this->hydrateResponse($response, ShowResponse::class);
     }
 
     /**
@@ -69,7 +69,7 @@ class Webhook extends HttpApi
 
         $response = $this->httpPost(sprintf('/v3/domains/%s/webhooks', $domain), $params);
 
-        return $this->safeHydrate($response, CreateResponse::class);
+        return $this->hydrateResponse($response, CreateResponse::class);
     }
 
     /**
@@ -91,7 +91,7 @@ class Webhook extends HttpApi
 
         $response = $this->httpPut(sprintf('/v3/domains/%s/webhooks/%s', $domain, $id), $params);
 
-        return $this->safeHydrate($response, UpdateResponse::class);
+        return $this->hydrateResponse($response, UpdateResponse::class);
     }
 
     /**
@@ -107,6 +107,6 @@ class Webhook extends HttpApi
 
         $response = $this->httpDelete(sprintf('/v3/domains/%s/webhooks/%s', $domain, $id));
 
-        return $this->safeHydrate($response, DeleteResponse::class);
+        return $this->hydrateResponse($response, DeleteResponse::class);
     }
 }

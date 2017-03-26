@@ -10,29 +10,54 @@
 namespace Mailgun\Exception;
 
 use Mailgun\Exception;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
-class HttpClientException extends \RuntimeException implements Exception
+final class HttpClientException extends \RuntimeException implements Exception
 {
-    public static function badRequest()
+    /**
+     * @var ResponseInterface|null
+     */
+    private $response;
+
+    /**
+     * @param string                 $message
+     * @param int                    $code
+     * @param ResponseInterface|null $response
+     */
+    public function __construct($message, $code, ResponseInterface $response = null)
     {
-        return new self('The parameters passed to the API were invalid. Check your inputs!', 400);
+        parent::__construct($message, $code);
+        $this->response = $response;
     }
 
-    public static function unauthorized()
+    public static function badRequest(ResponseInterface $response = null)
     {
-        return new self('Your credentials are incorrect.', 401);
+        return new self('The parameters passed to the API were invalid. Check your inputs!', 400, $response);
     }
 
-    public static function requestFailed()
+    public static function unauthorized(ResponseInterface $response = null)
     {
-        return new self('Parameters were valid but request failed. Try again.', 402);
+        return new self('Your credentials are incorrect.', 401, $response);
     }
 
-    public static function notFound()
+    public static function requestFailed(ResponseInterface $response = null)
     {
-        return new self('The endpoint you tried to access does not exist. Check your URL.', 404);
+        return new self('Parameters were valid but request failed. Try again.', 402, $response);
+    }
+
+    public static function notFound(ResponseInterface $response = null)
+    {
+        return new self('The endpoint you tried to access does not exist. Check your URL.', 404, $response);
+    }
+
+    /**
+     * @return ResponseInterface
+     */
+    public function getResponse()
+    {
+        return $this->response;
     }
 }

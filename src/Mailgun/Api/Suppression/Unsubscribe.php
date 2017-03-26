@@ -43,7 +43,7 @@ class Unsubscribe extends HttpApi
 
         $response = $this->httpGet(sprintf('/v3/%s/unsubscribes', $domain), $params);
 
-        return $this->safeHydrate($response, IndexResponse::class);
+        return $this->hydrateResponse($response, IndexResponse::class);
     }
 
     /**
@@ -59,7 +59,7 @@ class Unsubscribe extends HttpApi
 
         $response = $this->httpGet(sprintf('/v3/%s/unsubscribes/%s', $domain, $address));
 
-        return $this->safeHydrate($response, ShowResponse::class);
+        return $this->hydrateResponse($response, ShowResponse::class);
     }
 
     /**
@@ -78,7 +78,7 @@ class Unsubscribe extends HttpApi
 
         $response = $this->httpPost(sprintf('/v3/%s/unsubscribes', $domain), $params);
 
-        return $this->safeHydrate($response, CreateResponse::class);
+        return $this->hydrateResponse($response, CreateResponse::class);
     }
 
     /**
@@ -94,7 +94,7 @@ class Unsubscribe extends HttpApi
 
         $response = $this->httpDelete(sprintf('/v3/%s/unsubscribes/%s', $domain, $address));
 
-        return $this->safeHydrate($response, DeleteResponse::class);
+        return $this->hydrateResponse($response, DeleteResponse::class);
     }
 
     /**
@@ -108,6 +108,6 @@ class Unsubscribe extends HttpApi
 
         $response = $this->httpDelete(sprintf('/v3/%s/unsubscribes', $domain));
 
-        return $this->safeHydrate($response, DeleteResponse::class);
+        return $this->hydrateResponse($response, DeleteResponse::class);
     }
 }

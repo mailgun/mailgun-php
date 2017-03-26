@@ -43,7 +43,7 @@ class Complaint extends HttpApi
 
         $response = $this->httpGet(sprintf('/v3/%s/complaints', $domain), $params);
 
-        return $this->safeHydrate($response, IndexResponse::class);
+        return $this->hydrateResponse($response, IndexResponse::class);
     }
 
     /**
@@ -58,7 +58,7 @@ class Complaint extends HttpApi
         Assert::stringNotEmpty($address);
         $response = $this->httpGet(sprintf('/v3/%s/complaints/%s', $domain, $address));
 
-        return $this->safeHydrate($response, ShowResponse::class);
+        return $this->hydrateResponse($response, ShowResponse::class);
     }
 
     /**
@@ -77,7 +77,7 @@ class Complaint extends HttpApi
 
         $response = $this->httpPost(sprintf('/v3/%s/complaints', $domain), $params);
 
-        return $this->safeHydrate($response, CreateResponse::class);
+        return $this->hydrateResponse($response, CreateResponse::class);
     }
 
     /**
@@ -93,7 +93,7 @@ class Complaint extends HttpApi
 
         $response = $this->httpDelete(sprintf('/v3/%s/complaints/%s', $domain, $address));
 
-        return $this->safeHydrate($response, DeleteResponse::class);
+        return $this->hydrateResponse($response, DeleteResponse::class);
     }
 
     /**
@@ -107,6 +107,6 @@ class Complaint extends HttpApi
 
         $response = $this->httpDelete(sprintf('/v3/%s/complaints', $domain));
 
-        return $this->safeHydrate($response, DeleteResponse::class);
+        return $this->hydrateResponse($response, DeleteResponse::class);
     }
 }
