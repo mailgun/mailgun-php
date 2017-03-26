@@ -1,3 +1,104 @@
+# Change Log
+
+The change log describes what is "Added", "Removed", "Changed" or "Fixed" between each release. 
+
+## 2.2 (Unreleased)
+
+This version contains a new way of using the API. Each endpoint return a domain object and the
+endpoints are grouped like the API documentation. 
+
+### Added
+
+- Api classes in Mailgun\Api\*
+- Api models/responses in Mailgun\Model\*
+- Added Hydrators to hydrate PSR-7 responses to arrays or domain objects. 
+- All exceptions extend `Mailgun\Exception`.
+- New exceptions in `Mailgun\Exception` namespace.
+- Added `HttpClientConfigurator` to configure the HTTP client. 
+- Added HttpClient plugins `History` and `ReplaceUriPlugin`
+- Assertions with Webmozart\Assert 
+- `Mailgun\Mailgun::getLastResponse()`
+- `Mailgun\Connection\RestClient::getAttachment($url)`
+- Clear license information
+
+### Fixed
+
+- Code styles
+
+### Deprecated
+
+The following classes will be removed in version 3.0.
+
+- `Mailgun\Connection\Exceptions\GenericHTTPError`
+- `Mailgun\Connection\Exceptions\InvalidCredentials`
+- `Mailgun\Connection\Exceptions\MissingEndpoint`
+- `Mailgun\Connection\Exceptions\MissingRequiredParameters`
+- `Mailgun\Connection\Exceptions\NoDomainsConfigured`
+- `Mailgun\Connection\RestClient`
+- `Mailgun\Constants\Api`
+- `Mailgun\Constants\ExceptionMessages`
+- `Mailgun\Mailgun::$resetClient`
+- `Mailgun\Mailgun::sendMessage()`
+- `Mailgun\Mailgun::verifyWebhookSignature()`
+- `Mailgun\Mailgun::post()`
+- `Mailgun\Mailgun::get()`
+- `Mailgun\Mailgun::delete()`
+- `Mailgun\Mailgun::put()`
+- `Mailgun\Mailgun::setApiVersion()`
+- `Mailgun\Mailgun::setSslEnabled()`
+- `Mailgun\Mailgun::MessageBuilder()`
+- `Mailgun\Mailgun::OptInHandler()`
+- `Mailgun\Mailgun::BatchMessage()`
+
+## 2.1.2
+
+- Bug fixes with multiple recipients, inline images and attachments.
+- Added more tests
+- Using PSR-2 code style
+
+## 2.1.1
+
+- Require php-http/message (#142)
+- Declare BatchMessage::endpointUrl (#112)
+
+## 2.1.0
+
+- Strict comparison of hash (#117)
+- No dependency on Guzzle/PSR7 (#139)
+- Build URL string form an array (#138)
+- Docblock update (#134)
+- Minor fixes (#90, #121, #98)
+
+## 2.0
+
+- Migrated to PHP-HTTP (#94)
+- Dropped support for PHP 5.4.
+
+## 1.8.0
+
+- Updated to Guzzle5 (#79)
+- Updated default API version from v2 to v3 (#75)
+- Show response message on 400, 401 and 404. (#72)
+- PHP DocBlocks, Constants Changes, and Minor Refactors (#66)
+- Added PHP 7.0 support for Travis-CI, removed PHP 5.3 support (#79)
+
+## 1.7.2
+
+- Added webhook signature verification - (#50)
+- Test PHP 5.6 and HHVM - (#51)
+- Improved error handling - (#48)
+- Fixed attachment handling in Message Builder - (#56)
+- Allow any data type in custom data - (#57)
+- Return non-JSON response data - (#60)
+- Removed legacy closing braces - (#64)
+
+## 1.7.1
+
+- Improved security of OptInHandler - (#31)
+- Fixed typo for including an Exception - (#41)
+- Fixed Mocks, removed unnecessary code, applied styling - (#44 & #42)
+- Less restrictive Guzzle requirement - (#45)
+
 ## 1.7 (2014-1-30)
 
 Bugfixes:
