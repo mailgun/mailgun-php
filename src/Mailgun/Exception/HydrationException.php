@@ -11,6 +11,6 @@ namespace Mailgun\Exception;
 
 use Mailgun\Exception;
 
-final class DeserializeException extends \RuntimeException implements Exception
+final class HydrationException extends \RuntimeException implements Exception
 {
 }
