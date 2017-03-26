@@ -125,20 +125,22 @@ Go to http://bin.mailgun.net. The Postbin will generate a special URL. Save that
 
 **Step 2 - Instantiate the Mailgun client using Postbin.**  
 
-*Tip: The bin id will be the URL part after bin.mailgun.net. It will be random generated letters and numbers. For example, the bin id in this URL, http://bin.mailgun.net/aecf68de, is "aecf68de".*
+*Tip: The bin id will be the URL part after bin.mailgun.net. It will be random generated letters and numbers. 
+For example, the bin id in this URL, http://bin.mailgun.net/aecf68de, is "aecf68de".*
 
 ```php
-# First, instantiate the SDK with your API credentials and define your domain. 
-$mg = new Mailgun('key-example', null, 'bin.mailgun.net');
-$mg->setApiVersion('aecf68de');
-$mg->setSslEnabled(false);
-$domain = 'example.com';
+$configurator = new HttpClientConfigurator();
+$configurator->setEndpoint('http://bin.mailgun.net/aecf68de');
+$configurator->setDebug(true);
+$mg = Mailgun::configure($configurator);
 
 # Now, compose and send your message.
-$mg->sendMessage($domain, array('from'    => 'bob@example.com', 
-                                'to'      => 'sally@example.com', 
-                                'subject' => 'The PHP SDK is awesome!', 
-                                'text'    => 'It is so simple to send a message.'));
+$mg->sendMessage('example.com', [
+  'from'    => 'bob@example.com', 
+  'to'      => 'sally@example.com', 
+  'subject' => 'The PHP SDK is awesome!', 
+  'text'    => 'It is so simple to send a message.']
+);
 ```
 ### Additional Info
 
