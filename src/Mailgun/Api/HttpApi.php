@@ -59,7 +59,7 @@ abstract class HttpApi
      * @param ResponseInterface $response
      * @param string            $class
      *
-     * @return mixed|array|ResponseInterface
+     * @return mixed|ResponseInterface
      *
      * @throws \Exception
      */
