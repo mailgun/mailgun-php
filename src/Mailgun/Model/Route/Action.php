@@ -7,7 +7,7 @@
  * of the MIT license. See the LICENSE file for details.
  */
 
-namespace Mailgun\Model\Routes;
+namespace Mailgun\Model\Route;
 
 /**
  * @author David Garcia <me@davidgarcia.cat>

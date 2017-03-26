@@ -364,11 +364,11 @@ class Mailgun
     }
 
     /**
-     * @return Api\Routes
+     * @return Api\Route
      */
     public function routes()
     {
-        return new Api\Routes($this->httpClient, $this->requestBuilder, $this->hydrator);
+        return new Api\Route($this->httpClient, $this->requestBuilder, $this->hydrator);
     }
 
     /**
