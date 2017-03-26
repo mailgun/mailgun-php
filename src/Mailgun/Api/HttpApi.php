@@ -69,7 +69,7 @@ abstract class HttpApi
             return $response;
         }
 
-        if ($response->getStatusCode() !== 200 || $response->getStatusCode() !== 201) {
+        if ($response->getStatusCode() !== 200 && $response->getStatusCode() !== 201) {
             $this->handleErrors($response);
         }
 
