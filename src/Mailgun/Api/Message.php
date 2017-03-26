@@ -39,10 +39,8 @@ class Message extends HttpApi
             if (!is_array($params[$fieldName])) {
                 $postDataMultipart[] = $this->prepareFile($fieldName, $params[$fieldName]);
             } else {
-                $fileIndex = 0;
                 foreach ($params[$fieldName] as $file) {
-                    $postDataMultipart[] = $this->prepareFile($fieldName, $file, $fileIndex);
-                    ++$fileIndex;
+                    $postDataMultipart[] = $this->prepareFile($fieldName, $file);
                 }
             }
 
@@ -51,10 +49,9 @@ class Message extends HttpApi
 
         foreach ($params as $key => $value) {
             if (is_array($value)) {
-                $index = 0;
                 foreach ($value as $subValue) {
                     $postDataMultipart[] = [
-                        'name' => sprintf('%s[%d]', $key, $index++),
+                        'name' => $key,
                         'content' => $subValue,
                     ];
                 }
@@ -98,16 +95,13 @@ class Message extends HttpApi
      *
      * @param string $fieldName
      * @param array  $filePath  array('fileContent' => 'content') or array('filePath' => '/foo/bar')
-     * @param int    $fileIndex
      *
      * @return array
      *
      * @throws InvalidArgumentException
      */
-    private function prepareFile($fieldName, array $filePath, $fileIndex = 0)
+    private function prepareFile($fieldName, array $filePath)
     {
-        // Add index for multiple file support
-        $fieldName .= '['.$fileIndex.']';
         $filename = isset($filePath['filename']) ? $filePath['filename'] : null;
 
         if (isset($filePath['fileContent'])) {

@@ -18,8 +18,8 @@ class InlineFileTest extends \PHPUnit_Framework_TestCase
     {
         $fileValidator = function ($files) {
             $fileNames = [
-                ['name' => 'inline[0]', 'filename' => 'foo.png'],
-                ['name' => 'inline[1]', 'filename' => 'bar.png'],
+                ['name' => 'inline', 'filename' => 'foo.png'],
+                ['name' => 'inline', 'filename' => 'bar.png'],
             ];
 
             // Make sure that both files exists

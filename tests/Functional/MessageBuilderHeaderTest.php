@@ -18,8 +18,8 @@ class MessageBuilderHeaderTest extends \PHPUnit_Framework_TestCase
     {
         $messageValidator = function ($headers) {
             $this->assertContains(['name' => 'h:My-Singular-Header', 'contents' => '123'], $headers);
-            $this->assertContains(['name' => 'h:My-Plural-Header[0]', 'contents' => '123'], $headers);
-            $this->assertContains(['name' => 'h:My-Plural-Header[1]', 'contents' => '456'], $headers);
+            $this->assertContains(['name' => 'h:My-Plural-Header', 'contents' => '123'], $headers);
+            $this->assertContains(['name' => 'h:My-Plural-Header', 'contents' => '456'], $headers);
         };
 
         // Create the mocked mailgun client.

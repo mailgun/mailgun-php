@@ -33,9 +33,9 @@ class FileFromMemoryTest extends \PHPUnit_Framework_TestCase
                 ];
             }, $attachments);
 
-            $this->assertContains(['name' => 'attachment[0]', 'contents' => 'File content', 'filename' => 'file1.txt'], $attachments);
-            $this->assertContains(['name' => 'attachment[1]', 'contents' => 'File content 2', 'filename' => 'file2.txt'], $attachments);
-            $this->assertContains(['name' => 'attachment[2]', 'contents' => 'Contents of a text file', 'filename' => 'text_file.txt'], $attachments);
+            $this->assertContains(['name' => 'attachment', 'contents' => 'File content', 'filename' => 'file1.txt'], $attachments);
+            $this->assertContains(['name' => 'attachment', 'contents' => 'File content 2', 'filename' => 'file2.txt'], $attachments);
+            $this->assertContains(['name' => 'attachment', 'contents' => 'Contents of a text file', 'filename' => 'text_file.txt'], $attachments);
         };
 
         $attachments = [

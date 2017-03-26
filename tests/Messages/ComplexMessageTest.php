@@ -81,6 +81,7 @@ class ComplexMessageTest extends \Mailgun\Tests\MailgunTestCase
         // Start a counter, make sure all files are asserted
         $testCount = 0;
 
+        $expectedFilenames = ['mailgun_icon1.png', 'mailgun_icon2.png'];
         foreach ($result->files as $file) {
             if ($file['name'] == 'to') {
                 $this->assertEquals($file['contents'], 'test@test.mailgun.org');
@@ -98,12 +99,10 @@ class ComplexMessageTest extends \Mailgun\Tests\MailgunTestCase
                 $this->assertEquals($file['contents'], 'Testing!');
                 ++$testCount;
             }
-            if ($file['name'] == 'inline[0]') {
-                $this->assertEquals($file['filename'], 'mailgun_icon1.png');
-                ++$testCount;
-            }
-            if ($file['name'] == 'inline[1]') {
-                $this->assertEquals($file['filename'], 'mailgun_icon2.png');
+            if ($file['name'] == 'inline') {
+                $expectedFilename = array_shift($expectedFilenames);
+                $this->assertNotNull($expectedFilename);
+                $this->assertSame($expectedFilename, $file['filename']);
                 ++$testCount;
             }
         }
