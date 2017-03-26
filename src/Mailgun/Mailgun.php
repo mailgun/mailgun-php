@@ -62,11 +62,11 @@ class Mailgun
     private $responseHistory = null;
 
     /**
-     * @param string|null                 $apiKey
-     * @param HttpClient|null             $httpClient
-     * @param string                      $apiEndpoint
-     * @param Hydrator|null               $hydrator
-     * @param RequestBuilder|null         $requestBuilder
+     * @param string|null         $apiKey
+     * @param HttpClient|null     $httpClient
+     * @param string              $apiEndpoint
+     * @param Hydrator|null       $hydrator
+     * @param RequestBuilder|null $requestBuilder
      */
     public function __construct(
         $apiKey = null, /* Deprecated, will be removed in 3.0 */
