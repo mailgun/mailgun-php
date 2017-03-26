@@ -9,6 +9,9 @@
 
 namespace Mailgun\Constants;
 
+/**
+ * @deprecated Will be removed in 3.0
+ */
 class ExceptionMessages
 {
     const EXCEPTION_INVALID_CREDENTIALS = 'Your credentials are incorrect.';
