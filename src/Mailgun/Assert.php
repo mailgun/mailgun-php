@@ -16,7 +16,7 @@ use Mailgun\Exception\InvalidArgumentException;
  *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
-class Assert extends \Webmozart\Assert\Assert
+final class Assert extends \Webmozart\Assert\Assert
 {
     protected static function reportInvalidArgument($message)
     {
