@@ -36,7 +36,6 @@ If you just want to get started quickly you should run the following command:
 ```bash
 php composer.phar require mailgun/mailgun-php php-http/curl-client guzzlehttp/psr7
 ```
-**For shared hosts without SSH access, check out our [Shared Host Instructions](SharedHostInstall.md).**
 
 ### Why requiring so many packages?
 
