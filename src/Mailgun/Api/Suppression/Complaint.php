@@ -7,7 +7,7 @@
  * of the MIT license. See the LICENSE file for details.
  */
 
-namespace Mailgun\Api\Supression;
+namespace Mailgun\Api\Suppression;
 
 use Mailgun\Api\HttpApi;
 use Mailgun\Api\Pagination;

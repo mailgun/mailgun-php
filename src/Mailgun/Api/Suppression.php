@@ -10,9 +10,9 @@
 namespace Mailgun\Api;
 
 use Http\Client\HttpClient;
-use Mailgun\Api\Supression\Bounce;
-use Mailgun\Api\Supression\Complaint;
-use Mailgun\Api\Supression\Unsubscribe;
+use Mailgun\Api\Suppression\Bounce;
+use Mailgun\Api\Suppression\Complaint;
+use Mailgun\Api\Suppression\Unsubscribe;
 use Mailgun\Hydrator\Hydrator;
 use Mailgun\RequestBuilder;
 
