@@ -45,7 +45,7 @@ final class IndexResponse implements ApiResponse, PagingProvider
         $unsubscribes = [];
         if (isset($data['items'])) {
             foreach ($data['items'] as $item) {
-                $unsubscribes[] = Unsubscribes::create($item);
+                $unsubscribes[] = Unsubscribe::create($item);
             }
         }
 
