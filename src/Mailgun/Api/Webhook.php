@@ -47,7 +47,7 @@ class Webhook extends HttpApi
      * If this function returns FALSE, you must not process the request.
      * You should reject the request with status code 403 Forbidden.
      *
-     * @param int $timestamp
+     * @param int    $timestamp
      * @param string $token
      * @param string $signature
      *
