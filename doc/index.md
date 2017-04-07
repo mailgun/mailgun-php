@@ -1,7 +1,15 @@
 # API documentation
 
 This page will document the API classes and ways to properly use the API. These resources will eventually move to
-the official documentation at [documentation.mailgun.com](https://documentation.mailgun.com/api_reference.html).
+the official documentation at [https://documentation.mailgun.com](https://documentation.mailgun.com/api_reference.html).
+
+Other relevant documentation pages might be: 
+ 
+* [Attachments](attachments.md)
+* [Pagination](pagination.md)
+* [Message Builder](src/Mailgun/Messages/README.md) (Legacy code)
+* [Batch Message](src/Mailgun/Messages/README.md) (Legacy code)
+* [Opt-In Handler](src/Mailgun/Lists/README.md)  (Legacy code)
 
 ##Domain API
 

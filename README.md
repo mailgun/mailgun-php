@@ -69,6 +69,11 @@ $mg->message()->send('example.com', [
 ]);
 ```
 
+### All usage examples
+
+You find more detailed documentation at in [/doc](doc/index.md) and on 
+[https://documentation.mailgun.com](https://documentation.mailgun.com/api_reference.html).
+
 ### Response
 
 The results of a API call is, by default, a domain object. This will make it easy
