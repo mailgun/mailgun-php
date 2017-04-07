@@ -62,8 +62,8 @@ class Complaint extends HttpApi
     }
 
     /**
-     * @param string $domain  Domain to create complaint for
-     * @param string $address Complaint address
+     * @param string $domain    Domain to create complaint for
+     * @param string $address   Complaint address
      * @param string $createdAt (optional) rfc2822 compliant format. (new \DateTime())->format('r')
      *
      * @return CreateResponse
