@@ -110,7 +110,7 @@ final class HttpClientConfigurator
     /**
      * @return string
      */
-    private function getApiKey()
+    public function getApiKey()
     {
         return $this->apiKey;
     }

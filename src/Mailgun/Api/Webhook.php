@@ -9,18 +9,66 @@
 
 namespace Mailgun\Api;
 
+use Http\Client\HttpClient;
 use Mailgun\Assert;
+use Mailgun\Hydrator\Hydrator;
 use Mailgun\Model\Webhook\CreateResponse;
 use Mailgun\Model\Webhook\DeleteResponse;
 use Mailgun\Model\Webhook\IndexResponse;
 use Mailgun\Model\Webhook\ShowResponse;
 use Mailgun\Model\Webhook\UpdateResponse;
+use Mailgun\RequestBuilder;
 
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
 class Webhook extends HttpApi
 {
+    /**
+     * @var string
+     */
+    private $apiKey;
+
+    /**
+     * @param HttpClient     $httpClient
+     * @param RequestBuilder $requestBuilder
+     * @param Hydrator       $hydrator
+     * @param string         $apiKey
+     */
+    public function __construct(HttpClient $httpClient, RequestBuilder $requestBuilder, Hydrator $hydrator, $apiKey)
+    {
+        parent::__construct($httpClient, $requestBuilder, $hydrator);
+        $this->apiKey = $apiKey;
+    }
+
+    /**
+     * This function verifies the webhook signature with your API key to to see if it is authentic.
+     *
+     * If this function returns FALSE, you must not process the request.
+     * You should reject the request with status code 403 Forbidden.
+     *
+     * @param int $timestamp
+     * @param string $token
+     * @param string $signature
+     *
+     * @return bool
+     */
+    public function verifyWebhookSignature($timestamp, $token, $signature)
+    {
+        if (empty($timestamp) || empty($token) || empty($signature)) {
+            return false;
+        }
+
+        $hmac = hash_hmac('sha256', $timestamp.$token, $this->apiKey);
+
+        if (function_exists('hash_equals')) {
+            // hash_equals is constant time, but will not be introduced until PHP 5.6
+            return hash_equals($hmac, $signature);
+        } else {
+            return $hmac === $signature;
+        }
+    }
+
     /**
      * @param string $domain
      *

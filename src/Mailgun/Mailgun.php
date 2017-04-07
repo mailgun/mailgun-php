@@ -84,20 +84,20 @@ class Mailgun
     }
 
     /**
-     * @param HttpClientConfigurator $httpClientConfigurator
+     * @param HttpClientConfigurator $configurator
      * @param Hydrator|null          $hydrator
      * @param RequestBuilder|null    $requestBuilder
      *
      * @return Mailgun
      */
     public static function configure(
-        HttpClientConfigurator $httpClientConfigurator,
+        HttpClientConfigurator $configurator,
         Hydrator $hydrator = null,
         RequestBuilder $requestBuilder = null
     ) {
-        $httpClient = $httpClientConfigurator->createConfiguredClient();
+        $httpClient = $configurator->createConfiguredClient();
 
-        return new self(null, $httpClient, 'api.mailgun.net', $hydrator, $requestBuilder);
+        return new self($configurator->getApiKey(), $httpClient, 'api.mailgun.net', $hydrator, $requestBuilder);
     }
 
     /**
@@ -358,7 +358,7 @@ class Mailgun
      */
     public function webhooks()
     {
-        return new Api\Webhook($this->httpClient, $this->requestBuilder, $this->hydrator);
+        return new Api\Webhook($this->httpClient, $this->requestBuilder, $this->hydrator, $this->apiKey);
     }
 
     /**
