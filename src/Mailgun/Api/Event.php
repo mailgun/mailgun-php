@@ -35,44 +35,4 @@ class Event extends HttpApi
 
         return $this->hydrateResponse($response, EventResponse::class);
     }
-
-    /**
-     * @param EventResponse $eventResponse
-     *
-     * @return EventResponse|null
-     */
-    public function getPaginationNext(EventResponse $eventResponse)
-    {
-        return $this->getPaginationUrl($eventResponse->getNextUrl(), EventResponse::class);
-    }
-
-    /**
-     * @param EventResponse $eventResponse
-     *
-     * @return EventResponse|null
-     */
-    public function getPaginationPrevious(EventResponse $eventResponse)
-    {
-        return $this->getPaginationUrl($eventResponse->getPreviousUrl(), EventResponse::class);
-    }
-
-    /**
-     * @param EventResponse $eventResponse
-     *
-     * @return EventResponse|null
-     */
-    public function getPaginationFirst(EventResponse $eventResponse)
-    {
-        return $this->getPaginationUrl($eventResponse->getPreviousUrl(), EventResponse::class);
-    }
-
-    /**
-     * @param EventResponse $eventResponse
-     *
-     * @return EventResponse|null
-     */
-    public function getPaginationLast(EventResponse $eventResponse)
-    {
-        return $this->getPaginationUrl($eventResponse->getPreviousUrl(), EventResponse::class);
-    }
 }
