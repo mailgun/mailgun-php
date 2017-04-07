@@ -9,8 +9,6 @@
 
 namespace Mailgun\Model\Suppression\Complaint;
 
-use Mailgun\Model\ApiResponse;
-
 /**
  * @author Sean Johnson <sean@mailgun.com>
  */

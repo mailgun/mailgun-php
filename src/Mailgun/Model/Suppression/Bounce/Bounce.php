@@ -9,8 +9,6 @@
 
 namespace Mailgun\Model\Suppression\Bounce;
 
-use Mailgun\Model\ApiResponse;
-
 /**
  * @author Sean Johnson <sean@mailgun.com>
  */

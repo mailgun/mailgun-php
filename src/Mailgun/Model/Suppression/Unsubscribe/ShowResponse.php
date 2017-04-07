@@ -16,5 +16,4 @@ use Mailgun\Model\ApiResponse;
  */
 final class ShowResponse extends Unsubscribe implements ApiResponse
 {
-
 }
