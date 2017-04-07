@@ -130,12 +130,12 @@ $configurator->setDebug(true);
 $mg = Mailgun::configure($configurator);
 
 # Now, compose and send your message.
-$mg->sendMessage('example.com', [
+$mg->messages()->sendMessage('example.com', [
   'from'    => 'bob@example.com', 
   'to'      => 'sally@example.com', 
   'subject' => 'The PHP SDK is awesome!', 
-  'text'    => 'It is so simple to send a message.']
-);
+  'text'    => 'It is so simple to send a message.'
+]);
 ```
 ### Additional Info
 
