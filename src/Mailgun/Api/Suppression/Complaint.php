@@ -62,18 +62,22 @@ class Complaint extends HttpApi
     }
 
     /**
-     * @param string $domain  Domain to create complaint for
-     * @param string $address Complaint address
-     * @param array  $params  optional
+     * @param string $domain    Domain to create complaint for
+     * @param string $address   Complaint address
+     * @param string $createdAt (optional) rfc2822 compliant format. (new \DateTime())->format('r')
      *
      * @return CreateResponse
      */
-    public function create($domain, $address, $code = null, $error = null, $createdAt = null)
+    public function create($domain, $address, $createdAt = null)
     {
         Assert::stringNotEmpty($domain);
         Assert::stringNotEmpty($address);
+        Assert::stringNotEmpty($createdAt);
 
         $params['address'] = $address;
+        if (null !== $createdAt) {
+            $params['created_at'] = $createdAt;
+        }
 
         $response = $this->httpPost(sprintf('/v3/%s/complaints', $domain), $params);
 
