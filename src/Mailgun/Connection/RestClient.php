@@ -150,10 +150,8 @@ class RestClient
         foreach ($fields as $fieldName) {
             if (isset($files[$fieldName])) {
                 if (is_array($files[$fieldName])) {
-                    $fileIndex = 0;
                     foreach ($files[$fieldName] as $file) {
-                        $postFiles[] = $this->prepareFile($fieldName, $file, $fileIndex);
-                        ++$fileIndex;
+                        $postFiles[] = $this->prepareFile($fieldName, $file);
                     }
                 } else {
                     $postFiles[] = $this->prepareFile($fieldName, $files[$fieldName]);
@@ -164,10 +162,9 @@ class RestClient
         $postDataMultipart = [];
         foreach ($postData as $key => $value) {
             if (is_array($value)) {
-                $index = 0;
                 foreach ($value as $subValue) {
                     $postDataMultipart[] = [
-                        'name' => sprintf('%s[%d]', $key, $index++),
+                        'name' => $key,
                         'contents' => $subValue,
                     ];
                 }
@@ -285,11 +282,10 @@ class RestClient
      *
      * @param string       $fieldName
      * @param string|array $filePath
-     * @param int          $fileIndex
      *
      * @return array
      */
-    protected function prepareFile($fieldName, $filePath, $fileIndex = 0)
+    protected function prepareFile($fieldName, $filePath)
     {
         $filename = null;
 
@@ -313,9 +309,6 @@ class RestClient
 
             $resource = fopen($filePath, 'r');
         }
-
-        // Add index for multiple file support
-        $fieldName .= '['.$fileIndex.']';
 
         return [
             'name' => $fieldName,
