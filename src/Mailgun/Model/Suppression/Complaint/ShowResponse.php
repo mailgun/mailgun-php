@@ -14,64 +14,6 @@ use Mailgun\Model\ApiResponse;
 /**
  * @author Sean Johnson <sean@mailgun.com>
  */
-final class ShowResponse implements ApiResponse
+final class ShowResponse extends Complaint implements ApiResponse
 {
-    /**
-     * @var string
-     */
-    private $address;
-
-    /**
-     * @var \DateTime
-     */
-    private $createdAt;
-
-    /**
-     * @param string $address
-     */
-    private function __construct($address)
-    {
-        $this->address = $address;
-        $this->createdAt = new \DateTime();
-    }
-
-    /**
-     * @param array $data
-     *
-     * @return ShowResponse
-     */
-    public static function create(array $data)
-    {
-        $bounce = new self($data['address']);
-
-        if (isset($data['created_at'])) {
-            $bounce->setCreatedAt(new \DateTime($data['created_at']));
-        }
-
-        return $bounce;
-    }
-
-    /**
-     * @return string
-     */
-    public function getAddress()
-    {
-        return $this->address;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getCreatedAt()
-    {
-        return $this->createdAt;
-    }
-
-    /**
-     * @param \DateTime $createdAt
-     */
-    private function setCreatedAt(\DateTime $createdAt)
-    {
-        $this->createdAt = $createdAt;
-    }
 }
