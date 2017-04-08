@@ -2,7 +2,7 @@
 
 The change log describes what is "Added", "Removed", "Changed" or "Fixed" between each release. 
 
-## 2.2 (Unreleased)
+## 2.2.0
 
 This version contains a new way of using the API. Each endpoint return a domain object and the
 endpoints are grouped like the API documentation. 
@@ -23,6 +23,7 @@ endpoints are grouped like the API documentation.
 
 ### Fixed
 
+- Fix disordered POST parameters. We do not use array syntax. 
 - Code styles
 
 ### Deprecated
