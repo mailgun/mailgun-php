@@ -39,7 +39,6 @@ class DomainApiTest extends TestCase
         self::$domainName = 'example.'.uniqid().'notareal.tld';
     }
 
-
     /**
      * Performs `GET /v3/domains` and ensures $this->testDomain exists
      * in the returned list.
