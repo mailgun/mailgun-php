@@ -12,7 +12,6 @@
     <testsuites>
         <testsuite name="all">
             <directory>tests</directory>
-            <exclude>tests/Integration</exclude>
         </testsuite>
 
         <testsuite name="unit">
