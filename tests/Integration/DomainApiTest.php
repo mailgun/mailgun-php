@@ -26,10 +26,19 @@ use Mailgun\Tests\Api\TestCase;
  */
 class DomainApiTest extends TestCase
 {
+    private static $domainName;
+
     protected function getApiClass()
     {
         return 'Mailgun\Api\Domain';
     }
+
+    public static function setUpBeforeClass()
+    {
+        parent::setUpBeforeClass();
+        self::$domainName = 'example.'.uniqid().'notareal.tld';
+    }
+
 
     /**
      * Performs `GET /v3/domains` and ensures $this->testDomain exists
@@ -89,7 +98,7 @@ class DomainApiTest extends TestCase
         $mg = $this->getMailgunClient();
 
         $domain = $mg->domains()->create(
-            'example.notareal.tld',     // domain name
+            self::$domainName,     // domain name
             'exampleOrgSmtpPassword12', // smtp password
             'tag',                      // default spam action
             false                       // wildcard domain?
@@ -112,7 +121,7 @@ class DomainApiTest extends TestCase
         $mg = $this->getMailgunClient();
 
         $mg->domains()->create(
-            'example.notareal.tld',     // domain name
+            self::$domainName,     // domain name
             'exampleOrgSmtpPassword12', // smtp password
             'tag',                      // default spam action
             false                       // wildcard domain?
@@ -126,7 +135,7 @@ class DomainApiTest extends TestCase
     {
         $mg = $this->getMailgunClient();
 
-        $ret = $mg->domains()->delete('example.notareal.tld');
+        $ret = $mg->domains()->delete(self::$domainName);
         $this->assertNotNull($ret);
         $this->assertInstanceOf(DeleteResponse::class, $ret);
         $this->assertEquals('Domain has been deleted', $ret->getMessage());
