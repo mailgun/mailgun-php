@@ -68,6 +68,11 @@ $mg->message()->send('example.com', [
 ]);
 ```
 
+### All usage examples
+
+You find more detailed documentation at in [/doc](doc/index.md) and on 
+[https://documentation.mailgun.com](https://documentation.mailgun.com/api_reference.html).
+
 ### Response
 
 The results of a API call is, by default, a domain object. This will make it easy
@@ -129,12 +134,12 @@ $configurator->setDebug(true);
 $mg = Mailgun::configure($configurator);
 
 # Now, compose and send your message.
-$mg->sendMessage('example.com', [
+$mg->messages()->send('example.com', [
   'from'    => 'bob@example.com', 
   'to'      => 'sally@example.com', 
   'subject' => 'The PHP SDK is awesome!', 
-  'text'    => 'It is so simple to send a message.']
-);
+  'text'    => 'It is so simple to send a message.'
+]);
 ```
 ### Additional Info
 
