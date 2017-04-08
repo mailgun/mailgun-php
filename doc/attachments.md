@@ -1,13 +1,10 @@
-#Attachments
+# Attachments
 
 You may attach a file from memory or by a file path.
 
 ## From file path
 
 ```php
-// Some how load the file to memory
-$binaryFile = '[Binary data]';
-
 $mg->message()->send('example.com', [
   'from'    => 'bob@example.com', 
   'to'      => 'sally@example.com', 
@@ -38,9 +35,6 @@ $mg->message()->send('example.com', [
 ## Inline attachments
 
 ```php
-// Some how load the file to memory
-$binaryFile = '[Binary data]';
-
 $mg->message()->send('example.com', [
   'from'    => 'bob@example.com', 
   'to'      => 'sally@example.com', 

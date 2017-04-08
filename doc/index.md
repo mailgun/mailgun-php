@@ -11,78 +11,78 @@ Other relevant documentation pages might be:
 * [Batch Message](src/Mailgun/Messages/README.md) (Legacy code)
 * [Opt-In Handler](src/Mailgun/Lists/README.md)  (Legacy code)
 
-##Domain API
+## Domain API
 
-####Get a list of all domains
+#### Get a list of all domains
 
 ```php
 $mailgun->domains()->index();
 ```
 
-####Show a single domains
+#### Show a single domains
 
 ```php
 $mailgun->domains()->show('example.com');
 ```
 
-####Create a new domain
+#### Create a new domain
 
 ```php
 $mailgun->domains()->create('new.example.com', 'password', 'disable', '*');
 ```
 
-####Delete a domain
+#### Delete a domain
 
 ```php
 $mailgun->domains()->delete('example.com');
 ```
 
-####Get credentials for a domain
+#### Get credentials for a domain
 
 ```php
 $mailgun->domains()->credentials('example.com');
 ```
 
-####Create credentials for a domain
+#### Create credentials for a domain
 
 ```php
 $mailgun->domains()->createCredential('example.com', 'login', 'password');
 ```
 
-####Update credentials for a domain
+#### Update credentials for a domain
 
 ```php
 $mailgun->domains()->updateCredential('example.com', 'login', 'password');
 ```
 
-####Delete credentials for a domain
+#### Delete credentials for a domain
 
 ```php
 $mailgun->domains()->deleteCredential('example.com', 'login');
 ```
 
-####Get connection for a domain
+#### Get connection for a domain
 
 ```php
 $mailgun->domains()->connection('example.com');
 ```
 
-####Update connection for a domain
+#### Update connection for a domain
 
 ```php
 $mailgun->domains()->updateConnection('example.com', true, false);
 ```
 
-##Event API
+## Event API
 
-####Get all events for a domain
+#### Get all events for a domain
 ```php
 $mailgun->events()->get('example.com');
 ```
 
-##Message API
+## Message API
 
-####Send a message
+#### Send a message
 ```php
 $parameters = [
     'from'    => 'bob@example.com', 
@@ -93,7 +93,7 @@ $parameters = [
 $mailgun->messages()->send('example.com', $parameters);
 ```
 
-####Show a stored message
+#### Show a stored message
 
 If you got an URL to a stored message you may get the details by:
 
@@ -102,22 +102,22 @@ $url = // ...
 $mailgun->messages()->show($url);
 ```
 
-##Route API
+## Route API
 
-####Show all routes
+#### Show all routes
 
 ```php
 $mailgun->routes()->index();
 ```
 
-####Show a routes
+#### Show a routes
 
 Get a route by its ID
 
 ```php
 $mailgun->routes()->show(4711);
 ```
-####Create a route
+#### Create a route
 
 ```php
 $expression = "match_recipient('.*@gmail.com')";
@@ -127,7 +127,7 @@ $description = 'Test route';
 $mailgun->routes()->create($expression, $actions, $description);
 ```
 
-####Update a route
+#### Update a route
 
 ```php
 $expression = "match_recipient('.*@gmail.com')";
@@ -137,136 +137,136 @@ $description = 'Test route';
 $mailgun->routes()->update(4711, $expression, $actions, $description);
 ```
 
-####Delete a route
+#### Delete a route
 ```php
 $mailgun->routes()->delete(4711);
 ```
 
-##Stats API
+## Stats API
 
-####Get total stats for a domain
+#### Get total stats for a domain
 ```php
 $mailgun->stats()->total('example.com');
 ```
 
-####Get all stats for a domain
+#### Get all stats for a domain
 ```php
 $mailgun->stats()->all('example.com');
 ```
 
 
-##Suppression API
+## Suppression API
 
 The suppression API consists of 3 parts; `Bounce`, `Complaint` and `Unsubscribe`.
 
-###Bounce API
-####Get all bounces
+### Bounce API
+#### Get all bounces
 ```php
 $mailgun->suppressions()->bounces()->index();
 ```
 
-####Show bounces for a specific address
+#### Show bounces for a specific address
 ```php
 $mailgun->suppressions()->bounces()->show('example.com', 'alice@gmail.com');
 ```
 
-####Create a bounce
+#### Create a bounce
 ```php
 $mailgun->suppressions()->bounces()->create('example.com', 'alice@gmail.com');
 ```
 
-####Delete a bounce
+#### Delete a bounce
 ```php
 $mailgun->suppressions()->bounces()->delete('example.com', 'alice@gmail.com');
 ```
 
-####Delete all bounces
+#### Delete all bounces
 ```php
 $mailgun->suppressions()->bounces()->deleteAll('example.com');
 ```
 
-###Complaint API
-####Get all complaints
+### Complaint API
+#### Get all complaints
 ```php
 $mailgun->suppressions()->complaints->index('example.com');
 ```
 
-####Show complaints for a specific address
+#### Show complaints for a specific address
 ```php
 $mailgun->suppressions()->complaints()->show('example.com', 'alice@gmail.com');
 ```
 
-####Create a complaint
+#### Create a complaint
 ```php
 $mailgun->suppressions()->complaints()->create('example.com', 'alice@gmail.com');
 ```
 
-####Delete a complaint
+#### Delete a complaint
 ```php
 $mailgun->suppressions()->complaints()->delete('example.com', 'alice@gmail.com');
 ```
 
-####Delete all complaints
+#### Delete all complaints
 ```php
 $mailgun->suppressions()->complaints()->deleteAll('example.com');
 ```
 
-##Unsubscribe API
+## Unsubscribe API
 
-####Get all unsubscriptions
+#### Get all unsubscriptions
 ```php
 $mailgun->suppressions()->unsubscribes()->index('example.com');
 ```
 
-####Show unsubscriptions for a specific address
+#### Show unsubscriptions for a specific address
 ```php
 $mailgun->suppressions()->unsubscribes()->show('example.com', 'alice@gmail.com');
 ```
 
-####Create an unsubscription
+#### Create an unsubscription
 ```php
 $mailgun->suppressions()->unsubscribes()->create('example.com', 'alice@gmail.com');
 ```
 
-####Delete an unsubscription
+#### Delete an unsubscription
 ```php
 $mailgun->suppressions()->unsubscribes()->delete('example.com', 'alice@gmail.com');
 ```
 
-####Delete all unsubscriptions
+#### Delete all unsubscriptions
 ```php
 $mailgun->suppressions()->unsubscribes()->deleteAll('example.com');
 ```
 
-##Tag API
+## Tag API
 
-####List all tags
+#### Show all tags
 ```php
 $mailgun->tags()->index('example.com');
 ```
 
-####Show a single tag
+#### Show a single tag
 ```php
 $mailgun->tags()->show('example.com', 'foo');
 ```
 
-####Update a tag
+#### Update a tag
 ```php
 $mailgun->tags()->update('example.com', 'foo', 'description');
 ```
 
-####Show stats for a tag
+#### Show stats for a tag
 ```php
 $mailgun->tags()->stats('example.com', 'foo');
 ```
 
-####Delete a tag
+#### Delete a tag
 ```php
 $mailgun->tags()->delete('example.com', 'foo');
 ```
 
 ## Webhook API
-####Verify webhook signature
+#### Verify webhook signature
 ```php
 
 $timestamp = $_POST['timestamp'];
@@ -285,27 +285,27 @@ if (!$valid) {
 // The signature is valid
 ```
 
-####List all webhooks
+#### Show all webhooks
 ```php
 $mailgun->webhooks()->index('example.com');
 ```
 
-####Show a single webhooks
+#### Show a single webhooks
 ```php
 $mailgun->webhooks()->show('example.com', 'accept');
 ```
 
-####Create a webhooks
+#### Create a webhooks
 ```php
 $mailgun->webhooks()->create('example.com', 'accept', 'https://www.exmple.com/webhook');
 ```
 
-####Update a webhooks
+#### Update a webhooks
 ```php
 $mailgun->webhooks()->update('example.com', 4711, 'https://www.exmple.com/webhook');
 ```
 
-####Delete a webhooks
+#### Delete a webhooks
 ```php
 $mailgun->webhooks()->delete('example.com', 4711);
 ```
