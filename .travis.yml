@@ -13,19 +13,20 @@ php:
   - 7.1
   - hhvm
 
+env:
+  - TEST_COMMAND="composer test-all"
+
 matrix:
     fast_finish: true
     include:
         - php: 5.5
-          env: COMPOSER_FLAGS="--prefer-stable --prefer-lowest" PREFER_COVERAGE=true
+          env: COMPOSER_FLAGS="--prefer-stable --prefer-lowest" COVERAGE=true
 
 install:
     - travis_retry composer update ${COMPOSER_FLAGS} --prefer-source --no-interaction
 
 before_script:
-  - TEST_COMMAND="composer test-all"
-  - if ! [[ "$TRAVIS_PULL_REQUEST" = false ]]; then TEST_COMMAND="composer test"; fi
-  - if [[ "$PREFER_COVERAGE" = true ]] && [[ "$TRAVIS_PULL_REQUEST" = false ]]; then TEST_COMMAND="composer test-coverage" COVERAGE=true; fi
+  - if [[ "COVERAGE" = true ]]; then TEST_COMMAND="composer test-coverage"; fi
 
 script:
   - echo $TEST_COMMAND
