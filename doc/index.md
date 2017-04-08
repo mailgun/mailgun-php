@@ -162,7 +162,7 @@ The suppression API consists of 3 parts; `Bounce`, `Complaint` and `Unsubscribe`
 ### Bounce API
 #### Get all bounces
 ```php
-$mailgun->suppressions()->bounces()->index();
+$mailgun->suppressions()->bounces()->index('example.com');
 ```
 
 #### Show bounces for a specific address
