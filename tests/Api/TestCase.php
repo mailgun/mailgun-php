@@ -9,6 +9,8 @@
 
 namespace Mailgun\Tests\Api;
 
+use Mailgun\Mailgun;
+
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  * @author Contributors of https://github.com/KnpLabs/php-github-api
@@ -70,6 +72,6 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
 
     protected function getMailgunClient()
     {
-        return new \Mailgun\Mailgun($this->apiPrivKey);
+        return Mailgun::create($this->apiPrivKey);
     }
 }
