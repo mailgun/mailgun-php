@@ -21,7 +21,7 @@ class Message extends HttpApi
 {
     /**
      * @param string $domain
-     * @param array $params
+     * @param array  $params
      *
      * @return SendResponse
      */
