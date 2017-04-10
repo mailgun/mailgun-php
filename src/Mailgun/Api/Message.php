@@ -20,7 +20,7 @@ use Mailgun\Model\Message\ShowResponse;
 class Message extends HttpApi
 {
     /**
-     * @param $domain
+     * @param string $domain
      * @param array $params
      *
      * @return SendResponse
@@ -30,18 +30,21 @@ class Message extends HttpApi
         Assert::notEmpty($domain);
         Assert::notEmpty($params);
 
+        $meme = '';
+        if (!empty($params['message'])) {
+            $meme = '.mime';
+        }
+
         $postDataMultipart = [];
         $fields = ['message', 'attachment', 'inline'];
         foreach ($fields as $fieldName) {
             if (!isset($params[$fieldName])) {
                 continue;
             }
-            if (!is_array($params[$fieldName])) {
-                $postDataMultipart[] = $this->prepareFile($fieldName, $params[$fieldName]);
-            } else {
-                foreach ($params[$fieldName] as $file) {
-                    $postDataMultipart[] = $this->prepareFile($fieldName, $file);
-                }
+
+            Assert::isArray($params[$fieldName]);
+            foreach ($params[$fieldName] as $file) {
+                $postDataMultipart[] = $this->prepareFile($fieldName, $file);
             }
 
             unset($params[$fieldName]);
@@ -63,7 +66,7 @@ class Message extends HttpApi
             }
         }
 
-        $response = $this->httpPostRaw(sprintf('/v3/%s/messages', $domain), $postDataMultipart);
+        $response = $this->httpPostRaw(sprintf('/v3/%s/messages%s', $domain, $meme), $postDataMultipart);
 
         return $this->hydrateResponse($response, SendResponse::class);
     }
