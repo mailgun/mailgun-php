@@ -30,9 +30,9 @@ class Message extends HttpApi
         Assert::notEmpty($domain);
         Assert::notEmpty($params);
 
-        $meme = '';
+        $mime = '';
         if (!empty($params['message'])) {
-            $meme = '.mime';
+            $mime = '.mime';
         }
 
         $postDataMultipart = [];
@@ -66,7 +66,7 @@ class Message extends HttpApi
             }
         }
 
-        $response = $this->httpPostRaw(sprintf('/v3/%s/messages%s', $domain, $meme), $postDataMultipart);
+        $response = $this->httpPostRaw(sprintf('/v3/%s/messages%s', $domain, $mime), $postDataMultipart);
 
         return $this->hydrateResponse($response, SendResponse::class);
     }
