@@ -13,21 +13,18 @@ use GuzzleHttp\Psr7\Response;
 use Mailgun\Api\Message;
 
 /**
- *
- *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
 class MessageTest extends TestCase
 {
-
     public function testSendMime()
     {
         $api = $this->getApiMock();
         $api->expects($this->once())
             ->method('httpPostRaw')
             ->with('/v3/foo/messages.mime',
-                $this->callback(function($multipartBody){
-                    $parameters = ['o:Foo'=>'bar', 'to'=>'mailbox@myapp.com'];
+                $this->callback(function ($multipartBody) {
+                    $parameters = ['o:Foo' => 'bar', 'to' => 'mailbox@myapp.com'];
 
                     // Verify all parameters
                     foreach ($parameters as $name => $content) {
@@ -58,11 +55,10 @@ class MessageTest extends TestCase
                     }
 
                     return true;
-
                 }))
             ->willReturn(new Response());
 
-        $api->sendMime('foo', ['mailbox@myapp.com'], 'mime message', ['o:Foo'=>'bar']);
+        $api->sendMime('foo', ['mailbox@myapp.com'], 'mime message', ['o:Foo' => 'bar']);
     }
 
     /**

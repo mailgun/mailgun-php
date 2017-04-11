@@ -147,6 +147,7 @@ class Message extends HttpApi
 
     /**
      * Prepare multipart parameters. Make sure each POST parameter is splitted into an array with 'name' and 'content' keys.
+     *
      * @param array $params
      *
      * @return array
