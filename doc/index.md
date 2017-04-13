@@ -97,7 +97,6 @@ $mailgun->messages()->send('example.com', $parameters);
 Below in an example how to create a Mime message with SwiftMailer.
 
 ```php
-
 $message = \Swift_Message::newInstance('Mail Subject');
 $message->setFrom(['from@exemple.com' => 'Example Inc']);
 $message->setTo(['user0gmail.com' => 'User 0', 'user1@hotmail.com' => 'User 1']);
@@ -174,7 +173,6 @@ $mailgun->stats()->total('example.com');
 ```php
 $mailgun->stats()->all('example.com');
 ```
-
 
 ## Suppression API
 

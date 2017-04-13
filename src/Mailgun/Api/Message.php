@@ -54,19 +54,19 @@ class Message extends HttpApi
 
     /**
      * @param string $domain
-     * @param array  $to      with all you send emails to. Including bcc and cc
+     * @param array  $recipients      with all you send emails to. Including bcc and cc
      * @param string $message Message filepath or content
      * @param array  $params
      */
-    public function sendMime($domain, array $to, $message, array $params)
+    public function sendMime($domain, array $recipients, $message, array $params)
     {
         Assert::string($domain);
         Assert::notEmpty($domain);
-        Assert::notEmpty($to);
+        Assert::notEmpty($recipients);
         Assert::notEmpty($message);
         Assert::nullOrIsArray($params);
 
-        $params['to'] = $to;
+        $params['to'] = $recipients;
         $postDataMultipart = $this->prepareMultipartParameters($params);
 
         if (is_file($message)) {
