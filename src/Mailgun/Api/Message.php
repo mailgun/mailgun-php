@@ -54,8 +54,8 @@ class Message extends HttpApi
 
     /**
      * @param string $domain
-     * @param array  $recipients      with all you send emails to. Including bcc and cc
-     * @param string $message Message filepath or content
+     * @param array  $recipients with all you send emails to. Including bcc and cc
+     * @param string $message    Message filepath or content
      * @param array  $params
      */
     public function sendMime($domain, array $recipients, $message, array $params)
@@ -156,17 +156,11 @@ class Message extends HttpApi
     {
         $postDataMultipart = [];
         foreach ($params as $key => $value) {
-            if (is_array($value)) {
-                foreach ($value as $subValue) {
-                    $postDataMultipart[] = [
-                        'name' => $key,
-                        'content' => $subValue,
-                    ];
-                }
-            } else {
+            // If $value is not an array we cast it to an array
+            foreach ((array) $value as $subValue) {
                 $postDataMultipart[] = [
                     'name' => $key,
-                    'content' => $value,
+                    'content' => $subValue,
                 ];
             }
         }
