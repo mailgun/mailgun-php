@@ -20,50 +20,65 @@ use Mailgun\Model\Message\ShowResponse;
 class Message extends HttpApi
 {
     /**
-     * @param $domain
-     * @param array $params
+     * @param string $domain
+     * @param array  $params
      *
      * @return SendResponse
      */
     public function send($domain, array $params)
     {
+        Assert::string($domain);
         Assert::notEmpty($domain);
         Assert::notEmpty($params);
 
         $postDataMultipart = [];
-        $fields = ['message', 'attachment', 'inline'];
+        $fields = ['attachment', 'inline'];
         foreach ($fields as $fieldName) {
             if (!isset($params[$fieldName])) {
                 continue;
             }
-            if (!is_array($params[$fieldName])) {
-                $postDataMultipart[] = $this->prepareFile($fieldName, $params[$fieldName]);
-            } else {
-                foreach ($params[$fieldName] as $file) {
-                    $postDataMultipart[] = $this->prepareFile($fieldName, $file);
-                }
+
+            Assert::isArray($params[$fieldName]);
+            foreach ($params[$fieldName] as $file) {
+                $postDataMultipart[] = $this->prepareFile($fieldName, $file);
             }
 
             unset($params[$fieldName]);
         }
 
-        foreach ($params as $key => $value) {
-            if (is_array($value)) {
-                foreach ($value as $subValue) {
-                    $postDataMultipart[] = [
-                        'name' => $key,
-                        'content' => $subValue,
-                    ];
-                }
-            } else {
-                $postDataMultipart[] = [
-                    'name' => $key,
-                    'content' => $value,
-                ];
-            }
-        }
-
+        $postDataMultipart = array_merge($this->prepareMultipartParameters($params), $postDataMultipart);
         $response = $this->httpPostRaw(sprintf('/v3/%s/messages', $domain), $postDataMultipart);
+
+        return $this->hydrateResponse($response, SendResponse::class);
+    }
+
+    /**
+     * @param string $domain
+     * @param array  $recipients with all you send emails to. Including bcc and cc
+     * @param string $message    Message filepath or content
+     * @param array  $params
+     */
+    public function sendMime($domain, array $recipients, $message, array $params)
+    {
+        Assert::string($domain);
+        Assert::notEmpty($domain);
+        Assert::notEmpty($recipients);
+        Assert::notEmpty($message);
+        Assert::nullOrIsArray($params);
+
+        $params['to'] = $recipients;
+        $postDataMultipart = $this->prepareMultipartParameters($params);
+
+        if (is_file($message)) {
+            $fileData = ['filePath' => $message];
+        } else {
+            $fileData = [
+                'fileContent' => $message,
+                'filename' => 'message',
+            ];
+        }
+        $postDataMultipart[] = $this->prepareFile('message', $fileData);
+        $response = $this->httpPostRaw(sprintf('/v3/%s/messages.mime', $domain), $postDataMultipart);
 
         return $this->hydrateResponse($response, SendResponse::class);
     }
@@ -72,7 +87,7 @@ class Message extends HttpApi
      * Get stored message.
      *
      * @param string $url
-     * @param bool   $rawMessage if true we will use "Accept: message/rfc2822" header.
+     * @param bool   $rawMessage if true we will use "Accept: message/rfc2822" header
      *
      * @return ShowResponse
      */
@@ -128,5 +143,28 @@ class Message extends HttpApi
             'content' => $resource,
             'filename' => $filename,
         ];
+    }
+
+    /**
+     * Prepare multipart parameters. Make sure each POST parameter is splitted into an array with 'name' and 'content' keys.
+     *
+     * @param array $params
+     *
+     * @return array
+     */
+    private function prepareMultipartParameters(array $params)
+    {
+        $postDataMultipart = [];
+        foreach ($params as $key => $value) {
+            // If $value is not an array we cast it to an array
+            foreach ((array) $value as $subValue) {
+                $postDataMultipart[] = [
+                    'name' => $key,
+                    'content' => $subValue,
+                ];
+            }
+        }
+
+        return $postDataMultipart;
     }
 }

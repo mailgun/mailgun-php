@@ -92,6 +92,26 @@ $parameters = [
 ];
 $mailgun->messages()->send('example.com', $parameters);
 ```
+#### Send a message with Mime
+
+Below in an example how to create a Mime message with SwiftMailer.
+
+```php
+$message = \Swift_Message::newInstance('Mail Subject');
+$message->setFrom(['from@exemple.com' => 'Example Inc']);
+$message->setTo(['user0gmail.com' => 'User 0', 'user1@hotmail.com' => 'User 1']);
+// $message->setBcc('admin@example.com'); Do not do this, BCC will be visible for all receipients if you do. 
+$message->setCc('invoice@example.com');
+
+$messageBody = 'Look at the <b>fancy</b> HTML body.';
+$message->setBody($messageBody, 'text/html');
+
+// We need all "tos". Incluce the BCC here.
+$to = ['admin@example.com', 'user0gmail.com', 'user1@hotmail.com', 'invoice@example.com']
+
+// Send the message
+$mailgun->messages()->sendMime('example.com', $to, $message->toString());
+```
 
 #### Show a stored message
 
@@ -153,7 +173,6 @@ $mailgun->stats()->total('example.com');
 ```php
 $mailgun->stats()->all('example.com');
 ```
-
 
 ## Suppression API
 
