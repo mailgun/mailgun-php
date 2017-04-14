@@ -2,6 +2,12 @@
 
 The change log describes what is "Added", "Removed", "Changed" or "Fixed" between each release. 
 
+## 2.3.0
+
+### Added
+
+- Support for sending messages with Mime. `$mailgun->messages()->sendMime()`
+
 ## 2.2.0
 
 This version contains a new way of using the API. Each endpoint return a domain object and the
