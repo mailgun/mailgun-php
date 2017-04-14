@@ -16,11 +16,6 @@ use GuzzleHttp\Psr7\Response;
  */
 class RouteTest extends TestCase
 {
-    protected function setUp()
-    {
-        $this->markTestSkipped('Routes API tests not implemented yet.');
-    }
-
     public function testCreate()
     {
         $api = $this->getApiMock();
