@@ -27,7 +27,7 @@ $domain = "example.com";
 $messageBldr = $mg->MessageBuilder();
 
 # Define the from address.
-$messageBldr->setFromAddress("me@example.com", array("first"=>"PHP", "last" => "SDK"));
+$messageBldr->setFromAddress("me@example.com", array("full_name" => "PHP SDK"));
 # Define a to recipient.
 $messageBldr->addToRecipient("john.doe@example.com", array("first" => "John", "last" => "Doe"));
 # Define a cc recipient.
