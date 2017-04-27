@@ -223,7 +223,16 @@ class RestClient
      */
     public function put($endpointUrl, $putData)
     {
-        return $this->send('PUT', $endpointUrl, $putData);
+        if (is_array($putData)) {
+            $headers['Content-Type'] = 'application/x-www-form-urlencoded';
+            $urlencodedPutData = '';
+            foreach ($putData as $key => $value) {
+                $urlencodedPutData .= urlencode($key) . '=' . urlencode($value) . '&';
+            }
+            $putData = trim($urlencodedPutData,'&');
+        }
+
+        return $this->send('PUT', $endpointUrl, $putData, [], $headers);
     }
 
     /**
