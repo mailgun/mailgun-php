@@ -102,7 +102,7 @@ class MessageBuilder
         }
         $fullName = $this->getFullName($variables);
         if ($fullName != null) {
-            return "'$fullName' <$address>";
+            return '"' . $fullName . '" <' . $address . '>';
         }
 
         return $address;

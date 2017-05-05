@@ -48,7 +48,7 @@ class MessageBuilderTest extends \Mailgun\Tests\MailgunTestCase
         $message = $this->client->MessageBuilder();
         $message->addToRecipient('test@samples.mailgun.org', ['first' => 'Test', 'last' => 'User']);
         $messageObj = $message->getMessage();
-        $this->assertEquals(['to' => ["'Test User' <test@samples.mailgun.org>"]], $messageObj);
+        $this->assertEquals(['to' => ['"Test User" <test@samples.mailgun.org>']], $messageObj);
     }
 
     public function testAddCcRecipient()
@@ -56,7 +56,7 @@ class MessageBuilderTest extends \Mailgun\Tests\MailgunTestCase
         $message = $this->client->MessageBuilder();
         $message->addCcRecipient('test@samples.mailgun.org', ['first' => 'Test', 'last' => 'User']);
         $messageObj = $message->getMessage();
-        $this->assertEquals(['cc' => ["'Test User' <test@samples.mailgun.org>"]], $messageObj);
+        $this->assertEquals(['cc' => ['"Test User" <test@samples.mailgun.org>']], $messageObj);
     }
 
     public function testAddBccRecipient()
@@ -64,7 +64,7 @@ class MessageBuilderTest extends \Mailgun\Tests\MailgunTestCase
         $message = $this->client->MessageBuilder();
         $message->addBccRecipient('test@samples.mailgun.org', ['first' => 'Test', 'last' => 'User']);
         $messageObj = $message->getMessage();
-        $this->assertEquals(['bcc' => ["'Test User' <test@samples.mailgun.org>"]], $messageObj);
+        $this->assertEquals(['bcc' => ['"Test User" <test@samples.mailgun.org>']], $messageObj);
     }
 
     public function testToRecipientCount()
@@ -108,7 +108,7 @@ class MessageBuilderTest extends \Mailgun\Tests\MailgunTestCase
         $message = $this->client->MessageBuilder();
         $message->setFromAddress('test@samples.mailgun.org', ['first' => 'Test', 'last' => 'User']);
         $messageObj = $message->getMessage();
-        $this->assertEquals(['from' => ["'Test User' <test@samples.mailgun.org>"]], $messageObj);
+        $this->assertEquals(['from' => ['"Test User" <test@samples.mailgun.org>']], $messageObj);
     }
 
     public function testSetReplyTo()
@@ -117,7 +117,7 @@ class MessageBuilderTest extends \Mailgun\Tests\MailgunTestCase
         $message->setReplyToAddress('overwritten@samples.mailgun.org');
         $message->setReplyToAddress('test@samples.mailgun.org', ['first' => 'Test', 'last' => 'User']);
         $messageObj = $message->getMessage();
-        $this->assertEquals(['h:reply-to' => "'Test User' <test@samples.mailgun.org>"], $messageObj);
+        $this->assertEquals(['h:reply-to' => '"Test User" <test@samples.mailgun.org>'], $messageObj);
     }
 
     public function testSetSubject()
