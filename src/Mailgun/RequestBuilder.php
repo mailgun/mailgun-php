@@ -64,6 +64,7 @@ class RequestBuilder
 
         $multipartStream = $builder->build();
         $boundary = $builder->getBoundary();
+        $builder->reset();
 
         $headers['Content-Type'] = 'multipart/form-data; boundary="'.$boundary.'"';
 
