@@ -74,7 +74,7 @@ class BatchMessage extends MessageBuilder
      * @throws MissingRequiredMIMEParameters
      * @throws TooManyParameters
      */
-    protected function addRecipient($headerName, $address, $variables)
+    protected function addRecipient($headerName, $address, $variables, $nonRecipient = false)
     {
         if (array_key_exists($headerName, $this->counters['recipients'])) {
             if ($this->counters['recipients'][$headerName] == Api::RECIPIENT_COUNT_LIMIT) {
@@ -85,7 +85,7 @@ class BatchMessage extends MessageBuilder
             }
         }
 
-        $compiledAddress = $this->parseAddress($address, $variables);
+        $compiledAddress = $this->parseAddress($address, $variables, $nonRecipient = false);
 
         if (isset($this->message[$headerName])) {
             array_push($this->message[$headerName], $compiledAddress);
