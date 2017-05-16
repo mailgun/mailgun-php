@@ -67,8 +67,10 @@ class Mailgun
      * @param string              $apiEndpoint
      * @param Hydrator|null       $hydrator
      * @param RequestBuilder|null $requestBuilder
+     *
+     * @internal Use Mailgun::configure or Mailgun::create instead.
      */
-    public function __construct(
+    public /* private */ function __construct(
         $apiKey = null, /* Deprecated, will be removed in 3.0 */
         HttpClient $httpClient = null,
         $apiEndpoint = 'api.mailgun.net', /* Deprecated, will be removed in 3.0 */
