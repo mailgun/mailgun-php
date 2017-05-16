@@ -1,4 +1,4 @@
-<?PHP
+<?php
 
 /*
  * Copyright (C) 2013-2016 Mailgun
@@ -70,7 +70,7 @@ class Mailgun
      *
      * @internal Use Mailgun::configure or Mailgun::create instead.
      */
-    public /* private */ function __construct(
+    public function __construct(
         $apiKey = null, /* Deprecated, will be removed in 3.0 */
         HttpClient $httpClient = null,
         $apiEndpoint = 'api.mailgun.net', /* Deprecated, will be removed in 3.0 */
