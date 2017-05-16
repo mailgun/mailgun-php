@@ -2,6 +2,18 @@
 
 The change log describes what is "Added", "Removed", "Changed" or "Fixed" between each release. 
 
+## 2.3.2
+
+### Fixed
+
+- When parsing an address in `MessageBuilder` we surround the recipient name with double quotes instead of single quotes.   
+
+## 2.3.1
+
+### Fixed
+
+- Make sure to reset the `MultipartStreamBuilder` after a stream is built.
+
 ## 2.3.0
 
 ### Added
