@@ -4,7 +4,7 @@
     "require": {
         "php": "^5.5|^7.0",
         "php-http/httplug": "^1.0",
-        "php-http/multipart-stream-builder": "^0.2",
+        "php-http/multipart-stream-builder": "^1.0",
         "php-http/message": "^1.0",
         "php-http/client-common": "^1.1",
         "php-http/discovery": "^1.0",
