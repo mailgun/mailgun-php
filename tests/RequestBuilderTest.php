@@ -12,15 +12,12 @@ namespace Mailgun\Tests;
 use Http\Message\MultipartStream\MultipartStreamBuilder;
 use Http\Message\RequestFactory;
 use Mailgun\RequestBuilder;
-use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
+use PHPUnit_Framework_TestCase;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\StreamInterface;
 
-/**
- * TODO request factory instantiate should be tested somehow. For reason something seems to be wrong with realization
- */
-class RequestBuilderTest extends TestCase
+class RequestBuilderTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @var MockObject|RequestFactory
