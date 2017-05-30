@@ -50,7 +50,7 @@ class RestClient
      *
      * @var string
      */
-    protected $apiVersion = 'v2';
+    protected $apiVersion = 'v3';
 
     /**
      * If we should use SSL or not.
