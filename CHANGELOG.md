@@ -2,6 +2,13 @@
 
 The change log describes what is "Added", "Removed", "Changed" or "Fixed" between each release. 
 
+## 2.3.3
+
+### Changed
+
+- Using stable version of `php-http/multipart-stream-builder`
+- Improved tests
+
 ## 2.3.2
 
 ### Fixed
