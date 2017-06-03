@@ -11,7 +11,6 @@ php:
   - 5.6
   - 7.0
   - 7.1
-  - hhvm
 
 env:
   - TEST_COMMAND="composer test-all"
@@ -21,6 +20,8 @@ matrix:
     include:
         - php: 5.5
           env: COMPOSER_FLAGS="--prefer-stable --prefer-lowest" PREFER_COVERAGE=true
+        - php: hhvm
+          dist: trusty
 
 install:
     - travis_retry composer update ${COMPOSER_FLAGS} --prefer-source --no-interaction
