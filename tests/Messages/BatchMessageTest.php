@@ -10,6 +10,7 @@
 namespace Mailgun\Tests\Messages;
 
 use Mailgun\Tests\Mock\Mailgun;
+use Mailgun\Tests\Mock\PostBinMailgun;
 
 class BatchMessageTest extends \Mailgun\Tests\MailgunTestCase
 {
@@ -147,7 +148,7 @@ class BatchMessageTest extends \Mailgun\Tests\MailgunTestCase
         $this->assertEquals(1, $propertyValue['test-user@samples.mailgun.org']['id']);
     }
 
-    public function testgetMessageIds()
+    public function testGetMessageIds()
     {
         $message = $this->client->BatchMessage($this->sampleDomain);
         $message->addToRecipient('test-user@samples.mailgun.org', ['first' => 'Test', 'last' => 'User']);
@@ -157,6 +158,19 @@ class BatchMessageTest extends \Mailgun\Tests\MailgunTestCase
         $message->finalize();
 
         $this->assertEquals(['1234'], $message->getMessageIds());
+    }
+
+    public function testGetMessageIdsWhenIdMissingInResponse()
+    {
+        $client = new PostBinMailgun('My-Super-Awesome-API-Key');
+        $message = $client->BatchMessage($this->sampleDomain);
+        $message->addToRecipient('test-user@samples.mailgun.org', ['first' => 'Test', 'last' => 'User']);
+        $message->setFromAddress('samples@mailgun.org', ['first' => 'Test', 'last' => 'User']);
+        $message->setSubject('This is the subject of the message!');
+        $message->setTextBody('This is the text body of the message!');
+        $message->finalize();
+
+        $this->assertEquals([], $message->getMessageIds());
     }
 
     public function testInvalidMissingRequiredMIMEParametersExceptionGetsFlungNoFrom()

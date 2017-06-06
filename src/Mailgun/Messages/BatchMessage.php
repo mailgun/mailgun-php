@@ -132,7 +132,10 @@ class BatchMessage extends MessageBuilder
             $this->counters['recipients']['cc'] = 0;
             $this->counters['recipients']['bcc'] = 0;
             unset($this->message['to']);
-            array_push($this->messageIds, $response->http_response_body->id);
+
+            if (isset($response->http_response_body->id)) {
+                array_push($this->messageIds, $response->http_response_body->id);
+            }
         }
     }
 
