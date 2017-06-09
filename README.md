@@ -92,12 +92,12 @@ If you rather be working with array then object you can inject the `ArrayHydrato
 to the Mailgun class. 
 
 ```php
-use Mailgun\Hydrator\ArrayHydator;
+use Mailgun\Hydrator\ArrayHydrator;
 
 $configurator = new HttpClientConfigurator();
 $configurator->setApiKey('key-example');
 
-$mg = Mailgun::configure($configurator, new ArrayHydator());
+$mg = Mailgun::configure($configurator, new ArrayHydrator());
 $data = $mg->domains()->show('example.com');
 
 foreach ($data['receiving_dns_records'] as $record) {
