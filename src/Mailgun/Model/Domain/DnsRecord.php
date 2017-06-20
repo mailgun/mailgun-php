@@ -110,7 +110,7 @@ final class DnsRecord
      */
     public function isValid()
     {
-        return 'valid' === $this->value;
+        return 'valid' === $this->valid;
     }
 
     /**
