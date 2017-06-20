@@ -42,6 +42,11 @@ final class DnsRecord
     private $valid;
 
     /**
+     * @var array
+     */
+    private $cached;
+
+    /**
      * @param array $data
      *
      * @return self
@@ -53,8 +58,9 @@ final class DnsRecord
         $recordType = isset($data['record_type']) ? $data['record_type'] : null;
         $value = isset($data['value']) ? $data['value'] : null;
         $valid = isset($data['valid']) ? $data['valid'] : null;
+        $cached = isset($data['cached']) ? $data['cached'] : null;
 
-        return new self($name, $recordType, $value, $priority, $valid);
+        return new self($name, $recordType, $value, $priority, $valid, $cached);
     }
 
     /**
@@ -63,14 +69,16 @@ final class DnsRecord
      * @param string      $value    DNS record value
      * @param string|null $priority Record priority, used for MX
      * @param string      $valid    DNS record has been added to domain DNS?
+     * @param array       $cached   DNS record current value
      */
-    private function __construct($name, $type, $value, $priority, $valid)
+    private function __construct($name, $type, $value, $priority, $valid, $cached)
     {
         $this->name = $name;
         $this->type = $type;
         $this->value = $value;
         $this->priority = $priority;
         $this->valid = $valid;
+        $this->cached = $cached;
     }
 
     /**
@@ -119,5 +127,13 @@ final class DnsRecord
     public function getValidity()
     {
         return $this->valid;
+    }
+
+    /**
+     * @return array
+     */
+    public function getCached()
+    {
+        return $this->cached;
     }
 }
