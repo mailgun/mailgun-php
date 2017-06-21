@@ -20,6 +20,7 @@ use Mailgun\Model\Domain\IndexResponse;
 use Mailgun\Model\Domain\ShowResponse;
 use Mailgun\Model\Domain\UpdateConnectionResponse;
 use Mailgun\Model\Domain\UpdateCredentialResponse;
+use Mailgun\Model\Domain\VerifyResponse;
 use Psr\Http\Message\ResponseInterface;
 
 /**
@@ -262,5 +263,21 @@ class Domain extends HttpApi
         $response = $this->httpPut(sprintf('/v3/domains/%s/connection', $domain), $params);
 
         return $this->hydrateResponse($response, UpdateConnectionResponse::class);
+    }
+
+    /**
+     * Returns a single domain.
+     *
+     * @param string $domain Name of the domain.
+     *
+     * @return VerifyResponse|array|ResponseInterface
+     */
+    public function verify($domain)
+    {
+        Assert::stringNotEmpty($domain);
+
+        $response = $this->httpPut(sprintf('/v3/domains/%s/verify', $domain));
+
+        return $this->hydrateResponse($response, VerifyResponse::class);
     }
 }

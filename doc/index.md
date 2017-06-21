@@ -25,6 +25,12 @@ $mailgun->domains()->index();
 $mailgun->domains()->show('example.com');
 ```
 
+#### Verify a domain
+
+```php
+$mailgun->domains()->verify('example.com');
+```
+
 #### Create a new domain
 
 ```php
