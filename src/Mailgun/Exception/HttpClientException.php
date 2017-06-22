@@ -28,6 +28,11 @@ final class HttpClientException extends \RuntimeException implements Exception
     private $responseBody;
 
     /**
+     * @var int
+     */
+    private $responseCode;
+
+    /**
      * @param string                 $message
      * @param int                    $code
      * @param ResponseInterface|null $response
@@ -38,6 +43,7 @@ final class HttpClientException extends \RuntimeException implements Exception
 
         if ($response) {
             $this->response = $response;
+            $this->responseCode = $response->getStatusCode();
             $body = $response->getBody()->__toString();
             if (strpos($response->getHeaderLine('Content-Type'), 'application/json') !== 0) {
                 $this->responseBody['message'] = $body;
@@ -81,5 +87,13 @@ final class HttpClientException extends \RuntimeException implements Exception
     public function getResponseBody()
     {
         return $this->responseBody;
+    }
+
+    /**
+     * @return int
+     */
+    public function getResponseCode()
+    {
+        return $this->responseCode;
     }
 }
