@@ -19,6 +19,7 @@ use Mailgun\Model\Domain\CredentialResponse;
 use Mailgun\Model\Domain\ConnectionResponse;
 use Mailgun\Model\Domain\UpdateConnectionResponse;
 use Mailgun\Model\Domain\UpdateCredentialResponse;
+use Mailgun\Model\Domain\VerifyResponse;
 use Mailgun\Tests\Api\TestCase;
 
 /**
@@ -73,6 +74,20 @@ class DomainApiTest extends TestCase
         $this->assertNotNull($domain->getInboundDNSRecords());
         $this->assertNotNull($domain->getOutboundDNSRecords());
         $this->assertEquals($domain->getDomain()->getState(), 'active');
+    }
+
+    /**
+     * Performs `PUT /v3/domains/<domain>/verify` for verify domain.
+     */
+    public function testDomainVerify()
+    {
+        $mg = $this->getMailgunClient();
+
+        $ret = $mg->domains()->verify($this->testDomain);
+
+        $this->assertNotNull($ret);
+        $this->assertInstanceOf(VerifyResponse::class, $ret);
+        $this->assertEquals('Domain DNS records have been updated', $ret->getMessage());
     }
 
     /**
