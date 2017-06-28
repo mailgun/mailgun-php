@@ -66,6 +66,7 @@ class IndexResponse implements ApiResponse
     public static function create(array $data)
     {
         $self = new self();
+	$data = isset($data['webhooks']) ? $data['webhooks'] : $data;
         if (isset($data['bounce'])) {
             $self->setBounce($data['bounce']);
         }
