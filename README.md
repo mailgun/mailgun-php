@@ -60,13 +60,16 @@ Here's how to send a message using the SDK:
 $mg = Mailgun::create('key-example');
 
 # Now, compose and send your message.
+# $mg->messages()->send($domain, $params);
 $mg->messages()->send('example.com', [
-  'from'    => 'bob@example.com', 
-  'to'      => 'sally@example.com', 
-  'subject' => 'The PHP SDK is awesome!', 
+  'from'    => 'bob@example.com',
+  'to'      => 'sally@example.com',
+  'subject' => 'The PHP SDK is awesome!',
   'text'    => 'It is so simple to send a message.'
 ]);
 ```
+
+Attention: `$domain` must match to the domain you have configured on [app.mailgun.com](https://app.mailgun.com/app/domains).
 
 ### All usage examples
 
