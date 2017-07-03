@@ -70,7 +70,7 @@ final class HttpClientException extends \RuntimeException implements Exception
 
     public static function notFound(ResponseInterface $response = null)
     {
-        return new self('The endpoint you tried to access does not exist. Check your URL.', 404, $response);
+        return new self('The endpoint you have tried to access does not exist. Check if the domain matches the domain you have configure on Mailgun.', 404, $response);
     }
 
     /**

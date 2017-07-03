@@ -18,7 +18,7 @@ class ExceptionMessages
     const EXCEPTION_GENERIC_HTTP_ERROR = 'An HTTP Error has occurred! Check your network connection and try again.';
     const EXCEPTION_MISSING_REQUIRED_PARAMETERS = 'The parameters passed to the API were invalid. Check your inputs!';
     const EXCEPTION_MISSING_REQUIRED_MIME_PARAMETERS = 'The parameters passed to the API were invalid. Check your inputs!';
-    const EXCEPTION_MISSING_ENDPOINT = "The endpoint you've tried to access does not exist. Check if the domain matches the domain you have configure on mailgun.";
+    const EXCEPTION_MISSING_ENDPOINT = "The endpoint you've tried to access does not exist. Check if the domain matches the domain you have configure on Mailgun.";
     const TOO_MANY_RECIPIENTS = "You've exceeded the maximum recipient count (1,000) on the to field with autosend disabled.";
     const INVALID_PARAMETER_NON_ARRAY = "The parameter you've passed in position 2 must be an array.";
     const INVALID_PARAMETER_ATTACHMENT = 'Attachments must be passed with an "@" preceding the file path. Web resources not supported.';
