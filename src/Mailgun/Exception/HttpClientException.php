@@ -10,7 +10,6 @@
 namespace Mailgun\Exception;
 
 use Mailgun\Exception;
-use Mailgun\Constants\ExceptionMessages;
 use Psr\Http\Message\ResponseInterface;
 
 /**
@@ -56,22 +55,22 @@ final class HttpClientException extends \RuntimeException implements Exception
 
     public static function badRequest(ResponseInterface $response = null)
     {
-        return new self(ExceptionMessages::EXCEPTION_MISSING_REQUIRED_PARAMETERS, 400, $response);
+        return new self('The parameters passed to the API were invalid. Check your inputs!', 400, $response);
     }
 
     public static function unauthorized(ResponseInterface $response = null)
     {
-        return new self(ExceptionMessages::EXCEPTION_INVALID_CREDENTIALS, 401, $response);
+        return new self('Your credentials are incorrect.', 401, $response);
     }
 
     public static function requestFailed(ResponseInterface $response = null)
     {
-        return new self(ExceptionMessages::VALID_PARAMETERS_FAILED, 402, $response);
+        return new self('Parameters were valid but request failed. Try again.', 402, $response);
     }
 
     public static function notFound(ResponseInterface $response = null)
     {
-        return new self(ExceptionMessages::EXCEPTION_MISSING_ENDPOINT, 404, $response);
+        return new self('The endpoint you have tried to access does not exist. Check if the domain matches the domain you have configure on Mailgun.', 404, $response);
     }
 
     /**
