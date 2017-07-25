@@ -298,7 +298,7 @@ $timestamp = $_POST['timestamp'];
 $token = $_POST['token'];
 $signature = $_POST['signature'];
 
-$mailgun = Maingun::create('my_api_key');
+$mailgun = Mailgun::create('my_api_key');
 $valid = $mailgun->webhooks()->verifyWebhookSignature($timestamp, $token, $signature);
 
 if (!$valid) {
