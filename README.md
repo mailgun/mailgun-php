@@ -165,6 +165,7 @@ If you are using a framework you might consider these composer packages to make 
 * [tehplague/swiftmailer-mailgun-bundle](https://github.com/tehplague/swiftmailer-mailgun-bundle) for Symfony
 * [Bogardo/Mailgun](https://github.com/Bogardo/Mailgun) for Laravel
 * [katanyoo/yii2-mailgun-mailer](https://github.com/katanyoo/yii2-mailgun-mailer) for Yii2
+* [narendravaghela/cakephp-mailgun](https://github.com/narendravaghela/cakephp-mailgun) for CakePHP
 
 ## Contribute
 
