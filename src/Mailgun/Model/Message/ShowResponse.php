@@ -142,7 +142,8 @@ class ShowResponse implements ApiResponse
             $response->setMessageUrl($data['message-url']);
         }
         if (isset($data['message-headers'])) {
-            $response->setMessageHeaders($data['message-headers']);
+            $headers = is_string($data['message-headers']) ? json_decode($data['message-headers']) : $data['message-headers'];
+            $response->setMessageHeaders($headers);
         }
         if (isset($data['recipient'])) {
             $response->setRecipient($data['recipient']);
