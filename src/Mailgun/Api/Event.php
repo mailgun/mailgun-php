@@ -35,4 +35,20 @@ class Event extends HttpApi
 
         return $this->hydrateResponse($response, EventResponse::class);
     }
+    
+        /**
+     * @param $domain
+     * @param $page
+     *
+     * @return EventResponse
+     */
+    public function getNextPage($domain, $page)
+    {
+        Assert::stringNotEmpty($domain);
+        Assert::stringNotEmpty($page);
+
+        $response = $this->httpGet(sprintf('/v3/%s/events/%s', $domain, $page), array());
+
+        return $this->hydrateResponse($response, EventResponse::class);
+    }
 }
