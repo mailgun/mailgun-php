@@ -127,7 +127,7 @@ class Mailgun
      *
      * @return \stdClass
      *
-     * @deprecated Use Mailgun->message() instead. Will be removed in 3.0
+     * @deprecated Use Mailgun->messages()->send() instead. Will be removed in 3.0
      */
     public function sendMessage($workingDomain, $postData, $postFiles = [])
     {
