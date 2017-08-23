@@ -58,7 +58,7 @@ final class TotalResponse implements ApiResponse
     public static function create(array $data)
     {
         $stats = [];
-        if (isset($data['status'])) {
+        if (isset($data['stats'])) {
             foreach ($data['stats'] as $s) {
                 $stats[] = TotalResponseItem::create($s);
             }

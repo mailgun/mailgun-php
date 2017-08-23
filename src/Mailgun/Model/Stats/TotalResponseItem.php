@@ -43,9 +43,9 @@ class TotalResponseItem
     {
         return new self(
             isset($data['time']) ? new \DateTime($data['time']) : null,
-            isset($data['accepted']) ? $data['accepted'] : null,
-            isset($data['delivered']) ? $data['delivered'] : null,
-            isset($data['failed']) ? $data['failed'] : null
+            isset($data['accepted']) ? $data['accepted'] : [],
+            isset($data['delivered']) ? $data['delivered'] : [],
+            isset($data['failed']) ? $data['failed'] : []
         );
     }
 
