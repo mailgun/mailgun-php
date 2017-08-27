@@ -146,6 +146,8 @@ $mg->messages()->send('example.com', [
 ```
 ### Additional Info
 
+In order to delete bounces from Mailgun you will need to use v3. The API endpoint version by default is set to v2 which is not compatible with some bounces and unsubscribe endpoints (example: <yourdomainname>/bounces/<emailaddress> does not work with v2). You can set the version to v3 by adding $mg->setApiVersion('v3'); directly after $mg = Mailgun::create('key-example');
+
 For usage examples on each API endpoint, head over to our official documentation 
 pages. 
 
