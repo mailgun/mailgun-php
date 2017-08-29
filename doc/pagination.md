@@ -5,7 +5,7 @@ Some API endpoints do support pagination.
 ```php
 
 /** @var Mailgun\Model\Tag\IndexReponse $response */
-$reponse = $mailgun->tags()->index('example.com');
+$response = $mailgun->tags()->index('example.com');
 
 // Parse through the first response
 // ...
