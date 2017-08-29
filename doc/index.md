@@ -213,7 +213,7 @@ $mailgun->suppressions()->bounces()->deleteAll('example.com');
 ### Complaint API
 #### Get all complaints
 ```php
-$mailgun->suppressions()->complaints->index('example.com');
+$mailgun->suppressions()->complaints()->index('example.com');
 ```
 
 #### Show complaints for a specific address
