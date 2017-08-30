@@ -35,7 +35,7 @@ final class IndexResponse implements ApiResponse, PagingProvider
      * @see Mailgun/Model/Suppression/Unsubscribe/Unsubscribe
      * @var integer
      */
-    private $total_count = 0;
+    private $totalCount = 0;
 
     /**
      * @see Mailgun/Model/Suppression/Unsubscribe/Unsubscribe
@@ -89,6 +89,8 @@ final class IndexResponse implements ApiResponse, PagingProvider
      */
     public function getTotalCount()
     {
-        return count($this->items);
+        $this->totalCount = count($this->items);
+        
+        return $this->totalCount;
     }
 }
