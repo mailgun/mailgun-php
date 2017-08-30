@@ -55,14 +55,12 @@ class Unsubscribe
     /**
      * Create a Unsubscribe object based in info provided in $data array
      * 
-     * Fields allowed:
-     * 
-     * - id: The unsubscribe event identifier
-     * - address: The unsubscribe email address
-     * - tag: Tag to unsubscribe (use * or NULL to unsubscribe address from domain)
-     * - created_at: The creation date for the event
-     * 
-     * @param array $data the info provided
+     * @param array $data the info provided {
+     *     @var string $id            The unsubscribe event identifier
+     *     @var string $address       The unsubscribe email address
+     *     @var string $tag           Tag to unsubscribe (use * or NULL to unsubscribe address from domain)
+     *     @var \DateTime $created_at The creation date for the event
+     * }
      *
      * @return Unsubscribe
      */
