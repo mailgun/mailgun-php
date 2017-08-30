@@ -310,6 +310,10 @@ class RestClient
             $resource = fopen($filePath, 'r');
         }
 
+        if(is_resource($resource)) {
+            fclose($resource);
+        }
+        
         return [
             'name' => $fieldName,
             'contents' => $resource,
