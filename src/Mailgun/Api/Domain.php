@@ -74,6 +74,8 @@ class Domain extends HttpApi
      * See below for spam filtering parameter information.
      * {@link https://documentation.mailgun.com/user_manual.html#um-spam-filter}.
      *
+     * @see https://documentation.mailgun.com/en/latest/api-domains.html#domains
+     *
      * @param string $domain     Name of the domain.
      * @param string $smtpPass   Password for SMTP authentication.
      * @param string $spamAction `disable` or `tag` - inbound spam filtering.
@@ -81,20 +83,22 @@ class Domain extends HttpApi
      *
      * @return CreateResponse|array|ResponseInterface
      */
-    public function create($domain, $smtpPass, $spamAction, $wildcard)
+    public function create($domain, $smtpPass = NULL, $spamAction = NULL, $wildcard = NULL)
     {
         Assert::stringNotEmpty($domain);
-        Assert::stringNotEmpty($smtpPass);
-        // TODO(sean.johnson): Extended spam filter input validation.
-        Assert::stringNotEmpty($spamAction);
-        Assert::boolean($wildcard);
+        
+        $params = ['name'] = $domain;
+        
+        // If at least smtpPass available, check for the fields spamAction wildcard
+        if(!empty($smtpPass) {
 
-        $params = [
-            'name' => $domain,
-            'smtp_password' => $smtpPass,
-            'spam_action' => $spamAction,
-            'wildcard' => $wildcard,
-        ];
+            // TODO(sean.johnson): Extended spam filter input validation.
+            Assert::stringNotEmpty($spamAction);
+            Assert::boolean($wildcard);
+            
+            $params['smtp_password'] = $smtpPass;
+            $params['spam_action'] = $spamAction;
+        }
 
         $response = $this->httpPost('/v3/domains', $params);
 
