@@ -99,8 +99,7 @@ Here's how to use Batch Message to easily handle batch sending jobs.
 $mg = new Mailgun("key-example");
 $domain = "example.com";
 
-# Next, instantiate a Message Builder object from the SDK, pass in your sending 
-domain.
+# Next, instantiate a Message Builder object from the SDK, pass in your sending domain.
 $batchMsg = $mg->BatchMessage($domain);
 
 # Define the from address.
@@ -115,8 +114,7 @@ $batchMsg->addToRecipient("john.doe@example.com", array("first" => "John", "last
 $batchMsg->addToRecipient("sally.doe@example.com", array("first" => "Sally", "last" => "Doe"));
 $batchMsg->addToRecipient("mike.jones@example.com", array("first" => "Mike", "last" => "Jones"));
 ...
-// After 1,000 recipients, Batch Message will automatically post your message to 
-the messages endpoint. 
+// After 1,000 recipients, Batch Message will automatically post your message to the messages endpoint. 
 
 // Call finalize() to send any remaining recipients still in the buffer.
 $batchMsg->finalize();
