@@ -298,7 +298,7 @@ class RestClient
         } else {
             // Backward compatibility code
             if (is_array($filePath) && isset($filePath['filePath'])) {
-                $filename = $filePath['remoteName'];
+                $filename = $filePath['filename'];
                 $filePath = $filePath['filePath'];
             }
 
