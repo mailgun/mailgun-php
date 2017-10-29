@@ -38,7 +38,7 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
      */
     protected $testDomain;
 
-    public function __construct()
+    protected function setUp()
     {
         $this->apiPrivKey = getenv('MAILGUN_PRIV_KEY');
         $this->apiPubKey = getenv('MAILGUN_PUB_KEY');
@@ -47,22 +47,28 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
 
     abstract protected function getApiClass();
 
-    protected function getApiMock()
+    protected function getApiMock($httpClient = null, $requestClient = null, $hydrator = null)
     {
-        $httpClient = $this->getMockBuilder('Http\Client\HttpClient')
-            ->setMethods(['sendRequest'])
-            ->getMock();
-        $httpClient
-            ->expects($this->any())
-            ->method('sendRequest');
+        if (null === $httpClient) {
+            $httpClient = $this->getMockBuilder('Http\Client\HttpClient')
+                ->setMethods(['sendRequest'])
+                ->getMock();
+            $httpClient
+                ->expects($this->any())
+                ->method('sendRequest');
+        }
 
-        $requestClient = $this->getMockBuilder('Mailgun\RequestBuilder')
-            ->setMethods(['create'])
-            ->getMock();
+        if (null === $requestClient) {
+            $requestClient = $this->getMockBuilder('Mailgun\RequestBuilder')
+                ->setMethods(['create'])
+                ->getMock();
+        }
 
-        $hydrator = $this->getMockBuilder('Mailgun\Hydrator\Hydrator')
-            ->setMethods(['hydrate'])
-            ->getMock();
+        if (null === $hydrator) {
+            $hydrator = $this->getMockBuilder('Mailgun\Hydrator\Hydrator')
+                ->setMethods(['hydrate'])
+                ->getMock();
+        }
 
         return $this->getMockBuilder($this->getApiClass())
             ->setMethods(['httpGet', 'httpPost', 'httpPostRaw', 'httpDelete', 'httpPut'])
