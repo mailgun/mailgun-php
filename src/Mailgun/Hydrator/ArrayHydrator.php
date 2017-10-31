@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (C) 2013-2016 Mailgun
+ * Copyright (C) 2013 Mailgun
  *
  * This software may be modified and distributed under the terms
  * of the MIT license. See the LICENSE file for details.
@@ -28,7 +28,7 @@ final class ArrayHydrator implements Hydrator
     public function hydrate(ResponseInterface $response, $class)
     {
         $body = $response->getBody()->__toString();
-        if (strpos($response->getHeaderLine('Content-Type'), 'application/json') !== 0) {
+        if (0 !== strpos($response->getHeaderLine('Content-Type'), 'application/json')) {
             throw new HydrationException('The ArrayHydrator cannot hydrate response with Content-Type:'.$response->getHeaderLine('Content-Type'));
         }
 

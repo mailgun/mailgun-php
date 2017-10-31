@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (C) 2013-2016 Mailgun
+ * Copyright (C) 2013 Mailgun
  *
  * This software may be modified and distributed under the terms
  * of the MIT license. See the LICENSE file for details.
@@ -113,7 +113,7 @@ class RouteApiTest extends TestCase
         $this->assertContainsOnlyInstancesOf(Route::class, $response->getRoutes());
         $foundTestRoute = false;
         foreach ($response->getRoutes() as $route) {
-            if ($route->getId() === $routeId && $route->getDescription() === 'test-route-updated') {
+            if ($route->getId() === $routeId && 'test-route-updated' === $route->getDescription()) {
                 $foundTestRoute = true;
             }
         }

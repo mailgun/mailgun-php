@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (C) 2013-2016 Mailgun
+ * Copyright (C) 2013 Mailgun
  *
  * This software may be modified and distributed under the terms
  * of the MIT license. See the LICENSE file for details.
@@ -49,20 +49,20 @@ class TestBroker extends RestClient
 
     public function testResponseHandler($endpointUrl, $httpResponseCode = 200)
     {
-        if ($httpResponseCode === 200) {
+        if (200 === $httpResponseCode) {
             $result = new \stdClass();
             $result->http_response_body = new \stdClass();
             $jsonResponseData = json_decode('{"message": "Some JSON Response Data", "id": "1234"}');
             foreach ($jsonResponseData as $key => $value) {
                 $result->http_response_body->$key = $value;
             }
-        } elseif ($httpResponseCode == 400) {
+        } elseif (400 == $httpResponseCode) {
             throw new MissingRequiredMIMEParameters(EXCEPTION_MISSING_REQUIRED_MIME_PARAMETERS);
-        } elseif ($httpResponseCode == 401) {
+        } elseif (401 == $httpResponseCode) {
             throw new InvalidCredentials(EXCEPTION_INVALID_CREDENTIALS);
-        } elseif ($httpResponseCode == 401) {
+        } elseif (401 == $httpResponseCode) {
             throw new GenericHTTPError(EXCEPTION_INVALID_CREDENTIALS);
-        } elseif ($httpResponseCode == 404) {
+        } elseif (404 == $httpResponseCode) {
             throw new MissingEndpoint(EXCEPTION_MISSING_ENDPOINT);
         } else {
             throw new GenericHTTPError(EXCEPTION_GENERIC_HTTP_ERROR);

@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (C) 2013-2016 Mailgun
+ * Copyright (C) 2013 Mailgun
  *
  * This software may be modified and distributed under the terms
  * of the MIT license. See the LICENSE file for details.
@@ -30,7 +30,7 @@ class RequestBuilderTest extends PHPUnit_Framework_TestCase
     private $requestBuilder;
 
     /**
-     * Environment preset
+     * Environment preset.
      */
     protected function setUp()
     {
@@ -46,7 +46,7 @@ class RequestBuilderTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Environment reset
+     * Environment reset.
      */
     protected function tearDown()
     {
@@ -86,8 +86,7 @@ class RequestBuilderTest extends PHPUnit_Framework_TestCase
 
         $item0 = ['content' => 'foobar', 'name' => 'username', 'some_stuff' => 'some value'];
         $item1 = ['content' => 'Stockholm', 'name' => 'city', 'other_stuff' => 'other value'];
-        $body  = [$item0, $item1];
-
+        $body = [$item0, $item1];
 
         foreach ($body as $index => $item) {
             $multipartStreamBuilder
@@ -145,7 +144,7 @@ class RequestBuilderTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Creates multipart stream builder
+     * Creates multipart stream builder.
      *
      * @return MockObject|MultipartStreamBuilder
      */

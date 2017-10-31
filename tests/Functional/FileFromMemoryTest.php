@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (C) 2013-2016 Mailgun
+ * Copyright (C) 2013 Mailgun
  *
  * This software may be modified and distributed under the terms
  * of the MIT license. See the LICENSE file for details.
@@ -21,7 +21,7 @@ class FileFromMemoryTest extends \PHPUnit_Framework_TestCase
         $fileValidator = function ($files) {
             // Get only the attachments so the properties can be converted to a format we like
             $attachments = array_filter($files, function ($f) {
-                return strpos($f['name'], 'attachment') !== false;
+                return false !== strpos($f['name'], 'attachment');
             });
 
             // Convert resources to strings
