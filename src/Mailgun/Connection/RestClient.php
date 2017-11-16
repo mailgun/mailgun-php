@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (C) 2013-2016 Mailgun
+ * Copyright (C) 2013 Mailgun
  *
  * This software may be modified and distributed under the terms
  * of the MIT license. See the LICENSE file for details.
@@ -246,7 +246,7 @@ class RestClient
             $jsonResponseData = json_decode($data, false);
             $result = new \stdClass();
             // return response data as json if possible, raw if not
-            $result->http_response_body = $data && $jsonResponseData === null ? $data : $jsonResponseData;
+            $result->http_response_body = $data && null === $jsonResponseData ? $data : $jsonResponseData;
             $result->http_response_code = $httpResponseCode;
 
             return $result;
@@ -270,7 +270,7 @@ class RestClient
     {
         $body = (string) $responseObj->getBody();
         $response = json_decode($body);
-        if (json_last_error() == JSON_ERROR_NONE && isset($response->message)) {
+        if (JSON_ERROR_NONE == json_last_error() && isset($response->message)) {
             return ' '.$response->message;
         }
 
@@ -303,7 +303,7 @@ class RestClient
             }
 
             // Remove leading @ symbol
-            if (strpos($filePath, '@') === 0) {
+            if (0 === strpos($filePath, '@')) {
                 $filePath = substr($filePath, 1);
             }
 
@@ -322,7 +322,7 @@ class RestClient
      */
     protected function getHttpClient()
     {
-        if ($this->httpClient === null) {
+        if (null === $this->httpClient) {
             $this->httpClient = HttpClientDiscovery::find();
         }
 

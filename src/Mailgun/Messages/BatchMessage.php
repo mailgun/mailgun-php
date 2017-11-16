@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (C) 2013-2016 Mailgun
+ * Copyright (C) 2013 Mailgun
  *
  * This software may be modified and distributed under the terms
  * of the MIT license. See the LICENSE file for details.
@@ -89,7 +89,7 @@ class BatchMessage extends MessageBuilder
 
         if (isset($this->message[$headerName])) {
             array_push($this->message[$headerName], $compiledAddress);
-        } elseif ($headerName == 'h:reply-to') {
+        } elseif ('h:reply-to' == $headerName) {
             $this->message[$headerName] = $compiledAddress;
         } else {
             $this->message[$headerName] = [$compiledAddress];

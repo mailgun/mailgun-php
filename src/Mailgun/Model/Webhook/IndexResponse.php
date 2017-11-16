@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (C) 2013-2016 Mailgun
+ * Copyright (C) 2013 Mailgun
  *
  * This software may be modified and distributed under the terms
  * of the MIT license. See the LICENSE file for details.
@@ -66,7 +66,7 @@ class IndexResponse implements ApiResponse
     public static function create(array $data)
     {
         $self = new self();
-	$data = isset($data['webhooks']) ? $data['webhooks'] : $data;
+        $data = isset($data['webhooks']) ? $data['webhooks'] : $data;
         if (isset($data['bounce'])) {
             $self->setBounce($data['bounce']);
         }

@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (C) 2013-2016 Mailgun
+ * Copyright (C) 2013 Mailgun
  *
  * This software may be modified and distributed under the terms
  * of the MIT license. See the LICENSE file for details.
@@ -166,7 +166,7 @@ class Mailgun
      */
     public function verifyWebhookSignature($postData = null)
     {
-        if ($postData === null) {
+        if (null === $postData) {
             $postData = $_POST;
         }
         if (!isset($postData['timestamp']) || !isset($postData['token']) || !isset($postData['signature'])) {
