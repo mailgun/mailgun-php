@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (C) 2013-2016 Mailgun
+ * Copyright (C) 2013 Mailgun
  *
  * This software may be modified and distributed under the terms
  * of the MIT license. See the LICENSE file for details.
@@ -83,23 +83,23 @@ class ComplexMessageTest extends \Mailgun\Tests\MailgunTestCase
 
         $expectedFilenames = ['mailgun_icon1.png', 'mailgun_icon2.png'];
         foreach ($result->files as $file) {
-            if ($file['name'] == 'to') {
+            if ('to' == $file['name']) {
                 $this->assertEquals($file['contents'], 'test@test.mailgun.org');
                 ++$testCount;
             }
-            if ($file['name'] == 'from') {
+            if ('from' == $file['name']) {
                 $this->assertEquals($file['contents'], 'sender@test.mailgun.org');
                 ++$testCount;
             }
-            if ($file['name'] == 'subject') {
+            if ('subject' == $file['name']) {
                 $this->assertEquals($file['contents'], 'This is my test subject');
                 ++$testCount;
             }
-            if ($file['name'] == 'text') {
+            if ('text' == $file['name']) {
                 $this->assertEquals($file['contents'], 'Testing!');
                 ++$testCount;
             }
-            if ($file['name'] == 'inline') {
+            if ('inline' == $file['name']) {
                 $expectedFilename = array_shift($expectedFilenames);
                 $this->assertNotNull($expectedFilename);
                 $this->assertSame($expectedFilename, $file['filename']);
