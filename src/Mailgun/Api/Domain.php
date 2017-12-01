@@ -83,19 +83,18 @@ class Domain extends HttpApi
      *
      * @return CreateResponse|array|ResponseInterface
      */
-    public function create($domain, $smtpPass = NULL, $spamAction = NULL, $wildcard = NULL)
+    public function create($domain, $smtpPass = null, $spamAction = null, $wildcard = null)
     {
         Assert::stringNotEmpty($domain);
-        
-        $params = ['name'] = $domain;
-        
-        // If at least smtpPass available, check for the fields spamAction wildcard
-        if(!empty($smtpPass) {
 
+        $params['name'] = $domain;
+
+        // If at least smtpPass available, check for the fields spamAction wildcard
+        if (!empty($smtpPass)) {
             // TODO(sean.johnson): Extended spam filter input validation.
             Assert::stringNotEmpty($spamAction);
             Assert::boolean($wildcard);
-            
+
             $params['smtp_password'] = $smtpPass;
             $params['spam_action'] = $spamAction;
         }
