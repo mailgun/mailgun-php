@@ -87,7 +87,7 @@ class Domain extends HttpApi
     {
         Assert::stringNotEmpty($domain);
 
-        $params = ['name'] = $domain;
+        $params['name'] = $domain;
 
         // If at least smtpPass available, check for the fields spamAction wildcard
         if (!empty($smtpPass)) {
