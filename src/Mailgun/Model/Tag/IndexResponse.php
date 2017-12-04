@@ -10,13 +10,13 @@
 namespace Mailgun\Model\Tag;
 
 use Mailgun\Model\PaginationResponse;
-use Mailgun\Model\PagingProvider;
+use Mailgun\Model\PagingProviderInterface;
 use Mailgun\Model\ApiResponseInterface;
 
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
-final class IndexResponse implements ApiResponseInterface, PagingProvider
+final class IndexResponse implements ApiResponseInterface, PagingProviderInterface
 {
     use PaginationResponse;
 

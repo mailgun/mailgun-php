@@ -12,7 +12,7 @@ namespace Mailgun\Model;
 /**
  * @author Sean Johnson <sean@mailgun.com>
  */
-interface PagingProvider
+interface PagingProviderInterface
 {
     /**
      * Returns the `$paging->next` URL.

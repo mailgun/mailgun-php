@@ -10,7 +10,7 @@
 namespace Mailgun\Api;
 
 use Mailgun\Assert;
-use Mailgun\Model\PagingProvider;
+use Mailgun\Model\PagingProviderInterface;
 use Psr\Http\Message\ResponseInterface;
 
 /**
@@ -23,41 +23,41 @@ trait Pagination
     abstract protected function hydrateResponse(ResponseInterface $response, $className);
 
     /**
-     * @param PagingProvider $response
+     * @param PagingProviderInterface $response
      *
-     * @return PagingProvider|null
+     * @return PagingProviderInterface|null
      */
-    public function nextPage(PagingProvider $response)
+    public function nextPage(PagingProviderInterface $response)
     {
         return $this->getPaginationUrl($response->getNextUrl(), get_class($response));
     }
 
     /**
-     * @param PagingProvider $response
+     * @param PagingProviderInterface $response
      *
-     * @return PagingProvider|null
+     * @return PagingProviderInterface|null
      */
-    public function previousPage(PagingProvider $response)
+    public function previousPage(PagingProviderInterface $response)
     {
         return $this->getPaginationUrl($response->getPreviousUrl(), get_class($response));
     }
 
     /**
-     * @param PagingProvider $response
+     * @param PagingProviderInterface $response
      *
-     * @return PagingProvider|null
+     * @return PagingProviderInterface|null
      */
-    public function firstPage(PagingProvider $response)
+    public function firstPage(PagingProviderInterface $response)
     {
         return $this->getPaginationUrl($response->getFirstUrl(), get_class($response));
     }
 
     /**
-     * @param PagingProvider $response
+     * @param PagingProviderInterface $response
      *
-     * @return PagingProvider|null
+     * @return PagingProviderInterface|null
      */
-    public function lastPage(PagingProvider $response)
+    public function lastPage(PagingProviderInterface $response)
     {
         return $this->getPaginationUrl($response->getLastUrl(), get_class($response));
     }
@@ -66,7 +66,7 @@ trait Pagination
      * @param string $url
      * @param string $class
      *
-     * @return PagingProvider|null
+     * @return PagingProviderInterface|null
      */
     private function getPaginationUrl($url, $class)
     {
