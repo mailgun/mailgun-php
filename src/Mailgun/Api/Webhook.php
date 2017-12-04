@@ -30,10 +30,10 @@ class Webhook extends HttpApi
     private $apiKey;
 
     /**
-     * @param HttpClient     $httpClient
-     * @param RequestBuilder $requestBuilder
-     * @param HydratorInterface       $hydrator
-     * @param string         $apiKey
+     * @param HttpClient        $httpClient
+     * @param RequestBuilder    $requestBuilder
+     * @param HydratorInterface $hydrator
+     * @param string            $apiKey
      */
     public function __construct(HttpClient $httpClient, RequestBuilder $requestBuilder, HydratorInterface $hydrator, $apiKey)
     {

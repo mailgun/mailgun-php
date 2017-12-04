@@ -62,11 +62,11 @@ class Mailgun
     private $responseHistory = null;
 
     /**
-     * @param string|null         $apiKey
-     * @param HttpClient|null     $httpClient
-     * @param string              $apiEndpoint
-     * @param HydratorInterface|null       $hydrator
-     * @param RequestBuilder|null $requestBuilder
+     * @param string|null            $apiKey
+     * @param HttpClient|null        $httpClient
+     * @param string                 $apiEndpoint
+     * @param HydratorInterface|null $hydrator
+     * @param RequestBuilder|null    $requestBuilder
      *
      * @internal Use Mailgun::configure or Mailgun::create instead.
      */
@@ -87,7 +87,7 @@ class Mailgun
 
     /**
      * @param HttpClientConfigurator $configurator
-     * @param HydratorInterface|null          $hydrator
+     * @param HydratorInterface|null $hydrator
      * @param RequestBuilder|null    $requestBuilder
      *
      * @return Mailgun
