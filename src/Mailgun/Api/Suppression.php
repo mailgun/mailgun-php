@@ -13,7 +13,7 @@ use Http\Client\HttpClient;
 use Mailgun\Api\Suppression\Bounce;
 use Mailgun\Api\Suppression\Complaint;
 use Mailgun\Api\Suppression\Unsubscribe;
-use Mailgun\Hydrator\Hydrator;
+use Mailgun\Hydrator\HydratorInterface;
 use Mailgun\RequestBuilder;
 
 /**
@@ -34,16 +34,16 @@ class Suppression
     private $requestBuilder;
 
     /**
-     * @var Hydrator
+     * @var HydratorInterface
      */
     private $hydrator;
 
     /**
      * @param HttpClient     $httpClient
      * @param RequestBuilder $requestBuilder
-     * @param Hydrator       $hydrator
+     * @param HydratorInterface       $hydrator
      */
-    public function __construct(HttpClient $httpClient, RequestBuilder $requestBuilder, Hydrator $hydrator)
+    public function __construct(HttpClient $httpClient, RequestBuilder $requestBuilder, HydratorInterface $hydrator)
     {
         $this->httpClient = $httpClient;
         $this->requestBuilder = $requestBuilder;

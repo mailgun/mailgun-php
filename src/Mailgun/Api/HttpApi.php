@@ -12,7 +12,7 @@ namespace Mailgun\Api;
 use Http\Client\Exception as HttplugException;
 use Http\Client\HttpClient;
 use Mailgun\Exception\UnknownErrorException;
-use Mailgun\Hydrator\Hydrator;
+use Mailgun\Hydrator\HydratorInterface;
 use Mailgun\Hydrator\NoopHydrator;
 use Mailgun\Exception\HttpClientException;
 use Mailgun\Exception\HttpServerException;
@@ -32,7 +32,7 @@ abstract class HttpApi
     private $httpClient;
 
     /**
-     * @var Hydrator
+     * @var HydratorInterface
      */
     protected $hydrator;
 
@@ -44,9 +44,9 @@ abstract class HttpApi
     /**
      * @param HttpClient     $httpClient
      * @param RequestBuilder $requestBuilder
-     * @param Hydrator       $hydrator
+     * @param HydratorInterface       $hydrator
      */
-    public function __construct(HttpClient $httpClient, RequestBuilder $requestBuilder, Hydrator $hydrator)
+    public function __construct(HttpClient $httpClient, RequestBuilder $requestBuilder, HydratorInterface $hydrator)
     {
         $this->httpClient = $httpClient;
         $this->requestBuilder = $requestBuilder;

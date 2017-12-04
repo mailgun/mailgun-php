@@ -65,7 +65,7 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
         }
 
         if (null === $hydrator) {
-            $hydrator = $this->getMockBuilder('Mailgun\Hydrator\Hydrator')
+            $hydrator = $this->getMockBuilder('Mailgun\Hydrator\HydratorInterface')
                 ->setMethods(['hydrate'])
                 ->getMock();
         }

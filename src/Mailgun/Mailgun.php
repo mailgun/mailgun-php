@@ -19,7 +19,7 @@ use Mailgun\Messages\BatchMessage;
 use Mailgun\Messages\Exceptions;
 use Mailgun\Messages\MessageBuilder;
 use Mailgun\Hydrator\ModelHydrator;
-use Mailgun\Hydrator\Hydrator;
+use Mailgun\Hydrator\HydratorInterface;
 use Psr\Http\Message\ResponseInterface;
 
 /**
@@ -45,7 +45,7 @@ class Mailgun
     private $httpClient;
 
     /**
-     * @var Hydrator
+     * @var HydratorInterface
      */
     private $hydrator;
 
@@ -65,7 +65,7 @@ class Mailgun
      * @param string|null         $apiKey
      * @param HttpClient|null     $httpClient
      * @param string              $apiEndpoint
-     * @param Hydrator|null       $hydrator
+     * @param HydratorInterface|null       $hydrator
      * @param RequestBuilder|null $requestBuilder
      *
      * @internal Use Mailgun::configure or Mailgun::create instead.
@@ -74,7 +74,7 @@ class Mailgun
         $apiKey = null, /* Deprecated, will be removed in 3.0 */
         HttpClient $httpClient = null,
         $apiEndpoint = 'api.mailgun.net', /* Deprecated, will be removed in 3.0 */
-        Hydrator $hydrator = null,
+        HydratorInterface $hydrator = null,
         RequestBuilder $requestBuilder = null
     ) {
         $this->apiKey = $apiKey;
@@ -87,14 +87,14 @@ class Mailgun
 
     /**
      * @param HttpClientConfigurator $configurator
-     * @param Hydrator|null          $hydrator
+     * @param HydratorInterface|null          $hydrator
      * @param RequestBuilder|null    $requestBuilder
      *
      * @return Mailgun
      */
     public static function configure(
         HttpClientConfigurator $configurator,
-        Hydrator $hydrator = null,
+        HydratorInterface $hydrator = null,
         RequestBuilder $requestBuilder = null
     ) {
         $httpClient = $configurator->createConfiguredClient();

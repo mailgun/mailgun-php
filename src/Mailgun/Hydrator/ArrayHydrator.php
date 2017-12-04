@@ -17,7 +17,7 @@ use Psr\Http\Message\ResponseInterface;
  *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
-final class ArrayHydrator implements Hydrator
+final class ArrayHydrator implements HydratorInterface
 {
     /**
      * @param ResponseInterface $response
