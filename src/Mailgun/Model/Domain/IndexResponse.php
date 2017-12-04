@@ -9,12 +9,12 @@
 
 namespace Mailgun\Model\Domain;
 
-use Mailgun\Model\ApiResponse;
+use Mailgun\Model\ApiResponseInterface;
 
 /**
  * @author Sean Johnson <sean@mailgun.com>
  */
-final class IndexResponse implements ApiResponse
+final class IndexResponse implements ApiResponseInterface
 {
     /**
      * @var int

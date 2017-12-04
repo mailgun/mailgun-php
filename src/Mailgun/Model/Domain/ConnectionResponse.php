@@ -9,12 +9,12 @@
 
 namespace Mailgun\Model\Domain;
 
-use Mailgun\Model\ApiResponse;
+use Mailgun\Model\ApiResponseInterface;
 
 /**
  * @author Sean Johnson <sean@mailgun.com>
  */
-final class ConnectionResponse implements ApiResponse
+final class ConnectionResponse implements ApiResponseInterface
 {
     /**
      * @var bool

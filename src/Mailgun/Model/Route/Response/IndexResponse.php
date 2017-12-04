@@ -10,12 +10,12 @@
 namespace Mailgun\Model\Route\Response;
 
 use Mailgun\Model\Route\Route;
-use Mailgun\Model\ApiResponse;
+use Mailgun\Model\ApiResponseInterface;
 
 /**
  * @author David Garcia <me@davidgarcia.cat>
  */
-final class IndexResponse implements ApiResponse
+final class IndexResponse implements ApiResponseInterface
 {
     /**
      * @var int

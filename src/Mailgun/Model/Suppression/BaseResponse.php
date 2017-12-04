@@ -9,14 +9,14 @@
 
 namespace Mailgun\Model\Suppression;
 
-use Mailgun\Model\ApiResponse;
+use Mailgun\Model\ApiResponseInterface;
 
 /**
  * Serves only as an abstract base for Suppression API code.
  *
  * @author Sean Johnson <sean@mailgun.com>
  */
-abstract class BaseResponse implements ApiResponse
+abstract class BaseResponse implements ApiResponseInterface
 {
     /**
      * @var string

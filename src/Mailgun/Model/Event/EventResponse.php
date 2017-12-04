@@ -11,12 +11,12 @@ namespace Mailgun\Model\Event;
 
 use Mailgun\Model\PagingProvider;
 use Mailgun\Model\PaginationResponse;
-use Mailgun\Model\ApiResponse;
+use Mailgun\Model\ApiResponseInterface;
 
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
-class EventResponse implements ApiResponse, PagingProvider
+class EventResponse implements ApiResponseInterface, PagingProvider
 {
     use PaginationResponse;
 

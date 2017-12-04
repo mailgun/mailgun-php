@@ -9,11 +9,11 @@
 
 namespace Mailgun\Model\Suppression\Complaint;
 
-use Mailgun\Model\ApiResponse;
+use Mailgun\Model\ApiResponseInterface;
 
 /**
  * @author Sean Johnson <sean@mailgun.com>
  */
-final class ShowResponse extends Complaint implements ApiResponse
+final class ShowResponse extends Complaint implements ApiResponseInterface
 {
 }

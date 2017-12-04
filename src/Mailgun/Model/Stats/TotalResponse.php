@@ -9,12 +9,12 @@
 
 namespace Mailgun\Model\Stats;
 
-use Mailgun\Model\ApiResponse;
+use Mailgun\Model\ApiResponseInterface;
 
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
-final class TotalResponse implements ApiResponse
+final class TotalResponse implements ApiResponseInterface
 {
     /**
      * @var \DateTime

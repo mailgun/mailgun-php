@@ -10,7 +10,7 @@
 namespace Mailgun\Hydrator;
 
 use Mailgun\Exception\HydrationException;
-use Mailgun\Model\ApiResponse;
+use Mailgun\Model\ApiResponseInterface;
 use Psr\Http\Message\ResponseInterface;
 
 /**
@@ -39,7 +39,7 @@ final class ModelHydrator implements HydratorInterface
             throw new HydrationException(sprintf('Error (%d) when trying to json_decode response', json_last_error()));
         }
 
-        if (is_subclass_of($class, ApiResponse::class)) {
+        if (is_subclass_of($class, ApiResponseInterface::class)) {
             $object = call_user_func($class.'::create', $data);
         } else {
             $object = new $class($data);

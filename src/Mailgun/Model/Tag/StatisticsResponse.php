@@ -9,12 +9,12 @@
 
 namespace Mailgun\Model\Tag;
 
-use Mailgun\Model\ApiResponse;
+use Mailgun\Model\ApiResponseInterface;
 
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
-final class StatisticsResponse implements ApiResponse
+final class StatisticsResponse implements ApiResponseInterface
 {
     /**
      * @var string

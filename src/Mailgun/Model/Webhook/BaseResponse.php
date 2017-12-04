@@ -9,14 +9,14 @@
 
 namespace Mailgun\Model\Webhook;
 
-use Mailgun\Model\ApiResponse;
+use Mailgun\Model\ApiResponseInterface;
 
 /**
  * This is only mean to be the base response for Webhook API.
  *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
-abstract class BaseResponse implements ApiResponse
+abstract class BaseResponse implements ApiResponseInterface
 {
     /**
      * @var array

@@ -9,12 +9,12 @@
 
 namespace Mailgun\Model\Domain;
 
-use Mailgun\Model\ApiResponse;
+use Mailgun\Model\ApiResponseInterface;
 
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
-final class UpdateCredentialResponse implements ApiResponse
+final class UpdateCredentialResponse implements ApiResponseInterface
 {
     /**
      * @var string

@@ -9,12 +9,12 @@
 
 namespace Mailgun\Model\Webhook;
 
-use Mailgun\Model\ApiResponse;
+use Mailgun\Model\ApiResponseInterface;
 
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
-class IndexResponse implements ApiResponse
+class IndexResponse implements ApiResponseInterface
 {
     /**
      * @var array

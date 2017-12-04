@@ -9,11 +9,11 @@
 
 namespace Mailgun\Model\Suppression\Bounce;
 
-use Mailgun\Model\ApiResponse;
+use Mailgun\Model\ApiResponseInterface;
 
 /**
  * @author Sean Johnson <sean@mailgun.com>
  */
-final class ShowResponse extends Bounce implements ApiResponse
+final class ShowResponse extends Bounce implements ApiResponseInterface
 {
 }

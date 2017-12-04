@@ -9,11 +9,11 @@
 
 namespace Mailgun\Model\Suppression\Unsubscribe;
 
-use Mailgun\Model\ApiResponse;
+use Mailgun\Model\ApiResponseInterface;
 
 /**
  * @author Sean Johnson <sean@mailgun.com>
  */
-final class ShowResponse extends Unsubscribe implements ApiResponse
+final class ShowResponse extends Unsubscribe implements ApiResponseInterface
 {
 }

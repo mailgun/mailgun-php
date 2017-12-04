@@ -9,14 +9,14 @@
 
 namespace Mailgun\Model\Suppression\Bounce;
 
-use Mailgun\Model\ApiResponse;
+use Mailgun\Model\ApiResponseInterface;
 use Mailgun\Model\PaginationResponse;
 use Mailgun\Model\PagingProvider;
 
 /**
  * @author Sean Johnson <sean@mailgun.com>
  */
-final class IndexResponse implements ApiResponse, PagingProvider
+final class IndexResponse implements ApiResponseInterface, PagingProvider
 {
     use PaginationResponse;
 

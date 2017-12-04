@@ -9,12 +9,12 @@
 
 namespace Mailgun\Model\Domain;
 
-use Mailgun\Model\ApiResponse;
+use Mailgun\Model\ApiResponseInterface;
 
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
-final class DeleteCredentialResponse implements ApiResponse
+final class DeleteCredentialResponse implements ApiResponseInterface
 {
     /**
      * @var string

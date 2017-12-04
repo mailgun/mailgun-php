@@ -9,12 +9,12 @@
 
 namespace Mailgun\Model\Message;
 
-use Mailgun\Model\ApiResponse;
+use Mailgun\Model\ApiResponseInterface;
 
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
-class SendResponse implements ApiResponse
+class SendResponse implements ApiResponseInterface
 {
     /**
      * @var string

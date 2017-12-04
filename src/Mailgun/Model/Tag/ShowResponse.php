@@ -9,11 +9,11 @@
 
 namespace Mailgun\Model\Tag;
 
-use Mailgun\Model\ApiResponse;
+use Mailgun\Model\ApiResponseInterface;
 
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
-final class ShowResponse extends Tag implements ApiResponse
+final class ShowResponse extends Tag implements ApiResponseInterface
 {
 }
