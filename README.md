@@ -14,7 +14,7 @@ at http://documentation.mailgun.com
 [![Total Downloads](https://img.shields.io/packagist/dt/mailgun/mailgun-php.svg?style=flat-square)](https://packagist.org/packages/mailgun/mailgun-php)
 [![Join the chat at https://gitter.im/mailgun/mailgun-php](https://badges.gitter.im/mailgun/mailgun-php.svg)](https://gitter.im/mailgun/mailgun-php?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-**This is the documentation for dev-master. You find documentation for the latest stable 
+**This is the documentation for dev-master. You can find documentation for the latest stable 
 release [here](https://github.com/mailgun/mailgun-php/tree/v2.1.2).**
 
 ## Installation
@@ -73,14 +73,14 @@ Attention: `$domain` must match to the domain you have configured on [app.mailgu
 
 ### All usage examples
 
-You find more detailed documentation at in [/doc](doc/index.md) and on 
+You find more detailed documentation at [/doc](doc/index.md) and on 
 [https://documentation.mailgun.com](https://documentation.mailgun.com/api_reference.html).
 
 ### Response
 
-The results of a API call is, by default, a domain object. This will make it easy
+The result of an API call is, by default, a domain object. This will make it easy
 to understand the response without reading the documentation. One can just read the
-doc blocks on the response classes. This provide an excellent IDE integration.
+doc blocks on the response classes. This provides an excellent IDE integration.
  
 ```php
 $mg = Mailgun::create('key-example');
@@ -91,7 +91,7 @@ foreach ($dns as $record) {
 }
 ```
 
-If you rather be working with array then object you can inject the `ArrayHydrator`
+If you'd rather work with an array than an object you can inject the `ArrayHydrator`
 to the Mailgun class. 
 
 ```php
@@ -108,7 +108,7 @@ foreach ($data['receiving_dns_records'] as $record) {
 }
 ```
 
-You could also use the `NoopHydrator` to get a PSR7 Response returned from 
+You can also use the `NoopHydrator` to get a PSR7 Response returned from 
 the API calls. 
 
 **Warning: When using `NoopHydrator` there will be no exceptions on a non-200 response.**
