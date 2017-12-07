@@ -22,24 +22,26 @@ final class IndexResponse implements ApiResponse, PagingProvider
 
     /**
      * Array to store a list of Unsubscribe items from
-     * index response
-     * 
+     * index response.
+     *
      * @see Mailgun/Model/Suppression/Unsubscribe/Unsubscribe
+     *
      * @var Unsubscribe[]
      */
     private $items = [];
-    
+
     /**
-     * Store the total number of Unsubscribe items
-     * 
+     * Store the total number of Unsubscribe items.
+     *
      * @see Mailgun/Model/Suppression/Unsubscribe/Unsubscribe
-     * @var integer
+     *
+     * @var int
      */
     private $totalCount;
 
     /**
      * @see Mailgun/Model/Suppression/Unsubscribe/Unsubscribe
-     * 
+     *
      * @param Unsubscribe[] $items
      * @param array         $paging
      */
@@ -50,8 +52,8 @@ final class IndexResponse implements ApiResponse, PagingProvider
     }
 
     /**
-     * Allow create the unsubscribe items with paging
-     * 
+     * Allow create the unsubscribe items with paging.
+     *
      * @param array $data
      *
      * @return IndexResponse
@@ -69,30 +71,30 @@ final class IndexResponse implements ApiResponse, PagingProvider
     }
 
     /**
-     * Get the Unsusbscribe item models from the response
-     * 
+     * Get the Unsusbscribe item models from the response.
+     *
      * @see Mailgun/Model/Suppression/Unsubscribe/Unsubscribe
-     * 
+     *
      * @return Unsubscribe[]
      */
     public function getItems()
     {
         return $this->items;
     }
-    
+
     /**
-     * Get the total count of Unsusbscribe in index response
-     * 
+     * Get the total count of Unsusbscribe in index response.
+     *
      * @see Mailgun/Model/Suppression/Unsubscribe/Unsubscribe
-     * 
-     * @return integer
+     *
+     * @return int
      */
     public function getTotalCount()
     {
         if (null === $this->totalCount) {
             $this->totalCount = count($this->items);
         }
-        
+
         return $this->totalCount;
     }
 }
