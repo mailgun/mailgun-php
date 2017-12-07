@@ -14,9 +14,6 @@ at http://documentation.mailgun.com
 [![Total Downloads](https://img.shields.io/packagist/dt/mailgun/mailgun-php.svg?style=flat-square)](https://packagist.org/packages/mailgun/mailgun-php)
 [![Join the chat at https://gitter.im/mailgun/mailgun-php](https://badges.gitter.im/mailgun/mailgun-php.svg)](https://gitter.im/mailgun/mailgun-php?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-**This is the documentation for dev-master. You can find documentation for the latest stable 
-release [here](https://github.com/mailgun/mailgun-php/tree/v2.1.2).**
-
 ## Installation
 
 To install the SDK, you will need to be using [Composer](http://getcomposer.org/) 
