@@ -2,6 +2,30 @@
 
 The change log describes what is "Added", "Removed", "Changed" or "Fixed" between each release. 
 
+## 2.4.0
+
+### Added
+
+- Add cached property for DNS record
+- Add domain verification
+- `HttpClientException::getResponseCode()`
+- Added `AbstractDomainResponse` that `VerifyResponse` and `CreateResponse` extends. 
+
+### Fixed
+
+- Possible empty content of `WebhookIndexResponse`.
+- Typo in `TotalResponse` that caused the content to be empty. 
+
+### Changed
+
+- Allow some parameters to `Domain::create` to be optional. 
+
+## 2.3.4
+
+### Fixed
+
+- Typo in DnsRecord::isValid. This make sure the correct result of the function is returned.
+
 ## 2.3.3
 
 ### Changed
