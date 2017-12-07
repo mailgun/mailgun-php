@@ -68,7 +68,7 @@ abstract class AbstractDomainResponse implements ApiResponse
             }
         }
 
-        return new self($domain, $rx, $tx, $message);
+        return new static($domain, $rx, $tx, $message);
     }
 
     /**
