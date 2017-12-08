@@ -10,68 +10,19 @@
 namespace Mailgun\Api;
 
 use Mailgun\Assert;
+use Mailgun\Exception\HttpClientException;
+use Mailgun\Exception\HttpServerException;
 use Mailgun\Exception\InvalidArgumentException;
+use Mailgun\Model\EmailValidation\Response\ParseResponse;
+use Mailgun\Model\EmailValidation\Response\ValidateResponse;
 
 /**
  * @see https://documentation.mailgun.com/en/latest/api-email-validation.html
  *
  * @author David Garcia <me@davidgarcia.cat>
  */
-class EmailValidation
+class EmailValidation extends HttpApi
 {
-    /**
-     * Given an arbitrary address, validates address based off defined checks.
-     *
-     * @param string     $address             An email address to validate. Maximum: 512 characters.
-     * @param bool|false $mailboxVerification If set to true, a mailbox verification check will be performed
-     *                                        against the address. The default is False.
-     *
-     * @throws InvalidArgumentException Thrown when validation returns an error
-     */
-    public function publicValidate($address, $mailboxVerification = false)
-    {
-        // Validates the email address.
-        Assert::email($address);
-
-        // Validates the mailbox verification.
-        Assert::boolean($mailboxVerification);
-    }
-
-    /**
-     * Parses a delimiter-separated list of email addresses into two lists: parsed addresses and unparsable portions.
-     *
-     * The parsed addresses are a list of addresses that are syntactically valid
-     * (and optionally pass DNS and ESP specific grammar checks).
-     *
-     * The unparsable list is a list of character sequences that could not be parsed
-     * (or optionally failed DNS or ESP specific grammar checks).
-     *
-     * Delimiter characters are comma (,) and semicolon (;).
-     *
-     * @param string     $addresses  A delimiter separated list of addresses. Maximum: 8000 characters.
-     * @param bool|false $syntaxOnly Perform only syntax checks or DNS and ESP specific validation as well.
-     *                               The default is True.
-     *
-     * @throws InvalidArgumentException Thrown when validation returns an error
-     */
-    public function publicParse($addresses, $syntaxOnly = true)
-    {
-        // Validates the email addresses.
-        Assert::stringNotEmpty($addresses);
-        Assert::minLength($addresses, 3);
-        Assert::maxLength($addresses, 8000);
-
-        $arrayOfAddresses = preg_split('/;|,/', $addresses);
-
-        foreach ($arrayOfAddresses as $singleAddress) {
-            // Validates the email address.
-            Assert::email($singleAddress);
-        }
-
-        // Validates the Syntax Only verification.
-        Assert::boolean($syntaxOnly);
-    }
-
     /**
      * Addresses are validated based off defined checks.
      *
@@ -81,15 +32,29 @@ class EmailValidation
      * @param bool|false $mailboxVerification If set to true, a mailbox verification check will be performed
      *                                        against the address. The default is False.
      *
-     * @throws InvalidArgumentException Thrown when validation returns an error
+     * @throws InvalidArgumentException Thrown when local validation returns an error
+     * @throws HttpClientException      Thrown when there's an error on Client side
+     * @throws HttpServerException      Thrown when there's an error on Server side
+     * @throws \Exception               Thrown when we don't catch a Client or Server side Exception
+     *
+     * @return ValidateResponse
      */
-    public function privateValidate($address, $mailboxVerification = false)
+    public function validate($address, $mailboxVerification = false)
     {
         // Validates the email address.
         Assert::email($address);
 
         // Validates the mailbox verification.
         Assert::boolean($mailboxVerification);
+
+        $params = [
+            'address' => $address,
+            'mailbox_verification' => $mailboxVerification,
+        ];
+
+        $response = $this->httpGet('/address/private/validate', $params);
+
+        return $this->hydrateResponse($response, ValidateResponse::class);
     }
 
     /**
@@ -109,9 +74,14 @@ class EmailValidation
      * @param bool|false $syntaxOnly Perform only syntax checks or DNS and ESP specific validation as well.
      *                               The default is True.
      *
-     * @throws InvalidArgumentException Thrown when validation returns an error
+     * @throws InvalidArgumentException Thrown when local validation returns an error
+     * @throws HttpClientException      Thrown when there's an error on Client side
+     * @throws HttpServerException      Thrown when there's an error on Server side
+     * @throws \Exception               Thrown when we don't catch a Client or Server side Exception
+     *
+     * @return ParseResponse
      */
-    public function privateParse($addresses, $syntaxOnly = true)
+    public function parse($addresses, $syntaxOnly = true)
     {
         // Validates the email addresses.
         Assert::stringNotEmpty($addresses);
@@ -127,5 +97,14 @@ class EmailValidation
 
         // Validates the Syntax Only verification.
         Assert::boolean($syntaxOnly);
+
+        $params = [
+            'addresses' => $addresses,
+            'syntax_only' => $syntaxOnly,
+        ];
+
+        $response = $this->httpGet('/address/private/parse', $params);
+
+        return $this->hydrateResponse($response, ParseResponse::class);
     }
 }
