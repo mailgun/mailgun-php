@@ -33,9 +33,9 @@ final class ValidateResponse implements ApiResponse
     public static function create(array $data)
     {
         $message = isset($data['message']) ? $data['message'] : null;
-        $route = isset($data['route']) ? EmailValidation::create($data['emailValidation']) : null;
+        $emailValidation = EmailValidation::create($data);
 
-        return new self($message, $route);
+        return new self($message, $emailValidation);
     }
 
     /**
