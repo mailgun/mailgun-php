@@ -13,7 +13,7 @@ use Mailgun\Assert;
 use Mailgun\Exception\InvalidArgumentException;
 
 /**
- * @link https://documentation.mailgun.com/en/latest/api-email-validation.html
+ * @see https://documentation.mailgun.com/en/latest/api-email-validation.html
  *
  * @author David Garcia <me@davidgarcia.cat>
  */
