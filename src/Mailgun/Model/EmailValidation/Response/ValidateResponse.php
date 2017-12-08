@@ -41,8 +41,8 @@ final class ValidateResponse implements ApiResponse
     /**
      * CreateResponse Private Constructor.
      *
-     * @param string|null           $message
-     * @param EmailValidation|null  $emailValidation
+     * @param string|null          $message
+     * @param EmailValidation|null $emailValidation
      */
     private function __construct($message = null, EmailValidation $emailValidation = null)
     {
