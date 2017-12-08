@@ -37,23 +37,35 @@ final class Assert extends \Webmozart\Assert\Assert
         self::minLength($address, 3, 'Minimum length for the email address is 3 characters.');
         self::maxLength($address, 512, 'Maximum length for the email address is 512 chatacters.');
 
+        // Extract the email address from the string
+        preg_match('/[\w\.-]+@[\w\.-]+/', $address, $emailAddress);
+
+        if (1 !== count($emailAddress) || !isset($emailAddress[0])) {
+            static::reportInvalidArgument(sprintf(
+                'Email address cannot be extracted from `%s`.',
+                $address
+            ));
+        }
+
+        $emailAddress = $emailAddress[0];
+
         // Provides an initial email validation based on `egulias/EmailValidator` library
         $validator = new EmailValidator();
 
-        if (!$validator->isValid($address, new RFCValidation())) {
+        if (!$validator->isValid($emailAddress, new RFCValidation())) {
             static::reportInvalidArgument(sprintf(
                 'Email address `%s` has thrown an error when processing a RFC Validation.',
-                $address
+                $emailAddress
             ));
-        } elseif (!$validator->isValid($address, new DNSCheckValidation())) {
+        } elseif (!$validator->isValid($emailAddress, new DNSCheckValidation())) {
             static::reportInvalidArgument(sprintf(
                 'Email address `%s` has thrown an error when processing a DNS Check Validation.',
-                $address
+                $emailAddress
             ));
-        } elseif (!$validator->isValid($address, new SpoofCheckValidation())) {
+        } elseif (!$validator->isValid($emailAddress, new SpoofCheckValidation())) {
             static::reportInvalidArgument(sprintf(
                 'Email address `%s` has thrown an error when processing a Spoof Check Validation.',
-                $address
+                $emailAddress
             ));
         }
     }
