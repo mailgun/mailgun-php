@@ -21,6 +21,7 @@ use Mailgun\Exception\InvalidArgumentException;
  * We need to override Webmozart\Assert because we want to throw our own Exception.
  *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
+ * @author David Garcia <me@davidgarcia.cat>
  */
 final class Assert extends \Webmozart\Assert\Assert
 {
@@ -41,17 +42,17 @@ final class Assert extends \Webmozart\Assert\Assert
 
         if (!$validator->isValid($address, new RFCValidation())) {
             static::reportInvalidArgument(sprintf(
-                'Email address `%s` has thrown an error when processing a RFC Validation',
+                'Email address `%s` has thrown an error when processing a RFC Validation.',
                 $address
             ));
         } elseif (!$validator->isValid($address, new DNSCheckValidation())) {
             static::reportInvalidArgument(sprintf(
-                'Email address `%s` has thrown an error when processing a DNS Check Validation',
+                'Email address `%s` has thrown an error when processing a DNS Check Validation.',
                 $address
             ));
         } elseif (!$validator->isValid($address, new SpoofCheckValidation())) {
             static::reportInvalidArgument(sprintf(
-                'Email address `%s` has thrown an error when processing a Spoof Check Validation',
+                'Email address `%s` has thrown an error when processing a Spoof Check Validation.',
                 $address
             ));
         }
