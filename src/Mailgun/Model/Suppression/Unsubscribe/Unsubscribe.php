@@ -30,6 +30,11 @@ class Unsubscribe
     private $createdAt;
 
     /**
+     * @var array
+     */
+    private $tags = [];
+
+    /**
      * @param string $address
      */
     private function __construct($address)
@@ -49,6 +54,9 @@ class Unsubscribe
 
         if (isset($data['tag'])) {
             $unsubscribe->setTag($data['tag']);
+        }
+        if (isset($data['tags'])) {
+            $unsubscribe->setTags($data['tags']);
         }
         if (isset($data['created_at'])) {
             $unsubscribe->setCreatedAt(new \DateTime($data['created_at']));
@@ -95,5 +103,21 @@ class Unsubscribe
     private function setCreatedAt(\DateTime $createdAt)
     {
         $this->createdAt = $createdAt;
+    }
+
+    /**
+     * @param array $tags
+     */
+    private function setTags($tags)
+    {
+        $this->tags = $tags;
+    }
+
+    /**
+     * @return array
+     */
+    public function getTags()
+    {
+        return $this->tags;
     }
 }
