@@ -17,6 +17,7 @@ use Mailgun\Exception;
 class GenericHTTPError extends \Exception implements Exception
 {
     protected $httpResponseCode;
+
     protected $httpResponseBody;
 
     public function __construct($message = null, $response_code = null, $response_body = null, $code = 0, \Exception $previous = null)
