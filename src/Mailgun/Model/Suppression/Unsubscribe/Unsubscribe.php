@@ -20,11 +20,6 @@ class Unsubscribe
     private $address;
 
     /**
-     * @var string
-     */
-    private $tag;
-
-    /**
      * @var \DateTime
      */
     private $createdAt;
@@ -52,9 +47,6 @@ class Unsubscribe
     {
         $unsubscribe = new self($data['address']);
 
-        if (isset($data['tag'])) {
-            $unsubscribe->setTag($data['tag']);
-        }
         if (isset($data['tags'])) {
             $unsubscribe->setTags($data['tags']);
         }
@@ -71,22 +63,6 @@ class Unsubscribe
     public function getAddress()
     {
         return $this->address;
-    }
-
-    /**
-     * @return string
-     */
-    public function getTag()
-    {
-        return $this->tag;
-    }
-
-    /**
-     * @param string $tag
-     */
-    private function setTag($tag)
-    {
-        $this->tag = $tag;
     }
 
     /**
