@@ -43,7 +43,6 @@ class mockMailgun extends Mailgun
 class ComplexMessageTest extends \Mailgun\Tests\MailgunTestCase
 {
     private $client;
-    private $sampleDomain = 'samples.mailgun.org';
 
     public function setUp()
     {

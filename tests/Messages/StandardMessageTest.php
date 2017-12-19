@@ -14,7 +14,6 @@ use Mailgun\Tests\Mock\Mailgun;
 class StandardMessageTest extends \Mailgun\Tests\MailgunTestCase
 {
     private $client;
-    private $sampleDomain = 'samples.mailgun.org';
 
     public function setUp()
     {

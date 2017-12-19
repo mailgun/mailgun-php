@@ -14,7 +14,7 @@ use Mailgun\Tests\Mock\Mailgun;
 class OptInHandlerTest extends \Mailgun\Tests\MailgunTestCase
 {
     private $client;
-    private $sampleDomain = 'samples.mailgun.org';
+
     private $optInHandler;
 
     public function setUp()
