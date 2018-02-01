@@ -38,4 +38,21 @@ class EmailValidationTest extends TestCase
 
         $api->validate($params['address'], $params['mailbox_verification']);
     }
+
+    public function testParseEmail()
+    {
+        $params = [
+            'addresses' => 'me@davidgarcia.cat',
+            'syntax_only' => true,
+        ];
+
+        $api = $this->getApiMock();
+
+        $api->expects($this->once())
+            ->method('httpGet')
+            ->with('/address/private/parse', $params)
+            ->willReturn(new Response());
+
+        $api->parse($params['addresses'], $params['syntax_only']);
+    }
 }
