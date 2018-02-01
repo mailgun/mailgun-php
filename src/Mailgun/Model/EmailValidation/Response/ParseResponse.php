@@ -10,7 +10,6 @@
 namespace Mailgun\Model\EmailValidation\Response;
 
 use Mailgun\Model\ApiResponse;
-use Mailgun\Model\EmailValidation\EmailValidation;
 use Mailgun\Model\EmailValidation\Parse;
 
 /**
