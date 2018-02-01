@@ -2,6 +2,22 @@
 
 The change log describes what is "Added", "Removed", "Changed" or "Fixed" between each release. 
 
+## 2.4.1
+
+### Added
+
+- Add new `Suppressions::getTotalCount()` method
+
+### Changed
+
+- Apply fixes from StyleCI
+- Updated `README.md` file
+
+### Fixed
+
+- Fix `Tags` on `Unsubscribe`
+- Fix typo on `Mailgun\Exception\HttpServerException`
+
 ## 2.4.0
 
 ### Added
