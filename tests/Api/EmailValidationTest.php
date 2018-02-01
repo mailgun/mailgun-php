@@ -11,7 +11,6 @@ namespace Mailgun\Tests\Api;
 
 use GuzzleHttp\Psr7\Response;
 use Mailgun\Api\EmailValidation;
-use Mailgun\Hydrator\ModelHydrator;
 
 /**
  * @author David Garcia <me@davidgarcia.cat>
@@ -21,18 +20,6 @@ class EmailValidationTest extends TestCase
     protected function getApiClass()
     {
         return EmailValidation::class;
-    }
-
-    public function testRFCValidation()
-    {
-    }
-
-    public function testDNSCheckValidation()
-    {
-    }
-
-    public function testSpoofCheckValidation()
-    {
     }
 
     public function testValidEmail()
