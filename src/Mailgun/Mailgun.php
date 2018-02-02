@@ -327,6 +327,14 @@ class Mailgun
     }
 
     /**
+     * @return Api\EmailValidation
+     */
+    public function emailValidation()
+    {
+        return new Api\EmailValidation($this->httpClient, $this->requestBuilder, $this->hydrator);
+    }
+
+    /**
      * @return Api\Event
      */
     public function events()
