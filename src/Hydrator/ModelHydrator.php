@@ -29,11 +29,13 @@ final class ModelHydrator implements Hydrator
     {
         $body = $response->getBody()->__toString();
         $contentType = $response->getHeaderLine('Content-Type');
+
         if (0 !== strpos($contentType, 'application/json') && 0 !== strpos($contentType, 'application/octet-stream')) {
             throw new HydrationException('The ModelHydrator cannot hydrate response with Content-Type: '.$contentType);
         }
 
         $data = json_decode($body, true);
+
         if (JSON_ERROR_NONE !== json_last_error()) {
             throw new HydrationException(sprintf('Error (%d) when trying to json_decode response', json_last_error()));
         }
