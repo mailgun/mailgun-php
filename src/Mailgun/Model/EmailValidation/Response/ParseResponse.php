@@ -42,7 +42,7 @@ final class ParseResponse implements ApiResponse
      * ParseResponse Private Constructor.
      *
      * @param string|null $message
-     * @param Parse       $parse
+     * @param Parse|null  $parse
      */
     private function __construct($message = null, Parse $parse = null)
     {
