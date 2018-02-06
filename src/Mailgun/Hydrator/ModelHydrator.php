@@ -39,7 +39,7 @@ final class ModelHydrator implements Hydrator
             throw new HydrationException(sprintf('Error (%d) when trying to json_decode response', json_last_error()));
         }
 
-        if (is_subclass_of($class, ApiResponse::class)) {
+        if (is_subclass_of($class, get_class(ApiResponse))) {
             $object = call_user_func($class.'::create', $data);
         } else {
             $object = new $class($data);
