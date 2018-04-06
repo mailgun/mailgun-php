@@ -1,4 +1,12 @@
 <?php
+
+/*
+ * Copyright (C) 2013 Mailgun
+ *
+ * This software may be modified and distributed under the terms
+ * of the MIT license. See the LICENSE file for details.
+ */
+
 namespace Mailgun\Model\MailingList;
 
 /**
@@ -22,7 +30,7 @@ final class Member
     protected $vars;
 
     /**
-     * @var boolean
+     * @var bool
      */
     protected $subscribed;
 
@@ -38,7 +46,7 @@ final class Member
             isset($data['name']) ? $data['name'] : null,
             isset($data['address']) ? $data['address'] : null,
             isset($data['vars']) ? $data['vars'] : [],
-            isset($data['subscribed']) ? !!$data['subscribed'] : null
+            isset($data['subscribed']) ? (bool) $data['subscribed'] : null
         );
     }
 

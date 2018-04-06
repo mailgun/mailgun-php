@@ -1,4 +1,12 @@
 <?php
+
+/*
+ * Copyright (C) 2013 Mailgun
+ *
+ * This software may be modified and distributed under the terms
+ * of the MIT license. See the LICENSE file for details.
+ */
+
 namespace Mailgun\Api;
 
 use Mailgun\Assert;
@@ -25,6 +33,7 @@ class MailingList extends HttpApi
      * @param int $limit Maximum number of records to return (optional: 100 by default)
      *
      * @return PagesResponse|array|ResponseInterface
+     *
      * @throws \Exception
      */
     public function pages($limit = 100)
@@ -47,6 +56,7 @@ class MailingList extends HttpApi
      * @param string $access_level List access level, one of: readonly (default), members, everyone
      *
      * @return CreateResponse|array|ResponseInterface
+     *
      * @throws \Exception
      */
     public function create($address, $name = null, $description = null, $access_level = 'readonly')
@@ -67,6 +77,7 @@ class MailingList extends HttpApi
      * @param string $address Address of the mailing list
      *
      * @return ShowResponse|array|ResponseInterface
+     *
      * @throws \Exception
      */
     public function show($address)
@@ -85,6 +96,7 @@ class MailingList extends HttpApi
      * @param array  $parameters Array of field => value pairs to update
      *
      * @return UpdateResponse|array|ResponseInterface
+     *
      * @throws \Exception
      */
     public function update($address, $parameters = [])
@@ -92,10 +104,8 @@ class MailingList extends HttpApi
         Assert::stringNotEmpty($address);
         Assert::isArray($parameters);
 
-        foreach($parameters as $field => $value)
-        {
-            switch($field)
-            {
+        foreach($parameters as $field => $value) {
+            switch($field) {
                 case 'access_level':
                     Assert::oneOf($value, ['readonly', 'members', 'everyone']);
                     break;
@@ -113,6 +123,7 @@ class MailingList extends HttpApi
      * @param string $address Address of the mailing list
      *
      * @return DeleteResponse|array|ResponseInterface
+     *
      * @throws \Exception
      */
     public function delete($address)
@@ -132,6 +143,7 @@ class MailingList extends HttpApi
      * @param mixed  $subscribed `yes` to lists subscribed, `no` for unsubscribed. list all if null
      *
      * @return MembersResponse|array|ResponseInterface
+     *
      * @throws \Exception
      */
     public function members($address, $limit = 100, $subscribed = null)
@@ -154,6 +166,7 @@ class MailingList extends HttpApi
      * @param string $address Address of the member
      *
      * @return ShowMemberResponse|array|ResponseInterface
+     *
      * @throws \Exception
      */
     public function showMember($list, $address)
@@ -177,6 +190,7 @@ class MailingList extends HttpApi
      * @param string $upsert     `yes` to update member if present, `no` to raise error in case of a duplicate member (default)
      *
      * @return CreateMemberResponse|array|ResponseInterface
+     *
      * @throws \Exception
      */
     public function createMember($list, $address, $name = null, $vars = [], $subscribed = 'yes', $upsert = 'no')
@@ -199,11 +213,12 @@ class MailingList extends HttpApi
     /**
      * Updates a member on the mailing list
      *
-     * @param string $list      Address of the mailing list
-     * @param string $address   Address of the member
-     * @param array $parameters Array of key => value pairs to update
+     * @param string $list       Address of the mailing list
+     * @param string $address    Address of the member
+     * @param array  $parameters Array of key => value pairs to update
      *
      * @return UpdateMemberResponse|array|ResponseInterface
+     *
      * @throws \Exception
      */
     public function updateMember($list, $address, $parameters = [])
@@ -212,10 +227,8 @@ class MailingList extends HttpApi
         Assert::stringNotEmpty($address);
         Assert::isArray($parameters);
 
-        foreach($parameters as $field => $value)
-        {
-            switch($field)
-            {
+        foreach($parameters as $field => $value) {
+            switch($field) {
                 case 'vars':
                     $parameters['vars'] = (is_array($value)) ? json_encode($value) : $value;
                     break;
@@ -237,6 +250,7 @@ class MailingList extends HttpApi
      * @param string $address Address of the member
      *
      * @return DeleteMemberResponse|array|ResponseInterface
+     *
      * @throws \Exception
      */
     public function deleteMember($list, $address)

@@ -1,4 +1,12 @@
 <?php
+
+/*
+ * Copyright (C) 2013 Mailgun
+ *
+ * This software may be modified and distributed under the terms
+ * of the MIT license. See the LICENSE file for details.
+ */
+
 namespace Mailgun\Model\MailingList;
 
 use Mailgun\Model\ApiResponse;
@@ -27,13 +35,13 @@ final class UpdateResponse implements ApiResponse
     {
         $message = null;
 
-        if(isset($data['message'])) {
+        if (isset($data['message'])) {
             $message = $data['message'];
         }
 
         $list = null;
 
-        if(isset($data['list'])) {
+        if (isset($data['list'])) {
             $list = MailingList::create($data['list']);
         }
 
