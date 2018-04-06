@@ -95,6 +95,8 @@ abstract class HttpApi
                 throw HttpClientException::requestFailed($response);
             case 404:
                 throw HttpClientException::notFound($response);
+            case 413:
+                throw HttpClientException::payloadTooLarge($response);
             case 500 <= $statusCode:
                 throw HttpServerException::serverError($statusCode);
             default:
