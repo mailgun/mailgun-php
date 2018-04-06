@@ -44,7 +44,6 @@ final class MailingList
      */
     protected $createdAt;
 
-
     /**
      * @param array $data
      *

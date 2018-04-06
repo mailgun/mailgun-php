@@ -48,7 +48,6 @@ final class UpdateResponse implements ApiResponse
         return new self($list, $message);
     }
 
-
     private function __construct(MailingList $list, $message)
     {
         $this->list = $list;

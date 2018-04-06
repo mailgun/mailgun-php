@@ -48,7 +48,7 @@ class MailingList extends HttpApi
     }
 
     /**
-     * Creates a new mailing list on the current domain
+     * Creates a new mailing list on the current domain.
      *
      * @param string $address      Address for the new mailing list
      * @param string $name         Name for the new mailing list (optional)
@@ -72,7 +72,7 @@ class MailingList extends HttpApi
     }
 
     /**
-     * Returns a single mailing list
+     * Returns a single mailing list.
      *
      * @param string $address Address of the mailing list
      *
@@ -90,7 +90,7 @@ class MailingList extends HttpApi
     }
 
     /**
-     * Updates a mailing list
+     * Updates a mailing list.
      *
      * @param string $address    Address of the mailing list
      * @param array  $parameters Array of field => value pairs to update
@@ -104,8 +104,8 @@ class MailingList extends HttpApi
         Assert::stringNotEmpty($address);
         Assert::isArray($parameters);
 
-        foreach($parameters as $field => $value) {
-            switch($field) {
+        foreach ($parameters as $field => $value) {
+            switch ($field) {
                 case 'access_level':
                     Assert::oneOf($value, ['readonly', 'members', 'everyone']);
                     break;
@@ -160,7 +160,7 @@ class MailingList extends HttpApi
     }
 
     /**
-     * Shows a single member of the mailing list
+     * Shows a single member of the mailing list.
      *
      * @param string $list    Address of the mailing list
      * @param string $address Address of the member
@@ -180,7 +180,7 @@ class MailingList extends HttpApi
     }
 
     /**
-     * Creates (or updates) a member of the mailing list
+     * Creates (or updates) a member of the mailing list.
      *
      * @param string $list       Address of the mailing list
      * @param string $address    Address for the member
@@ -211,7 +211,7 @@ class MailingList extends HttpApi
     }
 
     /**
-     * Updates a member on the mailing list
+     * Updates a member on the mailing list.
      *
      * @param string $list       Address of the mailing list
      * @param string $address    Address of the member
@@ -227,8 +227,8 @@ class MailingList extends HttpApi
         Assert::stringNotEmpty($address);
         Assert::isArray($parameters);
 
-        foreach($parameters as $field => $value) {
-            switch($field) {
+        foreach ($parameters as $field => $value) {
+            switch ($field) {
                 case 'vars':
                     $parameters['vars'] = (is_array($value)) ? json_encode($value) : $value;
                     break;
@@ -244,7 +244,7 @@ class MailingList extends HttpApi
     }
 
     /**
-     * Removes a member from the mailing list
+     * Removes a member from the mailing list.
      *
      * @param string $list    Address of the mailing list
      * @param string $address Address of the member
@@ -262,4 +262,5 @@ class MailingList extends HttpApi
 
         return $this->hydrateResponse($response, DeleteMemberResponse::class);
     }
+
 }

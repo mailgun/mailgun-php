@@ -34,7 +34,6 @@ final class Member
      */
     protected $subscribed;
 
-
     /**
      * @param array $data
      *

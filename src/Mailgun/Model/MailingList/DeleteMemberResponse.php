@@ -26,7 +26,6 @@ final class DeleteMemberResponse implements ApiResponse
      */
     private $message;
 
-
     public static function create(array $data)
     {
         $member = null;
