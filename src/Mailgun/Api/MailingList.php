@@ -108,6 +108,7 @@ class MailingList extends HttpApi
             switch ($field) {
                 case 'access_level':
                     Assert::oneOf($value, ['readonly', 'members', 'everyone']);
+
                     break;
             }
         }
@@ -231,9 +232,11 @@ class MailingList extends HttpApi
             switch ($field) {
                 case 'vars':
                     $parameters['vars'] = (is_array($value)) ? json_encode($value) : $value;
+
                     break;
                 case 'subscribed':
                     Assert::oneOf($value, ['yes', 'no']);
+
                     break;
             }
         }
@@ -262,5 +265,4 @@ class MailingList extends HttpApi
 
         return $this->hydrateResponse($response, DeleteMemberResponse::class);
     }
-
 }
