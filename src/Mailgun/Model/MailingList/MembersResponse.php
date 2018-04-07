@@ -9,22 +9,21 @@
 
 namespace Mailgun\Model\MailingList;
 
+use Mailgun\Model\PagingProvider;
+use Mailgun\Model\PaginationResponse;
 use Mailgun\Model\ApiResponse;
 
 /**
  * @author Michael Münch <helmchen@sounds-like.me>
  */
-final class MembersResponse implements ApiResponse
+final class MembersResponse implements ApiResponse, PagingProvider
 {
+    use PaginationResponse;
+
     /**
      * @var Member[]
      */
     private $items;
-
-    /**
-     * @var array
-     */
-    private $paging;
 
     /**
      * @param array $data
@@ -41,9 +40,7 @@ final class MembersResponse implements ApiResponse
             }
         }
 
-        $paging = $data['paging'] ?? [];
-
-        return new self($items, $paging);
+        return new self($items, $data['paging']);
     }
 
     /**
@@ -62,10 +59,5 @@ final class MembersResponse implements ApiResponse
     public function getItems()
     {
         return $this->items;
-    }
-
-    public function getPaging()
-    {
-        return $this->paging;
     }
 }
