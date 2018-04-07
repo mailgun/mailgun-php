@@ -41,7 +41,7 @@ class MailingList extends HttpApi
         Assert::natural($limit);
 
         $params = [
-            'limit' => $limit
+            'limit' => $limit,
         ];
 
         $response = $this->httpGet('/v3/lists/pages', $params);
@@ -72,7 +72,7 @@ class MailingList extends HttpApi
             'address' => $address,
             'name' => $name,
             'description' => $description,
-            'access_level' => $accessLevel
+            'access_level' => $accessLevel,
         ];
 
         $response = $this->httpPost('/v3/lists', $params);
@@ -115,8 +115,18 @@ class MailingList extends HttpApi
 
         foreach ($parameters as $field => $value) {
             switch ($field) {
+                case 'address':
+                case 'name':
+                case 'description':
+                    Assert::stringNotEmpty($value);
+
+                    break;
                 case 'access_level':
                     Assert::oneOf($value, ['readonly', 'members', 'everyone']);
+
+                    break;
+                default:
+                    unset($parameters[$field]);
 
                     break;
             }
@@ -164,7 +174,7 @@ class MailingList extends HttpApi
 
         $params = [
             'limit' => $limit,
-            'subscribed' => $subscribed
+            'subscribed' => $subscribed,
         ];
 
         $response = $this->httpGet(sprintf('/v3/lists/%s/members/pages', $address), $params);
@@ -222,7 +232,7 @@ class MailingList extends HttpApi
             'name' => $name,
             'vars' => $vars,
             'subscribed' => $subscribed,
-            'upsert' => $upsert
+            'upsert' => $upsert,
         ];
 
         $response = $this->httpPost(sprintf('/v3/lists/%s/members', $list), $params);
@@ -249,14 +259,25 @@ class MailingList extends HttpApi
 
         foreach ($parameters as $field => $value) {
             switch ($field) {
+                case 'address':
+                case 'name':
+                    Assert::stringNotEmpty($value);
+
+                    break;
                 case 'vars':
-                    $parameters['vars'] = (is_array($value)) ? json_encode($value) : $value;
+                    Assert::isArray($value);
+                    $parameters['vars'] = json_encode($value);
 
                     break;
                 case 'subscribed':
                     Assert::oneOf($value, ['yes', 'no']);
 
                     break;
+                default:
+                    unset($parameters[$field]);
+
+                    break;
+
             }
         }
 
