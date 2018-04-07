@@ -277,7 +277,6 @@ class MailingList extends HttpApi
                     unset($parameters[$field]);
 
                     break;
-
             }
         }
 
