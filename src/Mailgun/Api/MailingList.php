@@ -38,9 +38,11 @@ class MailingList extends HttpApi
      */
     public function pages($limit = 100)
     {
-        Assert::integer($limit);
+        Assert::natural($limit);
 
-        $params = compact('limit');
+        $params = [
+            'limit' => $limit
+        ];
 
         $response = $this->httpGet('/v3/lists/pages', $params);
 
@@ -50,21 +52,28 @@ class MailingList extends HttpApi
     /**
      * Creates a new mailing list on the current domain.
      *
-     * @param string $address      Address for the new mailing list
-     * @param string $name         Name for the new mailing list (optional)
-     * @param string $description  Description for the new mailing list (optional)
-     * @param string $access_level List access level, one of: readonly (default), members, everyone
+     * @param string $address     Address for the new mailing list
+     * @param string $name        Name for the new mailing list (optional)
+     * @param string $description Description for the new mailing list (optional)
+     * @param string $accessLevel List access level, one of: readonly (default), members, everyone
      *
      * @return CreateResponse|array|ResponseInterface
      *
      * @throws \Exception
      */
-    public function create($address, $name = null, $description = null, $access_level = 'readonly')
+    public function create($address, $name = null, $description = null, $accessLevel = 'readonly')
     {
         Assert::stringNotEmpty($address);
-        Assert::oneOf($access_level, ['readonly', 'members', 'everyone']);
+        Assert::nullOrStringNotEmpty($name);
+        Assert::nullOrStringNotEmpty($description);
+        Assert::oneOf($accessLevel, ['readonly', 'members', 'everyone']);
 
-        $params = compact('address', 'name', 'description', 'access_level');
+        $params = [
+            'address' => $address,
+            'name' => $name,
+            'description' => $description,
+            'access_level' => $accessLevel
+        ];
 
         $response = $this->httpPost('/v3/lists', $params);
 
@@ -150,10 +159,13 @@ class MailingList extends HttpApi
     public function members($address, $limit = 100, $subscribed = null)
     {
         Assert::stringNotEmpty($address);
-        Assert::integer($limit);
+        Assert::natural($limit);
         Assert::oneOf($subscribed, [null, 'yes', 'no']);
 
-        $params = compact('limit', 'subscribed');
+        $params = [
+            'limit' => $limit,
+            'subscribed' => $subscribed
+        ];
 
         $response = $this->httpGet(sprintf('/v3/lists/%s/members/pages', $address), $params);
 
@@ -198,13 +210,20 @@ class MailingList extends HttpApi
     {
         Assert::stringNotEmpty($list);
         Assert::stringNotEmpty($address);
+        Assert::nullOrStringNotEmpty($name);
         Assert::isArray($vars);
         Assert::oneOf($subscribed, ['yes', 'no']);
         Assert::oneOf($upsert, ['yes', 'no']);
 
         $vars = json_encode($vars);
 
-        $params = compact('address', 'name', 'vars', 'subscribed', 'upsert');
+        $params = [
+            'address' => $address,
+            'name' => $name,
+            'vars' => $vars,
+            'subscribed' => $subscribed,
+            'upsert' => $upsert
+        ];
 
         $response = $this->httpPost(sprintf('/v3/lists/%s/members', $list), $params);
 
