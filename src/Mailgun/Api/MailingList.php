@@ -254,7 +254,15 @@ class MailingList extends HttpApi
     {
         Assert::stringNotEmpty($list);
         Assert::isArray($members);
-        Assert::maxCount($members, 1000);
+
+        // workaround for webmozart/asserts <= 1.2
+        if (count($members) > 1000) {
+            throw new InvalidArgumentException(sprintf('Expected an Array to contain at most %2$d elements. Got: %d',
+                count($members),
+                1000
+            ));
+        }
+
         Assert::oneOf($upsert, ['yes', 'no']);
 
         foreach ($members as $data) {
