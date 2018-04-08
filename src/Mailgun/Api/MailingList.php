@@ -240,7 +240,7 @@ class MailingList extends HttpApi
     }
 
     /**
-     * Adds multiple members (up to 1000) to the mailing list
+     * Adds multiple members (up to 1000) to the mailing list.
      *
      * @param string $list    Address of the mailing list
      * @param array  $members Array of members, each item should be either a single string address or an array of member properties
@@ -257,8 +257,8 @@ class MailingList extends HttpApi
         Assert::maxCount($members, 1000);
         Assert::oneOf($upsert, ['yes', 'no']);
 
-        foreach($members as $data) {
-            if(is_string($data)) {
+        foreach ($members as $data) {
+            if (is_string($data)) {
                 Assert::stringNotEmpty($data);
                 // single address - no additional validation required
                 continue;
@@ -266,8 +266,8 @@ class MailingList extends HttpApi
 
             Assert::isArray($data);
 
-            foreach($data as $field => $value) {
-                switch($field) {
+            foreach ($data as $field => $value) {
+                switch ($field) {
                     case 'address':
                         Assert::stringNotEmpty($value);
 

@@ -236,7 +236,7 @@ class MailingListTest extends TestCase
                     'address' => 'billy@example.com',
                     'name' => 'Billy',
                     'subscribed' => 'yes',
-                ]
+                ],
             ]),
             'upsert' => 'no',
         ];
@@ -254,7 +254,7 @@ class MailingListTest extends TestCase
                 'address' => 'billy@example.com',
                 'name' => 'Billy',
                 'subscribed' => 'yes',
-            ]
+            ],
         ], $upsert = 'no');
     }
 
@@ -269,7 +269,7 @@ class MailingListTest extends TestCase
                 'address' => 'billy@example.com',
                 'name' => 'Billy',
                 'subscribed' => true,
-            ]
+            ],
         ];
 
         $api = $this->getApiMock();
