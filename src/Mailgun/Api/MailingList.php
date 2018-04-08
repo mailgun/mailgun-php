@@ -11,17 +11,16 @@ namespace Mailgun\Api;
 
 use Mailgun\Assert;
 use Mailgun\Exception\InvalidArgumentException;
-use Mailgun\Model\MailingList\Response\PagesResponse;
+use Mailgun\Model\MailingList\Response\CreateMemberResponse;
 use Mailgun\Model\MailingList\Response\CreateResponse;
-use Mailgun\Model\MailingList\Response\ShowResponse;
-use Mailgun\Model\MailingList\Response\UpdateResponse;
+use Mailgun\Model\MailingList\Response\DeleteMemberResponse;
 use Mailgun\Model\MailingList\Response\DeleteResponse;
 use Mailgun\Model\MailingList\Response\MembersResponse;
-use Mailgun\Model\MailingList\Response\CreateMemberResponse;
+use Mailgun\Model\MailingList\Response\PagesResponse;
 use Mailgun\Model\MailingList\Response\ShowMemberResponse;
+use Mailgun\Model\MailingList\Response\ShowResponse;
 use Mailgun\Model\MailingList\Response\UpdateMemberResponse;
-use Mailgun\Model\MailingList\Response\DeleteMemberResponse;
-use Psr\Http\Message\ResponseInterface;
+use Mailgun\Model\MailingList\Response\UpdateResponse;
 
 /**
  * @author Michael Münch <helmchen@sounds-like.me>
