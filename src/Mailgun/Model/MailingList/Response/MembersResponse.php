@@ -12,6 +12,7 @@ namespace Mailgun\Model\MailingList\Response;
 use Mailgun\Model\PagingProvider;
 use Mailgun\Model\PaginationResponse;
 use Mailgun\Model\ApiResponse;
+use Mailgun\Model\MailingList\Member;
 
 /**
  * @author Michael Münch <helmchen@sounds-like.me>
