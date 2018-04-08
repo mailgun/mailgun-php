@@ -240,6 +240,68 @@ class MailingList extends HttpApi
     }
 
     /**
+     * Adds multiple members (up to 1000) to the mailing list
+     *
+     * @param string $list    Address of the mailing list
+     * @param array  $members Array of members, each item should be either a single string address or an array of member properties
+     * @param string $upsert  `yes` to update existing members, `no` (default) to ignore duplicates
+     *
+     * @return UpdateResponse
+     *
+     * @throws \Exception
+     */
+    public function addMembers($list, array $members, $upsert = 'no')
+    {
+        Assert::stringNotEmpty($list);
+        Assert::isArray($members);
+        Assert::maxCount($members, 1000);
+        Assert::oneOf($upsert, ['yes', 'no']);
+
+        foreach($members as $data) {
+            if(is_string($data)) {
+                Assert::stringNotEmpty($data);
+                // single address - no additional validation required
+                continue;
+            }
+
+            Assert::isArray($data);
+
+            foreach($data as $field => $value) {
+                switch($field) {
+                    case 'address':
+                        Assert::stringNotEmpty($value);
+
+                        break;
+                    case 'name':
+                        Assert::string($value);
+
+                        break;
+                    case 'vars':
+                        Assert::isArray($value);
+
+                        break;
+                    case 'subscribed':
+                        Assert::oneOf($value, ['yes', 'no']);
+
+                        break;
+                    default:
+                        throw new InvalidArgumentException(sprintf('unknown parameter "%s"', $field));
+                        break;
+                }
+            }
+        }
+
+        $params = [
+            'members' => json_encode($members),
+            'upsert' => $upsert,
+        ];
+
+        $response = $this->httpPost(sprintf('/v3/lists/%s/members.json', $list), $params);
+
+        return $this->hydrateResponse($response, UpdateResponse::class);
+    }
+
+    /**
      * Updates a member on the mailing list.
      *
      * @param string $list       Address of the mailing list

@@ -9,6 +9,7 @@
 
 namespace Mailgun\Model\MailingList\Response;
 
+use Mailgun\Model\MailingList\Member;
 use Mailgun\Model\ApiResponse;
 
 /**

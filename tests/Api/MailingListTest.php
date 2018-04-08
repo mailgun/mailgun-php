@@ -226,6 +226,67 @@ class MailingListTest extends TestCase
         $api->createMember('address', 'foo@example.com', null, [], true);
     }
 
+    public function testAddMembers()
+    {
+        $data = [
+            'members' => json_encode([
+                'bob@example.com',
+                'foo@example.com',
+                [
+                    'address' => 'billy@example.com',
+                    'name' => 'Billy',
+                    'subscribed' => 'yes',
+                ]
+            ]),
+            'upsert' => 'no',
+        ];
+
+        $api = $this->getApiMock();
+        $api->expects($this->once())
+            ->method('httpPost')
+            ->with('/v3/lists/address/members.json', $data)
+            ->willReturn(new Response());
+
+        $api->addMembers($list = 'address', [
+            'bob@example.com',
+            'foo@example.com',
+            [
+                'address' => 'billy@example.com',
+                'name' => 'Billy',
+                'subscribed' => 'yes',
+            ]
+        ], $upsert = 'no');
+    }
+
+    public function testAddMembersInvalidMemberArgument()
+    {
+        $this->setExpectedException(InvalidArgumentException::class);
+
+        $data = [
+            'bob@example.com',
+            'foo@example.com',
+            [
+                'address' => 'billy@example.com',
+                'name' => 'Billy',
+                'subscribed' => true,
+            ]
+        ];
+
+        $api = $this->getApiMock();
+        $api->addMembers('address', $data);
+    }
+
+    public function testAddMembersCountMax1000()
+    {
+        $this->setExpectedException(InvalidArgumentException::class);
+
+        $members = range(1, 1001);
+        $members = array_map('strval', $members);
+
+        $api = $this->getApiMock();
+        $api->addMembers('address', $members);
+    }
+
     public function testUpdateMember()
     {
         $data = [
