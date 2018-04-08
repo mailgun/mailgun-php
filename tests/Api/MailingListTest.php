@@ -190,7 +190,7 @@ class MailingListTest extends TestCase
             'name' => 'Foo',
             'vars' => [],
             'subscribed' => 'yes',
-            'upsert' => 'no'
+            'upsert' => 'no',
         ];
 
         $api = $this->getApiMock();
@@ -230,7 +230,7 @@ class MailingListTest extends TestCase
     {
         $data = [
             'vars' => [
-                'foo' => 'bar'
+                'foo' => 'bar',
             ],
             'subscribed' => 'yes',
         ];
