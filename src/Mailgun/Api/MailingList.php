@@ -33,7 +33,7 @@ class MailingList extends HttpApi
      *
      * @param int $limit Maximum number of records to return (optional: 100 by default)
      *
-     * @return PagesResponse|array|ResponseInterface
+     * @return PagesResponse
      *
      * @throws \Exception
      */
@@ -59,7 +59,7 @@ class MailingList extends HttpApi
      * @param string $description Description for the new mailing list (optional)
      * @param string $accessLevel List access level, one of: readonly (default), members, everyone
      *
-     * @return CreateResponse|array|ResponseInterface
+     * @return CreateResponse
      *
      * @throws \Exception
      */
@@ -87,7 +87,7 @@ class MailingList extends HttpApi
      *
      * @param string $address Address of the mailing list
      *
-     * @return ShowResponse|array|ResponseInterface
+     * @return ShowResponse
      *
      * @throws \Exception
      */
@@ -106,7 +106,7 @@ class MailingList extends HttpApi
      * @param string $address    Address of the mailing list
      * @param array  $parameters Array of field => value pairs to update
      *
-     * @return UpdateResponse|array|ResponseInterface
+     * @return UpdateResponse
      *
      * @throws \Exception
      */
@@ -143,7 +143,7 @@ class MailingList extends HttpApi
      *
      * @param string $address Address of the mailing list
      *
-     * @return DeleteResponse|array|ResponseInterface
+     * @return DeleteResponse
      *
      * @throws \Exception
      */
@@ -163,7 +163,7 @@ class MailingList extends HttpApi
      * @param int         $limit      Maximum number of records to return (optional: 100 by default)
      * @param string|null $subscribed `yes` to lists subscribed, `no` for unsubscribed. list all if null
      *
-     * @return MembersResponse|array|ResponseInterface
+     * @return MembersResponse
      *
      * @throws \Exception
      */
@@ -190,7 +190,7 @@ class MailingList extends HttpApi
      * @param string $list    Address of the mailing list
      * @param string $address Address of the member
      *
-     * @return ShowMemberResponse|array|ResponseInterface
+     * @return ShowMemberResponse
      *
      * @throws \Exception
      */
@@ -214,7 +214,7 @@ class MailingList extends HttpApi
      * @param string $subscribed `yes` to add as subscribed (default), `no` as unsubscribed
      * @param string $upsert     `yes` to update member if present, `no` to raise error in case of a duplicate member (default)
      *
-     * @return CreateMemberResponse|array|ResponseInterface
+     * @return CreateMemberResponse
      *
      * @throws \Exception
      */
@@ -247,7 +247,7 @@ class MailingList extends HttpApi
      * @param string $address    Address of the member
      * @param array  $parameters Array of key => value pairs to update
      *
-     * @return UpdateMemberResponse|array|ResponseInterface
+     * @return UpdateMemberResponse
      *
      * @throws \Exception
      */
@@ -289,7 +289,7 @@ class MailingList extends HttpApi
      * @param string $list    Address of the mailing list
      * @param string $address Address of the member
      *
-     * @return DeleteMemberResponse|array|ResponseInterface
+     * @return DeleteMemberResponse
      *
      * @throws \Exception
      */
