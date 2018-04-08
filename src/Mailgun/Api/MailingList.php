@@ -39,7 +39,8 @@ class MailingList extends HttpApi
      */
     public function pages($limit = 100)
     {
-        Assert::natural($limit);
+        Assert::integer($limit);
+        Assert::greaterThan($limit, 0);
 
         $params = [
             'limit' => $limit,
@@ -169,7 +170,8 @@ class MailingList extends HttpApi
     public function members($address, $limit = 100, $subscribed = null)
     {
         Assert::stringNotEmpty($address);
-        Assert::natural($limit);
+        Assert::integer($limit);
+        Assert::greaterThan($limit, 0);
         Assert::oneOf($subscribed, [null, 'yes', 'no']);
 
         $params = [
