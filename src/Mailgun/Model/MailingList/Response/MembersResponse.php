@@ -7,7 +7,7 @@
  * of the MIT license. See the LICENSE file for details.
  */
 
-namespace Mailgun\Model\MailingList;
+namespace Mailgun\Model\MailingList\Response;
 
 use Mailgun\Model\PagingProvider;
 use Mailgun\Model\PaginationResponse;
@@ -16,12 +16,12 @@ use Mailgun\Model\ApiResponse;
 /**
  * @author Michael Münch <helmchen@sounds-like.me>
  */
-final class PagesResponse implements ApiResponse, PagingProvider
+final class MembersResponse implements ApiResponse, PagingProvider
 {
     use PaginationResponse;
 
     /**
-     * @var MailingList[]
+     * @var Member[]
      */
     private $items;
 
@@ -36,7 +36,7 @@ final class PagesResponse implements ApiResponse, PagingProvider
 
         if (isset($data['items'])) {
             foreach ($data['items'] as $item) {
-                $items[] = MailingList::create($item);
+                $items[] = Member::create($item);
             }
         }
 
@@ -44,8 +44,8 @@ final class PagesResponse implements ApiResponse, PagingProvider
     }
 
     /**
-     * @param MailingList[] $items
-     * @param array         $paging
+     * @param Member[] $items
+     * @param array    $paging
      */
     private function __construct(array $items, array $paging)
     {
@@ -54,9 +54,9 @@ final class PagesResponse implements ApiResponse, PagingProvider
     }
 
     /**
-     * @return MailingList[]
+     * @return Member[]
      */
-    public function getLists()
+    public function getItems()
     {
         return $this->items;
     }

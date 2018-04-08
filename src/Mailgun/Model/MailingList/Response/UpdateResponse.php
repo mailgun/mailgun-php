@@ -7,7 +7,7 @@
  * of the MIT license. See the LICENSE file for details.
  */
 
-namespace Mailgun\Model\MailingList;
+namespace Mailgun\Model\MailingList\Response;
 
 use Mailgun\Model\ApiResponse;
 

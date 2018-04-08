@@ -7,19 +7,24 @@
  * of the MIT license. See the LICENSE file for details.
  */
 
-namespace Mailgun\Model\MailingList;
+namespace Mailgun\Model\MailingList\Response;
 
 use Mailgun\Model\ApiResponse;
 
 /**
  * @author Michael Münch <helmchen@sounds-like.me>
  */
-final class ShowMemberResponse implements ApiResponse
+final class DeleteMemberResponse implements ApiResponse
 {
     /**
      * @var Member
      */
     private $member;
+
+    /**
+     * @var string
+     */
+    private $message;
 
     public static function create(array $data)
     {
@@ -29,12 +34,25 @@ final class ShowMemberResponse implements ApiResponse
             $member = Member::create($data['member']);
         }
 
-        return new self($member);
+        $message = null;
+
+        if (isset($data['message'])) {
+            $message = $data['message'];
+        }
+
+        return new self($member, $message);
     }
 
-    public function __construct(Member $member)
+    /**
+     * DeleteMemberResponse constructor.
+     *
+     * @param Member $member
+     * @param string $message
+     */
+    private function __construct(Member $member, $message)
     {
         $this->member = $member;
+        $this->message = $message;
     }
 
     /**
@@ -43,5 +61,13 @@ final class ShowMemberResponse implements ApiResponse
     public function getMember()
     {
         return $this->member;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMessage()
+    {
+        return $this->message;
     }
 }

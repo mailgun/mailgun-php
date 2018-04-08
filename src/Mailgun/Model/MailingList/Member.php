@@ -9,30 +9,32 @@
 
 namespace Mailgun\Model\MailingList;
 
+use Mailgun\Model\ApiResponse;
+
 /**
  * @author Michael Münch <helmchen@sounds-like.me>
  */
-final class Member
+final class Member implements ApiResponse
 {
     /**
      * @var string
      */
-    protected $name;
+    private $name;
 
     /**
      * @var string
      */
-    protected $address;
+    private $address;
 
     /**
      * @var array
      */
-    protected $vars;
+    private $vars;
 
     /**
      * @var bool
      */
-    protected $subscribed;
+    private $subscribed;
 
     /**
      * @param array $data
@@ -49,7 +51,7 @@ final class Member
         );
     }
 
-    public function __construct($name, $address, $vars = [], $subscribed = null)
+    private function __construct($name, $address, $vars = [], $subscribed = null)
     {
         $this->name = $name;
         $this->address = $address;

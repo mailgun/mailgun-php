@@ -10,16 +10,17 @@
 namespace Mailgun\Api;
 
 use Mailgun\Assert;
-use Mailgun\Model\MailingList\PagesResponse;
-use Mailgun\Model\MailingList\CreateResponse;
-use Mailgun\Model\MailingList\ShowResponse;
-use Mailgun\Model\MailingList\UpdateResponse;
-use Mailgun\Model\MailingList\DeleteResponse;
-use Mailgun\Model\MailingList\MembersResponse;
-use Mailgun\Model\MailingList\CreateMemberResponse;
-use Mailgun\Model\MailingList\ShowMemberResponse;
-use Mailgun\Model\MailingList\UpdateMemberResponse;
-use Mailgun\Model\MailingList\DeleteMemberResponse;
+use Mailgun\Exception\InvalidArgumentException;
+use Mailgun\Model\MailingList\Response\PagesResponse;
+use Mailgun\Model\MailingList\Response\CreateResponse;
+use Mailgun\Model\MailingList\Response\ShowResponse;
+use Mailgun\Model\MailingList\Response\UpdateResponse;
+use Mailgun\Model\MailingList\Response\DeleteResponse;
+use Mailgun\Model\MailingList\Response\MembersResponse;
+use Mailgun\Model\MailingList\Response\CreateMemberResponse;
+use Mailgun\Model\MailingList\Response\ShowMemberResponse;
+use Mailgun\Model\MailingList\Response\UpdateMemberResponse;
+use Mailgun\Model\MailingList\Response\DeleteMemberResponse;
 use Psr\Http\Message\ResponseInterface;
 
 /**
@@ -126,7 +127,7 @@ class MailingList extends HttpApi
 
                     break;
                 default:
-                    unset($parameters[$field]);
+                    throw new InvalidArgumentException(sprintf('unknown parameter "%s"', $field));
 
                     break;
             }
@@ -158,9 +159,9 @@ class MailingList extends HttpApi
     /**
      * Returns a paginated list of members of the mailing list.
      *
-     * @param string $address    Address of the mailing list
-     * @param int    $limit      Maximum number of records to return (optional: 100 by default)
-     * @param mixed  $subscribed `yes` to lists subscribed, `no` for unsubscribed. list all if null
+     * @param string      $address    Address of the mailing list
+     * @param int         $limit      Maximum number of records to return (optional: 100 by default)
+     * @param string|null $subscribed `yes` to lists subscribed, `no` for unsubscribed. list all if null
      *
      * @return MembersResponse|array|ResponseInterface
      *
@@ -225,8 +226,6 @@ class MailingList extends HttpApi
         Assert::oneOf($subscribed, ['yes', 'no']);
         Assert::oneOf($upsert, ['yes', 'no']);
 
-        $vars = json_encode($vars);
-
         $params = [
             'address' => $address,
             'name' => $name,
@@ -266,7 +265,6 @@ class MailingList extends HttpApi
                     break;
                 case 'vars':
                     Assert::isArray($value);
-                    $parameters['vars'] = json_encode($value);
 
                     break;
                 case 'subscribed':
@@ -274,7 +272,7 @@ class MailingList extends HttpApi
 
                     break;
                 default:
-                    unset($parameters[$field]);
+                    throw new InvalidArgumentException(sprintf('unknown parameter "%s"', $field));
 
                     break;
             }

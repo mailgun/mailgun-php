@@ -9,40 +9,42 @@
 
 namespace Mailgun\Model\MailingList;
 
+use Mailgun\Model\ApiResponse;
+
 /**
  * @author Michael Münch <helmchen@sounds-like.me>
  */
-final class MailingList
+final class MailingList implements ApiResponse
 {
     /**
      * @var string
      */
-    protected $name;
+    private $name;
 
     /**
      * @var string
      */
-    protected $address;
+    private $address;
 
     /**
      * @var string
      */
-    protected $accessLevel;
+    private $accessLevel;
 
     /**
      * @var string
      */
-    protected $description;
+    private $description;
 
     /**
      * @var int
      */
-    protected $membersCount;
+    private $membersCount;
 
     /**
      * @var \DateTime
      */
-    protected $createdAt;
+    private $createdAt;
 
     /**
      * @param array $data

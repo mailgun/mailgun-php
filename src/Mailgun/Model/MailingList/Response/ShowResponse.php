@@ -7,7 +7,7 @@
  * of the MIT license. See the LICENSE file for details.
  */
 
-namespace Mailgun\Model\MailingList;
+namespace Mailgun\Model\MailingList\Response;
 
 use Mailgun\Model\ApiResponse;
 
@@ -32,7 +32,7 @@ final class ShowResponse implements ApiResponse
         return new self($list);
     }
 
-    public function __construct(MailingList $list)
+    private function __construct(MailingList $list)
     {
         $this->list = $list;
     }

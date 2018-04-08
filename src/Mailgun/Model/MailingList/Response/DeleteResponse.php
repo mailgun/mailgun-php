@@ -7,14 +7,14 @@
  * of the MIT license. See the LICENSE file for details.
  */
 
-namespace Mailgun\Model\MailingList;
+namespace Mailgun\Model\MailingList\Response;
 
 use Mailgun\Model\ApiResponse;
 
 /**
  * @author Michael Münch <helmchen@sounds-like.me>
  */
-final class CreateResponse implements ApiResponse
+final class DeleteResponse implements ApiResponse
 {
     /**
      * @var string
@@ -22,15 +22,10 @@ final class CreateResponse implements ApiResponse
     private $message;
 
     /**
-     * @var MailingList
+     * @var string
      */
-    private $list;
+    private $address;
 
-    /**
-     * @param array $data
-     *
-     * @return self
-     */
     public static function create(array $data)
     {
         $message = null;
@@ -39,18 +34,24 @@ final class CreateResponse implements ApiResponse
             $message = $data['message'];
         }
 
-        $list = null;
+        $address = null;
 
-        if (isset($data['list'])) {
-            $list = MailingList::create($data['list']);
+        if (isset($address)) {
+            $address = $data['address'];
         }
 
-        return new self($list, $message);
+        return new self($address, $message);
     }
 
-    private function __construct(MailingList $list, $message)
+    /**
+     * DeleteResponse constructor.
+     *
+     * @param string $address
+     * @param string $message
+     */
+    private function __construct($address, $message)
     {
-        $this->list = $list;
+        $this->address = $address;
         $this->message = $message;
     }
 
@@ -63,10 +64,10 @@ final class CreateResponse implements ApiResponse
     }
 
     /**
-     * @return MailingList
+     * @return string
      */
-    public function getList()
+    public function getAddress()
     {
-        return $this->list;
+        return $this->address;
     }
 }

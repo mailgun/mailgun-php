@@ -7,7 +7,7 @@
  * of the MIT license. See the LICENSE file for details.
  */
 
-namespace Mailgun\Model\MailingList;
+namespace Mailgun\Model\MailingList\Response;
 
 use Mailgun\Model\ApiResponse;
 
@@ -49,7 +49,7 @@ final class CreateMemberResponse implements ApiResponse
      * @param Member $member
      * @param string $message
      */
-    public function __construct(Member $member, $message)
+    private function __construct(Member $member, $message)
     {
         $this->member = $member;
         $this->message = $message;
