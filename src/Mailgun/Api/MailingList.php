@@ -128,7 +128,6 @@ class MailingList extends HttpApi
                     break;
                 default:
                     throw new InvalidArgumentException(sprintf('unknown parameter "%s"', $field));
-
                     break;
             }
         }
@@ -273,7 +272,6 @@ class MailingList extends HttpApi
                     break;
                 default:
                     throw new InvalidArgumentException(sprintf('unknown parameter "%s"', $field));
-
                     break;
             }
         }
