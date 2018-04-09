@@ -332,6 +332,14 @@ class Mailgun
     }
 
     /**
+     * @return Api\MailingList
+     */
+    public function lists()
+    {
+        return new Api\MailingList($this->httpClient, $this->requestBuilder, $this->hydrator);
+    }
+
+    /**
      * @return Api\Tag
      */
     public function tags()
