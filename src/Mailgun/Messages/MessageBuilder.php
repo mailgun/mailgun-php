@@ -246,7 +246,7 @@ class MessageBuilder
     public function addCustomHeader($headerName, $headerData)
     {
         if (!preg_match('/^h:/i', $headerName)) {
-            $headerName = 'h:'.$headerName;
+            $headerName = 'h:' . $headerName;
         }
 
         if (array_key_exists($headerName, $this->message)) {
@@ -368,9 +368,9 @@ class MessageBuilder
     {
         if ($this->counters['attributes']['campaign_id'] < Api::CAMPAIGN_ID_LIMIT) {
             if (isset($this->message['o:campaign'])) {
-                array_push($this->message['o:campaign'], $campaignId);
+                array_push($this->message['o:campaign'], (string)$campaignId);
             } else {
-                $this->message['o:campaign'] = [$campaignId];
+                $this->message['o:campaign'] = [(string)$campaignId];
             }
             $this->counters['attributes']['campaign_id'] += 1;
 
@@ -481,7 +481,7 @@ class MessageBuilder
      */
     public function addCustomData($customName, $data)
     {
-        $this->message['v:'.$customName] = json_encode($data);
+        $this->message['v:' . $customName] = json_encode($data);
     }
 
     /**

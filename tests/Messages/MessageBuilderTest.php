@@ -245,7 +245,7 @@ class MessageBuilderTest extends \Mailgun\Tests\MailgunTestCase
         );
     }
 
-    public function testsetTestMode()
+    public function testSetTestMode()
     {
         $message = $this->client->MessageBuilder();
         $message->setTestMode(true);
@@ -262,15 +262,23 @@ class MessageBuilderTest extends \Mailgun\Tests\MailgunTestCase
         $this->assertEquals(['o:testmode' => 'no'], $messageObj);
     }
 
-    public function addCampaignId()
+    public function testAddCampaignId()
     {
         $message = $this->client->MessageBuilder();
         $message->addCampaignId('ABC123');
         $message->addCampaignId('XYZ987');
         $message->addCampaignId('TUV456');
-        $message->addCampaignId('NONO123');
         $messageObj = $message->getMessage();
         $this->assertEquals(['o:campaign' => ['ABC123', 'XYZ987', 'TUV456']], $messageObj);
+    }
+
+    public function testAddCampaignIdInteger()
+    {
+        $message = $this->client->MessageBuilder();
+        $message->addCampaignId(1111);
+        $message->addCampaignId(2222);
+        $messageObj = $message->getMessage();
+        $this->assertSame(['o:campaign' => ['1111', '2222']], $messageObj);
     }
 
     public function testSetDkim()
