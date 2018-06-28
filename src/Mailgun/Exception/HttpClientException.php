@@ -55,7 +55,13 @@ final class HttpClientException extends \RuntimeException implements Exception
 
     public static function badRequest(ResponseInterface $response = null)
     {
-        return new self('The parameters passed to the API were invalid. Check your inputs!', 400, $response);
+        // Pass along message from server to aid resolving input problems.
+        $content = json_decode($response->getBody()->getContents());
+        $message = ! empty($content['message'])
+            ? $content['message']
+            : 'The parameters passed to the API were invalid. Check your inputs!';
+
+        return new self($message, 400, $response);
     }
 
     public static function unauthorized(ResponseInterface $response = null)
