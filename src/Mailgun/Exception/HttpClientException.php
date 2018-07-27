@@ -57,7 +57,7 @@ final class HttpClientException extends \RuntimeException implements Exception
     {
         // Pass along message from server to aid resolving input problems.
         $content = json_decode($response->getBody()->getContents());
-        $message = ! empty($content['message'])
+        $message = !empty($content['message'])
             ? $content['message']
             : 'The parameters passed to the API were invalid. Check your inputs!';
 
