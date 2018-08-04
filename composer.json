@@ -25,6 +25,10 @@
             "Mailgun\\Tests\\": "tests/"
         }
     },
+    "suggest": {
+        "php-http/curl-client": "cURL client for PHP-HTTP",
+        "guzzlehttp/psr7": "PSR-7 message implementation that also provides common utility methods"
+    },
     "license": "MIT",
     "authors": [
         {
