@@ -48,10 +48,9 @@ class BatchMessage extends MessageBuilder
     private $api;
 
     /**
-     *
      * @param Message $messageApi
-     * @param string $domain
-     * @param bool $autoSend
+     * @param string  $domain
+     * @param bool    $autoSend
      */
     public function __construct(Message $messageApi, $domain, $autoSend)
     {
@@ -63,7 +62,7 @@ class BatchMessage extends MessageBuilder
     /**
      * @param string $headerName
      * @param string $address
-     * @param array  $variables {
+     * @param array  $variables  {
      *
      *     @var string $id
      *     @var string $full_name
@@ -121,7 +120,7 @@ class BatchMessage extends MessageBuilder
             $this->counters['recipients']['bcc'] = 0;
             unset($this->message['to']);
 
-            $this->messageIds[] =$response->getId();
+            $this->messageIds[] = $response->getId();
         }
     }
 

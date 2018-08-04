@@ -23,7 +23,9 @@ use Mailgun\Message\Exceptions\TooManyRecipients;
 class MessageBuilder
 {
     const RECIPIENT_COUNT_LIMIT = 1000;
+
     const CAMPAIGN_ID_LIMIT = 3;
+
     const TAG_LIMIT = 3;
 
     /**
@@ -90,7 +92,7 @@ class MessageBuilder
 
     /**
      * @param string $address
-     * @param array  $params {
+     * @param array  $params  {
      *
      *     @var string $full_name
      *     @var string $first
@@ -112,7 +114,7 @@ class MessageBuilder
     /**
      * @param string $headerName
      * @param string $address
-     * @param array  $variables {
+     * @param array  $variables  {
      *
      *     @var string $full_name
      *     @var string $first
@@ -136,8 +138,8 @@ class MessageBuilder
     }
 
     /**
-     * @param string     $address
-     * @param array $variables {
+     * @param string $address
+     * @param array  $variables {
      *
      *     @var string $id If used with BatchMessage
      *     @var string $full_name
@@ -156,8 +158,8 @@ class MessageBuilder
     }
 
     /**
-     * @param string     $address
-     * @param array $variables {
+     * @param string $address
+     * @param array  $variables {
      *
      *     @var string $id If used with BatchMessage
      *     @var string $full_name
@@ -166,7 +168,6 @@ class MessageBuilder
      * }
      *
      * @throws TooManyRecipients
-     *
      */
     public function addCcRecipient($address, array $variables = [])
     {
@@ -178,8 +179,8 @@ class MessageBuilder
     }
 
     /**
-     * @param string     $address
-     * @param array $variables {
+     * @param string $address
+     * @param array  $variables {
      *
      *     @var string $id If used with BatchMessage
      *     @var string $full_name
@@ -188,7 +189,6 @@ class MessageBuilder
      * }
      *
      * @throws TooManyRecipients
-     *
      */
     public function addBccRecipient($address, array $variables)
     {
@@ -200,15 +200,14 @@ class MessageBuilder
     }
 
     /**
-     * @param string     $address
-     * @param array $variables {
+     * @param string $address
+     * @param array  $variables {
      *
      *     @var string $id If used with BatchMessage
      *     @var string $full_name
      *     @var string $first
      *     @var string $last
      * }
-     *
      */
     public function setFromAddress($address, array $variables = [])
     {
@@ -216,8 +215,8 @@ class MessageBuilder
     }
 
     /**
-     * @param string     $address
-     * @param array $variables {
+     * @param string $address
+     * @param array  $variables {
      *
      *     @var string $id If used with BatchMessage
      *     @var string $full_name
@@ -241,7 +240,6 @@ class MessageBuilder
     /**
      * @param string $headerName
      * @param mixed  $headerData
-     *
      */
     public function addCustomHeader($headerName, $headerData)
     {
@@ -262,7 +260,6 @@ class MessageBuilder
 
     /**
      * @param string $textBody
-     *
      */
     public function setTextBody($textBody)
     {
@@ -298,8 +295,6 @@ class MessageBuilder
     /**
      * @param string      $inlineImagePath
      * @param string|null $inlineImageName
-     *
-     *
      */
     public function addInlineImage($inlineImagePath, $inlineImageName = null)
     {
@@ -315,7 +310,6 @@ class MessageBuilder
 
     /**
      * @param bool $enabled
-     *
      */
     public function setTestMode($enabled)
     {
@@ -326,7 +320,6 @@ class MessageBuilder
      * @param string $campaignId
      *
      * @throws LimitExceeded
-     *
      */
     public function addCampaignId($campaignId)
     {
@@ -362,7 +355,6 @@ class MessageBuilder
 
     /**
      * @param bool $enabled
-     *
      */
     public function setDkim($enabled)
     {
@@ -428,7 +420,7 @@ class MessageBuilder
     public function addCustomParameter($parameterName, $data)
     {
         if (isset($this->message[$parameterName])) {
-            $this->message[$parameterName][] =  $data;
+            $this->message[$parameterName][] = $data;
         } else {
             $this->message[$parameterName] = [$data];
         }
@@ -454,6 +446,7 @@ class MessageBuilder
 
     /**
      * @param $enabled
+     *
      * @return string
      */
     private function boolToString($enabled): string

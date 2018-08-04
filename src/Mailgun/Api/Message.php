@@ -22,7 +22,7 @@ class Message extends HttpApi
 {
     /**
      * @param string $domain
-     * @param bool $autoSend
+     * @param bool   $autoSend
      *
      * @return BatchMessage
      */

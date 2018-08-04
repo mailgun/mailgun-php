@@ -21,7 +21,6 @@ use Mailgun\Messages\Exceptions\TooManyParameters;
  * documentation (link below) for usage instructions.
  *
  * @deprecated Will be removed in 3.0. Use Mailgun\Message\MessageBuilder
- *
  * @see https://github.com/mailgun/mailgun-php/blob/master/src/Mailgun/Messages/README.md
  */
 class MessageBuilder
