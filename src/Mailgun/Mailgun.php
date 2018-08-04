@@ -104,6 +104,7 @@ class Mailgun
 
     /**
      * @param string $apiKey
+     * @param string $endpoint URL to mailgun servers
      *
      * @return Mailgun
      */
