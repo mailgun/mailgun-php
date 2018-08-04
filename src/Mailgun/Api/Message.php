@@ -11,6 +11,7 @@ namespace Mailgun\Api;
 
 use Mailgun\Assert;
 use Mailgun\Exception\InvalidArgumentException;
+use Mailgun\Message\BatchMessage;
 use Mailgun\Model\Message\SendResponse;
 use Mailgun\Model\Message\ShowResponse;
 
@@ -19,6 +20,17 @@ use Mailgun\Model\Message\ShowResponse;
  */
 class Message extends HttpApi
 {
+    /**
+     * @param string $domain
+     * @param bool   $autoSend
+     *
+     * @return BatchMessage
+     */
+    public function getBatchMessage($domain, $autoSend = true)
+    {
+        return new BatchMessage($this, $domain, $autoSend);
+    }
+
     /**
      * @param string $domain
      * @param array  $params

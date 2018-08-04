@@ -285,7 +285,7 @@ class Mailgun
     /**
      * @return MessageBuilder
      *
-     * @deprecated Will be removed in 3.0
+     * @deprecated Will be removed in 3.0.
      */
     public function MessageBuilder()
     {
@@ -308,7 +308,7 @@ class Mailgun
      *
      * @return BatchMessage
      *
-     * @deprecated Will be removed in 3.0
+     * @deprecated Will be removed in 3.0. Use Mailgun::messages()::getBatchMessage().
      */
     public function BatchMessage($workingDomain, $autoSend = true)
     {
