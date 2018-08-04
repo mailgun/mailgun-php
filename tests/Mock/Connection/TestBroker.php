@@ -21,6 +21,8 @@ class TestBroker extends RestClient
 
     protected $apiEndpoint;
 
+    protected $responseData = '{"message": "Some JSON Response Data", "id": "1234"}';
+
     public function __construct($apiKey = null, $apiHost = 'api.mailgun.net', $apiVersion = 'v3')
     {
         $this->apiKey = $apiKey;
@@ -52,7 +54,7 @@ class TestBroker extends RestClient
         if (200 === $httpResponseCode) {
             $result = new \stdClass();
             $result->http_response_body = new \stdClass();
-            $jsonResponseData = json_decode('{"message": "Some JSON Response Data", "id": "1234"}');
+            $jsonResponseData = json_decode($this->responseData);
             foreach ($jsonResponseData as $key => $value) {
                 $result->http_response_body->$key = $value;
             }
