@@ -327,6 +327,14 @@ class Mailgun
     }
 
     /**
+     * @return Api\Attachment
+     */
+    public function attachment()
+    {
+        return new Api\Attachment($this->httpClient, $this->requestBuilder, $this->hydrator);
+    }
+
+    /**
      * @return Api\Domain
      */
     public function domains()
