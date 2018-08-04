@@ -449,7 +449,7 @@ class MessageBuilder
      *
      * @return string
      */
-    private function boolToString($enabled): string
+    private function boolToString($enabled)
     {
         if (filter_var($enabled, FILTER_VALIDATE_BOOLEAN)) {
             $enabled = 'yes';
