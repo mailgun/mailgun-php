@@ -9,6 +9,7 @@
 
 namespace Mailgun\Tests\Messages;
 
+use Http\Client\HttpClient;
 use Mailgun\Connection\RestClient;
 use Mailgun\Tests\Mock\Mailgun;
 
