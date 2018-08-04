@@ -104,6 +104,20 @@ class BatchMessage extends MessageBuilder
         }
         $this->batchRecipientAttributes["$address"] = $variables;
     }
+    
+     /**
+     * @param string     $address
+     * @param array|null $variables
+     * @return mixed
+     */
+    public function addToRecipient($address, $variables = null)
+    {
+        $variables = is_array($variables) ? $variables : [];
+
+        $this->addRecipient('to', $address, $variables);
+
+        return end($this->message['to']);
+    }
 
     /**
      * @param array $message
