@@ -29,9 +29,9 @@ class BatchMessageTest extends \PHPUnit_Framework_TestCase
             ->setMethods(['send', 'sendMime', 'show'])
             ->getMock();
         $messageApi->method('send')
-            ->willReturn(SendResponse::create(['id'=>4711, 'message'=>'Message sent']));
+            ->willReturn(SendResponse::create(['id' => 4711, 'message' => 'Message sent']));
 
-        $this->batchMessage =  $messageApi->getBatchMessage('example.com');
+        $this->batchMessage = $messageApi->getBatchMessage('example.com');
     }
 
     public function testAddRecipient()
@@ -56,7 +56,6 @@ class BatchMessageTest extends \PHPUnit_Framework_TestCase
 
     public function testRecipientVariablesOnTo()
     {
-
         $this->batchMessage->addToRecipient('test@samples.mailgun.org', ['first' => 'Test', 'last' => 'User']);
         $message = NSA::getProperty($this->batchMessage, 'message');
         $this->assertEquals(['to' => ['"Test User" <test@samples.mailgun.org>']], $message);
@@ -68,7 +67,6 @@ class BatchMessageTest extends \PHPUnit_Framework_TestCase
 
     public function testRecipientVariablesOnCc()
     {
-
         $this->batchMessage->addCcRecipient('test@samples.mailgun.org', ['first' => 'Test', 'last' => 'User']);
         $message = NSA::getProperty($this->batchMessage, 'message');
         $this->assertEquals(['cc' => ['"Test User" <test@samples.mailgun.org>']], $message);
@@ -80,7 +78,6 @@ class BatchMessageTest extends \PHPUnit_Framework_TestCase
 
     public function testRecipientVariablesOnBcc()
     {
-
         $this->batchMessage->addBccRecipient('test@samples.mailgun.org', ['first' => 'Test', 'last' => 'User']);
         $message = NSA::getProperty($this->batchMessage, 'message');
         $this->assertEquals(['bcc' => ['"Test User" <test@samples.mailgun.org>']], $message);
@@ -113,7 +110,6 @@ class BatchMessageTest extends \PHPUnit_Framework_TestCase
 
     public function testAttributeResetOnEndBatchMessage()
     {
-
         $this->batchMessage->addToRecipient('test-user@samples.mailgun.org', ['first' => 'Test', 'last' => 'User']);
         $this->batchMessage->setFromAddress('samples@mailgun.org', ['first' => 'Test', 'last' => 'User']);
         $this->batchMessage->setSubject('This is the subject of the message!');
