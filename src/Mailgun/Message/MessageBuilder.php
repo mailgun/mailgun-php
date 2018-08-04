@@ -102,7 +102,7 @@ class MessageBuilder
     protected function parseAddress($address, array $variables)
     {
         $fullName = $this->getFullName($variables);
-        if (null !== $fullName) {
+        if (!empty($fullName)) {
             return sprintf('"%s" <%s>', $fullName, $address);
         }
 

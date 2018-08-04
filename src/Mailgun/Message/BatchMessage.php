@@ -88,7 +88,7 @@ class BatchMessage extends MessageBuilder
         parent::addRecipient($headerName, $address, $variables);
 
         if (array_key_exists($headerName, $this->counters['recipients']) && !array_key_exists('id', $variables)) {
-            $variables['id'] = $this->counters['recipients'][$headerName];
+            $variables['id'] = $headerName.'_'.$this->counters['recipients'][$headerName];
         }
 
         $this->batchRecipientAttributes[(string) $address] = $variables;
