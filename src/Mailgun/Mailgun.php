@@ -107,9 +107,11 @@ class Mailgun
      *
      * @return Mailgun
      */
-    public static function create($apiKey)
+    public static function create($apiKey, $endpoint = 'https://api.mailgun.net')
     {
-        $httpClientConfigurator = (new HttpClientConfigurator())->setApiKey($apiKey);
+        $httpClientConfigurator = (new HttpClientConfigurator())
+            ->setApiKey($apiKey)
+            ->setEndpoint($endpoint);
 
         return self::configure($httpClientConfigurator);
     }
