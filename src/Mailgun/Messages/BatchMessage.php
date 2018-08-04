@@ -18,6 +18,7 @@ use Mailgun\Messages\Exceptions\TooManyParameters;
  * This class is used for batch sending. See the official documentation (link below)
  * for usage instructions.
  *
+ * @deprecated Will be removed in 3.0. Use Mailgun\Message\BatchMessage
  * @see https://github.com/mailgun/mailgun-php/blob/master/src/Mailgun/Messages/README.md
  */
 class BatchMessage extends MessageBuilder
