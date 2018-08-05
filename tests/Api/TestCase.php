@@ -66,6 +66,9 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
 
     abstract protected function getApiClass();
 
+    /**
+     * This will give you a mocked API. Optionally you can provide mocked dependencies.
+     */
     protected function getApiMock($httpClient = null, $requestClient = null, $hydrator = null)
     {
         if (null === $httpClient) {
@@ -73,26 +76,54 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
                 ->setMethods(['sendRequest'])
                 ->getMock();
             $httpClient
-                ->method('sendRequest')
-                ->willReturn(null === $this->httpResponse ? new Response() : $this->httpResponse);
+                ->expects($this->any())
+                ->method('sendRequest');
         }
-
         if (null === $requestClient) {
             $requestClient = $this->getMockBuilder('Mailgun\RequestBuilder')
                 ->setMethods(['create'])
                 ->getMock();
-            $requestClient->method('create')
-                ->with(
-                    $this->callback([$this, 'validateRequestMethod']),
-                    $this->callback([$this, 'validateRequestUri']),
-                    $this->callback([$this, 'validateRequestHeaders']),
-                    $this->callback([$this, 'validateRequestBody'])
-                )
-                ->willReturn(new Request('GET', '/'));
         }
+        if (null === $hydrator) {
+            $hydrator = $this->getMockBuilder('Mailgun\Hydrator\Hydrator')
+                ->setMethods(['hydrate'])
+                ->getMock();
+        }
+        return $this->getMockBuilder($this->getApiClass())
+            ->setMethods(['httpGet', 'httpPost', 'httpPostRaw', 'httpDelete', 'httpPut'])
+            ->setConstructorArgs([$httpClient, $requestClient, $hydrator])
+            ->getMock();
+    }
+
+    /**
+     * This will return you a real API instance with mocked dependencies.
+     * This will make use of the "setHydratedResponse" and "setRequestMethod" etc..
+     */
+    protected function getApiInstance()
+    {
+
+        $httpClient = $this->getMockBuilder('Http\Client\HttpClient')
+            ->setMethods(['sendRequest'])
+            ->getMock();
+        $httpClient
+            ->method('sendRequest')
+            ->willReturn(null === $this->httpResponse ? new Response() : $this->httpResponse);
+
+        $requestClient = $this->getMockBuilder('Mailgun\RequestBuilder')
+            ->setMethods(['create'])
+            ->getMock();
+        $requestClient->method('create')
+            ->with(
+                $this->callback([$this, 'validateRequestMethod']),
+                $this->callback([$this, 'validateRequestUri']),
+                $this->callback([$this, 'validateRequestHeaders']),
+                $this->callback([$this, 'validateRequestBody'])
+            )
+            ->willReturn(new Request('GET', '/'));
+
 
         $hydrator = new ModelHydrator();
-        if (null === $hydrator && null === $this->httpResponse) {
+        if (null === $this->httpResponse) {
             $hydrator = $this->getMockBuilder('Mailgun\Hydrator\Hydrator')
                 ->setMethods(['hydrate'])
                 ->getMock();
@@ -227,7 +258,7 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
             return true;
         }
 
-        return is_callable($property) ? ($property)($value) : $value === $property;
+        return is_callable($property) ? call_user_func($property, $value) : $value === $property;
     }
 
     /**
