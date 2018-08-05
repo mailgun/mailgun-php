@@ -11,6 +11,7 @@ namespace Mailgun\Tests\Api;
 
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
+use Mailgun\Hydrator\ModelHydrator;
 use Mailgun\Mailgun;
 use Mailgun\Model\ApiResponse;
 use Psr\Http\Message\ResponseInterface;
@@ -86,6 +87,7 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
                 ->willReturn(new Request('GET', '/'));
         }
 
+        $hydrator = new ModelHydrator();
         if (null === $hydrator && null === $this->httpResponse) {
             $hydrator = $this->getMockBuilder('Mailgun\Hydrator\Hydrator')
                 ->setMethods(['hydrate'])
@@ -112,26 +114,24 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
 
     public function validateRequestMethod($method)
     {
-        return $this->requestMethod === null || $method === $this->requestMethod;
+        return $this->veriyProperty($this->requestMethod, $method);
     }
 
     public function validateRequestUri($uri)
     {
-        return $this->requestUri === null || $uri === $this->requestUri;
+        return $this->veriyProperty($this->requestUri, $uri);
     }
 
     public function validateRequestHeaders($headers)
     {
-        if (null === $this->requestHeaders) {
-            return true;
-        }
+        return $this->veriyProperty($this->requestHeaders, $headers);
 
-        return $this->requestHeaders == $headers;
     }
 
     public function validateRequestBody($body)
     {
-        return $this->requestMethod === null || $body === $this->requestBody;
+        return $this->veriyProperty($this->requestBody, $body);
+
     }
 
     protected function getMailgunClient()
@@ -210,5 +210,35 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
         $this->hydrateClass = $hydrateClass;
     }
 
+    /**
+     * @param mixed|callable $property Example $this->requestMethod
+     * @param mixed $value The actual value from the user.
+     * @return bool
+     */
+    private function veriyProperty($property, $value)
+    {
+        if ($property === null) {
+            return true;
+        }
 
+        return is_callable($property) ? ($property)($value) : $value === $property;
+    }
+
+
+    /**
+     * Make sure expectException always exists, even on PHPUnit 4
+     * @param string      $exception
+     * @param string|null $message
+     */
+    public function expectException($exception, $message = null)
+    {
+        if (method_exists($this, 'setExpectedException')) {
+            $this->setExpectedException($exception, $message);
+        } else {
+            parent::expectException($exception);
+            if (null !== $message) {
+                $this->expectExceptionMessage($message);
+            }
+        }
+    }
 }
