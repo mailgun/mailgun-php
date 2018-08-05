@@ -11,7 +11,6 @@ namespace Mailgun\Tests\Api;
 
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
-use Mailgun\Api\Webhook;
 use Mailgun\Hydrator\ModelHydrator;
 use Mailgun\Mailgun;
 use Psr\Http\Message\ResponseInterface;
@@ -145,7 +144,7 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
 
         $class = $this->getApiClass();
 
-        if ($apiKey !== null) {
+        if (null !== $apiKey) {
             return new $class($httpClient, $requestClient, $hydrator, $apiKey);
         }
 
@@ -182,7 +181,7 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
 
         // Check every item in body.
         foreach ($body as $item) {
-            if ($this->requestBody[$item['name']] === 'resource' && is_resource($item['content'])) {
+            if ('resource' === $this->requestBody[$item['name']] && is_resource($item['content'])) {
                 continue;
             }
             if ($this->requestBody[$item['name']] !== $item['content']) {
@@ -191,7 +190,6 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
         }
 
         return true;
-
     }
 
     protected function getMailgunClient()

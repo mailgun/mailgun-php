@@ -12,8 +12,6 @@ namespace Mailgun\Tests\Api;
 use Mailgun\Api\Suppression;
 
 /**
- *
- *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
 class SuppressionTest extends TestCase

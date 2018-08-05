@@ -9,18 +9,13 @@
 
 namespace Mailgun\Tests\Api;
 
-
-
 use Mailgun\Api\Suppression\Unsubscribe;
 use Mailgun\Model\Suppression\Unsubscribe\CreateResponse;
 use Mailgun\Model\Suppression\Unsubscribe\DeleteResponse;
 use Mailgun\Model\Suppression\Unsubscribe\IndexResponse;
 use Mailgun\Model\Suppression\Unsubscribe\ShowResponse;
 
-
 /**
- *
- *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
 class UnsubscribeTest extends TestCase
@@ -57,7 +52,6 @@ class UnsubscribeTest extends TestCase
         $api = $this->getApiInstance();
         $api->create('example.com', 'foo@bar.com');
     }
-
 
     public function testDelete()
     {
