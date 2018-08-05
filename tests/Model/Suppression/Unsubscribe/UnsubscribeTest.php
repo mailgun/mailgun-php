@@ -11,7 +11,6 @@ namespace Mailgun\Tests\Model\Suppression\Unsubscribe;
 
 use Mailgun\Model\Suppression\Unsubscribe\Unsubscribe;
 use Mailgun\Tests\Model\BaseModelTest;
-use PHPUnit_Framework_TestCase;
 
 class UnsubscribeTest extends BaseModelTest
 {

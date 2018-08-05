@@ -2,12 +2,16 @@
 
 declare(strict_types=1);
 
+/*
+ * Copyright (C) 2013 Mailgun
+ *
+ * This software may be modified and distributed under the terms
+ * of the MIT license. See the LICENSE file for details.
+ */
+
 namespace Mailgun\Tests\Model\Domain;
 
-use Mailgun\Model\Domain\ConnectionResponse;
-use Mailgun\Model\Domain\CreateCredentialResponse;
 use Mailgun\Model\Domain\CreateResponse;
-use Mailgun\Model\Domain\CredentialResponse;
 use Mailgun\Tests\Model\BaseModelTest;
 
 class CreateResponseTest extends BaseModelTest
@@ -15,7 +19,7 @@ class CreateResponseTest extends BaseModelTest
     public function testCreate()
     {
         $json =
-<<<JSON
+<<<'JSON'
 {
   "domain": {
     "name": "example.com",
