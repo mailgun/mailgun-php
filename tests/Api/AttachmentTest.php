@@ -1,0 +1,41 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Mailgun\tests\Api;
+
+use Mailgun\Api\Attachment;
+use Mailgun\Model\AttachmentResponse;
+
+class AttachmentTest extends TestCase
+{
+    protected function getApiClass()
+    {
+        return Attachment::class;
+    }
+
+    public function testShow()
+    {
+        $uri = 'https://api.mailgun.org/v2/domains/mydomain.com/messages/WyJhOTM2NDk1ODA3Iiw/attachments/0';
+        $this->setRequestMethod('GET');
+        $this->setHydratedClass(AttachmentResponse::class);
+        $this->setRequestUri($uri);
+
+        $api = $this->getApiInstance();
+        $api->show($uri);
+    }
+
+    public function testShowWrongUri()
+    {
+        $api = $this->getApiInstance();
+        $this->expectException(InvalidArgumentException::class);
+        $api->show('https://api.mailgun.org/v2/domains/mydomain.com');
+    }
+
+    public function testShowNonMailgunUri()
+    {
+        $api = $this->getApiInstance();
+        $this->expectException(InvalidArgumentException::class);
+        $api->show('https://example.com/v2/domains/mailgun.net?x=attachments/0');
+    }
+}
