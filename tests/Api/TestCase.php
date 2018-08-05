@@ -89,6 +89,7 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
                 ->setMethods(['hydrate'])
                 ->getMock();
         }
+
         return $this->getMockBuilder($this->getApiClass())
             ->setMethods(['httpGet', 'httpPost', 'httpPostRaw', 'httpDelete', 'httpPut'])
             ->setConstructorArgs([$httpClient, $requestClient, $hydrator])
@@ -101,7 +102,6 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
      */
     protected function getApiInstance()
     {
-
         $httpClient = $this->getMockBuilder('Http\Client\HttpClient')
             ->setMethods(['sendRequest'])
             ->getMock();
@@ -120,7 +120,6 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
                 $this->callback([$this, 'validateRequestBody'])
             )
             ->willReturn(new Request('GET', '/'));
-
 
         $hydrator = new ModelHydrator();
         if (null === $this->httpResponse) {
@@ -150,22 +149,41 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
 
     public function validateRequestMethod($method)
     {
-        return $this->veriyProperty($this->requestMethod, $method);
+        return $this->verifyProperty($this->requestMethod, $method);
     }
 
     public function validateRequestUri($uri)
     {
-        return $this->veriyProperty($this->requestUri, $uri);
+        return $this->verifyProperty($this->requestUri, $uri);
     }
 
     public function validateRequestHeaders($headers)
     {
-        return $this->veriyProperty($this->requestHeaders, $headers);
+        return $this->verifyProperty($this->requestHeaders, $headers);
     }
 
     public function validateRequestBody($body)
     {
-        return $this->veriyProperty($this->requestBody, $body);
+        if ($this->verifyProperty($this->requestBody, $body)) {
+            return true;
+        }
+
+        // Assert: $body is prepared for a "multipart stream".
+
+        // Check length
+        if (count($this->requestBody) !== count($body)) {
+            return false;
+        }
+
+        // Check every item in body.
+        foreach ($body as $item) {
+            if ($this->requestBody[$item['name']] !== $item['content']) {
+                return false;
+            }
+        }
+
+        return true;
+
     }
 
     protected function getMailgunClient()
@@ -252,7 +270,7 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
      *
      * @return bool
      */
-    private function veriyProperty($property, $value)
+    private function verifyProperty($property, $value)
     {
         if (null === $property) {
             return true;
