@@ -11,7 +11,6 @@ namespace Mailgun\Api;
 
 use Mailgun\Assert;
 use Mailgun\Model\AttachmentResponse;
-use Mailgun\Model\Event\EventResponse;
 
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>

@@ -12,7 +12,7 @@ namespace Mailgun\Model;
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
-class AttachmentResponse implements ApiResponse
+class Attachment implements ApiResponse
 {
     private $data;
 
@@ -28,5 +28,4 @@ class AttachmentResponse implements ApiResponse
     {
         return $this->data;
     }
-
 }
