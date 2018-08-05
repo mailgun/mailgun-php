@@ -13,7 +13,6 @@ use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use Mailgun\Hydrator\ModelHydrator;
 use Mailgun\Mailgun;
-use Mailgun\Model\ApiResponse;
 use Psr\Http\Message\ResponseInterface;
 
 /**
@@ -44,12 +43,17 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
     protected $testDomain;
 
     private $requestMethod;
+
     private $requestUri;
+
     private $requestHeaders;
+
     private $requestBody;
 
     private $httpResponse;
+
     private $hydratedResponse;
+
     private $hydrateClass;
 
     protected function setUp()
@@ -70,7 +74,7 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
                 ->getMock();
             $httpClient
                 ->method('sendRequest')
-                ->willReturn($this->httpResponse === null ? new Response() : $this->httpResponse);
+                ->willReturn(null === $this->httpResponse ? new Response() : $this->httpResponse);
         }
 
         if (null === $requestClient) {
@@ -100,7 +104,7 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
                         return $response instanceof ResponseInterface;
                     }),
                     $this->callback(function ($class) use ($hydratorModelClass) {
-                        return $hydratorModelClass === null || $class === $hydratorModelClass;
+                        return null === $hydratorModelClass || $class === $hydratorModelClass;
                     }));
 
             if (null !== $this->hydratedResponse) {
@@ -109,6 +113,7 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
         }
 
         $class = $this->getApiClass();
+
         return new $class($httpClient, $requestClient, $hydrator);
     }
 
@@ -125,13 +130,11 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
     public function validateRequestHeaders($headers)
     {
         return $this->veriyProperty($this->requestHeaders, $headers);
-
     }
 
     public function validateRequestBody($body)
     {
         return $this->veriyProperty($this->requestBody, $body);
-
     }
 
     protected function getMailgunClient()
@@ -169,7 +172,8 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Set request http method
+     * Set request http method.
+     *
      * @param string $httpMethod
      */
     public function setRequestMethod($httpMethod)
@@ -202,7 +206,8 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * The class we should hydrate to
+     * The class we should hydrate to.
+     *
      * @param string $hydrateClass
      */
     public function setHydrateClass($hydrateClass)
@@ -212,21 +217,22 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
 
     /**
      * @param mixed|callable $property Example $this->requestMethod
-     * @param mixed $value The actual value from the user.
+     * @param mixed          $value    The actual value from the user.
+     *
      * @return bool
      */
     private function veriyProperty($property, $value)
     {
-        if ($property === null) {
+        if (null === $property) {
             return true;
         }
 
         return is_callable($property) ? ($property)($value) : $value === $property;
     }
 
-
     /**
-     * Make sure expectException always exists, even on PHPUnit 4
+     * Make sure expectException always exists, even on PHPUnit 4.
+     *
      * @param string      $exception
      * @param string|null $message
      */
