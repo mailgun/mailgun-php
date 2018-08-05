@@ -177,6 +177,9 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
 
         // Check every item in body.
         foreach ($body as $item) {
+            if ($this->requestBody[$item['name']] === 'resource' && is_resource($item['content'])) {
+                continue;
+            }
             if ($this->requestBody[$item['name']] !== $item['content']) {
                 return false;
             }

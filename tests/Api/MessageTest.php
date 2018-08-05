@@ -11,12 +11,40 @@ namespace Mailgun\Tests\Api;
 
 use GuzzleHttp\Psr7\Response;
 use Mailgun\Api\Message;
+use Mailgun\Model\Message\SendResponse;
+use Mailgun\Model\Message\ShowResponse;
 
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
 class MessageTest extends TestCase
 {
+    public function testSend()
+    {
+        $this->setRequestMethod('POST');
+        $this->setRequestUri('/v3/example.com/messages');
+        $this->setHydrateClass(SendResponse::class);
+        $this->setRequestBody([
+            'from'    => 'bob@example.com',
+            'to'      => 'sally@example.com',
+            'subject' => 'Test file path attachments',
+            'text'    => 'Test',
+            'attachment' => 'resource',
+        ]);
+
+        $api = $this->getApiInstance();
+        $api->send('example.com', [
+            'from'    => 'bob@example.com',
+            'to'      => 'sally@example.com',
+            'subject' => 'Test file path attachments',
+            'text'    => 'Test',
+            'attachment' => [
+                ['filePath'=>__DIR__.'/../TestAssets/mailgun_icon1.png', 'filename'=>'mailgun_icon1.png'],
+            ]
+        ]);
+
+    }
+
     public function testSendMime()
     {
         $api = $this->getApiMock();
@@ -59,6 +87,29 @@ class MessageTest extends TestCase
             ->willReturn(new Response());
 
         $api->sendMime('foo', ['mailbox@myapp.com'], 'mime message', ['o:Foo' => 'bar']);
+    }
+
+    public function testShow()
+    {
+        $this->setRequestMethod('GET');
+        $this->setRequestUri('url');
+        $this->setHydrateClass(ShowResponse::class);
+
+        $api = $this->getApiInstance();
+        $api->show('url');
+    }
+
+    public function testShowRaw()
+    {
+        $this->setRequestMethod('GET');
+        $this->setRequestUri('url');
+        $this->setRequestHeaders([
+            'Accept' => 'message/rfc2822'
+        ]);
+        $this->setHydrateClass(ShowResponse::class);
+
+        $api = $this->getApiInstance();
+        $api->show('url', true);
     }
 
     /**
