@@ -11,12 +11,7 @@ declare(strict_types=1);
 
 namespace Mailgun\Tests\Model\Domain;
 
-use Mailgun\Model\Domain\CreateResponse;
-use Mailgun\Model\Domain\DeleteCredentialResponse;
-use Mailgun\Model\Domain\DeleteResponse;
-use Mailgun\Model\Domain\DnsRecord;
 use Mailgun\Model\Domain\Domain;
-use Mailgun\Model\Domain\IndexResponse;
 use Mailgun\Model\Domain\ShowResponse;
 use Mailgun\Tests\Model\BaseModelTest;
 
