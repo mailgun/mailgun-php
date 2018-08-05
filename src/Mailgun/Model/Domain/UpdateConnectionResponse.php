@@ -39,8 +39,8 @@ final class UpdateConnectionResponse implements ApiResponse
     public static function create(array $data)
     {
         $message = isset($data['message']) ? $data['message'] : null;
-        $noVerify = isset($data['skip_verification']) ? $data['skip_verification'] : null;
-        $requireTLS = isset($data['require_tls']) ? $data['require_tls'] : null;
+        $noVerify = isset($data['skip-verification']) ? $data['skip-verification'] : null;
+        $requireTLS = isset($data['require-tls']) ? $data['require-tls'] : null;
 
         return new self($message, $noVerify, $requireTLS);
     }
