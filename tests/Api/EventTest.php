@@ -72,7 +72,7 @@ class EventTest extends TestCase
 JSON
 ));
 
-        $api = $this->getApiMock();
+        $api = $this->getApiInstance();
         $event = $api->get('example.com');
         $this->assertInstanceOf(EventResponse::class, $event);
         $this->assertCount(1, $event->getItems());
