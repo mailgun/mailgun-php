@@ -52,7 +52,6 @@ class RouteTest extends TestCase
         $api->create('catch_all()', ['forward("mailbox@myapp.com")'], 'example', 100);
     }
 
-
     public function testUpdate()
     {
         $this->setRequestMethod('PUT');

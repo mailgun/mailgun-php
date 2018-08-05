@@ -11,8 +11,6 @@ namespace Mailgun\Tests\Api;
 
 use GuzzleHttp\Psr7\Response;
 use Mailgun\Api\Domain;
-use Mailgun\Api\Event;
-use Mailgun\Exception\InvalidArgumentException;
 use Mailgun\Model\Domain\ConnectionResponse;
 use Mailgun\Model\Domain\CreateCredentialResponse;
 use Mailgun\Model\Domain\CreateResponse;
@@ -23,7 +21,6 @@ use Mailgun\Model\Domain\ShowResponse;
 use Mailgun\Model\Domain\UpdateConnectionResponse;
 use Mailgun\Model\Domain\UpdateCredentialResponse;
 use Mailgun\Model\Domain\VerifyResponse;
-use Mailgun\Model\Event\EventResponse;
 
 class DomainTest extends TestCase
 {
@@ -77,7 +74,7 @@ JSON
         $this->setRequestMethod('POST');
         $this->setRequestUri('/v3/domains');
         $this->setRequestBody([
-            'name'=>'example.com'
+            'name' => 'example.com',
         ]);
         $this->setHydrateClass(CreateResponse::class);
 
@@ -90,9 +87,9 @@ JSON
         $this->setRequestMethod('POST');
         $this->setRequestUri('/v3/domains');
         $this->setRequestBody([
-            'name'=>'example.com',
-            'smtp_password'=>'foo',
-            'spam_action'=>'bar',
+            'name' => 'example.com',
+            'smtp_password' => 'foo',
+            'spam_action' => 'bar',
         ]);
         $this->setHydrateClass(CreateResponse::class);
 
@@ -136,6 +133,7 @@ JSON
         $api = $this->getApiInstance();
         $api->updateCredential('example.com', 'foo', 'barbar');
     }
+
     public function testDeleteCredential()
     {
         $this->setRequestMethod('DELETE');
@@ -167,9 +165,8 @@ JSON
         $this->setHydrateClass(UpdateConnectionResponse::class);
 
         $api = $this->getApiInstance();
-        $api->updateConnection('example.com', true , false);
+        $api->updateConnection('example.com', true, false);
     }
-
 
     public function testVerify()
     {
@@ -180,6 +177,4 @@ JSON
         $api = $this->getApiInstance();
         $api->verify('example.com');
     }
-
-
 }

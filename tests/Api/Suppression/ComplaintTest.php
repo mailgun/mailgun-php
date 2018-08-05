@@ -9,18 +9,13 @@
 
 namespace Mailgun\Tests\Api;
 
-
-
 use Mailgun\Api\Suppression\Complaint;
 use Mailgun\Model\Suppression\Complaint\CreateResponse;
 use Mailgun\Model\Suppression\Complaint\DeleteResponse;
 use Mailgun\Model\Suppression\Complaint\IndexResponse;
 use Mailgun\Model\Suppression\Complaint\ShowResponse;
 
-
 /**
- *
- *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
 class ComplaintTest extends TestCase
@@ -57,7 +52,6 @@ class ComplaintTest extends TestCase
         $api = $this->getApiInstance();
         $api->create('example.com', 'foo@bar.com');
     }
-
 
     public function testDelete()
     {

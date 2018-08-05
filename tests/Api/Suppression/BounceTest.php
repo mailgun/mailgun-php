@@ -9,18 +9,13 @@
 
 namespace Mailgun\Tests\Api;
 
-
-
 use Mailgun\Api\Suppression\Bounce;
 use Mailgun\Model\Suppression\Bounce\CreateResponse;
 use Mailgun\Model\Suppression\Bounce\DeleteResponse;
 use Mailgun\Model\Suppression\Bounce\IndexResponse;
 use Mailgun\Model\Suppression\Bounce\ShowResponse;
 
-
 /**
- *
- *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
 class BounceTest extends TestCase
@@ -52,13 +47,12 @@ class BounceTest extends TestCase
         $this->setHydrateClass(CreateResponse::class);
         $this->setRequestBody([
             'address' => 'foo@bar.com',
-            'foo'=>'xxx',
+            'foo' => 'xxx',
         ]);
 
         $api = $this->getApiInstance();
-        $api->create('example.com', 'foo@bar.com', ['foo'=>'xxx']);
+        $api->create('example.com', 'foo@bar.com', ['foo' => 'xxx']);
     }
-
 
     public function testDelete()
     {

@@ -16,7 +16,6 @@ use Mailgun\Model\Webhook\CreateResponse;
 use Mailgun\Model\Webhook\DeleteResponse;
 use Mailgun\Model\Webhook\UpdateResponse;
 
-
 class WebhookTest extends TestCase
 {
     protected function getApiClass()
@@ -28,9 +27,9 @@ class WebhookTest extends TestCase
     {
         $api = $this->getApiInstance('key-3ax6xnjp29jd6fds4gc373sgvjxteol0');
 
-            $timestamp = '1403645220';
-            $token = '5egbgr1vjgqxtrnp65xfznchgdccwh5d6i09vijqi3whgowmn6';
-            $signature = '9cfc5c41582e51246e73c88d34db3af0a3a2692a76fbab81492842f000256d33';
+        $timestamp = '1403645220';
+        $token = '5egbgr1vjgqxtrnp65xfznchgdccwh5d6i09vijqi3whgowmn6';
+        $signature = '9cfc5c41582e51246e73c88d34db3af0a3a2692a76fbab81492842f000256d33';
 
         $this->assertTrue($api->verifyWebhookSignature($timestamp, $token, $signature));
     }
@@ -38,9 +37,9 @@ class WebhookTest extends TestCase
     public function testVerifyWebhookBad()
     {
         $api = $this->getApiInstance('key-3ax6xnjp29jd6fds4gc373sgvjxteol0');
-            $timestamp = '1403645220';
-            $token = 'owyldpe6nxhmrn78epljl6bj0orrki1u3d2v5e6cnlmmuox8jr';
-            $signature = '9cfc5c41582e51246e73c88d34db3af0a3a2692a76fbab81492842f000256d33';
+        $timestamp = '1403645220';
+        $token = 'owyldpe6nxhmrn78epljl6bj0orrki1u3d2v5e6cnlmmuox8jr';
+        $signature = '9cfc5c41582e51246e73c88d34db3af0a3a2692a76fbab81492842f000256d33';
 
         $this->assertFalse($api->verifyWebhookSignature($timestamp, $token, $signature));
     }
@@ -79,7 +78,7 @@ class WebhookTest extends TestCase
         $this->setHydrateClass(CreateResponse::class);
         $this->setRequestBody([
             'id' => '4711',
-            'url'=>'url',
+            'url' => 'url',
         ]);
 
         $api = $this->getApiInstance('key');
@@ -92,13 +91,12 @@ class WebhookTest extends TestCase
         $this->setRequestUri('/v3/domains/example.com/webhooks/4711');
         $this->setHydrateClass(UpdateResponse::class);
         $this->setRequestBody([
-            'url'=>'url',
+            'url' => 'url',
         ]);
 
         $api = $this->getApiInstance('key');
         $api->update('example.com', '4711', 'url');
     }
-
 
     public function testDelete()
     {

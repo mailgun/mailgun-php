@@ -25,24 +25,23 @@ class MessageTest extends TestCase
         $this->setRequestUri('/v3/example.com/messages');
         $this->setHydrateClass(SendResponse::class);
         $this->setRequestBody([
-            'from'    => 'bob@example.com',
-            'to'      => 'sally@example.com',
+            'from' => 'bob@example.com',
+            'to' => 'sally@example.com',
             'subject' => 'Test file path attachments',
-            'text'    => 'Test',
+            'text' => 'Test',
             'attachment' => 'resource',
         ]);
 
         $api = $this->getApiInstance();
         $api->send('example.com', [
-            'from'    => 'bob@example.com',
-            'to'      => 'sally@example.com',
+            'from' => 'bob@example.com',
+            'to' => 'sally@example.com',
             'subject' => 'Test file path attachments',
-            'text'    => 'Test',
+            'text' => 'Test',
             'attachment' => [
-                ['filePath'=>__DIR__.'/../TestAssets/mailgun_icon1.png', 'filename'=>'mailgun_icon1.png'],
-            ]
+                ['filePath' => __DIR__.'/../TestAssets/mailgun_icon1.png', 'filename' => 'mailgun_icon1.png'],
+            ],
         ]);
-
     }
 
     public function testSendMime()
@@ -104,7 +103,7 @@ class MessageTest extends TestCase
         $this->setRequestMethod('GET');
         $this->setRequestUri('url');
         $this->setRequestHeaders([
-            'Accept' => 'message/rfc2822'
+            'Accept' => 'message/rfc2822',
         ]);
         $this->setHydrateClass(ShowResponse::class);
 
