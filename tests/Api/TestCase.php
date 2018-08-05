@@ -11,6 +11,7 @@ namespace Mailgun\Tests\Api;
 
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
+use Mailgun\Api\Webhook;
 use Mailgun\Hydrator\ModelHydrator;
 use Mailgun\Mailgun;
 use Psr\Http\Message\ResponseInterface;
@@ -100,7 +101,7 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
      * This will return you a real API instance with mocked dependencies.
      * This will make use of the "setHydratedResponse" and "setRequestMethod" etc..
      */
-    protected function getApiInstance()
+    protected function getApiInstance($apiKey = null)
     {
         $httpClient = $this->getMockBuilder('Http\Client\HttpClient')
             ->setMethods(['sendRequest'])
@@ -143,6 +144,10 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
         }
 
         $class = $this->getApiClass();
+
+        if ($apiKey !== null) {
+            return new $class($httpClient, $requestClient, $hydrator, $apiKey);
+        }
 
         return new $class($httpClient, $requestClient, $hydrator);
     }
