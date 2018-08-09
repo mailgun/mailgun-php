@@ -10,7 +10,7 @@
 namespace Mailgun\Api;
 
 use Mailgun\Assert;
-use Mailgun\Model\AttachmentResponse;
+use Mailgun\Model\Attachment\Attachment as Model;
 
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
@@ -20,7 +20,7 @@ class Attachment extends HttpApi
     /**
      * @param string $url
      *
-     * @return AttachmentResponse
+     * @return Model
      */
     public function show($url)
     {
@@ -30,6 +30,6 @@ class Attachment extends HttpApi
 
         $response = $this->httpGet($url);
 
-        return $this->hydrateResponse($response, AttachmentResponse::class);
+        return $this->hydrateResponse($response, Model::class);
     }
 }

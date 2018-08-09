@@ -10,7 +10,8 @@
 namespace Mailgun\Tests\Api;
 
 use Mailgun\Api\Attachment;
-use Mailgun\Model\AttachmentResponse;
+use Mailgun\Exception\InvalidArgumentException;
+use Mailgun\Model\Attachment\Attachment as Model;
 
 class AttachmentTest extends TestCase
 {
@@ -23,7 +24,7 @@ class AttachmentTest extends TestCase
     {
         $uri = 'https://api.mailgun.org/v2/domains/mydomain.com/messages/WyJhOTM2NDk1ODA3Iiw/attachments/0';
         $this->setRequestMethod('GET');
-        $this->setHydratedClass(AttachmentResponse::class);
+        $this->setHydrateClass(Model::class);
         $this->setRequestUri($uri);
 
         $api = $this->getApiInstance();

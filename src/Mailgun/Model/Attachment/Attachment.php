@@ -7,7 +7,9 @@
  * of the MIT license. See the LICENSE file for details.
  */
 
-namespace Mailgun\Model;
+namespace Mailgun\Model\Attachment;
+
+use Mailgun\Model\ApiResponse;
 
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
