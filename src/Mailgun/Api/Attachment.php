@@ -25,8 +25,8 @@ class Attachment extends HttpApi
     public function show($url)
     {
         Assert::stringNotEmpty($url);
-        Assert::regex('|https://.*mailgun\.net/v.+|', $url);
-        Assert::regex('|/attachments/[0-9]+|', $url);
+        Assert::regex($url, '@https://.*mailgun\.(net|org)/v.+@');
+        Assert::regex($url, '|/attachments/[0-9]+|');
 
         $response = $this->httpGet($url);
 
