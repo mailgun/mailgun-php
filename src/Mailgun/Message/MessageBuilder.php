@@ -190,7 +190,7 @@ class MessageBuilder
      *
      * @throws TooManyRecipients
      */
-    public function addBccRecipient($address, array $variables)
+    public function addBccRecipient($address, array $variables = [])
     {
         if ($this->counters['recipients']['bcc'] > self::RECIPIENT_COUNT_LIMIT) {
             throw TooManyRecipients::create('bcc');
