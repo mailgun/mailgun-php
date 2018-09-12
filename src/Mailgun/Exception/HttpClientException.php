@@ -56,9 +56,11 @@ final class HttpClientException extends \RuntimeException implements Exception
     public static function badRequest(ResponseInterface $response = null)
     {
         // Pass along message from server to aid resolving input problems.
-        $content = json_decode($response->getBody()->getContents(), true);
-        $message = !empty($content['message'])
-            ? $content['message']
+        // Create temporary exception to reuse constructor's parsing.
+        $scratch_exception = new self(null, -1, $response);
+        $message = !empty($scratch_exception->getResponseBody()['message'])
+            && 0 === strpos($response->getHeaderLine('Content-Type'), 'application/json')
+            ? $scratch_exception->getResponseBody()['message']
             : 'The parameters passed to the API were invalid. Check your inputs!';
 
         return new self($message, 400, $response);
