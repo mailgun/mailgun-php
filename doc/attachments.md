@@ -5,7 +5,7 @@ You may attach a file from memory or by a file path.
 ## From file path
 
 ```php
-$mg->message()->send('example.com', [
+$mg->messages()->send('example.com', [
   'from'    => 'bob@example.com', 
   'to'      => 'sally@example.com', 
   'subject' => 'Test file path attachments', 
@@ -21,7 +21,7 @@ $mg->message()->send('example.com', [
 // Some how load the file to memory
 $binaryFile = '[Binary data]';
 
-$mg->message()->send('example.com', [
+$mg->messages()->send('example.com', [
   'from'    => 'bob@example.com', 
   'to'      => 'sally@example.com', 
   'subject' => 'Test memory attachments', 
@@ -35,7 +35,7 @@ $mg->message()->send('example.com', [
 ## Inline attachments
 
 ```php
-$mg->message()->send('example.com', [
+$mg->messages()->send('example.com', [
   'from'    => 'bob@example.com', 
   'to'      => 'sally@example.com', 
   'subject' => 'Test inline attachments', 
