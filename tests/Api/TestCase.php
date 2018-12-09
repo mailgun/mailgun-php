@@ -21,27 +21,6 @@ use Psr\Http\Message\ResponseInterface;
  */
 abstract class TestCase extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * Private Mailgun API key.
-     *
-     * @var string
-     */
-    protected $apiPrivKey;
-
-    /**
-     * Public Mailgun API key.
-     *
-     * @var string
-     */
-    protected $apiPubKey;
-
-    /**
-     * Domain used for API testing.
-     *
-     * @var string
-     */
-    protected $testDomain;
-
     private $requestMethod;
 
     private $requestUri;
@@ -58,9 +37,6 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->apiPrivKey = getenv('MAILGUN_PRIV_KEY');
-        $this->apiPubKey = getenv('MAILGUN_PUB_KEY');
-        $this->testDomain = getenv('MAILGUN_DOMAIN');
         $this->reset();
     }
 
@@ -190,11 +166,6 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
         }
 
         return true;
-    }
-
-    protected function getMailgunClient()
-    {
-        return Mailgun::create($this->apiPrivKey);
     }
 
     protected function reset()

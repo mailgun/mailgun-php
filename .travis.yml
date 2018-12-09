@@ -39,9 +39,3 @@ script:
 after_success:
     - if [[ "$COVERAGE" = true ]]; then wget https://scrutinizer-ci.com/ocular.phar; fi
     - if [[ "$COVERAGE" = true ]]; then php ocular.phar code-coverage:upload --format=php-clover build/coverage.xml; fi
-
-
-notifications:
-  slack:
-    rooms:
-      secure: Xa/LYWGRDOt1Gjw10YTgYmVriSt/MSDOuzqoqQ8OWekJp05C2oRTor8dztEATTM4HQSLrwTa8CTnkFyD8+Z4fbnuvQ0dJ4j5CJYs5AjyirEWwblqS0PIATEEGKffDocsMh4VyMEPSwWXZY319bvG79mUq0E57VmT3y2ROMUuuec=
