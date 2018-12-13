@@ -52,7 +52,7 @@ class Tag
      */
     public static function create(array $data)
     {
-        return new self($data['tag'], $data['description'], $data['first-seen'], $data['last-seen']);
+        return new self($data['tag'], $data['description'], new \DateTime($data['first-seen']), new \DateTime($data['last-seen']));
     }
 
     /**
