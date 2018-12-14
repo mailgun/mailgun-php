@@ -70,4 +70,20 @@ class Tag
     {
         return $this->description;
     }
+
+    /**
+     * @return \DateTime
+     */
+    public function getFirstSeen()
+    {
+        return $this->firstSeen;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getLastSeen()
+    {
+        return $this->lastSeen;
+    }
 }
