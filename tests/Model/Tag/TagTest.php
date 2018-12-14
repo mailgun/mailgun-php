@@ -22,7 +22,7 @@ class TagTest extends BaseModelTest
             'tag' => $expectedTag,
             'description' => $expectedDescription,
             'first-seen' => '2018-12-13T05:00:00Z',
-            'last-seen' => '2018-12-13T12:00:00Z'
+            'last-seen' => '2018-12-13T12:00:00Z',
         ]);
 
         $this->assertInstanceOf(TagModel::class, $tag);
