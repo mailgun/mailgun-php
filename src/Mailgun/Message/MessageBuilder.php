@@ -120,6 +120,8 @@ class MessageBuilder
      *     @var string $first
      *     @var string $last
      * }
+     *
+     * @return MessageBuilder
      */
     protected function addRecipient($headerName, $address, array $variables)
     {
@@ -135,6 +137,8 @@ class MessageBuilder
         if (array_key_exists($headerName, $this->counters['recipients'])) {
             $this->counters['recipients'][$headerName] += 1;
         }
+
+        return $this;
     }
 
     /**
@@ -148,6 +152,8 @@ class MessageBuilder
      * }
      *
      * @throws TooManyRecipients
+     *
+     * @return MessageBuilder
      */
     public function addToRecipient($address, array $variables = [])
     {
@@ -155,6 +161,8 @@ class MessageBuilder
             throw TooManyRecipients::create('to');
         }
         $this->addRecipient('to', $address, $variables);
+
+        return $this;
     }
 
     /**
@@ -168,6 +176,8 @@ class MessageBuilder
      * }
      *
      * @throws TooManyRecipients
+     *
+     * @return MessageBuilder
      */
     public function addCcRecipient($address, array $variables = [])
     {
@@ -176,6 +186,8 @@ class MessageBuilder
         }
 
         $this->addRecipient('cc', $address, $variables);
+
+        return $this;
     }
 
     /**
@@ -189,6 +201,8 @@ class MessageBuilder
      * }
      *
      * @throws TooManyRecipients
+     *
+     * @return MessageBuilder
      */
     public function addBccRecipient($address, array $variables = [])
     {
@@ -197,6 +211,8 @@ class MessageBuilder
         }
 
         $this->addRecipient('bcc', $address, $variables);
+
+        return $this;
     }
 
     /**
@@ -208,10 +224,14 @@ class MessageBuilder
      *     @var string $first
      *     @var string $last
      * }
+     *
+     * @return MessageBuilder
      */
     public function setFromAddress($address, array $variables = [])
     {
         $this->addRecipient('from', $address, $variables);
+
+        return $this;
     }
 
     /**
@@ -223,23 +243,33 @@ class MessageBuilder
      *     @var string $first
      *     @var string $last
      * }
+     *
+     * @return MessageBuilder
      */
     public function setReplyToAddress($address, array $variables = [])
     {
         $this->addRecipient('h:reply-to', $address, $variables);
+
+        return $this;
     }
 
     /**
      * @param string $subject
+     *
+     * @return MessageBuilder
      */
     public function setSubject($subject)
     {
         $this->message['subject'] = $subject;
+
+        return $this;
     }
 
     /**
      * @param string $headerName
      * @param mixed  $headerData
+     *
+     * @return MessageBuilder
      */
     public function addCustomHeader($headerName, $headerData)
     {
@@ -256,29 +286,39 @@ class MessageBuilder
                 $this->message[$headerName] = [$this->message[$headerName], $headerData];
             }
         }
+
+        return $this;
     }
 
     /**
      * @param string $textBody
+     *
+     * @return MessageBuilder
      */
     public function setTextBody($textBody)
     {
         $this->message['text'] = $textBody;
+
+        return $this;
     }
 
     /**
      * @param string $htmlBody
      *
-     * @return string
+     * @return MessageBuilder
      */
     public function setHtmlBody($htmlBody)
     {
         $this->message['html'] = $htmlBody;
+
+        return $this;
     }
 
     /**
      * @param string      $attachmentPath
      * @param string|null $attachmentName
+     *
+     * @return MessageBuilder
      */
     public function addAttachment($attachmentPath, $attachmentName = null)
     {
@@ -290,11 +330,15 @@ class MessageBuilder
             'filePath' => $attachmentPath,
             'remoteName' => $attachmentName,
         ];
+
+        return $this;
     }
 
     /**
      * @param string      $inlineImagePath
      * @param string|null $inlineImageName
+     *
+     * @return MessageBuilder
      */
     public function addInlineImage($inlineImagePath, $inlineImageName = null)
     {
@@ -306,20 +350,28 @@ class MessageBuilder
             'filePath' => $inlineImagePath,
             'remoteName' => $inlineImageName,
         ];
+
+        return $this;
     }
 
     /**
      * @param bool $enabled
+     *
+     * @return MessageBuilder
      */
     public function setTestMode($enabled)
     {
         $this->message['o:testmode'] = $this->boolToString($enabled);
+
+        return $this;
     }
 
     /**
      * @param string $campaignId
      *
      * @throws LimitExceeded
+     *
+     * @return MessageBuilder
      */
     public function addCampaignId($campaignId)
     {
@@ -332,12 +384,16 @@ class MessageBuilder
             $this->message['o:campaign'] = [(string) $campaignId];
         }
         $this->counters['attributes']['campaign_id'] += 1;
+
+        return $this;
     }
 
     /**
      * @param string $tag
      *
      * @throws LimitExceeded
+     *
+     * @return MessageBuilder
      */
     public function addTag($tag)
     {
@@ -351,34 +407,44 @@ class MessageBuilder
             $this->message['o:tag'] = [$tag];
         }
         $this->counters['attributes']['tag'] += 1;
+
+        return $this;
     }
 
     /**
      * @param bool $enabled
+     *
+     * @return MessageBuilder
      */
     public function setDkim($enabled)
     {
         $this->message['o:dkim'] = $this->boolToString($enabled);
+
+        return $this;
     }
 
     /**
      * @param bool $enabled
      *
-     * @return string
+     * @return MessageBuilder
      */
     public function setOpenTracking($enabled)
     {
         $this->message['o:tracking-opens'] = $this->boolToString($enabled);
+
+        return $this;
     }
 
     /**
      * @param bool $enabled
      *
-     * @return string
+     * @return MessageBuilder
      */
     public function setClickTracking($enabled)
     {
         $this->message['o:tracking-clicks'] = $this->boolToString($enabled);
+
+        return $this;
     }
 
     /**
@@ -405,10 +471,14 @@ class MessageBuilder
     /**
      * @param string $customName
      * @param mixed  $data
+     *
+     * @return MessageBuilder
      */
     public function addCustomData($customName, $data)
     {
         $this->message['v:'.$customName] = json_encode($data);
+
+        return $this;
     }
 
     /**
@@ -430,10 +500,14 @@ class MessageBuilder
 
     /**
      * @param array $message
+     *
+     * @return MessageBuilder
      */
     public function setMessage($message)
     {
         $this->message = $message;
+
+        return $this;
     }
 
     /**
