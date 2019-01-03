@@ -452,6 +452,8 @@ class MessageBuilder
      * @param string|null $timeZone
      *
      * @return string
+     *
+     * @deprecated The return value is deprecated. This method will return $this in version 3.0.
      */
     public function setDeliveryTime($timeDate, $timeZone = null)
     {
@@ -486,6 +488,8 @@ class MessageBuilder
      * @param mixed  $data
      *
      * @return mixed
+     *
+     * @deprecated The return value is deprecated. This method will return $this in version 3.0.
      */
     public function addCustomParameter($parameterName, $data)
     {
