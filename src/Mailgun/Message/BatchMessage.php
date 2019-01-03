@@ -98,6 +98,7 @@ class BatchMessage extends MessageBuilder
     }
 
     /**
+     * @throws RuntimeException
      * @throws MissingRequiredParameter
      */
     public function finalize()
