@@ -52,7 +52,7 @@ class Tag
      */
     public static function create(array $data)
     {
-        return new self($data['tag'], $data['description'], $data['first-seen'], $data['last-seen']);
+        return new self($data['tag'], $data['description'], new \DateTime($data['first-seen']), new \DateTime($data['last-seen']));
     }
 
     /**
@@ -69,5 +69,21 @@ class Tag
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getFirstSeen()
+    {
+        return $this->firstSeen;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getLastSeen()
+    {
+        return $this->lastSeen;
     }
 }
