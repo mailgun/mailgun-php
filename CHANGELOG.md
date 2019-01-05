@@ -2,6 +2,25 @@
 
 The change log describes what is "Added", "Removed", "Changed" or "Fixed" between each release. 
 
+## 2.7.0
+
+### Added
+
+- Allow to set the Mailgun server when instantiating the Mailgun's client: `$mailgun = Mailgun::create('key', 'server');`
+- Add new PHPUnit tests for our models
+- Add new PHPUnit tests for our API
+
+## 2.6.0
+
+### Added
+
+- Ported MessageBuilder and BatchMessage #472
+
+### Changed
+
+- Cast campaign IDs to string #460
+- Suggest packages used on Dev #440
+
 ## 2.5.0
 
 ### Added
