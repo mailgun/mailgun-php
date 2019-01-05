@@ -118,7 +118,7 @@ class MessageTest extends TestCase
             ->method('httpPostRaw')
             ->willReturn(new Response());
 
-        $message = str_repeat('a', PHP_MAXPATHLEN). ' and some more';
+        $message = str_repeat('a', PHP_MAXPATHLEN) . ' and some more';
         $api->sendMime('foo', ['mailbox@myapp.com'], $message, []);
     }
 
