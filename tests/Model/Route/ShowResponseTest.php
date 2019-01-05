@@ -9,11 +9,6 @@
 
 namespace Mailgun\Tests\Model\Route;
 
-use Mailgun\Model\Domain\ConnectionResponse;
-use Mailgun\Model\Event\EventResponse;
-use Mailgun\Model\Message\SendResponse;
-use Mailgun\Model\Route\Response\CreateResponse;
-use Mailgun\Model\Route\Response\IndexResponse;
 use Mailgun\Model\Route\Response\ShowResponse;
 use Mailgun\Tests\Model\BaseModelTest;
 

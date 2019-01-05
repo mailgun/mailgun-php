@@ -9,8 +9,6 @@
 
 namespace Mailgun\Tests\Model\Message;
 
-use Mailgun\Model\Domain\ConnectionResponse;
-use Mailgun\Model\Event\EventResponse;
 use Mailgun\Model\Message\SendResponse;
 use Mailgun\Tests\Model\BaseModelTest;
 
