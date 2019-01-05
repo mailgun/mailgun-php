@@ -60,6 +60,7 @@ class Message extends HttpApi
 
         $postDataMultipart = array_merge($this->prepareMultipartParameters($params), $postDataMultipart);
         $response = $this->httpPostRaw(sprintf('/v3/%s/messages', $domain), $postDataMultipart);
+        $this->closeResources($postDataMultipart);
 
         return $this->hydrateResponse($response, SendResponse::class);
     }
@@ -91,6 +92,7 @@ class Message extends HttpApi
         }
         $postDataMultipart[] = $this->prepareFile('message', $fileData);
         $response = $this->httpPostRaw(sprintf('/v3/%s/messages.mime', $domain), $postDataMultipart);
+        $this->closeResources($postDataMultipart);
 
         return $this->hydrateResponse($response, SendResponse::class);
     }
@@ -178,5 +180,19 @@ class Message extends HttpApi
         }
 
         return $postDataMultipart;
+    }
+
+    /**
+     * Close open resources.
+     *
+     * @param array $params
+     */
+    private function closeResources(array $params)
+    {
+        foreach ($params as $param) {
+            if (is_array($param) && array_key_exists('content', $param) && is_resource($param['content'])) {
+                fclose($param['content']);
+            }
+        }
     }
 }

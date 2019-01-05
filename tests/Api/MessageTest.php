@@ -72,7 +72,7 @@ class MessageTest extends TestCase
                             // Make sure message exists.
                             $found = true;
                             // Make sure content is what we expect
-                            if (!is_resource($body['content'])) {
+                            if (!isset($body['content'])) {
                                 return false;
                             }
                         }
