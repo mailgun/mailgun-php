@@ -19,7 +19,7 @@ use Mailgun\Model\MailingList\Member\ShowResponse;
 use Mailgun\Model\MailingList\Member\UpdateResponse;
 use Mailgun\Model\MailingList\UpdateResponse as MailingListUpdateResponse;
 
-final class Member extends HttpApi
+class Member extends HttpApi
 {
     /**
      * Returns a paginated list of members of the mailing list.

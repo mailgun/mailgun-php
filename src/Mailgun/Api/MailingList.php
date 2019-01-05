@@ -17,7 +17,7 @@ use Mailgun\Model\MailingList\PagesResponse;
 use Mailgun\Model\MailingList\ShowResponse;
 use Mailgun\Model\MailingList\UpdateResponse;
 
-final class MailingList extends HttpApi
+class MailingList extends HttpApi
 {
     /**
      * @return Member
