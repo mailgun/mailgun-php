@@ -49,7 +49,7 @@ class Ip extends HttpApi
      *
      * @return IndexResponse|ResponseInterface
      */
-    public function domainIndex($domain = false)
+    public function domainIndex($domain)
     {
         Assert::stringNotEmpty($domain);
 
