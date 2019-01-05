@@ -22,7 +22,7 @@ final class ShowResponse implements ApiResponse
     private $ip;
 
     /**
-     * @var boolean
+     * @var bool
      */
     private $dedicated;
 

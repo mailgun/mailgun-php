@@ -9,7 +9,6 @@
 
 namespace Mailgun\Tests\Model\Ip;
 
-use Mailgun\Model\Domain\ConnectionResponse;
 use Mailgun\Model\Ip\ShowResponse;
 use Mailgun\Tests\Model\BaseModelTest;
 

@@ -9,10 +9,7 @@
 
 namespace Mailgun\Tests\Model\Ip;
 
-use Mailgun\Model\Domain\ConnectionResponse;
 use Mailgun\Model\Ip\IndexResponse;
-use Mailgun\Model\Ip\ShowResponse;
-use Mailgun\Model\Ip\UpdateResponse;
 use Mailgun\Tests\Model\BaseModelTest;
 
 class IndexResponseTest extends BaseModelTest
