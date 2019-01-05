@@ -11,6 +11,7 @@ The change log describes what is "Added", "Removed", "Changed" or "Fixed" betwee
 - Add new PHPUnit tests for our API
 - Added `Maingun\Api\Attachment`
 - Fluent interface for `MessageBuilder` and `BatchMessage`
+- Support for HTTPlug 2.0
 
 ### Changed
 
