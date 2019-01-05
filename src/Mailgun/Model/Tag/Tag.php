@@ -37,7 +37,7 @@ class Tag
      * @param \DateTime $firstSeen
      * @param \DateTime $lastSeen
      */
-    public function __construct($tag, $description, \DateTime $firstSeen, \DateTime $lastSeen)
+    public function __construct($tag, $description, \DateTime $firstSeen = null, \DateTime $lastSeen = null)
     {
         $this->tag = $tag;
         $this->description = $description;
@@ -52,7 +52,10 @@ class Tag
      */
     public static function create(array $data)
     {
-        return new self($data['tag'], $data['description'], new \DateTime($data['first-seen']), new \DateTime($data['last-seen']));
+        $firstSeen = isset($data['first-seen']) ? new \DateTime($data['first-seen']) : null;
+        $lastSeen = isset($data['last-seen']) ? new \DateTime($data['last-seen']) : null;
+
+        return new self($data['tag'], $data['description'], $firstSeen, $lastSeen);
     }
 
     /**
