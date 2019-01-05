@@ -2,8 +2,8 @@
     "name": "mailgun/mailgun-php",
     "description": "The Mailgun SDK provides methods for all API functions.",
     "require": {
-        "php": "^5.5|^7.0",
-        "php-http/httplug": "^1.0",
+        "php": "^5.5 || ^7.0",
+        "php-http/httplug": "^1.0 || ^2.0",
         "php-http/multipart-stream-builder": "^1.0",
         "php-http/message": "^1.0",
         "php-http/client-common": "^1.1",
