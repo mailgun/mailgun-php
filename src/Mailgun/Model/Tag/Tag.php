@@ -37,7 +37,7 @@ class Tag
      * @param \DateTime $firstSeen
      * @param \DateTime $lastSeen
      */
-    public function __construct($tag, $description, \DateTime $firstSeen, \DateTime $lastSeen)
+    private function __construct($tag, $description, \DateTime $firstSeen, \DateTime $lastSeen)
     {
         $this->tag = $tag;
         $this->description = $description;

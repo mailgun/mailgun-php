@@ -29,7 +29,7 @@ final class IndexResponse implements ApiResponse, PagingProvider
      * @param Tag[] $items
      * @param array $paging
      */
-    public function __construct(array $items, array $paging)
+    private function __construct(array $items, array $paging)
     {
         $this->items = $items;
         $this->paging = $paging;

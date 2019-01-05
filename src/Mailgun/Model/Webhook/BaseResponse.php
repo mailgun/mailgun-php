@@ -32,7 +32,7 @@ abstract class BaseResponse implements ApiResponse
      * @param array  $webhook
      * @param string $message
      */
-    public function __construct(array $webhook, $message)
+    private function __construct(array $webhook, $message)
     {
         $this->webhook = $webhook;
         $this->message = $message;
