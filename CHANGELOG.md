@@ -9,6 +9,17 @@ The change log describes what is "Added", "Removed", "Changed" or "Fixed" betwee
 - Allow to set the Mailgun server when instantiating the Mailgun's client: `$mailgun = Mailgun::create('key', 'server');`
 - Add new PHPUnit tests for our models
 - Add new PHPUnit tests for our API
+- Added `Maingun\Api\Attachment`
+- Fluent interface for `MessageBuilder` and `BatchMessage`
+
+### Changed
+
+- Second argument to `Mailgun\Message\MessageBuilder::addBccRecipient()` is now optional. 
+- We try to close open resources
+
+### Fixed
+
+- Fixed the type error when creating tags. 
 
 ## 2.6.0
 
