@@ -63,7 +63,7 @@ final class HttpClientException extends \RuntimeException implements Exception
                 $validationMessage = $body;
             } else {
                 $jsonDecoded = json_decode($body, true);
-                $validationMessage = isset($jsonDecoded['message']) ? $jsonDecoded['message'] : $jsonDecoded;
+                $validationMessage = isset($jsonDecoded['message']) ? $jsonDecoded['message'] : $body;
             }
 
             $message = sprintf("%s\n\n%s", $message, $validationMessage);

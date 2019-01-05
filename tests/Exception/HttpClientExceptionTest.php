@@ -20,6 +20,10 @@ class HttpClientExceptionTest extends MailgunTestCase
         $response = new Response(400, ['Content-Type' => 'application/json'], '{"message":"Server Message"}');
         $exception = HttpClientException::badRequest($response);
         $this->assertStringEndsWith('Server Message', $exception->getMessage());
+
+        $response = new Response(400, ['Content-Type' => 'application/json'], '{"Foo":"Server Message"}');
+        $exception = HttpClientException::badRequest($response);
+        $this->assertStringEndsWith('{"Foo":"Server Message"}', $exception->getMessage());
     }
 
     public function testBadRequestGetMessage()
