@@ -82,7 +82,7 @@ class Message extends HttpApi
         $params['to'] = $recipients;
         $postDataMultipart = $this->prepareMultipartParameters($params);
 
-        if (is_file($message)) {
+        if (strlen($message) < PHP_MAXPATHLEN && is_file($message)) {
             $fileData = ['filePath' => $message];
         } else {
             $fileData = [
