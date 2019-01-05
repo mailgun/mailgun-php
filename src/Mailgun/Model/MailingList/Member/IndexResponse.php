@@ -12,7 +12,6 @@ namespace Mailgun\Model\MailingList\Member;
 use Mailgun\Model\PagingProvider;
 use Mailgun\Model\PaginationResponse;
 use Mailgun\Model\ApiResponse;
-use Mailgun\Model\MailingList\Member;
 
 /**
  *

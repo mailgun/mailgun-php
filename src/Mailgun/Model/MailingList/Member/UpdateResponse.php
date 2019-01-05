@@ -28,13 +28,8 @@ final class UpdateResponse implements ApiResponse
 
     public static function create(array $data)
     {
-        $member = null;
-
-        if (isset($data['member'])) {
-            $member = Member::create($data['member']);
-        }
-
-        $message = null;
+        $member = Member::create($data['member']);
+        $message = '';
 
         if (isset($data['message'])) {
             $message = $data['message'];

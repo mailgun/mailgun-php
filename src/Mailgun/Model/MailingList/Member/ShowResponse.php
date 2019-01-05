@@ -23,11 +23,7 @@ final class ShowResponse implements ApiResponse
 
     public static function create(array $data)
     {
-        $member = null;
-
-        if (isset($data['member'])) {
-            $member = Member::create($data['member']);
-        }
+        $member = Member::create($data['member']);
 
         return new self($member);
     }

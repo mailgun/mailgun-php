@@ -28,15 +28,13 @@ final class DeleteResponse implements ApiResponse
 
     public static function create(array $data)
     {
-        $message = null;
-
+        $message = '';
         if (isset($data['message'])) {
             $message = $data['message'];
         }
 
-        $address = null;
-
-        if (isset($address)) {
+        $address = '';
+        if (isset($data['address'])) {
             $address = $data['address'];
         }
 

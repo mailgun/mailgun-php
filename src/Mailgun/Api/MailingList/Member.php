@@ -17,6 +17,7 @@ use Mailgun\Model\MailingList\Member\DeleteResponse;
 use Mailgun\Model\MailingList\Member\IndexResponse;
 use Mailgun\Model\MailingList\Member\ShowResponse;
 use Mailgun\Model\MailingList\Member\UpdateResponse;
+use Mailgun\Model\MailingList\UpdateResponse as MailingListUpdateResponse;
 
 /**
  *
@@ -170,7 +171,7 @@ final class Member extends HttpApi
 
         $response = $this->httpPost(sprintf('/v3/lists/%s/members.json', $list), $params);
 
-        return $this->hydrateResponse($response, UpdateResponse::class);
+        return $this->hydrateResponse($response, MailingListUpdateResponse::class);
     }
 
     /**

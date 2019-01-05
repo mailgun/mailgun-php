@@ -9,22 +9,13 @@
 
 namespace Mailgun\Api;
 
-use Http\Client\HttpClient;
 use Mailgun\Api\MailingList\Member;
 use Mailgun\Assert;
-use Mailgun\Exception\InvalidArgumentException;
-use Mailgun\Hydrator\Hydrator;
-use Mailgun\Model\MailingList\CreateMemberResponse;
 use Mailgun\Model\MailingList\CreateResponse;
-use Mailgun\Model\MailingList\DeleteMemberResponse;
 use Mailgun\Model\MailingList\DeleteResponse;
-use Mailgun\Model\MailingList\IndexResponse;
 use Mailgun\Model\MailingList\PagesResponse;
-use Mailgun\Model\MailingList\ShowMemberResponse;
 use Mailgun\Model\MailingList\ShowResponse;
-use Mailgun\Model\MailingList\UpdateMemberResponse;
 use Mailgun\Model\MailingList\UpdateResponse;
-use Mailgun\RequestBuilder;
 
 /**
  *

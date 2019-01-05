@@ -24,11 +24,7 @@ final class ShowResponse implements ApiResponse
 
     public static function create(array $data)
     {
-        $list = null;
-
-        if (isset($data['list'])) {
-            $list = MailingList::create($data['list']);
-        }
+        $list = MailingList::create($data['list']);
 
         return new self($list);
     }
