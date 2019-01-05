@@ -1,6 +1,23 @@
 # Change Log
 
-The change log describes what is "Added", "Removed", "Changed" or "Fixed" between each release. 
+The change log describes what is "Added", "Removed", "Changed" or "Fixed" between each release.
+
+## 2.8.0
+
+### Added
+
+- Add support for IPS endpoints
+- Add spport for Mailing Lists
+- Add `complaints` to Stats / Total Response
+- Add more tests for our models
+
+### Changed
+
+- Change the PHP Exception message for Bad Request errors to help to find the issue
+
+### Fixed
+
+- Fix an issue validating the max path length
 
 ## 2.7.0
 
