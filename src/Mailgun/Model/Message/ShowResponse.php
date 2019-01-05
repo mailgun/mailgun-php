@@ -105,7 +105,7 @@ class ShowResponse implements ApiResponse
     /**
      * @param array $data
      *
-     * @return SendResponse
+     * @return ShowResponse
      */
     public static function create(array $data)
     {
