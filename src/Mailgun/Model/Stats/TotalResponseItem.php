@@ -12,7 +12,7 @@ namespace Mailgun\Model\Stats;
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
-class TotalResponseItem
+final class TotalResponseItem
 {
     /**
      * @var \DateTime

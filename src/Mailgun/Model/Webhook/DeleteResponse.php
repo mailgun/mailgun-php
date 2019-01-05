@@ -12,6 +12,6 @@ namespace Mailgun\Model\Webhook;
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
-class DeleteResponse extends BaseResponse
+final class DeleteResponse extends BaseResponse
 {
 }
