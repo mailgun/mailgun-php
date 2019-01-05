@@ -9,13 +9,8 @@
 
 namespace Mailgun\Tests\Model\MailingList\Member;
 
-use Mailgun\Model\Domain\ConnectionResponse;
-use Mailgun\Model\MailingList\Member\CreateResponse;
-use Mailgun\Model\MailingList\MailingList;
 use Mailgun\Model\MailingList\Member\DeleteResponse;
-use Mailgun\Model\MailingList\Member\IndexResponse;
 use Mailgun\Model\MailingList\Member\Member;
-use Mailgun\Model\MailingList\Member\UpdateResponse;
 use Mailgun\Tests\Model\BaseModelTest;
 
 class DeleteResponseTest extends BaseModelTest

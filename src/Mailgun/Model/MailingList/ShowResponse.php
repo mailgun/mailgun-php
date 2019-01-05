@@ -9,12 +9,8 @@
 
 namespace Mailgun\Model\MailingList;
 
-use Mailgun\Model\MailingList\MailingList;
 use Mailgun\Model\ApiResponse;
 
-/**
- *
- */
 final class ShowResponse implements ApiResponse
 {
     /**

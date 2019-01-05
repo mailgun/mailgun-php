@@ -13,9 +13,6 @@ use Mailgun\Model\PagingProvider;
 use Mailgun\Model\PaginationResponse;
 use Mailgun\Model\ApiResponse;
 
-/**
- *
- */
 final class IndexResponse implements ApiResponse, PagingProvider
 {
     use PaginationResponse;

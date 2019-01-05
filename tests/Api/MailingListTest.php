@@ -13,9 +13,6 @@ use GuzzleHttp\Psr7\Response;
 use Mailgun\Api\MailingList;
 use Mailgun\Exception\InvalidArgumentException;
 
-/**
- *
- */
 class MailingListTest extends TestCase
 {
     public function testPages()

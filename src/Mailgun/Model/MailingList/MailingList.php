@@ -11,9 +11,6 @@ namespace Mailgun\Model\MailingList;
 
 use Mailgun\Model\ApiResponse;
 
-/**
- *
- */
 final class MailingList implements ApiResponse
 {
     /**
