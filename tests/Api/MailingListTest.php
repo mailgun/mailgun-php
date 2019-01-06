@@ -32,7 +32,7 @@ class MailingListTest extends TestCase
 
     public function testPagesInvalidArgument()
     {
-        $this->setExpectedException(InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $api = $this->getApiMock();
         $limit = -1;
 
@@ -59,7 +59,7 @@ class MailingListTest extends TestCase
 
     public function testCreateInvalidAddress()
     {
-        $this->setExpectedException(InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         $api = $this->getApiMock();
         $api->create($address = '', $name = 'Foo', $description = 'Description', $accessLevel = 'readonly');
@@ -67,7 +67,7 @@ class MailingListTest extends TestCase
 
     public function testCreateInvalidAccessLevel()
     {
-        $this->setExpectedException(InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         $api = $this->getApiMock();
         $api->create($address = '', $name = 'Foo', $description = 'Description', $accessLevel = 'admin');
@@ -86,7 +86,7 @@ class MailingListTest extends TestCase
 
     public function testShowInvalidAddress()
     {
-        $this->setExpectedException(InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         $api = $this->getApiMock();
         $api->show('');
@@ -109,7 +109,7 @@ class MailingListTest extends TestCase
 
     public function testUpdateInvalidArgument()
     {
-        $this->setExpectedException(InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         $data = [
             'access_level' => 'foo',

@@ -9,6 +9,8 @@
 
 namespace Mailgun\Tests;
 
-abstract class MailgunTestCase extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+abstract class MailgunTestCase extends TestCase
 {
 }

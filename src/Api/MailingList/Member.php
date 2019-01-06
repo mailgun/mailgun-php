@@ -44,7 +44,7 @@ class Member extends HttpApi
         if (true === $subscribed) {
             $params['subscribed'] = 'yes';
         } elseif (false === $subscribed) {
-            $params['subscribed'] = 'yes';
+            $params['subscribed'] = 'no';
         }
 
         $response = $this->httpGet(sprintf('/v3/lists/%s/members/pages', $address), $params);

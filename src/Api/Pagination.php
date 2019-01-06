@@ -18,9 +18,9 @@ use Psr\Http\Message\ResponseInterface;
  */
 trait Pagination
 {
-    abstract protected function httpGet($path, array $parameters = [], array $requestHeaders = []);
+    abstract protected function httpGet(string $path, array $parameters = [], array $requestHeaders = []);
 
-    abstract protected function hydrateResponse(ResponseInterface $response, $className);
+    abstract protected function hydrateResponse(ResponseInterface $response, string $className);
 
     public function nextPage(PagingProvider $response): ?PagingProvider
     {
@@ -47,7 +47,7 @@ trait Pagination
         Assert::stringNotEmpty($class);
 
         if (empty($url)) {
-            return;
+            return null;
         }
 
         $response = $this->httpGet($url);

@@ -10,9 +10,10 @@
 namespace Mailgun\Tests\Message;
 
 use Mailgun\Message\MessageBuilder;
+use Mailgun\Tests\MailgunTestCase;
 use Nyholm\NSA;
 
-class MessageBuilderTest extends \PHPUnit_Framework_TestCase
+class MessageBuilderTest extends MailgunTestCase
 {
     /**
      * @var MessageBuilder

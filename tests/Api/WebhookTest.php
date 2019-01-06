@@ -48,7 +48,7 @@ class WebhookTest extends TestCase
     {
         $api = $this->getApiInstance('key-3ax6xnjp29jd6fds4gc373sgvjxteol0');
 
-        $this->assertFalse($api->verifyWebhookSignature('', '', ''));
+        $this->assertFalse($api->verifyWebhookSignature(0, '', ''));
     }
 
     public function testIndex()
