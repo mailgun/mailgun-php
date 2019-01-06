@@ -451,9 +451,7 @@ class MessageBuilder
      * @param string      $timeDate
      * @param string|null $timeZone
      *
-     * @return string
-     *
-     * @deprecated The return value is deprecated. This method will return $this in version 3.0.
+     * @return MessageBuilder
      */
     public function setDeliveryTime($timeDate, $timeZone = null)
     {
@@ -467,7 +465,7 @@ class MessageBuilder
         $formattedTimeDate = $dateTimeObj->format(\DateTime::RFC2822);
         $this->message['o:deliverytime'] = $formattedTimeDate;
 
-        return $this->message['o:deliverytime'];
+        return $this;
     }
 
     /**
@@ -487,9 +485,7 @@ class MessageBuilder
      * @param string $parameterName
      * @param mixed  $data
      *
-     * @return mixed
-     *
-     * @deprecated The return value is deprecated. This method will return $this in version 3.0.
+     * @return MessageBuilder
      */
     public function addCustomParameter($parameterName, $data)
     {
@@ -499,7 +495,7 @@ class MessageBuilder
             $this->message[$parameterName] = [$data];
         }
 
-        return $this->message[$parameterName];
+        return $this;
     }
 
     /**
