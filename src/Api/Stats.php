@@ -21,7 +21,6 @@ use Mailgun\Model\Stats\TotalResponse;
 class Stats extends HttpApi
 {
     /**
-     *
      * @return TotalResponse|array
      */
     public function total(string $domain, array $params = [])
@@ -34,7 +33,6 @@ class Stats extends HttpApi
     }
 
     /**
-     *
      * @return AllResponse|array
      */
     public function all(string $domain, array $params = [])

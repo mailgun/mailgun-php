@@ -12,7 +12,6 @@ namespace Mailgun;
 use Http\Client\HttpClient;
 use Http\Client\Common\PluginClient;
 use Http\Discovery\HttpClientDiscovery;
-use Http\Discovery\Psr17FactoryDiscovery;
 use Http\Discovery\UriFactoryDiscovery;
 use Http\Message\UriFactory;
 use Http\Client\Common\Plugin;

@@ -103,7 +103,6 @@ abstract class HttpApi
      * @param string $path           Request path
      * @param array  $parameters     GET parameters
      * @param array  $requestHeaders Request Headers
-     *
      */
     protected function httpGet(string $path, array $parameters = [], array $requestHeaders = []): ResponseInterface
     {
@@ -128,7 +127,6 @@ abstract class HttpApi
      * @param string $path           Request path
      * @param array  $parameters     POST parameters
      * @param array  $requestHeaders Request headers
-     *
      */
     protected function httpPost(string $path, array $parameters = [], array $requestHeaders = []): ResponseInterface
     {
@@ -141,7 +139,6 @@ abstract class HttpApi
      * @param string       $path           Request path
      * @param array|string $body           Request body
      * @param array        $requestHeaders Request headers
-     *
      */
     protected function httpPostRaw(string $path, $body, array $requestHeaders = []): ResponseInterface
     {
@@ -162,7 +159,6 @@ abstract class HttpApi
      * @param string $path           Request path
      * @param array  $parameters     PUT parameters
      * @param array  $requestHeaders Request headers
-     *
      */
     protected function httpPut(string $path, array $parameters = [], array $requestHeaders = []): ResponseInterface
     {
@@ -183,7 +179,6 @@ abstract class HttpApi
      * @param string $path           Request path
      * @param array  $parameters     DELETE parameters
      * @param array  $requestHeaders Request headers
-     *
      */
     protected function httpDelete(string $path, array $parameters = [], array $requestHeaders = []): ResponseInterface
     {

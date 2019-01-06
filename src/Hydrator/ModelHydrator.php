@@ -21,7 +21,6 @@ use Psr\Http\Message\ResponseInterface;
 final class ModelHydrator implements Hydrator
 {
     /**
-     *
      * @return ResponseInterface
      */
     public function hydrate(ResponseInterface $response, string $class)

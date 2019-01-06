@@ -87,18 +87,15 @@ final class Mailgun
         return new Api\Attachment($this->httpClient, $this->requestBuilder, $this->hydrator);
     }
 
-
     public function domains(): Api\Domain
     {
         return new Api\Domain($this->httpClient, $this->requestBuilder, $this->hydrator);
     }
 
-
     public function tags(): Api\Tag
     {
         return new Api\Tag($this->httpClient, $this->requestBuilder, $this->hydrator);
     }
-
 
     public function events(): Api\Event
     {

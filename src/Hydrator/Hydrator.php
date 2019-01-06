@@ -18,7 +18,6 @@ use Psr\Http\Message\ResponseInterface;
 interface Hydrator
 {
     /**
-     *
      * @return mixed
      *
      * @throws HydrationException

@@ -41,9 +41,9 @@ class Member extends HttpApi
             'limit' => $limit,
         ];
 
-        if ($subscribed === true) {
+        if (true === $subscribed) {
             $params['subscribed'] = 'yes';
-        } elseif ($subscribed === false) {
+        } elseif (false === $subscribed) {
             $params['subscribed'] = 'yes';
         }
 
@@ -79,8 +79,8 @@ class Member extends HttpApi
      * @param string $address    Address for the member
      * @param string $name       Name for the member (optional)
      * @param array  $vars       Array of field => value pairs to store additional data
-     * @param bool $subscribed `true` to add as subscribed (default), `false` as unsubscribed
-     * @param bool $upsert     `true` to update member if present, `false` to raise error in case of a duplicate member (default)
+     * @param bool   $subscribed `true` to add as subscribed (default), `false` as unsubscribed
+     * @param bool   $upsert     `true` to update member if present, `false` to raise error in case of a duplicate member (default)
      *
      * @return CreateResponse
      *

@@ -65,7 +65,7 @@ class Message extends HttpApi
      *
      * @return SendResponse|ResponseInterface
      */
-    public function sendMime(string $domain, array $recipients,string  $message, array $params)
+    public function sendMime(string $domain, array $recipients, string  $message, array $params)
     {
         Assert::string($domain);
         Assert::notEmpty($domain);
@@ -114,9 +114,7 @@ class Message extends HttpApi
     }
 
     /**
-     *
-     * @param array  $filePath  array('fileContent' => 'content') or array('filePath' => '/foo/bar')
-     *
+     * @param array $filePath array('fileContent' => 'content') or array('filePath' => '/foo/bar')
      *
      * @throws InvalidArgumentException
      */
