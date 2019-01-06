@@ -12,7 +12,7 @@ namespace Mailgun\Model\Suppression\Bounce;
 /**
  * @author Sean Johnson <sean@mailgun.com>
  */
-class Bounce
+final class Bounce
 {
     /**
      * @var string

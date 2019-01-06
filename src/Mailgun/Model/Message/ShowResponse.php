@@ -14,7 +14,7 @@ use Mailgun\Model\ApiResponse;
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
-class ShowResponse implements ApiResponse
+final class ShowResponse implements ApiResponse
 {
     /**
      * Only available with message/rfc2822.

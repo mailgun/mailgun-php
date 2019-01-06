@@ -16,7 +16,7 @@ use Mailgun\Model\ApiResponse;
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
-class EventResponse implements ApiResponse, PagingProvider
+final class EventResponse implements ApiResponse, PagingProvider
 {
     use PaginationResponse;
 

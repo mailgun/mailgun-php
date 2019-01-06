@@ -14,7 +14,7 @@ use Mailgun\Model\ApiResponse;
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
-class Attachment implements ApiResponse
+final class Attachment implements ApiResponse
 {
     private $data;
 

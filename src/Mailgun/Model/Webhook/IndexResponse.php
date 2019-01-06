@@ -14,7 +14,7 @@ use Mailgun\Model\ApiResponse;
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
-class IndexResponse implements ApiResponse
+final class IndexResponse implements ApiResponse
 {
     /**
      * @var array
