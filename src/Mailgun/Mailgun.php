@@ -389,4 +389,12 @@ class Mailgun
     {
         return new Api\Suppression($this->httpClient, $this->requestBuilder, $this->hydrator);
     }
+
+    /**
+     * @return Api\Ip
+     */
+    public function ips()
+    {
+        return new Api\Ip($this->httpClient, $this->requestBuilder, $this->hydrator);
+    }
 }
