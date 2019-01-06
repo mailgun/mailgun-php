@@ -14,7 +14,7 @@ php:
   - 7.2
 
 env:
-  - TEST_COMMAND="composer test-all"
+  - TEST_COMMAND="composer test"
 
 matrix:
     fast_finish: true

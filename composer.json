@@ -37,9 +37,7 @@
         }
     ],
     "scripts": {
-        "test": "vendor/bin/phpunit --testsuite unit && vendor/bin/phpunit --testsuite functional",
-        "test-all": "vendor/bin/phpunit --testsuite all",
-        "test-integration": "vendor/bin/phpunit --testsuite integration",
-        "test-coverage": "vendor/bin/phpunit --testsuite all --coverage-text --coverage-clover=build/coverage.xml"
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-text --coverage-clover=build/coverage.xml"
     }
 }
