@@ -37,7 +37,7 @@ class CountryResponseTest extends BaseModelTest
           "unique_clicked": 1,
           "unique_opened": 0,
           "unsubscribed": 2
-      },
+      }
   },
   "tag": "exampletag"
 }
