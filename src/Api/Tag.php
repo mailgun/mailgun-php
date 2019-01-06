@@ -10,8 +10,11 @@
 namespace Mailgun\Api;
 
 use Mailgun\Assert;
+use Mailgun\Model\Tag\CountryResponse;
 use Mailgun\Model\Tag\DeleteResponse;
+use Mailgun\Model\Tag\DeviceResponse;
 use Mailgun\Model\Tag\IndexResponse;
+use Mailgun\Model\Tag\ProviderResponse;
 use Mailgun\Model\Tag\ShowResponse;
 use Mailgun\Model\Tag\StatisticsResponse;
 use Mailgun\Model\Tag\UpdateResponse;
@@ -107,5 +110,44 @@ class Tag extends HttpApi
         $response = $this->httpDelete(sprintf('/v3/%s/tags/%s', $domain, $tag));
 
         return $this->hydrateResponse($response, DeleteResponse::class);
+    }
+
+    /**
+     * @return CountryResponse|ResponseInterface
+     */
+    public function countries(string $domain, string $tag)
+    {
+        Assert::stringNotEmpty($domain);
+        Assert::stringNotEmpty($tag);
+
+        $response = $this->httpGet(sprintf('/v3/%s/tags/%s/stats/aggregates/countries', $domain, $tag));
+
+        return $this->hydrateResponse($response, CountryResponse::class);
+    }
+
+    /**
+     * @return ProviderResponse|ResponseInterface
+     */
+    public function providers(string $domain, string $tag)
+    {
+        Assert::stringNotEmpty($domain);
+        Assert::stringNotEmpty($tag);
+
+        $response = $this->httpGet(sprintf('/v3/%s/tags/%s/stats/aggregates/providers', $domain, $tag));
+
+        return $this->hydrateResponse($response, ProviderResponse::class);
+    }
+
+    /**
+     * @return DeviceResponse|ResponseInterface
+     */
+    public function devices(string $domain, string $tag)
+    {
+        Assert::stringNotEmpty($domain);
+        Assert::stringNotEmpty($tag);
+
+        $response = $this->httpGet(sprintf('/v3/%s/tags/%s/stats/aggregates/devices', $domain, $tag));
+
+        return $this->hydrateResponse($response, DeviceResponse::class);
     }
 }
