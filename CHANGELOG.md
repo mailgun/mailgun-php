@@ -6,7 +6,7 @@ The change log describes what is "Added", "Removed", "Changed" or "Fixed" betwee
 
 ### Added
 
-- Add support for IPS endpoints
+- Add support for IPs endpoints
 - Add spport for Mailing Lists
 - Add `complaints` to Stats / Total Response
 - Add more tests for our models
