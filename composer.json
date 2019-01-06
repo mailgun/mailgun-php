@@ -41,5 +41,10 @@
         "test-all": "vendor/bin/phpunit --testsuite all",
         "test-integration": "vendor/bin/phpunit --testsuite integration",
         "test-coverage": "vendor/bin/phpunit --testsuite all --coverage-text --coverage-clover=build/coverage.xml"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "3.0-dev"
+        }
     }
 }
