@@ -367,9 +367,17 @@ class MessageBuilder
         return $this;
     }
 
-    public function setClickTracking(bool $enabled): self
+    public function setClickTracking(bool $enabled, bool $htmlOnly = false): self
     {
-        $this->message['o:tracking-clicks'] = $enabled ? 'yes' : 'no';
+        $value = 'no';
+        if ($enabled) {
+            $value = 'yes';
+            if ($htmlOnly) {
+                $value = 'htmlonly';
+            }
+        }
+
+        $this->message['o:tracking-clicks'] = $value;
 
         return $this;
     }

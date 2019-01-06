@@ -267,6 +267,14 @@ class MessageBuilderTest extends MailgunTestCase
         $this->messageBuilder->setClickTracking(false);
         $message = $this->messageBuilder->getMessage();
         $this->assertEquals(['o:tracking-clicks' => 'no'], $message);
+
+        $this->messageBuilder->setClickTracking(false, true);
+        $message = $this->messageBuilder->getMessage();
+        $this->assertEquals(['o:tracking-clicks' => 'no'], $message);
+
+        $this->messageBuilder->setClickTracking(true, true);
+        $message = $this->messageBuilder->getMessage();
+        $this->assertEquals(['o:tracking-clicks' => 'htmlonly'], $message);
     }
 
     public function testSetOpenTracking()
