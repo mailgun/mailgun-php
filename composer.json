@@ -16,8 +16,8 @@
         "nyholm/nsa": "^1.1"
     },
     "autoload": {
-        "psr-0": {
-            "Mailgun": "src/"
+        "psr-4": {
+            "Mailgun\\": "src/"
         }
     },
     "autoload-dev": {
