@@ -30,11 +30,7 @@ final class UpdateResponse implements ApiResponse
      */
     public static function create(array $data)
     {
-        $message = '';
-        if (isset($data['message'])) {
-            $message = $data['message'];
-        }
-
+        $message = isset($data['message']) ? $data['message'] : '';
         $list = MailingList::create($data['list']);
 
         return new self($list, $message);

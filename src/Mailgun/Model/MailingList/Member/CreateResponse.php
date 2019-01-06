@@ -26,10 +26,7 @@ final class CreateResponse implements ApiResponse
     public static function create(array $data)
     {
         $member = Member::create($data['member']);
-        $message = '';
-        if (isset($data['message'])) {
-            $message = $data['message'];
-        }
+        $message = isset($data['message']) ? $data['message'] : '';
 
         return new self($member, $message);
     }
