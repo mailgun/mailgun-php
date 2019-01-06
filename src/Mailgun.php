@@ -10,8 +10,6 @@
 namespace Mailgun;
 
 use Http\Client\Common\HttpMethodsClient;
-use Http\Client\HttpClient;
-use Mailgun\Connection\RestClient;
 use Mailgun\HttpClient\Plugin\History;
 use Mailgun\Hydrator\ModelHydrator;
 use Mailgun\Hydrator\Hydrator;
