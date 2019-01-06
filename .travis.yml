@@ -7,11 +7,14 @@ cache:
         - $HOME/.composer/cache/files
 
 php:
-  - 5.5
-  - 5.6
-  - 7.0
   - 7.1
   - 7.2
+  - 7.3
+
+branches:
+  except:
+    - /^analysis-.*$/
+    - /^patch-.*$/
 
 env:
   - TEST_COMMAND="composer test-all"
@@ -19,10 +22,8 @@ env:
 matrix:
     fast_finish: true
     include:
-        - php: 5.5
+        - php: 7.1
           env: COMPOSER_FLAGS="--prefer-stable --prefer-lowest" PREFER_COVERAGE=true
-        - php: hhvm
-          dist: trusty
 
 install:
     - travis_retry composer update ${COMPOSER_FLAGS} --prefer-source --no-interaction
@@ -33,6 +34,7 @@ before_script:
   - if [[ "$PREFER_COVERAGE" = true ]] && [[ "$TRAVIS_PULL_REQUEST" = false ]]; then TEST_COMMAND="composer test-coverage" COVERAGE=true; fi
 
 script:
+  - composer validate --strict --no-check-lock
   - echo $TEST_COMMAND
   - $TEST_COMMAND
 
