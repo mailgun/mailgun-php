@@ -11,7 +11,7 @@ namespace Mailgun\Tests;
 
 use Http\Message\MultipartStream\MultipartStreamBuilder;
 use Http\Message\RequestFactory;
-use Mailgun\RequestBuilder;
+use Mailgun\HttpClient\RequestBuilder;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use PHPUnit_Framework_TestCase;
 use Psr\Http\Message\RequestInterface;

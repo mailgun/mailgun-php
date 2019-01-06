@@ -17,7 +17,7 @@ use Mailgun\Model\Webhook\DeleteResponse;
 use Mailgun\Model\Webhook\IndexResponse;
 use Mailgun\Model\Webhook\ShowResponse;
 use Mailgun\Model\Webhook\UpdateResponse;
-use Mailgun\RequestBuilder;
+use Mailgun\HttpClient\RequestBuilder;
 use Psr\Http\Message\ResponseInterface;
 
 /**

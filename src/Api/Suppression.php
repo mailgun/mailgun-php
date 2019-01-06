@@ -14,7 +14,7 @@ use Mailgun\Api\Suppression\Bounce;
 use Mailgun\Api\Suppression\Complaint;
 use Mailgun\Api\Suppression\Unsubscribe;
 use Mailgun\Hydrator\Hydrator;
-use Mailgun\RequestBuilder;
+use Mailgun\HttpClient\RequestBuilder;
 
 /**
  * @see https://documentation.mailgun.com/api-suppressions.html

@@ -56,7 +56,7 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
                 ->method('sendRequest');
         }
         if (null === $requestClient) {
-            $requestClient = $this->getMockBuilder('Mailgun\RequestBuilder')
+            $requestClient = $this->getMockBuilder('Mailgun\HttpClient\RequestBuilder')
                 ->setMethods(['create'])
                 ->getMock();
         }
@@ -85,7 +85,7 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
             ->method('sendRequest')
             ->willReturn(null === $this->httpResponse ? new Response() : $this->httpResponse);
 
-        $requestClient = $this->getMockBuilder('Mailgun\RequestBuilder')
+        $requestClient = $this->getMockBuilder('Mailgun\HttpClient\RequestBuilder')
             ->setMethods(['create'])
             ->getMock();
         $requestClient->method('create')

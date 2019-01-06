@@ -16,7 +16,7 @@ use Mailgun\Hydrator\Hydrator;
 use Mailgun\Hydrator\NoopHydrator;
 use Mailgun\Exception\HttpClientException;
 use Mailgun\Exception\HttpServerException;
-use Mailgun\RequestBuilder;
+use Mailgun\HttpClient\RequestBuilder;
 use Psr\Http\Message\ResponseInterface;
 
 /**

@@ -7,7 +7,7 @@
  * of the MIT license. See the LICENSE file for details.
  */
 
-namespace Mailgun;
+namespace Mailgun\HttpClient;
 
 use Http\Client\HttpClient;
 use Http\Client\Common\PluginClient;

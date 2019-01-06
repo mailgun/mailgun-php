@@ -7,7 +7,7 @@
  * of the MIT license. See the LICENSE file for details.
  */
 
-namespace Mailgun;
+namespace Mailgun\HttpClient;
 
 use Http\Discovery\MessageFactoryDiscovery;
 use Http\Message\MultipartStream\MultipartStreamBuilder;
