@@ -126,7 +126,7 @@ final class Event
      * @param string $id
      * @param float  $timestamp
      */
-    public function __construct($event, $id, $timestamp)
+    private function __construct($event, $id, $timestamp)
     {
         $this->event = $event;
         $this->id = $id;

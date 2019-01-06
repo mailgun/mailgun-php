@@ -24,7 +24,7 @@ class ShowResponse implements ApiResponse
     /**
      * @param array $webhook
      */
-    public function __construct(array $webhook)
+    private function __construct(array $webhook)
     {
         $this->webhook = $webhook;
     }
