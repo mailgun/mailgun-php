@@ -67,10 +67,8 @@ class BatchMessage extends MessageBuilder
      *
      * @throws MissingRequiredParameter
      * @throws TooManyRecipients
-     *
-     * @return BatchMessage
      */
-    protected function addRecipient(string $headerName, string $address, array $variables)
+    protected function addRecipient(string $headerName, string $address, array $variables): self
     {
         if (array_key_exists($headerName, $this->counters['recipients'])) {
             if ($this->counters['recipients'][$headerName] === self::RECIPIENT_COUNT_LIMIT) {
@@ -96,7 +94,7 @@ class BatchMessage extends MessageBuilder
      * @throws RuntimeException
      * @throws MissingRequiredParameter
      */
-    public function finalize()
+    public function finalize(): void
     {
         $message = $this->message;
 
