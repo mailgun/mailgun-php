@@ -18,7 +18,7 @@ use Psr\Http\Message\ResponseInterface;
  */
 trait Pagination
 {
-    abstract protected function httpGet(string $path, array $parameters = [], array $requestHeaders = []);
+    abstract protected function httpGet(string $path, array $parameters = [], array $requestHeaders = []): ResponseInterface;
 
     abstract protected function hydrateResponse(ResponseInterface $response, string $className);
 
