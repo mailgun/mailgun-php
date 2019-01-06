@@ -13,7 +13,7 @@ use Mailgun\Exception;
 
 class LimitExceeded extends \Exception implements Exception
 {
-    public static function create($field, $limit)
+    public static function create(string $field, int $limit)
     {
         return new self(sprintf('You\'ve exceeded the maximum (%d) %s for a single message.', $limit, $field));
     }

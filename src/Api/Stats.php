@@ -21,12 +21,10 @@ use Mailgun\Model\Stats\TotalResponse;
 class Stats extends HttpApi
 {
     /**
-     * @param string $domain
-     * @param array  $params
      *
      * @return TotalResponse|array
      */
-    public function total($domain, array $params = [])
+    public function total(string $domain, array $params = [])
     {
         Assert::stringNotEmpty($domain);
 
@@ -36,12 +34,10 @@ class Stats extends HttpApi
     }
 
     /**
-     * @param $domain
-     * @param array $params
      *
      * @return AllResponse|array
      */
-    public function all($domain, array $params = [])
+    public function all(string $domain, array $params = [])
     {
         Assert::stringNotEmpty($domain);
 

@@ -27,7 +27,7 @@ class Event extends HttpApi
      *
      * @return EventResponse
      */
-    public function get($domain, array $params = [])
+    public function get(string $domain, array $params = [])
     {
         Assert::stringNotEmpty($domain);
 

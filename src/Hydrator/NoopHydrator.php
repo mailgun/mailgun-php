@@ -19,12 +19,9 @@ use Psr\Http\Message\ResponseInterface;
 final class NoopHydrator implements Hydrator
 {
     /**
-     * @param ResponseInterface $response
-     * @param string            $class
-     *
      * @throws \LogicException
      */
-    public function hydrate(ResponseInterface $response, $class)
+    public function hydrate(ResponseInterface $response, string $class)
     {
         throw new \LogicException('The NoopHydrator should never be called');
     }

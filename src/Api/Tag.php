@@ -26,17 +26,13 @@ class Tag extends HttpApi
 {
     /**
      * Returns a list of tags.
-     *
-     * @param string $domain
-     * @param int    $limit
+
      *
      * @return IndexResponse|ResponseInterface
      */
-    public function index($domain, $limit = 100)
+    public function index(string $domain, int $limit = 100)
     {
         Assert::stringNotEmpty($domain);
-        Assert::integer($limit);
-
         $params = [
             'limit' => $limit,
         ];
@@ -49,12 +45,9 @@ class Tag extends HttpApi
     /**
      * Returns a single tag.
      *
-     * @param string $domain Name of the domain
-     * @param string $tag
-     *
      * @return ShowResponse|ResponseInterface
      */
-    public function show($domain, $tag)
+    public function show(string $domain, string $tag)
     {
         Assert::stringNotEmpty($domain);
         Assert::stringNotEmpty($tag);
@@ -67,17 +60,13 @@ class Tag extends HttpApi
     /**
      * Update a tag.
      *
-     * @param string $domain
-     * @param string $tag
-     * @param string $description
      *
      * @return UpdateResponse|ResponseInterface
      */
-    public function update($domain, $tag, $description)
+    public function update(string $domain, string $tag, string $description)
     {
         Assert::stringNotEmpty($domain);
         Assert::stringNotEmpty($tag);
-        Assert::string($description);
 
         $params = [
             'description' => $description,
@@ -91,17 +80,13 @@ class Tag extends HttpApi
     /**
      * Returns statistics for a single tag.
      *
-     * @param string $domain Name of the domain
-     * @param string $tag
-     * @param array  $params
      *
      * @return StatisticsResponse|ResponseInterface
      */
-    public function stats($domain, $tag, array $params)
+    public function stats(string $domain, string $tag, array $params)
     {
         Assert::stringNotEmpty($domain);
         Assert::stringNotEmpty($tag);
-        Assert::isArray($params);
 
         $response = $this->httpGet(sprintf('/v3/%s/tags/%s/stats', $domain, $tag), $params);
 
@@ -111,12 +96,10 @@ class Tag extends HttpApi
     /**
      * Removes a tag from the account.
      *
-     * @param string $domain Name of the domain
-     * @param string $tag
      *
      * @return DeleteResponse|ResponseInterface
      */
-    public function delete($domain, $tag)
+    public function delete(string $domain, string $tag)
     {
         Assert::stringNotEmpty($domain);
         Assert::stringNotEmpty($tag);

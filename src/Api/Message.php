@@ -14,30 +14,22 @@ use Mailgun\Exception\InvalidArgumentException;
 use Mailgun\Message\BatchMessage;
 use Mailgun\Model\Message\SendResponse;
 use Mailgun\Model\Message\ShowResponse;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
 class Message extends HttpApi
 {
-    /**
-     * @param string $domain
-     * @param bool   $autoSend
-     *
-     * @return BatchMessage
-     */
-    public function getBatchMessage($domain, $autoSend = true)
+    public function getBatchMessage(string $domain, bool $autoSend = true): BatchMessage
     {
         return new BatchMessage($this, $domain, $autoSend);
     }
 
     /**
-     * @param string $domain
-     * @param array  $params
-     *
-     * @return SendResponse
+     * @return SendResponse|ResponseInterface
      */
-    public function send($domain, array $params)
+    public function send(string $domain, array $params)
     {
         Assert::string($domain);
         Assert::notEmpty($domain);
@@ -70,8 +62,10 @@ class Message extends HttpApi
      * @param array  $recipients with all you send emails to. Including bcc and cc
      * @param string $message    Message filepath or content
      * @param array  $params
+     *
+     * @return SendResponse|ResponseInterface
      */
-    public function sendMime($domain, array $recipients, $message, array $params)
+    public function sendMime(string $domain, array $recipients,string  $message, array $params)
     {
         Assert::string($domain);
         Assert::notEmpty($domain);
@@ -103,9 +97,9 @@ class Message extends HttpApi
      * @param string $url
      * @param bool   $rawMessage if true we will use "Accept: message/rfc2822" header
      *
-     * @return ShowResponse
+     * @return ShowResponse|ResponseInterface
      */
-    public function show($url, $rawMessage = false)
+    public function show(string $url, bool $rawMessage = false)
     {
         Assert::notEmpty($url);
 
@@ -120,16 +114,13 @@ class Message extends HttpApi
     }
 
     /**
-     * Prepare a file.
      *
-     * @param string $fieldName
      * @param array  $filePath  array('fileContent' => 'content') or array('filePath' => '/foo/bar')
      *
-     * @return array
      *
      * @throws InvalidArgumentException
      */
-    private function prepareFile($fieldName, array $filePath)
+    private function prepareFile(string $fieldName, array $filePath): array
     {
         $filename = isset($filePath['filename']) ? $filePath['filename'] : null;
 
@@ -161,12 +152,8 @@ class Message extends HttpApi
 
     /**
      * Prepare multipart parameters. Make sure each POST parameter is split into an array with 'name' and 'content' keys.
-     *
-     * @param array $params
-     *
-     * @return array
      */
-    private function prepareMultipartParameters(array $params)
+    private function prepareMultipartParameters(array $params): array
     {
         $postDataMultipart = [];
         foreach ($params as $key => $value) {
@@ -184,10 +171,8 @@ class Message extends HttpApi
 
     /**
      * Close open resources.
-     *
-     * @param array $params
      */
-    private function closeResources(array $params)
+    private function closeResources(array $params): void
     {
         foreach ($params as $param) {
             if (is_array($param) && array_key_exists('content', $param) && is_resource($param['content'])) {

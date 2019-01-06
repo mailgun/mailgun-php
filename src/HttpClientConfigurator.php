@@ -12,6 +12,7 @@ namespace Mailgun;
 use Http\Client\HttpClient;
 use Http\Client\Common\PluginClient;
 use Http\Discovery\HttpClientDiscovery;
+use Http\Discovery\Psr17FactoryDiscovery;
 use Http\Discovery\UriFactoryDiscovery;
 use Http\Message\UriFactory;
 use Http\Client\Common\Plugin;
@@ -62,10 +63,7 @@ final class HttpClientConfigurator
         $this->responseHistory = new History();
     }
 
-    /**
-     * @return PluginClient
-     */
-    public function createConfiguredClient()
+    public function createConfiguredClient(): PluginClient
     {
         $plugins = [
             new Plugin\AddHostPlugin($this->getUriFactory()->createUri($this->endpoint)),
@@ -83,54 +81,33 @@ final class HttpClientConfigurator
         return new PluginClient($this->getHttpClient(), $plugins);
     }
 
-    /**
-     * @param bool $debug
-     *
-     * @return HttpClientConfigurator
-     */
-    public function setDebug($debug)
+    public function setDebug(bool $debug): self
     {
         $this->debug = $debug;
 
         return $this;
     }
 
-    /**
-     * @param string $endpoint
-     *
-     * @return HttpClientConfigurator
-     */
-    public function setEndpoint($endpoint)
+    public function setEndpoint(string $endpoint): self
     {
         $this->endpoint = $endpoint;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getApiKey()
+    public function getApiKey(): string
     {
         return $this->apiKey;
     }
 
-    /**
-     * @param string $apiKey
-     *
-     * @return HttpClientConfigurator
-     */
-    public function setApiKey($apiKey)
+    public function setApiKey(string $apiKey): self
     {
         $this->apiKey = $apiKey;
 
         return $this;
     }
 
-    /**
-     * @return UriFactory
-     */
-    private function getUriFactory()
+    private function getUriFactory(): UriFactory
     {
         if (null === $this->uriFactory) {
             $this->uriFactory = UriFactoryDiscovery::find();
@@ -139,22 +116,14 @@ final class HttpClientConfigurator
         return $this->uriFactory;
     }
 
-    /**
-     * @param UriFactory $uriFactory
-     *
-     * @return HttpClientConfigurator
-     */
-    public function setUriFactory(UriFactory $uriFactory)
+    public function setUriFactory(UriFactory $uriFactory): self
     {
         $this->uriFactory = $uriFactory;
 
         return $this;
     }
 
-    /**
-     * @return HttpClient
-     */
-    private function getHttpClient()
+    private function getHttpClient(): HttpClient
     {
         if (null === $this->httpClient) {
             $this->httpClient = HttpClientDiscovery::find();
@@ -163,22 +132,14 @@ final class HttpClientConfigurator
         return $this->httpClient;
     }
 
-    /**
-     * @param HttpClient $httpClient
-     *
-     * @return HttpClientConfigurator
-     */
-    public function setHttpClient(HttpClient $httpClient)
+    public function setHttpClient(HttpClient $httpClient): self
     {
         $this->httpClient = $httpClient;
 
         return $this;
     }
 
-    /**
-     * @return History
-     */
-    public function getResponseHistory()
+    public function getResponseHistory(): History
     {
         return $this->responseHistory;
     }

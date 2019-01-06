@@ -38,11 +38,8 @@ class Domain extends HttpApi
      *
      * @return IndexResponse
      */
-    public function index($limit = 100, $skip = 0)
+    public function index(int $limit = 100, int $skip = 0)
     {
-        Assert::integer($limit);
-        Assert::integer($skip);
-
         $params = [
             'limit' => $limit,
             'skip' => $skip,
@@ -60,7 +57,7 @@ class Domain extends HttpApi
      *
      * @return ShowResponse|array|ResponseInterface
      */
-    public function show($domain)
+    public function show(string $domain)
     {
         Assert::stringNotEmpty($domain);
 
@@ -83,7 +80,7 @@ class Domain extends HttpApi
      *
      * @return CreateResponse|array|ResponseInterface
      */
-    public function create($domain, $smtpPass = null, $spamAction = null, $wildcard = null)
+    public function create(string $domain, string $smtpPass = null, string $spamAction = null, bool $wildcard = null)
     {
         Assert::stringNotEmpty($domain);
 
@@ -112,7 +109,7 @@ class Domain extends HttpApi
      *
      * @return DeleteResponse|array|ResponseInterface
      */
-    public function delete($domain)
+    public function delete(string $domain)
     {
         Assert::stringNotEmpty($domain);
 
@@ -130,12 +127,9 @@ class Domain extends HttpApi
      *
      * @return CredentialResponse
      */
-    public function credentials($domain, $limit = 100, $skip = 0)
+    public function credentials(string $domain, int $limit = 100, int $skip = 0)
     {
         Assert::stringNotEmpty($domain);
-        Assert::integer($limit);
-        Assert::integer($skip);
-
         $params = [
             'limit' => $limit,
             'skip' => $skip,
@@ -155,7 +149,7 @@ class Domain extends HttpApi
      *
      * @return CreateCredentialResponse|array|ResponseInterface
      */
-    public function createCredential($domain, $login, $password)
+    public function createCredential(string $domain, string $login, string $password)
     {
         Assert::stringNotEmpty($domain);
         Assert::stringNotEmpty($login);
@@ -181,7 +175,7 @@ class Domain extends HttpApi
      *
      * @return UpdateCredentialResponse|array|ResponseInterface
      */
-    public function updateCredential($domain, $login, $pass)
+    public function updateCredential(string $domain, string $login, string $pass)
     {
         Assert::stringNotEmpty($domain);
         Assert::stringNotEmpty($login);
@@ -205,7 +199,7 @@ class Domain extends HttpApi
      *
      * @return DeleteCredentialResponse|array|ResponseInterface
      */
-    public function deleteCredential($domain, $login)
+    public function deleteCredential(string $domain, string $login)
     {
         Assert::stringNotEmpty($domain);
         Assert::stringNotEmpty($login);
@@ -228,7 +222,7 @@ class Domain extends HttpApi
      *
      * @return ConnectionResponse|ResponseInterface
      */
-    public function connection($domain)
+    public function connection(string $domain)
     {
         Assert::stringNotEmpty($domain);
 
@@ -247,12 +241,9 @@ class Domain extends HttpApi
      *
      * @return UpdateConnectionResponse|array|ResponseInterface
      */
-    public function updateConnection($domain, $requireTLS, $noVerify)
+    public function updateConnection(string $domain, ?bool $requireTLS, ?bool $noVerify)
     {
         Assert::stringNotEmpty($domain);
-        Assert::nullOrBoolean($requireTLS);
-        Assert::nullOrBoolean($noVerify);
-
         $params = [];
 
         if (null !== $requireTLS) {
@@ -275,7 +266,7 @@ class Domain extends HttpApi
      *
      * @return VerifyResponse|array|ResponseInterface
      */
-    public function verify($domain)
+    public function verify(string $domain)
     {
         Assert::stringNotEmpty($domain);
 

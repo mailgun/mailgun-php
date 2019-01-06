@@ -21,12 +21,10 @@ use Psr\Http\Message\ResponseInterface;
 final class ModelHydrator implements Hydrator
 {
     /**
-     * @param ResponseInterface $response
-     * @param string            $class
      *
      * @return ResponseInterface
      */
-    public function hydrate(ResponseInterface $response, $class)
+    public function hydrate(ResponseInterface $response, string $class)
     {
         $body = $response->getBody()->__toString();
         $contentType = $response->getHeaderLine('Content-Type');

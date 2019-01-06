@@ -31,10 +31,8 @@ class Route extends HttpApi
      *
      * @return IndexResponse
      */
-    public function index($limit = 100, $skip = 0)
+    public function index(int $limit = 100, int $skip = 0)
     {
-        Assert::integer($limit);
-        Assert::integer($skip);
         Assert::greaterThan($limit, 0);
         Assert::greaterThanEq($skip, 0);
 
@@ -55,7 +53,7 @@ class Route extends HttpApi
      *
      * @return ShowResponse
      */
-    public function show($routeId)
+    public function show(string $routeId)
     {
         Assert::stringNotEmpty($routeId);
 
@@ -74,12 +72,9 @@ class Route extends HttpApi
      *
      * @return CreateResponse
      */
-    public function create($expression, array $actions, $description, $priority = 0)
+    public function create(string $expression, array $actions, string $description, int $priority = 0)
     {
-        Assert::string($expression);
         Assert::isArray($actions);
-        Assert::string($description);
-        Assert::integer($priority);
 
         $params = [
             'priority' => $priority,
@@ -105,14 +100,14 @@ class Route extends HttpApi
      *
      * @return UpdateResponse
      */
-    public function update($routeId, $expression = null, array $actions = [], $description = null, $priority = null)
-    {
+    public function update(
+        string $routeId,
+        string $expression = null,
+        array $actions = [],
+        string $description = null,
+        int $priority = null
+    ) {
         Assert::stringNotEmpty($routeId);
-        Assert::nullOrString($expression);
-        Assert::isArray($actions);
-        Assert::nullOrString($description);
-        Assert::nullOrInteger($priority);
-
         $params = [];
 
         if (!empty($expression)) {
@@ -146,7 +141,7 @@ class Route extends HttpApi
      *
      * @return DeleteResponse
      */
-    public function delete($routeId)
+    public function delete(string $routeId)
     {
         Assert::stringNotEmpty($routeId);
 

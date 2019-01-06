@@ -19,10 +19,7 @@ use Mailgun\Model\MailingList\UpdateResponse;
 
 class MailingList extends HttpApi
 {
-    /**
-     * @return Member
-     */
-    public function member()
+    public function member(): Member
     {
         return new Member($this->httpClient, $this->requestBuilder, $this->hydrator);
     }
@@ -36,7 +33,7 @@ class MailingList extends HttpApi
      *
      * @throws \Exception
      */
-    public function pages($limit = 100)
+    public function pages(int $limit = 100)
     {
         Assert::integer($limit);
         Assert::greaterThan($limit, 0);
@@ -62,7 +59,7 @@ class MailingList extends HttpApi
      *
      * @throws \Exception
      */
-    public function create($address, $name = null, $description = null, $accessLevel = 'readonly')
+    public function create(string $address, string $name = null, string $description = null, string $accessLevel = 'readonly')
     {
         Assert::stringNotEmpty($address);
         Assert::nullOrStringNotEmpty($name);
@@ -90,7 +87,7 @@ class MailingList extends HttpApi
      *
      * @throws \Exception
      */
-    public function show($address)
+    public function show(string $address)
     {
         Assert::stringNotEmpty($address);
 
@@ -109,7 +106,7 @@ class MailingList extends HttpApi
      *
      * @throws \Exception
      */
-    public function update($address, $parameters = [])
+    public function update(string $address, array $parameters = [])
     {
         Assert::stringNotEmpty($address);
         Assert::isArray($parameters);
@@ -143,7 +140,7 @@ class MailingList extends HttpApi
      *
      * @throws \Exception
      */
-    public function delete($address)
+    public function delete(string $address)
     {
         Assert::stringNotEmpty($address);
 

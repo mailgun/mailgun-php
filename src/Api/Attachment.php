@@ -11,6 +11,7 @@ namespace Mailgun\Api;
 
 use Mailgun\Assert;
 use Mailgun\Model\Attachment\Attachment as Model;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
@@ -18,11 +19,9 @@ use Mailgun\Model\Attachment\Attachment as Model;
 class Attachment extends HttpApi
 {
     /**
-     * @param string $url
-     *
-     * @return Model
+     * @return Model|ResponseInterface
      */
-    public function show($url)
+    public function show(string $url)
     {
         Assert::stringNotEmpty($url);
         Assert::regex($url, '@https://.*mailgun\.(net|org)/v.+@');

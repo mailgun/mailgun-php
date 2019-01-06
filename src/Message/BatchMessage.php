@@ -30,7 +30,7 @@ class BatchMessage extends MessageBuilder
     /**
      * @var bool
      */
-    private $autoSend = true;
+    private $autoSend;
 
     /**
      * @var array
@@ -47,12 +47,7 @@ class BatchMessage extends MessageBuilder
      */
     private $api;
 
-    /**
-     * @param Message $messageApi
-     * @param string  $domain
-     * @param bool    $autoSend
-     */
-    public function __construct(Message $messageApi, $domain, $autoSend)
+    public function __construct(Message $messageApi, string $domain, bool $autoSend)
     {
         $this->api = $messageApi;
         $this->domain = $domain;
@@ -75,7 +70,7 @@ class BatchMessage extends MessageBuilder
      *
      * @return BatchMessage
      */
-    protected function addRecipient($headerName, $address, array $variables)
+    protected function addRecipient(string $headerName, string $address, array $variables)
     {
         if (array_key_exists($headerName, $this->counters['recipients'])) {
             if ($this->counters['recipients'][$headerName] === self::RECIPIENT_COUNT_LIMIT) {
@@ -132,7 +127,7 @@ class BatchMessage extends MessageBuilder
     /**
      * @return string[]
      */
-    public function getMessageIds()
+    public function getMessageIds(): array
     {
         return $this->messageIds;
     }

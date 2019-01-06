@@ -25,11 +25,10 @@ class Ip extends HttpApi
     /**
      * Returns a list of IPs.
      *
-     * @param bool $dedicated
      *
      * @return IndexResponse|ResponseInterface
      */
-    public function index($dedicated = false)
+    public function index(bool $dedicated = false)
     {
         Assert::boolean($dedicated);
 
@@ -45,11 +44,10 @@ class Ip extends HttpApi
     /**
      * Returns a list of IPs assigned to a domain.
      *
-     * @param string $domain
      *
      * @return IndexResponse|ResponseInterface
      */
-    public function domainIndex($domain)
+    public function domainIndex(string $domain)
     {
         Assert::stringNotEmpty($domain);
 
@@ -61,11 +59,10 @@ class Ip extends HttpApi
     /**
      * Returns a single ip.
      *
-     * @param string $ip
      *
      * @return ShowResponse|ResponseInterface
      */
-    public function show($ip)
+    public function show(string $ip)
     {
         Assert::ip($ip);
 
@@ -77,12 +74,10 @@ class Ip extends HttpApi
     /**
      * Assign a dedicated IP to the domain specified.
      *
-     * @param string $domain
-     * @param string $ip
      *
      * @return UpdateResponse|ResponseInterface
      */
-    public function assign($domain, $ip)
+    public function assign(string $domain, string $ip)
     {
         Assert::stringNotEmpty($domain);
         Assert::ip($ip);
@@ -99,12 +94,11 @@ class Ip extends HttpApi
     /**
      * Unassign an IP from the domain specified.
      *
-     * @param string $domain
-     * @param string $ip
+
      *
      * @return UpdateResponse|ResponseInterface
      */
-    public function unassign($domain, $ip)
+    public function unassign(string $domain, string $ip)
     {
         Assert::stringNotEmpty($domain);
         Assert::ip($ip);

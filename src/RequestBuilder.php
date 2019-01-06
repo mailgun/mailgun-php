@@ -46,7 +46,7 @@ class RequestBuilder
      *
      * @return RequestInterface
      */
-    public function create($method, $uri, array $headers = [], $body = null)
+    public function create(string $method, string $uri, array $headers = [], $body = null)
     {
         if (!is_array($body)) {
             return $this->getRequestFactory()->createRequest($method, $uri, $headers, $body);
