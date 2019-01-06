@@ -29,7 +29,7 @@ abstract class HttpApi
      *
      * @var HttpClient
      */
-    private $httpClient;
+    protected $httpClient;
 
     /**
      * @var Hydrator
