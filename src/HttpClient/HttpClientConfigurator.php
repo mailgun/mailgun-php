@@ -11,14 +11,14 @@ declare(strict_types=1);
 
 namespace Mailgun\HttpClient;
 
-use Http\Client\HttpClient;
 use Http\Client\Common\PluginClient;
-use Http\Discovery\HttpClientDiscovery;
+use Http\Discovery\Psr18ClientDiscovery;
 use Http\Discovery\UriFactoryDiscovery;
 use Http\Message\UriFactory;
 use Http\Client\Common\Plugin;
 use Mailgun\HttpClient\Plugin\History;
 use Mailgun\HttpClient\Plugin\ReplaceUriPlugin;
+use Psr\Http\Client\ClientInterface;
 
 /**
  * Configure a HTTP client.
@@ -50,7 +50,7 @@ final class HttpClientConfigurator
     private $uriFactory;
 
     /**
-     * @var HttpClient
+     * @var ClientInterface
      */
     private $httpClient;
 
@@ -124,16 +124,16 @@ final class HttpClientConfigurator
         return $this;
     }
 
-    private function getHttpClient(): HttpClient
+    private function getHttpClient(): ClientInterface
     {
         if (null === $this->httpClient) {
-            $this->httpClient = HttpClientDiscovery::find();
+            $this->httpClient = Psr18ClientDiscovery::find();
         }
 
         return $this->httpClient;
     }
 
-    public function setHttpClient(HttpClient $httpClient): self
+    public function setHttpClient(ClientInterface $httpClient): self
     {
         $this->httpClient = $httpClient;
 

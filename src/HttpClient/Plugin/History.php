@@ -11,8 +11,10 @@ declare(strict_types=1);
 
 namespace Mailgun\HttpClient\Plugin;
 
+use Http\Client\Common\HttpMethodsClientInterface;
 use Http\Client\Common\Plugin\Journal;
 use Http\Client\Exception;
+use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
@@ -23,6 +25,7 @@ use Psr\Http\Message\ResponseInterface;
  */
 final class History implements Journal
 {
+    use HistoryTrait;
     /**
      * @var ResponseInterface
      */
@@ -40,8 +43,25 @@ final class History implements Journal
     {
         $this->lastResponse = $response;
     }
+}
 
-    public function addFailure(RequestInterface $request, Exception $exception)
+/*
+ * Below is a some code to make the History plugin compatible with both 1.x and 2.x of php-client/client-common
+ */
+if (\class_exists(HttpMethodsClientInterface::class)) {
+    // 2.x code
+    trait HistoryTrait
     {
+        public function addFailure(RequestInterface $request, ClientExceptionInterface $exception)
+        {
+        }
+    }
+} else {
+    // 1.x code
+    trait HistoryTrait
+    {
+        public function addFailure(RequestInterface $request, Exception $exception)
+        {
+        }
     }
 }

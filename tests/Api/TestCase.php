@@ -14,6 +14,7 @@ namespace Mailgun\Tests\Api;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use Mailgun\Hydrator\ModelHydrator;
+use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\ResponseInterface;
 
 /**
@@ -49,7 +50,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
     protected function getApiMock($httpClient = null, $requestClient = null, $hydrator = null)
     {
         if (null === $httpClient) {
-            $httpClient = $this->getMockBuilder('Http\Client\HttpClient')
+            $httpClient = $this->getMockBuilder(ClientInterface::class)
                 ->setMethods(['sendRequest'])
                 ->getMock();
             $httpClient
@@ -79,7 +80,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
      */
     protected function getApiInstance($apiKey = null)
     {
-        $httpClient = $this->getMockBuilder('Http\Client\HttpClient')
+        $httpClient = $this->getMockBuilder(ClientInterface::class)
             ->setMethods(['sendRequest'])
             ->getMock();
         $httpClient

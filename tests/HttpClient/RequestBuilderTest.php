@@ -12,19 +12,25 @@ declare(strict_types=1);
 namespace Mailgun\Tests\HttpClient;
 
 use Http\Message\MultipartStream\MultipartStreamBuilder;
-use Http\Message\RequestFactory;
 use Mailgun\HttpClient\RequestBuilder;
 use Mailgun\Tests\MailgunTestCase;
+use Nyholm\Psr7\Stream;
 use PHPUnit\Framework\MockObject\MockObject;
+use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\StreamFactoryInterface;
 use Psr\Http\Message\StreamInterface;
 
 class RequestBuilderTest extends MailgunTestCase
 {
     /**
-     * @var MockObject|RequestFactory
+     * @var MockObject|RequestFactoryInterface
      */
     private $requestFactory;
+    /**
+     * @var MockObject|StreamFactoryInterface
+     */
+    private $streamFactory;
 
     /**
      * @var RequestBuilder
@@ -38,13 +44,18 @@ class RequestBuilderTest extends MailgunTestCase
     {
         parent::setUp();
 
-        $this->requestFactory = $this->getMockBuilder(RequestFactory::class)
+        $this->requestFactory = $this->getMockBuilder(RequestFactoryInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->streamFactory = $this->getMockBuilder(StreamFactoryInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
         $this->requestBuilder = new RequestBuilder();
         //Everything but testing class is mock. Otherwise it wouldn't be unit testing
         $this->requestBuilder->setRequestFactory($this->requestFactory);
+        $this->requestBuilder->setStreamFactory($this->streamFactory);
     }
 
     /**
@@ -60,21 +71,34 @@ class RequestBuilderTest extends MailgunTestCase
 
     public function testCreateSimpleStream()
     {
+        $streamContent = 'content';
+        $stream = Stream::create($streamContent);
+
+        $this->streamFactory
+            ->expects($this->once())
+            ->method('createStream')
+            ->with($streamContent)
+            ->willReturn($stream);
+
+        $request = $this->getMockBuilder(RequestInterface::class)->getMock();
+        $request->expects($this->once())
+            ->method('withBody')
+            ->with($this->equalTo($stream))
+            ->willReturn($request);
+
+        $request->expects($this->once())
+            ->method('withAddedHeader')
+            ->with($this->equalTo('Content-Type'), $this->equalTo('application/json'))
+            ->willReturn($request);
+
         $this->requestFactory
             ->expects($this->once())
             ->method('createRequest')
             ->with(
                 $this->equalTo('GET'),
-                $this->equalTo('http://foo.bar'),
-                $this->callback(function (array $headers) {
-                    $this->assertArrayHasKey('Content-Type', $headers);
-                    $this->assertEquals('application/json', $headers['Content-Type']);
-
-                    return true;
-                }),
-                $this->equalTo('content')
+                $this->equalTo('http://foo.bar')
             )
-            ->willReturn($request = $this->getMockBuilder(RequestInterface::class)->getMock());
+            ->willReturn($request);
 
         $result = $this->requestBuilder
             ->create('GET', 'http://foo.bar', ['Content-Type' => 'application/json'], 'content');
@@ -122,21 +146,25 @@ class RequestBuilderTest extends MailgunTestCase
             ->method('reset')
             ->willReturn($multipartStreamBuilder);
 
+        $request = $this->getMockBuilder(RequestInterface::class)->getMock();
+        $request->expects($this->once())
+            ->method('withBody')
+            ->with($this->equalTo($stream))
+            ->willReturn($request);
+
+        $request->expects($this->once())
+            ->method('withAddedHeader')
+            ->with($this->equalTo('Content-Type'), $this->equalTo('multipart/form-data; boundary="some boundary"'))
+            ->willReturn($request);
+
         $this->requestFactory
             ->expects($this->once())
             ->method('createRequest')
             ->with(
                 $this->equalTo('GET'),
-                $this->equalTo('http://foo.bar'),
-                $this->callback(function (array $headers) {
-                    $this->assertArrayHasKey('Content-Type', $headers);
-                    $this->assertEquals('multipart/form-data; boundary="some boundary"', $headers['Content-Type']);
-
-                    return true;
-                }),
-                $this->equalTo($stream)
+                $this->equalTo('http://foo.bar')
             )
-            ->willReturn($request = $this->getMockBuilder(RequestInterface::class)->getMock());
+            ->willReturn($request);
 
         $this->requestBuilder->setMultipartStreamBuilder($multipartStreamBuilder);
         $result = $this->requestBuilder
