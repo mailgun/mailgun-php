@@ -23,7 +23,6 @@ final class CountryResponse implements ApiResponse
 
     /**
      * @var string
-     *
      */
     private $tag;
 
@@ -55,6 +54,4 @@ final class CountryResponse implements ApiResponse
     {
         return $this->tag;
     }
-
-
 }

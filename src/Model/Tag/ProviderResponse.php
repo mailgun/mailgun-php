@@ -23,7 +23,6 @@ final class ProviderResponse implements ApiResponse
 
     /**
      * @var string
-     *
      */
     private $tag;
 
@@ -55,6 +54,4 @@ final class ProviderResponse implements ApiResponse
     {
         return $this->tag;
     }
-
-
 }
