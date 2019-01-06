@@ -7,17 +7,17 @@
  * of the MIT license. See the LICENSE file for details.
  */
 
-namespace Mailgun\Tests;
+namespace Mailgun\Tests\HttpClient;
 
 use Http\Message\MultipartStream\MultipartStreamBuilder;
 use Http\Message\RequestFactory;
 use Mailgun\HttpClient\RequestBuilder;
-use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use PHPUnit_Framework_TestCase;
+use Mailgun\Tests\MailgunTestCase;
+use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\StreamInterface;
 
-class RequestBuilderTest extends PHPUnit_Framework_TestCase
+class RequestBuilderTest extends MailgunTestCase
 {
     /**
      * @var MockObject|RequestFactory
@@ -72,7 +72,7 @@ class RequestBuilderTest extends PHPUnit_Framework_TestCase
                 }),
                 $this->equalTo('content')
             )
-            ->willReturn($request = $this->getMock(RequestInterface::class));
+            ->willReturn($request = $this->getMockBuilder(RequestInterface::class)->getMock());
 
         $result = $this->requestBuilder
             ->create('GET', 'http://foo.bar', ['Content-Type' => 'application/json'], 'content');
@@ -108,7 +108,7 @@ class RequestBuilderTest extends PHPUnit_Framework_TestCase
         $multipartStreamBuilder
             ->expects($this->once())
             ->method('build')
-            ->willReturn($stream = $this->getMock(StreamInterface::class));
+            ->willReturn($stream = $this->getMockBuilder(StreamInterface::class)->getMock());
 
         $multipartStreamBuilder
             ->expects($this->once())
@@ -134,7 +134,7 @@ class RequestBuilderTest extends PHPUnit_Framework_TestCase
                 }),
                 $this->equalTo($stream)
             )
-            ->willReturn($request = $this->getMock(RequestInterface::class));
+            ->willReturn($request = $this->getMockBuilder(RequestInterface::class)->getMock());
 
         $this->requestBuilder->setMultipartStreamBuilder($multipartStreamBuilder);
         $result = $this->requestBuilder

@@ -354,12 +354,7 @@ class MessageBuilder
         return $this;
     }
 
-    /**
-     * @param bool $enabled
-     *
-     * @return MessageBuilder
-     */
-    public function setTestMode(bool $enabled)
+    public function setTestMode(bool $enabled): self
     {
         $this->message['o:testmode'] = $this->boolToString($enabled);
 
@@ -411,36 +406,22 @@ class MessageBuilder
         return $this;
     }
 
-    /**
-     * @param bool $enabled
-     *
-     * @return MessageBuilder
-     */
-    public function setDkim(bool $enabled)
+    public function setDkim(bool $enabled): self
     {
         $this->message['o:dkim'] = $this->boolToString($enabled);
 
         return $this;
     }
 
-    /**
-     * @param bool $enabled
-     *
-     * @return MessageBuilder
-     */
-    public function setOpenTracking(bool $enabled)
+
+    public function setOpenTracking(bool $enabled): self
     {
         $this->message['o:tracking-opens'] = $this->boolToString($enabled);
 
         return $this;
     }
 
-    /**
-     * @param bool $enabled
-     *
-     * @return MessageBuilder
-     */
-    public function setClickTracking(bool $enabled)
+    public function setClickTracking(bool $enabled): self
     {
         $this->message['o:tracking-clicks'] = $this->boolToString($enabled);
 

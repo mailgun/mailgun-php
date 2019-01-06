@@ -224,13 +224,8 @@ class MessageBuilderTest extends MailgunTestCase
         $this->messageBuilder->setTestMode(true);
         $message = $this->messageBuilder->getMessage();
         $this->assertEquals(['o:testmode' => 'yes'], $message);
+
         $this->messageBuilder->setTestMode(false);
-        $message = $this->messageBuilder->getMessage();
-        $this->assertEquals(['o:testmode' => 'no'], $message);
-        $this->messageBuilder->setTestMode('yes');
-        $message = $this->messageBuilder->getMessage();
-        $this->assertEquals(['o:testmode' => 'yes'], $message);
-        $this->messageBuilder->setTestMode('no');
         $message = $this->messageBuilder->getMessage();
         $this->assertEquals(['o:testmode' => 'no'], $message);
     }
@@ -257,13 +252,8 @@ class MessageBuilderTest extends MailgunTestCase
         $this->messageBuilder->setDkim(true);
         $message = $this->messageBuilder->getMessage();
         $this->assertEquals(['o:dkim' => 'yes'], $message);
+
         $this->messageBuilder->setDkim(false);
-        $message = $this->messageBuilder->getMessage();
-        $this->assertEquals(['o:dkim' => 'no'], $message);
-        $this->messageBuilder->setDkim('yes');
-        $message = $this->messageBuilder->getMessage();
-        $this->assertEquals(['o:dkim' => 'yes'], $message);
-        $this->messageBuilder->setDkim('no');
         $message = $this->messageBuilder->getMessage();
         $this->assertEquals(['o:dkim' => 'no'], $message);
     }
@@ -273,13 +263,8 @@ class MessageBuilderTest extends MailgunTestCase
         $this->messageBuilder->setClickTracking(true);
         $message = $this->messageBuilder->getMessage();
         $this->assertEquals(['o:tracking-clicks' => 'yes'], $message);
+
         $this->messageBuilder->setClickTracking(false);
-        $message = $this->messageBuilder->getMessage();
-        $this->assertEquals(['o:tracking-clicks' => 'no'], $message);
-        $this->messageBuilder->setClickTracking('yes');
-        $message = $this->messageBuilder->getMessage();
-        $this->assertEquals(['o:tracking-clicks' => 'yes'], $message);
-        $this->messageBuilder->setClickTracking('no');
         $message = $this->messageBuilder->getMessage();
         $this->assertEquals(['o:tracking-clicks' => 'no'], $message);
     }
@@ -289,13 +274,8 @@ class MessageBuilderTest extends MailgunTestCase
         $this->messageBuilder->setOpenTracking(true);
         $message = $this->messageBuilder->getMessage();
         $this->assertEquals(['o:tracking-opens' => 'yes'], $message);
+
         $this->messageBuilder->setOpenTracking(false);
-        $message = $this->messageBuilder->getMessage();
-        $this->assertEquals(['o:tracking-opens' => 'no'], $message);
-        $this->messageBuilder->setOpenTracking('yes');
-        $message = $this->messageBuilder->getMessage();
-        $this->assertEquals(['o:tracking-opens' => 'yes'], $message);
-        $this->messageBuilder->setOpenTracking('no');
         $message = $this->messageBuilder->getMessage();
         $this->assertEquals(['o:tracking-opens' => 'no'], $message);
     }
@@ -305,12 +285,15 @@ class MessageBuilderTest extends MailgunTestCase
         $this->messageBuilder->setDeliveryTime('January 15, 2014 8:00AM', 'CST');
         $message = $this->messageBuilder->getMessage();
         $this->assertEquals(['o:deliverytime' => 'Wed, 15 Jan 2014 08:00:00 -0600'], $message);
+
         $this->messageBuilder->setDeliveryTime('January 15, 2014 8:00AM', 'UTC');
         $message = $this->messageBuilder->getMessage();
         $this->assertEquals(['o:deliverytime' => 'Wed, 15 Jan 2014 08:00:00 +0000'], $message);
+
         $this->messageBuilder->setDeliveryTime('January 15, 2014 8:00AM');
         $message = $this->messageBuilder->getMessage();
         $this->assertEquals(['o:deliverytime' => 'Wed, 15 Jan 2014 08:00:00 +0000'], $message);
+
         $this->messageBuilder->setDeliveryTime('1/15/2014 13:50:01', 'CDT');
         $message = $this->messageBuilder->getMessage();
         $this->assertEquals(['o:deliverytime' => 'Wed, 15 Jan 2014 13:50:01 -0600'], $message);
