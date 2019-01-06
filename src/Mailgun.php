@@ -20,19 +20,12 @@ use Psr\Http\Message\ResponseInterface;
 /**
  * This class is the base class for the Mailgun SDK.
  */
-class Mailgun
+final class Mailgun
 {
-    /**
-     * @var RestClient
-     *
-     * @depracated Will be removed in 3.0
-     */
-    protected $restClient;
-
     /**
      * @var null|string
      */
-    protected $apiKey;
+    private $apiKey;
 
     /**
      * @var HttpMethodsClient
@@ -54,62 +47,28 @@ class Mailgun
      *
      * @var History
      */
-    private $responseHistory = null;
+    private $responseHistory;
 
-    /**
-     * @param string|null         $apiKey
-     * @param HttpClient|null     $httpClient
-     * @param string              $apiEndpoint
-     * @param Hydrator|null       $hydrator
-     * @param RequestBuilder|null $requestBuilder
-     *
-     * @internal Use Mailgun::configure or Mailgun::create instead.
-     */
     public function __construct(
-        $apiKey = null, /* Deprecated, will be removed in 3.0 */
-        HttpClient $httpClient = null,
-        $apiEndpoint = 'api.mailgun.net', /* Deprecated, will be removed in 3.0 */
-        Hydrator $hydrator = null,
-        RequestBuilder $requestBuilder = null
-    ) {
-        $this->apiKey = $apiKey;
-        $this->restClient = new RestClient($apiKey, $apiEndpoint, $httpClient);
-
-        $this->httpClient = $httpClient;
-        $this->requestBuilder = $requestBuilder ?: new RequestBuilder();
-        $this->hydrator = $hydrator ?: new ModelHydrator();
-    }
-
-    /**
-     * @param HttpClientConfigurator $configurator
-     * @param Hydrator|null          $hydrator
-     * @param RequestBuilder|null    $requestBuilder
-     *
-     * @return Mailgun
-     */
-    public static function configure(
         HttpClientConfigurator $configurator,
         Hydrator $hydrator = null,
         RequestBuilder $requestBuilder = null
     ) {
-        $httpClient = $configurator->createConfiguredClient();
+        $this->requestBuilder = $requestBuilder ?: new RequestBuilder();
+        $this->hydrator = $hydrator ?: new ModelHydrator();
 
-        return new self($configurator->getApiKey(), $httpClient, 'api.mailgun.net', $hydrator, $requestBuilder);
+        $this->httpClient = $configurator->createConfiguredClient();
+        $this->apiKey = $configurator->getApiKey();
+        $this->responseHistory = $configurator->getResponseHistory();
     }
 
-    /**
-     * @param string $apiKey
-     * @param string $endpoint URL to mailgun servers
-     *
-     * @return Mailgun
-     */
-    public static function create($apiKey, $endpoint = 'https://api.mailgun.net')
+    public static function create(string $apiKey, string $endpoint = 'https://api.mailgun.net'): self
     {
         $httpClientConfigurator = (new HttpClientConfigurator())
             ->setApiKey($apiKey)
             ->setEndpoint($endpoint);
 
-        return self::configure($httpClientConfigurator);
+        return new self($httpClientConfigurator);
     }
 
     /**
