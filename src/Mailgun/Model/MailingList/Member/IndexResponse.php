@@ -7,27 +7,42 @@
  * of the MIT license. See the LICENSE file for details.
  */
 
-namespace Mailgun\Model\Event;
+namespace Mailgun\Model\MailingList\Member;
 
 use Mailgun\Model\PagingProvider;
 use Mailgun\Model\PaginationResponse;
 use Mailgun\Model\ApiResponse;
 
-/**
- * @author Tobias Nyholm <tobias.nyholm@gmail.com>
- */
-final class EventResponse implements ApiResponse, PagingProvider
+final class IndexResponse implements ApiResponse, PagingProvider
 {
     use PaginationResponse;
 
     /**
-     * @var Event[]
+     * @var Member[]
      */
     private $items;
 
     /**
-     * @param Event[] $items
-     * @param array   $paging
+     * @param array $data
+     *
+     * @return self
+     */
+    public static function create(array $data)
+    {
+        $items = [];
+
+        if (isset($data['items'])) {
+            foreach ($data['items'] as $item) {
+                $items[] = Member::create($item);
+            }
+        }
+
+        return new self($items, $data['paging']);
+    }
+
+    /**
+     * @param Member[] $items
+     * @param array    $paging
      */
     private function __construct(array $items, array $paging)
     {
@@ -35,20 +50,8 @@ final class EventResponse implements ApiResponse, PagingProvider
         $this->paging = $paging;
     }
 
-    public static function create(array $data)
-    {
-        $events = [];
-        if (isset($data['items'])) {
-            foreach ($data['items'] as $item) {
-                $events[] = Event::create($item);
-            }
-        }
-
-        return new self($events, $data['paging']);
-    }
-
     /**
-     * @return Event[]
+     * @return Member[]
      */
     public function getItems()
     {

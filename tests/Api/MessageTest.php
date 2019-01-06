@@ -111,6 +111,17 @@ class MessageTest extends TestCase
         $api->show('url', true);
     }
 
+    public function testSendMimeWithLongMessage()
+    {
+        $api = $this->getApiMock();
+        $api->expects($this->once())
+            ->method('httpPostRaw')
+            ->willReturn(new Response());
+
+        $message = str_repeat('a', PHP_MAXPATHLEN).' and some more';
+        $api->sendMime('foo', ['mailbox@myapp.com'], $message, []);
+    }
+
     /**
      * {@inheritdoc}
      */

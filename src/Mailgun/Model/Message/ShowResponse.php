@@ -14,7 +14,7 @@ use Mailgun\Model\ApiResponse;
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
-class ShowResponse implements ApiResponse
+final class ShowResponse implements ApiResponse
 {
     /**
      * Only available with message/rfc2822.
@@ -105,7 +105,7 @@ class ShowResponse implements ApiResponse
     /**
      * @param array $data
      *
-     * @return SendResponse
+     * @return ShowResponse
      */
     public static function create(array $data)
     {

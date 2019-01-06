@@ -12,7 +12,7 @@ namespace Mailgun\Model\Stats;
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
-class TotalResponseItem
+final class TotalResponseItem
 {
     /**
      * @var \DateTime
@@ -35,6 +35,11 @@ class TotalResponseItem
     private $failed;
 
     /**
+     * @var array
+     */
+    private $complained;
+
+    /**
      * @param array $data
      *
      * @return self
@@ -45,7 +50,8 @@ class TotalResponseItem
             isset($data['time']) ? new \DateTime($data['time']) : null,
             isset($data['accepted']) ? $data['accepted'] : [],
             isset($data['delivered']) ? $data['delivered'] : [],
-            isset($data['failed']) ? $data['failed'] : []
+            isset($data['failed']) ? $data['failed'] : [],
+            isset($data['complained']) ? $data['complained'] : []
         );
     }
 
@@ -54,13 +60,15 @@ class TotalResponseItem
      * @param array     $accepted
      * @param array     $delivered
      * @param array     $failed
+     * @param array     $complained
      */
-    private function __construct(\DateTime $time, array $accepted, array $delivered, array $failed)
+    private function __construct(\DateTime $time, array $accepted, array $delivered, array $failed, array $complained)
     {
         $this->time = $time;
         $this->accepted = $accepted;
         $this->delivered = $delivered;
         $this->failed = $failed;
+        $this->complained = $complained;
     }
 
     /**
@@ -93,5 +101,13 @@ class TotalResponseItem
     public function getFailed()
     {
         return $this->failed;
+    }
+
+    /**
+     * @return array
+     */
+    public function getComplained()
+    {
+        return $this->complained;
     }
 }

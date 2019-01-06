@@ -12,7 +12,7 @@ namespace Mailgun\Model\Event;
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
-class Event
+final class Event
 {
     /**
      * @var string status

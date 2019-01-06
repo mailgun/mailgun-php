@@ -14,7 +14,7 @@ use Mailgun\Model\ApiResponse;
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
-class SendResponse implements ApiResponse
+final class SendResponse implements ApiResponse
 {
     /**
      * @var string
