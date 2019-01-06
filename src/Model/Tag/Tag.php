@@ -9,7 +9,7 @@
 
 namespace Mailgun\Model\Tag;
 
-final class Tag
+class Tag
 {
     /**
      * @var string
