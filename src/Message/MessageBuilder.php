@@ -135,7 +135,7 @@ class MessageBuilder
             $this->message[$headerName] = [$compiledAddress];
         }
         if (array_key_exists($headerName, $this->counters['recipients'])) {
-            $this->counters['recipients'][$headerName] += 1;
+            ++$this->counters['recipients'][$headerName];
         }
 
         return $this;
@@ -383,7 +383,7 @@ class MessageBuilder
         } else {
             $this->message['o:campaign'] = [(string) $campaignId];
         }
-        $this->counters['attributes']['campaign_id'] += 1;
+        ++$this->counters['attributes']['campaign_id'];
 
         return $this;
     }
@@ -406,7 +406,7 @@ class MessageBuilder
         } else {
             $this->message['o:tag'] = [$tag];
         }
-        $this->counters['attributes']['tag'] += 1;
+        ++$this->counters['attributes']['tag'];
 
         return $this;
     }

@@ -15,9 +15,12 @@ return PhpCsFixer\Config::create()
     ->setRiskyAllowed(true)
     ->setRules([
         '@PSR2' => true,
-        'strict_param' => false,
+        '@Symfony' => true,
+        'strict_param' => true,
         'array_syntax' => ['syntax' => 'short'],
-        'declare_strict_types' => true,
+        'declare_strict_types' => false, // true
+        'no_empty_phpdoc' => true,
+        'no_superfluous_phpdoc_tags' => false, // true
         'header_comment' => [
             'commentType' => 'comment',
             'header' => $header,

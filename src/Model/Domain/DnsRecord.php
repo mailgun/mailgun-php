@@ -64,7 +64,7 @@ final class DnsRecord
     }
 
     /**
-     * @param string|null $name     Name of the record, as used in CNAME, etc.
+     * @param string|null $name     name of the record, as used in CNAME, etc
      * @param string      $type     DNS record type
      * @param string      $value    DNS record value
      * @param string|null $priority Record priority, used for MX
