@@ -23,7 +23,6 @@ final class DeviceResponse implements ApiResponse
 
     /**
      * @var string
-     *
      */
     private $tag;
 
@@ -55,6 +54,4 @@ final class DeviceResponse implements ApiResponse
     {
         return $this->tag;
     }
-
-
 }
