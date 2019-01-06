@@ -360,7 +360,6 @@ class MessageBuilder
         return $this;
     }
 
-
     public function setOpenTracking(bool $enabled): self
     {
         $this->message['o:tracking-opens'] = $enabled ? 'yes' : 'no';
