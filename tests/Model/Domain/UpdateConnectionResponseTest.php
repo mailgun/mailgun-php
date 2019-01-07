@@ -9,7 +9,6 @@
 
 namespace Mailgun\Tests\Model\Domain;
 
-use Mailgun\Model\Domain\Domain;
 use Mailgun\Model\Domain\UpdateConnectionResponse;
 use Mailgun\Tests\Model\BaseModelTest;
 

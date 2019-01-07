@@ -56,7 +56,7 @@ class Domain extends HttpApi
     /**
      * Returns a single domain.
      *
-     * @param string $domain Name of the domain.
+     * @param string $domain name of the domain
      *
      * @return ShowResponse|array|ResponseInterface
      */
@@ -76,10 +76,10 @@ class Domain extends HttpApi
      *
      * @see https://documentation.mailgun.com/en/latest/api-domains.html#domains
      *
-     * @param string $domain     Name of the domain.
-     * @param string $smtpPass   Password for SMTP authentication.
-     * @param string $spamAction `disable` or `tag` - inbound spam filtering.
-     * @param bool   $wildcard   Domain will accept email for subdomains.
+     * @param string $domain     name of the domain
+     * @param string $smtpPass   password for SMTP authentication
+     * @param string $spamAction `disable` or `tag` - inbound spam filtering
+     * @param bool   $wildcard   domain will accept email for subdomains
      *
      * @return CreateResponse|array|ResponseInterface
      */
@@ -108,7 +108,7 @@ class Domain extends HttpApi
      * Removes a domain from the account.
      * WARNING: This action is irreversible! Be cautious!
      *
-     * @param string $domain Name of the domain.
+     * @param string $domain name of the domain
      *
      * @return DeleteResponse|array|ResponseInterface
      */
@@ -124,7 +124,7 @@ class Domain extends HttpApi
     /**
      * Returns a list of SMTP credentials for the specified domain.
      *
-     * @param string $domain Name of the domain.
+     * @param string $domain name of the domain
      * @param int    $limit  Number of credentials to return
      * @param int    $skip   Number of credentials to omit from the list
      *
@@ -149,8 +149,8 @@ class Domain extends HttpApi
     /**
      * Create a new SMTP credential pair for the specified domain.
      *
-     * @param string $domain   Name of the domain.
-     * @param string $login    SMTP Username.
+     * @param string $domain   name of the domain
+     * @param string $login    SMTP Username
      * @param string $password SMTP Password. Length min 5, max 32.
      *
      * @return CreateCredentialResponse|array|ResponseInterface
@@ -175,8 +175,8 @@ class Domain extends HttpApi
     /**
      * Update a set of SMTP credentials for the specified domain.
      *
-     * @param string $domain Name of the domain.
-     * @param string $login  SMTP Username.
+     * @param string $domain name of the domain
+     * @param string $login  SMTP Username
      * @param string $pass   New SMTP Password. Length min 5, max 32.
      *
      * @return UpdateCredentialResponse|array|ResponseInterface
@@ -200,8 +200,8 @@ class Domain extends HttpApi
     /**
      * Remove a set of SMTP credentials from the specified domain.
      *
-     * @param string $domain Name of the domain.
-     * @param string $login  SMTP Username.
+     * @param string $domain name of the domain
+     * @param string $login  SMTP Username
      *
      * @return DeleteCredentialResponse|array|ResponseInterface
      */
@@ -224,7 +224,7 @@ class Domain extends HttpApi
     /**
      * Returns delivery connection settings for the specified domain.
      *
-     * @param string $domain Name of the domain.
+     * @param string $domain name of the domain
      *
      * @return ConnectionResponse|ResponseInterface
      */
@@ -241,9 +241,9 @@ class Domain extends HttpApi
      * Updates the specified delivery connection settings for the specified domain.
      * If a parameter is passed in as null, it will not be updated.
      *
-     * @param string    $domain     Name of the domain.
-     * @param bool|null $requireTLS Enforces that messages are sent only over a TLS connection.
-     * @param bool|null $noVerify   Disables TLS certificate and hostname verification.
+     * @param string    $domain     name of the domain
+     * @param bool|null $requireTLS enforces that messages are sent only over a TLS connection
+     * @param bool|null $noVerify   disables TLS certificate and hostname verification
      *
      * @return UpdateConnectionResponse|array|ResponseInterface
      */
@@ -271,7 +271,7 @@ class Domain extends HttpApi
     /**
      * Returns a single domain.
      *
-     * @param string $domain Name of the domain.
+     * @param string $domain name of the domain
      *
      * @return VerifyResponse|array|ResponseInterface
      */

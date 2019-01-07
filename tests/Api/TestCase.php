@@ -243,7 +243,7 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
 
     /**
      * @param mixed|callable $property Example $this->requestMethod
-     * @param mixed          $value    The actual value from the user.
+     * @param mixed          $value    the actual value from the user
      *
      * @return bool
      */

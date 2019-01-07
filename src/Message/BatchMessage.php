@@ -78,7 +78,7 @@ class BatchMessage extends MessageBuilder
     protected function addRecipient($headerName, $address, array $variables)
     {
         if (array_key_exists($headerName, $this->counters['recipients'])) {
-            if ($this->counters['recipients'][$headerName] === self::RECIPIENT_COUNT_LIMIT) {
+            if (self::RECIPIENT_COUNT_LIMIT === $this->counters['recipients'][$headerName]) {
                 if (false === $this->autoSend) {
                     throw TooManyRecipients::whenAutoSendDisabled();
                 }
