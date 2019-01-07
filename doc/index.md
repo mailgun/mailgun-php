@@ -7,9 +7,8 @@ Other relevant documentation pages might be:
  
 * [Attachments](attachments.md)
 * [Pagination](pagination.md)
-* [Message Builder](src/Mailgun/Messages/README.md) (Legacy code)
-* [Batch Message](src/Mailgun/Messages/README.md) (Legacy code)
-* [Opt-In Handler](src/Mailgun/Lists/README.md)  (Legacy code)
+* [Message Builder](/src/Message/README.md)
+* [Batch Message](/src/Message/README.md)
 
 ## Domain API
 
