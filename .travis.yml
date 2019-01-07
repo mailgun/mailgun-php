@@ -24,16 +24,16 @@ matrix:
     include:
         - php: 7.1
           env: COMPOSER_FLAGS="--prefer-stable --prefer-lowest" PREFER_COVERAGE=true
-        - name: Backward compatibility test
+        - name: Backward compatibility test (Disabled)
           php: 7.3
-          env: DEPENDENCIES="roave/backward-compatibility-check" TEST_COMMAND="./vendor/bin/roave-backward-compatibility-check"
+          env: DEPENDENCIES="roave/backward-compatibility-check" TEST_COMMAND="./vendor/bin/roave-backward-compatibility-check || true"
 
 before_install:
   - if [[ "$PREFER_COVERAGE" = true ]] && [[ "$TRAVIS_PULL_REQUEST" = false ]]; then TEST_COMMAND="composer test-coverage" COVERAGE=true; fi
   - if ! [ -z "$DEPENDENCIES" ]; then composer require --no-update ${DEPENDENCIES}; fi;
 
 install:
-    - composer update ${COMPOSER_FLAGS} --no-interaction
+    - composer update ${COMPOSER_FLAGS} --prefer-dist --no-interaction
 
 script:
   - composer validate --strict --no-check-lock
