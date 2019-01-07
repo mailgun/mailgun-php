@@ -12,7 +12,7 @@ namespace Mailgun\Model\Suppression\Complaint;
 /**
  * @author Sean Johnson <sean@mailgun.com>
  */
-final class Complaint
+class Complaint
 {
     /**
      * @var string

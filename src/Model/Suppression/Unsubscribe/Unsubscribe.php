@@ -12,7 +12,7 @@ namespace Mailgun\Model\Suppression\Unsubscribe;
 /**
  * @author Sean Johnson <sean@mailgun.com>
  */
-final class Unsubscribe
+class Unsubscribe
 {
     /**
      * @var string
