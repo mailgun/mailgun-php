@@ -26,9 +26,9 @@ class Member extends HttpApi
     /**
      * Returns a paginated list of members of the mailing list.
      *
-     * @param string      $address    Address of the mailing list
-     * @param int         $limit      Maximum number of records to return (optional: 100 by default)
-     * @param string|null $subscribed `true` to lists subscribed, `false` for unsubscribed. list all if null
+     * @param string    $address    Address of the mailing list
+     * @param int       $limit      Maximum number of records to return (optional: 100 by default)
+     * @param bool|null $subscribed `true` to lists subscribed, `false` for unsubscribed. list all if null
      *
      * @return IndexResponse
      *

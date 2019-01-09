@@ -12,7 +12,10 @@ declare(strict_types=1);
 namespace Mailgun;
 
 use Http\Client\Common\HttpMethodsClient;
+use Http\Client\HttpClient;
+use Mailgun\HttpClient\HttpClientConfigurator;
 use Mailgun\HttpClient\Plugin\History;
+use Mailgun\HttpClient\RequestBuilder;
 use Mailgun\Hydrator\ModelHydrator;
 use Mailgun\Hydrator\Hydrator;
 use Psr\Http\Message\ResponseInterface;
@@ -28,7 +31,7 @@ final class Mailgun
     private $apiKey;
 
     /**
-     * @var HttpMethodsClient
+     * @var HttpClient
      */
     private $httpClient;
 

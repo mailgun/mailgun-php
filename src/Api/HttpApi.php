@@ -34,7 +34,7 @@ abstract class HttpApi
     protected $httpClient;
 
     /**
-     * @var Hydrator
+     * @var null|Hydrator
      */
     protected $hydrator;
 
@@ -59,7 +59,7 @@ abstract class HttpApi
      */
     protected function hydrateResponse(ResponseInterface $response, string $class)
     {
-        if (!$this->hydrator) {
+        if (null === $this->hydrator) {
             return $response;
         }
 

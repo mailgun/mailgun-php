@@ -39,7 +39,7 @@ final class Event
     private $eventDate;
 
     /**
-     * @var array|string[]
+     * @var string[]
      */
     private $tags = [];
 
@@ -64,7 +64,7 @@ final class Event
     private $deliveryStatus;
 
     /**
-     * @var array|string[]
+     * @var string[]
      */
     private $campaigns = [];
 
@@ -232,7 +232,7 @@ final class Event
     }
 
     /**
-     * @return array|\string[]
+     * @return string[]
      */
     public function getTags()
     {
@@ -240,7 +240,7 @@ final class Event
     }
 
     /**
-     * @param array|\string[] $tags
+     * @param string[] $tags
      */
     private function setTags($tags)
     {
@@ -296,7 +296,7 @@ final class Event
     }
 
     /**
-     * @return array|\string[]
+     * @return string[]
      */
     public function getCampaigns()
     {
@@ -304,7 +304,7 @@ final class Event
     }
 
     /**
-     * @param array|\string[] $campaigns
+     * @param string[] $campaigns
      */
     private function setCampaigns($campaigns)
     {
