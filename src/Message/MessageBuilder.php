@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * Copyright (C) 2013 Mailgun
  *
@@ -55,13 +57,6 @@ class MessageBuilder
         ],
     ];
 
-    /**
-     * @param array  $params
-     * @param string $key
-     * @param mixed  $default
-     *
-     * @return mixed
-     */
     private function get(array $params, string $key, $default)
     {
         if (array_key_exists($key, $params)) {
@@ -89,10 +84,7 @@ class MessageBuilder
     }
 
     /**
-     * @param string $address
-     * @param array  $params  {
-     *
-     *     @var string $full_name
+     *     @var string
      *     @var string $first
      *     @var string $last
      * }
@@ -108,9 +100,7 @@ class MessageBuilder
     }
 
     /**
-     * @param string $headerName
-     * @param string $address
-     * @param array  $variables  {
+     * @param array $variables {
      *
      *     @var string $full_name
      *     @var string $first
@@ -136,8 +126,7 @@ class MessageBuilder
     }
 
     /**
-     * @param string $address
-     * @param array  $variables {
+     * @param array $variables {
      *
      *     @var string $id If used with BatchMessage
      *     @var string $full_name
@@ -158,8 +147,7 @@ class MessageBuilder
     }
 
     /**
-     * @param string $address
-     * @param array  $variables {
+     * @param array $variables {
      *
      *     @var string $id If used with BatchMessage
      *     @var string $full_name
@@ -181,8 +169,7 @@ class MessageBuilder
     }
 
     /**
-     * @param string $address
-     * @param array  $variables {
+     * @param array $variables {
      *
      *     @var string $id If used with BatchMessage
      *     @var string $full_name
@@ -204,8 +191,7 @@ class MessageBuilder
     }
 
     /**
-     * @param string $address
-     * @param array  $variables {
+     * @param array $variables {
      *
      *     @var string $id If used with BatchMessage
      *     @var string $full_name
@@ -221,8 +207,7 @@ class MessageBuilder
     }
 
     /**
-     * @param string $address
-     * @param array  $variables {
+     * @param array $variables {
      *
      *     @var string $id If used with BatchMessage
      *     @var string $full_name
@@ -244,10 +229,6 @@ class MessageBuilder
         return $this;
     }
 
-    /**
-     * @param string $headerName
-     * @param mixed  $headerData
-     */
     public function addCustomHeader(string $headerName, $headerData): self
     {
         if (!preg_match('/^h:/i', $headerName)) {
@@ -397,10 +378,6 @@ class MessageBuilder
         return $this;
     }
 
-    /**
-     * @param string $customName
-     * @param mixed  $data
-     */
     public function addCustomData(string $customName, $data): self
     {
         $this->message['v:'.$customName] = json_encode($data);
@@ -408,10 +385,6 @@ class MessageBuilder
         return $this;
     }
 
-    /**
-     * @param string $parameterName
-     * @param mixed  $data
-     */
     public function addCustomParameter(string $parameterName, $data): self
     {
         if (isset($this->message[$parameterName])) {

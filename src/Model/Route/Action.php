@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * Copyright (C) 2013 Mailgun
  *
@@ -22,7 +24,6 @@ final class Action
     /**
      * Action Named Constructor to build several Action DTOs provided by an Array.
      *
-     * @param array $data
      *
      * @return Action[]
      */

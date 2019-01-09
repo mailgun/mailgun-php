@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * Copyright (C) 2013 Mailgun
  *
@@ -136,8 +138,6 @@ final class Event
     }
 
     /**
-     * @param array $data
-     *
      * @return Event
      */
     public static function create(array $data)

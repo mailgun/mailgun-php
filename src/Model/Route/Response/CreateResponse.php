@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * Copyright (C) 2013 Mailgun
  *
@@ -42,7 +44,6 @@ final class CreateResponse implements ApiResponse
      * CreateResponse Private Constructor.
      *
      * @param string|null $message
-     * @param Route|null  $route
      */
     private function __construct($message = null, Route $route = null)
     {

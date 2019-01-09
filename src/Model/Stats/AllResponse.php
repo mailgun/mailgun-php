@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * Copyright (C) 2013 Mailgun
  *
@@ -37,8 +39,6 @@ final class AllResponse implements ApiResponse
     }
 
     /**
-     * @param array $data
-     *
      * @return self
      */
     public static function create(array $data)

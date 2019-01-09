@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * Copyright (C) 2013 Mailgun
  *
@@ -188,8 +190,6 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 
     /**
      * The data you want the hydrator to return.
-     *
-     * @param mixed $hydratedResponse
      */
     public function setHydratedResponse($hydratedResponse)
     {
@@ -214,17 +214,11 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
         $this->requestUri = $requestUri;
     }
 
-    /**
-     * @param array $requestHeaders
-     */
     public function setRequestHeaders(array $requestHeaders)
     {
         $this->requestHeaders = $requestHeaders;
     }
 
-    /**
-     * @param mixed $requestBody
-     */
     public function setRequestBody($requestBody)
     {
         $this->requestBody = $requestBody;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * Copyright (C) 2013 Mailgun
  *
@@ -25,9 +27,6 @@ final class ReplaceUriPlugin implements Plugin
      */
     private $uri;
 
-    /**
-     * @param UriInterface $uri
-     */
     public function __construct(UriInterface $uri)
     {
         $this->uri = $uri;

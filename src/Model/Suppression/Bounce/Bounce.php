@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * Copyright (C) 2013 Mailgun
  *
@@ -44,8 +46,6 @@ class Bounce
     }
 
     /**
-     * @param array $data
-     *
      * @return Bounce
      */
     public static function create(array $data)
@@ -113,9 +113,6 @@ class Bounce
         return $this->createdAt;
     }
 
-    /**
-     * @param \DateTime $createdAt
-     */
     private function setCreatedAt(\DateTime $createdAt)
     {
         $this->createdAt = $createdAt;

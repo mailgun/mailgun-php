@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * Copyright (C) 2013 Mailgun
  *
@@ -103,8 +105,6 @@ final class ShowResponse implements ApiResponse
     }
 
     /**
-     * @param array $data
-     *
      * @return ShowResponse
      */
     public static function create(array $data)
@@ -392,9 +392,6 @@ final class ShowResponse implements ApiResponse
         return $this->messageHeaders;
     }
 
-    /**
-     * @param array $messageHeaders
-     */
     private function setMessageHeaders(array $messageHeaders)
     {
         $this->messageHeaders = $messageHeaders;

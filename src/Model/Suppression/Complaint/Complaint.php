@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * Copyright (C) 2013 Mailgun
  *
@@ -34,8 +36,6 @@ class Complaint
     }
 
     /**
-     * @param array $data
-     *
      * @return Complaint
      */
     public static function create(array $data)
@@ -65,9 +65,6 @@ class Complaint
         return $this->createdAt;
     }
 
-    /**
-     * @param \DateTime $createdAt
-     */
     private function setCreatedAt(\DateTime $createdAt)
     {
         $this->createdAt = $createdAt;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * Copyright (C) 2013 Mailgun
  *
@@ -34,7 +36,6 @@ final class DeleteResponse implements ApiResponse
     /**
      * DeleteMemberResponse constructor.
      *
-     * @param Member $member
      * @param string $message
      */
     private function __construct(Member $member, $message)

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * Copyright (C) 2013 Mailgun
  *
@@ -32,17 +34,14 @@ class RequestBuilder
     /**
      * Creates a new PSR-7 request.
      *
-     * @param string            $method
-     * @param string            $uri
-     * @param array             $headers
-     * @param array|string|null $body    Request body. If body is an array we will send a as multipart stream request.
-     *                                   If array, each array *item* MUST look like:
-     *                                   array (
-     *                                   'content' => string|resource|StreamInterface,
-     *                                   'name'    => string,
-     *                                   'filename'=> string (optional)
-     *                                   'headers' => array (optinal) ['header-name' => 'header-value']
-     *                                   )
+     * @param array|string|null $body Request body. If body is an array we will send a as multipart stream request.
+     *                                If array, each array *item* MUST look like:
+     *                                array (
+     *                                'content' => string|resource|StreamInterface,
+     *                                'name'    => string,
+     *                                'filename'=> string (optional)
+     *                                'headers' => array (optinal) ['header-name' => 'header-value']
+     *                                )
      *
      * @return RequestInterface
      */

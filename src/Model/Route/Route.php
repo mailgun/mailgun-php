@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * Copyright (C) 2013 Mailgun
  *
@@ -47,7 +49,6 @@ final class Route
     /**
      * Route Named Constructor.
      *
-     * @param array $data
      *
      * @return Route
      */

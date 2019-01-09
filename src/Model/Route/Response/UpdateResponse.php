@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * Copyright (C) 2013 Mailgun
  *
@@ -28,8 +30,6 @@ final class UpdateResponse implements ApiResponse
     private $route;
 
     /**
-     * @param array $data
-     *
      * @return self
      */
     public static function create(array $data)
@@ -42,7 +42,6 @@ final class UpdateResponse implements ApiResponse
 
     /**
      * @param string|null $message
-     * @param Route|null  $route
      */
     private function __construct($message = null, Route $route = null)
     {

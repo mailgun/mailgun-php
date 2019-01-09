@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * Copyright (C) 2013 Mailgun
  *
@@ -47,8 +49,6 @@ final class DnsRecord
     private $cached;
 
     /**
-     * @param array $data
-     *
      * @return self
      */
     public static function create(array $data)

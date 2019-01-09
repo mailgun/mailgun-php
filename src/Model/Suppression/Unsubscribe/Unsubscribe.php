@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * Copyright (C) 2013 Mailgun
  *
@@ -39,8 +41,6 @@ class Unsubscribe
     }
 
     /**
-     * @param array $data
-     *
      * @return Unsubscribe
      */
     public static function create(array $data)
@@ -73,9 +73,6 @@ class Unsubscribe
         return $this->createdAt;
     }
 
-    /**
-     * @param \DateTime $createdAt
-     */
     private function setCreatedAt(\DateTime $createdAt)
     {
         $this->createdAt = $createdAt;

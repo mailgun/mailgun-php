@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * Copyright (C) 2013 Mailgun
  *
@@ -39,8 +41,6 @@ abstract class BaseResponse implements ApiResponse
     }
 
     /**
-     * @param array $data
-     *
      * @return BaseResponse
      */
     public static function create(array $data)

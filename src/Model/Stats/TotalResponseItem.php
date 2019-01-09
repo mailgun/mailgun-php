@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * Copyright (C) 2013 Mailgun
  *
@@ -40,8 +42,6 @@ final class TotalResponseItem
     private $complained;
 
     /**
-     * @param array $data
-     *
      * @return self
      */
     public static function create(array $data)
@@ -55,13 +55,6 @@ final class TotalResponseItem
         );
     }
 
-    /**
-     * @param \DateTime $time
-     * @param array     $accepted
-     * @param array     $delivered
-     * @param array     $failed
-     * @param array     $complained
-     */
     private function __construct(\DateTime $time, array $accepted, array $delivered, array $failed, array $complained)
     {
         $this->time = $time;

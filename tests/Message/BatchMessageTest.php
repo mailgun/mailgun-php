@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * Copyright (C) 2013 Mailgun
  *
@@ -109,7 +111,7 @@ class BatchMessageTest extends MailgunTestCase
         $this->assertEquals(1, count($message['to']));
     }
 
-    public function testAttributeResetOnEndBatchMessage()
+    public function testRecipientAttributeResetOnEndBatchMessage()
     {
         $this->batchMessage->addToRecipient('test-user@samples.mailgun.org', ['first' => 'Test', 'last' => 'User']);
         $this->batchMessage->setFromAddress('samples@mailgun.org', ['first' => 'Test', 'last' => 'User']);
@@ -117,7 +119,9 @@ class BatchMessageTest extends MailgunTestCase
         $this->batchMessage->setTextBody('This is the text body of the message!');
         $this->batchMessage->finalize();
         $message = NSA::getProperty($this->batchMessage, 'message');
-        $this->assertTrue(true, empty($message));
+
+        $this->assertTrue(empty($message['to']));
+        $this->assertNotEmpty($message);
     }
 
     public function testDefaultIDInVariables()

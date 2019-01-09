@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * Copyright (C) 2013 Mailgun
  *
@@ -52,8 +54,6 @@ final class Domain
     private $state;
 
     /**
-     * @param array $data
-     *
      * @return self
      */
     public static function create(array $data)
@@ -70,13 +70,12 @@ final class Domain
     }
 
     /**
-     * @param string    $name
-     * @param string    $smtpLogin
-     * @param string    $smtpPassword
-     * @param bool      $wildcard
-     * @param string    $spamAction
-     * @param string    $state
-     * @param \DateTime $createdAt
+     * @param string $name
+     * @param string $smtpLogin
+     * @param string $smtpPassword
+     * @param bool   $wildcard
+     * @param string $spamAction
+     * @param string $state
      */
     private function __construct($name, $smtpLogin, $smtpPassword, $wildcard, $spamAction, $state, \DateTime $createdAt)
     {

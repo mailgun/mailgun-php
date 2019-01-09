@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * Copyright (C) 2013 Mailgun
  *
@@ -18,8 +20,6 @@ use Psr\Http\Message\ResponseInterface;
 interface Hydrator
 {
     /**
-     * @return mixed
-     *
      * @throws HydrationException
      */
     public function hydrate(ResponseInterface $response, string $class);

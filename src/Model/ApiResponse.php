@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * Copyright (C) 2013 Mailgun
  *
@@ -17,7 +19,6 @@ interface ApiResponse
     /**
      * Create an API response object from the HTTP response from the API server.
      *
-     * @param array $data
      *
      * @return self
      */

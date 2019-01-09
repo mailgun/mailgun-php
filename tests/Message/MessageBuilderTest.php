@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * Copyright (C) 2013 Mailgun
  *
@@ -237,14 +239,6 @@ class MessageBuilderTest extends MailgunTestCase
         $this->messageBuilder->addCampaignId('TUV456');
         $message = $this->messageBuilder->getMessage();
         $this->assertEquals(['o:campaign' => ['ABC123', 'XYZ987', 'TUV456']], $message);
-    }
-
-    public function testAddCampaignIdInteger()
-    {
-        $this->messageBuilder->addCampaignId(1111);
-        $this->messageBuilder->addCampaignId(2222);
-        $message = $this->messageBuilder->getMessage();
-        $this->assertSame(['o:campaign' => ['1111', '2222']], $message);
     }
 
     public function testSetDkim()

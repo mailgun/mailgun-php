@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * Copyright (C) 2013 Mailgun
  *
@@ -40,8 +42,6 @@ final class AllResponseItem
     private $createdAt;
 
     /**
-     * @param array $data
-     *
      * @return self
      */
     public static function create(array $data)
@@ -60,7 +60,6 @@ final class AllResponseItem
      * @param string    $event
      * @param string    $totalCount
      * @param \string[] $tags
-     * @param \DateTime $createdAt
      */
     private function __construct($id, $event, $totalCount, array $tags, \DateTime $createdAt)
     {

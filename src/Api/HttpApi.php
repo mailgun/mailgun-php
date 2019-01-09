@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * Copyright (C) 2013 Mailgun
  *
@@ -51,9 +53,6 @@ abstract class HttpApi
     }
 
     /**
-     * @param ResponseInterface $response
-     * @param string            $class
-     *
      * @return mixed|ResponseInterface
      *
      * @throws \Exception
@@ -197,8 +196,6 @@ abstract class HttpApi
      * Prepare a set of key-value-pairs to be encoded as multipart/form-data.
      *
      * @param array $parameters Request parameters
-     *
-     * @return array
      */
     private function createRequestBody(array $parameters): array
     {

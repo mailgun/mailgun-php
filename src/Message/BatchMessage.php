@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * Copyright (C) 2013 Mailgun
  *
@@ -55,9 +57,7 @@ class BatchMessage extends MessageBuilder
     }
 
     /**
-     * @param string $headerName
-     * @param string $address
-     * @param array  $variables  {
+     * @param array $variables {
      *
      *     @var string $id
      *     @var string $full_name
@@ -100,26 +100,34 @@ class BatchMessage extends MessageBuilder
 
         if (empty($this->domain)) {
             throw new RuntimeException('You must call BatchMessage::setDomain before sending messages.');
-        } elseif (empty($message['from'])) {
-            throw MissingRequiredParameter::create('from');
-        } elseif (empty($message['to'])) {
-            throw MissingRequiredParameter::create('to');
-        } elseif (empty($message['subject'])) {
-            throw MissingRequiredParameter::create('subject');
-        } elseif (empty($message['text']) && empty($message['html'])) {
-            throw MissingRequiredParameter::create('text" or "html');
-        } else {
-            $message['recipient-variables'] = json_encode($this->batchRecipientAttributes);
-            $response = $this->api->send($this->domain, $message);
-
-            $this->batchRecipientAttributes = [];
-            $this->counters['recipients']['to'] = 0;
-            $this->counters['recipients']['cc'] = 0;
-            $this->counters['recipients']['bcc'] = 0;
-            unset($this->message['to']);
-
-            $this->messageIds[] = $response->getId();
         }
+
+        if (empty($message['from'])) {
+            throw MissingRequiredParameter::create('from');
+        }
+
+        if (empty($message['to'])) {
+            throw MissingRequiredParameter::create('to');
+        }
+
+        if (empty($message['subject'])) {
+            throw MissingRequiredParameter::create('subject');
+        }
+
+        if (empty($message['text']) && empty($message['html'])) {
+            throw MissingRequiredParameter::create('text" or "html');
+        }
+
+        $message['recipient-variables'] = json_encode($this->batchRecipientAttributes);
+        $response = $this->api->send($this->domain, $message);
+
+        $this->batchRecipientAttributes = [];
+        $this->counters['recipients']['to'] = 0;
+        $this->counters['recipients']['cc'] = 0;
+        $this->counters['recipients']['bcc'] = 0;
+        unset($this->message['to']);
+
+        $this->messageIds[] = $response->getId();
     }
 
     /**
