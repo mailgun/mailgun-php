@@ -85,7 +85,7 @@ class BatchMessage extends MessageBuilder
             $variables['id'] = $headerName.'_'.$this->counters['recipients'][$headerName];
         }
 
-        $this->batchRecipientAttributes[(string) $address] = $variables;
+        $this->batchRecipientAttributes[$address] = $variables;
 
         return $this;
     }

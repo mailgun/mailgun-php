@@ -21,49 +21,38 @@ trait PaginationResponse
      */
     protected $paging;
 
-    /**
-     * @return string
-     */
-    public function getNextUrl()
+    public function getNextUrl(): ?string
     {
         if (!isset($this->paging['next'])) {
-            return;
+            return null;
         }
 
         return $this->paging['next'];
     }
 
-    /**
-     * @return string
-     */
-    public function getPreviousUrl()
+
+    public function getPreviousUrl(): ?string
     {
         if (!isset($this->paging['previous'])) {
-            return;
+            return null;
         }
 
         return $this->paging['previous'];
     }
 
-    /**
-     * @return string
-     */
-    public function getFirstUrl()
+    public function getFirstUrl(): ?string
     {
         if (!isset($this->paging['first'])) {
-            return;
+            return null;
         }
 
         return $this->paging['first'];
     }
 
-    /**
-     * @return string
-     */
-    public function getLastUrl()
+    public function getLastUrl(): ?string
     {
         if (!isset($this->paging['last'])) {
-            return;
+            return null;
         }
 
         return $this->paging['last'];

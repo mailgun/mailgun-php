@@ -96,7 +96,7 @@ class Route extends HttpApi
      *
      * @param string      $routeId     Route ID returned by the Routes::index() method
      * @param string|null $expression  A filter expression like "match_recipient('.*@gmail.com')"
-     * @param array|null  $actions     Route action. This action is executed when the expression evaluates to True. Example: "forward('alice@example.com')"
+     * @param array       $actions     Route action. This action is executed when the expression evaluates to True. Example: "forward('alice@example.com')"
      * @param string|null $description An arbitrary string
      * @param int|null    $priority    Integer: smaller number indicates higher priority. Higher priority routes are handled first. Defaults to 0.
      *

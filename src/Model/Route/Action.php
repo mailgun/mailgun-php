@@ -24,7 +24,6 @@ final class Action
     /**
      * Action Named Constructor to build several Action DTOs provided by an Array.
      *
-     *
      * @return Action[]
      */
     public static function createMultiple(array $data)
@@ -38,12 +37,7 @@ final class Action
         return $items;
     }
 
-    /**
-     * Action Private Constructor.
-     *
-     * @param $action
-     */
-    private function __construct($action)
+    private function __construct(string $action)
     {
         $this->action = $action;
     }
