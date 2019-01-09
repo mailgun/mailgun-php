@@ -41,9 +41,6 @@ class EmailValidation extends HttpApi
      */
     public function validate($address, $mailboxVerification = false)
     {
-        // Validates the email address.
-        Assert::email($address);
-
         // Validates the mailbox verification.
         Assert::boolean($mailboxVerification);
 
@@ -87,13 +84,6 @@ class EmailValidation extends HttpApi
         Assert::stringNotEmpty($addresses);
         Assert::minLength($addresses, 3);
         Assert::maxLength($addresses, 8000);
-
-        $arrayOfAddresses = preg_split('/;|,/', $addresses);
-
-        foreach ($arrayOfAddresses as $singleAddress) {
-            // Validates the email address.
-            Assert::email($singleAddress);
-        }
 
         // Validates the Syntax Only verification.
         Assert::boolean($syntaxOnly);

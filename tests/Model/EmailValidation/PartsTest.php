@@ -10,11 +10,14 @@
 namespace Mailgun\Tests\Model\EmailValidation;
 
 use Mailgun\Model\EmailValidation\Parts;
+use Mailgun\Tests\Model\BaseModelTest;
 
-class PartsTest extends \PHPUnit_Framework_TestCase
+class PartsTest extends BaseModelTest
 {
     public function testPartsConstructor()
     {
+        $this->markTestIncomplete('WIP');
+
         $data = [
             'display_name' => ' Display name',
             'domain' => 'Domain',

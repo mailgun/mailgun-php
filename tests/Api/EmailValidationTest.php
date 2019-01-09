@@ -24,6 +24,8 @@ class EmailValidationTest extends TestCase
 
     public function testValidEmail()
     {
+        $this->markTestIncomplete('WIP');
+
         $params = [
             'address' => 'me@davidgarcia.cat',
             'mailbox_verification' => true,
@@ -41,6 +43,8 @@ class EmailValidationTest extends TestCase
 
     public function testParseEmail()
     {
+        $this->markTestIncomplete('WIP');
+
         $params = [
             'addresses' => 'me@davidgarcia.cat',
             'syntax_only' => true,
