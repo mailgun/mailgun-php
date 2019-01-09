@@ -56,9 +56,9 @@ final class AllResponseItem
     }
 
     /**
-     * @param string    $id
-     * @param string    $event
-     * @param string    $totalCount
+     * @param string   $id
+     * @param string   $event
+     * @param string   $totalCount
      * @param string[] $tags
      */
     private function __construct($id, $event, $totalCount, array $tags, \DateTime $createdAt)
