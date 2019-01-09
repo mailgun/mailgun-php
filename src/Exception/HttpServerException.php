@@ -16,7 +16,7 @@ use Mailgun\Exception;
  */
 final class HttpServerException extends \RuntimeException implements Exception
 {
-    public static function serverError($httpStatus = 500)
+    public static function serverError(int $httpStatus = 500)
     {
         return new self('An unexpected error occurred at Mailgun\'s servers. Try again later and contact support if the error still exists.', $httpStatus);
     }
@@ -26,7 +26,7 @@ final class HttpServerException extends \RuntimeException implements Exception
         return new self('Mailgun\'s servers are currently unreachable.', 0, $previous);
     }
 
-    public static function unknownHttpResponseCode($code)
+    public static function unknownHttpResponseCode(int $code)
     {
         return new self(sprintf('Unknown HTTP response code ("%d") received from the API server', $code));
     }

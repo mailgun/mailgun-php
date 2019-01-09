@@ -7,7 +7,7 @@
  * of the MIT license. See the LICENSE file for details.
  */
 
-namespace Mailgun;
+namespace Mailgun\HttpClient;
 
 use Http\Discovery\MessageFactoryDiscovery;
 use Http\Message\MultipartStream\MultipartStreamBuilder;
@@ -46,7 +46,7 @@ class RequestBuilder
      *
      * @return RequestInterface
      */
-    public function create($method, $uri, array $headers = [], $body = null)
+    public function create(string $method, string $uri, array $headers = [], $body = null)
     {
         if (!is_array($body)) {
             return $this->getRequestFactory()->createRequest($method, $uri, $headers, $body);

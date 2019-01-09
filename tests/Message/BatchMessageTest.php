@@ -13,9 +13,10 @@ use Mailgun\Api\Message;
 use Mailgun\Message\BatchMessage;
 use Mailgun\Message\Exceptions\MissingRequiredParameter;
 use Mailgun\Model\Message\SendResponse;
+use Mailgun\Tests\MailgunTestCase;
 use Nyholm\NSA;
 
-class BatchMessageTest extends \PHPUnit_Framework_TestCase
+class BatchMessageTest extends MailgunTestCase
 {
     /**
      * @var BatchMessage
@@ -146,7 +147,7 @@ class BatchMessageTest extends \PHPUnit_Framework_TestCase
         $this->batchMessage->setSubject('This is the subject of the message!');
         $this->batchMessage->setTextBody('This is the text body of the message!');
 
-        $this->setExpectedException(MissingRequiredParameter::class);
+        $this->expectException(MissingRequiredParameter::class);
         $this->batchMessage->finalize();
     }
 
@@ -155,7 +156,7 @@ class BatchMessageTest extends \PHPUnit_Framework_TestCase
         $this->batchMessage->setFromAddress('samples@mailgun.org', ['first' => 'Test', 'last' => 'User']);
         $this->batchMessage->setSubject('This is the subject of the message!');
         $this->batchMessage->setTextBody('This is the text body of the message!');
-        $this->setExpectedException(MissingRequiredParameter::class);
+        $this->expectException(MissingRequiredParameter::class);
         $this->batchMessage->finalize();
     }
 
@@ -164,7 +165,7 @@ class BatchMessageTest extends \PHPUnit_Framework_TestCase
         $this->batchMessage->addToRecipient('test-user@samples.mailgun.org', ['first' => 'Test', 'last' => 'User']);
         $this->batchMessage->setFromAddress('samples@mailgun.org', ['first' => 'Test', 'last' => 'User']);
         $this->batchMessage->setTextBody('This is the text body of the message!');
-        $this->setExpectedException(MissingRequiredParameter::class);
+        $this->expectException(MissingRequiredParameter::class);
         $this->batchMessage->finalize();
     }
 
@@ -173,7 +174,7 @@ class BatchMessageTest extends \PHPUnit_Framework_TestCase
         $this->batchMessage->addToRecipient('test-user@samples.mailgun.org', ['first' => 'Test', 'last' => 'User']);
         $this->batchMessage->setFromAddress('samples@mailgun.org', ['first' => 'Test', 'last' => 'User']);
         $this->batchMessage->setSubject('This is the subject of the message!');
-        $this->setExpectedException(MissingRequiredParameter::class);
+        $this->expectException(MissingRequiredParameter::class);
         $this->batchMessage->finalize();
     }
 }

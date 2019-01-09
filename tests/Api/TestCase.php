@@ -12,14 +12,13 @@ namespace Mailgun\Tests\Api;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use Mailgun\Hydrator\ModelHydrator;
-use Mailgun\Mailgun;
 use Psr\Http\Message\ResponseInterface;
 
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  * @author Contributors of https://github.com/KnpLabs/php-github-api
  */
-abstract class TestCase extends \PHPUnit_Framework_TestCase
+abstract class TestCase extends \PHPUnit\Framework\TestCase
 {
     private $requestMethod;
 
@@ -56,7 +55,7 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
                 ->method('sendRequest');
         }
         if (null === $requestClient) {
-            $requestClient = $this->getMockBuilder('Mailgun\RequestBuilder')
+            $requestClient = $this->getMockBuilder('Mailgun\HttpClient\RequestBuilder')
                 ->setMethods(['create'])
                 ->getMock();
         }
@@ -85,7 +84,7 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
             ->method('sendRequest')
             ->willReturn(null === $this->httpResponse ? new Response() : $this->httpResponse);
 
-        $requestClient = $this->getMockBuilder('Mailgun\RequestBuilder')
+        $requestClient = $this->getMockBuilder('Mailgun\HttpClient\RequestBuilder')
             ->setMethods(['create'])
             ->getMock();
         $requestClient->method('create')
@@ -254,23 +253,5 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
         }
 
         return is_callable($property) ? call_user_func($property, $value) : $value === $property;
-    }
-
-    /**
-     * Make sure expectException always exists, even on PHPUnit 4.
-     *
-     * @param string      $exception
-     * @param string|null $message
-     */
-    public function expectException($exception, $message = null)
-    {
-        if (method_exists($this, 'setExpectedException')) {
-            $this->setExpectedException($exception, $message);
-        } else {
-            parent::expectException($exception);
-            if (null !== $message) {
-                $this->expectExceptionMessage($message);
-            }
-        }
     }
 }

@@ -17,7 +17,8 @@ use Mailgun\Model\Webhook\DeleteResponse;
 use Mailgun\Model\Webhook\IndexResponse;
 use Mailgun\Model\Webhook\ShowResponse;
 use Mailgun\Model\Webhook\UpdateResponse;
-use Mailgun\RequestBuilder;
+use Mailgun\HttpClient\RequestBuilder;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
@@ -29,13 +30,7 @@ class Webhook extends HttpApi
      */
     private $apiKey;
 
-    /**
-     * @param HttpClient     $httpClient
-     * @param RequestBuilder $requestBuilder
-     * @param Hydrator       $hydrator
-     * @param string         $apiKey
-     */
-    public function __construct(HttpClient $httpClient, RequestBuilder $requestBuilder, Hydrator $hydrator, $apiKey)
+    public function __construct(HttpClient $httpClient, RequestBuilder $requestBuilder, Hydrator $hydrator, string $apiKey)
     {
         parent::__construct($httpClient, $requestBuilder, $hydrator);
         $this->apiKey = $apiKey;
@@ -46,14 +41,8 @@ class Webhook extends HttpApi
      *
      * If this function returns FALSE, you must not process the request.
      * You should reject the request with status code 403 Forbidden.
-     *
-     * @param int    $timestamp
-     * @param string $token
-     * @param string $signature
-     *
-     * @return bool
      */
-    public function verifyWebhookSignature($timestamp, $token, $signature)
+    public function verifyWebhookSignature(int $timestamp, string $token, string $signature): bool
     {
         if (empty($timestamp) || empty($token) || empty($signature)) {
             return false;
@@ -70,11 +59,9 @@ class Webhook extends HttpApi
     }
 
     /**
-     * @param string $domain
-     *
-     * @return IndexResponse
+     * @return IndexResponse|ResponseInterface
      */
-    public function index($domain)
+    public function index(string $domain)
     {
         Assert::notEmpty($domain);
         $response = $this->httpGet(sprintf('/v3/domains/%s/webhooks', $domain));
@@ -83,12 +70,9 @@ class Webhook extends HttpApi
     }
 
     /**
-     * @param string $domain
-     * @param string $webhook
-     *
-     * @return ShowResponse
+     * @return ShowResponse|ResponseInterface
      */
-    public function show($domain, $webhook)
+    public function show(string $domain, string $webhook)
     {
         Assert::notEmpty($domain);
         Assert::notEmpty($webhook);
@@ -98,13 +82,9 @@ class Webhook extends HttpApi
     }
 
     /**
-     * @param string $domain
-     * @param string $id
-     * @param string $url
-     *
-     * @return CreateResponse
+     * @return CreateResponse|ResponseInterface
      */
-    public function create($domain, $id, $url)
+    public function create(string $domain, string $id, string $url)
     {
         Assert::notEmpty($domain);
         Assert::notEmpty($id);
@@ -121,13 +101,9 @@ class Webhook extends HttpApi
     }
 
     /**
-     * @param string $domain
-     * @param string $id
-     * @param string $url
-     *
-     * @return UpdateResponse
+     * @return UpdateResponse|ResponseInterface
      */
-    public function update($domain, $id, $url)
+    public function update(string $domain, string $id, string $url)
     {
         Assert::notEmpty($domain);
         Assert::notEmpty($id);
@@ -143,12 +119,9 @@ class Webhook extends HttpApi
     }
 
     /**
-     * @param string $domain
-     * @param string $id
-     *
-     * @return DeleteResponse
+     * @return DeleteResponse|ResponseInterface
      */
-    public function delete($domain, $id)
+    public function delete(string $domain, string $id)
     {
         Assert::notEmpty($domain);
         Assert::notEmpty($id);

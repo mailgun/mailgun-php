@@ -14,7 +14,7 @@ use Mailgun\Api\Suppression\Bounce;
 use Mailgun\Api\Suppression\Complaint;
 use Mailgun\Api\Suppression\Unsubscribe;
 use Mailgun\Hydrator\Hydrator;
-use Mailgun\RequestBuilder;
+use Mailgun\HttpClient\RequestBuilder;
 
 /**
  * @see https://documentation.mailgun.com/api-suppressions.html
@@ -38,11 +38,6 @@ class Suppression
      */
     private $hydrator;
 
-    /**
-     * @param HttpClient     $httpClient
-     * @param RequestBuilder $requestBuilder
-     * @param Hydrator       $hydrator
-     */
     public function __construct(HttpClient $httpClient, RequestBuilder $requestBuilder, Hydrator $hydrator)
     {
         $this->httpClient = $httpClient;
@@ -50,26 +45,17 @@ class Suppression
         $this->hydrator = $hydrator;
     }
 
-    /**
-     * @return Bounce
-     */
-    public function bounces()
+    public function bounces(): Bounce
     {
         return new Bounce($this->httpClient, $this->requestBuilder, $this->hydrator);
     }
 
-    /**
-     * @return Complaint
-     */
-    public function complaints()
+    public function complaints(): Complaint
     {
         return new Complaint($this->httpClient, $this->requestBuilder, $this->hydrator);
     }
 
-    /**
-     * @return Unsubscribe
-     */
-    public function unsubscribes()
+    public function unsubscribes(): Unsubscribe
     {
         return new Unsubscribe($this->httpClient, $this->requestBuilder, $this->hydrator);
     }

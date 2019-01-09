@@ -26,23 +26,26 @@ class Member extends HttpApi
      *
      * @param string      $address    Address of the mailing list
      * @param int         $limit      Maximum number of records to return (optional: 100 by default)
-     * @param string|null $subscribed `yes` to lists subscribed, `no` for unsubscribed. list all if null
+     * @param string|null $subscribed `true` to lists subscribed, `false` for unsubscribed. list all if null
      *
      * @return IndexResponse
      *
      * @throws \Exception
      */
-    public function index($address, $limit = 100, $subscribed = null)
+    public function index(string $address, int $limit = 100, bool $subscribed = null)
     {
         Assert::stringNotEmpty($address);
-        Assert::integer($limit);
         Assert::greaterThan($limit, 0);
-        Assert::oneOf($subscribed, [null, 'yes', 'no']);
 
         $params = [
             'limit' => $limit,
-            'subscribed' => $subscribed,
         ];
+
+        if (true === $subscribed) {
+            $params['subscribed'] = 'yes';
+        } elseif (false === $subscribed) {
+            $params['subscribed'] = 'no';
+        }
 
         $response = $this->httpGet(sprintf('/v3/lists/%s/members/pages', $address), $params);
 
@@ -59,7 +62,7 @@ class Member extends HttpApi
      *
      * @throws \Exception
      */
-    public function show($list, $address)
+    public function show(string $list, string $address)
     {
         Assert::stringNotEmpty($list);
         Assert::stringNotEmpty($address);
@@ -76,27 +79,25 @@ class Member extends HttpApi
      * @param string $address    Address for the member
      * @param string $name       Name for the member (optional)
      * @param array  $vars       Array of field => value pairs to store additional data
-     * @param string $subscribed `yes` to add as subscribed (default), `no` as unsubscribed
-     * @param string $upsert     `yes` to update member if present, `no` to raise error in case of a duplicate member (default)
+     * @param bool   $subscribed `true` to add as subscribed (default), `false` as unsubscribed
+     * @param bool   $upsert     `true` to update member if present, `false` to raise error in case of a duplicate member (default)
      *
      * @return CreateResponse
      *
      * @throws \Exception
      */
-    public function create($list, $address, $name = null, array $vars = [], $subscribed = 'yes', $upsert = 'no')
+    public function create(string $list, string $address, string $name = null, array $vars = [], bool $subscribed = true, bool $upsert = false)
     {
         Assert::stringNotEmpty($list);
         Assert::stringNotEmpty($address);
         Assert::nullOrStringNotEmpty($name);
-        Assert::oneOf($subscribed, ['yes', 'no']);
-        Assert::oneOf($upsert, ['yes', 'no']);
 
         $params = [
             'address' => $address,
             'name' => $name,
             'vars' => $vars,
-            'subscribed' => $subscribed,
-            'upsert' => $upsert,
+            'subscribed' => $subscribed ? 'yes' : 'no',
+            'upsert' => $upsert ? 'yes' : 'no',
         ];
 
         $response = $this->httpPost(sprintf('/v3/lists/%s/members', $list), $params);
@@ -109,13 +110,13 @@ class Member extends HttpApi
      *
      * @param string $list    Address of the mailing list
      * @param array  $members Array of members, each item should be either a single string address or an array of member properties
-     * @param string $upsert  `yes` to update existing members, `no` (default) to ignore duplicates
+     * @param string $upsert  `true` to update existing members, `false` (default) to ignore duplicates
      *
      * @return UpdateResponse
      *
      * @throws \Exception
      */
-    public function createMultiple($list, array $members, $upsert = 'no')
+    public function createMultiple(string $list, array $members, $upsert = false)
     {
         Assert::stringNotEmpty($list);
         Assert::isArray($members);
@@ -128,8 +129,6 @@ class Member extends HttpApi
                 count($members)
             ));
         }
-
-        Assert::oneOf($upsert, ['yes', 'no']);
 
         foreach ($members as $data) {
             if (is_string($data)) {
@@ -164,7 +163,7 @@ class Member extends HttpApi
 
         $params = [
             'members' => json_encode($members),
-            'upsert' => $upsert,
+            'upsert' => $upsert ? 'yes' : 'no',
         ];
 
         $response = $this->httpPost(sprintf('/v3/lists/%s/members.json', $list), $params);
@@ -183,7 +182,7 @@ class Member extends HttpApi
      *
      * @throws \Exception
      */
-    public function update($list, $address, $parameters = [])
+    public function update(string $list, string $address, array $parameters = [])
     {
         Assert::stringNotEmpty($list);
         Assert::stringNotEmpty($address);
@@ -222,7 +221,7 @@ class Member extends HttpApi
      *
      * @throws \Exception
      */
-    public function delete($list, $address)
+    public function delete(string $list, string $address)
     {
         Assert::stringNotEmpty($list);
         Assert::stringNotEmpty($address);

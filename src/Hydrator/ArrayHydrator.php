@@ -20,12 +20,9 @@ use Psr\Http\Message\ResponseInterface;
 final class ArrayHydrator implements Hydrator
 {
     /**
-     * @param ResponseInterface $response
-     * @param string            $class
-     *
      * @return array
      */
-    public function hydrate(ResponseInterface $response, $class)
+    public function hydrate(ResponseInterface $response, string $class)
     {
         $body = $response->getBody()->__toString();
         if (0 !== strpos($response->getHeaderLine('Content-Type'), 'application/json')) {

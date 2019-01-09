@@ -32,7 +32,7 @@ class Unsubscribe extends HttpApi
      *
      * @return IndexResponse
      */
-    public function index($domain, $limit = 100)
+    public function index(string $domain, int $limit = 100)
     {
         Assert::stringNotEmpty($domain);
         Assert::range($limit, 1, 10000, 'Limit parameter must be between 1 and 10000');
@@ -52,7 +52,7 @@ class Unsubscribe extends HttpApi
      *
      * @return ShowResponse
      */
-    public function show($domain, $address)
+    public function show(string $domain, string $address)
     {
         Assert::stringNotEmpty($domain);
         Assert::stringNotEmpty($address);
@@ -69,7 +69,7 @@ class Unsubscribe extends HttpApi
      *
      * @return CreateResponse
      */
-    public function create($domain, $address, array $params = [])
+    public function create(string $domain, string $address, array $params = [])
     {
         Assert::stringNotEmpty($domain);
         Assert::stringNotEmpty($address);
@@ -87,7 +87,7 @@ class Unsubscribe extends HttpApi
      *
      * @return DeleteResponse
      */
-    public function delete($domain, $address)
+    public function delete(string $domain, string $address)
     {
         Assert::stringNotEmpty($domain);
         Assert::stringNotEmpty($address);
@@ -102,7 +102,7 @@ class Unsubscribe extends HttpApi
      *
      * @return DeleteResponse
      */
-    public function deleteAll($domain)
+    public function deleteAll(string $domain)
     {
         Assert::stringNotEmpty($domain);
 

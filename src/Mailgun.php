@@ -77,74 +77,52 @@ final class Mailgun
         return $this->responseHistory->getLastResponse();
     }
 
-    /**
-     * @return Api\Stats
-     */
-    public function stats()
+    public function stats(): Api\Stats
     {
         return new Api\Stats($this->httpClient, $this->requestBuilder, $this->hydrator);
     }
 
-    /**
-     * @return Api\Attachment
-     */
-    public function attachment()
+    public function attachment(): Api\Attachment
     {
         return new Api\Attachment($this->httpClient, $this->requestBuilder, $this->hydrator);
     }
 
-    /**
-     * @return Api\Domain
-     */
-    public function domains()
+    public function domains(): Api\Domain
     {
         return new Api\Domain($this->httpClient, $this->requestBuilder, $this->hydrator);
     }
 
-    /**
-     * @return Api\Tag
-     */
-    public function tags()
+    public function tags(): Api\Tag
     {
         return new Api\Tag($this->httpClient, $this->requestBuilder, $this->hydrator);
     }
 
-    /**
-     * @return Api\Event
-     */
-    public function events()
+    public function events(): Api\Event
     {
         return new Api\Event($this->httpClient, $this->requestBuilder, $this->hydrator);
     }
 
-    /**
-     * @return Api\Route
-     */
-    public function routes()
+    public function routes(): Api\Route
     {
         return new Api\Route($this->httpClient, $this->requestBuilder, $this->hydrator);
     }
 
-    /**
-     * @return Api\Webhook
-     */
-    public function webhooks()
+    public function webhooks(): Api\Webhook
     {
         return new Api\Webhook($this->httpClient, $this->requestBuilder, $this->hydrator, $this->apiKey);
     }
 
-    /**
-     * @return Api\Message
-     */
-    public function messages()
+    public function messages(): Api\Message
     {
         return new Api\Message($this->httpClient, $this->requestBuilder, $this->hydrator);
     }
 
-    /**
-     * @return Api\Suppression
-     */
-    public function suppressions()
+    public function ips(): Api\Ip
+    {
+        return new Api\Ip($this->httpClient, $this->requestBuilder, $this->hydrator);
+    }
+
+    public function suppressions(): Api\Suppression
     {
         return new Api\Suppression($this->httpClient, $this->requestBuilder, $this->hydrator);
     }

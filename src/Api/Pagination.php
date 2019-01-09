@@ -18,62 +18,36 @@ use Psr\Http\Message\ResponseInterface;
  */
 trait Pagination
 {
-    abstract protected function httpGet($path, array $parameters = [], array $requestHeaders = []);
+    abstract protected function httpGet(string $path, array $parameters = [], array $requestHeaders = []): ResponseInterface;
 
-    abstract protected function hydrateResponse(ResponseInterface $response, $className);
+    abstract protected function hydrateResponse(ResponseInterface $response, string $className);
 
-    /**
-     * @param PagingProvider $response
-     *
-     * @return PagingProvider|null
-     */
-    public function nextPage(PagingProvider $response)
+    public function nextPage(PagingProvider $response): ?PagingProvider
     {
         return $this->getPaginationUrl($response->getNextUrl(), get_class($response));
     }
 
-    /**
-     * @param PagingProvider $response
-     *
-     * @return PagingProvider|null
-     */
-    public function previousPage(PagingProvider $response)
+    public function previousPage(PagingProvider $response): ?PagingProvider
     {
         return $this->getPaginationUrl($response->getPreviousUrl(), get_class($response));
     }
 
-    /**
-     * @param PagingProvider $response
-     *
-     * @return PagingProvider|null
-     */
-    public function firstPage(PagingProvider $response)
+    public function firstPage(PagingProvider $response): ?PagingProvider
     {
         return $this->getPaginationUrl($response->getFirstUrl(), get_class($response));
     }
 
-    /**
-     * @param PagingProvider $response
-     *
-     * @return PagingProvider|null
-     */
-    public function lastPage(PagingProvider $response)
+    public function lastPage(PagingProvider $response): ?PagingProvider
     {
         return $this->getPaginationUrl($response->getLastUrl(), get_class($response));
     }
 
-    /**
-     * @param string $url
-     * @param string $class
-     *
-     * @return PagingProvider|null
-     */
-    private function getPaginationUrl($url, $class)
+    private function getPaginationUrl(string $url, string $class): ?PagingProvider
     {
         Assert::stringNotEmpty($class);
 
         if (empty($url)) {
-            return;
+            return null;
         }
 
         $response = $this->httpGet($url);

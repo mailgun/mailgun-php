@@ -32,7 +32,7 @@ class Complaint extends HttpApi
      *
      * @return IndexResponse
      */
-    public function index($domain, $limit = 100)
+    public function index(string $domain, int $limit = 100)
     {
         Assert::stringNotEmpty($domain);
         Assert::range($limit, 1, 10000, 'Limit parameter must be between 1 and 10000');
@@ -52,7 +52,7 @@ class Complaint extends HttpApi
      *
      * @return ShowResponse
      */
-    public function show($domain, $address)
+    public function show(string $domain, string $address)
     {
         Assert::stringNotEmpty($domain);
         Assert::stringNotEmpty($address);
@@ -68,7 +68,7 @@ class Complaint extends HttpApi
      *
      * @return CreateResponse
      */
-    public function create($domain, $address, $createdAt = null)
+    public function create(string $domain, string $address, string $createdAt = null)
     {
         Assert::stringNotEmpty($domain);
         Assert::stringNotEmpty($address);
@@ -90,7 +90,7 @@ class Complaint extends HttpApi
      *
      * @return DeleteResponse
      */
-    public function delete($domain, $address)
+    public function delete(string $domain, string $address)
     {
         Assert::stringNotEmpty($domain);
         Assert::stringNotEmpty($address);
@@ -105,7 +105,7 @@ class Complaint extends HttpApi
      *
      * @return DeleteResponse
      */
-    public function deleteAll($domain)
+    public function deleteAll(string $domain)
     {
         Assert::stringNotEmpty($domain);
 

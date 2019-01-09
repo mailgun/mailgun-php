@@ -25,93 +25,73 @@ final class HttpClientException extends \RuntimeException implements Exception
     /**
      * @var array
      */
-    private $responseBody;
+    private $responseBody = [];
 
     /**
      * @var int
      */
     private $responseCode;
 
-    /**
-     * @param string                 $message
-     * @param int                    $code
-     * @param ResponseInterface|null $response
-     */
-    public function __construct($message, $code, ResponseInterface $response = null)
+    public function __construct(string $message, int $code, ResponseInterface $response)
     {
         parent::__construct($message, $code);
 
-        if ($response) {
-            $this->response = $response;
-            $this->responseCode = $response->getStatusCode();
-            $body = $response->getBody()->__toString();
-            if (0 !== strpos($response->getHeaderLine('Content-Type'), 'application/json')) {
-                $this->responseBody['message'] = $body;
-            } else {
-                $this->responseBody = json_decode($body, true);
-            }
+        $this->response = $response;
+        $this->responseCode = $response->getStatusCode();
+        $body = $response->getBody()->__toString();
+        if (0 !== strpos($response->getHeaderLine('Content-Type'), 'application/json')) {
+            $this->responseBody['message'] = $body;
+        } else {
+            $this->responseBody = json_decode($body, true);
         }
     }
 
-    public static function badRequest(ResponseInterface $response = null)
+    public static function badRequest(ResponseInterface $response)
     {
-        $message = 'The parameters passed to the API were invalid. Check your inputs!';
-
-        if (null !== $response) {
-            $body = $response->getBody()->__toString();
-            if (0 !== strpos($response->getHeaderLine('Content-Type'), 'application/json')) {
-                $validationMessage = $body;
-            } else {
-                $jsonDecoded = json_decode($body, true);
-                $validationMessage = isset($jsonDecoded['message']) ? $jsonDecoded['message'] : $body;
-            }
-
-            $message = sprintf("%s\n\n%s", $message, $validationMessage);
+        $body = $response->getBody()->__toString();
+        if (0 !== strpos($response->getHeaderLine('Content-Type'), 'application/json')) {
+            $validationMessage = $body;
+        } else {
+            $jsonDecoded = json_decode($body, true);
+            $validationMessage = isset($jsonDecoded['message']) ? $jsonDecoded['message'] : $body;
         }
+
+        $message = sprintf("The parameters passed to the API were invalid. Check your inputs!\n\n%s", $validationMessage);
 
         return new self($message, 400, $response);
     }
 
-    public static function unauthorized(ResponseInterface $response = null)
+    public static function unauthorized(ResponseInterface $response)
     {
         return new self('Your credentials are incorrect.', 401, $response);
     }
 
-    public static function requestFailed(ResponseInterface $response = null)
+    public static function requestFailed(ResponseInterface $response)
     {
         return new self('Parameters were valid but request failed. Try again.', 402, $response);
     }
 
-    public static function notFound(ResponseInterface $response = null)
+    public static function notFound(ResponseInterface $response)
     {
         return new self('The endpoint you have tried to access does not exist. Check if the domain matches the domain you have configure on Mailgun.', 404, $response);
     }
 
-    public static function payloadTooLarge(ResponseInterface $response = null)
+    public static function payloadTooLarge(ResponseInterface $response)
     {
         return new self('Payload too large, your total attachment size is too big.', 413, $response);
     }
 
-    /**
-     * @return ResponseInterface
-     */
-    public function getResponse()
+    public function getResponse(): ?ResponseInterface
     {
         return $this->response;
     }
 
-    /**
-     * @return array
-     */
-    public function getResponseBody()
+    public function getResponseBody(): array
     {
         return $this->responseBody;
     }
 
-    /**
-     * @return int
-     */
-    public function getResponseCode()
+    public function getResponseCode(): int
     {
         return $this->responseCode;
     }

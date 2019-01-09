@@ -16,7 +16,7 @@ use Mailgun\Hydrator\Hydrator;
 use Mailgun\Hydrator\NoopHydrator;
 use Mailgun\Exception\HttpClientException;
 use Mailgun\Exception\HttpServerException;
-use Mailgun\RequestBuilder;
+use Mailgun\HttpClient\RequestBuilder;
 use Psr\Http\Message\ResponseInterface;
 
 /**
@@ -41,11 +41,6 @@ abstract class HttpApi
      */
     protected $requestBuilder;
 
-    /**
-     * @param HttpClient     $httpClient
-     * @param RequestBuilder $requestBuilder
-     * @param Hydrator       $hydrator
-     */
     public function __construct(HttpClient $httpClient, RequestBuilder $requestBuilder, Hydrator $hydrator)
     {
         $this->httpClient = $httpClient;
@@ -63,7 +58,7 @@ abstract class HttpApi
      *
      * @throws \Exception
      */
-    protected function hydrateResponse(ResponseInterface $response, $class)
+    protected function hydrateResponse(ResponseInterface $response, string $class)
     {
         if (!$this->hydrator) {
             return $response;
@@ -78,8 +73,6 @@ abstract class HttpApi
 
     /**
      * Throw the correct exception for this error.
-     *
-     * @param ResponseInterface $response
      *
      * @throws \Exception
      */
@@ -110,10 +103,8 @@ abstract class HttpApi
      * @param string $path           Request path
      * @param array  $parameters     GET parameters
      * @param array  $requestHeaders Request Headers
-     *
-     * @return ResponseInterface
      */
-    protected function httpGet($path, array $parameters = [], array $requestHeaders = [])
+    protected function httpGet(string $path, array $parameters = [], array $requestHeaders = []): ResponseInterface
     {
         if (count($parameters) > 0) {
             $path .= '?'.http_build_query($parameters);
@@ -136,10 +127,8 @@ abstract class HttpApi
      * @param string $path           Request path
      * @param array  $parameters     POST parameters
      * @param array  $requestHeaders Request headers
-     *
-     * @return ResponseInterface
      */
-    protected function httpPost($path, array $parameters = [], array $requestHeaders = [])
+    protected function httpPost(string $path, array $parameters = [], array $requestHeaders = []): ResponseInterface
     {
         return $this->httpPostRaw($path, $this->createRequestBody($parameters), $requestHeaders);
     }
@@ -150,10 +139,8 @@ abstract class HttpApi
      * @param string       $path           Request path
      * @param array|string $body           Request body
      * @param array        $requestHeaders Request headers
-     *
-     * @return ResponseInterface
      */
-    protected function httpPostRaw($path, $body, array $requestHeaders = [])
+    protected function httpPostRaw(string $path, $body, array $requestHeaders = []): ResponseInterface
     {
         try {
             $response = $this->httpClient->sendRequest(
@@ -172,10 +159,8 @@ abstract class HttpApi
      * @param string $path           Request path
      * @param array  $parameters     PUT parameters
      * @param array  $requestHeaders Request headers
-     *
-     * @return ResponseInterface
      */
-    protected function httpPut($path, array $parameters = [], array $requestHeaders = [])
+    protected function httpPut(string $path, array $parameters = [], array $requestHeaders = []): ResponseInterface
     {
         try {
             $response = $this->httpClient->sendRequest(
@@ -194,10 +179,8 @@ abstract class HttpApi
      * @param string $path           Request path
      * @param array  $parameters     DELETE parameters
      * @param array  $requestHeaders Request headers
-     *
-     * @return ResponseInterface
      */
-    protected function httpDelete($path, array $parameters = [], array $requestHeaders = [])
+    protected function httpDelete(string $path, array $parameters = [], array $requestHeaders = []): ResponseInterface
     {
         try {
             $response = $this->httpClient->sendRequest(
@@ -217,7 +200,7 @@ abstract class HttpApi
      *
      * @return array
      */
-    protected function createRequestBody(array $parameters)
+    private function createRequestBody(array $parameters): array
     {
         $resources = [];
         foreach ($parameters as $key => $values) {

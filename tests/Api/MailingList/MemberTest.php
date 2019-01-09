@@ -20,7 +20,6 @@ class MemberTest extends TestCase
     {
         $data = [
             'limit' => 100,
-            'subscribed' => null,
         ];
 
         $api = $this->getApiMock();
@@ -45,7 +44,7 @@ class MemberTest extends TestCase
             ->with('/v3/lists/address/members/pages', $data)
             ->willReturn(new Response());
 
-        $api->index('address', 100, 'yes');
+        $api->index('address', 100, true);
     }
 
     public function testIndexUnsubscribed()
@@ -61,7 +60,7 @@ class MemberTest extends TestCase
             ->with('/v3/lists/address/members/pages', $data)
             ->willReturn(new Response());
 
-        $api->index('address', 100, 'no');
+        $api->index('address', 100, false);
     }
 
     public function testCreate()
@@ -80,23 +79,21 @@ class MemberTest extends TestCase
             ->with('/v3/lists/address/members', $data)
             ->willReturn(new Response());
 
-        $api->create($list = 'address', $address = 'foo@example.com', $name = 'Foo', $vars = [], $subscribed = 'yes', $upsert = 'no');
+        $api->create($list = 'address', $address = 'foo@example.com', $name = 'Foo', $vars = [], $subscribed = true, $upsert = false);
     }
 
     public function testCreateInvalidAddress()
     {
-        $this->setExpectedException(InvalidArgumentException::class);
-
         $api = $this->getApiMock();
+        $this->expectException(InvalidArgumentException::class);
         $api->create('address', '');
     }
 
     public function testCreateInvalidSubscribed()
     {
-        $this->setExpectedException(InvalidArgumentException::class);
-
         $api = $this->getApiMock();
-        $api->create('address', 'foo@example.com', null, [], true);
+        $this->expectException(InvalidArgumentException::class);
+        $api->create('', 'foo@example.com');
     }
 
     public function testCreateMultiple()
@@ -128,12 +125,12 @@ class MemberTest extends TestCase
                 'name' => 'Billy',
                 'subscribed' => 'yes',
             ],
-        ], $upsert = 'no');
+        ], false);
     }
 
     public function testCreateMultipleInvalidMemberArgument()
     {
-        $this->setExpectedException(InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         $data = [
             'bob@example.com',
@@ -151,7 +148,7 @@ class MemberTest extends TestCase
 
     public function testCreateMultipleCountMax1000()
     {
-        $this->setExpectedException(InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         $members = range(1, 1001);
         $members = array_map('strval', $members);
@@ -180,7 +177,7 @@ class MemberTest extends TestCase
 
     public function testUpdateInvalidArgument()
     {
-        $this->setExpectedException(InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         $data = [
             'vars' => 'foo=bar',
