@@ -11,11 +11,14 @@ namespace Mailgun\Tests\Model\EmailValidation;
 
 use Mailgun\Model\EmailValidation\EmailValidation;
 use Mailgun\Model\EmailValidation\Parts;
+use Mailgun\Tests\Model\BaseModelTest;
 
-class EmailValidationTest extends \PHPUnit_Framework_TestCase
+class EmailValidationTest extends BaseModelTest
 {
     public function testEmailValidation()
     {
+        $this->markTestIncomplete('WIP');
+
         $data = [
             'address' => 'foo@mailgun.net',
             'did_you_mean' => null,
