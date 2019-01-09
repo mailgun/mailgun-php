@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace Mailgun;
 
-use Http\Client\Common\HttpMethodsClient;
 use Http\Client\HttpClient;
 use Mailgun\HttpClient\HttpClientConfigurator;
 use Mailgun\HttpClient\Plugin\History;

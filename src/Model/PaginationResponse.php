@@ -30,7 +30,6 @@ trait PaginationResponse
         return $this->paging['next'];
     }
 
-
     public function getPreviousUrl(): ?string
     {
         if (!isset($this->paging['previous'])) {
