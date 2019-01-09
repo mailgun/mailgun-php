@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * Copyright (C) 2013 Mailgun
  *
@@ -47,12 +49,9 @@ final class StatisticsResponse implements ApiResponse
     private $stats;
 
     /**
-     * @param string    $tag
-     * @param string    $description
-     * @param \DateTime $start
-     * @param \DateTime $end
-     * @param string    $resolution
-     * @param array     $stats
+     * @param string $tag
+     * @param string $description
+     * @param string $resolution
      */
     private function __construct($tag, $description, \DateTime $start, \DateTime $end, $resolution, array $stats)
     {
@@ -65,8 +64,6 @@ final class StatisticsResponse implements ApiResponse
     }
 
     /**
-     * @param array $data
-     *
      * @return StatisticsResponse
      */
     public static function create(array $data)

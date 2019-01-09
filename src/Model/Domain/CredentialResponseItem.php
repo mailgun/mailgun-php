@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * Copyright (C) 2013 Mailgun
  *
@@ -35,8 +37,6 @@ final class CredentialResponseItem
     private $login;
 
     /**
-     * @param array $data
-     *
      * @return self
      */
     public static function create(array $data)
@@ -50,10 +50,9 @@ final class CredentialResponseItem
     }
 
     /**
-     * @param int       $sizeBytes
-     * @param \DateTime $createdAt
-     * @param string    $mailbox
-     * @param string    $login
+     * @param int    $sizeBytes
+     * @param string $mailbox
+     * @param string $login
      */
     private function __construct($sizeBytes, \DateTime $createdAt, $mailbox, $login)
     {

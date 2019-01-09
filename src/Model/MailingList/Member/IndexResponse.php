@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * Copyright (C) 2013 Mailgun
  *
@@ -23,8 +25,6 @@ final class IndexResponse implements ApiResponse, PagingProvider
     private $items;
 
     /**
-     * @param array $data
-     *
      * @return self
      */
     public static function create(array $data)
@@ -42,7 +42,6 @@ final class IndexResponse implements ApiResponse, PagingProvider
 
     /**
      * @param Member[] $items
-     * @param array    $paging
      */
     private function __construct(array $items, array $paging)
     {

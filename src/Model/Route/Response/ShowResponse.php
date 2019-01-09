@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * Copyright (C) 2013 Mailgun
  *
@@ -36,8 +38,6 @@ final class ShowResponse implements ApiResponse
 
     /**
      * ShowResponse constructor.
-     *
-     * @param Route|null $route
      */
     private function __construct(Route $route = null)
     {

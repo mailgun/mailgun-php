@@ -18,9 +18,9 @@ return PhpCsFixer\Config::create()
         '@Symfony' => true,
         'strict_param' => true,
         'array_syntax' => ['syntax' => 'short'],
-        'declare_strict_types' => false, // true
+        'declare_strict_types' => true,
         'no_empty_phpdoc' => true,
-        'no_superfluous_phpdoc_tags' => false, // true
+        'no_superfluous_phpdoc_tags' => true,
         'header_comment' => [
             'commentType' => 'comment',
             'header' => $header,

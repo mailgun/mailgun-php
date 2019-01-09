@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * Copyright (C) 2013 Mailgun
  *
@@ -27,8 +29,6 @@ final class CredentialResponse implements ApiResponse
     private $items;
 
     /**
-     * @param array $data
-     *
      * @return self
      */
     public static function create(array $data)

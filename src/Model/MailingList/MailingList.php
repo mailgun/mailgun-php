@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * Copyright (C) 2013 Mailgun
  *
@@ -44,8 +46,6 @@ final class MailingList implements ApiResponse
     private $createdAt;
 
     /**
-     * @param array $data
-     *
      * @return self
      */
     public static function create(array $data)
@@ -63,12 +63,11 @@ final class MailingList implements ApiResponse
     /**
      * MailingList constructor.
      *
-     * @param string    $name
-     * @param string    $address
-     * @param string    $accessLevel
-     * @param string    $description
-     * @param int       $membersCount
-     * @param \DateTime $createdAt
+     * @param string $name
+     * @param string $address
+     * @param string $accessLevel
+     * @param string $description
+     * @param int    $membersCount
      */
     private function __construct($name, $address, $accessLevel, $description, $membersCount, \DateTime $createdAt)
     {

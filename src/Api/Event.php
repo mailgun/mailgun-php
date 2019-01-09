@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * Copyright (C) 2013 Mailgun
  *
@@ -22,9 +24,6 @@ class Event extends HttpApi
     use Pagination;
 
     /**
-     * @param string $domain
-     * @param array  $params
-     *
      * @return EventResponse
      */
     public function get(string $domain, array $params = [])

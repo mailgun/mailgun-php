@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * Copyright (C) 2013 Mailgun
  *
@@ -37,8 +39,6 @@ final class TotalResponse implements ApiResponse
     private $stats;
 
     /**
-     * @param \DateTime           $start
-     * @param \DateTime           $end
      * @param string              $resolution
      * @param TotalResponseItem[] $stats
      */
@@ -51,8 +51,6 @@ final class TotalResponse implements ApiResponse
     }
 
     /**
-     * @param array $data
-     *
      * @return self
      */
     public static function create(array $data)

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * Copyright (C) 2013 Mailgun
  *
@@ -32,8 +34,6 @@ final class UpdateConnectionResponse implements ApiResponse
     private $requireTLS;
 
     /**
-     * @param array $data
-     *
      * @return self
      */
     public static function create(array $data)

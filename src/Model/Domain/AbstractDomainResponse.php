@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * Copyright (C) 2013 Mailgun
  *
@@ -37,8 +39,6 @@ abstract class AbstractDomainResponse implements ApiResponse
     private $outboundDnsRecords;
 
     /**
-     * @param array $data
-     *
      * @return self
      */
     public static function create(array $data)
@@ -72,7 +72,6 @@ abstract class AbstractDomainResponse implements ApiResponse
     }
 
     /**
-     * @param Domain      $domainInfo
      * @param DnsRecord[] $rxRecords
      * @param DnsRecord[] $txRecords
      * @param string      $message

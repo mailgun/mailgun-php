@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * Copyright (C) 2013 Mailgun
  *
@@ -33,8 +35,6 @@ class Domain extends HttpApi
     /**
      * Returns a list of domains on the account.
      *
-     * @param int $limit
-     * @param int $skip
      *
      * @return IndexResponse
      */

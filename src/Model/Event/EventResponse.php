@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * Copyright (C) 2013 Mailgun
  *
@@ -27,7 +29,6 @@ final class EventResponse implements ApiResponse, PagingProvider
 
     /**
      * @param Event[] $items
-     * @param array   $paging
      */
     private function __construct(array $items, array $paging)
     {

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * Copyright (C) 2013 Mailgun
  *
@@ -58,10 +60,8 @@ class Message extends HttpApi
     }
 
     /**
-     * @param string $domain
      * @param array  $recipients with all you send emails to. Including bcc and cc
      * @param string $message    Message filepath or content
-     * @param array  $params
      *
      * @return SendResponse|ResponseInterface
      */
@@ -94,8 +94,7 @@ class Message extends HttpApi
     /**
      * Get stored message.
      *
-     * @param string $url
-     * @param bool   $rawMessage if true we will use "Accept: message/rfc2822" header
+     * @param bool $rawMessage if true we will use "Accept: message/rfc2822" header
      *
      * @return ShowResponse|ResponseInterface
      */

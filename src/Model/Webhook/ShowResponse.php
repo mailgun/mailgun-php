@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * Copyright (C) 2013 Mailgun
  *
@@ -21,17 +23,12 @@ class ShowResponse implements ApiResponse
      */
     private $webhook = [];
 
-    /**
-     * @param array $webhook
-     */
     private function __construct(array $webhook)
     {
         $this->webhook = $webhook;
     }
 
     /**
-     * @param array $data
-     *
      * @return ShowResponse
      */
     public static function create(array $data)
