@@ -26,7 +26,8 @@ matrix:
           env: COMPOSER_FLAGS="--prefer-stable --prefer-lowest" PREFER_COVERAGE=true
         - name: Backward compatibility test (Disabled)
           php: 7.3
-          env: DEPENDENCIES="roave/backward-compatibility-check" TEST_COMMAND="./vendor/bin/roave-backward-compatibility-check | true"
+          env: DEPENDENCIES="roave/backward-compatibility-check"
+          script: ./vendor/bin/roave-backward-compatibility-check || true
 
 before_install:
   - if [[ "$PREFER_COVERAGE" = true ]] && [[ "$TRAVIS_PULL_REQUEST" = false ]]; then TEST_COMMAND="composer test-coverage" COVERAGE=true; fi
