@@ -39,9 +39,9 @@ class EmailValidation extends HttpApi
      *
      * @return ValidateResponse
      */
-    public function validate($address, $mailboxVerification = false)
+    public function validate(string $address, $mailboxVerification = false)
     {
-        // Validates the mailbox verification.
+        Assert::stringNotEmpty($address);
         Assert::boolean($mailboxVerification);
 
         $params = [
@@ -80,9 +80,7 @@ class EmailValidation extends HttpApi
      */
     public function parse($addresses, $syntaxOnly = true)
     {
-        // Validates the email addresses.
         Assert::stringNotEmpty($addresses);
-        Assert::minLength($addresses, 3);
         Assert::maxLength($addresses, 8000);
 
         // Validates the Syntax Only verification.
