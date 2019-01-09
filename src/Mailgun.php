@@ -130,4 +130,9 @@ final class Mailgun
     {
         return new Api\Suppression($this->httpClient, $this->requestBuilder, $this->hydrator);
     }
+
+    public function emailValidation(): Api\EmailValidation
+    {
+        return new Api\EmailValidation($this->httpClient, $this->requestBuilder, $this->hydrator);
+    }
 }
