@@ -2,6 +2,24 @@
 
 The change log describes what is "Added", "Removed", "Changed" or "Fixed" between each release.
 
+## 3.0.0 - UNRELEASED
+
+### Added
+
+- Support for PSR-4
+- All classes `Mailgun\Model` are final or abstract. 
+
+### Changed
+
+- Dropped PHP5 support
+- Removed deprecated code
+- Moved `RequestBuilder` and `HttpClientConfigurator` to `Mailgun\HttpClient` namespace
+- Updated signature of `Mailgun::__construct()`
+
+### Removed
+
+- Dependency on `php-http/message`.
+
 ## 2.8.0
 
 ### Added
