@@ -25,7 +25,7 @@ use Psr\Http\Message\ResponseInterface;
 final class Mailgun
 {
     /**
-     * @var null|string
+     * @var string|null
      */
     private $apiKey;
 
