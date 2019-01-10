@@ -34,7 +34,7 @@ abstract class HttpApi
     protected $httpClient;
 
     /**
-     * @var null|Hydrator
+     * @var Hydrator|null
      */
     protected $hydrator;
 

@@ -1,0 +1,5 @@
+parameters:
+	level: 5
+
+includes:
+	- vendor/phpstan/phpstan-webmozart-assert/extension.neon

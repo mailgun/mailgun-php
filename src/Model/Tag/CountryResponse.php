@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * Copyright (C) 2013 Mailgun
  *
@@ -26,16 +28,10 @@ final class CountryResponse implements ApiResponse
      */
     private $tag;
 
-    /**
-     * @param string $message
-     */
     private function __construct()
     {
     }
 
-    /**
-     * @param array $data
-     */
     public static function create(array $data): self
     {
         $model = new self();

@@ -28,6 +28,10 @@ matrix:
           php: 7.3
           env: DEPENDENCIES="roave/backward-compatibility-check"
           script: ./vendor/bin/roave-backward-compatibility-check || true
+        - name: PHPStan
+          php: 7.2
+          env: DEPENDENCIES="phpstan/phpstan phpstan/phpstan-webmozart-assert"
+          script: ./vendor/bin/phpstan analyse src
 
 before_install:
   - if [[ "$PREFER_COVERAGE" = true ]] && [[ "$TRAVIS_PULL_REQUEST" = false ]]; then TEST_COMMAND="composer test-coverage" COVERAGE=true; fi
