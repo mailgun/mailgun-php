@@ -9,38 +9,39 @@ declare(strict_types=1);
  * of the MIT license. See the LICENSE file for details.
  */
 
-namespace Mailgun\Model\Route\Response;
+namespace Mailgun\Model\Route;
 
 use Mailgun\Model\ApiResponse;
-use Mailgun\Model\Route\Route;
 
 /**
  * @author David Garcia <me@davidgarcia.cat>
  */
-final class UpdateResponse implements ApiResponse
+final class CreateResponse implements ApiResponse
 {
     /**
-     * @var string|null
+     * @var string
      */
     private $message;
 
     /**
-     * @var Route|null
+     * @var Route
      */
     private $route;
 
     /**
-     * @return self
+     * {@inheritdoc}
      */
     public static function create(array $data)
     {
         $message = isset($data['message']) ? $data['message'] : null;
-        $route = isset($data['id']) ? Route::create($data) : null;
+        $route = isset($data['route']) ? Route::create($data['route']) : null;
 
         return new self($message, $route);
     }
 
     /**
+     * CreateResponse Private Constructor.
+     *
      * @param string|null $message
      */
     private function __construct($message = null, Route $route = null)
@@ -50,7 +51,7 @@ final class UpdateResponse implements ApiResponse
     }
 
     /**
-     * @return string|null
+     * @return string
      */
     public function getMessage()
     {
@@ -58,7 +59,7 @@ final class UpdateResponse implements ApiResponse
     }
 
     /**
-     * @return Route|null
+     * @return Route
      */
     public function getRoute()
     {
