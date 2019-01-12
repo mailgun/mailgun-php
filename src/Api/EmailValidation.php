@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * Copyright (C) 2013 Mailgun
  *
@@ -13,8 +15,9 @@ use Mailgun\Assert;
 use Mailgun\Exception\HttpClientException;
 use Mailgun\Exception\HttpServerException;
 use Mailgun\Exception\InvalidArgumentException;
-use Mailgun\Model\EmailValidation\Response\ParseResponse;
-use Mailgun\Model\EmailValidation\Response\ValidateResponse;
+use Mailgun\Model\EmailValidation\ParseResponse;
+use Mailgun\Model\EmailValidation\ValidateResponse;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * @see https://documentation.mailgun.com/en/latest/api-email-validation.html
@@ -28,21 +31,20 @@ class EmailValidation extends HttpApi
      *
      * This operation is only accessible with the private API key and not subject to the daily usage limits.
      *
-     * @param string     $address             An email address to validate. Maximum: 512 characters.
-     * @param bool|false $mailboxVerification If set to true, a mailbox verification check will be performed
-     *                                        against the address. The default is False.
+     * @param string $address             An email address to validate. Maximum: 512 characters.
+     * @param bool   $mailboxVerification If set to true, a mailbox verification check will be performed
+     *                                    against the address. The default is False.
      *
      * @throws InvalidArgumentException Thrown when local validation returns an error
      * @throws HttpClientException      Thrown when there's an error on Client side
      * @throws HttpServerException      Thrown when there's an error on Server side
      * @throws \Exception               Thrown when we don't catch a Client or Server side Exception
      *
-     * @return ValidateResponse
+     * @return ValidateResponse|ResponseInterface
      */
-    public function validate(string $address, $mailboxVerification = false)
+    public function validate(string $address, bool $mailboxVerification = false)
     {
         Assert::stringNotEmpty($address);
-        Assert::boolean($mailboxVerification);
 
         $params = [
             'address' => $address,
@@ -67,24 +69,21 @@ class EmailValidation extends HttpApi
      *
      * This operation is only accessible with the private API key and not subject to the daily usage limits.
      *
-     * @param string     $addresses  A delimiter separated list of addresses. Maximum: 8000 characters.
-     * @param bool|false $syntaxOnly Perform only syntax checks or DNS and ESP specific validation as well.
-     *                               The default is True.
+     * @param string $addresses  A delimiter separated list of addresses. Maximum: 8000 characters.
+     * @param bool|  $syntaxOnly Perform only syntax checks or DNS and ESP specific validation as well.
+     *                           The default is True.
      *
      * @throws InvalidArgumentException Thrown when local validation returns an error
      * @throws HttpClientException      Thrown when there's an error on Client side
      * @throws HttpServerException      Thrown when there's an error on Server side
      * @throws \Exception               Thrown when we don't catch a Client or Server side Exception
      *
-     * @return ParseResponse
+     * @return ParseResponse|ResponseInterface
      */
-    public function parse($addresses, $syntaxOnly = true)
+    public function parse(string $addresses, bool $syntaxOnly = true)
     {
         Assert::stringNotEmpty($addresses);
         Assert::maxLength($addresses, 8000);
-
-        // Validates the Syntax Only verification.
-        Assert::boolean($syntaxOnly);
 
         $params = [
             'addresses' => $addresses,

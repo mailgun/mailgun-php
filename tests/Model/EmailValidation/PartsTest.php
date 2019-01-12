@@ -16,7 +16,6 @@ class PartsTest extends BaseModelTest
 {
     public function testPartsConstructor()
     {
-        $this->markTestIncomplete('WIP');
 
         $data = [
             'display_name' => ' Display name',
