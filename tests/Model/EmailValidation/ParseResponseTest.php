@@ -2,10 +2,16 @@
 
 declare(strict_types=1);
 
+/*
+ * Copyright (C) 2013 Mailgun
+ *
+ * This software may be modified and distributed under the terms
+ * of the MIT license. See the LICENSE file for details.
+ */
+
 namespace Mailgun\Tests\Model\EmailValidation;
 
 use Mailgun\Model\EmailValidation\ParseResponse;
-use Mailgun\Model\EmailValidation\ValidateResponse;
 use Mailgun\Tests\Model\BaseModelTest;
 
 class ParseResponseTest extends BaseModelTest
@@ -31,7 +37,6 @@ JSON;
 
     public function testParseConstructorWithValidData()
     {
-
         $data = [
             'parsed' => ['parsed data'],
             'unparseable' => ['unparseable data'],
@@ -45,7 +50,6 @@ JSON;
 
     public function testParseConstructorWithInvalidData()
     {
-
         $data = [
             'parsed' => null,
             'unparseable' => null,
@@ -56,5 +60,4 @@ JSON;
         $this->assertEquals([], $parts->getParsed());
         $this->assertEquals([], $parts->getUnparseable());
     }
-
 }

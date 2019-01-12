@@ -70,7 +70,7 @@ class EmailValidation extends HttpApi
      * This operation is only accessible with the private API key and not subject to the daily usage limits.
      *
      * @param string $addresses  A delimiter separated list of addresses. Maximum: 8000 characters.
-     * @param bool|  $syntaxOnly Perform only syntax checks or DNS and ESP specific validation as well.
+     * @param bool   $syntaxOnly Perform only syntax checks or DNS and ESP specific validation as well.
      *                           The default is True.
      *
      * @throws InvalidArgumentException Thrown when local validation returns an error
