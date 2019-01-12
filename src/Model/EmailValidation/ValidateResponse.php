@@ -12,7 +12,6 @@ declare(strict_types=1);
 namespace Mailgun\Model\EmailValidation;
 
 use Mailgun\Model\ApiResponse;
-use Mailgun\Model\EmailValidation\EmailValidation;
 
 /**
  * @author David Garcia <me@davidgarcia.cat>

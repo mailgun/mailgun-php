@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * Copyright (C) 2013 Mailgun
  *
@@ -16,7 +18,6 @@ class PartsTest extends BaseModelTest
 {
     public function testPartsConstructor()
     {
-
         $data = [
             'display_name' => ' Display name',
             'domain' => 'Domain',

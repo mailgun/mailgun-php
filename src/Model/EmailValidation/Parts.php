@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * Copyright (C) 2013 Mailgun
  *
@@ -29,17 +31,11 @@ final class Parts
      */
     private $localPart;
 
-    /**
-     *
-     */
     private function __construct()
     {
     }
 
-
     /**
-     * @param array $data
-     *
      * @return Parts
      */
     public static function create(array $data)
@@ -52,25 +48,16 @@ final class Parts
         return $model;
     }
 
-    /**
-     * @return null|string
-     */
     public function getDisplayName(): ?string
     {
         return $this->displayName;
     }
 
-    /**
-     * @return null|string
-     */
     public function getDomain(): ?string
     {
         return $this->domain;
     }
 
-    /**
-     * @return null|string
-     */
     public function getLocalPart(): ?string
     {
         return $this->localPart;

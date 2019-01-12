@@ -30,7 +30,7 @@ matrix:
           script: ./vendor/bin/roave-backward-compatibility-check || true
         - name: PHPStan
           php: 7.2
-          env: DEPENDENCIES="phpstan/phpstan phpstan/phpstan-webmozart-assert"
+          env: DEPENDENCIES="phpstan/phpstan"
           script: ./vendor/bin/phpstan analyse src
 
 before_install:
