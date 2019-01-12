@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace Mailgun\Tests\Model\Route;
 
-use Mailgun\Model\Route\Response\ShowResponse;
+use Mailgun\Model\Route\ShowResponse;
 use Mailgun\Tests\Model\BaseModelTest;
 
 class ShowResponseTest extends BaseModelTest

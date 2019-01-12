@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace Mailgun\Tests\Model\Route;
 
-use Mailgun\Model\Route\Response\IndexResponse;
+use Mailgun\Model\Route\IndexResponse;
 use Mailgun\Tests\Model\BaseModelTest;
 
 class IndexResponseTest extends BaseModelTest

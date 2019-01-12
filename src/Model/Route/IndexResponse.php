@@ -9,9 +9,8 @@ declare(strict_types=1);
  * of the MIT license. See the LICENSE file for details.
  */
 
-namespace Mailgun\Model\Route\Response;
+namespace Mailgun\Model\Route;
 
-use Mailgun\Model\Route\Route;
 use Mailgun\Model\ApiResponse;
 
 /**

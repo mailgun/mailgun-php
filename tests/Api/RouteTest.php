@@ -13,10 +13,10 @@ namespace Mailgun\Tests\Api;
 
 use GuzzleHttp\Psr7\Response;
 use Mailgun\Api\Route;
-use Mailgun\Model\Route\Response\DeleteResponse;
-use Mailgun\Model\Route\Response\IndexResponse;
-use Mailgun\Model\Route\Response\ShowResponse;
-use Mailgun\Model\Route\Response\UpdateResponse;
+use Mailgun\Model\Route\DeleteResponse;
+use Mailgun\Model\Route\IndexResponse;
+use Mailgun\Model\Route\ShowResponse;
+use Mailgun\Model\Route\UpdateResponse;
 
 /**
  * @author David Garcia <me@davidgarcia.cat>

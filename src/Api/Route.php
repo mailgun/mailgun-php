@@ -12,11 +12,11 @@ declare(strict_types=1);
 namespace Mailgun\Api;
 
 use Mailgun\Assert;
-use Mailgun\Model\Route\Response\CreateResponse;
-use Mailgun\Model\Route\Response\DeleteResponse;
-use Mailgun\Model\Route\Response\IndexResponse;
-use Mailgun\Model\Route\Response\ShowResponse;
-use Mailgun\Model\Route\Response\UpdateResponse;
+use Mailgun\Model\Route\CreateResponse;
+use Mailgun\Model\Route\DeleteResponse;
+use Mailgun\Model\Route\IndexResponse;
+use Mailgun\Model\Route\ShowResponse;
+use Mailgun\Model\Route\UpdateResponse;
 
 /**
  * {@link https://documentation.mailgun.com/api-routes.html}.
