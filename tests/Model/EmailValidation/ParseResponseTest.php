@@ -1,29 +1,43 @@
 <?php
 
-/*
- * Copyright (C) 2013 Mailgun
- *
- * This software may be modified and distributed under the terms
- * of the MIT license. See the LICENSE file for details.
- */
+declare(strict_types=1);
 
 namespace Mailgun\Tests\Model\EmailValidation;
 
-use Mailgun\Model\EmailValidation\Parse;
+use Mailgun\Model\EmailValidation\ParseResponse;
+use Mailgun\Model\EmailValidation\ValidateResponse;
 use Mailgun\Tests\Model\BaseModelTest;
 
-class ParseTest extends BaseModelTest
+class ParseResponseTest extends BaseModelTest
 {
+    public function testCreate()
+    {
+        $json =
+            <<<'JSON'
+{
+    "parsed": [
+        "Alice <alice@example.com>",
+        "bob@example.com"
+    ],
+    "unparseable": [
+    ]
+}
+JSON;
+        $model = ParseResponse::create(json_decode($json, true));
+        $this->assertNotEmpty($model->getParsed());
+        $this->assertCount(2, $model->getParsed());
+        $this->assertEmpty($model->getUnparseable());
+    }
+
     public function testParseConstructorWithValidData()
     {
-        $this->markTestIncomplete('WIP');
 
         $data = [
             'parsed' => ['parsed data'],
             'unparseable' => ['unparseable data'],
         ];
 
-        $parts = Parse::create($data);
+        $parts = ParseResponse::create($data);
 
         $this->assertEquals($data['parsed'], $parts->getParsed());
         $this->assertEquals($data['unparseable'], $parts->getUnparseable());
@@ -31,16 +45,16 @@ class ParseTest extends BaseModelTest
 
     public function testParseConstructorWithInvalidData()
     {
-        $this->markTestIncomplete('WIP');
 
         $data = [
             'parsed' => null,
             'unparseable' => null,
         ];
 
-        $parts = Parse::create($data);
+        $parts = ParseResponse::create($data);
 
         $this->assertEquals([], $parts->getParsed());
         $this->assertEquals([], $parts->getUnparseable());
     }
+
 }

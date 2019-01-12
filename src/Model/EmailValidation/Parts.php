@@ -30,18 +30,12 @@ final class Parts
     private $localPart;
 
     /**
-     * Parts constructor.
      *
-     * @param string|null $displayName
-     * @param string|null $domain
-     * @param string|null $localPart
      */
-    private function __construct($displayName, $domain, $localPart)
+    private function __construct()
     {
-        $this->displayName = $displayName;
-        $this->domain = $domain;
-        $this->localPart = $localPart;
     }
+
 
     /**
      * @param array $data
@@ -50,17 +44,18 @@ final class Parts
      */
     public static function create(array $data)
     {
-        return new self(
-            (isset($data['display_name']) ? $data['display_name'] : null),
-            (isset($data['domain']) ? $data['domain'] : null),
-            (isset($data['local_part']) ? $data['local_part'] : null)
-        );
+        $model = new self();
+        $model->displayName = $data['display_name'] ?? null;
+        $model->domain = $data['domain'] ?? null;
+        $model->localPart = $data['local_part'] ?? null;
+
+        return $model;
     }
 
     /**
      * @return null|string
      */
-    public function getDisplayName()
+    public function getDisplayName(): ?string
     {
         return $this->displayName;
     }
@@ -68,7 +63,7 @@ final class Parts
     /**
      * @return null|string
      */
-    public function getDomain()
+    public function getDomain(): ?string
     {
         return $this->domain;
     }
@@ -76,7 +71,7 @@ final class Parts
     /**
      * @return null|string
      */
-    public function getLocalPart()
+    public function getLocalPart(): ?string
     {
         return $this->localPart;
     }
