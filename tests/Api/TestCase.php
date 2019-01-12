@@ -26,7 +26,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 
     private $requestUri;
 
-    private $requestHeaders;
+    private $requestHeaders = [];
 
     private $requestBody;
 
@@ -89,14 +89,23 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
         $requestClient = $this->getMockBuilder('Mailgun\HttpClient\RequestBuilder')
             ->setMethods(['create'])
             ->getMock();
-        $requestClient->method('create')
-            ->with(
-                $this->callback([$this, 'validateRequestMethod']),
-                $this->callback([$this, 'validateRequestUri']),
-                $this->callback([$this, 'validateRequestHeaders']),
-                $this->callback([$this, 'validateRequestBody'])
-            )
-            ->willReturn(new Request('GET', '/'));
+
+        if (null !== $this->requestMethod
+            || null !== $this->requestUri
+            || !empty($this->requestHeaders)
+            || !empty($this->requestBody)
+        ) {
+            $requestClient
+                ->expects($this->once())
+                ->method('create')
+                ->with(
+                    $this->callback([$this, 'validateRequestMethod']),
+                    $this->callback([$this, 'validateRequestUri']),
+                    $this->callback([$this, 'validateRequestHeaders']),
+                    $this->callback([$this, 'validateRequestBody'])
+                )
+                ->willReturn(new Request('GET', '/'));
+        }
 
         $hydrator = new ModelHydrator();
         if (null === $this->httpResponse) {
@@ -198,18 +207,13 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 
     /**
      * Set request http method.
-     *
-     * @param string $httpMethod
      */
-    public function setRequestMethod($httpMethod)
+    public function setRequestMethod(string $httpMethod)
     {
         $this->requestMethod = $httpMethod;
     }
 
-    /**
-     * @param string $requestUri
-     */
-    public function setRequestUri($requestUri)
+    public function setRequestUri(string $requestUri)
     {
         $this->requestUri = $requestUri;
     }
