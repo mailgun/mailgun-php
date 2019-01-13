@@ -18,31 +18,21 @@ use Mailgun\Model\ApiResponse;
  */
 final class UpdateCredentialResponse implements ApiResponse
 {
-    /**
-     * @var string
-     */
     private $message;
 
-    /**
-     * @param string $message
-     */
-    private function __construct($message)
+    public static function create(array $data): self
     {
-        $this->message = $message;
+        $model = new self();
+        $model->message = $data['message'] ?? null;
+
+        return $model;
     }
 
-    /**
-     * @return self
-     */
-    public static function create(array $data)
+    private function __construct()
     {
-        return new self(isset($data['message']) ? $data['message'] : null);
     }
 
-    /**
-     * @return string
-     */
-    public function getMessage()
+    public function getMessage(): ?string
     {
         return $this->message;
     }

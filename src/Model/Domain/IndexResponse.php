@@ -18,20 +18,10 @@ use Mailgun\Model\ApiResponse;
  */
 final class IndexResponse implements ApiResponse
 {
-    /**
-     * @var int
-     */
     private $totalCount;
-
-    /**
-     * @var Domain[]
-     */
     private $items;
 
-    /**
-     * @return self
-     */
-    public static function create(array $data)
+    public static function create(array $data): self
     {
         $items = [];
 
@@ -47,23 +37,18 @@ final class IndexResponse implements ApiResponse
             $count = count($items);
         }
 
-        return new self($count, $items);
+        $model = new self();
+        $model->totalCount = $count;
+        $model->items = $items;
+
+        return $model;
     }
 
-    /**
-     * @param int      $totalCount
-     * @param Domain[] $items
-     */
-    private function __construct($totalCount, array $items)
+    private function __construct()
     {
-        $this->totalCount = $totalCount;
-        $this->items = $items;
     }
 
-    /**
-     * @return int
-     */
-    public function getTotalCount()
+    public function getTotalCount(): int
     {
         return $this->totalCount;
     }
@@ -71,7 +56,7 @@ final class IndexResponse implements ApiResponse
     /**
      * @return Domain[]
      */
-    public function getDomains()
+    public function getDomains(): array
     {
         return $this->items;
     }

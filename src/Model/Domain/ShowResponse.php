@@ -18,25 +18,11 @@ use Mailgun\Model\ApiResponse;
  */
 final class ShowResponse implements ApiResponse
 {
-    /**
-     * @var Domain
-     */
     private $domain;
-
-    /**
-     * @var DnsRecord[]
-     */
     private $inboundDnsRecords;
-
-    /**
-     * @var DnsRecord[]
-     */
     private $outboundDnsRecords;
 
-    /**
-     * @return self
-     */
-    public static function create(array $data)
+    public static function create(array $data): self
     {
         $rx = [];
         $tx = [];
@@ -58,24 +44,19 @@ final class ShowResponse implements ApiResponse
             }
         }
 
-        return new self($domain, $rx, $tx);
+        $model = new self();
+        $model->domain = $domain;
+        $model->inboundDnsRecords = $rx;
+        $model->outboundDnsRecords = $tx;
+
+        return $model;
     }
 
-    /**
-     * @param DnsRecord[] $rxRecords
-     * @param DnsRecord[] $txRecords
-     */
-    private function __construct(Domain $domainInfo, array $rxRecords, array $txRecords)
+    private function __construct()
     {
-        $this->domain = $domainInfo;
-        $this->inboundDnsRecords = $rxRecords;
-        $this->outboundDnsRecords = $txRecords;
     }
 
-    /**
-     * @return Domain
-     */
-    public function getDomain()
+    public function getDomain(): ?Domain
     {
         return $this->domain;
     }
@@ -83,7 +64,7 @@ final class ShowResponse implements ApiResponse
     /**
      * @return DnsRecord[]
      */
-    public function getInboundDNSRecords()
+    public function getInboundDNSRecords(): array
     {
         return $this->inboundDnsRecords;
     }
@@ -91,7 +72,7 @@ final class ShowResponse implements ApiResponse
     /**
      * @return DnsRecord[]
      */
-    public function getOutboundDNSRecords()
+    public function getOutboundDNSRecords(): array
     {
         return $this->outboundDnsRecords;
     }
