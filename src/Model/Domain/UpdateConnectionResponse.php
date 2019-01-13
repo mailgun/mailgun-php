@@ -18,65 +18,35 @@ use Mailgun\Model\ApiResponse;
  */
 final class UpdateConnectionResponse implements ApiResponse
 {
-    /**
-     * @var string
-     */
     private $message;
-
-    /**
-     * @var bool
-     */
     private $noVerify;
-
-    /**
-     * @var bool
-     */
     private $requireTLS;
 
-    /**
-     * @return self
-     */
-    public static function create(array $data)
+    public static function create(array $data): self
     {
-        $message = isset($data['message']) ? $data['message'] : null;
-        $noVerify = isset($data['skip-verification']) ? $data['skip-verification'] : null;
-        $requireTLS = isset($data['require-tls']) ? $data['require-tls'] : null;
+        $model = new self();
+        $model->message = $data['message'] ?? null;
+        $model->noVerify = $data['skip-verification'] ?? null;
+        $model->requireTLS = $data['require-tls'] ?? null;
 
-        return new self($message, $noVerify, $requireTLS);
+        return $model;
     }
 
-    /**
-     * @param string $message
-     * @param bool   $noVerify
-     * @param bool   $requireTLS
-     */
-    private function __construct($message, $noVerify, $requireTLS)
+    private function __construct()
     {
-        $this->message = $message;
-        $this->noVerify = $noVerify;
-        $this->requireTLS = $requireTLS;
     }
 
-    /**
-     * @return string
-     */
-    public function getMessage()
+    public function getMessage(): ?string
     {
         return $this->message;
     }
 
-    /**
-     * @return bool
-     */
-    public function getSkipVerification()
+    public function getSkipVerification(): ?bool
     {
         return $this->noVerify;
     }
 
-    /**
-     * @return bool
-     */
-    public function getRequireTLS()
+    public function getRequireTLS(): ?bool
     {
         return $this->requireTLS;
     }

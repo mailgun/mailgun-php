@@ -18,128 +18,63 @@ namespace Mailgun\Model\Domain;
  */
 final class Domain
 {
-    /**
-     * @var \DateTime
-     */
     private $createdAt;
-
-    /**
-     * @var string
-     */
     private $smtpLogin;
-
-    /**
-     * @var string
-     */
     private $name;
-
-    /**
-     * @var string
-     */
     private $smtpPassword;
-
-    /**
-     * @var bool
-     */
     private $wildcard;
-
-    /**
-     * @var string
-     */
     private $spamAction;
-
-    /**
-     * @var string
-     */
     private $state;
 
-    /**
-     * @return self
-     */
-    public static function create(array $data)
+    public static function create(array $data): self
     {
-        return new self(
-            isset($data['name']) ? $data['name'] : null,
-            isset($data['smtp_login']) ? $data['smtp_login'] : null,
-            isset($data['smtp_password']) ? $data['smtp_password'] : null,
-            isset($data['wildcard']) ? $data['wildcard'] : null,
-            isset($data['spam_action']) ? $data['spam_action'] : null,
-            isset($data['state']) ? $data['state'] : null,
-            isset($data['created_at']) ? new \DateTime($data['created_at']) : null
-        );
+        $model = new self();
+        $model->name = $data['name'] ?? null;
+        $model->smtpLogin = $data['smtp_login'] ?? null;
+        $model->smtpPassword = $data['smtp_password'] ?? null;
+        $model->wildcard = $data['wildcard'] ?? null;
+        $model->spamAction = $data['spam_action'] ?? null;
+        $model->state = $data['state'] ?? null;
+        $model->createdAt = isset($data['created_at']) ? new \DateTimeImmutable($data['created_at']) : null;
+
+        return $model;
     }
 
-    /**
-     * @param string $name
-     * @param string $smtpLogin
-     * @param string $smtpPassword
-     * @param bool   $wildcard
-     * @param string $spamAction
-     * @param string $state
-     */
-    private function __construct($name, $smtpLogin, $smtpPassword, $wildcard, $spamAction, $state, \DateTime $createdAt)
+    private function __construct()
     {
-        $this->name = $name;
-        $this->smtpLogin = $smtpLogin;
-        $this->smtpPassword = $smtpPassword;
-        $this->wildcard = $wildcard;
-        $this->spamAction = $spamAction;
-        $this->state = $state;
-        $this->createdAt = $createdAt;
     }
 
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName(): ?string
     {
         return $this->name;
     }
 
-    /**
-     * @return string
-     */
-    public function getSmtpUsername()
+    public function getSmtpUsername(): ?string
     {
         return $this->smtpLogin;
     }
 
-    /**
-     * @return string
-     */
-    public function getSmtpPassword()
+    public function getSmtpPassword(): ?string
     {
         return $this->smtpPassword;
     }
 
-    /**
-     * @return bool
-     */
-    public function isWildcard()
+    public function isWildcard(): ?bool
     {
         return $this->wildcard;
     }
 
-    /**
-     * @return string
-     */
-    public function getSpamAction()
+    public function getSpamAction(): ?string
     {
         return $this->spamAction;
     }
 
-    /**
-     * @return string
-     */
-    public function getState()
+    public function getState(): ?string
     {
         return $this->state;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getCreatedAt()
+    public function getCreatedAt(): \DateTimeImmutable
     {
         return $this->createdAt;
     }

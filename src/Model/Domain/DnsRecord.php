@@ -18,121 +18,81 @@ namespace Mailgun\Model\Domain;
  */
 final class DnsRecord
 {
-    /**
-     * @var string|null
-     */
     private $name;
-
-    /**
-     * @var string
-     */
     private $type;
-
-    /**
-     * @var string
-     */
     private $value;
-
-    /**
-     * @var string|null
-     */
     private $priority;
-
-    /**
-     * @var string
-     */
     private $valid;
-
-    /**
-     * @var array
-     */
     private $cached;
 
-    /**
-     * @return self
-     */
-    public static function create(array $data)
+    public static function create(array $data): self
     {
-        $name = isset($data['name']) ? $data['name'] : null;
-        $priority = isset($data['priority']) ? $data['priority'] : null;
-        $recordType = isset($data['record_type']) ? $data['record_type'] : null;
-        $value = isset($data['value']) ? $data['value'] : null;
-        $valid = isset($data['valid']) ? $data['valid'] : null;
-        $cached = isset($data['cached']) ? $data['cached'] : null;
+        $model = new self();
+        $model->name = $data['name'] ?? null;
+        $model->type = $data['record_type'] ?? null;
+        $model->value = $data['value'] ?? null;
+        $model->priority = $data['priority'] ?? null;
+        $model->valid = $data['valid'] ?? null;
+        $model->cached = $data['cached'] ?? [];
 
-        return new self($name, $recordType, $value, $priority, $valid, $cached);
+        return $model;
+    }
+
+    private function __construct()
+    {
     }
 
     /**
-     * @param string|null $name     name of the record, as used in CNAME, etc
-     * @param string      $type     DNS record type
-     * @param string      $value    DNS record value
-     * @param string|null $priority Record priority, used for MX
-     * @param string      $valid    DNS record has been added to domain DNS?
-     * @param array       $cached   DNS record current value
+     * name of the record, as used in CNAME, etc.
      */
-    private function __construct($name, $type, $value, $priority, $valid, $cached)
-    {
-        $this->name = $name;
-        $this->type = $type;
-        $this->value = $value;
-        $this->priority = $priority;
-        $this->valid = $valid;
-        $this->cached = $cached;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getName()
+    public function getName(): ?string
     {
         return $this->name;
     }
 
     /**
+     * DNS record type.
+     *
      * @return string
      */
-    public function getType()
+    public function getType(): ?string
     {
         return $this->type;
     }
 
     /**
-     * @return string
+     * DNS record value.
      */
-    public function getValue()
+    public function getValue(): ?string
     {
         return $this->value;
     }
 
     /**
-     * @return string|null
+     * Record priority, used for MX.
      */
-    public function getPriority()
+    public function getPriority(): ?string
     {
         return $this->priority;
     }
 
     /**
-     * @return bool
+     * DNS record has been added to domain DNS?
      */
-    public function isValid()
+    public function isValid(): bool
     {
         return 'valid' === $this->valid;
     }
 
-    /**
-     * @return string
-     */
-    public function getValidity()
+    public function getValidity(): ?string
     {
         return $this->valid;
     }
 
     /**
-     * @return array
+     * DNS record current value.
      */
-    public function getCached()
+    public function getCached(): array
     {
         return $this->cached;
     }
