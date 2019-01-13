@@ -18,20 +18,10 @@ use Mailgun\Model\ApiResponse;
  */
 final class CredentialResponse implements ApiResponse
 {
-    /**
-     * @var int
-     */
     private $totalCount;
-
-    /**
-     * @var CredentialResponseItem[]
-     */
     private $items;
 
-    /**
-     * @return self
-     */
-    public static function create(array $data)
+    public static function create(array $data): self
     {
         $items = [];
         if (isset($data['items'])) {
@@ -41,28 +31,23 @@ final class CredentialResponse implements ApiResponse
         }
 
         if (isset($data['total_count'])) {
-            $count = $data['total_count'];
+            $count = (int) $data['total_count'];
         } else {
             $count = count($items);
         }
 
-        return new self($count, $items);
+        $model = new self();
+        $model->totalCount = $count;
+        $model->items = $items;
+
+        return $model;
     }
 
-    /**
-     * @param int                      $totalCount
-     * @param CredentialResponseItem[] $items
-     */
-    private function __construct($totalCount, array $items)
+    private function __construct()
     {
-        $this->totalCount = $totalCount;
-        $this->items = $items;
     }
 
-    /**
-     * @return int
-     */
-    public function getTotalCount()
+    public function getTotalCount(): int
     {
         return $this->totalCount;
     }
@@ -70,7 +55,7 @@ final class CredentialResponse implements ApiResponse
     /**
      * @return CredentialResponseItem[]
      */
-    public function getCredentials()
+    public function getCredentials(): array
     {
         return $this->items;
     }

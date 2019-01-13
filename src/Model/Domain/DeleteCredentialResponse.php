@@ -18,65 +18,35 @@ use Mailgun\Model\ApiResponse;
  */
 final class DeleteCredentialResponse implements ApiResponse
 {
-    /**
-     * @var string
-     */
     private $message;
-
-    /**
-     * @var string
-     */
     private $error;
-
-    /**
-     * @var string
-     */
     private $spec;
 
-    /**
-     * @param string $message
-     * @param string $error
-     * @param string $spec
-     */
-    private function __construct($message, $error, $spec)
+    private function __construct()
     {
-        $this->message = $message;
-        $this->error = $error;
-        $this->spec = $spec;
     }
 
-    /**
-     * @return self
-     */
-    public static function create(array $data)
+    public static function create(array $data): self
     {
-        return new self(
-            isset($data['message']) ? $data['message'] : null,
-            isset($data['error']) ? $data['error'] : null,
-            isset($data['spec']) ? $data['spec'] : null
-        );
+        $model = new self();
+        $model->message = $data['message'] ?? null;
+        $model->error = $data['error'] ?? null;
+        $model->spec = $data['spec'] ?? null;
+
+        return $model;
     }
 
-    /**
-     * @return string
-     */
-    public function getMessage()
+    public function getMessage(): ?string
     {
         return $this->message;
     }
 
-    /**
-     * @return string
-     */
-    public function getError()
+    public function getError(): ?string
     {
         return $this->error;
     }
 
-    /**
-     * @return string
-     */
-    public function getSpec()
+    public function getSpec(): ?string
     {
         return $this->spec;
     }

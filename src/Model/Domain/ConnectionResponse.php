@@ -18,14 +18,7 @@ use Mailgun\Model\ApiResponse;
  */
 final class ConnectionResponse implements ApiResponse
 {
-    /**
-     * @var bool
-     */
     private $noVerify;
-
-    /**
-     * @var bool
-     */
     private $requireTLS;
 
     public static function create(array $data): ?self
@@ -35,34 +28,31 @@ final class ConnectionResponse implements ApiResponse
         }
         $connSettings = $data['connection'];
 
-        return new self(
-            isset($connSettings['skip_verification']) ? $connSettings['skip_verification'] : null,
-            isset($connSettings['require_tls']) ? $connSettings['require_tls'] : null
-        );
+        $model = new self();
+        $model->noVerify = $connSettings['skip_verification'] ?? null;
+        $model->requireTLS = $connSettings['require_tls'] ?? null;
+
+        return $model;
     }
 
-    /**
-     * @param bool $noVerify   Disable remote TLS certificate verification
-     * @param bool $requireTLS Requires TLS for all outbound communication
-     */
-    private function __construct($noVerify, $requireTLS)
+    private function __construct()
     {
-        $this->noVerify = $noVerify;
-        $this->requireTLS = $requireTLS;
     }
 
     /**
+     * Disable remote TLS certificate verification.
      * @return bool
      */
-    public function getSkipVerification()
+    public function getSkipVerification(): ?bool
     {
         return $this->noVerify;
     }
 
     /**
+     * Requires TLS for all outbound communication.
      * @return bool
      */
-    public function getRequireTLS()
+    public function getRequireTLS(): ?bool
     {
         return $this->requireTLS;
     }
