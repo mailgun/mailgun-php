@@ -16,80 +16,42 @@ namespace Mailgun\Model\Domain;
  */
 final class CredentialResponseItem
 {
-    /**
-     * @var int|null
-     */
     private $sizeBytes;
-
-    /**
-     * @var \DateTime
-     */
     private $createdAt;
-
-    /**
-     * @var string
-     */
     private $mailbox;
-
-    /**
-     * @var string
-     */
     private $login;
 
-    /**
-     * @return self
-     */
-    public static function create(array $data)
+    public static function create(array $data): self
     {
-        $sizeBytes = isset($data['size_bytes']) ? $data['size_bytes'] : null;
-        $mailbox = isset($data['mailbox']) ? $data['mailbox'] : null;
-        $login = isset($data['login']) ? $data['login'] : null;
-        $createdAt = isset($data['created_at']) ? new \DateTime($data['created_at']) : null;
+        $model = new self();
+        $model->sizeBytes = $data['size_bytes'] ?? null;
+        $model->createdAt = isset($data['created_at']) ? new \DateTimeImmutable($data['created_at']) : null;
+        $model->mailbox = $data['mailbox'] ?? null;
+        $model->login = $data['login'] ?? null;
 
-        return new self($sizeBytes, $createdAt, $mailbox, $login);
+        return $model;
     }
 
-    /**
-     * @param int    $sizeBytes
-     * @param string $mailbox
-     * @param string $login
-     */
-    private function __construct($sizeBytes, \DateTime $createdAt, $mailbox, $login)
+    private function __construct()
     {
-        $this->sizeBytes = $sizeBytes;
-        $this->createdAt = $createdAt;
-        $this->mailbox = $mailbox;
-        $this->login = $login;
     }
 
-    /**
-     * @return int|null
-     */
-    public function getSizeBytes()
+    public function getSizeBytes(): ?int
     {
         return $this->sizeBytes;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getCreatedAt()
+    public function getCreatedAt(): ?\DateTimeImmutable
     {
         return $this->createdAt;
     }
 
-    /**
-     * @return string
-     */
-    public function getMailbox()
+    public function getMailbox(): ?string
     {
         return $this->mailbox;
     }
 
-    /**
-     * @return string
-     */
-    public function getLogin()
+    public function getLogin(): ?string
     {
         return $this->login;
     }

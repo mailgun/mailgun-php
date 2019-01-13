@@ -20,7 +20,11 @@ final class Attachment implements ApiResponse
 {
     private $data;
 
-    public static function create(array $data)
+    private function __construct()
+    {
+    }
+
+    public static function create(array $data): self
     {
         $new = new self();
         $new->data = $data;
@@ -28,7 +32,7 @@ final class Attachment implements ApiResponse
         return $new;
     }
 
-    public function getData()
+    public function getData(): array
     {
         return $this->data;
     }

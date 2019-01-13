@@ -18,42 +18,19 @@ use Mailgun\Model\ApiResponse;
  */
 abstract class AbstractDomainResponse implements ApiResponse
 {
-    /**
-     * @var string
-     */
     private $message;
-
-    /**
-     * @var Domain
-     */
     private $domain;
-
-    /**
-     * @var DnsRecord[]
-     */
     private $inboundDnsRecords;
-
-    /**
-     * @var DnsRecord[]
-     */
     private $outboundDnsRecords;
 
-    /**
-     * @return self
-     */
-    public static function create(array $data)
+    public static function create(array $data): self
     {
         $rx = [];
         $tx = [];
         $domain = null;
-        $message = null;
 
         if (isset($data['domain'])) {
             $domain = Domain::create($data['domain']);
-        }
-
-        if (isset($data['message'])) {
-            $message = $data['message'];
         }
 
         if (isset($data['receiving_dns_records'])) {
@@ -68,50 +45,41 @@ abstract class AbstractDomainResponse implements ApiResponse
             }
         }
 
-        return new static($domain, $rx, $tx, $message);
+        $model = new static();
+        $model->domain = $domain;
+        $model->inboundDnsRecords = $rx;
+        $model->outboundDnsRecords = $tx;
+        $model->message = $data['message'] ?? null;
+
+        return $model;
     }
 
-    /**
-     * @param DnsRecord[] $rxRecords
-     * @param DnsRecord[] $txRecords
-     * @param string      $message
-     */
-    private function __construct(Domain $domainInfo, array $rxRecords, array $txRecords, $message)
+    private function __construct()
     {
-        $this->domain = $domainInfo;
-        $this->inboundDnsRecords = $rxRecords;
-        $this->outboundDnsRecords = $txRecords;
-        $this->message = $message;
     }
 
-    /**
-     * @return Domain
-     */
-    public function getDomain()
+    public function getDomain(): ?Domain
     {
         return $this->domain;
     }
 
     /**
-     * @return DnsRecord[]
+     * @return DnsRecord[] tx
      */
-    public function getInboundDNSRecords()
+    public function getInboundDNSRecords(): array
     {
         return $this->inboundDnsRecords;
     }
 
     /**
-     * @return DnsRecord[]
+     * @return DnsRecord[] tx
      */
-    public function getOutboundDNSRecords()
+    public function getOutboundDNSRecords(): array
     {
         return $this->outboundDnsRecords;
     }
 
-    /**
-     * @return string
-     */
-    public function getMessage()
+    public function getMessage(): ?string
     {
         return $this->message;
     }
