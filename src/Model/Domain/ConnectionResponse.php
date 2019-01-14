@@ -41,6 +41,7 @@ final class ConnectionResponse implements ApiResponse
 
     /**
      * Disable remote TLS certificate verification.
+     *
      * @return bool
      */
     public function getSkipVerification(): ?bool
@@ -50,6 +51,7 @@ final class ConnectionResponse implements ApiResponse
 
     /**
      * Requires TLS for all outbound communication.
+     *
      * @return bool
      */
     public function getRequireTLS(): ?bool
