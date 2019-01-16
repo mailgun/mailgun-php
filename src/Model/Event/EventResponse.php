@@ -21,19 +21,10 @@ use Mailgun\Model\ApiResponse;
 final class EventResponse implements ApiResponse, PagingProvider
 {
     use PaginationResponse;
-
-    /**
-     * @var Event[]
-     */
     private $items;
 
-    /**
-     * @param Event[] $items
-     */
-    private function __construct(array $items, array $paging)
+    private function __construct()
     {
-        $this->items = $items;
-        $this->paging = $paging;
     }
 
     public static function create(array $data)
@@ -45,13 +36,17 @@ final class EventResponse implements ApiResponse, PagingProvider
             }
         }
 
-        return new self($events, $data['paging']);
+        $model = new self();
+        $model->items = $events;
+        $model->paging = $data['paging'];
+
+        return $model;
     }
 
     /**
      * @return Event[]
      */
-    public function getItems()
+    public function getItems(): array
     {
         return $this->items;
     }

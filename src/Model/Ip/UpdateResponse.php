@@ -18,9 +18,6 @@ use Mailgun\Model\ApiResponse;
  */
 final class UpdateResponse implements ApiResponse
 {
-    /**
-     * @var string
-     */
     private $message;
 
     private function __construct()
@@ -35,10 +32,7 @@ final class UpdateResponse implements ApiResponse
         return $model;
     }
 
-    /**
-     * @return string
-     */
-    public function getMessage()
+    public function getMessage(): string
     {
         return $this->message;
     }
