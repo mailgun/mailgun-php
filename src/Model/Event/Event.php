@@ -16,217 +16,79 @@ namespace Mailgun\Model\Event;
  */
 final class Event
 {
-    /**
-     * @var string status
-     */
     private $event;
-
-    /**
-     * @var string
-     */
     private $id;
-
-    /**
-     * @var float
-     */
     private $timestamp;
-
-    /**
-     * A \DateTime representation of $timestamp.
-     *
-     * @var \DateTime
-     */
     private $eventDate;
-
-    /**
-     * @var string[]
-     */
-    private $tags = [];
-
-    /**
-     * @var string
-     */
+    private $tags;
     private $url;
-
-    /**
-     * @var string
-     */
     private $severity;
-
-    /**
-     * @var array
-     */
-    private $envelope = [];
-
-    /**
-     * @var array
-     */
+    private $envelope;
     private $deliveryStatus;
-
-    /**
-     * @var string[]
-     */
-    private $campaigns = [];
-
-    /**
-     * @var string
-     */
+    private $campaigns;
     private $ip;
-
-    /**
-     * @var array
-     */
-    private $clientInfo = [];
-
-    /**
-     * @var string
-     */
+    private $clientInfo;
     private $reason;
-
-    /**
-     * @var array
-     */
-    private $userVariables = [];
-
-    /**
-     * @var array key=>bool
-     */
-    private $flags = [];
-
-    /**
-     * @var array multi dimensions
-     */
-    private $routes = [];
-
-    /**
-     * @var array multi dimensions
-     */
-    private $message = [];
-
-    /**
-     * @var string
-     */
+    private $userVariables;
+    private $flags;
+    private $routes;
+    private $message;
     private $recipient;
-
-    /**
-     * @var array
-     */
-    private $geolocation = [];
-
-    /**
-     * @var array
-     */
-    private $storage = [];
-
-    /**
-     * @var string
-     */
+    private $geolocation;
+    private $storage;
     private $method;
 
-    /**
-     * @param string $event
-     * @param string $id
-     * @param float  $timestamp
-     */
-    private function __construct($event, $id, $timestamp)
+    private function __construct()
     {
-        $this->event = $event;
-        $this->id = $id;
-        $this->timestamp = $timestamp;
-        $this->eventDate = new \DateTime();
-        $this->eventDate->setTimestamp((int) $timestamp);
     }
 
-    /**
-     * @return Event
-     */
-    public static function create(array $data)
+    public static function create(array $data): self
     {
-        $event = new self($data['event'], $data['id'], $data['timestamp']);
+        $model = new self();
+        $model->event = $data['event'];
+        $model->id = $data['id'];
+        $model->timestamp = (int) $data['timestamp'];
+        $model->eventDate = (new \DateTimeImmutable())->setTimestamp((int) $data['timestamp']);
+        $model->tags = $data['tags'] ?? [];
+        $model->envelope = $data['envelope'] ?? [];
+        $model->campaigns = $data['campaigns'] ?? [];
+        $model->userVariables = $data['user-variables'] ?? [];
+        $model->flags = $data['flags'] ?? [];
+        $model->routes = $data['routes'] ?? [];
+        $model->message = $data['message'] ?? [];
+        $model->recipient = $data['recipient'] ?? '';
+        $model->method = $data['method'] ?? '';
+        $model->deliveryStatus = $data['delivery-status'] ?? [];
+        $model->severity = $data['severity'] ?? '';
+        $model->reason = $data['reason'] ?? '';
+        $model->geolocation = $data['geolocation'] ?? [];
+        $model->ip = $data['ip'] ?? '';
+        $model->clientInfo = $data['client-info'] ?? [];
+        $model->url = $data['url'] ?? '';
+        $model->storage = $data['storage'] ?? [];
 
-        if (isset($data['tags'])) {
-            $event->setTags($data['tags']);
-        }
-        if (isset($data['envelope'])) {
-            $event->setEnvelope($data['envelope']);
-        }
-        if (isset($data['campaigns'])) {
-            $event->setCampaigns($data['campaigns']);
-        }
-        if (isset($data['user-variables'])) {
-            $event->setUserVariables($data['user-variables']);
-        }
-        if (isset($data['flags'])) {
-            $event->setFlags($data['flags']);
-        }
-        if (isset($data['routes'])) {
-            $event->setRoutes($data['routes']);
-        }
-        if (isset($data['message'])) {
-            $event->setMessage($data['message']);
-        }
-        if (isset($data['recipient'])) {
-            $event->setRecipient($data['recipient']);
-        }
-        if (isset($data['method'])) {
-            $event->setMethod($data['method']);
-        }
-        if (isset($data['delivery-status'])) {
-            $event->setDeliveryStatus($data['delivery-status']);
-        }
-        if (isset($data['severity'])) {
-            $event->setSeverity($data['severity']);
-        }
-        if (isset($data['reason'])) {
-            $event->setReason($data['reason']);
-        }
-        if (isset($data['geolocation'])) {
-            $event->setGeolocation($data['geolocation']);
-        }
-        if (isset($data['ip'])) {
-            $event->setIp($data['ip']);
-        }
-        if (isset($data['client-info'])) {
-            $event->setClientInfo($data['client-info']);
-        }
-        if (isset($data['url'])) {
-            $event->setUrl($data['url']);
-        }
-        if (isset($data['storage'])) {
-            $event->setStorage($data['storage']);
-        }
-
-        return $event;
+        return $model;
     }
 
-    /**
-     * @return string
-     */
-    public function getEvent()
+    public function getEvent(): string
     {
         return $this->event;
     }
 
-    /**
-     * @return string
-     */
-    public function getId()
+    public function getId(): string
     {
         return $this->id;
     }
 
-    /**
-     * @return float
-     */
-    public function getTimestamp()
+    public function getTimestamp(): int
     {
         return $this->timestamp;
     }
 
     /**
-     * @return \DateTime
+     * A \DateTimeImmutable representation of $timestamp.
      */
-    public function getEventDate()
+    public function getEventDate(): \DateTimeImmutable
     {
         return $this->eventDate;
     }
@@ -234,272 +96,100 @@ final class Event
     /**
      * @return string[]
      */
-    public function getTags()
+    public function getTags(): array
     {
         return $this->tags;
     }
 
-    /**
-     * @param string[] $tags
-     */
-    private function setTags($tags)
-    {
-        $this->tags = $tags;
-    }
-
-    /**
-     * @return string
-     */
-    public function getUrl()
+    public function getUrl(): string
     {
         return $this->url;
     }
 
-    /**
-     * @param string $url
-     */
-    private function setUrl($url)
+    public function getSeverity(): string
     {
-        $this->url = $url;
+        return $this->severity;
     }
 
-    /**
-     * @return array
-     */
-    public function getEnvelope()
+    public function getEnvelope(): array
     {
         return $this->envelope;
     }
 
-    /**
-     * @param array $envelope
-     */
-    private function setEnvelope($envelope)
-    {
-        $this->envelope = $envelope;
-    }
-
-    /**
-     * @return array
-     */
-    public function getDeliveryStatus()
+    public function getDeliveryStatus(): array
     {
         return $this->deliveryStatus;
     }
 
     /**
-     * @param array $deliveryStatus
-     */
-    private function setDeliveryStatus($deliveryStatus)
-    {
-        $this->deliveryStatus = $deliveryStatus;
-    }
-
-    /**
      * @return string[]
      */
-    public function getCampaigns()
+    public function getCampaigns(): array
     {
         return $this->campaigns;
     }
 
-    /**
-     * @param string[] $campaigns
-     */
-    private function setCampaigns($campaigns)
-    {
-        $this->campaigns = $campaigns;
-    }
-
-    /**
-     * @return string
-     */
-    public function getIp()
+    public function getIp(): string
     {
         return $this->ip;
     }
 
-    /**
-     * @param string $ip
-     */
-    private function setIp($ip)
-    {
-        $this->ip = $ip;
-    }
-
-    /**
-     * @return array
-     */
-    public function getClientInfo()
+    public function getClientInfo(): array
     {
         return $this->clientInfo;
     }
 
-    /**
-     * @param array $clientInfo
-     */
-    private function setClientInfo($clientInfo)
-    {
-        $this->clientInfo = $clientInfo;
-    }
-
-    /**
-     * @return string
-     */
-    public function getReason()
+    public function getReason(): string
     {
         return $this->reason;
     }
 
-    /**
-     * @param string $reason
-     */
-    private function setReason($reason)
-    {
-        $this->reason = $reason;
-    }
-
-    /**
-     * @return array
-     */
-    public function getUserVariables()
+    public function getUserVariables(): array
     {
         return $this->userVariables;
     }
 
     /**
-     * @param array $userVariables
+     * key=>bool.
      */
-    private function setUserVariables($userVariables)
-    {
-        $this->userVariables = $userVariables;
-    }
-
-    /**
-     * @return array
-     */
-    public function getFlags()
+    public function getFlags(): array
     {
         return $this->flags;
     }
 
     /**
-     * @param array $flags
+     * multi dimensions.
      */
-    private function setFlags($flags)
-    {
-        $this->flags = $flags;
-    }
-
-    /**
-     * @return array
-     */
-    public function getRoutes()
+    public function getRoutes(): array
     {
         return $this->routes;
     }
 
     /**
-     * @param array $routes
+     * multi dimensions.
      */
-    private function setRoutes($routes)
-    {
-        $this->routes = $routes;
-    }
-
-    /**
-     * @return array
-     */
-    public function getMessage()
+    public function getMessage(): array
     {
         return $this->message;
     }
 
-    /**
-     * @param array $message
-     */
-    private function setMessage($message)
-    {
-        $this->message = $message;
-    }
-
-    /**
-     * @return string
-     */
-    public function getRecipient()
+    public function getRecipient(): string
     {
         return $this->recipient;
     }
 
-    /**
-     * @param string $recipient
-     */
-    private function setRecipient($recipient)
-    {
-        $this->recipient = $recipient;
-    }
-
-    /**
-     * @return array
-     */
-    public function getGeolocation()
+    public function getGeolocation(): array
     {
         return $this->geolocation;
     }
 
-    /**
-     * @param array $geolocation
-     */
-    private function setGeolocation($geolocation)
-    {
-        $this->geolocation = $geolocation;
-    }
-
-    /**
-     * @return array
-     */
-    public function getStorage()
+    public function getStorage(): array
     {
         return $this->storage;
     }
 
-    /**
-     * @param array $storage
-     */
-    private function setStorage($storage)
-    {
-        $this->storage = $storage;
-    }
-
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
         return $this->method;
-    }
-
-    /**
-     * @param string $method
-     */
-    private function setMethod($method)
-    {
-        $this->method = $method;
-    }
-
-    /**
-     * @return string
-     */
-    public function getSeverity()
-    {
-        return $this->severity;
-    }
-
-    /**
-     * @param string $severity
-     */
-    private function setSeverity($severity)
-    {
-        $this->severity = $severity;
     }
 }

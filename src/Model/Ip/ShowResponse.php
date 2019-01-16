@@ -18,19 +18,8 @@ use Mailgun\Model\ApiResponse;
  */
 final class ShowResponse implements ApiResponse
 {
-    /**
-     * @var string
-     */
     private $ip;
-
-    /**
-     * @var bool
-     */
     private $dedicated;
-
-    /**
-     * @var string
-     */
     private $rdns;
 
     private function __construct()
@@ -47,26 +36,17 @@ final class ShowResponse implements ApiResponse
         return $model;
     }
 
-    /**
-     * @return string
-     */
-    public function getIp()
+    public function getIp(): string
     {
         return $this->ip;
     }
 
-    /**
-     * @return bool
-     */
-    public function getDedicated()
+    public function getDedicated(): bool
     {
         return $this->dedicated;
     }
 
-    /**
-     * @return string
-     */
-    public function getRdns()
+    public function getRdns(): string
     {
         return $this->rdns;
     }

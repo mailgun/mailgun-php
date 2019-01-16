@@ -26,7 +26,7 @@ final class IndexResponse implements ApiResponse
     /**
      * @var int
      */
-    private $totalCount = 0;
+    private $totalCount;
 
     private function __construct()
     {
@@ -36,7 +36,7 @@ final class IndexResponse implements ApiResponse
     {
         $model = new self();
         $model->items = $data['items'];
-        $model->totalCount = $data['total_count'];
+        $model->totalCount = $data['total_count'] ?? 0;
 
         return $model;
     }
@@ -44,15 +44,12 @@ final class IndexResponse implements ApiResponse
     /**
      * @return string[]
      */
-    public function getItems()
+    public function getItems(): array
     {
         return $this->items;
     }
 
-    /**
-     * @return int
-     */
-    public function getTotalCount()
+    public function getTotalCount(): int
     {
         return $this->totalCount;
     }
