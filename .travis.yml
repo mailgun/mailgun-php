@@ -31,7 +31,9 @@ matrix:
         - name: PHPStan
           php: 7.2
           env: DEPENDENCIES="phpstan/phpstan"
-          script: ./vendor/bin/phpstan analyse src
+          script:
+            - ./vendor/bin/phpstan --version
+            - ./vendor/bin/phpstan analyse src
 
 before_install:
   - if [[ "$PREFER_COVERAGE" = true ]] && [[ "$TRAVIS_PULL_REQUEST" = false ]]; then TEST_COMMAND="composer test-coverage" COVERAGE=true; fi
