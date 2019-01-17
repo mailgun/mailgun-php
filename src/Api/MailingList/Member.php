@@ -112,7 +112,7 @@ class Member extends HttpApi
      *
      * @param string $list    Address of the mailing list
      * @param array  $members Array of members, each item should be either a single string address or an array of member properties
-     * @param bool $upsert  `true` to update existing members, `false` (default) to ignore duplicates
+     * @param bool   $upsert  `true` to update existing members, `false` (default) to ignore duplicates
      *
      * @return UpdateResponse
      *
