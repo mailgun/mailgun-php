@@ -32,7 +32,7 @@ class BatchMessageTest extends MailgunTestCase
             ->setMethods(['send', 'sendMime', 'show'])
             ->getMock();
         $messageApi->method('send')
-            ->willReturn(SendResponse::create(['id' => 4711, 'message' => 'Message sent']));
+            ->willReturn(SendResponse::create(['id' => '4711', 'message' => 'Message sent']));
 
         $this->batchMessage = $messageApi->getBatchMessage('example.com');
     }

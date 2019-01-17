@@ -25,7 +25,7 @@ final class CreateResponse implements ApiResponse
     {
         $model = new self();
         $model->message = $data['message'] ?? null;
-        $model->route = isset($data['id']) ? Route::create($data) : null;
+        $model->route = isset($data['route']) ? Route::create($data['route']) : null;
 
         return $model;
     }
