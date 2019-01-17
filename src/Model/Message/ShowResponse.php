@@ -38,7 +38,7 @@ final class ShowResponse implements ApiResponse
     {
     }
 
-    public static function create(array $data): array
+    public static function create(array $data): self
     {
         $model = new self();
         $model->recipients = $data['recipients'] ?? null;
