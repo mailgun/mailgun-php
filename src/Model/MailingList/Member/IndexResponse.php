@@ -24,10 +24,7 @@ final class IndexResponse implements ApiResponse, PagingProvider
      */
     private $items;
 
-    /**
-     * @return self
-     */
-    public static function create(array $data)
+    public static function create(array $data): self
     {
         $items = [];
 
@@ -37,22 +34,21 @@ final class IndexResponse implements ApiResponse, PagingProvider
             }
         }
 
-        return new self($items, $data['paging']);
+        $model = new self();
+        $model->items = $items;
+        $model->paging = $data['paging'];
+
+        return $model;
     }
 
-    /**
-     * @param Member[] $items
-     */
-    private function __construct(array $items, array $paging)
+    private function __construct()
     {
-        $this->items = $items;
-        $this->paging = $paging;
     }
 
     /**
      * @return Member[]
      */
-    public function getItems()
+    public function getItems(): array
     {
         return $this->items;
     }

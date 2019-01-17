@@ -18,382 +18,126 @@ use Mailgun\Model\ApiResponse;
  */
 final class ShowResponse implements ApiResponse
 {
-    /**
-     * Only available with message/rfc2822.
-     *
-     * @var string
-     */
     private $recipient;
-
-    /**
-     * Only available with message/rfc2822.
-     *
-     * @var string
-     */
     private $bodyMime;
-
-    /**
-     * @var string
-     */
     private $recipients;
-
-    /**
-     * @var string
-     */
     private $sender;
-
-    /**
-     * @var string
-     */
     private $from;
-
-    /**
-     * @var string
-     */
     private $subject;
-
-    /**
-     * @var string
-     */
     private $bodyPlain;
-
-    /**
-     * @var string
-     */
     private $strippedText;
-
-    /**
-     * @var string
-     */
     private $strippedSignature;
-
-    /**
-     * @var string
-     */
     private $bodyHtml;
-
-    /**
-     * @var string
-     */
     private $strippedHtml;
-
-    /**
-     * @var array
-     */
     private $attachments;
-
-    /**
-     * @var string
-     */
     private $messageUrl;
-
-    /**
-     * @var string
-     */
     private $contentIdMap;
-
-    /**
-     * @var array
-     */
     private $messageHeaders;
 
-    /**
-     * Do not let this object be creted without the ::create.
-     */
     private function __construct()
     {
     }
 
-    /**
-     * @return ShowResponse
-     */
-    public static function create(array $data)
+    public static function create(array $data): array
     {
-        $response = new self();
+        $model = new self();
+        $model->recipients = $data['recipients'] ?? null;
+        $model->sender = $data['sender'] ?? null;
+        $model->from = $data['from'] ?? null;
+        $model->subject = $data['subject'] ?? null;
+        $model->bodyPlain = $data['body-plain'] ?? null;
+        $model->strippedText = $data['stripped-text'] ?? null;
+        $model->strippedSignature = $data['stripped-signature'] ?? null;
+        $model->bodyHtml = $data['body-html'] ?? null;
+        $model->strippedHtml = $data['stripped-html'] ?? null;
+        $model->messageUrl = $data['message-url'] ?? null;
+        $model->messageHeaders = $data['message-headers'] ?? null;
+        $model->recipient = $data['recipient'] ?? null;
+        $model->bodyMime = $data['body-mime'] ?? null;
+        $model->attachments = $data['attachments'] ?? [];
+        $model->contentIdMap = $data['content-id-map'] ?? null;
 
-        if (isset($data['recipients'])) {
-            $response->setRecipients($data['recipients']);
-        }
-        if (isset($data['sender'])) {
-            $response->setSender($data['sender']);
-        }
-        if (isset($data['from'])) {
-            $response->setFrom($data['from']);
-        }
-        if (isset($data['subject'])) {
-            $response->setSubject($data['subject']);
-        }
-        if (isset($data['body-plain'])) {
-            $response->setBodyPlain($data['body-plain']);
-        }
-        if (isset($data['stripped-text'])) {
-            $response->setStrippedText($data['stripped-text']);
-        }
-        if (isset($data['stripped-signature'])) {
-            $response->setStrippedSignature($data['stripped-signature']);
-        }
-        if (isset($data['body-html'])) {
-            $response->setBodyHtml($data['body-html']);
-        }
-        if (isset($data['stripped-html'])) {
-            $response->setStrippedHtml($data['stripped-html']);
-        }
-        if (isset($data['message-url'])) {
-            $response->setMessageUrl($data['message-url']);
-        }
-        if (isset($data['message-headers'])) {
-            $response->setMessageHeaders($data['message-headers']);
-        }
-        if (isset($data['recipient'])) {
-            $response->setRecipient($data['recipient']);
-        }
-        if (isset($data['body-mime'])) {
-            $response->setBodyMime($data['body-mime']);
-        }
-        if (isset($data['attachments'])) {
-            $response->setAttachments($data['attachments']);
-        }
-        if (isset($data['content-id-map'])) {
-            $response->setContentIdMap($data['content-id-map']);
-        }
-
-        return $response;
+        return $model;
     }
 
     /**
-     * @return string
+     * Only available with message/rfc2822.
      */
-    public function getRecipient()
+    public function getRecipient(): ?string
     {
         return $this->recipient;
     }
 
     /**
-     * @param string $recipient
+     * Only available with message/rfc2822.
      */
-    private function setRecipient($recipient)
-    {
-        $this->recipient = $recipient;
-    }
-
-    /**
-     * @return string
-     */
-    public function getBodyMime()
+    public function getBodyMime(): ?string
     {
         return $this->bodyMime;
     }
 
-    /**
-     * @param string $bodyMime
-     */
-    private function setBodyMime($bodyMime)
-    {
-        $this->bodyMime = $bodyMime;
-    }
-
-    /**
-     * @return string
-     */
-    public function getRecipients()
+    public function getRecipients(): ?string
     {
         return $this->recipients;
     }
 
-    /**
-     * @param string $recipients
-     */
-    private function setRecipients($recipients)
-    {
-        $this->recipients = $recipients;
-    }
-
-    /**
-     * @return string
-     */
-    public function getSender()
+    public function getSender(): ?string
     {
         return $this->sender;
     }
 
-    /**
-     * @param string $sender
-     */
-    private function setSender($sender)
-    {
-        $this->sender = $sender;
-    }
-
-    /**
-     * @return string
-     */
-    public function getFrom()
+    public function getFrom(): ?string
     {
         return $this->from;
     }
 
-    /**
-     * @param string $from
-     */
-    private function setFrom($from)
-    {
-        $this->from = $from;
-    }
-
-    /**
-     * @return string
-     */
-    public function getSubject()
+    public function getSubject(): ?string
     {
         return $this->subject;
     }
 
-    /**
-     * @param string $subject
-     */
-    private function setSubject($subject)
-    {
-        $this->subject = $subject;
-    }
-
-    /**
-     * @return string
-     */
-    public function getBodyPlain()
+    public function getBodyPlain(): ?string
     {
         return $this->bodyPlain;
     }
 
-    /**
-     * @param string $bodyPlain
-     */
-    private function setBodyPlain($bodyPlain)
-    {
-        $this->bodyPlain = $bodyPlain;
-    }
-
-    /**
-     * @return string
-     */
-    public function getStrippedText()
+    public function getStrippedText(): ?string
     {
         return $this->strippedText;
     }
 
-    /**
-     * @param string $strippedText
-     */
-    private function setStrippedText($strippedText)
-    {
-        $this->strippedText = $strippedText;
-    }
-
-    /**
-     * @return string
-     */
-    public function getStrippedSignature()
+    public function getStrippedSignature(): ?string
     {
         return $this->strippedSignature;
     }
 
-    /**
-     * @param string $strippedSignature
-     */
-    private function setStrippedSignature($strippedSignature)
-    {
-        $this->strippedSignature = $strippedSignature;
-    }
-
-    /**
-     * @return string
-     */
-    public function getBodyHtml()
+    public function getBodyHtml(): ?string
     {
         return $this->bodyHtml;
     }
 
-    /**
-     * @param string $bodyHtml
-     */
-    private function setBodyHtml($bodyHtml)
-    {
-        $this->bodyHtml = $bodyHtml;
-    }
-
-    /**
-     * @return string
-     */
-    public function getStrippedHtml()
+    public function getStrippedHtml(): ?string
     {
         return $this->strippedHtml;
     }
 
-    /**
-     * @param string $strippedHtml
-     */
-    private function setStrippedHtml($strippedHtml)
-    {
-        $this->strippedHtml = $strippedHtml;
-    }
-
-    /**
-     * @return array
-     */
-    public function getAttachments()
+    public function getAttachments(): array
     {
         return $this->attachments;
     }
 
-    /**
-     * @param array $attachments
-     */
-    private function setAttachments($attachments)
-    {
-        $this->attachments = $attachments;
-    }
-
-    /**
-     * @return string
-     */
-    public function getMessageUrl()
+    public function getMessageUrl(): ?string
     {
         return $this->messageUrl;
     }
 
-    /**
-     * @param string $messageUrl
-     */
-    private function setMessageUrl($messageUrl)
-    {
-        $this->messageUrl = $messageUrl;
-    }
-
-    /**
-     * @return string
-     */
-    public function getContentIdMap()
+    public function getContentIdMap(): ?string
     {
         return $this->contentIdMap;
     }
 
-    /**
-     * @param string $contentIdMap
-     */
-    public function setContentIdMap($contentIdMap)
-    {
-        $this->contentIdMap = $contentIdMap;
-    }
-
-    /**
-     * @return array
-     */
-    public function getMessageHeaders()
+    public function getMessageHeaders(): array
     {
         return $this->messageHeaders;
-    }
-
-    private function setMessageHeaders(array $messageHeaders)
-    {
-        $this->messageHeaders = $messageHeaders;
     }
 }

@@ -15,75 +15,42 @@ use Mailgun\Model\ApiResponse;
 
 final class Member implements ApiResponse
 {
-    /**
-     * @var string
-     */
     private $name;
-
-    /**
-     * @var string
-     */
     private $address;
-
-    /**
-     * @var array
-     */
     private $vars;
-
-    /**
-     * @var bool
-     */
     private $subscribed;
 
-    /**
-     * @return self
-     */
-    public static function create(array $data)
+    public static function create(array $data): self
     {
-        return new self(
-            isset($data['name']) ? $data['name'] : null,
-            isset($data['address']) ? $data['address'] : null,
-            isset($data['vars']) ? $data['vars'] : [],
-            isset($data['subscribed']) ? (bool) $data['subscribed'] : null
-        );
+        $model = new self();
+        $model->name = $data['name'] ?? null;
+        $model->address = $data['address'] ?? null;
+        $model->vars = $data['vars'] ?? [];
+        $model->subscribed = $data['subscribed'] ?? null;
+
+        return $model;
     }
 
-    private function __construct($name, $address, $vars = [], $subscribed = null)
+    private function __construct()
     {
-        $this->name = $name;
-        $this->address = $address;
-        $this->vars = $vars;
-        $this->subscribed = $subscribed;
     }
 
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName(): ?string
     {
         return $this->name;
     }
 
-    /**
-     * @return string
-     */
-    public function getAddress()
+    public function getAddress(): ?string
     {
         return $this->address;
     }
 
-    /**
-     * @return array
-     */
-    public function getVars()
+    public function getVars(): array
     {
         return $this->vars;
     }
 
-    /**
-     * @return bool
-     */
-    public function isSubscribed()
+    public function isSubscribed(): ?bool
     {
         return $this->subscribed;
     }

@@ -18,56 +18,28 @@ use Mailgun\Model\ApiResponse;
  */
 final class SendResponse implements ApiResponse
 {
-    /**
-     * @var string
-     */
     private $id;
-
-    /**
-     * @var string
-     */
     private $message;
 
-    /**
-     * @param string $id
-     * @param string $message
-     */
-    private function __construct($id, $message)
+    private function __construct()
     {
-        $this->id = $id;
-        $this->message = $message;
     }
 
-    /**
-     * @return SendResponse
-     */
-    public static function create(array $data)
+    public static function create(array $data): self
     {
-        $id = '';
-        $message = '';
+        $model = new self();
+        $model->id = $data['id'] ?? '';
+        $model->message = $data['message'] ?? '';
 
-        if (isset($data['id'])) {
-            $id = $data['id'];
-        }
-        if (isset($data['message'])) {
-            $message = $data['message'];
-        }
-
-        return new self($id, $message);
+        return $model;
     }
 
-    /**
-     * @return string
-     */
-    public function getId()
+    public function getId(): string
     {
         return $this->id;
     }
 
-    /**
-     * @return string
-     */
-    public function getMessage()
+    public function getMessage(): string
     {
         return $this->message;
     }

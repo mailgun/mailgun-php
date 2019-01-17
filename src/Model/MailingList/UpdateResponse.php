@@ -15,45 +15,28 @@ use Mailgun\Model\ApiResponse;
 
 final class UpdateResponse implements ApiResponse
 {
-    /**
-     * @var string
-     */
     private $message;
-
-    /**
-     * @var MailingList
-     */
     private $list;
 
-    /**
-     * @return self
-     */
-    public static function create(array $data)
+    public static function create(array $data): self
     {
-        $message = isset($data['message']) ? $data['message'] : '';
-        $list = MailingList::create($data['list']);
+        $model = new self();
+        $model->list = MailingList::create($data['list']);
+        $model->message = $data['message'] ?? '';
 
-        return new self($list, $message);
+        return $model;
     }
 
-    private function __construct(MailingList $list, $message)
+    private function __construct()
     {
-        $this->list = $list;
-        $this->message = $message;
     }
 
-    /**
-     * @return string
-     */
-    public function getMessage()
+    public function getMessage(): string
     {
         return $this->message;
     }
 
-    /**
-     * @return MailingList
-     */
-    public function getList()
+    public function getList(): MailingList
     {
         return $this->list;
     }
