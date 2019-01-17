@@ -18,20 +18,10 @@ use Mailgun\Model\ApiResponse;
  */
 final class IndexResponse implements ApiResponse
 {
-    /**
-     * @var int
-     */
     private $totalCount;
-
-    /**
-     * @var Route[]
-     */
     private $items;
 
-    /**
-     * {@inheritdoc}
-     */
-    public static function create(array $data)
+    public static function create(array $data): self
     {
         $items = [];
 
@@ -41,29 +31,18 @@ final class IndexResponse implements ApiResponse
             }
         }
 
-        if (isset($data['total_count'])) {
-            $count = $data['total_count'];
-        } else {
-            $count = count($items);
-        }
+        $model = new self();
+        $model->items = $items;
+        $model->totalCount = (int) ($data['total_count'] ?? count($items));
 
-        return new self($count, $items);
+        return $model;
     }
 
-    /**
-     * @param int     $totalCount
-     * @param Route[] $items
-     */
-    private function __construct($totalCount, array $items)
+    private function __construct()
     {
-        $this->totalCount = $totalCount;
-        $this->items = $items;
     }
 
-    /**
-     * @return int
-     */
-    public function getTotalCount()
+    public function getTotalCount(): int
     {
         return $this->totalCount;
     }
@@ -71,7 +50,7 @@ final class IndexResponse implements ApiResponse
     /**
      * @return Route[]
      */
-    public function getRoutes()
+    public function getRoutes(): array
     {
         return $this->items;
     }

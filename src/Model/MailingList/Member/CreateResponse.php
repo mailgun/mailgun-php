@@ -15,47 +15,28 @@ use Mailgun\Model\ApiResponse;
 
 final class CreateResponse implements ApiResponse
 {
-    /**
-     * @var Member
-     */
     private $member;
-
-    /**
-     * @var string
-     */
     private $message;
 
-    public static function create(array $data)
+    public static function create(array $data): self
     {
-        $member = Member::create($data['member']);
-        $message = isset($data['message']) ? $data['message'] : '';
+        $model = new self();
+        $model->member = Member::create($data['member']);
+        $model->message = $data['message'] ?? '';
 
-        return new self($member, $message);
+        return $model;
     }
 
-    /**
-     * CreateMemberResponse constructor.
-     *
-     * @param string $message
-     */
-    private function __construct(Member $member, $message)
+    private function __construct()
     {
-        $this->member = $member;
-        $this->message = $message;
     }
 
-    /**
-     * @return Member
-     */
-    public function getMember()
+    public function getMember(): Member
     {
         return $this->member;
     }
 
-    /**
-     * @return string
-     */
-    public function getMessage()
+    public function getMessage(): string
     {
         return $this->message;
     }

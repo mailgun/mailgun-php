@@ -16,78 +16,31 @@ namespace Mailgun\Model\Route;
  */
 final class Route
 {
-    /**
-     * @var string
-     */
     private $id;
-
-    /**
-     * @var int
-     */
     private $priority;
-
-    /**
-     * @var string
-     */
     private $filter;
-
-    /**
-     * @var Action[]
-     */
     private $actions;
-
-    /**
-     * @var string
-     */
     private $description;
-
-    /**
-     * @var \DateTime
-     */
     private $createdAt;
 
-    /**
-     * Route Named Constructor.
-     *
-     *
-     * @return Route
-     */
-    public static function create(array $data)
+    public static function create(array $data): self
     {
-        return new self(
-            isset($data['id']) ? $data['id'] : null,
-            isset($data['priority']) ? $data['priority'] : null,
-            isset($data['expression']) ? $data['expression'] : null,
-            isset($data['actions']) ? $data['actions'] : [],
-            isset($data['description']) ? $data['description'] : null,
-            isset($data['created_at']) ? new \DateTime($data['created_at']) : null
-        );
+        $model = new self();
+        $model->id = $data['id'] ?? null;
+        $model->priority = $data['priority'] ?? null;
+        $model->filter = $data['expression'] ?? null;
+        $model->actions = Action::createMultiple($data['actions'] ?? []);
+        $model->description = $data['description'] ?? null;
+        $model->createdAt = isset($data['created_at']) ? new \DateTimeImmutable($data['created_at']) : null;
+
+        return $model;
     }
 
-    /**
-     * Route Private Constructor.
-     *
-     * @param string    $id
-     * @param int       $priority
-     * @param string    $expression
-     * @param array     $actions
-     * @param string    $description
-     * @param \DateTime $createdAt
-     */
-    private function __construct($id, $priority, $expression, $actions, $description, \DateTime $createdAt = null)
+    private function __construct()
     {
-        $this->id = $id;
-        $this->priority = $priority;
-        $this->filter = $expression;
-        $this->actions = Action::createMultiple($actions);
-        $this->description = $description;
-        $this->createdAt = $createdAt;
     }
 
-    /**
-     * @return string
-     */
-    public function getId()
+    public function getId(): ?string
     {
         return $this->id;
     }
@@ -95,39 +48,27 @@ final class Route
     /**
      * @return Action[]
      */
-    public function getActions()
+    public function getActions(): array
     {
         return $this->actions;
     }
 
-    /**
-     * @return string
-     */
-    public function getDescription()
+    public function getDescription(): ?string
     {
         return $this->description;
     }
 
-    /**
-     * @return string
-     */
-    public function getFilter()
+    public function getFilter(): ?string
     {
         return $this->filter;
     }
 
-    /**
-     * @return int
-     */
-    public function getPriority()
+    public function getPriority(): ?int
     {
         return $this->priority;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getCreatedAt()
+    public function getCreatedAt(): \DateTimeImmutable
     {
         return $this->createdAt;
     }

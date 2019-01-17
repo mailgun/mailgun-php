@@ -18,48 +18,28 @@ use Mailgun\Model\ApiResponse;
  */
 final class UpdateResponse implements ApiResponse
 {
-    /**
-     * @var string|null
-     */
     private $message;
-
-    /**
-     * @var Route|null
-     */
     private $route;
 
-    /**
-     * @return self
-     */
-    public static function create(array $data)
+    public static function create(array $data): self
     {
-        $message = isset($data['message']) ? $data['message'] : null;
-        $route = isset($data['id']) ? Route::create($data) : null;
+        $model = new self();
+        $model->message = $data['message'] ?? null;
+        $model->route = isset($data['id']) ? Route::create($data) : null;
 
-        return new self($message, $route);
+        return $model;
     }
 
-    /**
-     * @param string|null $message
-     */
-    private function __construct($message = null, Route $route = null)
+    private function __construct()
     {
-        $this->message = $message;
-        $this->route = $route;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getMessage()
+    public function getMessage(): ?string
     {
         return $this->message;
     }
 
-    /**
-     * @return Route|null
-     */
-    public function getRoute()
+    public function getRoute(): ?Route
     {
         return $this->route;
     }

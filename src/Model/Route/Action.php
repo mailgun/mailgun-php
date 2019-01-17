@@ -16,9 +16,6 @@ namespace Mailgun\Model\Route;
  */
 final class Action
 {
-    /**
-     * @var string
-     */
     private $action;
 
     /**
@@ -42,10 +39,7 @@ final class Action
         $this->action = $action;
     }
 
-    /**
-     * @return string
-     */
-    public function getAction()
+    public function getAction(): string
     {
         return $this->action;
     }

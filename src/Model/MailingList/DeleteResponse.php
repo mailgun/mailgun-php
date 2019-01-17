@@ -15,48 +15,28 @@ use Mailgun\Model\ApiResponse;
 
 final class DeleteResponse implements ApiResponse
 {
-    /**
-     * @var string
-     */
     private $message;
-
-    /**
-     * @var string
-     */
     private $address;
 
-    public static function create(array $data)
+    public static function create(array $data): self
     {
-        $message = isset($data['message']) ? $data['message'] : '';
-        $address = isset($data['address']) ? $data['address'] : '';
+        $model = new self();
+        $model->address = $data['address'] ?? '';
+        $model->message = $data['message'] ?? '';
 
-        return new self($address, $message);
+        return $model;
     }
 
-    /**
-     * DeleteResponse constructor.
-     *
-     * @param string $address
-     * @param string $message
-     */
-    private function __construct($address, $message)
+    private function __construct()
     {
-        $this->address = $address;
-        $this->message = $message;
     }
 
-    /**
-     * @return string
-     */
-    public function getMessage()
+    public function getMessage(): string
     {
         return $this->message;
     }
 
-    /**
-     * @return string
-     */
-    public function getAddress()
+    public function getAddress(): string
     {
         return $this->address;
     }

@@ -15,27 +15,21 @@ use Mailgun\Model\ApiResponse;
 
 final class ShowResponse implements ApiResponse
 {
-    /**
-     * @var MailingList
-     */
     private $list;
 
-    public static function create(array $data)
+    public static function create(array $data): self
     {
-        $list = MailingList::create($data['list']);
+        $model = new self();
+        $model->list = MailingList::create($data['list']);
 
-        return new self($list);
+        return $model;
     }
 
-    private function __construct(MailingList $list)
+    private function __construct()
     {
-        $this->list = $list;
     }
 
-    /**
-     * @return MailingList
-     */
-    public function getList()
+    public function getList(): MailingList
     {
         return $this->list;
     }

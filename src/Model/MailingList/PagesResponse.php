@@ -19,9 +19,6 @@ final class PagesResponse implements ApiResponse, PagingProvider
 {
     use PaginationResponse;
 
-    /**
-     * @var MailingList[]
-     */
     private $items;
 
     /**
@@ -37,22 +34,21 @@ final class PagesResponse implements ApiResponse, PagingProvider
             }
         }
 
-        return new self($items, $data['paging']);
+        $model = new self();
+        $model->items = $items;
+        $model->paging = $data['paging'];
+
+        return $model;
     }
 
-    /**
-     * @param MailingList[] $items
-     */
-    private function __construct(array $items, array $paging)
+    private function __construct()
     {
-        $this->items = $items;
-        $this->paging = $paging;
     }
 
     /**
      * @return MailingList[]
      */
-    public function getLists()
+    public function getLists(): array
     {
         return $this->items;
     }

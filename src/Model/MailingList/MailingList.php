@@ -15,114 +15,56 @@ use Mailgun\Model\ApiResponse;
 
 final class MailingList implements ApiResponse
 {
-    /**
-     * @var string
-     */
     private $name;
-
-    /**
-     * @var string
-     */
     private $address;
-
-    /**
-     * @var string
-     */
     private $accessLevel;
-
-    /**
-     * @var string
-     */
     private $description;
-
-    /**
-     * @var int
-     */
     private $membersCount;
-
-    /**
-     * @var \DateTime
-     */
     private $createdAt;
 
-    /**
-     * @return self
-     */
-    public static function create(array $data)
+    public static function create(array $data): self
     {
-        return new self(
-            isset($data['name']) ? $data['name'] : null,
-            isset($data['address']) ? $data['address'] : null,
-            isset($data['access_level']) ? $data['access_level'] : null,
-            isset($data['description']) ? $data['description'] : null,
-            isset($data['members_count']) ? $data['members_count'] : null,
-            isset($data['created_at']) ? new \DateTime($data['created_at']) : null
-        );
+        $model = new self();
+        $model->name = $data['name'] ?? null;
+        $model->address = $data['address'] ?? null;
+        $model->accessLevel = $data['access_level'] ?? null;
+        $model->description = $data['description'] ?? null;
+        $model->membersCount = (int) ($data['members_count'] ?? 0);
+        $model->createdAt = isset($data['created_at']) ? new \DateTimeImmutable($data['created_at']) : null;
+
+        return $model;
     }
 
-    /**
-     * MailingList constructor.
-     *
-     * @param string $name
-     * @param string $address
-     * @param string $accessLevel
-     * @param string $description
-     * @param int    $membersCount
-     */
-    private function __construct($name, $address, $accessLevel, $description, $membersCount, \DateTime $createdAt)
+    private function __construct()
     {
-        $this->name = $name;
-        $this->address = $address;
-        $this->accessLevel = $accessLevel;
-        $this->description = $description;
-        $this->membersCount = $membersCount;
-        $this->createdAt = $createdAt;
     }
 
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName(): ?string
     {
         return $this->name;
     }
 
-    /**
-     * @return string
-     */
-    public function getAddress()
+    public function getAddress(): ?string
     {
         return $this->address;
     }
 
-    /**
-     * @return string
-     */
-    public function getAccessLevel()
+    public function getAccessLevel(): ?string
     {
         return $this->accessLevel;
     }
 
-    /**
-     * @return string
-     */
-    public function getDescription()
+    public function getDescription(): ?string
     {
         return $this->description;
     }
 
-    /**
-     * @return int
-     */
-    public function getMembersCount()
+    public function getMembersCount(): int
     {
         return $this->membersCount;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getCreatedAt()
+    public function getCreatedAt(): \DateTimeImmutable
     {
         return $this->createdAt;
     }

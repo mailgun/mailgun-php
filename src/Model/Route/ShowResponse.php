@@ -18,35 +18,21 @@ use Mailgun\Model\ApiResponse;
  */
 final class ShowResponse implements ApiResponse
 {
-    /**
-     * @var Route|null
-     */
     private $route;
 
-    /**
-     * {@inheritdoc}
-     */
-    public static function create(array $data)
+    public static function create(array $data): self
     {
-        if (isset($data['route'])) {
-            return new self(Route::create($data['route']));
-        }
+        $model = new self();
+        $model->route = isset($data['route']) ? Route::create($data['route']) : null;
 
-        return new self();
+        return $model;
     }
 
-    /**
-     * ShowResponse constructor.
-     */
-    private function __construct(Route $route = null)
+    private function __construct()
     {
-        $this->route = $route;
     }
 
-    /**
-     * @return Route|null
-     */
-    public function getRoute()
+    public function getRoute(): ?Route
     {
         return $this->route;
     }
