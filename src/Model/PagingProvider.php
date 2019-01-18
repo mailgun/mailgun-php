@@ -18,29 +18,21 @@ interface PagingProvider
 {
     /**
      * Returns the `$paging->next` URL.
-     *
-     * @return string
      */
-    public function getNextUrl();
+    public function getNextUrl(): ?string;
 
     /**
      * Returns the `$paging->prev` URL.
-     *
-     * @return string
      */
-    public function getPreviousUrl();
+    public function getPreviousUrl(): ?string;
 
     /**
      * Returns the `$paging->first` URL.
-     *
-     * @return string
      */
-    public function getFirstUrl();
+    public function getFirstUrl(): ?string;
 
     /**
      * Returns the `$paging->last` URL.
-     *
-     * @return string
      */
-    public function getLastUrl();
+    public function getLastUrl(): ?string;
 }
