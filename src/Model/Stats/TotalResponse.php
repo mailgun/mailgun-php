@@ -18,42 +18,16 @@ use Mailgun\Model\ApiResponse;
  */
 final class TotalResponse implements ApiResponse
 {
-    /**
-     * @var \DateTime
-     */
     private $start;
-
-    /**
-     * @var \DateTime
-     */
     private $end;
-
-    /**
-     * @var string
-     */
     private $resolution;
-
-    /**
-     * @var TotalResponseItem[]
-     */
     private $stats;
 
-    /**
-     * @param string              $resolution
-     * @param TotalResponseItem[] $stats
-     */
-    private function __construct(\DateTime $start, \DateTime $end, $resolution, array $stats)
+    private function __construct()
     {
-        $this->start = $start;
-        $this->end = $end;
-        $this->resolution = $resolution;
-        $this->stats = $stats;
     }
 
-    /**
-     * @return self
-     */
-    public static function create(array $data)
+    public static function create(array $data): self
     {
         $stats = [];
         if (isset($data['stats'])) {
@@ -62,33 +36,26 @@ final class TotalResponse implements ApiResponse
             }
         }
 
-        $start = isset($data['start']) ? new \DateTime($data['start']) : null;
-        $end = isset($data['end']) ? new \DateTime($data['end']) : null;
-        $resolution = isset($data['resolution']) ? $data['resolution'] : null;
+        $model = new self();
+        $model->start = isset($data['start']) ? new \DateTimeImmutable($data['start']) : null;
+        $model->end = isset($data['end']) ? new \DateTimeImmutable($data['end']) : null;
+        $model->resolution = $data['resolution'] ?? null;
+        $model->stats = $stats;
 
-        return new self($start, $end, $resolution, $stats);
+        return $model;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getStart()
+    public function getStart(): ?\DateTimeImmutable
     {
         return $this->start;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getEnd()
+    public function getEnd(): ?\DateTimeImmutable
     {
         return $this->end;
     }
 
-    /**
-     * @return string
-     */
-    public function getResolution()
+    public function getResolution(): ?string
     {
         return $this->resolution;
     }
@@ -96,7 +63,7 @@ final class TotalResponse implements ApiResponse
     /**
      * @return TotalResponseItem[]
      */
-    public function getStats()
+    public function getStats(): array
     {
         return $this->stats;
     }
