@@ -16,90 +16,49 @@ namespace Mailgun\Model\Stats;
  */
 final class TotalResponseItem
 {
-    /**
-     * @var \DateTime
-     */
     private $time;
-
-    /**
-     * @var array
-     */
     private $accepted;
-
-    /**
-     * @var array
-     */
     private $delivered;
-
-    /**
-     * @var array
-     */
     private $failed;
-
-    /**
-     * @var array
-     */
     private $complained;
 
-    /**
-     * @return self
-     */
-    public static function create(array $data)
+    public static function create(array $data): self
     {
-        return new self(
-            isset($data['time']) ? new \DateTime($data['time']) : null,
-            isset($data['accepted']) ? $data['accepted'] : [],
-            isset($data['delivered']) ? $data['delivered'] : [],
-            isset($data['failed']) ? $data['failed'] : [],
-            isset($data['complained']) ? $data['complained'] : []
-        );
+        $model = new self();
+        $model->time = isset($data['time']) ? new \DateTimeImmutable($data['time']) : null;
+        $model->accepted = $data['accepted'] ?? [];
+        $model->delivered = $data['delivered'] ?? [];
+        $model->failed = $data['failed'] ?? [];
+        $model->complained = $data['complained'] ?? [];
+
+        return $model;
     }
 
-    private function __construct(\DateTime $time, array $accepted, array $delivered, array $failed, array $complained)
+    private function __construct()
     {
-        $this->time = $time;
-        $this->accepted = $accepted;
-        $this->delivered = $delivered;
-        $this->failed = $failed;
-        $this->complained = $complained;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getTime()
+    public function getTime(): ?\DateTimeImmutable
     {
         return $this->time;
     }
 
-    /**
-     * @return array
-     */
-    public function getAccepted()
+    public function getAccepted(): array
     {
         return $this->accepted;
     }
 
-    /**
-     * @return array
-     */
-    public function getDelivered()
+    public function getDelivered(): array
     {
         return $this->delivered;
     }
 
-    /**
-     * @return array
-     */
-    public function getFailed()
+    public function getFailed(): array
     {
         return $this->failed;
     }
 
-    /**
-     * @return array
-     */
-    public function getComplained()
+    public function getComplained(): array
     {
         return $this->complained;
     }

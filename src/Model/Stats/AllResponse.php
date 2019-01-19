@@ -18,30 +18,14 @@ use Mailgun\Model\ApiResponse;
  */
 final class AllResponse implements ApiResponse
 {
-    /**
-     * @var int
-     */
     private $totalCount;
-
-    /**
-     * @var AllResponseItem[]
-     */
     private $items;
 
-    /**
-     * @param int               $totalCount
-     * @param AllResponseItem[] $items
-     */
-    private function __construct($totalCount, array $items)
+    private function __construct()
     {
-        $this->totalCount = $totalCount;
-        $this->items = $items;
     }
 
-    /**
-     * @return self
-     */
-    public static function create(array $data)
+    public static function create(array $data): self
     {
         $items = [];
         if (isset($data['items'])) {
@@ -50,19 +34,14 @@ final class AllResponse implements ApiResponse
             }
         }
 
-        if (isset($data['total_count'])) {
-            $count = $data['total_count'];
-        } else {
-            $count = count($items);
-        }
+        $model = new self();
+        $model->totalCount = (int) ($data['total_count'] ?? count($items));
+        $model->items = $items;
 
-        return new self($count, $items);
+        return $model;
     }
 
-    /**
-     * @return int
-     */
-    public function getTotalCount()
+    public function getTotalCount(): int
     {
         return $this->totalCount;
     }
@@ -70,7 +49,7 @@ final class AllResponse implements ApiResponse
     /**
      * @return AllResponseItem[]
      */
-    public function getItems()
+    public function getItems(): array
     {
         return $this->items;
     }
