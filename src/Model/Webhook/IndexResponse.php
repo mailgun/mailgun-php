@@ -81,5 +81,4 @@ final class IndexResponse implements ApiResponse
     {
         return $this->open['url'] ?? null;
     }
-
 }
