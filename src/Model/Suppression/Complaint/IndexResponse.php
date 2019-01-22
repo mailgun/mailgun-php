@@ -22,9 +22,6 @@ final class IndexResponse implements ApiResponse, PagingProvider
 {
     use PaginationResponse;
 
-    /**
-     * @var Complaint[]
-     */
     private $items;
 
     /**
@@ -36,10 +33,7 @@ final class IndexResponse implements ApiResponse, PagingProvider
         $this->paging = $paging;
     }
 
-    /**
-     * @return IndexResponse
-     */
-    public static function create(array $data)
+    public static function create(array $data): self
     {
         $complaints = [];
         if (isset($data['items'])) {
@@ -54,7 +48,7 @@ final class IndexResponse implements ApiResponse, PagingProvider
     /**
      * @return Complaint[]
      */
-    public function getItems()
+    public function getItems(): array
     {
         return $this->items;
     }

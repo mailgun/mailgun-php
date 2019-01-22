@@ -18,5 +18,4 @@ use Mailgun\Model\Suppression\BaseResponse;
  */
 final class DeleteResponse extends BaseResponse
 {
-
 }
