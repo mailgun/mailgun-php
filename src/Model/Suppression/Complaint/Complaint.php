@@ -16,57 +16,33 @@ namespace Mailgun\Model\Suppression\Complaint;
  */
 class Complaint
 {
-    /**
-     * @var string
-     */
     private $address;
-
-    /**
-     * @var \DateTime
-     */
     private $createdAt;
 
-    /**
-     * @param string $address
-     */
     private function __construct($address)
     {
         $this->address = $address;
         $this->createdAt = new \DateTime();
     }
 
-    /**
-     * @return Complaint
-     */
-    public static function create(array $data)
+    public static function create(array $data): self
     {
         $complaint = new self($data['address']);
 
         if (isset($data['created_at'])) {
-            $complaint->setCreatedAt(new \DateTime($data['created_at']));
+            $complaint->createdAt = new \DateTime($data['created_at']);
         }
 
         return $complaint;
     }
 
-    /**
-     * @return string
-     */
-    public function getAddress()
+    public function getAddress(): string
     {
         return $this->address;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getCreatedAt()
+    public function getCreatedAt(): \DateTime
     {
         return $this->createdAt;
-    }
-
-    private function setCreatedAt(\DateTime $createdAt)
-    {
-        $this->createdAt = $createdAt;
     }
 }
