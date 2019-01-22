@@ -18,110 +18,57 @@ use Mailgun\Model\ApiResponse;
  */
 final class StatisticsResponse implements ApiResponse
 {
-    /**
-     * @var string
-     */
     private $tag;
-
-    /**
-     * @var string
-     */
     private $description;
-
-    /**
-     * @var string
-     */
     private $resolution;
-
-    /**
-     * @var \DateTime
-     */
     private $start;
-
-    /**
-     * @var \DateTime
-     */
     private $end;
-
-    /**
-     * @var array
-     */
     private $stats;
 
-    /**
-     * @param string $tag
-     * @param string $description
-     * @param string $resolution
-     */
-    private function __construct($tag, $description, \DateTime $start, \DateTime $end, $resolution, array $stats)
+    private function __construct()
     {
-        $this->tag = $tag;
-        $this->description = $description;
-        $this->resolution = $resolution;
-        $this->start = $start;
-        $this->end = $end;
-        $this->stats = $stats;
     }
 
-    /**
-     * @return StatisticsResponse
-     */
-    public static function create(array $data)
+    public static function create(array $data): self
     {
-        return new self(
-            $data['tag'],
-            $data['description'],
-            new \DateTime($data['start']),
-            new \DateTime($data['end']),
-            $data['resolution'],
-            $data['stats']
-        );
+        $model = new self();
+
+        $model->tag = $data['tag'] ?? '';
+        $model->description = $data['description'] ?? '';
+        $model->resolution = $data['resolution'] ?? null;
+        $model->stats = $data['stats'] ?? [];
+        $model->start = isset($data['start']) ? new \DateTimeImmutable($data['start']) : null;
+        $model->end = isset($data['end']) ? new \DateTimeImmutable($data['end']) : null;
+
+        return $model;
     }
 
-    /**
-     * @return string
-     */
-    public function getTag()
+    public function getTag(): string
     {
         return $this->tag;
     }
 
-    /**
-     * @return string
-     */
-    public function getDescription()
+    public function getDescription(): string
     {
         return $this->description;
     }
 
-    /**
-     * @return string
-     */
-    public function getResolution()
+    public function getResolution(): ?string
     {
         return $this->resolution;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getStart()
+    public function getStart(): ?\DateTimeImmutable
     {
         return $this->start;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getEnd()
+    public function getEnd(): ?\DateTimeImmutable
     {
         return $this->end;
     }
 
-    /**
-     * @return array
-     */
-    public function getStats()
+    public function getStats(): array
     {
         return $this->stats;
     }

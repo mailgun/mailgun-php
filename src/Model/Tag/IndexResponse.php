@@ -11,9 +11,9 @@ declare(strict_types=1);
 
 namespace Mailgun\Model\Tag;
 
+use Mailgun\Model\ApiResponse;
 use Mailgun\Model\PaginationResponse;
 use Mailgun\Model\PagingProvider;
-use Mailgun\Model\ApiResponse;
 
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
@@ -27,32 +27,29 @@ final class IndexResponse implements ApiResponse, PagingProvider
      */
     private $items;
 
-    /**
-     * @param Tag[] $items
-     */
-    private function __construct(array $items, array $paging)
+    private function __construct()
     {
-        $this->items = $items;
-        $this->paging = $paging;
     }
 
-    /**
-     * @return IndexResponse
-     */
-    public static function create(array $data)
+    public static function create(array $data): self
     {
         $items = [];
         foreach ($data['items'] as $item) {
             $items[] = Tag::create($item);
         }
 
-        return new self($items, $data['paging']);
+        $model = new self();
+
+        $model->items = $items;
+        $model->paging = $data['paging'];
+
+        return $model;
     }
 
     /**
      * @return Tag[]
      */
-    public function getItems()
+    public function getItems(): array
     {
         return $this->items;
     }

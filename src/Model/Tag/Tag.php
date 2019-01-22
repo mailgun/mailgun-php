@@ -13,79 +13,43 @@ namespace Mailgun\Model\Tag;
 
 class Tag
 {
-    /**
-     * @var string
-     */
     private $tag;
-
-    /**
-     * @var string
-     */
     private $description;
-
-    /**
-     * @var \DateTime
-     */
     private $firstSeen;
-
-    /**
-     * @var \DateTime
-     */
     private $lastSeen;
 
-    /**
-     * @param string    $tag
-     * @param string    $description
-     * @param \DateTime $firstSeen
-     * @param \DateTime $lastSeen
-     */
-    private function __construct($tag, $description, \DateTime $firstSeen = null, \DateTime $lastSeen = null)
+    private function __construct()
     {
-        $this->tag = $tag;
-        $this->description = $description;
-        $this->firstSeen = $firstSeen;
-        $this->lastSeen = $lastSeen;
     }
 
-    /**
-     * @return Tag
-     */
-    public static function create(array $data)
+    public static function create(array $data): self
     {
-        $firstSeen = isset($data['first-seen']) ? new \DateTime($data['first-seen']) : null;
-        $lastSeen = isset($data['last-seen']) ? new \DateTime($data['last-seen']) : null;
+        $model = new self();
 
-        return new self($data['tag'], $data['description'], $firstSeen, $lastSeen);
+        $model->tag = $data['tag'] ?? '';
+        $model->description = $data['description'] ?? '';
+        $model->firstSeen = isset($data['first-seen']) ? new \DateTimeImmutable($data['first-seen']) : null;
+        $model->lastSeen = isset($data['last-seen']) ? new \DateTimeImmutable($data['last-seen']) : null;
+
+        return $model;
     }
 
-    /**
-     * @return string
-     */
-    public function getTag()
+    public function getTag(): string
     {
         return $this->tag;
     }
 
-    /**
-     * @return string
-     */
-    public function getDescription()
+    public function getDescription(): string
     {
         return $this->description;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getFirstSeen()
+    public function getFirstSeen(): ?\DateTimeImmutable
     {
         return $this->firstSeen;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getLastSeen()
+    public function getLastSeen(): ?\DateTimeImmutable
     {
         return $this->lastSeen;
     }
