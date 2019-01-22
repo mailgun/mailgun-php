@@ -18,36 +18,26 @@ use Mailgun\Model\ApiResponse;
  */
 class ShowResponse implements ApiResponse
 {
-    /**
-     * @var array
-     */
     private $webhook = [];
 
-    private function __construct(array $webhook)
+    private function __construct()
     {
-        $this->webhook = $webhook;
     }
 
-    /**
-     * @return ShowResponse
-     */
-    public static function create(array $data)
+    public static function create(array $data): self
     {
-        $webhook = [];
-        if (isset($data['webhook'])) {
-            $webhook = $data['webhook'];
-        }
+        $model = new self();
 
-        return new self($webhook);
+        $model->webhook = $data['webhook'] ?? [];
+
+        return $model;
     }
 
     /**
      * @return string|null
      */
-    public function getWebhookUrl()
+    public function getWebhookUrl(): ?string
     {
-        if (isset($this->webhook['url'])) {
-            return $this->webhook['url'];
-        }
+        return $this->webhook['url'] ?? null;
     }
 }

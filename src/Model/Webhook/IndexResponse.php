@@ -18,203 +18,68 @@ use Mailgun\Model\ApiResponse;
  */
 final class IndexResponse implements ApiResponse
 {
-    /**
-     * @var array
-     */
     private $bounce = [];
-
-    /**
-     * @var array
-     */
     private $deliver = [];
-
-    /**
-     * @var array
-     */
     private $drop = [];
-
-    /**
-     * @var array
-     */
     private $spam = [];
-
-    /**
-     * @var array
-     */
     private $unsubscribe = [];
-
-    /**
-     * @var array
-     */
     private $click = [];
-
-    /**
-     * @var array
-     */
     private $open = [];
 
-    /**
-     * Do not let this object be creted without the ::create.
-     */
     private function __construct()
     {
     }
 
-    /**
-     * @return IndexResponse
-     */
-    public static function create(array $data)
+    public static function create(array $data): self
     {
-        $self = new self();
-        $data = isset($data['webhooks']) ? $data['webhooks'] : $data;
-        if (isset($data['bounce'])) {
-            $self->setBounce($data['bounce']);
-        }
-        if (isset($data['deliver'])) {
-            $self->setDeliver($data['deliver']);
-        }
-        if (isset($data['drop'])) {
-            $self->setDrop($data['drop']);
-        }
-        if (isset($data['spam'])) {
-            $self->setSpam($data['spam']);
-        }
-        if (isset($data['unsubscribe'])) {
-            $self->setUnsubscribe($data['unsubscribe']);
-        }
-        if (isset($data['click'])) {
-            $self->setClick($data['click']);
-        }
-        if (isset($data['open'])) {
-            $self->setOpen($data['open']);
-        }
+        $model = new self();
 
-        return $self;
+        $data = $data['webhooks'] ?? $data;
+
+        $model->bounce = $data['bounce'] ?? [];
+        $model->deliver = $data['deliver'] ?? [];
+        $model->drop = $data['drop'] ?? [];
+        $model->spam = $data['spam'] ?? [];
+        $model->unsubscribe = $data['unsubscribe'] ?? [];
+        $model->click = $data['click'] ?? [];
+        $model->open = $data['open'] ?? [];
+
+        return $model;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getBounceUrl()
+    public function getBounceUrl(): ?string
     {
-        if (isset($this->bounce['url'])) {
-            return $this->bounce['url'];
-        }
+        return $this->bounce['url'] ?? null;
     }
 
-    /**
-     * @param array $bounce
-     */
-    private function setBounce($bounce)
+    public function getDeliverUrl(): ?string
     {
-        $this->bounce = $bounce;
+        return $this->deliver['url'] ?? null;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getDeliverUrl()
+    public function getDropUrl(): ?string
     {
-        if (isset($this->deliver['url'])) {
-            return $this->deliver['url'];
-        }
+        return $this->drop['url'] ?? null;
     }
 
-    /**
-     * @param array $deliver
-     */
-    private function setDeliver($deliver)
+    public function getSpamUrl(): ?string
     {
-        $this->deliver = $deliver;
+        return $this->spam['url'] ?? null;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getDropUrl()
-    {
-        if (isset($this->drop['url'])) {
-            return $this->drop['url'];
-        }
-    }
-
-    /**
-     * @param array $drop
-     */
-    private function setDrop($drop)
-    {
-        $this->drop = $drop;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getSpamUrl()
-    {
-        if (isset($this->spam['url'])) {
-            return $this->spam['url'];
-        }
-    }
-
-    /**
-     * @param array $spam
-     */
-    private function setSpam($spam)
-    {
-        $this->spam = $spam;
-    }
-
-    /**
-     * @return string|null
-     */
     public function getUnsubscribeUrl()
     {
-        if (isset($this->unsubscribe['url'])) {
-            return $this->unsubscribe['url'];
-        }
+        return $this->unsubscribe['url'] ?? null;
     }
 
-    /**
-     * @param array $unsubscribe
-     */
-    private function setUnsubscribe($unsubscribe)
+    public function getClickUrl(): ?string
     {
-        $this->unsubscribe = $unsubscribe;
+        return $this->click['url'] ?? null;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getClickUrl()
+    public function getOpenUrl(): ?string
     {
-        if (isset($this->click['url'])) {
-            return $this->click['url'];
-        }
+        return $this->open['url'] ?? null;
     }
 
-    /**
-     * @param array $click
-     */
-    private function setClick($click)
-    {
-        $this->click = $click;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getOpenUrl()
-    {
-        if (isset($this->open['url'])) {
-            return $this->open['url'];
-        }
-    }
-
-    /**
-     * @param array $open
-     */
-    private function setOpen($open)
-    {
-        $this->open = $open;
-    }
 }
