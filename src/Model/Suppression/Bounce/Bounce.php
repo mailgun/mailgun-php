@@ -16,105 +16,51 @@ namespace Mailgun\Model\Suppression\Bounce;
  */
 class Bounce
 {
-    /**
-     * @var string
-     */
     private $address;
-
-    /**
-     * @var string
-     */
     private $code;
-
-    /**
-     * @var string
-     */
     private $error;
-
-    /**
-     * @var \DateTime
-     */
     private $createdAt;
 
-    /**
-     * @param string $address
-     */
     private function __construct($address)
     {
         $this->address = $address;
         $this->createdAt = new \DateTime();
     }
 
-    /**
-     * @return Bounce
-     */
-    public static function create(array $data)
+    public static function create(array $data): self
     {
         $bounce = new self($data['address']);
 
         if (isset($data['code'])) {
-            $bounce->setCode($data['code']);
+            $bounce->code = $data['code'];
         }
         if (isset($data['error'])) {
-            $bounce->setError($data['error']);
+            $bounce->error = $data['error'];
         }
         if (isset($data['created_at'])) {
-            $bounce->setCreatedAt(new \DateTime($data['created_at']));
+            $bounce->createdAt = new \DateTime($data['created_at']);
         }
 
         return $bounce;
     }
 
-    /**
-     * @return string
-     */
-    public function getAddress()
+    public function getAddress(): string
     {
         return $this->address;
     }
 
-    /**
-     * @return string
-     */
-    public function getCode()
+    public function getCode(): string
     {
         return $this->code;
     }
 
-    /**
-     * @param string $code
-     */
-    private function setCode($code)
-    {
-        $this->code = $code;
-    }
-
-    /**
-     * @return string
-     */
-    public function getError()
+    public function getError(): string
     {
         return $this->error;
     }
 
-    /**
-     * @param string $error
-     */
-    private function setError($error)
-    {
-        $this->error = $error;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getCreatedAt()
+    public function getCreatedAt(): \DateTime
     {
         return $this->createdAt;
-    }
-
-    private function setCreatedAt(\DateTime $createdAt)
-    {
-        $this->createdAt = $createdAt;
     }
 }
