@@ -20,57 +20,28 @@ use Mailgun\Model\ApiResponse;
  */
 abstract class BaseResponse implements ApiResponse
 {
-    /**
-     * @var array
-     */
     private $webhook = [];
-
-    /**
-     * @var string
-     */
     private $message;
 
-    /**
-     * @param string $message
-     */
-    private function __construct(array $webhook, $message)
+    private function __construct()
     {
-        $this->webhook = $webhook;
-        $this->message = $message;
     }
 
-    /**
-     * @return static
-     */
-    public static function create(array $data)
+    public static function create(array $data): self
     {
-        $webhook = [];
-        $message = '';
-        if (isset($data['webhook'])) {
-            $webhook = $data['webhook'];
-        }
+        $model = new static();
+        $model->webhook = $data['webhook'] ?? [];
+        $model->message = $data['message'] ?? '';
 
-        if (isset($data['message'])) {
-            $message = $data['message'];
-        }
-
-        return new static($webhook, $message);
+        return $model;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getWebhookUrl()
+    public function getWebhookUrl(): ?string
     {
-        if (isset($this->webhook['url'])) {
-            return $this->webhook['url'];
-        }
+        return $this->webhook['url'] ?? null;
     }
 
-    /**
-     * @return string
-     */
-    public function getMessage()
+    public function getMessage(): string
     {
         return $this->message;
     }
