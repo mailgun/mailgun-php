@@ -28,6 +28,8 @@ final class DeleteResponse implements ApiResponse
     {
         $model = new self();
         $model->message = $data['message'] ?? '';
+
+        return $model;
     }
 
     public function getMessage(): string
