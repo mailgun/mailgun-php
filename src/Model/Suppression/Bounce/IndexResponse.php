@@ -37,9 +37,9 @@ final class IndexResponse implements ApiResponse, PagingProvider
             }
         }
 
-        $indexResponse =  new self();
+        $indexResponse = new self();
         $indexResponse->items = $bounces;
-        $indexResponse->paging =  $data['paging'];
+        $indexResponse->paging = $data['paging'];
 
         return $indexResponse;
     }
