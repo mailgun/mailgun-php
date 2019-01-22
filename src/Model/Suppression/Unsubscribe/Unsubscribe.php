@@ -16,80 +16,41 @@ namespace Mailgun\Model\Suppression\Unsubscribe;
  */
 class Unsubscribe
 {
-    /**
-     * @var string
-     */
     private $address;
-
-    /**
-     * @var \DateTime
-     */
     private $createdAt;
-
-    /**
-     * @var array
-     */
     private $tags = [];
 
-    /**
-     * @param string $address
-     */
     private function __construct($address)
     {
         $this->address = $address;
         $this->createdAt = new \DateTime();
     }
 
-    /**
-     * @return Unsubscribe
-     */
-    public static function create(array $data)
+    public static function create(array $data): self
     {
         $unsubscribe = new self($data['address']);
 
         if (isset($data['tags'])) {
-            $unsubscribe->setTags($data['tags']);
+            $unsubscribe->tags = $data['tags'];
         }
         if (isset($data['created_at'])) {
-            $unsubscribe->setCreatedAt(new \DateTime($data['created_at']));
+            $unsubscribe->createdAt = new \DateTime($data['created_at']);
         }
 
         return $unsubscribe;
     }
 
-    /**
-     * @return string
-     */
-    public function getAddress()
+    public function getAddress(): string
     {
         return $this->address;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getCreatedAt()
+    public function getCreatedAt(): \DateTime
     {
         return $this->createdAt;
     }
 
-    private function setCreatedAt(\DateTime $createdAt)
-    {
-        $this->createdAt = $createdAt;
-    }
-
-    /**
-     * @param array $tags
-     */
-    private function setTags($tags)
-    {
-        $this->tags = $tags;
-    }
-
-    /**
-     * @return array
-     */
-    public function getTags()
+    public function getTags(): array
     {
         return $this->tags;
     }
