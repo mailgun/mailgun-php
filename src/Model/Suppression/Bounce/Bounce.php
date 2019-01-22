@@ -27,21 +27,14 @@ class Bounce
 
     public static function create(array $data): self
     {
-        $bounce = new self();
-        $bounce->address = $data['address'];
-        $bounce->createdAt = new \DateTimeImmutable();
+        $model = new self();
 
-        if (isset($data['code'])) {
-            $bounce->code = $data['code'];
-        }
-        if (isset($data['error'])) {
-            $bounce->error = $data['error'];
-        }
-        if (isset($data['created_at'])) {
-            $bounce->createdAt = new \DateTimeImmutable($data['created_at']);
-        }
+        $model->address = $data['address'];
+        $model->code = $data['code'] ?? null;
+        $model->error = $data['error'] ?? null;
+        $model->createdAt = isset($data['created_at']) ? new \DateTimeImmutable($data['created_at']) : null;
 
-        return $bounce;
+        return $model;
     }
 
     public function getAddress(): string

@@ -26,17 +26,16 @@ class Unsubscribe
 
     public static function create(array $data): self
     {
-        $unsubscribe = new self();
-        $unsubscribe->address = $data['address'];
-        $unsubscribe->createdAt = new \DateTimeImmutable();
+        $model = new self();
+
+        $model->address = $data['address'];
+        $model->createdAt = isset($data['created_at']) ? new \DateTimeImmutable($data['created_at']) : null;
 
         if (isset($data['tags'])) {
-            $unsubscribe->tags = $data['tags'];
+            $model->tags = $data['tags'];
         }
 
-        $unsubscribe->createdAt = isset($data['created_at']) ? new \DateTimeImmutable($data['created_at']) : new \DateTimeImmutable();
-
-        return $unsubscribe;
+        return $model;
     }
 
     public function getAddress(): string

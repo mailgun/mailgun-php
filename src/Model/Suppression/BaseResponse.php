@@ -29,11 +29,11 @@ abstract class BaseResponse implements ApiResponse
 
     public static function create(array $data): self
     {
-        $baseResponse = new static();
-        $baseResponse->address = isset($data['address']) ? $data['address'] : '';
-        $baseResponse->message = isset($data['message']) ? $data['message'] : '';
+        $model = new static();
+        $model->address = $data['address'] ?? '';
+        $model->message = $data['message'] ?? '';
 
-        return $baseResponse;
+        return $model;
     }
 
     public function getAddress(): string

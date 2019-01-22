@@ -54,11 +54,12 @@ final class IndexResponse implements ApiResponse, PagingProvider
             }
         }
 
-        $indexResponse = new self();
-        $indexResponse->items = $unsubscribes;
-        $indexResponse->paging = $data['paging'];
+        $model = new self();
 
-        return $indexResponse;
+        $model->items = $unsubscribes;
+        $model->paging = $data['paging'];
+
+        return $model;
     }
 
     /**

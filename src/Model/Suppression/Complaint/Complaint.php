@@ -25,13 +25,12 @@ class Complaint
 
     public static function create(array $data): self
     {
-        $complaint = new self();
-        $complaint->address = $data['address'];
-        $complaint->createdAt = new \DateTimeImmutable();
+        $model = new self();
 
-        $complaint->createdAt = isset($data['created_at']) ? new \DateTimeImmutable($data['created_at']) : new \DateTimeImmutable();
+        $model->address = $data['address'];
+        $model->createdAt = isset($data['created_at']) ? new \DateTimeImmutable($data['created_at']) : null;
 
-        return $complaint;
+        return $model;
     }
 
     public function getAddress(): string
