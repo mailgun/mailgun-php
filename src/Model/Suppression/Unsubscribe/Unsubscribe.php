@@ -28,7 +28,7 @@ class Unsubscribe
     {
         $model = new self();
 
-        $model->address = $data['address'];
+        $model->address = $data['address'] ?? null;
         $model->createdAt = isset($data['created_at']) ? new \DateTimeImmutable($data['created_at']) : null;
 
         if (isset($data['tags'])) {
@@ -38,12 +38,12 @@ class Unsubscribe
         return $model;
     }
 
-    public function getAddress(): string
+    public function getAddress(): ?string
     {
         return $this->address;
     }
 
-    public function getCreatedAt(): \DateTimeImmutable
+    public function getCreatedAt(): ?\DateTimeImmutable
     {
         return $this->createdAt;
     }

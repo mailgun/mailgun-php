@@ -29,7 +29,7 @@ class Bounce
     {
         $model = new self();
 
-        $model->address = $data['address'];
+        $model->address = $data['address'] ?? null;
         $model->code = $data['code'] ?? null;
         $model->error = $data['error'] ?? null;
         $model->createdAt = isset($data['created_at']) ? new \DateTimeImmutable($data['created_at']) : null;
@@ -37,22 +37,22 @@ class Bounce
         return $model;
     }
 
-    public function getAddress(): string
+    public function getAddress(): ?string
     {
         return $this->address;
     }
 
-    public function getCode(): string
+    public function getCode(): ?string
     {
         return $this->code;
     }
 
-    public function getError(): string
+    public function getError(): ?string
     {
         return $this->error;
     }
 
-    public function getCreatedAt(): \DateTimeImmutable
+    public function getCreatedAt(): ?\DateTimeImmutable
     {
         return $this->createdAt;
     }
