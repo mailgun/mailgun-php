@@ -21,15 +21,15 @@ class Bounce
     private $error;
     private $createdAt;
 
-    private function __construct($address)
+    private function __construct()
     {
-        $this->address = $address;
-        $this->createdAt = new \DateTime();
     }
 
     public static function create(array $data): self
     {
-        $bounce = new self($data['address']);
+        $bounce = new self();
+        $bounce->address = $data['address'];
+        $bounce->createdAt = new \DateTimeImmutable();
 
         if (isset($data['code'])) {
             $bounce->code = $data['code'];
@@ -38,7 +38,7 @@ class Bounce
             $bounce->error = $data['error'];
         }
         if (isset($data['created_at'])) {
-            $bounce->createdAt = new \DateTime($data['created_at']);
+            $bounce->createdAt = new \DateTimeImmutable($data['created_at']);
         }
 
         return $bounce;
@@ -59,7 +59,7 @@ class Bounce
         return $this->error;
     }
 
-    public function getCreatedAt(): \DateTime
+    public function getCreatedAt(): \DateTimeImmutable
     {
         return $this->createdAt;
     }

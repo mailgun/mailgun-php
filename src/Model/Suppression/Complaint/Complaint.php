@@ -19,19 +19,17 @@ class Complaint
     private $address;
     private $createdAt;
 
-    private function __construct($address)
+    private function __construct()
     {
-        $this->address = $address;
-        $this->createdAt = new \DateTime();
     }
 
     public static function create(array $data): self
     {
-        $complaint = new self($data['address']);
+        $complaint = new self();
+        $complaint->address = $data['address'];
+        $complaint->createdAt = new \DateTimeImmutable();
 
-        if (isset($data['created_at'])) {
-            $complaint->createdAt = new \DateTime($data['created_at']);
-        }
+        $complaint->createdAt = isset($data['created_at']) ? new \DateTimeImmutable($data['created_at']) : new \DateTimeImmutable();
 
         return $complaint;
     }
@@ -41,7 +39,7 @@ class Complaint
         return $this->address;
     }
 
-    public function getCreatedAt(): \DateTime
+    public function getCreatedAt(): \DateTimeImmutable
     {
         return $this->createdAt;
     }

@@ -41,10 +41,8 @@ final class IndexResponse implements ApiResponse, PagingProvider
      */
     private $totalCount;
 
-    private function __construct(array $items, array $paging)
+    private function __construct()
     {
-        $this->items = $items;
-        $this->paging = $paging;
     }
 
     public static function create(array $data): self
@@ -56,7 +54,11 @@ final class IndexResponse implements ApiResponse, PagingProvider
             }
         }
 
-        return new self($unsubscribes, $data['paging']);
+        $indexResponse = new self();
+        $indexResponse->items = $unsubscribes;
+        $indexResponse->paging = $data['paging'];
+
+        return $indexResponse;
     }
 
     /**

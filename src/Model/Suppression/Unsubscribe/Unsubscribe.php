@@ -20,22 +20,21 @@ class Unsubscribe
     private $createdAt;
     private $tags = [];
 
-    private function __construct($address)
+    private function __construct()
     {
-        $this->address = $address;
-        $this->createdAt = new \DateTime();
     }
 
     public static function create(array $data): self
     {
-        $unsubscribe = new self($data['address']);
+        $unsubscribe = new self();
+        $unsubscribe->address = $data['address'];
+        $unsubscribe->createdAt = new \DateTimeImmutable();
 
         if (isset($data['tags'])) {
             $unsubscribe->tags = $data['tags'];
         }
-        if (isset($data['created_at'])) {
-            $unsubscribe->createdAt = new \DateTime($data['created_at']);
-        }
+
+        $unsubscribe->createdAt = isset($data['created_at']) ? new \DateTimeImmutable($data['created_at']) : new \DateTimeImmutable();
 
         return $unsubscribe;
     }
@@ -45,7 +44,7 @@ class Unsubscribe
         return $this->address;
     }
 
-    public function getCreatedAt(): \DateTime
+    public function getCreatedAt(): \DateTimeImmutable
     {
         return $this->createdAt;
     }

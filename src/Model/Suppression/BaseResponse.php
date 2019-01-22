@@ -23,18 +23,17 @@ abstract class BaseResponse implements ApiResponse
     private $address;
     private $message;
 
-    private function __construct(string $address, string $message)
+    private function __construct()
     {
-        $this->address = $address;
-        $this->message = $message;
     }
 
     public static function create(array $data): self
     {
-        $address = isset($data['address']) ? $data['address'] : '';
-        $message = isset($data['message']) ? $data['message'] : '';
+        $baseResponse = new static();
+        $baseResponse->address = isset($data['address']) ? $data['address'] : '';
+        $baseResponse->message = isset($data['message']) ? $data['message'] : '';
 
-        return new static($address, $message);
+        return $baseResponse;
     }
 
     public function getAddress(): string
