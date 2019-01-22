@@ -22,10 +22,6 @@ final class CountryResponse implements ApiResponse
      * @var array [locale => data[]]
      */
     private $countries;
-
-    /**
-     * @var string
-     */
     private $tag;
 
     private function __construct()

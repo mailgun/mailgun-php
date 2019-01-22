@@ -22,10 +22,6 @@ final class DeviceResponse implements ApiResponse
      * @var array [name => data[]]
      */
     private $devices;
-
-    /**
-     * @var string
-     */
     private $tag;
 
     private function __construct()

@@ -18,31 +18,20 @@ use Mailgun\Model\ApiResponse;
  */
 final class UpdateResponse implements ApiResponse
 {
-    /**
-     * @var string
-     */
     private $message;
 
-    /**
-     * @param string $message
-     */
-    private function __construct($message)
+    private function __construct()
     {
-        $this->message = $message;
     }
 
-    /**
-     * @return UpdateResponse
-     */
-    public static function create(array $data)
+    public static function create(array $data): self
     {
-        return new self($data['message']);
+        $model = new self();
+
+        $model->message = $data['message'] ?? '';
     }
 
-    /**
-     * @return string
-     */
-    public function getMessage()
+    public function getMessage(): string
     {
         return $this->message;
     }

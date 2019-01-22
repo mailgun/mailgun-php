@@ -22,10 +22,6 @@ final class ProviderResponse implements ApiResponse
      * @var array [name => data[]]
      */
     private $providers;
-
-    /**
-     * @var string
-     */
     private $tag;
 
     private function __construct()
