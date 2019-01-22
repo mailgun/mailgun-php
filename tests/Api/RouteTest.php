@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * Copyright (C) 2013 Mailgun
  *
@@ -10,12 +12,38 @@
 namespace Mailgun\Tests\Api;
 
 use GuzzleHttp\Psr7\Response;
+use Mailgun\Api\Route;
+use Mailgun\Model\Route\DeleteResponse;
+use Mailgun\Model\Route\IndexResponse;
+use Mailgun\Model\Route\ShowResponse;
+use Mailgun\Model\Route\UpdateResponse;
 
 /**
  * @author David Garcia <me@davidgarcia.cat>
+ * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
 class RouteTest extends TestCase
 {
+    public function testIndex()
+    {
+        $this->setRequestMethod('GET');
+        $this->setRequestUri('/v3/routes?limit=100&skip=0');
+        $this->setHydrateClass(IndexResponse::class);
+
+        $api = $this->getApiInstance();
+        $api->index();
+    }
+
+    public function testShow()
+    {
+        $this->setRequestMethod('GET');
+        $this->setRequestUri('/v3/routes/4711');
+        $this->setHydrateClass(ShowResponse::class);
+
+        $api = $this->getApiInstance();
+        $api->show('4711');
+    }
+
     public function testCreate()
     {
         $api = $this->getApiMock();
@@ -26,11 +54,37 @@ class RouteTest extends TestCase
         $api->create('catch_all()', ['forward("mailbox@myapp.com")'], 'example', 100);
     }
 
+    public function testUpdate()
+    {
+        $this->setRequestMethod('PUT');
+        $this->setRequestUri('/v3/routes/4711');
+        $this->setHydrateClass(UpdateResponse::class);
+        $this->setRequestBody([
+            'expression' => 'catch_all()',
+           'action' => 'forward("mailbox@myapp.com")',
+           'description' => 'example',
+           'priority' => 100,
+        ]);
+
+        $api = $this->getApiInstance();
+        $api->update('4711', 'catch_all()', ['forward("mailbox@myapp.com")'], 'example', 100);
+    }
+
+    public function testDelete()
+    {
+        $this->setRequestMethod('DELETE');
+        $this->setRequestUri('/v3/routes/4711');
+        $this->setHydrateClass(DeleteResponse::class);
+
+        $api = $this->getApiInstance();
+        $api->delete('4711');
+    }
+
     /**
      * {@inheritdoc}
      */
     protected function getApiClass()
     {
-        return 'Mailgun\Api\Route';
+        return Route::class;
     }
 }

@@ -1,6 +1,72 @@
 # Change Log
 
-The change log describes what is "Added", "Removed", "Changed" or "Fixed" between each release. 
+The change log describes what is "Added", "Removed", "Changed" or "Fixed" between each release.
+
+## 3.0.0 - UNRELEASED
+
+### Added
+
+- Support for PSR-4
+- All classes `Mailgun\Model` are final or abstract. 
+
+### Changed
+
+- Dropped PHP5 support
+- Removed deprecated code
+- Moved `RequestBuilder` and `HttpClientConfigurator` to `Mailgun\HttpClient` namespace
+- Updated signature of `Mailgun::__construct()`
+
+### Removed
+
+- Dependency on `php-http/message`.
+
+## 2.8.0
+
+### Added
+
+- Add support for IPs endpoints
+- Add spport for Mailing Lists
+- Add `complaints` to Stats / Total Response
+- Add more tests for our models
+
+### Changed
+
+- Change the PHP Exception message for Bad Request errors to help to find the issue
+
+### Fixed
+
+- Fix an issue validating the max path length
+
+## 2.7.0
+
+### Added
+
+- Allow to set the Mailgun server when instantiating the Mailgun's client: `$mailgun = Mailgun::create('key', 'server');`
+- Add new PHPUnit tests for our models
+- Add new PHPUnit tests for our API
+- Added `Maingun\Api\Attachment`
+- Fluent interface for `MessageBuilder` and `BatchMessage`
+- Support for HTTPlug 2.0
+
+### Changed
+
+- Second argument to `Mailgun\Message\MessageBuilder::addBccRecipient()` is now optional. 
+- We try to close open resources
+
+### Fixed
+
+- Fixed the type error when creating tags. 
+
+## 2.6.0
+
+### Added
+
+- Ported MessageBuilder and BatchMessage #472
+
+### Changed
+
+- Cast campaign IDs to string #460
+- Suggest packages used on Dev #440
 
 ## 2.5.0
 

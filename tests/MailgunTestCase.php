@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * Copyright (C) 2013 Mailgun
  *
@@ -9,6 +11,8 @@
 
 namespace Mailgun\Tests;
 
-abstract class MailgunTestCase extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+abstract class MailgunTestCase extends TestCase
 {
 }

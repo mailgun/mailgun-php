@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * Copyright (C) 2013 Mailgun
  *
@@ -7,7 +9,7 @@
  * of the MIT license. See the LICENSE file for details.
  */
 
-namespace Mailgun\tests\Api;
+namespace Mailgun\Tests\Api;
 
 use GuzzleHttp\Psr7\Response;
 use Mailgun\Api\Tag;

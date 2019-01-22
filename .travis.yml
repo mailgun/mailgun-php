@@ -7,41 +7,46 @@ cache:
         - $HOME/.composer/cache/files
 
 php:
-  - 5.5
-  - 5.6
-  - 7.0
   - 7.1
   - 7.2
+  - 7.3
+
+branches:
+  except:
+    - /^analysis-.*$/
+    - /^patch-.*$/
 
 env:
-  - TEST_COMMAND="composer test-all"
+  - TEST_COMMAND="composer test"
 
 matrix:
     fast_finish: true
     include:
-        - php: 5.5
+        - php: 7.1
           env: COMPOSER_FLAGS="--prefer-stable --prefer-lowest" PREFER_COVERAGE=true
-        - php: hhvm
-          dist: trusty
+        - name: Backward compatibility test (Disabled)
+          php: 7.3
+          env: DEPENDENCIES="roave/backward-compatibility-check"
+          script: ./vendor/bin/roave-backward-compatibility-check || true
+        - name: PHPStan
+          php: 7.2
+          env: DEPENDENCIES="phpstan/phpstan"
+          script:
+            - ./vendor/bin/phpstan --version
+            - ./vendor/bin/phpstan analyse
+
+before_install:
+  - if [[ "$PREFER_COVERAGE" = true ]] && [[ "$TRAVIS_PULL_REQUEST" = false ]]; then TEST_COMMAND="composer test-coverage" COVERAGE=true; fi
+  - if ! [ -z "$DEPENDENCIES" ]; then composer require --no-update ${DEPENDENCIES}; fi;
 
 install:
-    - travis_retry composer update ${COMPOSER_FLAGS} --prefer-source --no-interaction
-
-before_script:
-  - if [[ "COVERAGE" = true ]]; then TEST_COMMAND="composer test-coverage"; fi
-  - if ! [[ "$TRAVIS_PULL_REQUEST" = false ]]; then TEST_COMMAND="composer test"; fi
-  - if [[ "$PREFER_COVERAGE" = true ]] && [[ "$TRAVIS_PULL_REQUEST" = false ]]; then TEST_COMMAND="composer test-coverage" COVERAGE=true; fi
+    - composer update ${COMPOSER_FLAGS} --prefer-dist --no-interaction
 
 script:
+  - composer validate --strict --no-check-lock
   - echo $TEST_COMMAND
   - $TEST_COMMAND
 
 after_success:
     - if [[ "$COVERAGE" = true ]]; then wget https://scrutinizer-ci.com/ocular.phar; fi
     - if [[ "$COVERAGE" = true ]]; then php ocular.phar code-coverage:upload --format=php-clover build/coverage.xml; fi
-
-
-notifications:
-  slack:
-    rooms:
-      secure: Xa/LYWGRDOt1Gjw10YTgYmVriSt/MSDOuzqoqQ8OWekJp05C2oRTor8dztEATTM4HQSLrwTa8CTnkFyD8+Z4fbnuvQ0dJ4j5CJYs5AjyirEWwblqS0PIATEEGKffDocsMh4VyMEPSwWXZY319bvG79mUq0E57VmT3y2ROMUuuec=

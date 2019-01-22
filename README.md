@@ -8,7 +8,6 @@ at http://documentation.mailgun.com
 
 [![Latest Version](https://img.shields.io/github/release/mailgun/mailgun-php.svg?style=flat-square)](https://github.com/mailgun/mailgun-php/releases)
 [![Build Status](https://img.shields.io/travis/mailgun/mailgun-php/master.svg?style=flat-square)](https://travis-ci.org/mailgun/mailgun-php)
-[![StyleCI](https://styleci.io/repos/11654443/shield?branch=master)](https://styleci.io/repos/11654443)
 [![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/mailgun/mailgun-php.svg?style=flat-square)](https://scrutinizer-ci.com/g/mailgun/mailgun-php)
 [![Quality Score](https://img.shields.io/scrutinizer/g/mailgun/mailgun-php.svg?style=flat-square)](https://scrutinizer-ci.com/g/mailgun/mailgun-php)
 [![Total Downloads](https://img.shields.io/packagist/dt/mailgun/mailgun-php.svg?style=flat-square)](https://packagist.org/packages/mailgun/mailgun-php)
@@ -193,6 +192,5 @@ information about our API.
 If you find a bug, please submit the issue in Github directly. 
 [Mailgun-PHP Issues](https://github.com/mailgun/mailgun-php/issues)
 
-As always, if you need additional assistance, drop us a note through your Control Panel at
-[https://mailgun.com/cp/support](https://mailgun.com/cp/support).
-
+As always, if you need additional assistance, drop us a note through your account at
+[https://app.mailgun.com/app/support/list](https://app.mailgun.com/app/support/list).

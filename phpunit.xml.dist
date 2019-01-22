@@ -3,29 +3,13 @@
          colors="true"
          processIsolation="false"
          stopOnFailure="false"
-         syntaxCheck="false"
          convertErrorsToExceptions="true"
          convertNoticesToExceptions="true"
-         convertWarningsToExceptions="true"
-         testSuiteLoaderClass="PHPUnit_Runner_StandardTestSuiteLoader">
+         convertWarningsToExceptions="true">
 
     <testsuites>
-        <testsuite name="all">
+        <testsuite name="Mailgun test suite">
             <directory>tests</directory>
-        </testsuite>
-
-        <testsuite name="unit">
-            <directory>tests</directory>
-            <exclude>tests/Integration</exclude>
-            <exclude>test/Functional</exclude>
-        </testsuite>
-
-        <testsuite name="integration">
-            <directory>tests/Integration</directory>
-        </testsuite>
-
-        <testsuite name="functional">
-            <directory>tests/Functional</directory>
         </testsuite>
     </testsuites>
 

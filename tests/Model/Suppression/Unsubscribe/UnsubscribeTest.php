@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * Copyright (C) 2013 Mailgun
  *
@@ -10,9 +12,9 @@
 namespace Mailgun\Tests\Model\Suppression\Unsubscribe;
 
 use Mailgun\Model\Suppression\Unsubscribe\Unsubscribe;
-use PHPUnit_Framework_TestCase;
+use Mailgun\Tests\Model\BaseModelTest;
 
-class UnsubscribeTest extends PHPUnit_Framework_TestCase
+class UnsubscribeTest extends BaseModelTest
 {
     /**
      * @test
