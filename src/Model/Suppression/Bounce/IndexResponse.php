@@ -22,24 +22,15 @@ final class IndexResponse implements ApiResponse, PagingProvider
 {
     use PaginationResponse;
 
-    /**
-     * @var Bounce[]
-     */
     private $items;
 
-    /**
-     * @param Bounce[] $items
-     */
     private function __construct(array $items, array $paging)
     {
         $this->items = $items;
         $this->paging = $paging;
     }
 
-    /**
-     * @return IndexResponse
-     */
-    public static function create(array $data)
+    public static function create(array $data): self
     {
         $bounces = [];
         if (isset($data['items'])) {
@@ -54,7 +45,7 @@ final class IndexResponse implements ApiResponse, PagingProvider
     /**
      * @return Bounce[]
      */
-    public function getItems()
+    public function getItems(): array
     {
         return $this->items;
     }

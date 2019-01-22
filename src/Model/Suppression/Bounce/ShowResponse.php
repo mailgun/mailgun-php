@@ -18,4 +18,5 @@ use Mailgun\Model\ApiResponse;
  */
 final class ShowResponse extends Bounce implements ApiResponse
 {
+
 }
