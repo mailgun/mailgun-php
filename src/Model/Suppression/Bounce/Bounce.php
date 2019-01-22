@@ -16,105 +16,44 @@ namespace Mailgun\Model\Suppression\Bounce;
  */
 class Bounce
 {
-    /**
-     * @var string
-     */
     private $address;
-
-    /**
-     * @var string
-     */
     private $code;
-
-    /**
-     * @var string
-     */
     private $error;
-
-    /**
-     * @var \DateTime
-     */
     private $createdAt;
 
-    /**
-     * @param string $address
-     */
-    private function __construct($address)
+    private function __construct()
     {
-        $this->address = $address;
-        $this->createdAt = new \DateTime();
     }
 
-    /**
-     * @return Bounce
-     */
-    public static function create(array $data)
+    public static function create(array $data): self
     {
-        $bounce = new self($data['address']);
+        $model = new self();
 
-        if (isset($data['code'])) {
-            $bounce->setCode($data['code']);
-        }
-        if (isset($data['error'])) {
-            $bounce->setError($data['error']);
-        }
-        if (isset($data['created_at'])) {
-            $bounce->setCreatedAt(new \DateTime($data['created_at']));
-        }
+        $model->address = $data['address'] ?? null;
+        $model->code = $data['code'] ?? null;
+        $model->error = $data['error'] ?? null;
+        $model->createdAt = isset($data['created_at']) ? new \DateTimeImmutable($data['created_at']) : null;
 
-        return $bounce;
+        return $model;
     }
 
-    /**
-     * @return string
-     */
-    public function getAddress()
+    public function getAddress(): ?string
     {
         return $this->address;
     }
 
-    /**
-     * @return string
-     */
-    public function getCode()
+    public function getCode(): ?string
     {
         return $this->code;
     }
 
-    /**
-     * @param string $code
-     */
-    private function setCode($code)
-    {
-        $this->code = $code;
-    }
-
-    /**
-     * @return string
-     */
-    public function getError()
+    public function getError(): ?string
     {
         return $this->error;
     }
 
-    /**
-     * @param string $error
-     */
-    private function setError($error)
-    {
-        $this->error = $error;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getCreatedAt()
+    public function getCreatedAt(): ?\DateTimeImmutable
     {
         return $this->createdAt;
-    }
-
-    private function setCreatedAt(\DateTime $createdAt)
-    {
-        $this->createdAt = $createdAt;
     }
 }

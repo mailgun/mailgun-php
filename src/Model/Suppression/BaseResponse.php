@@ -20,49 +20,28 @@ use Mailgun\Model\ApiResponse;
  */
 abstract class BaseResponse implements ApiResponse
 {
-    /**
-     * @var string
-     */
     private $address;
-
-    /**
-     * @var string
-     */
     private $message;
 
-    /**
-     * @param string $address
-     * @param string $message
-     */
-    private function __construct($address, $message)
+    private function __construct()
     {
-        $this->address = $address;
-        $this->message = $message;
     }
 
-    /**
-     * @return BaseResponse
-     */
-    public static function create(array $data)
+    public static function create(array $data): self
     {
-        $address = isset($data['address']) ? $data['address'] : '';
-        $message = isset($data['message']) ? $data['message'] : '';
+        $model = new static();
+        $model->address = $data['address'] ?? '';
+        $model->message = $data['message'] ?? '';
 
-        return new static($address, $message);
+        return $model;
     }
 
-    /**
-     * @return string
-     */
-    public function getAddress()
+    public function getAddress(): string
     {
         return $this->address;
     }
 
-    /**
-     * @return string
-     */
-    public function getMessage()
+    public function getMessage(): string
     {
         return $this->message;
     }
