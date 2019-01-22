@@ -42,7 +42,6 @@ abstract class BaseResponse implements ApiResponse
         return $this->address;
     }
 
-
     public function getMessage(): string
     {
         return $this->message;
