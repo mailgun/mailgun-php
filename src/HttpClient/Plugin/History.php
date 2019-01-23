@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace Mailgun\HttpClient\Plugin;
 
-use Http\Client\Common\HttpMethodsClientInterface;
 use Http\Client\Common\Plugin\Journal;
 use Http\Client\Exception;
 use Psr\Http\Client\ClientExceptionInterface;
@@ -48,7 +47,7 @@ final class History implements Journal
 /*
  * Below is a some code to make the History plugin compatible with both 1.x and 2.x of php-client/client-common
  */
-if (\class_exists(HttpMethodsClientInterface::class)) {
+if (\class_exists(\Http\Client\Common\HttpMethodsClientInterface::class)) {
     // 2.x code
     trait HistoryTrait
     {

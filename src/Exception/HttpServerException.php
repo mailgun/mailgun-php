@@ -23,7 +23,7 @@ final class HttpServerException extends \RuntimeException implements Exception
         return new self('An unexpected error occurred at Mailgun\'s servers. Try again later and contact support if the error still exists.', $httpStatus);
     }
 
-    public static function networkError(\Exception $previous)
+    public static function networkError(\Throwable $previous)
     {
         return new self('Mailgun\'s servers are currently unreachable.', 0, $previous);
     }

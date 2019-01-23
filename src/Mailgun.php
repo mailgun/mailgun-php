@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace Mailgun;
 
+use Http\Client\HttpClient;
 use Mailgun\HttpClient\HttpClientConfigurator;
 use Mailgun\HttpClient\Plugin\History;
 use Mailgun\HttpClient\RequestBuilder;
@@ -30,7 +31,7 @@ final class Mailgun
     private $apiKey;
 
     /**
-     * @var ClientInterface
+     * @var ClientInterface|HttpClient
      */
     private $httpClient;
 
