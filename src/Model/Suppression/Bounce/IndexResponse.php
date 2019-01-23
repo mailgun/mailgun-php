@@ -38,7 +38,6 @@ final class IndexResponse implements ApiResponse, PagingProvider
         }
 
         $model = new self();
-
         $model->items = $bounces;
         $model->paging = $data['paging'];
 
