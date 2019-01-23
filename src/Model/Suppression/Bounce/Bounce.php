@@ -28,7 +28,6 @@ class Bounce
     public static function create(array $data): self
     {
         $model = new self();
-
         $model->address = $data['address'] ?? null;
         $model->code = $data['code'] ?? null;
         $model->error = $data['error'] ?? null;
