@@ -121,11 +121,6 @@ final class Mailgun
         return new Api\Message($this->httpClient, $this->requestBuilder, $this->hydrator);
     }
 
-    public function mailingList(): API\MailingList
-    {
-        return new Api\MailingList($this->httpClient, $this->requestBuilder, $this->hydrator);
-    }
-
     public function ips(): Api\Ip
     {
         return new Api\Ip($this->httpClient, $this->requestBuilder, $this->hydrator);
