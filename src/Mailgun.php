@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace Mailgun;
 
 use Http\Client\HttpClient;
+use Mailgun\Api\MailingList;
 use Mailgun\HttpClient\HttpClientConfigurator;
 use Mailgun\HttpClient\Plugin\History;
 use Mailgun\HttpClient\RequestBuilder;
@@ -121,9 +122,9 @@ final class Mailgun
         return new Api\Message($this->httpClient, $this->requestBuilder, $this->hydrator);
     }
 
-    public function mailingList(): API\MailingList
+    public function mailingList(): MailingList
     {
-        return new Api\MailingList($this->httpClient, $this->requestBuilder, $this->hydrator);
+        return new MailingList($this->httpClient, $this->requestBuilder, $this->hydrator);
     }
 
     public function ips(): Api\Ip
