@@ -2,6 +2,12 @@
 
 The change log describes what is "Added", "Removed", "Changed" or "Fixed" between each release.
 
+## 2.8.1
+
+###Fixed
+
+- Added missing method to use all Mailing List features.
+
 ## 2.8.0
 
 ### Added
