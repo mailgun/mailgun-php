@@ -15,7 +15,7 @@ use Mailgun\Assert;
 use Mailgun\Model\Event\EventResponse;
 
 /**
- * {@link https://documentation.mailgun.com/api-events.html}.
+ * @see https://documentation.mailgun.com/en/latest/api-events.html
  *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */

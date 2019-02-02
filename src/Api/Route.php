@@ -19,7 +19,7 @@ use Mailgun\Model\Route\ShowResponse;
 use Mailgun\Model\Route\UpdateResponse;
 
 /**
- * {@link https://documentation.mailgun.com/api-routes.html}.
+ * @see https://documentation.mailgun.com/api-routes.html
  *
  * @author David Garcia <me@davidgarcia.cat>
  */

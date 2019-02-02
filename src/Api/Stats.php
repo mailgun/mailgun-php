@@ -16,7 +16,7 @@ use Mailgun\Model\Stats\AllResponse;
 use Mailgun\Model\Stats\TotalResponse;
 
 /**
- * {@link https://documentation.mailgun.com/api-stats.html}.
+ * @see https://documentation.mailgun.com/en/latest/api-stats.html
  *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */

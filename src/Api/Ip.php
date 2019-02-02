@@ -18,7 +18,7 @@ use Mailgun\Model\Ip\UpdateResponse;
 use Psr\Http\Message\ResponseInterface;
 
 /**
- * {@link https://documentation.mailgun.com/en/latest/api-ips.html#ips}.
+ * @see https://documentation.mailgun.com/en/latest/api-ips.html
  *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */

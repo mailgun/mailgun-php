@@ -23,6 +23,8 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Client\ClientInterface;
 
 /**
+ * @see https://documentation.mailgun.com/en/latest/api-webhooks.html
+ *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
 class Webhook extends HttpApi

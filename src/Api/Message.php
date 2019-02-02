@@ -19,6 +19,8 @@ use Mailgun\Model\Message\ShowResponse;
 use Psr\Http\Message\ResponseInterface;
 
 /**
+ * @see https://documentation.mailgun.com/en/latest/api-sending.html
+ *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
 class Message extends HttpApi
@@ -29,6 +31,8 @@ class Message extends HttpApi
     }
 
     /**
+     * @see https://documentation.mailgun.com/en/latest/api-sending.html#sending
+     *
      * @return SendResponse|ResponseInterface
      */
     public function send(string $domain, array $params)
@@ -60,6 +64,8 @@ class Message extends HttpApi
     }
 
     /**
+     * @see https://documentation.mailgun.com/en/latest/api-sending.html#sending
+     *
      * @param array  $recipients with all you send emails to. Including bcc and cc
      * @param string $message    Message filepath or content
      *
@@ -93,6 +99,8 @@ class Message extends HttpApi
 
     /**
      * Get stored message.
+     *
+     * @see https://documentation.mailgun.com/en/latest/api-sending.html#retrieving-stored-messages
      *
      * @param bool $rawMessage if true we will use "Accept: message/rfc2822" header
      *
