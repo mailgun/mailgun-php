@@ -52,11 +52,12 @@ use Mailgun\Mailgun;
 Here's how to send a message using the SDK:
 
 ```php
-# First, instantiate the SDK with your API credentials
-$mg = Mailgun::create('key-example');
+// First, instantiate the SDK with your API credentials
+$mg = Mailgun::create('key-example'); // For US servers
+$mg = Mailgun::create('key-example', 'https://api.eu.mailgun.net'); // For EU servers
 
-# Now, compose and send your message.
-# $mg->messages()->send($domain, $params);
+// Now, compose and send your message.
+// $mg->messages()->send($domain, $params);
 $mg->messages()->send('example.com', [
   'from'    => 'bob@example.com',
   'to'      => 'sally@example.com',
