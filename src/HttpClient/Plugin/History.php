@@ -12,8 +12,6 @@ declare(strict_types=1);
 namespace Mailgun\HttpClient\Plugin;
 
 use Http\Client\Common\Plugin\Journal;
-use Http\Client\Exception;
-use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
