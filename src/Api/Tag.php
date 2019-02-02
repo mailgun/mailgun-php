@@ -23,7 +23,7 @@ use Mailgun\Model\Tag\UpdateResponse;
 use Psr\Http\Message\ResponseInterface;
 
 /**
- * {@link https://documentation.mailgun.com/api-tags.html#tags}.
+ * @see https://documentation.mailgun.com/en/latest/api-tags.html
  *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */

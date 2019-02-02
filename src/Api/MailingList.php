@@ -19,6 +19,9 @@ use Mailgun\Model\MailingList\PagesResponse;
 use Mailgun\Model\MailingList\ShowResponse;
 use Mailgun\Model\MailingList\UpdateResponse;
 
+/**
+ * @see https://documentation.mailgun.com/en/latest/api-mailinglists.html
+ */
 class MailingList extends HttpApi
 {
     public function member(): Member

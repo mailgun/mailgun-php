@@ -26,7 +26,7 @@ use Mailgun\Model\Domain\VerifyResponse;
 use Psr\Http\Message\ResponseInterface;
 
 /**
- * {@link https://documentation.mailgun.com/api-domains.html}.
+ * @see https://documentation.mailgun.com/api-domains.html
  *
  * @author Sean Johnson <sean@mailgun.com>
  */
