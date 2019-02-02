@@ -11,6 +11,7 @@ namespace Mailgun;
 
 use Http\Client\Common\HttpMethodsClient;
 use Http\Client\HttpClient;
+use Mailgun\Api\MailingList;
 use Mailgun\Connection\RestClient;
 use Mailgun\Constants\ExceptionMessages;
 use Mailgun\HttpClient\Plugin\History;
@@ -380,6 +381,14 @@ class Mailgun
     public function messages()
     {
         return new Api\Message($this->httpClient, $this->requestBuilder, $this->hydrator);
+    }
+
+    /**
+     * @return MailingList
+     */
+    public function mailingList()
+    {
+        return new MailingList($this->httpClient, $this->requestBuilder, $this->hydrator);
     }
 
     /**
