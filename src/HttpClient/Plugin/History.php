@@ -43,24 +43,3 @@ final class History implements Journal
         $this->lastResponse = $response;
     }
 }
-
-/*
- * Below is a some code to make the History plugin compatible with both 1.x and 2.x of php-client/client-common
- */
-if (\class_exists(\Http\Client\Common\HttpMethodsClientInterface::class)) {
-    // 2.x code
-    trait HistoryTrait
-    {
-        public function addFailure(RequestInterface $request, ClientExceptionInterface $exception)
-        {
-        }
-    }
-} else {
-    // 1.x code
-    trait HistoryTrait
-    {
-        public function addFailure(RequestInterface $request, Exception $exception)
-        {
-        }
-    }
-}
