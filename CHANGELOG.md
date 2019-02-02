@@ -20,6 +20,12 @@ The change log describes what is "Added", "Removed", "Changed" or "Fixed" betwee
 
 - Dependency on `php-http/message`.
 
+## 2.8.1
+
+### Fixed
+
+- Added missing method to use all Mailing List and Ip features.
+
 ## 2.8.0
 
 ### Added
