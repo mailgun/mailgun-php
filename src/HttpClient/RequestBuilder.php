@@ -11,10 +11,12 @@ declare(strict_types=1);
 
 namespace Mailgun\HttpClient;
 
-use Http\Discovery\MessageFactoryDiscovery;
+use Http\Discovery\Psr17FactoryDiscovery;
 use Http\Message\MultipartStream\MultipartStreamBuilder;
-use Http\Message\RequestFactory;
+use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\StreamFactoryInterface;
+use Psr\Http\Message\StreamInterface;
 
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
@@ -22,9 +24,14 @@ use Psr\Http\Message\RequestInterface;
 class RequestBuilder
 {
     /**
-     * @var RequestFactory
+     * @var RequestFactoryInterface|null
      */
     private $requestFactory;
+
+    /**
+     * @var StreamFactoryInterface|null
+     */
+    private $streamFactory;
 
     /**
      * @var MultipartStreamBuilder
@@ -42,13 +49,13 @@ class RequestBuilder
      *                                'filename'=> string (optional)
      *                                'headers' => array (optinal) ['header-name' => 'header-value']
      *                                )
-     *
-     * @return RequestInterface
      */
-    public function create(string $method, string $uri, array $headers = [], $body = null)
+    public function create(string $method, string $uri, array $headers = [], $body = null): RequestInterface
     {
         if (!is_array($body)) {
-            return $this->getRequestFactory()->createRequest($method, $uri, $headers, $body);
+            $stream = $this->getStreamFactory()->createStream($body);
+
+            return $this->createRequest($method, $uri, $headers, $stream);
         }
 
         $builder = $this->getMultipartStreamBuilder();
@@ -67,37 +74,42 @@ class RequestBuilder
 
         $headers['Content-Type'] = 'multipart/form-data; boundary="'.$boundary.'"';
 
-        return $this->getRequestFactory()->createRequest($method, $uri, $headers, $multipartStream);
+        return $this->createRequest($method, $uri, $headers, $multipartStream);
     }
 
-    /**
-     * @return RequestFactory
-     */
-    private function getRequestFactory()
+    private function getRequestFactory(): RequestFactoryInterface
     {
         if (null === $this->requestFactory) {
-            $this->requestFactory = MessageFactoryDiscovery::find();
+            $this->requestFactory = Psr17FactoryDiscovery::findRequestFactory();
         }
 
         return $this->requestFactory;
     }
 
-    /**
-     * @param RequestFactory $requestFactory
-     *
-     * @return RequestBuilder
-     */
-    public function setRequestFactory($requestFactory)
+    public function setRequestFactory(RequestFactoryInterface $requestFactory): self
     {
         $this->requestFactory = $requestFactory;
 
         return $this;
     }
 
-    /**
-     * @return MultipartStreamBuilder
-     */
-    private function getMultipartStreamBuilder()
+    private function getStreamFactory(): StreamFactoryInterface
+    {
+        if (null === $this->streamFactory) {
+            $this->streamFactory = Psr17FactoryDiscovery::findStreamFactory();
+        }
+
+        return $this->streamFactory;
+    }
+
+    public function setStreamFactory(StreamFactoryInterface $streamFactory): self
+    {
+        $this->streamFactory = $streamFactory;
+
+        return $this;
+    }
+
+    private function getMultipartStreamBuilder(): MultipartStreamBuilder
     {
         if (null === $this->multipartStreamBuilder) {
             $this->multipartStreamBuilder = new MultipartStreamBuilder();
@@ -106,15 +118,21 @@ class RequestBuilder
         return $this->multipartStreamBuilder;
     }
 
-    /**
-     * @param MultipartStreamBuilder $multipartStreamBuilder
-     *
-     * @return RequestBuilder
-     */
-    public function setMultipartStreamBuilder($multipartStreamBuilder)
+    public function setMultipartStreamBuilder(MultipartStreamBuilder $multipartStreamBuilder): self
     {
         $this->multipartStreamBuilder = $multipartStreamBuilder;
 
         return $this;
+    }
+
+    private function createRequest(string $method, string $uri, array $headers, StreamInterface $stream)
+    {
+        $request = $this->getRequestFactory()->createRequest($method, $uri);
+        $request = $request->withBody($stream);
+        foreach ($headers as $name => $value) {
+            $request = $request->withAddedHeader($name, $value);
+        }
+
+        return $request;
     }
 }

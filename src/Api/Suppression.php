@@ -11,11 +11,11 @@ declare(strict_types=1);
 
 namespace Mailgun\Api;
 
-use Http\Client\HttpClient;
 use Mailgun\Api\Suppression\Bounce;
 use Mailgun\Api\Suppression\Complaint;
 use Mailgun\Api\Suppression\Unsubscribe;
 use Mailgun\Hydrator\Hydrator;
+use Psr\Http\Client\ClientInterface;
 use Mailgun\HttpClient\RequestBuilder;
 
 /**
@@ -26,7 +26,7 @@ use Mailgun\HttpClient\RequestBuilder;
 class Suppression
 {
     /**
-     * @var HttpClient
+     * @var ClientInterface
      */
     private $httpClient;
 
@@ -40,7 +40,7 @@ class Suppression
      */
     private $hydrator;
 
-    public function __construct(HttpClient $httpClient, RequestBuilder $requestBuilder, Hydrator $hydrator)
+    public function __construct(ClientInterface $httpClient, RequestBuilder $requestBuilder, Hydrator $hydrator)
     {
         $this->httpClient = $httpClient;
         $this->requestBuilder = $requestBuilder;

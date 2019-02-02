@@ -12,7 +12,6 @@ declare(strict_types=1);
 namespace Mailgun\HttpClient\Plugin;
 
 use Http\Client\Common\Plugin\Journal;
-use Http\Client\Exception;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
@@ -23,6 +22,7 @@ use Psr\Http\Message\ResponseInterface;
  */
 final class History implements Journal
 {
+    use HistoryTrait;
     /**
      * @var ResponseInterface
      */
@@ -39,9 +39,5 @@ final class History implements Journal
     public function addSuccess(RequestInterface $request, ResponseInterface $response)
     {
         $this->lastResponse = $response;
-    }
-
-    public function addFailure(RequestInterface $request, Exception $exception)
-    {
     }
 }

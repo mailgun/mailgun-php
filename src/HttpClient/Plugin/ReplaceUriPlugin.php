@@ -22,6 +22,8 @@ use Psr\Http\Message\UriInterface;
  */
 final class ReplaceUriPlugin implements Plugin
 {
+    use Plugin\VersionBridgePlugin;
+
     /**
      * @var UriInterface
      */
@@ -32,10 +34,7 @@ final class ReplaceUriPlugin implements Plugin
         $this->uri = $uri;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function handleRequest(RequestInterface $request, callable $next, callable $first)
+    public function doHandleRequest(RequestInterface $request, callable $next, callable $first)
     {
         $request = $request->withUri($this->uri);
 

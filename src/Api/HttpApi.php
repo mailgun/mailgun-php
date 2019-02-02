@@ -11,14 +11,14 @@ declare(strict_types=1);
 
 namespace Mailgun\Api;
 
-use Http\Client\Exception as HttplugException;
-use Http\Client\HttpClient;
 use Mailgun\Exception\UnknownErrorException;
 use Mailgun\Hydrator\Hydrator;
 use Mailgun\Hydrator\NoopHydrator;
 use Mailgun\Exception\HttpClientException;
 use Mailgun\Exception\HttpServerException;
 use Mailgun\HttpClient\RequestBuilder;
+use Psr\Http\Client as Psr18;
+use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\ResponseInterface;
 
 /**
@@ -29,7 +29,7 @@ abstract class HttpApi
     /**
      * The HTTP client.
      *
-     * @var HttpClient
+     * @var ClientInterface
      */
     protected $httpClient;
 
@@ -43,7 +43,7 @@ abstract class HttpApi
      */
     protected $requestBuilder;
 
-    public function __construct(HttpClient $httpClient, RequestBuilder $requestBuilder, Hydrator $hydrator)
+    public function __construct(ClientInterface $httpClient, RequestBuilder $requestBuilder, Hydrator $hydrator)
     {
         $this->httpClient = $httpClient;
         $this->requestBuilder = $requestBuilder;
@@ -113,7 +113,7 @@ abstract class HttpApi
             $response = $this->httpClient->sendRequest(
                 $this->requestBuilder->create('GET', $path, $requestHeaders)
             );
-        } catch (HttplugException\NetworkException $e) {
+        } catch (Psr18\NetworkExceptionInterface $e) {
             throw HttpServerException::networkError($e);
         }
 
@@ -145,7 +145,7 @@ abstract class HttpApi
             $response = $this->httpClient->sendRequest(
                 $this->requestBuilder->create('POST', $path, $requestHeaders, $body)
             );
-        } catch (HttplugException\NetworkException $e) {
+        } catch (Psr18\NetworkExceptionInterface $e) {
             throw HttpServerException::networkError($e);
         }
 
@@ -165,7 +165,7 @@ abstract class HttpApi
             $response = $this->httpClient->sendRequest(
                 $this->requestBuilder->create('PUT', $path, $requestHeaders, $this->createRequestBody($parameters))
             );
-        } catch (HttplugException\NetworkException $e) {
+        } catch (Psr18\NetworkExceptionInterface $e) {
             throw HttpServerException::networkError($e);
         }
 
@@ -185,7 +185,7 @@ abstract class HttpApi
             $response = $this->httpClient->sendRequest(
                 $this->requestBuilder->create('DELETE', $path, $requestHeaders, $this->createRequestBody($parameters))
             );
-        } catch (HttplugException\NetworkException $e) {
+        } catch (Psr18\NetworkExceptionInterface $e) {
             throw HttpServerException::networkError($e);
         }
 

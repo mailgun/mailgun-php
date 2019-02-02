@@ -11,13 +11,14 @@ declare(strict_types=1);
 
 namespace Mailgun;
 
-use Http\Client\HttpClient;
+use Http\Client\Common\PluginClient;
 use Mailgun\HttpClient\HttpClientConfigurator;
 use Mailgun\HttpClient\Plugin\History;
 use Mailgun\HttpClient\RequestBuilder;
 use Mailgun\Hydrator\ModelHydrator;
 use Mailgun\Hydrator\Hydrator;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Client\ClientInterface;
 
 /**
  * This class is the base class for the Mailgun SDK.
@@ -30,7 +31,7 @@ final class Mailgun
     private $apiKey;
 
     /**
-     * @var HttpClient
+     * @var ClientInterface|PluginClient
      */
     private $httpClient;
 
