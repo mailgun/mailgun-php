@@ -37,7 +37,7 @@ composer require mailgun/mailgun-php kriswallsmith/buzz nyholm/psr7
 ## Usage
 
 You should always use Composer's autoloader in your application to automatically load
-the your dependencies. All examples below assumes you've already included this in your
+your dependencies. All the examples below assume you've already included this in your
 file:
 
 ```php
