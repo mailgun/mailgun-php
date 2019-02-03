@@ -14,6 +14,6 @@ namespace Mailgun\Model\Webhook;
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
-class UpdateResponse extends BaseResponse
+final class UpdateResponse extends BaseResponse
 {
 }

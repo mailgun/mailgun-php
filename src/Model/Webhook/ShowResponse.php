@@ -16,7 +16,7 @@ use Mailgun\Model\ApiResponse;
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
-class ShowResponse implements ApiResponse
+final class ShowResponse implements ApiResponse
 {
     private $webhook = [];
 
