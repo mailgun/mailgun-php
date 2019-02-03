@@ -6,5 +6,5 @@ workflow "Main" {
 action "PHPStan" {
   uses = "docker://oskarstark/phpstan-ga"
   secrets = ["GITHUB_TOKEN"]
-  args = "analyse src/ --level=0"
+  args = "analyse"
 }
