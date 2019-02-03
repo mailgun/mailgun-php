@@ -11,14 +11,14 @@ declare(strict_types=1);
 
 namespace Mailgun\HttpClient;
 
-use Http\Client\Common\PluginClient;
-use Http\Discovery\Psr18ClientDiscovery;
-use Http\Discovery\UriFactoryDiscovery;
-use Http\Message\UriFactory;
 use Http\Client\Common\Plugin;
+use Http\Client\Common\PluginClient;
+use Http\Discovery\Psr17FactoryDiscovery;
+use Http\Discovery\Psr18ClientDiscovery;
 use Mailgun\HttpClient\Plugin\History;
 use Mailgun\HttpClient\Plugin\ReplaceUriPlugin;
 use Psr\Http\Client\ClientInterface;
+use Psr\Http\Message\UriFactoryInterface;
 
 /**
  * Configure a HTTP client.
@@ -45,7 +45,7 @@ final class HttpClientConfigurator
     private $apiKey;
 
     /**
-     * @var UriFactory
+     * @var UriFactoryInterface
      */
     private $uriFactory;
 
@@ -108,16 +108,16 @@ final class HttpClientConfigurator
         return $this;
     }
 
-    private function getUriFactory(): UriFactory
+    private function getUriFactory(): UriFactoryInterface
     {
         if (null === $this->uriFactory) {
-            $this->uriFactory = UriFactoryDiscovery::find();
+            $this->uriFactory = Psr17FactoryDiscovery::findUrlFactory();
         }
 
         return $this->uriFactory;
     }
 
-    public function setUriFactory(UriFactory $uriFactory): self
+    public function setUriFactory(UriFactoryInterface $uriFactory): self
     {
         $this->uriFactory = $uriFactory;
 
