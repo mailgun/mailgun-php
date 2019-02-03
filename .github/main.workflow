@@ -12,5 +12,5 @@ action "Roave BC Check" {
 action "PHPStan" {
   uses = "docker://oskarstark/phpstan-ga"
   secrets = ["GITHUB_TOKEN"]
-  args = "analyse src/"
+  args = "analyse"
 }
