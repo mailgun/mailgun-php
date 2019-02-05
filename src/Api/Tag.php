@@ -38,7 +38,7 @@ class Tag extends HttpApi
     public function index(string $domain, int $limit = 100)
     {
         Assert::stringNotEmpty($domain);
-        Assert::lessThanEq($limit, 1000);
+        Assert::range($limit, 1, 1000);
 
         $params = [
             'limit' => $limit,
