@@ -270,7 +270,7 @@ class MessageBuilder
 
         $this->message['attachment'][] = [
             'filePath' => $attachmentPath,
-            'remoteName' => $attachmentName,
+            'filename' => $attachmentName,
         ];
 
         return $this;
