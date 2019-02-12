@@ -50,7 +50,7 @@ The change log describes what is "Added", "Removed", "Changed" or "Fixed" betwee
 - Allow to set the Mailgun server when instantiating the Mailgun's client: `$mailgun = Mailgun::create('key', 'server');`
 - Add new PHPUnit tests for our models
 - Add new PHPUnit tests for our API
-- Added `Maingun\Api\Attachment`
+- Added `Mailgun\Api\Attachment`
 - Fluent interface for `MessageBuilder` and `BatchMessage`
 - Support for HTTPlug 2.0
 
