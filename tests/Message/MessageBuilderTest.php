@@ -150,11 +150,11 @@ class MessageBuilderTest extends MailgunTestCase
             [
                 [
                     'filePath' => '@../TestAssets/mailgun_icon.png',
-                    'remoteName' => null,
+                    'filename' => null,
                 ],
                 [
                     'filePath' => '@../TestAssets/rackspace_logo.png',
-                    'remoteName' => null,
+                    'filename' => null,
                 ],
             ],
             $message['attachment']
@@ -170,11 +170,11 @@ class MessageBuilderTest extends MailgunTestCase
             [
                 [
                     'filePath' => '@../TestAssets/mailgun_icon.png',
-                    'remoteName' => null,
+                    'filename' => null,
                 ],
                 [
                     'filePath' => '@../TestAssets/rackspace_logo.png',
-                    'remoteName' => null,
+                    'filename' => null,
                 ],
             ],
             $message['inline']
@@ -190,11 +190,11 @@ class MessageBuilderTest extends MailgunTestCase
             [
                 [
                     'filePath' => '@../TestAssets/mailgun_icon.png',
-                    'remoteName' => 'mg_icon.png',
+                    'filename' => 'mg_icon.png',
                 ],
                 [
                     'filePath' => '@../TestAssets/rackspace_logo.png',
-                    'remoteName' => 'rs_logo.png',
+                    'filename' => 'rs_logo.png',
                 ],
             ],
             $message['attachment']
@@ -210,11 +210,11 @@ class MessageBuilderTest extends MailgunTestCase
             [
                 [
                     'filePath' => '@../TestAssets/mailgun_icon.png',
-                    'remoteName' => 'mg_icon.png',
+                    'filename' => 'mg_icon.png',
                 ],
                 [
                     'filePath' => '@../TestAssets/rackspace_logo.png',
-                    'remoteName' => 'rs_logo.png',
+                    'filename' => 'rs_logo.png',
                 ],
             ],
             $message['inline']
