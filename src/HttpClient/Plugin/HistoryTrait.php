@@ -18,7 +18,7 @@ use Psr\Http\Message\RequestInterface;
 /*
  * Below is a some code to make the History plugin compatible with both 1.x and 2.x of php-client/client-common
  */
-if (\class_exists(\Http\Client\Common\HttpMethodsClientInterface::class)) {
+if (\interface_exists(\Http\Client\Common\HttpMethodsClientInterface::class)) {
     /**
      * @internal code for php-http/client-common:2.x
      */
