@@ -40,8 +40,7 @@ class MailingList extends HttpApi
      */
     public function pages(int $limit = 100)
     {
-        Assert::integer($limit);
-        Assert::greaterThan($limit, 0);
+        Assert::range($limit, 1, 1000);
 
         $params = [
             'limit' => $limit,

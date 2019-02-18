@@ -37,6 +37,7 @@ class Route extends HttpApi
     {
         Assert::greaterThan($limit, 0);
         Assert::greaterThanEq($skip, 0);
+        Assert::range($limit, 1, 1000);
 
         $params = [
             'limit' => $limit,

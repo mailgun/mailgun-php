@@ -30,6 +30,10 @@ class Event extends HttpApi
     {
         Assert::stringNotEmpty($domain);
 
+        if (array_key_exists('limit', $params)) {
+            Assert::range($params['limit'], 1, 300);
+        }
+
         $response = $this->httpGet(sprintf('/v3/%s/events', $domain), $params);
 
         return $this->hydrateResponse($response, EventResponse::class);

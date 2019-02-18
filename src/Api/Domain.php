@@ -40,6 +40,8 @@ class Domain extends HttpApi
      */
     public function index(int $limit = 100, int $skip = 0)
     {
+        Assert::range($limit, 1, 1000);
+
         $params = [
             'limit' => $limit,
             'skip' => $skip,
