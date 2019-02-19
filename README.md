@@ -31,7 +31,7 @@ This will give you the flexibilty to choose what PSR-7 implementation and HTTP c
 If you just want to get started quickly you should run the following command: 
 
 ```bash
-composer require mailgun/mailgun-php kriswallsmith/buzz nyholm/psr7
+composer require mailgun/mailgun-php php-http/curl-client guzzlehttp/psr7
 ```
 
 ## Usage
