@@ -12,7 +12,6 @@ declare(strict_types=1);
 namespace Mailgun\Api;
 
 use Mailgun\Assert;
-use Mailgun\Model\Attachment\Attachment as Model;
 use Psr\Http\Message\ResponseInterface;
 
 /**
@@ -21,7 +20,7 @@ use Psr\Http\Message\ResponseInterface;
 class Attachment extends HttpApi
 {
     /**
-     * @return Model|ResponseInterface
+     * @return ResponseInterface
      */
     public function show(string $url)
     {
@@ -31,6 +30,10 @@ class Attachment extends HttpApi
 
         $response = $this->httpGet($url);
 
-        return $this->hydrateResponse($response, Model::class);
+        if (200 !== $response->getStatusCode()) {
+            $this->handleErrors($response);
+        }
+
+        return $response;
     }
 }
