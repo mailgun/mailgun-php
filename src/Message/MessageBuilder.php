@@ -270,7 +270,7 @@ class MessageBuilder
 
         $this->message['attachment'][] = [
             'filePath' => $attachmentPath,
-            'remoteName' => $attachmentName,
+            'filename' => $attachmentName,
         ];
 
         return $this;
@@ -284,7 +284,7 @@ class MessageBuilder
 
         $this->message['inline'][] = [
             'filePath' => $inlineImagePath,
-            'remoteName' => $inlineImageName,
+            'filename' => $inlineImageName,
         ];
 
         return $this;
