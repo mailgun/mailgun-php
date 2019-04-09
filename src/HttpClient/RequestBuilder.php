@@ -53,7 +53,7 @@ class RequestBuilder
     public function create(string $method, string $uri, array $headers = [], $body = null): RequestInterface
     {
         if (!is_array($body)) {
-            $stream = $this->getStreamFactory()->createStream($body);
+            $stream = $this->getStreamFactory()->createStream((string) $body);
 
             return $this->createRequest($method, $uri, $headers, $stream);
         }
