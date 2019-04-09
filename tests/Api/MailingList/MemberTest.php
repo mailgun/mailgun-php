@@ -70,7 +70,7 @@ class MemberTest extends TestCase
         $data = [
             'address' => 'foo@example.com',
             'name' => 'Foo',
-            'vars' => [],
+            'vars' => \json_encode([]),
             'subscribed' => 'yes',
             'upsert' => 'no',
         ];
@@ -162,9 +162,9 @@ class MemberTest extends TestCase
     public function testUpdate()
     {
         $data = [
-            'vars' => [
+            'vars' => \json_encode([
                 'foo' => 'bar',
-            ],
+            ]),
             'subscribed' => 'yes',
         ];
 
@@ -182,7 +182,7 @@ class MemberTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
 
         $data = [
-            'vars' => 'foo=bar',
+            'vars' => 4711,
             'subscribed' => 'yes',
         ];
 

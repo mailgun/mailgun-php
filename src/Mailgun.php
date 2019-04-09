@@ -23,7 +23,7 @@ use Psr\Http\Client\ClientInterface;
 /**
  * This class is the base class for the Mailgun SDK.
  */
-final class Mailgun
+class Mailgun
 {
     /**
      * @var string|null

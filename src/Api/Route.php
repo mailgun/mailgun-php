@@ -80,7 +80,7 @@ class Route extends HttpApi
         Assert::isArray($actions);
 
         $params = [
-            'priority' => $priority,
+            'priority' => (string) $priority,
             'expression' => $expression,
             'action' => $actions,
             'description' => $description,
@@ -129,7 +129,7 @@ class Route extends HttpApi
         }
 
         if (!empty($priority)) {
-            $params['priority'] = $priority;
+            $params['priority'] = (string) $priority;
         }
 
         $response = $this->httpPut(sprintf('/v3/routes/%s', $routeId), $params);
