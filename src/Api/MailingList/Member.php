@@ -151,11 +151,8 @@ class Member extends HttpApi
 
                         break;
                     case 'name':
-                        Assert::string($value);
-
-                        break;
                     case 'vars':
-                        Assert::isArray($value);
+                        Assert::string($value);
 
                         break;
                     case 'subscribed':
@@ -197,11 +194,8 @@ class Member extends HttpApi
             switch ($field) {
                 case 'address':
                 case 'name':
-                    Assert::stringNotEmpty($value);
-
-                    break;
                 case 'vars':
-                    Assert::isArray($value);
+                    Assert::stringNotEmpty($value);
 
                     break;
                 case 'subscribed':
