@@ -100,7 +100,7 @@ class Member extends HttpApi
         $params = [
             'address' => $address,
             'name' => $name,
-            'vars' => $vars,
+            'vars' => \json_encode($vars),
             'subscribed' => $subscribed ? 'yes' : 'no',
             'upsert' => $upsert ? 'yes' : 'no',
         ];
@@ -144,14 +144,18 @@ class Member extends HttpApi
 
             Assert::isArray($data);
 
-            foreach ($data as $field => $value) {
+            foreach ($data as $field => &$value) {
                 switch ($field) {
                     case 'address':
                         Assert::stringNotEmpty($value);
 
                         break;
-                    case 'name':
                     case 'vars':
+                        if (is_array($value)) {
+                            $value = json_encode($value);
+                        }
+                        // We should assert that "vars"'s $value is a string. No break.
+                    case 'name':
                         Assert::string($value);
 
                         break;
@@ -192,9 +196,13 @@ class Member extends HttpApi
 
         foreach ($parameters as $field => $value) {
             switch ($field) {
+                case 'vars':
+                    if (is_array($value)) {
+                        $value = json_encode($value);
+                    }
+                    // We should assert that "vars"'s $value is a string. No break.
                 case 'address':
                 case 'name':
-                case 'vars':
                     Assert::stringNotEmpty($value);
 
                     break;

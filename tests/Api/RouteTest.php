@@ -63,7 +63,7 @@ class RouteTest extends TestCase
             'expression' => 'catch_all()',
            'action' => 'forward("mailbox@myapp.com")',
            'description' => 'example',
-           'priority' => 100,
+           'priority' => '100',
         ]);
 
         $api = $this->getApiInstance();
