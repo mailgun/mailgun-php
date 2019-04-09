@@ -154,7 +154,8 @@ class Member extends HttpApi
                         if (is_array($value)) {
                             $value = json_encode($value);
                         }
-                        // We should assert that "vars"'s $value is a string. No break.
+                        // We should assert that "vars"'s $value is a string.
+                        // no break
                     case 'name':
                         Assert::string($value);
 
@@ -200,7 +201,8 @@ class Member extends HttpApi
                     if (is_array($value)) {
                         $value = json_encode($value);
                     }
-                    // We should assert that "vars"'s $value is a string. No break.
+                    // We should assert that "vars"'s $value is a string.
+                    // no break
                 case 'address':
                 case 'name':
                     Assert::stringNotEmpty($value);
