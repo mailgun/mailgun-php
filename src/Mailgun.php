@@ -74,10 +74,7 @@ class Mailgun
         return new self($httpClientConfigurator);
     }
 
-    /**
-     * @return ResponseInterface|null
-     */
-    public function getLastResponse()
+    public function getLastResponse(): ?ResponseInterface
     {
         return $this->responseHistory->getLastResponse();
     }
