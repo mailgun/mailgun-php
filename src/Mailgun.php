@@ -133,4 +133,9 @@ class Mailgun
     {
         return new Api\EmailValidation($this->httpClient, $this->requestBuilder, $this->hydrator);
     }
+
+    public function mailingList(): Api\MailingList
+    {
+        return new Api\MailingList($this->httpClient, $this->requestBuilder, $this->hydrator);
+    }
 }
