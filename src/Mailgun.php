@@ -79,11 +79,6 @@ class Mailgun
         return $this->responseHistory->getLastResponse();
     }
 
-    public function stats(): Api\Stats
-    {
-        return new Api\Stats($this->httpClient, $this->requestBuilder, $this->hydrator);
-    }
-
     public function attachment(): Api\Attachment
     {
         return new Api\Attachment($this->httpClient, $this->requestBuilder, $this->hydrator);
@@ -94,9 +89,9 @@ class Mailgun
         return new Api\Domain($this->httpClient, $this->requestBuilder, $this->hydrator);
     }
 
-    public function tags(): Api\Tag
+    public function emailValidation(): Api\EmailValidation
     {
-        return new Api\Tag($this->httpClient, $this->requestBuilder, $this->hydrator);
+        return new Api\EmailValidation($this->httpClient, $this->requestBuilder, $this->hydrator);
     }
 
     public function events(): Api\Event
@@ -104,14 +99,14 @@ class Mailgun
         return new Api\Event($this->httpClient, $this->requestBuilder, $this->hydrator);
     }
 
-    public function routes(): Api\Route
+    public function ips(): Api\Ip
     {
-        return new Api\Route($this->httpClient, $this->requestBuilder, $this->hydrator);
+        return new Api\Ip($this->httpClient, $this->requestBuilder, $this->hydrator);
     }
 
-    public function webhooks(): Api\Webhook
+    public function mailingList(): Api\MailingList
     {
-        return new Api\Webhook($this->httpClient, $this->requestBuilder, $this->hydrator, $this->apiKey);
+        return new Api\MailingList($this->httpClient, $this->requestBuilder, $this->hydrator);
     }
 
     public function messages(): Api\Message
@@ -119,9 +114,9 @@ class Mailgun
         return new Api\Message($this->httpClient, $this->requestBuilder, $this->hydrator);
     }
 
-    public function ips(): Api\Ip
+    public function routes(): Api\Route
     {
-        return new Api\Ip($this->httpClient, $this->requestBuilder, $this->hydrator);
+        return new Api\Route($this->httpClient, $this->requestBuilder, $this->hydrator);
     }
 
     public function suppressions(): Api\Suppression
@@ -129,13 +124,18 @@ class Mailgun
         return new Api\Suppression($this->httpClient, $this->requestBuilder, $this->hydrator);
     }
 
-    public function emailValidation(): Api\EmailValidation
+    public function stats(): Api\Stats
     {
-        return new Api\EmailValidation($this->httpClient, $this->requestBuilder, $this->hydrator);
+        return new Api\Stats($this->httpClient, $this->requestBuilder, $this->hydrator);
     }
 
-    public function mailingList(): Api\MailingList
+    public function tags(): Api\Tag
     {
-        return new Api\MailingList($this->httpClient, $this->requestBuilder, $this->hydrator);
+        return new Api\Tag($this->httpClient, $this->requestBuilder, $this->hydrator);
+    }
+
+    public function webhooks(): Api\Webhook
+    {
+        return new Api\Webhook($this->httpClient, $this->requestBuilder, $this->hydrator, $this->apiKey);
     }
 }
