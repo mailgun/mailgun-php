@@ -49,8 +49,8 @@ class ShowResponse implements ApiResponse
      */
     public function getWebhookUrl()
     {
-        if (isset($this->webhook['url'])) {
-            return $this->webhook['url'];
+        if (isset($this->webhook['urls'])) {
+            return $this->webhook['urls'];
         }
     }
 }
