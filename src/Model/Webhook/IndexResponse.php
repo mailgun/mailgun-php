@@ -98,7 +98,6 @@ final class IndexResponse implements ApiResponse
         return $this->legacy_open['url'] ?? null;
     }
 
-
     public function getClickedUrls(): ?array
     {
         return $this->clicked['urls'] ?? null;
