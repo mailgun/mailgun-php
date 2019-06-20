@@ -78,7 +78,7 @@ JSON;
         $this->assertNull($model->getClickUrl());
         $this->assertNull($model->getOpenUrl());
     }
-    
+
     public function testLegacy()
     {
         $json =
