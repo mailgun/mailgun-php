@@ -119,12 +119,19 @@ JSON;
         $this->assertEquals('http://example.com/open_1', $model->getOpenUrl());
         $this->assertEquals('http://example.com/spam_1', $model->getSpamUrl());
         $this->assertEquals('http://example.com/unsubscribe_1', $model->getUnsubscribeUrl());
-        $this->assertNull($model->getClickedUrls());
-        $this->assertNull($model->getComplainedUrls());
-        $this->assertNull($model->getDeliveredUrls());
-        $this->assertNull($model->getOpenedUrls());
-        $this->assertNull($model->getPermanentFailUrls());
-        $this->assertNull($model->getTemporaryFailUrls());
-        $this->assertNull($model->getUnsubscribeUrls());
+        $this->assertInternalType('array', $model->getClickedUrls());
+        $this->assertInternalType('array', $model->getComplainedUrls());
+        $this->assertInternalType('array', $model->getDeliveredUrls());
+        $this->assertInternalType('array', $model->getOpenedUrls());
+        $this->assertInternalType('array', $model->getPermanentFailUrls());
+        $this->assertInternalType('array', $model->getTemporaryFailUrls());
+        $this->assertInternalType('array', $model->getUnsubscribeUrls());
+        $this->assertCount(0, $model->getClickedUrls());
+        $this->assertCount(0, $model->getComplainedUrls());
+        $this->assertCount(0, $model->getDeliveredUrls());
+        $this->assertCount(0, $model->getOpenedUrls());
+        $this->assertCount(0, $model->getPermanentFailUrls());
+        $this->assertCount(0, $model->getTemporaryFailUrls());
+        $this->assertCount(0, $model->getUnsubscribeUrls());
     }
 }
