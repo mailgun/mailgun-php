@@ -18,20 +18,19 @@ use Mailgun\Model\ApiResponse;
  */
 final class IndexResponse implements ApiResponse
 {
-    private $legacy_bounce = [];
-    private $legacy_deliver = [];
-    private $legacy_drop = [];
-    private $legacy_spam = [];
-    private $legacy_unsubscribe = [];
-    private $legacy_click = [];
-    private $legacy_open = [];
-
+    private $legacyBounce = null;
+    private $legacyDeliver = null;
+    private $legacyDrop = null;
+    private $legacySpam = null;
+    private $legacyUnsubscribe = null;
+    private $legacyClick = null;
+    private $legacyOpen = null;
     private $clicked = [];
     private $complained = [];
     private $delivered = [];
     private $opened = [];
-    private $permanent_fail = [];
-    private $temporary_fail = [];
+    private $permanentFail = [];
+    private $temporaryFail = [];
     private $unsubscribed = [];
 
     private function __construct()
@@ -44,92 +43,92 @@ final class IndexResponse implements ApiResponse
 
         $data = $data['webhooks'] ?? $data;
 
-        $model->legacy_bounce = $data['bounce'] ?? [];
-        $model->legacy_deliver = $data['deliver'] ?? [];
-        $model->legacy_drop = $data['drop'] ?? [];
-        $model->legacy_spam = $data['spam'] ?? [];
-        $model->legacy_unsubscribe = $data['unsubscribe'] ?? [];
-        $model->legacy_click = $data['click'] ?? [];
-        $model->legacy_open = $data['open'] ?? [];
+        $model->legacyBounce = $data['bounce']['url'] ?? null;
+        $model->legacyDeliver = $data['deliver']['url'] ?? null;
+        $model->legacyDrop = $data['drop']['url'] ?? null;
+        $model->legacySpam = $data['spam']['url'] ?? null;
+        $model->legacyUnsubscribe = $data['unsubscribe']['url'] ?? null;
+        $model->legacyClick = $data['click']['url'] ?? null;
+        $model->legacyOpen = $data['open']['url'] ?? null;
 
-        $model->clicked = $data['clicked'] ?? [];
-        $model->complained = $data['complained'] ?? [];
-        $model->delivered = $data['delivered'] ?? [];
-        $model->opened = $data['opened'] ?? [];
-        $model->permanent_fail = $data['permanent_fail'] ?? [];
-        $model->temporary_fail = $data['temporary_fail'] ?? [];
-        $model->unsubscribed = $data['unsubscribed'] ?? [];
+        $model->clicked = $data['clicked']['urls'] ?? [];
+        $model->complained = $data['complained']['urls'] ?? [];
+        $model->delivered = $data['delivered']['urls'] ?? [];
+        $model->opened = $data['opened']['urls'] ?? [];
+        $model->permanentFail = $data['permanent_fail']['urls'] ?? [];
+        $model->temporaryFail = $data['temporary_fail']['urls'] ?? [];
+        $model->unsubscribed = $data['unsubscribed']['urls'] ?? [];
 
         return $model;
     }
 
     public function getBounceUrl(): ?string
     {
-        return $this->legacy_bounce['url'] ?? null;
+        return $this->legacyBounce;
     }
 
     public function getDeliverUrl(): ?string
     {
-        return $this->legacy_deliver['url'] ?? null;
+        return $this->legacyDeliver;
     }
 
     public function getDropUrl(): ?string
     {
-        return $this->legacy_drop['url'] ?? null;
+        return $this->legacyDrop;
     }
 
     public function getSpamUrl(): ?string
     {
-        return $this->legacy_spam['url'] ?? null;
+        return $this->legacySpam;
     }
 
-    public function getUnsubscribeUrl()
+    public function getUnsubscribeUrl(): ?string
     {
-        return $this->legacy_unsubscribe['url'] ?? null;
+        return $this->legacyUnsubscribe;
     }
 
     public function getClickUrl(): ?string
     {
-        return $this->legacy_click['url'] ?? null;
+        return $this->legacyClick;
     }
 
     public function getOpenUrl(): ?string
     {
-        return $this->legacy_open['url'] ?? null;
+        return $this->legacyOpen;
     }
 
     public function getClickedUrls(): ?array
     {
-        return $this->clicked['urls'] ?? null;
+        return $this->clicked;
     }
 
     public function getComplainedUrls(): ?array
     {
-        return $this->complained['urls'] ?? null;
+        return $this->complained;
     }
 
     public function getDeliveredUrls(): ?array
     {
-        return $this->delivered['urls'] ?? null;
+        return $this->delivered;
     }
 
     public function getOpenedUrls(): ?array
     {
-        return $this->opened['urls'] ?? null;
+        return $this->opened;
     }
 
     public function getPermanentFailUrls(): ?array
     {
-        return $this->permanent_fail['urls'] ?? null;
+        return $this->permanentFail;
     }
 
     public function getTemporaryFailUrls(): ?array
     {
-        return $this->temporary_fail['urls'] ?? null;
+        return $this->temporaryFail;
     }
 
     public function getUnsubscribeUrls(): ?array
     {
-        return $this->unsubscribed['urls'] ?? null;
+        return $this->unsubscribed;
     }
 }
