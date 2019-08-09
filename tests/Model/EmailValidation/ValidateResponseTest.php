@@ -29,8 +29,15 @@ class ValidateResponseTest extends BaseModelTest
     "risk": "low"
 }
 JSON;
+
         $model = ValidateResponse::create(json_decode($json, true));
-        $this->assertTrue($model->isMailboxVerification());
+
+        $this->assertEquals('foo@mailgun.net', $model->getAddress());
+        $this->assertFalse($model->isDisposableAddress());
+        $this->assertTrue($model->isRoleAddress());
+        $this->assertEquals([], $model->getReason());
+        $this->assertEquals('deliverable', $model->getResult());
+        $this->assertEquals('low', $model->getRisk());
     }
 
     public function testEmailValidation()
