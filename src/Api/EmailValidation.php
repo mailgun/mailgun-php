@@ -27,13 +27,19 @@ use Psr\Http\Message\ResponseInterface;
 class EmailValidation extends HttpApi
 {
     /**
-     * Addresses are validated based off defined checks.
+     * Mailgun API will validate the given address based on:
+     * - Mailbox detection
+     * - Syntax checks (RFC defined grammar)
+     * - DNS validation
+     * - Spell checks
+     * - Email Service Provider (ESP) specific local-part grammar (if available).
      *
-     * This operation is only accessible with the private API key and not subject to the daily usage limits.
+     * Pricing details for Mailgun’s email validation service can be found on Mailgun's pricing page.
+     *
+     * @see https://documentation.mailgun.com/en/latest/api-email-validation.html
+     * @see https://www.mailgun.com/pricing
      *
      * @param string $address             An email address to validate. Maximum: 512 characters.
-     * @param bool   $mailboxVerification If set to true, a mailbox verification check will be performed
-     *                                    against the address. The default is False.
      *
      * @throws InvalidArgumentException Thrown when local validation returns an error
      * @throws HttpClientException      Thrown when there's an error on Client side
@@ -42,14 +48,11 @@ class EmailValidation extends HttpApi
      *
      * @return ValidateResponse|ResponseInterface
      */
-    public function validate(string $address, bool $mailboxVerification = false)
+    public function validate(string $address)
     {
         Assert::stringNotEmpty($address);
 
-        $params = [
-            'address' => $address,
-            'mailbox_verification' => $mailboxVerification,
-        ];
+        $params = ['address' => $address];
 
         $response = $this->httpGet('/v4/address/validate', $params);
 

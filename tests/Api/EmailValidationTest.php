@@ -26,10 +26,7 @@ class EmailValidationTest extends TestCase
 
     public function testValidEmail()
     {
-        $params = [
-            'address' => 'me@davidgarcia.cat',
-            'mailbox_verification' => true,
-        ];
+        $params = ['address' => 'foo@mailgun.net'];
 
         $api = $this->getApiMock();
 
