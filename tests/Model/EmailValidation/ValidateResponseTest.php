@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace Mailgun\Tests\Model\EmailValidation;
 
-use Mailgun\Model\EmailValidation\Parts;
 use Mailgun\Model\EmailValidation\ValidateResponse;
 use Mailgun\Tests\Model\BaseModelTest;
 
