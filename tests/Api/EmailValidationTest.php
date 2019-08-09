@@ -35,7 +35,7 @@ class EmailValidationTest extends TestCase
             ->with('/v4/address/validate', $params)
             ->willReturn(new Response());
 
-        $api->validate($params['address'], $params['mailbox_verification']);
+        $api->validate($params['address']);
     }
 
     public function testParseEmail()
