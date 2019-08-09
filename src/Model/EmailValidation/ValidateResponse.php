@@ -85,17 +85,11 @@ final class ValidateResponse implements ApiResponse
         return $this->reason;
     }
 
-    /**
-     * @return string|null
-     */
     public function getResult(): ?string
     {
         return $this->result;
     }
 
-    /**
-     * @return string|null
-     */
     public function getRisk(): ?string
     {
         return $this->risk;
