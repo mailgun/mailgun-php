@@ -24,11 +24,6 @@ final class ValidateResponse implements ApiResponse
     private $address;
 
     /**
-     * @var string|null
-     */
-    private $didYouMean;
-
-    /**
      * @var bool
      */
     private $isDisposableAddress;
@@ -39,24 +34,19 @@ final class ValidateResponse implements ApiResponse
     private $isRoleAddress;
 
     /**
-     * @var bool
+     * @var string[]
      */
-    private $isValid;
-
-    /**
-     * @var bool
-     */
-    private $mailboxVerification;
-
-    /**
-     * @var Parts
-     */
-    private $parts;
+    private $reason;
 
     /**
      * @var string|null
      */
-    private $reason;
+    private $result;
+
+    /**
+     * @var string|null
+     */
+    private $risk;
 
     private function __construct()
     {
@@ -66,13 +56,11 @@ final class ValidateResponse implements ApiResponse
     {
         $model = new self();
         $model->address = $data['address'] ?? null;
-        $model->didYouMean = $data['did_you_mean'] ?? null;
         $model->isDisposableAddress = $data['is_disposable_address'] ?? false;
         $model->isRoleAddress = $data['is_role_address'] ?? false;
-        $model->isValid = $data['is_valid'] ?? false;
-        $model->mailboxVerification = isset($data['mailbox_verification']) ? 'true' === $data['mailbox_verification'] : false;
-        $model->parts = Parts::create($data['parts'] ?? []);
-        $model->reason = $data['reason'] ?? null;
+        $model->reason = $data['reason'] ?? [];
+        $model->result = $data['result'] ?? null;
+        $model->risk = $data['risk'] ?? null;
 
         return $model;
     }
@@ -80,11 +68,6 @@ final class ValidateResponse implements ApiResponse
     public function getAddress(): ?string
     {
         return $this->address;
-    }
-
-    public function getDidYouMean(): ?string
-    {
-        return $this->didYouMean;
     }
 
     public function isDisposableAddress(): bool
@@ -97,23 +80,24 @@ final class ValidateResponse implements ApiResponse
         return $this->isRoleAddress;
     }
 
-    public function isValid(): bool
-    {
-        return $this->isValid;
-    }
-
-    public function isMailboxVerification(): bool
-    {
-        return $this->mailboxVerification;
-    }
-
-    public function getParts(): Parts
-    {
-        return $this->parts;
-    }
-
-    public function getReason(): ?string
+    public function getReason(): array
     {
         return $this->reason;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getResult(): ?string
+    {
+        return $this->result;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getRisk(): ?string
+    {
+        return $this->risk;
     }
 }
