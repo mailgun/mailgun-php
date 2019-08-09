@@ -35,7 +35,7 @@ class EmailValidationTest extends TestCase
 
         $api->expects($this->once())
             ->method('httpGet')
-            ->with('/address/private/validate', $params)
+            ->with('/v4/address/validate', $params)
             ->willReturn(new Response());
 
         $api->validate($params['address'], $params['mailbox_verification']);
