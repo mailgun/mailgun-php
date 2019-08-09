@@ -39,7 +39,7 @@ class EmailValidation extends HttpApi
      * @see https://documentation.mailgun.com/en/latest/api-email-validation.html
      * @see https://www.mailgun.com/pricing
      *
-     * @param string $address             An email address to validate. Maximum: 512 characters.
+     * @param string $address An email address to validate. Maximum: 512 characters.
      *
      * @throws InvalidArgumentException Thrown when local validation returns an error
      * @throws HttpClientException      Thrown when there's an error on Client side
