@@ -42,7 +42,7 @@ JSON;
             'is_role_address' => false,
             'reason' => [],
             'result' => 'deliverable',
-            'risk' => 'low'
+            'risk' => 'low',
         ];
 
         $parts = ValidateResponse::create($data);
