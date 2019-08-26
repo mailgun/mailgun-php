@@ -88,14 +88,24 @@ class Domain extends HttpApi
 
         $params['name'] = $domain;
 
-        // If at least smtpPass available, check for the fields spamAction wildcard
         if (!empty($smtpPass)) {
-            // TODO(sean.johnson): Extended spam filter input validation.
-            Assert::stringNotEmpty($spamAction);
-            Assert::boolean($wildcard);
+            Assert::stringNotEmpty($smtpPass);
+            Assert::lengthBetween($smtpPass, 5, 32, 'SMTP password must be between 5 and 32 characters.');
 
             $params['smtp_password'] = $smtpPass;
+        }
+
+        if (null !== $spamAction) {
+            // TODO(sean.johnson): Extended spam filter input validation.
+            Assert::stringNotEmpty($spamAction);
+
             $params['spam_action'] = $spamAction;
+        }
+
+        if (null !== $wildcard) {
+            Assert::boolean($wildcard);
+
+            $params['wildcard'] = $wildcard ? 'true' : 'false';
         }
 
         $response = $this->httpPost('/v3/domains', $params);
