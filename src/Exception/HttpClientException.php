@@ -83,6 +83,11 @@ final class HttpClientException extends \RuntimeException implements Exception
         return new self('Payload too large, your total attachment size is too big.', 413, $response);
     }
 
+    public static function forbidden(ResponseInterface $response)
+    {
+        return new self('Forbidden', 403, $response);
+    }
+
     public function getResponse(): ?ResponseInterface
     {
         return $this->response;

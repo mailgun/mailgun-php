@@ -5,3 +5,4 @@ composer.lock
 phpunit.phar
 phpunit.xml
 modd.conf
+.idea
