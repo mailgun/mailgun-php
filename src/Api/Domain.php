@@ -90,12 +90,11 @@ class Domain extends HttpApi
 
         if (!empty($smtpPass)) {
             Assert::stringNotEmpty($smtpPass);
-            Assert::lengthBetween($smtpPass, 5, 32, 'SMTP password must be between 5 and 32 characters.');
 
             $params['smtp_password'] = $smtpPass;
         }
 
-        if (null !== $spamAction) {
+        if (!empty($spamAction)) {
             // TODO(sean.johnson): Extended spam filter input validation.
             Assert::stringNotEmpty($spamAction);
 

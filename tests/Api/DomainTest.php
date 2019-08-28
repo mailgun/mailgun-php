@@ -91,7 +91,37 @@ JSON
         $this->setRequestBody([
             'name' => 'example.com',
             'smtp_password' => 'foo',
+        ]);
+        $this->setHydrateClass(CreateResponse::class);
+
+        $api = $this->getApiInstance();
+        $api->create('example.com', 'foo');
+    }
+
+    public function testCreateWithPasswordSpamAction()
+    {
+        $this->setRequestMethod('POST');
+        $this->setRequestUri('/v3/domains');
+        $this->setRequestBody([
+            'name' => 'example.com',
+            'smtp_password' => 'foo',
             'spam_action' => 'bar',
+        ]);
+        $this->setHydrateClass(CreateResponse::class);
+
+        $api = $this->getApiInstance();
+        $api->create('example.com', 'foo', 'bar');
+    }
+
+    public function testCreateWithPasswordSpamActionWildcard()
+    {
+        $this->setRequestMethod('POST');
+        $this->setRequestUri('/v3/domains');
+        $this->setRequestBody([
+            'name' => 'example.com',
+            'smtp_password' => 'foo',
+            'spam_action' => 'bar',
+            'wildcard' => 'true',
         ]);
         $this->setHydrateClass(CreateResponse::class);
 
