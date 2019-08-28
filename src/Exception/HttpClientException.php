@@ -85,7 +85,17 @@ final class HttpClientException extends \RuntimeException implements Exception
 
     public static function forbidden(ResponseInterface $response)
     {
-        return new self('Forbidden', 403, $response);
+        $body = $response->getBody()->__toString();
+        if (0 !== strpos($response->getHeaderLine('Content-Type'), 'application/json')) {
+            $validationMessage = $body;
+        } else {
+            $jsonDecoded = json_decode($body, true);
+            $validationMessage = isset($jsonDecoded['Error']) ? $jsonDecoded['Error'] : $body;
+        }
+
+        $message = sprintf("Forbidden!\n\n%s", $validationMessage);
+
+        return new self($message, 403, $response);
     }
 
     public function getResponse(): ?ResponseInterface
