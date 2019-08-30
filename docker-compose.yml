@@ -1,0 +1,13 @@
+version: '3.1'
+
+services:
+
+    php:
+        container_name: mailgun-php-sdk-php
+        build:
+            context: ./docker/php
+        ports:
+            - 9000:9000
+        working_dir: /maingun-php-sdk
+        volumes:
+            - .:/maingun-php-sdk:cached
