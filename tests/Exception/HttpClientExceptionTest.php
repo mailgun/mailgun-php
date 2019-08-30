@@ -56,8 +56,8 @@ class HttpClientExceptionTest extends MailgunTestCase
 
     public function testForbiddenRequestGetMessage()
     {
-        $response = new Response(400, ['Content-Type' => 'text/html'], '<html><body>Forbidden</body></html>');
-        $exception = HttpClientException::badRequest($response);
+        $response = new Response(403, ['Content-Type' => 'text/html'], '<html><body>Forbidden</body></html>');
+        $exception = HttpClientException::forbidden($response);
         $this->assertStringEndsWith('<html><body>Forbidden</body></html>', $exception->getMessage());
     }
 }
