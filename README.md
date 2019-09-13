@@ -1,10 +1,8 @@
 # Mailgun PHP client
 
-This is the Mailgun PHP SDK. This SDK contains methods for easily interacting 
-with the Mailgun API. 
-Below are examples to get you started. For additional examples, please see our 
-official documentation 
-at http://documentation.mailgun.com
+This is the Mailgun PHP SDK. This SDK contains methods for easily interacting
+with the Mailgun API. Below are examples to get you started. For additional
+examples, please see our official documentation at http://documentation.mailgun.com
 
 [![Latest Version](https://img.shields.io/github/release/mailgun/mailgun-php.svg?style=flat-square)](https://github.com/mailgun/mailgun-php/releases)
 [![Build Status](https://img.shields.io/travis/mailgun/mailgun-php/master.svg?style=flat-square)](https://travis-ci.org/mailgun/mailgun-php)
@@ -24,9 +22,11 @@ composer:
 curl -sS https://getcomposer.org/installer | php
 ```
 
-The Mailgun api client is not hard coupled to Guzzle or any other library that sends
-HTTP messages. It uses the [PSR-18](https://www.php-fig.org/psr/psr-18/) client abstraction.
-This will give you the flexibilty to choose what [PSR-7 implementation and HTTP client](https://packagist.org/providers/php-http/client-implementation) to use. 
+The Mailgun API Client is not hard coupled to Guzzle, Buzz or any other library that sends
+HTTP messages. Instead, it uses the [PSR-18](https://www.php-fig.org/psr/psr-18/) client abstraction.
+This will give you the flexibility to choose what
+[PSR-7 implementation and HTTP client](https://packagist.org/providers/php-http/client-implementation)
+you want to use. 
 
 If you just want to get started quickly you should run the following command: 
 
@@ -36,7 +36,7 @@ composer require mailgun/mailgun-php kriswallsmith/buzz nyholm/psr7
 
 ## Usage
 
-You should always use Composer's autoloader in your application to automatically load
+You should always use Composer autoloader in your application to automatically load
 your dependencies. All the examples below assume you've already included this in your
 file:
 
@@ -66,7 +66,7 @@ Attention: `$domain` must match to the domain you have configured on [app.mailgu
 
 ### All usage examples
 
-You find more detailed documentation at [/doc](doc/index.md) and on 
+You will find more detailed documentation at [/doc](doc/index.md) and on 
 [https://documentation.mailgun.com](https://documentation.mailgun.com/api_reference.html).
 
 ### Response
@@ -108,12 +108,12 @@ the API calls.
 
 ### Debugging
 
-Debugging the PHP SDK can be really helpful when things aren't working quite right. 
+Debugging the PHP SDK can be helpful when things aren't working quite right. 
 To debug the SDK, here are some suggestions: 
 
-Set the endpoint to Mailgun's Postbin. A Postbin is a web service that allows you to 
-post data, which is then displayed through a browser. This allows you to quickly determine
-what is actually being transmitted to Mailgun's API. 
+Set the endpoint to Mailgun's Postbin. A Postbin is a web service that allows you to
+post data, which then you can display it through a browser. Using Postbin is an easy way
+to quickly determine what data you're transmitting to Mailgun's API.
 
 **Step 1 - Create a new Postbin.**  
 Go to http://bin.mailgun.net. The Postbin will generate a special URL. Save that URL. 
@@ -121,7 +121,7 @@ Go to http://bin.mailgun.net. The Postbin will generate a special URL. Save that
 **Step 2 - Instantiate the Mailgun client using Postbin.**  
 
 *Tip: The bin id will be the URL part after bin.mailgun.net. It will be random generated letters and numbers. 
-For example, the bin id in this URL, http://bin.mailgun.net/aecf68de, is "aecf68de".*
+For example, the bin id in this URL (http://bin.mailgun.net/aecf68de) is `aecf68de`.*
 
 ```php
 $configurator = new HttpClientConfigurator();
@@ -163,8 +163,10 @@ If you are using a framework you might consider these composer packages to make 
 
 ## Contribute
 
-We are currently building a new object oriented API client. Feel free to contribute in any way. As an example you may: 
-* Trying out dev-master the code
+This SDK is an Open Source under the MIT license. It is, thus, maintained by collaborators and contributors.
+
+Feel free to contribute in any way. As an example you may: 
+* Trying out the `dev-master` code
 * Create issues if you find problems
 * Reply to other people's issues
 * Review PRs
