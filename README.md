@@ -93,7 +93,7 @@ use Mailgun\Hydrator\ArrayHydrator;
 $configurator = new HttpClientConfigurator();
 $configurator->setApiKey('key-example');
 
-$mg = Mailgun::configure($configurator, new ArrayHydrator());
+$mg = new Mailgun($configurator, new ArrayHydrator());
 $data = $mg->domains()->show('example.com');
 
 foreach ($data['receiving_dns_records'] as $record) {
@@ -127,7 +127,7 @@ For example, the bin id in this URL (http://bin.mailgun.net/aecf68de) is `aecf68
 $configurator = new HttpClientConfigurator();
 $configurator->setEndpoint('http://bin.mailgun.net/aecf68de');
 $configurator->setDebug(true);
-$mg = Mailgun::configure($configurator);
+$mg = new Mailgun($configurator);
 
 # Now, compose and send your message.
 $mg->messages()->send('example.com', [
