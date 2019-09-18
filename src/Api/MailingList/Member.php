@@ -99,11 +99,14 @@ class Member extends HttpApi
 
         $params = [
             'address' => $address,
-            'name' => $name,
             'vars' => \json_encode($vars),
             'subscribed' => $subscribed ? 'yes' : 'no',
             'upsert' => $upsert ? 'yes' : 'no',
         ];
+
+        if (null !== $name) {
+            $params['name'] = $name;
+        }
 
         $response = $this->httpPost(sprintf('/v3/lists/%s/members', $list), $params);
 
@@ -200,8 +203,11 @@ class Member extends HttpApi
                     // We should assert that "vars"'s $value is a string.
                     // no break
                 case 'address':
-                case 'name':
                     Assert::stringNotEmpty($value);
+
+                    break;
+                case 'name':
+                    Assert::nullOrStringNotEmpty($value);
 
                     break;
                 case 'subscribed':
@@ -209,6 +215,10 @@ class Member extends HttpApi
 
                     break;
             }
+        }
+
+        if (null === $parameters['name']) {
+            unset($parameters['name']);
         }
 
         $response = $this->httpPut(sprintf('/v3/lists/%s/members/%s', $list, $address), $parameters);
