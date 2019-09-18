@@ -223,7 +223,7 @@ class Member extends HttpApi
             }
         }
 
-        if (null === $parameters['name']) {
+        if (array_key_exists('name', $parameters) && null === $parameters['name']) {
             unset($parameters['name']);
         }
 
