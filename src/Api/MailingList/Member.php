@@ -156,6 +156,7 @@ class Member extends HttpApi
                     case 'vars':
                         if (is_array($value)) {
                             $value = json_encode($value);
+                            $parameters[$field] = $value;
                         }
                         // We should assert that "vars"'s $value is a string.
                         // no break
@@ -203,6 +204,7 @@ class Member extends HttpApi
                 case 'vars':
                     if (is_array($value)) {
                         $value = json_encode($value);
+                        $parameters[$field] = $value;
                     }
                     // We should assert that "vars"'s $value is a string.
                     // no break
