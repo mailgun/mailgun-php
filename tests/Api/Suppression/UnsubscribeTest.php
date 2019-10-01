@@ -65,6 +65,17 @@ class UnsubscribeTest extends TestCase
         $api->delete('example.com', 'foo@bar.com');
     }
 
+    public function testDeleteWithTag()
+    {
+        $this->setRequestMethod('DELETE');
+        $this->setRequestUri('/v3/example.com/unsubscribes/foo@bar.com');
+        $this->setRequestBody(['tag' => 'tag1']);
+        $this->setHydrateClass(DeleteResponse::class);
+
+        $api = $this->getApiInstance();
+        $api->delete('example.com', 'foo@bar.com', 'tag1');
+    }
+
     public function testDeleteAll()
     {
         $this->setRequestMethod('DELETE');
