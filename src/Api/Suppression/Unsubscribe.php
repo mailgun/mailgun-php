@@ -84,9 +84,9 @@ class Unsubscribe extends HttpApi
     }
 
     /**
-     * @param string      $domain   Domain to delete unsubscribe for
-     * @param string      $address  Unsubscribe address
-     * @param string|null $tag      Unsubscribe tag
+     * @param string      $domain  Domain to delete unsubscribe for
+     * @param string      $address Unsubscribe address
+     * @param string|null $tag     Unsubscribe tag
      * @return DeleteResponse
      */
     public function delete(string $domain, string $address, string $tag = null)
