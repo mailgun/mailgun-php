@@ -47,6 +47,12 @@ class RouteTest extends TestCase
         $api = $this->getApiMock();
         $api->expects($this->once())
             ->method('httpPost')
+            ->with([
+                'priority' => '100',
+                'expression' => 'catch_all()',
+                'action' => ['forward("mailbox@myapp.com")'],
+                'description' => 'example'
+            ])
             ->willReturn(new Response());
 
         $api->create('catch_all()', ['forward("mailbox@myapp.com")'], 'example', 100);
