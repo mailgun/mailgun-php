@@ -82,7 +82,7 @@ class Route extends HttpApi
         Assert::integer($priority);
 
         $params = [
-            'priority' => $priority,
+            'priority' => (string) $priority,
             'expression' => $expression,
             'action' => $actions,
             'description' => $description,
