@@ -47,7 +47,7 @@ class RouteTest extends TestCase
         $api = $this->getApiMock();
         $api->expects($this->once())
             ->method('httpPost')
-            ->with([
+            ->with('/v3/routes', [
                 'priority' => '100',
                 'expression' => 'catch_all()',
                 'action' => ['forward("mailbox@myapp.com")'],
