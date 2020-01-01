@@ -12,16 +12,15 @@ declare(strict_types=1);
 namespace Mailgun\Api;
 
 use Http\Client\Common\PluginClient;
-use Mailgun\Exception\UnknownErrorException;
-use Mailgun\Hydrator\Hydrator;
-use Mailgun\Hydrator\NoopHydrator;
 use Mailgun\Exception\HttpClientException;
 use Mailgun\Exception\HttpServerException;
+use Mailgun\Exception\UnknownErrorException;
 use Mailgun\HttpClient\RequestBuilder;
+use Mailgun\Hydrator\Hydrator;
+use Mailgun\Hydrator\NoopHydrator;
 use Psr\Http\Client as Psr18;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\ResponseInterface;
-
 
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
@@ -47,9 +46,9 @@ abstract class HttpApi
 
     public function __construct($httpClient, RequestBuilder $requestBuilder, Hydrator $hydrator)
     {
-        if ( !$httpClient instanceof ClientInterface && !$httpClient instanceof PluginClient ) {
+        if (!$httpClient instanceof ClientInterface && !$httpClient instanceof PluginClient) {
             throw new \RuntimeException('httpClient must be an instance of
-			Psr\Http\Client\ClientInterface or Http\Client\Common\PluginClient' );
+			Psr\Http\Client\ClientInterface or Http\Client\Common\PluginClient');
         }
         $this->httpClient = $httpClient;
         $this->requestBuilder = $requestBuilder;
@@ -85,22 +84,22 @@ abstract class HttpApi
     {
         $statusCode = $response->getStatusCode();
         switch ($statusCode) {
-            case 400:
-                throw HttpClientException::badRequest($response);
-            case 401:
-                throw HttpClientException::unauthorized($response);
-            case 402:
-                throw HttpClientException::requestFailed($response);
-            case 403:
-                throw  HttpClientException::forbidden($response);
-            case 404:
-                throw HttpClientException::notFound($response);
-            case 413:
-                throw HttpClientException::payloadTooLarge($response);
-            case 500 <= $statusCode:
-                throw HttpServerException::serverError($statusCode);
-            default:
-                throw new UnknownErrorException();
+        case 400:
+            throw HttpClientException::badRequest($response);
+        case 401:
+            throw HttpClientException::unauthorized($response);
+        case 402:
+            throw HttpClientException::requestFailed($response);
+        case 403:
+            throw  HttpClientException::forbidden($response);
+        case 404:
+            throw HttpClientException::notFound($response);
+        case 413:
+            throw HttpClientException::payloadTooLarge($response);
+        case 500 <= $statusCode:
+            throw HttpServerException::serverError($statusCode);
+        default:
+            throw new UnknownErrorException();
         }
     }
 
