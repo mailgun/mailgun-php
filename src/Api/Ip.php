@@ -51,7 +51,7 @@ class Ip extends HttpApi
     {
         Assert::stringNotEmpty($domain);
 
-        $response = $this->httpGet(sprintf('/v3/domains/%s/ip', $domain));
+        $response = $this->httpGet(sprintf('/v3/domains/%s/ips', $domain));
 
         return $this->hydrateResponse($response, IndexResponse::class);
     }
