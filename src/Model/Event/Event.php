@@ -29,6 +29,7 @@ final class Event
     private $ip;
     private $clientInfo;
     private $reason;
+    private $reject;
     private $userVariables;
     private $flags;
     private $routes;
@@ -61,6 +62,7 @@ final class Event
         $model->deliveryStatus = $data['delivery-status'] ?? [];
         $model->severity = $data['severity'] ?? '';
         $model->reason = $data['reason'] ?? '';
+        $model->reject = $data['reject'] ?? [];
         $model->geolocation = $data['geolocation'] ?? [];
         $model->ip = $data['ip'] ?? '';
         $model->clientInfo = $data['client-info'] ?? [];
@@ -142,6 +144,11 @@ final class Event
     public function getReason(): string
     {
         return $this->reason;
+    }
+
+    public function getReject(): array
+    {
+        return $this->reject;
     }
 
     public function getUserVariables(): array
