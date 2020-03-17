@@ -20,6 +20,10 @@ use Mailgun\Model\Domain\DeleteCredentialResponse;
 use Mailgun\Model\Domain\DeleteResponse;
 use Mailgun\Model\Domain\IndexResponse;
 use Mailgun\Model\Domain\ShowResponse;
+use Mailgun\Model\Domain\Tracking\TrackingResponse;
+use Mailgun\Model\Domain\Tracking\UpdateClickTrackingResponse;
+use Mailgun\Model\Domain\Tracking\UpdateOpenTrackingResponse;
+use Mailgun\Model\Domain\Tracking\UpdateUnsubscribeTrackingResponse;
 use Mailgun\Model\Domain\UpdateConnectionResponse;
 use Mailgun\Model\Domain\UpdateCredentialResponse;
 use Mailgun\Model\Domain\VerifyResponse;
@@ -208,5 +212,54 @@ JSON
 
         $api = $this->getApiInstance();
         $api->verify('example.com');
+    }
+
+    public function testTracking()
+    {
+        $this->setRequestMethod('GET');
+        $this->setRequestUri('/v3/domains/example.com/tracking');
+        $this->setHydrateClass(TrackingResponse::class);
+
+        $api = $this->getApiInstance();
+        $api->tracking('example.com');
+    }
+
+    public function testUpdateClickTracking()
+    {
+        $this->setRequestMethod('PUT');
+        $this->setRequestUri('/v3/domains/example.com/tracking/click');
+        $this->setRequestBody([
+            'active' => 'yes'
+        ]);
+        $this->setHydrateClass(UpdateClickTrackingResponse::class);
+
+        $api = $this->getApiInstance();
+        $api->updateClickTracking('example.com', true, false);
+    }
+
+    public function testUpdateOpenTracking()
+    {
+        $this->setRequestMethod('PUT');
+        $this->setRequestUri('/v3/domains/example.com/tracking/open');
+        $this->setRequestBody([
+            'active' => 'yes'
+        ]);
+        $this->setHydrateClass(UpdateOpenTrackingResponse::class);
+
+        $api = $this->getApiInstance();
+        $api->updateOpenTracking('example.com', true);
+    }
+
+    public function testUpdateUnsubscribeTracking()
+    {
+        $this->setRequestMethod('PUT');
+        $this->setRequestUri('/v3/domains/example.com/tracking/unsubscribe');
+        $this->setRequestBody([
+            'active' => 'true'
+        ]);
+        $this->setHydrateClass(UpdateUnsubscribeTrackingResponse::class);
+
+        $api = $this->getApiInstance();
+        $api->updateUnsubscribeTracking('example.com', true, null, null);
     }
 }

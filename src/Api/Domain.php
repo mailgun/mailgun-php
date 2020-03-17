@@ -20,6 +20,10 @@ use Mailgun\Model\Domain\DeleteCredentialResponse;
 use Mailgun\Model\Domain\DeleteResponse;
 use Mailgun\Model\Domain\IndexResponse;
 use Mailgun\Model\Domain\ShowResponse;
+use Mailgun\Model\Domain\Tracking\TrackingResponse;
+use Mailgun\Model\Domain\Tracking\UpdateClickTrackingResponse;
+use Mailgun\Model\Domain\Tracking\UpdateOpenTrackingResponse;
+use Mailgun\Model\Domain\Tracking\UpdateUnsubscribeTrackingResponse;
 use Mailgun\Model\Domain\UpdateConnectionResponse;
 use Mailgun\Model\Domain\UpdateCredentialResponse;
 use Mailgun\Model\Domain\VerifyResponse;
@@ -284,5 +288,96 @@ class Domain extends HttpApi
         $response = $this->httpPut(sprintf('/v3/domains/%s/verify', $domain));
 
         return $this->hydrateResponse($response, VerifyResponse::class);
+    }
+
+    /**
+     * Returns tracking settings for the specified domain.
+     *
+     * @param string $domain name of the domain
+     *
+     * @return TrackingResponse|array|ResponseInterface
+     */
+    public function tracking(string $domain)
+    {
+        Assert::stringNotEmpty($domain);
+
+        $response = $this->httpGet(sprintf('/v3/domains/%s/tracking', $domain));
+
+        return $this->hydrateResponse($response, TrackingResponse::class);
+    }
+
+    /**
+     * Update click tracking settings for a specified domain.
+     *
+     * @param string $domain   name of the domain
+     * @param bool   $isActive enables click tracking
+     * @param bool   $htmlOnly only track clicks in the HTML part of a message.
+     *
+     * @return UpdateClickTrackingResponse|array|ResponseInterface
+     */
+    public function updateClickTracking(string $domain, bool $isActive, bool $htmlOnly)
+    {
+        Assert::stringNotEmpty($domain);
+        $params = [];
+
+        if ($isActive) {
+            $params['active'] = $htmlOnly ? 'htmlonly' : 'yes';
+        } else {
+            $params['active'] = 'no';
+        }
+
+        $response = $this->httpPut(sprintf('/v3/domains/%s/tracking/click', $domain), $params);
+
+        return $this->hydrateResponse($response, UpdateClickTrackingResponse::class);
+    }
+
+    /**
+     * Update open tracking settings for a specified domain.
+     *
+     * @param string $domain   name of the domain
+     * @param bool   $isActive enables open tracking
+     *
+     * @return UpdateOpenTrackingResponse|array|ResponseInterface
+     */
+    public function updateOpenTracking(string $domain, bool $isActive)
+    {
+        Assert::stringNotEmpty($domain);
+        $params = [];
+
+        $params['active'] = $isActive ? 'yes' : 'no';
+
+        $response = $this->httpPut(sprintf('/v3/domains/%s/tracking/open', $domain), $params);
+
+        return $this->hydrateResponse($response, UpdateOpenTrackingResponse::class);
+    }
+
+    /**
+     * Update unsubscribe tracking settings for a specified domain.
+     *
+     * @param string      $domain     name of the domain
+     * @param bool        $isActive   enables unsubscribe tracking
+     * @param string|null $htmlFooter custom HTML version of unsubscribe footer
+     * @param string|null $textFooter custom text version of unsubscribe footer
+     *
+     * @return UpdateUnsubscribeTrackingResponse|array|ResponseInterface
+     */
+    public function updateUnsubscribeTracking(string $domain, bool $isActive, ?string $htmlFooter, ?string $textFooter)
+    {
+        Assert::stringNotEmpty($domain);
+        $params = [];
+
+        $params['active'] = $isActive ? 'true' : 'false';
+
+        if (null !== $htmlFooter) {
+            $params['html_footer'] = $htmlFooter;
+        }
+
+        if (null !== $textFooter) {
+            $params['text_footer'] = $textFooter;
+        }
+
+        $response = $this->httpPut(sprintf('/v3/domains/%s/tracking/unsubscribe', $domain), $params);
+
+        return $this->hydrateResponse($response, UpdateUnsubscribeTrackingResponse::class);
     }
 }
