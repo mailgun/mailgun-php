@@ -24,7 +24,7 @@ final class ClickTrackingItem
         $model = new self();
         if (isset($data['active'])) {
             $model->active = ($data['active'] ? true : false);
-            $model->htmlOnly = ($data['active'] === 'htmlonly');
+            $model->htmlOnly = ('htmlonly' === $data['active']);
         } else {
             $model->active = null;
             $model->htmlOnly = null;

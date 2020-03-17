@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace Mailgun\Tests\Model\Domain\Tracking;
 
-use Mailgun\Model\Domain\Domain;
 use Mailgun\Model\Domain\Tracking\TrackingResponse;
 use Mailgun\Tests\Model\BaseModelTest;
 

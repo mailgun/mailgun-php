@@ -311,7 +311,7 @@ class Domain extends HttpApi
      *
      * @param string $domain   name of the domain
      * @param bool   $isActive enables click tracking
-     * @param bool   $htmlOnly only track clicks in the HTML part of a message.
+     * @param bool   $htmlOnly only track clicks in the HTML part of a message
      *
      * @return UpdateClickTrackingResponse|array|ResponseInterface
      */

@@ -229,7 +229,7 @@ JSON
         $this->setRequestMethod('PUT');
         $this->setRequestUri('/v3/domains/example.com/tracking/click');
         $this->setRequestBody([
-            'active' => 'yes'
+            'active' => 'yes',
         ]);
         $this->setHydrateClass(UpdateClickTrackingResponse::class);
 
@@ -242,7 +242,7 @@ JSON
         $this->setRequestMethod('PUT');
         $this->setRequestUri('/v3/domains/example.com/tracking/open');
         $this->setRequestBody([
-            'active' => 'yes'
+            'active' => 'yes',
         ]);
         $this->setHydrateClass(UpdateOpenTrackingResponse::class);
 
@@ -255,7 +255,7 @@ JSON
         $this->setRequestMethod('PUT');
         $this->setRequestUri('/v3/domains/example.com/tracking/unsubscribe');
         $this->setRequestBody([
-            'active' => 'true'
+            'active' => 'true',
         ]);
         $this->setHydrateClass(UpdateUnsubscribeTrackingResponse::class);
 
