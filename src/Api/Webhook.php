@@ -88,7 +88,7 @@ class Webhook extends HttpApi
     /**
      * @return CreateResponse|ResponseInterface
      */
-    public function create(string $domain, string $id, string $url)
+    public function create(string $domain, string $id, array $url)
     {
         Assert::notEmpty($domain);
         Assert::notEmpty($id);
@@ -107,7 +107,7 @@ class Webhook extends HttpApi
     /**
      * @return UpdateResponse|ResponseInterface
      */
-    public function update(string $domain, string $id, string $url)
+    public function update(string $domain, string $id, array $url)
     {
         Assert::notEmpty($domain);
         Assert::notEmpty($id);

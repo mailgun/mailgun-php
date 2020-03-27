@@ -79,12 +79,22 @@ class WebhookTest extends TestCase
         $this->setRequestUri('/v3/domains/example.com/webhooks');
         $this->setHydrateClass(CreateResponse::class);
         $this->setRequestBody([
-            'id' => '4711',
-            'url' => 'url',
+            [
+                'name' => 'id',
+                'content' => 'opened'
+            ],
+            [
+                'name' => 'url',
+                'content' => 'url_1'
+            ],
+            [
+                'name' => 'url',
+                'content' => 'url_2'
+            ]
         ]);
 
         $api = $this->getApiInstance('key');
-        $api->create('example.com', '4711', 'url');
+        $api->create('example.com', 'opened', ['url_1', 'url_2']);
     }
 
     public function testUpdate()
@@ -93,11 +103,18 @@ class WebhookTest extends TestCase
         $this->setRequestUri('/v3/domains/example.com/webhooks/4711');
         $this->setHydrateClass(UpdateResponse::class);
         $this->setRequestBody([
-            'url' => 'url',
+            [
+                'name' => 'url',
+                'content' => 'url_1'
+            ],
+            [
+                'name' => 'url',
+                'content' => 'url_2'
+            ]
         ]);
 
         $api = $this->getApiInstance('key');
-        $api->update('example.com', '4711', 'url');
+        $api->update('example.com', '4711', ['url_1', 'url_2'] );
     }
 
     public function testDelete()
