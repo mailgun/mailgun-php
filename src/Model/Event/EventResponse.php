@@ -11,9 +11,9 @@ declare(strict_types=1);
 
 namespace Mailgun\Model\Event;
 
-use Mailgun\Model\PagingProvider;
-use Mailgun\Model\PaginationResponse;
 use Mailgun\Model\ApiResponse;
+use Mailgun\Model\PaginationResponse;
+use Mailgun\Model\PagingProvider;
 
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>

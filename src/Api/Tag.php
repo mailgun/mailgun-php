@@ -67,7 +67,6 @@ class Tag extends HttpApi
     /**
      * Update a tag.
      *
-     *
      * @return UpdateResponse|ResponseInterface
      */
     public function update(string $domain, string $tag, string $description)
@@ -87,7 +86,6 @@ class Tag extends HttpApi
     /**
      * Returns statistics for a single tag.
      *
-     *
      * @return StatisticsResponse|ResponseInterface
      */
     public function stats(string $domain, string $tag, array $params)
@@ -102,7 +100,6 @@ class Tag extends HttpApi
 
     /**
      * Removes a tag from the account.
-     *
      *
      * @return DeleteResponse|ResponseInterface
      */

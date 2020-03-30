@@ -54,7 +54,7 @@ abstract class AbstractDomainResponse implements ApiResponse
         return $model;
     }
 
-    private function __construct()
+    final private function __construct()
     {
     }
 
