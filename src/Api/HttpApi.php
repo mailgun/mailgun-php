@@ -11,12 +11,12 @@ declare(strict_types=1);
 
 namespace Mailgun\Api;
 
-use Mailgun\Exception\UnknownErrorException;
-use Mailgun\Hydrator\Hydrator;
-use Mailgun\Hydrator\NoopHydrator;
 use Mailgun\Exception\HttpClientException;
 use Mailgun\Exception\HttpServerException;
+use Mailgun\Exception\UnknownErrorException;
 use Mailgun\HttpClient\RequestBuilder;
+use Mailgun\Hydrator\Hydrator;
+use Mailgun\Hydrator\NoopHydrator;
 use Psr\Http\Client as Psr18;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\ResponseInterface;

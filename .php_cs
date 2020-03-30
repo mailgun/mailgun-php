@@ -21,6 +21,7 @@ return PhpCsFixer\Config::create()
         'declare_strict_types' => true,
         'no_empty_phpdoc' => true,
         'no_superfluous_phpdoc_tags' => true,
+        'no_unneeded_final_method' => false, # prevent phpstan divergence
         'header_comment' => [
             'commentType' => 'comment',
             'header' => $header,

@@ -11,9 +11,9 @@ declare(strict_types=1);
 
 namespace Mailgun\Model\MailingList;
 
-use Mailgun\Model\PagingProvider;
-use Mailgun\Model\PaginationResponse;
 use Mailgun\Model\ApiResponse;
+use Mailgun\Model\PaginationResponse;
+use Mailgun\Model\PagingProvider;
 
 final class PagesResponse implements ApiResponse, PagingProvider
 {

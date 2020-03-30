@@ -128,11 +128,7 @@ class Member extends HttpApi
 
         // workaround for webmozart/asserts <= 1.2
         if (count($members) > 1000) {
-            throw new InvalidArgumentException(sprintf(
-                'Expected an Array to contain at most %2$d elements. Got: %d',
-                1000,
-                count($members)
-            ));
+            throw new InvalidArgumentException(sprintf('Expected an Array to contain at most %2$d elements. Got: %d', 1000, count($members)));
         }
 
         foreach ($members as $data) {

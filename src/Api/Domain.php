@@ -35,7 +35,6 @@ class Domain extends HttpApi
     /**
      * Returns a list of domains on the account.
      *
-     *
      * @return IndexResponse
      */
     public function index(int $limit = 100, int $skip = 0)
