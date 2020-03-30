@@ -12,10 +12,10 @@ declare(strict_types=1);
 namespace Mailgun\Tests\Api;
 
 use Mailgun\Api\Webhook;
-use Mailgun\Model\Webhook\IndexResponse;
-use Mailgun\Model\Webhook\ShowResponse;
 use Mailgun\Model\Webhook\CreateResponse;
 use Mailgun\Model\Webhook\DeleteResponse;
+use Mailgun\Model\Webhook\IndexResponse;
+use Mailgun\Model\Webhook\ShowResponse;
 use Mailgun\Model\Webhook\UpdateResponse;
 
 class WebhookTest extends TestCase
@@ -81,16 +81,16 @@ class WebhookTest extends TestCase
         $this->setRequestBody([
             [
                 'name' => 'id',
-                'content' => 'opened'
+                'content' => 'opened',
             ],
             [
                 'name' => 'url',
-                'content' => 'url_1'
+                'content' => 'url_1',
             ],
             [
                 'name' => 'url',
-                'content' => 'url_2'
-            ]
+                'content' => 'url_2',
+            ],
         ]);
 
         $api = $this->getApiInstance('key');
@@ -105,16 +105,16 @@ class WebhookTest extends TestCase
         $this->setRequestBody([
             [
                 'name' => 'url',
-                'content' => 'url_1'
+                'content' => 'url_1',
             ],
             [
                 'name' => 'url',
-                'content' => 'url_2'
-            ]
+                'content' => 'url_2',
+            ],
         ]);
 
         $api = $this->getApiInstance('key');
-        $api->update('example.com', '4711', ['url_1', 'url_2'] );
+        $api->update('example.com', '4711', ['url_1', 'url_2']);
     }
 
     public function testDelete()

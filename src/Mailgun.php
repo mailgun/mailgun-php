@@ -15,10 +15,10 @@ use Http\Client\Common\PluginClient;
 use Mailgun\HttpClient\HttpClientConfigurator;
 use Mailgun\HttpClient\Plugin\History;
 use Mailgun\HttpClient\RequestBuilder;
-use Mailgun\Hydrator\ModelHydrator;
 use Mailgun\Hydrator\Hydrator;
-use Psr\Http\Message\ResponseInterface;
+use Mailgun\Hydrator\ModelHydrator;
 use Psr\Http\Client\ClientInterface;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * This class is the base class for the Mailgun SDK.

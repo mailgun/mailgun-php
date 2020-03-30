@@ -71,7 +71,7 @@ class Message extends HttpApi
      *
      * @return SendResponse|ResponseInterface
      */
-    public function sendMime(string $domain, array $recipients, string  $message, array $params)
+    public function sendMime(string $domain, array $recipients, string $message, array $params)
     {
         Assert::string($domain);
         Assert::notEmpty($domain);

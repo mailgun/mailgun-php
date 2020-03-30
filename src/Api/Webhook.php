@@ -12,15 +12,15 @@ declare(strict_types=1);
 namespace Mailgun\Api;
 
 use Mailgun\Assert;
+use Mailgun\HttpClient\RequestBuilder;
 use Mailgun\Hydrator\Hydrator;
 use Mailgun\Model\Webhook\CreateResponse;
 use Mailgun\Model\Webhook\DeleteResponse;
 use Mailgun\Model\Webhook\IndexResponse;
 use Mailgun\Model\Webhook\ShowResponse;
 use Mailgun\Model\Webhook\UpdateResponse;
-use Mailgun\HttpClient\RequestBuilder;
-use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Client\ClientInterface;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * @see https://documentation.mailgun.com/en/latest/api-webhooks.html
