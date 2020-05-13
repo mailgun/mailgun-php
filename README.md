@@ -124,10 +124,15 @@ Go to http://bin.mailgun.net. The Postbin will generate a special URL. Save that
 For example, the bin id in this URL (http://bin.mailgun.net/aecf68de) is `aecf68de`.*
 
 ```php
+use Mailgun\HttpClient\HttpClientConfigurator;
+use Mailgun\Hydrator\NoopHydrator;
+
 $configurator = new HttpClientConfigurator();
 $configurator->setEndpoint('http://bin.mailgun.net/aecf68de');
+$configurator->setApiKey('key-example');
 $configurator->setDebug(true);
-$mg = new Mailgun($configurator);
+
+$mg = new Mailgun($configurator, new NoopHydrator());
 
 # Now, compose and send your message.
 $mg->messages()->send('example.com', [
