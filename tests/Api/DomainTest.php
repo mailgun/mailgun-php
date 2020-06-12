@@ -129,6 +129,38 @@ JSON
         $api->create('example.com', 'foo', 'bar', true);
     }
 
+    public function testCreateWithPasswordForceDkimAuthority()
+    {
+        $this->setRequestMethod('POST');
+        $this->setRequestUri('/v3/domains');
+        $this->setRequestBody([
+            'name' => 'example.com',
+            'smtp_password' => 'foo',
+            'force_dkim_authority' => 'true',
+        ]);
+        $this->setHydrateClass(CreateResponse::class);
+
+        $api = $this->getApiInstance();
+        $api->create('example.com', 'foo', null, null, true);
+    }
+
+    public function testCreateWithPasswordSpamActionWildcardForceDkimAuthority()
+    {
+        $this->setRequestMethod('POST');
+        $this->setRequestUri('/v3/domains');
+        $this->setRequestBody([
+            'name' => 'example.com',
+            'smtp_password' => 'foo',
+            'spam_action' => 'bar',
+            'wildcard' => 'true',
+            'force_dkim_authority' => 'true',
+        ]);
+        $this->setHydrateClass(CreateResponse::class);
+
+        $api = $this->getApiInstance();
+        $api->create('example.com', 'foo', 'bar', true, true);
+    }
+
     public function testDelete()
     {
         $this->setRequestMethod('DELETE');
