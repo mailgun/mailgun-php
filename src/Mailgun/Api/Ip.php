@@ -88,7 +88,7 @@ class Ip extends HttpApi
         Assert::ip($ip);
 
         $params = [
-            'id' => $ip,
+            'ip' => $ip,
         ];
 
         $response = $this->httpPost(sprintf('/v3/domains/%s/ips', $domain), $params);
