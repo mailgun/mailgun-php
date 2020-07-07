@@ -67,7 +67,7 @@ Attention: `$domain` must match to the domain you have configured on [app.mailgu
 ### All usage examples
 
 You will find more detailed documentation at [/doc](doc/index.md) and on 
-[https://documentation.mailgun.com](https://documentation.mailgun.com/api_reference.html).
+[https://documentation.mailgun.com](https://documentation.mailgun.com/en/latest/api_reference.html).
 
 ### Response
 
