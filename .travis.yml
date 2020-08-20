@@ -21,7 +21,6 @@ matrix:
     include:
         - php: 5.5
           env: COMPOSER_FLAGS="--prefer-stable --prefer-lowest" PREFER_COVERAGE=true
-        - php: hhvm
           dist: trusty
 
 install:
