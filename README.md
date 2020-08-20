@@ -161,7 +161,6 @@ batch messaging is eliminated!
 If you are using a framework you might consider these composer packages to make the framework integration easier. 
 
 * [tehplague/swiftmailer-mailgun-bundle](https://github.com/tehplague/swiftmailer-mailgun-bundle) for Symfony
-* [Bogardo/Mailgun](https://github.com/Bogardo/Mailgun) for Laravel
 * [katanyoo/yii2-mailgun-mailer](https://github.com/katanyoo/yii2-mailgun-mailer) for Yii2
 * [narendravaghela/cakephp-mailgun](https://github.com/narendravaghela/cakephp-mailgun) for CakePHP
 * [drupal/mailgun](https://www.drupal.org/project/mailgun) for Drupal
