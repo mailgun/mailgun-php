@@ -28,8 +28,6 @@ final class UpdateClickTrackingResponse implements ApiResponse
             $model->click = ClickTrackingItem::create($data['click']);
         }
 
-        $model->message = $data['message'] ?? null;
-
         return $model;
     }
 

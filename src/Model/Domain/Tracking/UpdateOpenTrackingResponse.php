@@ -28,8 +28,6 @@ final class UpdateOpenTrackingResponse implements ApiResponse
             $model->open = OpenTrackingItem::create($data['open']);
         }
 
-        $model->message = $data['message'] ?? null;
-
         return $model;
     }
 

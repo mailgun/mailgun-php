@@ -28,8 +28,6 @@ final class UpdateUnsubscribeTrackingResponse implements ApiResponse
             $model->unsubscribe = UnsubscribeTrackingItem::create($data['unsubscribe']);
         }
 
-        $model->message = $data['message'] ?? null;
-
         return $model;
     }
 
