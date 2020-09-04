@@ -85,8 +85,8 @@ class MessageBuilder
 
     /**
      *     @var string
-     *     @var string $first
-     *     @var string $last
+     *     @var string
+     *     @var string
      * }
      */
     protected function parseAddress(string $address, array $variables): string

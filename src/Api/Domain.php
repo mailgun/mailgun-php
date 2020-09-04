@@ -74,10 +74,10 @@ class Domain extends HttpApi
      *
      * @see https://documentation.mailgun.com/en/latest/api-domains.html#domains
      *
-     * @param string $domain     name of the domain
-     * @param string $smtpPass   password for SMTP authentication
-     * @param string $spamAction `disable` or `tag` - inbound spam filtering
-     * @param bool   $wildcard   domain will accept email for subdomains
+     * @param string $domain             name of the domain
+     * @param string $smtpPass           password for SMTP authentication
+     * @param string $spamAction         `disable` or `tag` - inbound spam filtering
+     * @param bool   $wildcard           domain will accept email for subdomains
      * @param bool   $forceDkimAuthority force DKIM authority
      *
      * @return CreateResponse|array|ResponseInterface

@@ -48,7 +48,7 @@ class MailingListTest extends TestCase
             'name' => 'Foo',
             'description' => 'Description',
             'access_level' => 'readonly',
-            'reply_preference' => 'list'
+            'reply_preference' => 'list',
         ];
 
         $api = $this->getApiMock();
