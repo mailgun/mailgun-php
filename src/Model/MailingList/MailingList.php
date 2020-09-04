@@ -18,6 +18,7 @@ final class MailingList implements ApiResponse
     private $name;
     private $address;
     private $accessLevel;
+    private $replyPreference;
     private $description;
     private $membersCount;
     private $createdAt;
@@ -28,6 +29,7 @@ final class MailingList implements ApiResponse
         $model->name = $data['name'] ?? null;
         $model->address = $data['address'] ?? null;
         $model->accessLevel = $data['access_level'] ?? null;
+        $model->replyPreference = $data['reply_preference'] ?? null;
         $model->description = $data['description'] ?? null;
         $model->membersCount = (int) ($data['members_count'] ?? 0);
         $model->createdAt = isset($data['created_at']) ? new \DateTimeImmutable($data['created_at']) : null;
@@ -52,6 +54,11 @@ final class MailingList implements ApiResponse
     public function getAccessLevel(): ?string
     {
         return $this->accessLevel;
+    }
+
+    public function getReplyPreference(): ?string
+    {
+        return $this->replyPreference;
     }
 
     public function getDescription(): ?string

@@ -12,10 +12,10 @@ declare(strict_types=1);
 namespace Mailgun\Tests\Api;
 
 use Mailgun\Api\Webhook;
-use Mailgun\Model\Webhook\IndexResponse;
-use Mailgun\Model\Webhook\ShowResponse;
 use Mailgun\Model\Webhook\CreateResponse;
 use Mailgun\Model\Webhook\DeleteResponse;
+use Mailgun\Model\Webhook\IndexResponse;
+use Mailgun\Model\Webhook\ShowResponse;
 use Mailgun\Model\Webhook\UpdateResponse;
 
 class WebhookTest extends TestCase

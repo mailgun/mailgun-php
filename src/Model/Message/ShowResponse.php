@@ -131,7 +131,7 @@ final class ShowResponse implements ApiResponse
         return $this->messageUrl;
     }
 
-    public function getContentIdMap(): ?string
+    public function getContentIdMap(): ?array
     {
         return $this->contentIdMap;
     }

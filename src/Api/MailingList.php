@@ -63,18 +63,20 @@ class MailingList extends HttpApi
      *
      * @throws \Exception
      */
-    public function create(string $address, string $name = null, string $description = null, string $accessLevel = 'readonly')
+    public function create(string $address, string $name = null, string $description = null, string $accessLevel = 'readonly', string $replyPreference = 'list')
     {
         Assert::stringNotEmpty($address);
         Assert::nullOrStringNotEmpty($name);
         Assert::nullOrStringNotEmpty($description);
         Assert::oneOf($accessLevel, ['readonly', 'members', 'everyone']);
+        Assert::oneOf($replyPreference, ['list', 'sender']);
 
         $params = [
             'address' => $address,
             'name' => $name,
             'description' => $description,
             'access_level' => $accessLevel,
+            'reply_preference' => $replyPreference
         ];
 
         $response = $this->httpPost('/v3/lists', $params);

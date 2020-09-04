@@ -23,7 +23,7 @@ abstract class BaseResponse implements ApiResponse
     private $webhook = [];
     private $message;
 
-    private function __construct()
+    final private function __construct()
     {
     }
 

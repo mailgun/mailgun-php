@@ -35,7 +35,6 @@ class Domain extends HttpApi
     /**
      * Returns a list of domains on the account.
      *
-     *
      * @return IndexResponse
      */
     public function index(int $limit = 100, int $skip = 0)
@@ -79,10 +78,11 @@ class Domain extends HttpApi
      * @param string $smtpPass   password for SMTP authentication
      * @param string $spamAction `disable` or `tag` - inbound spam filtering
      * @param bool   $wildcard   domain will accept email for subdomains
+     * @param bool   $forceDkimAuthority force DKIM authority
      *
      * @return CreateResponse|array|ResponseInterface
      */
-    public function create(string $domain, string $smtpPass = null, string $spamAction = null, bool $wildcard = null)
+    public function create(string $domain, string $smtpPass = null, string $spamAction = null, bool $wildcard = null, bool $forceDkimAuthority = null)
     {
         Assert::stringNotEmpty($domain);
 
@@ -105,6 +105,12 @@ class Domain extends HttpApi
             Assert::boolean($wildcard);
 
             $params['wildcard'] = $wildcard ? 'true' : 'false';
+        }
+
+        if (null !== $forceDkimAuthority) {
+            Assert::boolean($forceDkimAuthority);
+
+            $params['force_dkim_authority'] = $forceDkimAuthority ? 'true' : 'false';
         }
 
         $response = $this->httpPost('/v3/domains', $params);

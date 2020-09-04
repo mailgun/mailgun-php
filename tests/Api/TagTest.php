@@ -13,7 +13,6 @@ namespace Mailgun\Tests\Api;
 
 use GuzzleHttp\Psr7\Response;
 use Mailgun\Api\Tag;
-use Mailgun\Mailgun;
 
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
