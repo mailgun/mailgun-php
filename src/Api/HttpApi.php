@@ -46,7 +46,7 @@ abstract class HttpApi
 
     public function __construct($httpClient, RequestBuilder $requestBuilder, Hydrator $hydrator)
     {
-        if (!$httpClient instanceof ClientInterface && !$httpClient instanceof PluginClient) {
+        if (!is_a($httpClient, 'ClientInterface') && !is_a($httpClient, 'PluginClient')) {
             throw new \RuntimeException('httpClient must be an instance of 
             Psr\Http\Client\ClientInterface or Http\Client\Common\PluginClient');
         }
