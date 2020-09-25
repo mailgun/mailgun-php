@@ -69,5 +69,34 @@ JSON;
         $this->assertCount(1, $events);
         $event = $events[0];
         $this->assertEquals('czsjqFATSlC3QtAK-C80nw', $event->getId());
+
+        // Should correctly encode Event model to json
+        $encodedEvent = json_encode($event);
+
+        // Should decode previously encoded model to associative array
+        $decodedEvent = json_decode($encodedEvent, true);
+
+        // Check that all properties was correctly json_encode`d
+        $this->assertEquals($event->getEvent(), $decodedEvent['event']);
+        $this->assertEquals($event->getId(), $decodedEvent['id']);
+        $this->assertEquals($event->getTimestamp(), $decodedEvent['timestamp']);
+        $this->assertEquals((array)$event->getEventDate(), $decodedEvent['eventDate']);
+        $this->assertEquals($event->getTags(), $decodedEvent['tags']);
+        $this->assertEquals($event->getUrl(), $decodedEvent['url']);
+        $this->assertEquals($event->getSeverity(), $decodedEvent['severity']);
+        $this->assertEquals($event->getEnvelope(), $decodedEvent['envelope']);
+        $this->assertEquals($event->getDeliveryStatus(), $decodedEvent['deliveryStatus']);
+        $this->assertEquals($event->getCampaigns(), $decodedEvent['campaigns']);
+        $this->assertEquals($event->getIp(), $decodedEvent['ip']);
+        $this->assertEquals($event->getClientInfo(), $decodedEvent['clientInfo']);
+        $this->assertEquals($event->getReason(), $decodedEvent['reason']);
+        $this->assertEquals($event->getUserVariables(), $decodedEvent['userVariables']);
+        $this->assertEquals($event->getFlags(), $decodedEvent['flags']);
+        $this->assertEquals($event->getRoutes(), $decodedEvent['routes']);
+        $this->assertEquals($event->getMessage(), $decodedEvent['message']);
+        $this->assertEquals($event->getRecipient(), $decodedEvent['recipient']);
+        $this->assertEquals($event->getGeolocation(), $decodedEvent['geolocation']);
+        $this->assertEquals($event->getStorage(), $decodedEvent['storage']);
+        $this->assertEquals($event->getMethod(), $decodedEvent['method']);
     }
 }

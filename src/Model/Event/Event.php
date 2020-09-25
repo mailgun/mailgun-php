@@ -11,10 +11,12 @@ declare(strict_types=1);
 
 namespace Mailgun\Model\Event;
 
+use JsonSerializable;
+
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
-final class Event
+final class Event implements JsonSerializable
 {
     private $event;
     private $id;
@@ -191,5 +193,37 @@ final class Event
     public function getMethod(): string
     {
         return $this->method;
+    }
+
+    /**
+     * Json Serializable callback
+     *
+     * @return array
+     */
+    public function jsonSerialize(): array
+    {
+        return [
+            'event' => $this->getEvent(),
+            'id' => $this->getId(),
+            'timestamp' => $this->getTimestamp(),
+            'eventDate' => $this->getEventDate(),
+            'tags' => $this->getTags(),
+            'url' => $this->getUrl(),
+            'severity' => $this->getSeverity(),
+            'envelope' => $this->getEnvelope(),
+            'deliveryStatus' => $this->getDeliveryStatus(),
+            'campaigns' => $this->getCampaigns(),
+            'ip' => $this->getIp(),
+            'clientInfo' => $this->getClientInfo(),
+            'reason' => $this->getReason(),
+            'userVariables' => $this->getUserVariables(),
+            'flags' => $this->getFlags(),
+            'routes' => $this->getRoutes(),
+            'message' => $this->getMessage(),
+            'recipient' => $this->getRecipient(),
+            'geolocation' => $this->getGeolocation(),
+            'storage' => $this->getStorage(),
+            'method' => $this->getMethod(),
+        ];
     }
 }
