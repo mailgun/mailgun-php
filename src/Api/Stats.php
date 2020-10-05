@@ -33,16 +33,4 @@ class Stats extends HttpApi
 
         return $this->hydrateResponse($response, TotalResponse::class);
     }
-
-    /**
-     * @return AllResponse|array
-     */
-    public function all(string $domain, array $params = [])
-    {
-        Assert::stringNotEmpty($domain);
-
-        $response = $this->httpGet(sprintf('/v3/%s/stats', rawurlencode($domain)), $params);
-
-        return $this->hydrateResponse($response, AllResponse::class);
-    }
 }
