@@ -53,31 +53,6 @@ class StatsTest extends TestCase
         $api->total('');
     }
 
-    public function testAll()
-    {
-        $data = [
-            'foo' => 'bar',
-        ];
-
-        $api = $this->getApiMock();
-        $api->expects($this->once())
-            ->method('httpGet')
-            ->with('/v3/domain/stats', $data)
-            ->willReturn(new Response());
-
-        $api->all('domain', $data);
-    }
-
-    /**
-     * @expectedException \Mailgun\Exception\InvalidArgumentException
-     */
-    public function testAllInvalidArgument()
-    {
-        $api = $this->getApiMock();
-
-        $api->all('');
-    }
-
     public function totalProvider()
     {
         return [
