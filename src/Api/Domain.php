@@ -74,15 +74,16 @@ class Domain extends HttpApi
      *
      * @see https://documentation.mailgun.com/en/latest/api-domains.html#domains
      *
-     * @param string $domain     name of the domain
-     * @param string $smtpPass   password for SMTP authentication
-     * @param string $spamAction `disable` or `tag` - inbound spam filtering
-     * @param bool   $wildcard   domain will accept email for subdomains
-     * @param bool   $forceDkimAuthority force DKIM authority
+     * @param string   $domain     name of the domain
+     * @param string   $smtpPass   password for SMTP authentication
+     * @param string   $spamAction `disable` or `tag` - inbound spam filtering
+     * @param bool     $wildcard   domain will accept email for subdomains
+     * @param bool     $forceDkimAuthority force DKIM authority
+     * @param string[] $ips        an array of ips to be assigned to the domain
      *
      * @return CreateResponse|array|ResponseInterface
      */
-    public function create(string $domain, string $smtpPass = null, string $spamAction = null, bool $wildcard = null, bool $forceDkimAuthority = null)
+    public function create(string $domain, string $smtpPass = null, string $spamAction = null, bool $wildcard = null, bool $forceDkimAuthority = null, array $ips = null)
     {
         Assert::stringNotEmpty($domain);
 
@@ -111,6 +112,12 @@ class Domain extends HttpApi
             Assert::boolean($forceDkimAuthority);
 
             $params['force_dkim_authority'] = $forceDkimAuthority ? 'true' : 'false';
+        }
+
+        if (null !== $ips) {
+            Assert::isList($ips);
+
+            $params['ips'] = join(',', $ips);
         }
 
         $response = $this->httpPost('/v3/domains', $params);
