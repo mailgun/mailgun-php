@@ -28,6 +28,7 @@ class IpTest extends TestCase
         $this->setRequestUri('/v3/ips');
         $this->setHttpResponse(new Response(200, ['Content-Type' => 'application/json'], <<<'JSON'
 {
+  "assignable_to_pools": ["192.168.0.1"],
   "items": ["192.161.0.1", "192.168.0.2"],
   "total_count": 2
 }
@@ -41,6 +42,7 @@ JSON
         $this->assertEquals(2, $response->getTotalCount());
         $this->assertEquals('192.161.0.1', $response->getItems()[0]);
         $this->assertEquals('192.168.0.2', $response->getItems()[1]);
+        $this->assertEquals('192.168.0.1', $response->getAssignableToPools()[0]);
     }
     
     public function testIndexOnlyDedicated()
@@ -49,6 +51,7 @@ JSON
         $this->setRequestUri('/v3/ips?dedicated=1');
         $this->setHttpResponse(new Response(200, ['Content-Type' => 'application/json'], <<<'JSON'
 {
+  "assignable_to_pools": ["192.168.0.1"],
   "items": ["192.161.0.1"],
   "total_count": 1
 }
@@ -61,6 +64,7 @@ JSON
         $this->assertInstanceOf(IndexResponse::class, $response);
         $this->assertEquals(1, $response->getTotalCount());
         $this->assertEquals('192.161.0.1', $response->getItems()[0]);
+        $this->assertEquals('192.168.0.1', $response->getAssignableToPools()[0]);
     }
     
     public function testIndexOnlyShared()
@@ -69,6 +73,7 @@ JSON
         $this->setRequestUri('/v3/ips?dedicated=0');
         $this->setHttpResponse(new Response(200, ['Content-Type' => 'application/json'], <<<'JSON'
 {
+  "assignable_to_pools": ["192.168.0.1"],
   "items": ["192.168.0.2"],
   "total_count": 1
 }
@@ -81,5 +86,6 @@ JSON
         $this->assertInstanceOf(IndexResponse::class, $response);
         $this->assertEquals(1, $response->getTotalCount());
         $this->assertEquals('192.168.0.2', $response->getItems()[0]);
+        $this->assertEquals('192.168.0.1', $response->getAssignableToPools()[0]);
     }
 }
