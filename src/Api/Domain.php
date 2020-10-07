@@ -116,6 +116,7 @@ class Domain extends HttpApi
 
         if (null !== $ips) {
             Assert::isList($ips);
+            Assert::allString($ips);
 
             $params['ips'] = join(',', $ips);
         }
