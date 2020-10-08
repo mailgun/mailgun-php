@@ -26,15 +26,19 @@ class Event extends HttpApi
     /**
      * @return EventResponse
      */
-    public function get(string $domain, array $params = [])
+    public function get(string $domain, array $params = [], $page = null)
     {
         Assert::stringNotEmpty($domain);
 
         if (array_key_exists('limit', $params)) {
             Assert::range($params['limit'], 1, 300);
         }
+        
+        if ($page) {
+            $page = explode('/events', $page)[1];
+        }
 
-        $response = $this->httpGet(sprintf('/v3/%s/events', $domain), $params);
+        $response = $this->httpGet(sprintf('/v3/%s/events' . $page, $domain), $params);
 
         return $this->hydrateResponse($response, EventResponse::class);
     }
