@@ -195,9 +195,6 @@ final class Event
         return $this->method;
     }
 
-    /**
-     * @return string
-     */
     public function getLogLevel(): string
     {
         return $this->logLevel;

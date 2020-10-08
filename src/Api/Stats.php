@@ -12,7 +12,6 @@ declare(strict_types=1);
 namespace Mailgun\Api;
 
 use Mailgun\Assert;
-use Mailgun\Model\Stats\AllResponse;
 use Mailgun\Model\Stats\TotalResponse;
 
 /**

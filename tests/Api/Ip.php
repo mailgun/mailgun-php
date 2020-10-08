@@ -44,7 +44,7 @@ JSON
         $this->assertEquals('192.168.0.2', $response->getItems()[1]);
         $this->assertEquals('192.168.0.1', $response->getAssignableToPools()[0]);
     }
-    
+
     public function testIndexOnlyDedicated()
     {
         $this->setRequestMethod('GET');
@@ -66,7 +66,7 @@ JSON
         $this->assertEquals('192.161.0.1', $response->getItems()[0]);
         $this->assertEquals('192.168.0.1', $response->getAssignableToPools()[0]);
     }
-    
+
     public function testIndexOnlyShared()
     {
         $this->setRequestMethod('GET');
