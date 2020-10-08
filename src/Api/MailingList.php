@@ -76,7 +76,7 @@ class MailingList extends HttpApi
             'name' => $name,
             'description' => $description,
             'access_level' => $accessLevel,
-            'reply_preference' => $replyPreference
+            'reply_preference' => $replyPreference,
         ];
 
         $response = $this->httpPost('/v3/lists', $params);

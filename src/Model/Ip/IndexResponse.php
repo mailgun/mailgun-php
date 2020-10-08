@@ -31,7 +31,7 @@ final class IndexResponse implements ApiResponse
     /**
      * @var string[]
      */
-   private $assignableToPools;
+    private $assignableToPools;
 
     private function __construct()
     {

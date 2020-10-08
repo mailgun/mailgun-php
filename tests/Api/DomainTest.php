@@ -249,11 +249,11 @@ JSON
         $this->setRequestBody([
             'name' => 'example.com',
             'smtp_password' => 'foo',
-            'ips' => "127.0.0.1,127.0.0.2",
+            'ips' => '127.0.0.1,127.0.0.2',
         ]);
         $this->setHydrateClass(CreateResponse::class);
 
         $api = $this->getApiInstance();
-        $api->create('example.com', 'foo', null, null, null, ["127.0.0.1", "127.0.0.2"]);
+        $api->create('example.com', 'foo', null, null, null, ['127.0.0.1', '127.0.0.2']);
     }
 }
