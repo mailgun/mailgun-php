@@ -51,12 +51,6 @@ The change log describes what is "Added", "Removed", "Changed" or "Fixed" betwee
 
 - Dependency on `php-http/message`.
 
-### [Unreleased]
-
-- API v4 Email Validation; please use US Servers with your public key instead
-(please check the Issues [617](https://github.com/mailgun/mailgun-php/issues/617)
-and [619](https://github.com/mailgun/mailgun-php/issues/619) for further details)
-
 ## 2.8.1
 
 ### Fixed
