@@ -34,17 +34,11 @@ final class UpdateUnsubscribeTrackingResponse implements ApiResponse
     {
     }
 
-    /**
-     * @return string|null
-     */
     public function getMessage(): ?string
     {
         return $this->message;
     }
 
-    /**
-     * @return UnsubscribeTracking
-     */
     public function getUnsubscribe(): UnsubscribeTracking
     {
         return $this->unsubscribe;
