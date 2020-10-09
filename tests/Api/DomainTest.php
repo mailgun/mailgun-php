@@ -20,8 +20,12 @@ use Mailgun\Model\Domain\DeleteCredentialResponse;
 use Mailgun\Model\Domain\DeleteResponse;
 use Mailgun\Model\Domain\IndexResponse;
 use Mailgun\Model\Domain\ShowResponse;
+use Mailgun\Model\Domain\TrackingResponse;
+use Mailgun\Model\Domain\UpdateClickTrackingResponse;
 use Mailgun\Model\Domain\UpdateConnectionResponse;
 use Mailgun\Model\Domain\UpdateCredentialResponse;
+use Mailgun\Model\Domain\UpdateOpenTrackingResponse;
+use Mailgun\Model\Domain\UpdateUnsubscribeTrackingResponse;
 use Mailgun\Model\Domain\VerifyResponse;
 
 class DomainTest extends TestCase
@@ -240,5 +244,96 @@ JSON
 
         $api = $this->getApiInstance();
         $api->verify('example.com');
+    }
+
+    public function testTracking()
+    {
+        $this->setRequestMethod('GET');
+        $this->setRequestUri('/v3/domains/example.com/tracking');
+        $this->setHydrateClass(TrackingResponse::class);
+
+        /**
+         * @var $api Domain
+         */
+        $api = $this->getApiInstance();
+        $api->tracking('example.com');
+    }
+
+    public function activeInactiveDataProvider(): array
+    {
+        return [
+            [true],
+            [false],
+        ];
+    }
+
+    /**
+     * @dataProvider activeInactiveDataProvider
+     */
+    public function testUpdateClickTracking(bool $isActive)
+    {
+        $this->setRequestMethod('PUT');
+        $this->setRequestUri('/v3/domains/example.com/tracking/click');
+        $this->setRequestBody([
+            'active' => $isActive ? 'true' : 'false',
+        ]);
+        $this->setHydrateClass(UpdateClickTrackingResponse::class);
+
+        /**
+         * @var $api Domain
+         */
+        $api = $this->getApiInstance();
+        $api->updateClickTracking('example.com', $isActive);
+    }
+
+    /**
+     * @dataProvider activeInactiveDataProvider
+     */
+    public function testUpdateOpenTracking(bool $isActive)
+    {
+        $this->setRequestMethod('PUT');
+        $this->setRequestUri('/v3/domains/example.com/tracking/open');
+        $this->setRequestBody([
+            'active' => $isActive ? 'true' : 'false',
+        ]);
+        $this->setHydrateClass(UpdateOpenTrackingResponse::class);
+
+        /**
+         * @var $api Domain
+         */
+        $api = $this->getApiInstance();
+        $api->updateOpenTracking('example.com', $isActive);
+    }
+
+    public function unsubscribeDataProvider(): array
+    {
+        return [
+            [true, '<b>Test</b>', 'Test1'],
+            [false, '<s>Test</s>', 'Test2'],
+        ];
+    }
+
+    /**
+     * @dataProvider unsubscribeDataProvider
+     * @param bool $isActive
+     * @param string $htmlFooter
+     * @param string $textFooter
+     */
+    public function testUpdateUnsubscribeTracking(bool $isActive, string $htmlFooter, string $textFooter)
+    {
+        $this->setRequestMethod('PUT');
+        $this->setRequestUri('/v3/domains/example.com/tracking/unsubscribe');
+        $this->setRequestBody([
+            'active' => $isActive ? 'true' : 'false',
+            'html_footer' => $htmlFooter,
+            'text_footer' => $textFooter,
+        ]);
+        $this->setHydrateClass(UpdateUnsubscribeTrackingResponse::class);
+
+        /**
+         * @var $api Domain
+         */
+        $api = $this->getApiInstance();
+        $api->updateUnsubscribeTracking('example.com', $isActive, $htmlFooter, $textFooter);
     }
 }
