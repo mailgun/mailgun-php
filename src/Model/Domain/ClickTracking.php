@@ -23,7 +23,7 @@ final class ClickTracking
     public static function create(array $data): self
     {
         $model = new self();
-        $model->active = !!($data['active'] ?? null);
+        $model->active = (bool) ($data['active'] ?? null);
 
         return $model;
     }
@@ -32,9 +32,6 @@ final class ClickTracking
     {
     }
 
-    /**
-     * @return bool
-     */
     public function isActive(): bool
     {
         return $this->active;

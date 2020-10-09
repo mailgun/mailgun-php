@@ -34,17 +34,11 @@ final class UpdateOpenTrackingResponse implements ApiResponse
     {
     }
 
-    /**
-     * @return string|null
-     */
     public function getMessage(): ?string
     {
         return $this->message;
     }
 
-    /**
-     * @return OpenTracking
-     */
     public function getOpen(): OpenTracking
     {
         return $this->open;

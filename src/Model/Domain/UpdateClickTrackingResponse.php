@@ -34,17 +34,11 @@ final class UpdateClickTrackingResponse implements ApiResponse
     {
     }
 
-    /**
-     * @return string|null
-     */
     public function getMessage(): ?string
     {
         return $this->message;
     }
 
-    /**
-     * @return ClickTracking
-     */
     public function getClick(): ClickTracking
     {
         return $this->click;
