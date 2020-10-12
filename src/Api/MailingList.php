@@ -13,11 +13,14 @@ namespace Mailgun\Api;
 
 use Mailgun\Api\MailingList\Member;
 use Mailgun\Assert;
+use Mailgun\Model\EmailValidation\ValidateResponse;
 use Mailgun\Model\MailingList\CreateResponse;
 use Mailgun\Model\MailingList\DeleteResponse;
 use Mailgun\Model\MailingList\PagesResponse;
 use Mailgun\Model\MailingList\ShowResponse;
 use Mailgun\Model\MailingList\UpdateResponse;
+use Mailgun\Model\MailingList\ValidationCancelResponse;
+use Mailgun\Model\MailingList\ValidationStatusResponse;
 
 /**
  * @see https://documentation.mailgun.com/en/latest/api-mailinglists.html
@@ -153,5 +156,59 @@ class MailingList extends HttpApi
         $response = $this->httpDelete(sprintf('/v3/lists/%s', $address));
 
         return $this->hydrateResponse($response, DeleteResponse::class);
+    }
+
+    /**
+     * Validates mailing list.
+     *
+     * @param string $address Address of the mailing list
+     *
+     * @return ValidateResponse
+     *
+     * @throws \Exception
+     */
+    public function validate(string $address)
+    {
+        Assert::stringNotEmpty($address);
+
+        $response = $this->httpPost(sprintf('/v3/lists/%s/validate', $address));
+
+        return $this->hydrateResponse($response, ValidateResponse::class);
+    }
+
+    /**
+     * Get mailing list validation status.
+     *
+     * @param string $address Address of the mailing list
+     *
+     * @return ValidationStatusResponse
+     *
+     * @throws \Exception
+     */
+    public function getValidationStatus(string $address)
+    {
+        Assert::stringNotEmpty($address);
+
+        $response = $this->httpGet(sprintf('/v3/lists/%s/validate', $address));
+
+        return $this->hydrateResponse($response, ValidationStatusResponse::class);
+    }
+
+    /**
+     * Cancel mailing list validation.
+     *
+     * @param string $address Address of the mailing list
+     *
+     * @return ValidationCancelResponse
+     *
+     * @throws \Exception
+     */
+    public function cancelValidation(string $address)
+    {
+        Assert::stringNotEmpty($address);
+
+        $response = $this->httpDelete(sprintf('/v3/lists/%s/validate', $address));
+
+        return $this->hydrateResponse($response, ValidationCancelResponse::class);
     }
 }
