@@ -13,6 +13,7 @@ namespace Mailgun\Tests\Api;
 
 use GuzzleHttp\Psr7\Response;
 use Mailgun\Api\Domain;
+use Mailgun\Exception\InvalidArgumentException;
 use Mailgun\Model\Domain\ConnectionResponse;
 use Mailgun\Model\Domain\CreateCredentialResponse;
 use Mailgun\Model\Domain\CreateResponse;
@@ -274,23 +275,24 @@ JSON
         $api->tracking('example.com');
     }
 
-    public function activeInactiveDataProvider(): array
+    public function updateClickTrackingDataProvider(): array
     {
         return [
-            [true],
-            [false],
+            ['yes'],
+            ['no'],
+            ['htmlonly'],
         ];
     }
 
     /**
-     * @dataProvider activeInactiveDataProvider
+     * @dataProvider updateClickTrackingDataProvider
      */
-    public function testUpdateClickTracking(bool $isActive)
+    public function testUpdateClickTracking(string $active)
     {
         $this->setRequestMethod('PUT');
         $this->setRequestUri('/v3/domains/example.com/tracking/click');
         $this->setRequestBody([
-            'active' => $isActive ? 'true' : 'false',
+            'active' => $active,
         ]);
         $this->setHydrateClass(UpdateClickTrackingResponse::class);
 
@@ -298,18 +300,37 @@ JSON
          * @var $api Domain
          */
         $api = $this->getApiInstance();
-        $api->updateClickTracking('example.com', $isActive);
+        $api->updateClickTracking('example.com', $active);
+    }
+
+    public function testUpdateClickTrackingException()
+    {
+        $this->expectException(InvalidArgumentException::class);
+
+        /**
+         * @var $api Domain
+         */
+        $api = $this->getApiInstance();
+        $api->updateClickTracking('example.com', 'non-valid-active-param');
+    }
+
+    public function updateOpenTrackingDataProvider(): array
+    {
+        return [
+            ['yes'],
+            ['no'],
+        ];
     }
 
     /**
-     * @dataProvider activeInactiveDataProvider
+     * @dataProvider updateOpenTrackingDataProvider
      */
-    public function testUpdateOpenTracking(bool $isActive)
+    public function testUpdateOpenTracking(string $active)
     {
         $this->setRequestMethod('PUT');
         $this->setRequestUri('/v3/domains/example.com/tracking/open');
         $this->setRequestBody([
-            'active' => $isActive ? 'true' : 'false',
+            'active' => $active,
         ]);
         $this->setHydrateClass(UpdateOpenTrackingResponse::class);
 
@@ -317,29 +338,37 @@ JSON
          * @var $api Domain
          */
         $api = $this->getApiInstance();
-        $api->updateOpenTracking('example.com', $isActive);
+        $api->updateOpenTracking('example.com', $active);
+    }
+
+    public function testUpdateOpenTrackingException()
+    {
+        $this->expectException(InvalidArgumentException::class);
+
+        /**
+         * @var $api Domain
+         */
+        $api = $this->getApiInstance();
+        $api->updateOpenTracking('example.com', 'non-valid-active-param');
     }
 
     public function unsubscribeDataProvider(): array
     {
         return [
-            [true, '<b>Test</b>', 'Test1'],
-            [false, '<s>Test</s>', 'Test2'],
+            ['true', '<b>Test</b>', 'Test1'],
+            ['false', '<s>Test</s>', 'Test2'],
         ];
     }
 
     /**
      * @dataProvider unsubscribeDataProvider
-     * @param bool $isActive
-     * @param string $htmlFooter
-     * @param string $textFooter
      */
-    public function testUpdateUnsubscribeTracking(bool $isActive, string $htmlFooter, string $textFooter)
+    public function testUpdateUnsubscribeTracking(string $active, string $htmlFooter, string $textFooter)
     {
         $this->setRequestMethod('PUT');
         $this->setRequestUri('/v3/domains/example.com/tracking/unsubscribe');
         $this->setRequestBody([
-            'active' => $isActive ? 'true' : 'false',
+            'active' => $active,
             'html_footer' => $htmlFooter,
             'text_footer' => $textFooter,
         ]);
@@ -349,6 +378,17 @@ JSON
          * @var $api Domain
          */
         $api = $this->getApiInstance();
-        $api->updateUnsubscribeTracking('example.com', $isActive, $htmlFooter, $textFooter);
+        $api->updateUnsubscribeTracking('example.com', $active, $htmlFooter, $textFooter);
+    }
+
+    public function testUpdateUnsubscribeTrackingException()
+    {
+        $this->expectException(InvalidArgumentException::class);
+
+        /**
+         * @var $api Domain
+         */
+        $api = $this->getApiInstance();
+        $api->updateUnsubscribeTracking('example.com', 'non-valid-active-param', 'html-footer', 'text-footer');
     }
 }
