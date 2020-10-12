@@ -44,6 +44,7 @@ JSON;
         $this->assertInstanceOf(ClickTracking::class, $model->getClick());
         $this->assertEquals('htmlonly', $model->getClick()->getActive());
         $this->assertFalse($model->getClick()->isActive());
+        $this->assertTrue($model->getClick()->isHtmlOnly());
 
         $this->assertNotEmpty($model->getOpen());
         $this->assertInstanceOf(OpenTracking::class, $model->getOpen());

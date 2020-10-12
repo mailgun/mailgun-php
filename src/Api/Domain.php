@@ -325,8 +325,8 @@ class Domain extends HttpApi
      *
      * @param string $domain name of the domain
      *
-     * @param string $active
      * @return UpdateClickTrackingResponse|array|ResponseInterface
+     *
      * @throws \Exception
      */
     public function updateClickTracking(string $domain, string $active)
@@ -348,7 +348,7 @@ class Domain extends HttpApi
      * Updates a domain open tracking settings.
      *
      * @param string $domain name of the domain
-     * @param bool $active
+     * @param bool   $active
      *
      * @return UpdateOpenTrackingResponse|array|ResponseInterface
      */
@@ -370,10 +370,9 @@ class Domain extends HttpApi
     /**
      * Updates a domain unsubscribe tracking settings.
      *
-     * @param string $domain name of the domain
-     * @param string $active
-     * @param string $htmlFooter
+     * @param string      $domain     name of the domain
      * @param string|null $textFooter
+     *
      * @return UpdateUnsubscribeTrackingResponse|array|ResponseInterface
      */
     public function updateUnsubscribeTracking(string $domain, string $active, string $htmlFooter, string $textFooter)
@@ -385,7 +384,7 @@ class Domain extends HttpApi
         Assert::nullOrString($textFooter);
 
         $params = [
-            'active' => (in_array($active, ['yes', 'true'])) ? 'true' : 'false',
+            'active' => (in_array($active, ['yes', 'true'], true)) ? 'true' : 'false',
             'html_footer' => $htmlFooter,
             'text_footer' => $textFooter,
         ];
