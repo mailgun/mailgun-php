@@ -23,7 +23,7 @@ class UpdateOpenTrackingResponseTest extends BaseModelTest
             <<<'JSON'
 {
   "open": {
-    "active": true
+    "active": "no"
   },
   "message": "Domain tracking settings have been updated"
 }
@@ -33,6 +33,6 @@ JSON;
         $this->assertEquals('Domain tracking settings have been updated', $model->getMessage());
         $this->assertNotEmpty($model->getOpen());
         $this->assertInstanceOf(OpenTracking::class, $model->getOpen());
-        $this->assertTrue($model->getOpen()->isActive());
+        $this->assertFalse($model->getOpen()->isActive());
     }
 }

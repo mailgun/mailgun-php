@@ -23,7 +23,15 @@ final class OpenTracking
     public static function create(array $data): self
     {
         $model = new self();
-        $model->active = (bool) ($data['active'] ?? null);
+        $active = $data['active'] ?? null;
+
+        if (true === $active) {
+            $model->active = 'yes';
+        } elseif (false === $active) {
+            $model->active = 'no';
+        } else {
+            $model->active = $active;
+        }
 
         return $model;
     }
@@ -32,8 +40,16 @@ final class OpenTracking
     {
     }
 
-    public function isActive(): bool
+    /**
+     * @return string
+     */
+    public function getActive(): ?string
     {
         return $this->active;
+    }
+
+    public function isActive(): bool
+    {
+        return $this->getActive() === 'yes';
     }
 }

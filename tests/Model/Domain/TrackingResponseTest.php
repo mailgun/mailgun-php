@@ -26,13 +26,13 @@ class TrackingResponseTest extends BaseModelTest
 {
     "tracking": {
         "click": {
-            "active": true
+            "active": "htmlonly"
         },
         "open": {
-            "active": true
+            "active": "no"
         },
         "unsubscribe": {
-            "active": true,
+            "active": false,
             "html_footer": "<s>Test<\/s>",
             "text_footer": "Test"
         }
@@ -42,15 +42,18 @@ JSON;
         $model = TrackingResponse::create(json_decode($json, true));
         $this->assertNotEmpty($model->getClick());
         $this->assertInstanceOf(ClickTracking::class, $model->getClick());
-        $this->assertTrue($model->getClick()->isActive());
+        $this->assertEquals('htmlonly', $model->getClick()->getActive());
+        $this->assertFalse($model->getClick()->isActive());
 
         $this->assertNotEmpty($model->getOpen());
         $this->assertInstanceOf(OpenTracking::class, $model->getOpen());
-        $this->assertTrue($model->getOpen()->isActive());
+        $this->assertEquals('no', $model->getOpen()->getActive());
+        $this->assertFalse($model->getOpen()->isActive());
 
         $this->assertNotEmpty($model->getUnsubscribe());
         $this->assertInstanceOf(UnsubscribeTracking::class, $model->getUnsubscribe());
-        $this->assertTrue($model->getUnsubscribe()->isActive());
+        $this->assertEquals('false', $model->getUnsubscribe()->getActive());
+        $this->assertFalse($model->getUnsubscribe()->isActive());
         $this->assertEquals('<s>Test</s>', $model->getUnsubscribe()->getHtmlFooter());
         $this->assertEquals('Test', $model->getUnsubscribe()->getTextFooter());
     }

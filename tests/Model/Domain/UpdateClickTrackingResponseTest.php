@@ -23,7 +23,7 @@ class UpdateClickTrackingResponseTest extends BaseModelTest
             <<<'JSON'
 {
   "click": {
-    "active": true
+    "active": "htmlonly"
   },
   "message": "Domain tracking settings have been updated"
 }
@@ -33,6 +33,7 @@ JSON;
         $this->assertEquals('Domain tracking settings have been updated', $model->getMessage());
         $this->assertNotEmpty($model->getClick());
         $this->assertInstanceOf(ClickTracking::class, $model->getClick());
-        $this->assertTrue($model->getClick()->isActive());
+        $this->assertEquals('htmlonly', $model->getClick()->getActive());
+        $this->assertFalse($model->getClick()->isActive());
     }
 }

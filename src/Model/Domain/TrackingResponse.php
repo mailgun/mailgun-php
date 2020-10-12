@@ -32,7 +32,7 @@ final class TrackingResponse implements ApiResponse
 
         $model = new self();
         $model->click = ClickTracking::create($trackingSettings['click'] ?? []);
-        $model->open = OpenTracking::create($trackingSettings['click'] ?? []);
+        $model->open = OpenTracking::create($trackingSettings['open'] ?? []);
         $model->unsubscribe = UnsubscribeTracking::create($trackingSettings['unsubscribe'] ?? []);
 
         return $model;

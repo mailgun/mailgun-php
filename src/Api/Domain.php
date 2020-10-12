@@ -325,13 +325,18 @@ class Domain extends HttpApi
      *
      * @param string $domain name of the domain
      *
-     * @param bool $active
+     * @param string $active
      * @return UpdateClickTrackingResponse|array|ResponseInterface
+     * @throws \Exception
      */
-    public function updateClickTracking(string $domain, bool $active)
+    public function updateClickTracking(string $domain, string $active)
     {
+        Assert::stringNotEmpty($domain);
+        Assert::stringNotEmpty($active);
+        Assert::oneOf($active, ['yes', 'no', 'htmlonly']);
+
         $params = [
-            'active' => $active ? 'true' : 'false',
+            'active' => $active,
         ];
 
         $response = $this->httpPut(sprintf('/v3/domains/%s/tracking/click', $domain), $params);
@@ -347,10 +352,14 @@ class Domain extends HttpApi
      *
      * @return UpdateOpenTrackingResponse|array|ResponseInterface
      */
-    public function updateOpenTracking(string $domain, bool $active)
+    public function updateOpenTracking(string $domain, string $active)
     {
+        Assert::stringNotEmpty($domain);
+        Assert::stringNotEmpty($active);
+        Assert::oneOf($active, ['yes', 'no']);
+
         $params = [
-            'active' => $active ? 'true' : 'false',
+            'active' => $active,
         ];
 
         $response = $this->httpPut(sprintf('/v3/domains/%s/tracking/open', $domain), $params);
@@ -362,15 +371,21 @@ class Domain extends HttpApi
      * Updates a domain unsubscribe tracking settings.
      *
      * @param string $domain name of the domain
-     * @param bool $active
+     * @param string $active
      * @param string $htmlFooter
-     * @param string $textFooter
+     * @param string|null $textFooter
      * @return UpdateUnsubscribeTrackingResponse|array|ResponseInterface
      */
-    public function updateUnsubscribeTracking(string $domain, bool $active, string $htmlFooter, string $textFooter)
+    public function updateUnsubscribeTracking(string $domain, string $active, string $htmlFooter, string $textFooter)
     {
+        Assert::stringNotEmpty($domain);
+        Assert::stringNotEmpty($active);
+        Assert::oneOf($active, ['yes', 'no', 'true', 'false']);
+        Assert::stringNotEmpty($htmlFooter);
+        Assert::nullOrString($textFooter);
+
         $params = [
-            'active' => $active ? 'true' : 'false',
+            'active' => (in_array($active, ['yes', 'true'])) ? 'true' : 'false',
             'html_footer' => $htmlFooter,
             'text_footer' => $textFooter,
         ];

@@ -25,7 +25,7 @@ final class UnsubscribeTracking
     public static function create(array $data): self
     {
         $model = new self();
-        $model->active = (bool) ($data['active'] ?? null);
+        $model->active = ($data['active'] ?? null) ? 'true' : 'false';
         $model->htmlFooter = $data['html_footer'] ?? '';
         $model->textFooter = $data['text_footer'] ?? '';
 
@@ -37,6 +37,11 @@ final class UnsubscribeTracking
     }
 
     public function isActive(): bool
+    {
+        return $this->active === 'true';
+    }
+
+    public function getActive(): string
     {
         return $this->active;
     }
