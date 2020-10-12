@@ -269,7 +269,7 @@ JSON
         $this->setHydrateClass(TrackingResponse::class);
 
         /**
-         * @var $api Domain
+         * @var Domain
          */
         $api = $this->getApiInstance();
         $api->tracking('example.com');
@@ -297,7 +297,7 @@ JSON
         $this->setHydrateClass(UpdateClickTrackingResponse::class);
 
         /**
-         * @var $api Domain
+         * @var Domain
          */
         $api = $this->getApiInstance();
         $api->updateClickTracking('example.com', $active);
@@ -308,7 +308,7 @@ JSON
         $this->expectException(InvalidArgumentException::class);
 
         /**
-         * @var $api Domain
+         * @var Domain
          */
         $api = $this->getApiInstance();
         $api->updateClickTracking('example.com', 'non-valid-active-param');
@@ -335,7 +335,7 @@ JSON
         $this->setHydrateClass(UpdateOpenTrackingResponse::class);
 
         /**
-         * @var $api Domain
+         * @var Domain
          */
         $api = $this->getApiInstance();
         $api->updateOpenTracking('example.com', $active);
@@ -346,7 +346,7 @@ JSON
         $this->expectException(InvalidArgumentException::class);
 
         /**
-         * @var $api Domain
+         * @var Domain
          */
         $api = $this->getApiInstance();
         $api->updateOpenTracking('example.com', 'non-valid-active-param');
@@ -375,7 +375,7 @@ JSON
         $this->setHydrateClass(UpdateUnsubscribeTrackingResponse::class);
 
         /**
-         * @var $api Domain
+         * @var Domain
          */
         $api = $this->getApiInstance();
         $api->updateUnsubscribeTracking('example.com', $active, $htmlFooter, $textFooter);
@@ -386,7 +386,7 @@ JSON
         $this->expectException(InvalidArgumentException::class);
 
         /**
-         * @var $api Domain
+         * @var Domain
          */
         $api = $this->getApiInstance();
         $api->updateUnsubscribeTracking('example.com', 'non-valid-active-param', 'html-footer', 'text-footer');
