@@ -38,7 +38,7 @@ final class UnsubscribeTracking
 
     public function isActive(): bool
     {
-        return 'yes' === $this->getActive();
+        return 'true' === $this->getActive();
     }
 
     public function getActive(): string
