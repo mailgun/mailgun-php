@@ -26,13 +26,13 @@ final class ValidationStatusResponse implements ApiResponse
     public static function create(array $data): self
     {
         $model = new self();
-        $model->id = $data['id'] ?? '';
+        $model->id = $data['id'] ?? null;
         $model->createdAt = $data['created_at'] ?? null;
         $model->downloadUrl = ValidationStatusDownloadUrl::create($data['download_url']);
-        $model->id = $data['id'] ?? '';
+        $model->id = $data['id'] ?? null;
         $model->quantity = $data['quantity'] ?? 0;
-        $model->recordsProcessed = $data['records_processed'] ?? 0;
-        $model->status = $data['status'] ?? '';
+        $model->recordsProcessed = $data['records_processed'] ?? null;
+        $model->status = $data['status'] ?? null;
         $model->summary = ValidationStatusSummary::create($data['summary'] ?? []);
 
         return $model;
@@ -42,7 +42,7 @@ final class ValidationStatusResponse implements ApiResponse
     {
     }
 
-    public function getCreatedAt(): string
+    public function getCreatedAt(): ?string
     {
         return $this->createdAt;
     }
@@ -52,22 +52,22 @@ final class ValidationStatusResponse implements ApiResponse
         return $this->downloadUrl;
     }
 
-    public function getId(): string
+    public function getId(): ?string
     {
         return $this->id;
     }
 
-    public function getQuantity(): int
+    public function getQuantity(): ?int
     {
         return $this->quantity;
     }
 
-    public function getRecordsProcessed(): int
+    public function getRecordsProcessed(): ?int
     {
         return $this->recordsProcessed;
     }
 
-    public function getStatus(): string
+    public function getStatus(): ?string
     {
         return $this->status;
     }

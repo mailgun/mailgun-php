@@ -21,8 +21,8 @@ final class ValidateResponse implements ApiResponse
     public static function create(array $data): self
     {
         $model = new self();
-        $model->id = $data['id'] ?? '';
-        $model->message = $data['message'] ?? '';
+        $model->id = $data['id'] ?? null;
+        $model->message = $data['message'] ?? null;
 
         return $model;
     }
@@ -31,12 +31,12 @@ final class ValidateResponse implements ApiResponse
     {
     }
 
-    public function getMessage(): string
+    public function getMessage(): ?string
     {
         return $this->message;
     }
 
-    public function getId(): string
+    public function getId(): ?string
     {
         return $this->id;
     }

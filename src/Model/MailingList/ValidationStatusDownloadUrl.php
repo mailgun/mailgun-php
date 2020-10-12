@@ -21,8 +21,8 @@ final class ValidationStatusDownloadUrl implements ApiResponse
     public static function create(array $data): self
     {
         $model = new self();
-        $model->csv = $data['csv'] ?? '';
-        $model->json = $data['json'] ?? '';
+        $model->csv = $data['csv'] ?? null;
+        $model->json = $data['json'] ?? null;
 
         return $model;
     }
@@ -31,12 +31,12 @@ final class ValidationStatusDownloadUrl implements ApiResponse
     {
     }
 
-    public function getCsv(): string
+    public function getCsv(): ?string
     {
         return $this->csv;
     }
 
-    public function getJson(): string
+    public function getJson(): ?string
     {
         return $this->json;
     }
