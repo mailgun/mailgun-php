@@ -50,6 +50,6 @@ final class OpenTracking
 
     public function isActive(): bool
     {
-        return $this->getActive() === 'yes';
+        return 'yes' === $this->getActive();
     }
 }
