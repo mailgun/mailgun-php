@@ -348,7 +348,6 @@ class Domain extends HttpApi
      * Updates a domain open tracking settings.
      *
      * @param string $domain name of the domain
-     * @param bool   $active
      *
      * @return UpdateOpenTrackingResponse|array|ResponseInterface
      */
@@ -370,10 +369,11 @@ class Domain extends HttpApi
     /**
      * Updates a domain unsubscribe tracking settings.
      *
-     * @param string      $domain     name of the domain
-     * @param string|null $textFooter
+     * @param string $domain name of the domain
      *
      * @return UpdateUnsubscribeTrackingResponse|array|ResponseInterface
+     *
+     * @throws \Exception
      */
     public function updateUnsubscribeTracking(string $domain, string $active, string $htmlFooter, string $textFooter)
     {
