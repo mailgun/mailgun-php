@@ -37,6 +37,7 @@ final class Event
     private $geolocation;
     private $storage;
     private $method;
+    private $logLevel;
 
     private function __construct()
     {
@@ -66,6 +67,7 @@ final class Event
         $model->clientInfo = $data['client-info'] ?? [];
         $model->url = $data['url'] ?? '';
         $model->storage = $data['storage'] ?? [];
+        $model->logLevel = $data['log-level'] ?? '';
 
         return $model;
     }
@@ -191,5 +193,10 @@ final class Event
     public function getMethod(): string
     {
         return $this->method;
+    }
+
+    public function getLogLevel(): string
+    {
+        return $this->logLevel;
     }
 }

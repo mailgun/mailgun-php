@@ -241,4 +241,19 @@ JSON
         $api = $this->getApiInstance();
         $api->verify('example.com');
     }
+
+    public function testCreateWithIps()
+    {
+        $this->setRequestMethod('POST');
+        $this->setRequestUri('/v3/domains');
+        $this->setRequestBody([
+            'name' => 'example.com',
+            'smtp_password' => 'foo',
+            'ips' => '127.0.0.1,127.0.0.2',
+        ]);
+        $this->setHydrateClass(CreateResponse::class);
+
+        $api = $this->getApiInstance();
+        $api->create('example.com', 'foo', null, null, null, ['127.0.0.1', '127.0.0.2']);
+    }
 }

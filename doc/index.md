@@ -321,12 +321,12 @@ $mailgun->webhooks()->show('example.com', 'accept');
 
 #### Create a webhooks
 ```php
-$mailgun->webhooks()->create('example.com', 'accept', 'https://www.exmple.com/webhook');
+$mailgun->webhooks()->create('example.com', 'opened', [ 'https://www.exmple.com/webhook' ]);
 ```
 
 #### Update a webhooks
 ```php
-$mailgun->webhooks()->update('example.com', 4711, 'https://www.exmple.com/webhook');
+$mailgun->webhooks()->update('example.com', 4711, [ 'https://www.exmple.com/webhook' ]);
 ```
 
 #### Delete a webhooks

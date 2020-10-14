@@ -28,6 +28,11 @@ final class IndexResponse implements ApiResponse
      */
     private $totalCount;
 
+    /**
+     * @var string[]
+     */
+    private $assignableToPools;
+
     private function __construct()
     {
     }
@@ -37,6 +42,7 @@ final class IndexResponse implements ApiResponse
         $model = new self();
         $model->items = $data['items'];
         $model->totalCount = $data['total_count'] ?? 0;
+        $model->assignableToPools = $data['assignable_to_pools'];
 
         return $model;
     }
@@ -47,6 +53,14 @@ final class IndexResponse implements ApiResponse
     public function getItems(): array
     {
         return $this->items;
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getAssignableToPools(): array
+    {
+        return $this->assignableToPools;
     }
 
     public function getTotalCount(): int
