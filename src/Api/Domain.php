@@ -323,7 +323,8 @@ class Domain extends HttpApi
     /**
      * Updates a domain click tracking settings.
      *
-     * @param string $domain name of the domain
+     * @param string $domain The name of the domain
+     * @param string $active The status for this tracking (one of: yes, no)
      *
      * @return UpdateClickTrackingResponse|array|ResponseInterface
      *
@@ -347,7 +348,8 @@ class Domain extends HttpApi
     /**
      * Updates a domain open tracking settings.
      *
-     * @param string $domain name of the domain
+     * @param string $domain The name of the domain
+     * @param string $active The status for this tracking (one of: yes, no)
      *
      * @return UpdateOpenTrackingResponse|array|ResponseInterface
      */
@@ -369,7 +371,10 @@ class Domain extends HttpApi
     /**
      * Updates a domain unsubscribe tracking settings.
      *
-     * @param string $domain name of the domain
+     * @param string $domain     The name of the domain
+     * @param string $active     The status for this tracking (one of: yes, no)
+     * @param string $htmlFooter The footer for HTML emails
+     * @param string $textFooter The footer for plain text emails
      *
      * @return UpdateUnsubscribeTrackingResponse|array|ResponseInterface
      *

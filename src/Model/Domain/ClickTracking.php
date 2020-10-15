@@ -22,16 +22,9 @@ final class ClickTracking
 
     public static function create(array $data): self
     {
-        $model = new self();
         $active = $data['active'] ?? null;
-
-        if (true === $active) {
-            $model->active = 'yes';
-        } elseif (false === $active) {
-            $model->active = 'no';
-        } else {
-            $model->active = $active;
-        }
+        $model = new self();
+        $model->active = 'htmlonly' === $active ? $active : ($active ? 'yes' : 'no');
 
         return $model;
     }

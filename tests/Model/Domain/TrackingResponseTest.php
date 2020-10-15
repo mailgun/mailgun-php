@@ -29,7 +29,7 @@ class TrackingResponseTest extends BaseModelTest
             "active": "htmlonly"
         },
         "open": {
-            "active": "no"
+            "active": false
         },
         "unsubscribe": {
             "active": false,
@@ -53,7 +53,7 @@ JSON;
 
         $this->assertNotEmpty($model->getUnsubscribe());
         $this->assertInstanceOf(UnsubscribeTracking::class, $model->getUnsubscribe());
-        $this->assertEquals('false', $model->getUnsubscribe()->getActive());
+        $this->assertEquals('no', $model->getUnsubscribe()->getActive());
         $this->assertFalse($model->getUnsubscribe()->isActive());
         $this->assertEquals('<s>Test</s>', $model->getUnsubscribe()->getHtmlFooter());
         $this->assertEquals('Test', $model->getUnsubscribe()->getTextFooter());
