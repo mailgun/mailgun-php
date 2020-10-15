@@ -23,7 +23,7 @@ class UpdateOpenTrackingResponseTest extends BaseModelTest
             <<<'JSON'
 {
   "open": {
-    "active": "no"
+    "active": false
   },
   "message": "Domain tracking settings have been updated"
 }
