@@ -36,6 +36,12 @@ class SuppressionTest extends TestCase
         $this->assertInstanceOf(Suppression\Unsubscribe::class, $api->unsubscribes());
     }
 
+    public function testWhitelists()
+    {
+        $api = $this->getApiInstance();
+        $this->assertInstanceOf(Suppression\Whitelist::class, $api->whitelists());
+    }
+
     /**
      * {@inheritdoc}
      */
