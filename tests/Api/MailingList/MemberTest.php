@@ -107,7 +107,7 @@ class MemberTest extends TestCase
                 [
                     'address' => 'billy@example.com',
                     'name' => 'Billy',
-                    'subscribed' => 'yes',
+                    'subscribed' => true,
                 ],
             ]),
             'upsert' => 'no',
@@ -125,7 +125,7 @@ class MemberTest extends TestCase
             [
                 'address' => 'billy@example.com',
                 'name' => 'Billy',
-                'subscribed' => 'yes',
+                'subscribed' => true,
             ],
         ], false);
     }
@@ -140,7 +140,7 @@ class MemberTest extends TestCase
             [
                 'address' => 'billy@example.com',
                 'name' => 'Billy',
-                'subscribed' => true,
+                'subscribed' => 'yes',
             ],
         ];
 
