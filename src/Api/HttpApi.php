@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace Mailgun\Api;
 
+use Http\Client\Common\PluginClient;
 use Mailgun\Exception\HttpClientException;
 use Mailgun\Exception\HttpServerException;
 use Mailgun\Exception\UnknownErrorException;
@@ -29,7 +30,7 @@ abstract class HttpApi
     /**
      * The HTTP client.
      *
-     * @var ClientInterface
+     * @var ClientInterface|PluginClient
      */
     protected $httpClient;
 
@@ -43,8 +44,13 @@ abstract class HttpApi
      */
     protected $requestBuilder;
 
-    public function __construct(ClientInterface $httpClient, RequestBuilder $requestBuilder, Hydrator $hydrator)
+    public function __construct($httpClient, RequestBuilder $requestBuilder, Hydrator $hydrator)
     {
+        if (!is_a($httpClient, ClientInterface::class) &&
+            !is_a($httpClient, PluginClient::class)) {
+            throw new \RuntimeException('httpClient must be an instance of 
+            Psr\Http\Client\ClientInterface or Http\Client\Common\PluginClient');
+        }
         $this->httpClient = $httpClient;
         $this->requestBuilder = $requestBuilder;
         if (!$hydrator instanceof NoopHydrator) {

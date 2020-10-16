@@ -84,6 +84,8 @@ class MessageBuilder
     }
 
     /**
+     * @param array $variables {
+     *
      *     @var string
      *     @var string
      *     @var string
