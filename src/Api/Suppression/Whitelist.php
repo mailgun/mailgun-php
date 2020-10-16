@@ -70,14 +70,15 @@ class Whitelist extends HttpApi
     /**
      * @param string $domain  Domain to create whitelist for
      * @param string $address whitelist email address or domain name
-     * @param array  $params  optional
      *
      * @return CreateResponse
      */
-    public function create(string $domain, string $address, array $params = [])
+    public function create(string $domain, string $address)
     {
         Assert::stringNotEmpty($domain);
         Assert::stringNotEmpty($address);
+
+        $params = [];
 
         if (false !== filter_var($address, FILTER_VALIDATE_EMAIL)) {
             $params['address'] = $address;
@@ -95,11 +96,10 @@ class Whitelist extends HttpApi
     /**
      * @param string $domain   Domain to create whitelist for
      * @param string $filePath csv file path
-     * @param array  $params   optional
      *
      * @return ImportResponse
      */
-    public function import(string $domain, string $filePath, array $params = [])
+    public function import(string $domain, string $filePath)
     {
         Assert::stringNotEmpty($domain);
         Assert::stringNotEmpty($filePath);
@@ -108,9 +108,9 @@ class Whitelist extends HttpApi
         $response = $this->httpPost(
             sprintf('/v3/%s/whitelists/import', $domain),
             ['file' => fopen($filePath, 'r')],
-            array_merge($params, [
+            [
                 'filename' => basename($filePath),
-            ])
+            ]
         );
 
         return $this->hydrateResponse($response, ImportResponse::class);
@@ -119,16 +119,15 @@ class Whitelist extends HttpApi
     /**
      * @param string $domain  Domain to delete whitelist for
      * @param string $address whitelist address
-     * @param array  $params  optional
      *
      * @return DeleteResponse
      */
-    public function delete(string $domain, string $address, array $params = [])
+    public function delete(string $domain, string $address)
     {
         Assert::stringNotEmpty($domain);
         Assert::stringNotEmpty($address);
 
-        $response = $this->httpDelete(sprintf('/v3/%s/whitelists/%s', $domain, $address), $params);
+        $response = $this->httpDelete(sprintf('/v3/%s/whitelists/%s', $domain, $address));
 
         return $this->hydrateResponse($response, DeleteResponse::class);
     }
