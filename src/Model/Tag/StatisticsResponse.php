@@ -31,12 +31,17 @@ final class StatisticsResponse implements ApiResponse
 
     public static function create(array $data): self
     {
+        $stats = [];
+        if (isset($data['stats'])) {
+            foreach ($data['stats'] as $s) {
+                $stats[] = StatisticsResponseItem::create($s);
+            }
+        }
+
         $model = new self();
 
-        $model->tag = $data['tag'] ?? '';
         $model->description = $data['description'] ?? '';
         $model->resolution = $data['resolution'] ?? null;
-        $model->stats = $data['stats'] ?? [];
         $model->start = isset($data['start']) ? new \DateTimeImmutable($data['start']) : null;
         $model->end = isset($data['end']) ? new \DateTimeImmutable($data['end']) : null;
 
