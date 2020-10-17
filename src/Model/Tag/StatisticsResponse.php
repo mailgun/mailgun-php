@@ -40,6 +40,7 @@ final class StatisticsResponse implements ApiResponse
 
         $model = new self();
 
+        $model->tag = $data['tag'] ?? '';
         $model->description = $data['description'] ?? '';
         $model->resolution = $data['resolution'] ?? null;
         $model->start = isset($data['start']) ? new \DateTimeImmutable($data['start']) : null;
