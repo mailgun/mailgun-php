@@ -24,6 +24,7 @@ final class StatisticsResponseItem
     private $unsubscribed;
     private $opened;
     private $stored;
+    private $clicked;
 
     public static function create(array $data): self
     {
@@ -36,6 +37,7 @@ final class StatisticsResponseItem
         $model->unsubscribed = $data['unsubscribed'] ?? [];
         $model->opened = $data['opened'] ?? [];
         $model->stored = $data['stored'] ?? [];
+        $model->clicked = $data['clicked'] ?? [];
 
         return $model;
     }
@@ -82,5 +84,10 @@ final class StatisticsResponseItem
     public function getStored(): array
     {
         return $this->stored;
+    }
+
+    public function getClicked(): array
+    {
+        return $this->clicked;
     }
 }
