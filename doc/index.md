@@ -174,11 +174,6 @@ $mailgun->routes()->delete(4711);
 $mailgun->stats()->total('example.com');
 ```
 
-#### Get all stats for a domain
-```php
-$mailgun->stats()->all('example.com');
-```
-
 ## Suppression API
 
 The suppression API consists of 3 parts; `Bounce`, `Complaint` and `Unsubscribe`.
