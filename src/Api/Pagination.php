@@ -52,9 +52,7 @@ trait Pagination
             return null;
         }
 
-        $url = str_replace('http://','https://',$url);
-
-        $response = $this->httpGet($url);
+        $response = $this->httpGet(str_replace('http://','https://',$url));
 
         return $this->hydrateResponse($response, $class);
     }
