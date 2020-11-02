@@ -29,6 +29,8 @@ use Psr\Http\Message\ResponseInterface;
  */
 class Tag extends HttpApi
 {
+    use Pagination;
+
     /**
      * Returns a list of tags.
 

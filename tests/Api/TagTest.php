@@ -13,6 +13,11 @@ namespace Mailgun\Tests\Api;
 
 use GuzzleHttp\Psr7\Response;
 use Mailgun\Api\Tag;
+use Mailgun\Hydrator\ModelHydrator;
+use Mailgun\Model\PaginationResponse;
+use Mailgun\Model\Stats\TotalResponse;
+use Mailgun\Model\Stats\TotalResponseItem;
+use Mailgun\Model\Tag\IndexResponse;
 
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
@@ -26,17 +31,72 @@ class TagTest extends TestCase
 
     public function testIndex()
     {
+        $jsonResponse = '{
+    "items": [
+        {
+            "tag": "Tag1",
+            "description": "",
+            "first-seen": "2020-11-02T00:00:00Z",
+            "last-seen": "2020-11-02T19:14:07.747Z"
+        },
+        {
+            "tag": "Tag10",
+            "description": "",
+            "first-seen": "2020-11-02T00:00:00Z",
+            "last-seen": "2020-11-02T19:12:06.408Z"
+        },
+        {
+            "tag": "Tag11",
+            "description": "",
+            "first-seen": "2020-11-02T00:00:00Z",
+            "last-seen": "2020-11-02T19:12:06.105Z"
+        },
+        {
+            "tag": "Tag2",
+            "description": "",
+            "first-seen": "2020-11-02T00:00:00Z",
+            "last-seen": "2020-11-02T19:14:09.111Z"
+        },
+        {
+            "tag": "Tag3",
+            "description": "",
+            "first-seen": "2020-11-02T00:00:00Z",
+            "last-seen": "2020-11-02T19:14:08.772Z"
+        },
+        {
+            "tag": "Tag9",
+            "description": "",
+            "first-seen": "2020-11-02T00:00:00Z",
+            "last-seen": "2020-11-02T19:12:06.214Z"
+        }
+    ],
+    "paging": {
+        "previous": "http:\/\/api.mailgun.net\/v3\/sandbox152fb160643f41f9b09b52f7b5e370ec.mailgun.org\/tags?limit=10&page=prev&tag=",
+        "first": "http:\/\/api.mailgun.net\/v3\/sandbox152fb160643f41f9b09b52f7b5e370ec.mailgun.org\/tags?limit=10&page=first&tag=",
+        "next": "http:\/\/api.mailgun.net\/v3\/sandbox152fb160643f41f9b09b52f7b5e370ec.mailgun.org\/tags?limit=10&page=next&tag=",
+        "last": "http:\/\/api.mailgun.net\/v3\/sandbox152fb160643f41f9b09b52f7b5e370ec.mailgun.org\/tags?limit=10&page=last&tag="
+    }
+}';
+
         $data = [
             'limit' => 10,
         ];
 
-        $api = $this->getApiMock();
+        $api = $this->getApiMock(null, null, new ModelHydrator());
         $api->expects($this->once())
             ->method('httpGet')
             ->with('/v3/domain/tags', $data)
-            ->willReturn(new Response());
+            ->willReturn(new Response(200, ['Content-Type' => 'application/json'], $jsonResponse));
 
-        $api->index('domain', 10);
+        $tags = $api->index('domain', 10);
+
+        $this->assertInstanceOf(IndexResponse::class, $tags);
+        $this->assertCount(6, $tags->getItems());
+        $this->assertContainsOnlyInstancesOf(\Mailgun\Model\Tag\Tag::class, $tags->getItems());
+        $this->assertTrue(method_exists($api, 'nextPage'));
+        $this->assertTrue(method_exists($api, 'previousPage'));
+        $this->assertTrue(method_exists($api, 'firstPage'));
+        $this->assertTrue(method_exists($api, 'lastPage'));
     }
 
     public function testShow()
