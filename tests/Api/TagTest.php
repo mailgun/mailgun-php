@@ -14,9 +14,6 @@ namespace Mailgun\Tests\Api;
 use GuzzleHttp\Psr7\Response;
 use Mailgun\Api\Tag;
 use Mailgun\Hydrator\ModelHydrator;
-use Mailgun\Model\PaginationResponse;
-use Mailgun\Model\Stats\TotalResponse;
-use Mailgun\Model\Stats\TotalResponseItem;
 use Mailgun\Model\Tag\IndexResponse;
 
 /**

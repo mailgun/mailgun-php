@@ -42,7 +42,7 @@ final class IndexResponse implements ApiResponse, PagingProvider
         $model->items = $items;
 
         // Fix http urls that is coming from server
-        $data['paging'] = array_map(function(string $url) {
+        $data['paging'] = array_map(function (string $url) {
             return str_replace('http://', 'https://', $url);
         }, $data['paging']);
 
