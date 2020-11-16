@@ -2,6 +2,22 @@
 
 The change log describes what is "Added", "Removed", "Changed" or "Fixed" between each release.
 
+## 3.2.0
+
+### Added
+
+- Domain tracking implementation (#711 by @uavn)
+- Mailing list validation (#712 by @uavn)
+- Suppression Whitelists (#713 by @uavn)
+
+### Fixed
+
+- Added pagination to tags (#717 by @uavn)
+
+### Changed
+
+- Expect Client to be of type ClientInterface or PluginClient (#660 by @tonythomas01)
+
 ## 3.1.0
 
 ### Added
