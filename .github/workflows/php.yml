@@ -38,11 +38,13 @@ jobs:
               run: composer test
 
             - name: PHP Stan
+              if: matrix.php-versions == '7.1'
               run: |
                   phpstan --version
                   phpstan analyse
 
             - name: Scrunitizer CI
+              if: matrix.php-versions == '7.1'
               run: |
                   wget https://scrutinizer-ci.com/ocular.phar
                   php ocular.phar code-coverage:upload --format=php-clover build/coverage.xml
