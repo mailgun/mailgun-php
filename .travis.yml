@@ -27,7 +27,7 @@ matrix:
           env: COMPOSER_FLAGS="--prefer-stable --prefer-lowest" PREFER_COVERAGE=true
         - name: Backward compatibility test (Disabled)
           php: 7.3
-          env: DEPENDENCIES="roave/backward-compatibility-check"
+          env: DEPENDENCIES="roave/backward-compatibility-check:^4.4"
           script: ./vendor/bin/roave-backward-compatibility-check || true
         - name: PHPStan
           php: 7.2
