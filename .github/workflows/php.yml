@@ -1,0 +1,48 @@
+name: PHP Composer
+
+on:
+    push:
+        branches: [ 'master', '2.x' ]
+    pull_request:
+        branches: [ 'master', '2.x' ]
+
+jobs:
+    build:
+
+        strategy:
+            matrix:
+                operating-system: [ 'ubuntu-latest' ]
+                php-versions: [ '7.1', '7.2', '7.3', '7.4', '8.0', '8.1' ]
+
+        runs-on: ${{ matrix.operating-system }}
+
+        steps:
+
+            - name: Checkout
+              uses: actions/checkout@v2
+
+            - name: Validate composer.json and composer.lock
+              run: composer validate
+
+            - name: Setup PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: ${{ matrix.php-versions }}
+                  composer_version: 2
+                  tools: phpunit, phpstan
+
+            - name: Install dependencies
+              run: composer install --prefer-dist --no-progress --no-suggest
+
+            - name: PHP Unit Tests
+              run: composer test
+
+            - name: PHP Stan
+              run: |
+                  phpstan --version
+                  phpstan analyse
+
+            - name: Scrunitizer CI
+              run: |
+                  wget https://scrutinizer-ci.com/ocular.phar
+                  php ocular.phar code-coverage:upload --format=php-clover build/coverage.xml
