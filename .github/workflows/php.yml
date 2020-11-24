@@ -28,7 +28,6 @@ jobs:
               uses: shivammathur/setup-php@v2
               with:
                   php-version: ${{ matrix.php-versions }}
-                  composer_version: 2
                   tools: phpunit, phpstan
 
             - name: Install dependencies
