@@ -11,10 +11,6 @@ declare(strict_types=1);
 
 namespace Mailgun\Tests\Model\Event;
 
-use Mailgun\Model\EmailValidationV4\Job;
-use Mailgun\Model\EmailValidationV4\JobDownloadUrl;
-use Mailgun\Model\EmailValidationV4\Summary;
-use Mailgun\Model\EmailValidationV4\SummaryResult;
 use Mailgun\Model\EmailValidationV4\SummaryRisk;
 use Mailgun\Tests\Model\BaseModelTest;
 

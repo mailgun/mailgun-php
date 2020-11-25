@@ -33,9 +33,6 @@ final class PromoteBulkPreviewResponse implements ApiResponse
         return $model;
     }
 
-    /**
-     * @return string|null
-     */
     public function getMessage(): ?string
     {
         return $this->message;

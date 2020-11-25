@@ -51,33 +51,21 @@ final class SummaryRisk implements ApiResponse
     {
     }
 
-    /**
-     * @return int
-     */
     public function getHigh(): int
     {
         return $this->high;
     }
 
-    /**
-     * @return int
-     */
     public function getLow(): int
     {
         return $this->low;
     }
 
-    /**
-     * @return int
-     */
     public function getMedium(): int
     {
         return $this->medium;
     }
 
-    /**
-     * @return int
-     */
     public function getUnknown(): int
     {
         return $this->unknown;

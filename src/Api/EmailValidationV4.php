@@ -34,8 +34,9 @@ class EmailValidationV4 extends HttpApi
      * Addresses are validated based off defined checks.
      *
      * @param string $address An email address to validate. Maximum: 512 characters.
-     * @param bool $providerLookup
+     *
      * @return ValidateResponse|ResponseInterface
+     *
      * @throws Exception Thrown when we don't catch a Client or Server side Exception
      */
     public function validate(string $address, bool $providerLookup = true)
@@ -53,9 +54,10 @@ class EmailValidationV4 extends HttpApi
     }
 
     /**
-     * @param string $listId
-     * @param $filePath - file path or file content
+     * @param mixed $filePath - file path or file content
+     *
      * @return mixed|ResponseInterface
+     *
      * @throws Exception
      */
     public function createBulkJob(string $listId, $filePath)
@@ -81,10 +83,7 @@ class EmailValidationV4 extends HttpApi
     }
 
     /**
-     * @param string $fieldName
      * @param array $filePath ['fileContent' => 'content'] or ['filePath' => '/foo/bar']
-     *
-     * @return array
      */
     private function prepareFile(string $fieldName, array $filePath): array
     {
@@ -118,7 +117,6 @@ class EmailValidationV4 extends HttpApi
 
     /**
      * Close open resources.
-     * @param array $params
      */
     private function closeResources(array $params): void
     {
@@ -130,8 +128,8 @@ class EmailValidationV4 extends HttpApi
     }
 
     /**
-     * @param string $listId
      * @return DeleteBulkJobResponse|ResponseInterface
+     *
      * @throws Exception
      */
     public function deleteBulkJob(string $listId)
@@ -144,8 +142,8 @@ class EmailValidationV4 extends HttpApi
     }
 
     /**
-     * @param string $listId
      * @return GetBulkJobResponse|ResponseInterface
+     *
      * @throws Exception
      */
     public function getBulkJob(string $listId)
@@ -158,8 +156,8 @@ class EmailValidationV4 extends HttpApi
     }
 
     /**
-     * @param int $limit
      * @return GetBulkJobsResponse|ResponseInterface
+     *
      * @throws Exception
      */
     public function getBulkJobs(int $limit = 500)
@@ -187,9 +185,8 @@ class EmailValidationV4 extends HttpApi
     }
 
     /**
-     * @param string $previewId
-     * @param $filePath
      * @return mixed|ResponseInterface
+     *
      * @throws Exception
      */
     public function createBulkPreview(string $previewId, $filePath)
@@ -215,8 +212,8 @@ class EmailValidationV4 extends HttpApi
     }
 
     /**
-     * @param string $previewId
      * @return mixed|ResponseInterface
+     *
      * @throws Exception
      */
     public function getBulkPreview(string $previewId)
@@ -229,7 +226,6 @@ class EmailValidationV4 extends HttpApi
     }
 
     /**
-     * @param string $previewId
      * @return bool
      */
     public function deleteBulkPreview(string $previewId)
@@ -238,12 +234,12 @@ class EmailValidationV4 extends HttpApi
 
         $response = $this->httpDelete(sprintf('/v4/address/validate/preview/%s', $previewId));
 
-        return $response->getStatusCode() === 204;
+        return 204 === $response->getStatusCode();
     }
 
     /**
-     * @param string $previewId
      * @return mixed|ResponseInterface
+     *
      * @throws Exception
      */
     public function promoteBulkPreview(string $previewId)

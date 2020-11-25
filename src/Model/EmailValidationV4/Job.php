@@ -51,7 +51,7 @@ class Job implements ApiResponse
      */
     private $summary;
 
-    private function __construct()
+    final private function __construct()
     {
     }
 
@@ -70,57 +70,36 @@ class Job implements ApiResponse
         return $model;
     }
 
-    /**
-     * @return DateTimeImmutable|null
-     */
     public function getCreatedAt(): ?DateTimeImmutable
     {
         return $this->createdAt;
     }
 
-    /**
-     * @return JobDownloadUrl
-     */
     public function getDownloadUrl(): JobDownloadUrl
     {
         return $this->downloadUrl;
     }
 
-    /**
-     * @return string|null
-     */
     public function getId(): ?string
     {
         return $this->id;
     }
 
-    /**
-     * @return int
-     */
     public function getQuantity(): int
     {
         return $this->quantity;
     }
 
-    /**
-     * @return int
-     */
     public function getRecordsProcessed(): int
     {
         return $this->recordsProcessed;
     }
 
-    /**
-     * @return string|null
-     */
     public function getStatus(): ?string
     {
         return $this->status;
     }
 
-    /**
-     * @return mixed
-     */
     public function getSummary(): Summary
     {
         return $this->summary;

@@ -18,7 +18,7 @@ final class GetBulkPreviewResponse implements ApiResponse
     /**
      * @var Preview
      */
-    private $preview = [];
+    private $preview;
 
     private function __construct()
     {
@@ -32,9 +32,6 @@ final class GetBulkPreviewResponse implements ApiResponse
         return $model;
     }
 
-    /**
-     * @return Preview
-     */
     public function getPreview(): Preview
     {
         return $this->preview;

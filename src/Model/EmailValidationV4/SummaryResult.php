@@ -56,41 +56,26 @@ final class SummaryResult implements ApiResponse
     {
     }
 
-    /**
-     * @return int
-     */
     public function getDeliverable(): int
     {
         return $this->deliverable;
     }
 
-    /**
-     * @return int
-     */
     public function getDoNotSend(): int
     {
         return $this->doNotSend;
     }
 
-    /**
-     * @return int
-     */
     public function getUndeliverable(): int
     {
         return $this->undeliverable;
     }
 
-    /**
-     * @return int
-     */
     public function getCatchAll(): int
     {
         return $this->catchAll;
     }
 
-    /**
-     * @return int
-     */
     public function getUnknown(): int
     {
         return $this->unknown;
