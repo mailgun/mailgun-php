@@ -94,6 +94,11 @@ class Mailgun
         return new Api\EmailValidation($this->httpClient, $this->requestBuilder, $this->hydrator);
     }
 
+    public function emailValidationV4(): Api\EmailValidationV4
+    {
+        return new Api\EmailValidationV4($this->httpClient, $this->requestBuilder, $this->hydrator);
+    }
+
     public function events(): Api\Event
     {
         return new Api\Event($this->httpClient, $this->requestBuilder, $this->hydrator);
