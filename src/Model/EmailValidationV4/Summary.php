@@ -39,17 +39,11 @@ final class Summary implements ApiResponse
     {
     }
 
-    /**
-     * @return SummaryResult
-     */
     public function getResult(): SummaryResult
     {
         return $this->result;
     }
 
-    /**
-     * @return SummaryRisk
-     */
     public function getRisk(): SummaryRisk
     {
         return $this->risk;

@@ -74,65 +74,41 @@ final class ValidateResponse implements ApiResponse
         return $model;
     }
 
-    /**
-     * @return string|null
-     */
     public function getAddress(): ?string
     {
         return $this->address;
     }
 
-    /**
-     * @return string|null
-     */
     public function getDidYouMean(): ?string
     {
         return $this->didYouMean;
     }
 
-    /**
-     * @return bool
-     */
     public function isDisposableAddress(): bool
     {
         return $this->isDisposableAddress;
     }
 
-    /**
-     * @return bool
-     */
     public function isRoleAddress(): bool
     {
         return $this->isRoleAddress;
     }
 
-    /**
-     * @return array
-     */
     public function getReason(): array
     {
         return $this->reason;
     }
 
-    /**
-     * @return string|null
-     */
     public function getResult(): ?string
     {
         return $this->result;
     }
 
-    /**
-     * @return string|null
-     */
     public function getRisk(): ?string
     {
         return $this->risk;
     }
 
-    /**
-     * @return string|null
-     */
     public function getRootAddress(): ?string
     {
         return $this->rootAddress;

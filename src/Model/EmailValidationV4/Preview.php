@@ -46,7 +46,7 @@ class Preview implements ApiResponse
      */
     private $summary;
 
-    private function __construct()
+    final private function __construct()
     {
     }
 
@@ -58,55 +58,37 @@ class Preview implements ApiResponse
         $model->valid = $data['valid'] ?? null;
         $model->status = $data['status'] ?? null;
         $model->quantity = $data['quantity'] ?? null;
-        $model->createdAt = isset($data['created_at']) ? DateTimeImmutable::createFromFormat('U', (string)($data['created_at'])) : null;
+        $model->createdAt = isset($data['created_at']) ? DateTimeImmutable::createFromFormat('U', (string) ($data['created_at'])) : null;
         $model->summary = Summary::create($data['summary']);
 
         return $model;
     }
 
-    /**
-     * @return string|null
-     */
     public function getId(): ?string
     {
         return $this->id;
     }
 
-    /**
-     * @return bool|null
-     */
     public function isValid(): ?bool
     {
         return $this->valid;
     }
 
-    /**
-     * @return int
-     */
     public function getQuantity(): int
     {
         return $this->quantity;
     }
 
-    /**
-     * @return string|null
-     */
     public function getStatus(): ?string
     {
         return $this->status;
     }
 
-    /**
-     * @return DateTimeImmutable|null
-     */
     public function getCreatedAt(): ?DateTimeImmutable
     {
         return $this->createdAt;
     }
 
-    /**
-     * @return mixed
-     */
     public function getSummary(): Summary
     {
         return $this->summary;

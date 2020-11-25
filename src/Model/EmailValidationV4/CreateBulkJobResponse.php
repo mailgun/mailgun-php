@@ -39,17 +39,11 @@ final class CreateBulkJobResponse implements ApiResponse
         return $model;
     }
 
-    /**
-     * @return string|null
-     */
     public function getId(): ?string
     {
         return $this->id;
     }
 
-    /**
-     * @return string|null
-     */
     public function getMessage(): ?string
     {
         return $this->message;

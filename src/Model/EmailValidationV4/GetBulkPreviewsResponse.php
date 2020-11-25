@@ -41,9 +41,6 @@ final class GetBulkPreviewsResponse implements ApiResponse
         return $model;
     }
 
-    /**
-     * @return array
-     */
     public function getPreviews(): array
     {
         return $this->previews;

@@ -51,17 +51,11 @@ final class GetBulkJobsResponse implements ApiResponse
         return $model;
     }
 
-    /**
-     * @return int
-     */
     public function getTotal(): int
     {
         return $this->total;
     }
 
-    /**
-     * @return array
-     */
     public function getJobs(): array
     {
         return $this->jobs;
