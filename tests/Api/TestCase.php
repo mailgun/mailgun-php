@@ -37,7 +37,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 
     private $hydrateClass;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->reset();
     }

@@ -25,7 +25,7 @@ class BatchMessageTest extends MailgunTestCase
      */
     private $batchMessage;
 
-    public function setUp()
+    public function setUp(): void
     {
         $messageApi = $this->getMockBuilder(Message::class)
             ->disableOriginalConstructor()
