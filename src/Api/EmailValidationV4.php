@@ -34,6 +34,7 @@ class EmailValidationV4 extends HttpApi
      * Addresses are validated based off defined checks.
      *
      * @param string $address An email address to validate. Maximum: 512 characters.
+     * @param bool $providerLookup
      *
      * @return ValidateResponse|ResponseInterface
      *
@@ -54,6 +55,7 @@ class EmailValidationV4 extends HttpApi
     }
 
     /**
+     * @param string $listId
      * @param mixed $filePath - file path or file content
      *
      * @return mixed|ResponseInterface
@@ -83,7 +85,10 @@ class EmailValidationV4 extends HttpApi
     }
 
     /**
+     * @param string $fieldName
      * @param array $filePath ['fileContent' => 'content'] or ['filePath' => '/foo/bar']
+     *
+     * @return array
      */
     private function prepareFile(string $fieldName, array $filePath): array
     {
@@ -117,6 +122,7 @@ class EmailValidationV4 extends HttpApi
 
     /**
      * Close open resources.
+     * @param array $params
      */
     private function closeResources(array $params): void
     {
@@ -128,6 +134,8 @@ class EmailValidationV4 extends HttpApi
     }
 
     /**
+     * @param string $listId
+     *
      * @return DeleteBulkJobResponse|ResponseInterface
      *
      * @throws Exception
@@ -142,6 +150,8 @@ class EmailValidationV4 extends HttpApi
     }
 
     /**
+     * @param string $listId
+     *
      * @return GetBulkJobResponse|ResponseInterface
      *
      * @throws Exception
@@ -156,6 +166,8 @@ class EmailValidationV4 extends HttpApi
     }
 
     /**
+     * @param int $limit
+     *
      * @return GetBulkJobsResponse|ResponseInterface
      *
      * @throws Exception
@@ -172,6 +184,13 @@ class EmailValidationV4 extends HttpApi
         return $this->hydrateResponse($response, GetBulkJobsResponse::class);
     }
 
+    /**
+     * @param int $limit
+     *
+     * @return mixed|ResponseInterface
+     *
+     * @throws Exception
+     */
     public function getBulkPreviews(int $limit = 500)
     {
         Assert::integer($limit);
@@ -185,6 +204,10 @@ class EmailValidationV4 extends HttpApi
     }
 
     /**
+     * @param string $previewId
+     *
+     * @param mixed $filePath
+     *
      * @return mixed|ResponseInterface
      *
      * @throws Exception
@@ -212,6 +235,8 @@ class EmailValidationV4 extends HttpApi
     }
 
     /**
+     * @param string $previewId
+     *
      * @return mixed|ResponseInterface
      *
      * @throws Exception
@@ -226,6 +251,8 @@ class EmailValidationV4 extends HttpApi
     }
 
     /**
+     * @param string $previewId
+     *
      * @return bool
      */
     public function deleteBulkPreview(string $previewId)
@@ -238,6 +265,8 @@ class EmailValidationV4 extends HttpApi
     }
 
     /**
+     * @param string $previewId
+     * 
      * @return mixed|ResponseInterface
      *
      * @throws Exception
