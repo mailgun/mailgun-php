@@ -22,7 +22,7 @@ class Job implements ApiResponse
     private $createdAt;
 
     /**
-     * @var JobDownloadUrl
+     * @var JobDownloadUrl|null
      */
     private $downloadUrl;
 
@@ -47,7 +47,7 @@ class Job implements ApiResponse
     private $status;
 
     /**
-     * @var Summary
+     * @var Summary|null
      */
     private $summary;
 
@@ -59,13 +59,13 @@ class Job implements ApiResponse
     {
         $model = new static();
 
-        $model->createdAt = isset($data['created_at']) ? new DateTimeImmutable($data['created_at']) : null;
-        $model->downloadUrl = JobDownloadUrl::create($data['download_url']);
+        $model->createdAt = isset($data['created_at']) ? (DateTimeImmutable::createFromFormat('U', (string) ($data['created_at'])) ?: null) : null;
+        $model->downloadUrl = $data['download_url'] ? JobDownloadUrl::create($data['download_url']) : null;
         $model->id = $data['id'] ?? null;
         $model->quantity = $data['quantity'] ?? null;
         $model->recordsProcessed = $data['records_processed'] ?? null;
         $model->status = $data['status'] ?? null;
-        $model->summary = Summary::create($data['summary']);
+        $model->summary = $data['summary'] ? Summary::create($data['summary']) : null;
 
         return $model;
     }
@@ -75,7 +75,7 @@ class Job implements ApiResponse
         return $this->createdAt;
     }
 
-    public function getDownloadUrl(): JobDownloadUrl
+    public function getDownloadUrl(): ?JobDownloadUrl
     {
         return $this->downloadUrl;
     }
@@ -100,7 +100,7 @@ class Job implements ApiResponse
         return $this->status;
     }
 
-    public function getSummary(): Summary
+    public function getSummary(): ?Summary
     {
         return $this->summary;
     }

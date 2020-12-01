@@ -116,7 +116,7 @@ JSON
 {
     "jobs": [
         {
-            "created_at": "Tue, 26 Feb 2019 21:30:03 GMT",
+            "created_at": 1590080191,
             "download_url": {
                 "csv": "<download_link>",
                 "json": "<download_link>"
@@ -142,7 +142,7 @@ JSON
             }
         },
         {
-            "created_at": "Tue, 23 Feb 2019 21:30:03 GMT",
+            "created_at": 1590080191,
             "download_url": {
                 "csv": "<download_link>",
                 "json": "<download_link>"
@@ -200,7 +200,7 @@ JSON
         $this->setRequestUri('/v4/address/validate/bulk/listId123');
         $this->setHttpResponse(new Response(200, ['Content-Type' => 'application/json'], <<<'JSON'
 {
-    "created_at": "Sat, 23 Feb 2019 21:30:03 GMT",
+    "created_at": 1590080191,
     "download_url": {
         "csv": "<download_link>",
         "json": "<download_link>"
@@ -236,7 +236,7 @@ JSON
 
         $this->assertInstanceOf(GetBulkJobResponse::class, $response);
         $this->assertInstanceOf(Job::class, $response);
-        $this->assertEquals('2019-02-23 21:30:03', $response->getCreatedAt()->format('Y-m-d H:i:s'));
+        $this->assertEquals('2020-05-21 16:56:31', $response->getCreatedAt()->format('Y-m-d H:i:s'));
         $this->assertInstanceOf(JobDownloadUrl::class, $response->getDownloadUrl());
         $this->assertEquals('bulk_validations_sandbox_mailgun_org', $response->getId());
         $this->assertEquals(207, $response->getQuantity());

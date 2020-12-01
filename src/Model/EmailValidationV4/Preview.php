@@ -42,7 +42,7 @@ class Preview implements ApiResponse
     private $createdAt;
 
     /**
-     * @var Summary
+     * @var Summary|null
      */
     private $summary;
 
@@ -58,8 +58,8 @@ class Preview implements ApiResponse
         $model->valid = $data['valid'] ?? null;
         $model->status = $data['status'] ?? null;
         $model->quantity = $data['quantity'] ?? null;
-        $model->createdAt = isset($data['created_at']) ? DateTimeImmutable::createFromFormat('U', (string) ($data['created_at'])) : null;
-        $model->summary = Summary::create($data['summary']);
+        $model->createdAt = isset($data['created_at']) ? (DateTimeImmutable::createFromFormat('U', (string) ($data['created_at'])) ?: null) : null;
+        $model->summary = $data['summary'] ? Summary::create($data['summary']) : null;
 
         return $model;
     }
@@ -89,7 +89,7 @@ class Preview implements ApiResponse
         return $this->createdAt;
     }
 
-    public function getSummary(): Summary
+    public function getSummary(): ?Summary
     {
         return $this->summary;
     }

@@ -266,7 +266,7 @@ class EmailValidationV4 extends HttpApi
 
     /**
      * @param string $previewId
-     * 
+     *
      * @return mixed|ResponseInterface
      *
      * @throws Exception
