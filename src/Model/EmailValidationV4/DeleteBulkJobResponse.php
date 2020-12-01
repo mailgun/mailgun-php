@@ -24,7 +24,7 @@ final class DeleteBulkJobResponse implements ApiResponse
     {
     }
 
-    public static function create(?array $data): self
+    public static function create(array $data): self
     {
         $model = new self();
 
