@@ -23,7 +23,7 @@ class JobTest extends BaseModelTest
         $json =
             <<<'JSON'
 {
-    "created_at": "Sat, 23 Feb 2019 21:30:03 GMT",
+    "created_at": 1590080191,
     "download_url": {
         "csv": "<download_link>",
         "json": "<download_link>"
@@ -50,7 +50,7 @@ class JobTest extends BaseModelTest
 }
 JSON;
         $model = Job::create(json_decode($json, true));
-        $this->assertEquals('2019-02-23 21:30:03', $model->getCreatedAt()->format('Y-m-d H:i:s'));
+        $this->assertEquals('2020-05-21 16:56:31', $model->getCreatedAt()->format('Y-m-d H:i:s'));
         $this->assertInstanceOf(JobDownloadUrl::class, $model->getDownloadUrl());
         $this->assertEquals('bulk_validations_sandbox_mailgun_org', $model->getId());
         $this->assertEquals(207, $model->getQuantity());
