@@ -33,8 +33,8 @@ class EmailValidationV4 extends HttpApi
     /**
      * Addresses are validated based off defined checks.
      *
-     * @param string $address An email address to validate. Maximum: 512 characters.
-     * @param bool $providerLookup
+     * @param string $address        An email address to validate. Maximum: 512 characters.
+     * @param bool   $providerLookup A provider lookup will be performed if Mailgun’s internal analysis is insufficient
      *
      * @return ValidateResponse|ResponseInterface
      *
@@ -55,8 +55,8 @@ class EmailValidationV4 extends HttpApi
     }
 
     /**
-     * @param string $listId
-     * @param mixed $filePath - file path or file content
+     * @param string $listId   ID given when the list created
+     * @param mixed  $filePath File path or file content
      *
      * @return mixed|ResponseInterface
      *
@@ -85,10 +85,156 @@ class EmailValidationV4 extends HttpApi
     }
 
     /**
-     * @param string $fieldName
-     * @param array $filePath ['fileContent' => 'content'] or ['filePath' => '/foo/bar']
+     * @param string $listId ID given when the list created
      *
-     * @return array
+     * @return DeleteBulkJobResponse|ResponseInterface
+     *
+     * @throws Exception
+     */
+    public function deleteBulkJob(string $listId)
+    {
+        Assert::stringNotEmpty($listId);
+
+        $response = $this->httpDelete(sprintf('/v4/address/validate/bulk/%s', $listId));
+
+        return $this->hydrateResponse($response, DeleteBulkJobResponse::class);
+    }
+
+    /**
+     * @param string $listId ID given when the list created
+     *
+     * @return GetBulkJobResponse|ResponseInterface
+     *
+     * @throws Exception
+     */
+    public function getBulkJob(string $listId)
+    {
+        Assert::stringNotEmpty($listId);
+
+        $response = $this->httpGet(sprintf('/v4/address/validate/bulk/%s', $listId));
+
+        return $this->hydrateResponse($response, GetBulkJobResponse::class);
+    }
+
+    /**
+     * @param int $limit Jobs limit
+     *
+     * @return GetBulkJobsResponse|ResponseInterface
+     *
+     * @throws Exception
+     */
+    public function getBulkJobs(int $limit = 500)
+    {
+        Assert::integer($limit);
+        Assert::greaterThan($limit, 0);
+
+        $response = $this->httpGet('/v4/address/validate/bulk', [
+            'limit' => $limit,
+        ]);
+
+        return $this->hydrateResponse($response, GetBulkJobsResponse::class);
+    }
+
+    /**
+     * @param int $limit Previews Limit
+     *
+     * @return mixed|ResponseInterface
+     *
+     * @throws Exception
+     */
+    public function getBulkPreviews(int $limit = 500)
+    {
+        Assert::integer($limit);
+        Assert::greaterThan($limit, 0);
+
+        $response = $this->httpGet('/v4/address/validate/preview', [
+            'limit' => $limit,
+        ]);
+
+        return $this->hydrateResponse($response, GetBulkPreviewsResponse::class);
+    }
+
+    /**
+     * @param string $previewId ID given when the list created
+     * @param mixed  $filePath  File path or file content
+     *
+     * @return mixed|ResponseInterface
+     *
+     * @throws Exception
+     */
+    public function createBulkPreview(string $previewId, $filePath)
+    {
+        Assert::stringNotEmpty($previewId);
+
+        if (strlen($filePath) < PHP_MAXPATHLEN && is_file($filePath)) {
+            $fileData = ['filePath' => $filePath];
+        } else {
+            $fileData = [
+                'fileContent' => $filePath,
+                'filename' => 'file',
+            ];
+        }
+
+        $postDataMultipart = [];
+        $postDataMultipart[] = $this->prepareFile('file', $fileData);
+
+        $response = $this->httpPostRaw(sprintf('/v4/address/validate/preview/%s', $previewId), $postDataMultipart);
+        $this->closeResources($postDataMultipart);
+
+        return $this->hydrateResponse($response, CreateBulkPreviewResponse::class);
+    }
+
+    /**
+     * @param string $previewId ID given when the list created
+     *
+     * @return mixed|ResponseInterface
+     *
+     * @throws Exception
+     */
+    public function getBulkPreview(string $previewId)
+    {
+        Assert::stringNotEmpty($previewId);
+
+        $response = $this->httpGet(sprintf('/v4/address/validate/preview/%s', $previewId));
+
+        return $this->hydrateResponse($response, GetBulkPreviewResponse::class);
+    }
+
+    /**
+     * @param string $previewId ID given when the list created
+     *
+     * @return bool
+     */
+    public function deleteBulkPreview(string $previewId)
+    {
+        Assert::stringNotEmpty($previewId);
+
+        $response = $this->httpDelete(sprintf('/v4/address/validate/preview/%s', $previewId));
+
+        return 204 === $response->getStatusCode();
+    }
+
+    /**
+     * @param string $previewId ID given when the list created
+     *
+     * @return mixed|ResponseInterface
+     *
+     * @throws Exception
+     */
+    public function promoteBulkPreview(string $previewId)
+    {
+        Assert::stringNotEmpty($previewId);
+
+        $response = $this->httpPut(sprintf('/v4/address/validate/preview/%s', $previewId));
+
+        return $this->hydrateResponse($response, PromoteBulkPreviewResponse::class);
+    }
+
+    /**
+     * @param string $fieldName Field Name
+     * @param array  $filePath  ['fileContent' => 'content'] or ['filePath' => '/foo/bar']
+     *
+     * @return array File Data
      */
     private function prepareFile(string $fieldName, array $filePath): array
     {
@@ -122,7 +268,8 @@ class EmailValidationV4 extends HttpApi
 
     /**
      * Close open resources.
-     * @param array $params
+     *
+     * @param array $params Resource params
      */
     private function closeResources(array $params): void
     {
@@ -131,152 +278,5 @@ class EmailValidationV4 extends HttpApi
                 fclose($param['content']);
             }
         }
-    }
-
-    /**
-     * @param string $listId
-     *
-     * @return DeleteBulkJobResponse|ResponseInterface
-     *
-     * @throws Exception
-     */
-    public function deleteBulkJob(string $listId)
-    {
-        Assert::stringNotEmpty($listId);
-
-        $response = $this->httpDelete(sprintf('/v4/address/validate/bulk/%s', $listId));
-
-        return $this->hydrateResponse($response, DeleteBulkJobResponse::class);
-    }
-
-    /**
-     * @param string $listId
-     *
-     * @return GetBulkJobResponse|ResponseInterface
-     *
-     * @throws Exception
-     */
-    public function getBulkJob(string $listId)
-    {
-        Assert::stringNotEmpty($listId);
-
-        $response = $this->httpGet(sprintf('/v4/address/validate/bulk/%s', $listId));
-
-        return $this->hydrateResponse($response, GetBulkJobResponse::class);
-    }
-
-    /**
-     * @param int $limit
-     *
-     * @return GetBulkJobsResponse|ResponseInterface
-     *
-     * @throws Exception
-     */
-    public function getBulkJobs(int $limit = 500)
-    {
-        Assert::integer($limit);
-        Assert::greaterThan($limit, 0);
-
-        $response = $this->httpGet('/v4/address/validate/bulk', [
-            'limit' => $limit,
-        ]);
-
-        return $this->hydrateResponse($response, GetBulkJobsResponse::class);
-    }
-
-    /**
-     * @param int $limit
-     *
-     * @return mixed|ResponseInterface
-     *
-     * @throws Exception
-     */
-    public function getBulkPreviews(int $limit = 500)
-    {
-        Assert::integer($limit);
-        Assert::greaterThan($limit, 0);
-
-        $response = $this->httpGet('/v4/address/validate/preview', [
-            'limit' => $limit,
-        ]);
-
-        return $this->hydrateResponse($response, GetBulkPreviewsResponse::class);
-    }
-
-    /**
-     * @param string $previewId
-     *
-     * @param mixed $filePath
-     *
-     * @return mixed|ResponseInterface
-     *
-     * @throws Exception
-     */
-    public function createBulkPreview(string $previewId, $filePath)
-    {
-        Assert::stringNotEmpty($previewId);
-
-        if (strlen($filePath) < PHP_MAXPATHLEN && is_file($filePath)) {
-            $fileData = ['filePath' => $filePath];
-        } else {
-            $fileData = [
-                'fileContent' => $filePath,
-                'filename' => 'file',
-            ];
-        }
-
-        $postDataMultipart = [];
-        $postDataMultipart[] = $this->prepareFile('file', $fileData);
-
-        $response = $this->httpPostRaw(sprintf('/v4/address/validate/preview/%s', $previewId), $postDataMultipart);
-        $this->closeResources($postDataMultipart);
-
-        return $this->hydrateResponse($response, CreateBulkPreviewResponse::class);
-    }
-
-    /**
-     * @param string $previewId
-     *
-     * @return mixed|ResponseInterface
-     *
-     * @throws Exception
-     */
-    public function getBulkPreview(string $previewId)
-    {
-        Assert::stringNotEmpty($previewId);
-
-        $response = $this->httpGet(sprintf('/v4/address/validate/preview/%s', $previewId));
-
-        return $this->hydrateResponse($response, GetBulkPreviewResponse::class);
-    }
-
-    /**
-     * @param string $previewId
-     *
-     * @return bool
-     */
-    public function deleteBulkPreview(string $previewId)
-    {
-        Assert::stringNotEmpty($previewId);
-
-        $response = $this->httpDelete(sprintf('/v4/address/validate/preview/%s', $previewId));
-
-        return 204 === $response->getStatusCode();
-    }
-
-    /**
-     * @param string $previewId
-     *
-     * @return mixed|ResponseInterface
-     *
-     * @throws Exception
-     */
-    public function promoteBulkPreview(string $previewId)
-    {
-        Assert::stringNotEmpty($previewId);
-
-        $response = $this->httpPut(sprintf('/v4/address/validate/preview/%s', $previewId));
-
-        return $this->hydrateResponse($response, PromoteBulkPreviewResponse::class);
     }
 }
