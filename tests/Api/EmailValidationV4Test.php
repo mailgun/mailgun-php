@@ -59,7 +59,7 @@ JSON
         $api = $this->getApiInstance();
 
         /**
-         * @var $response ValidateResponse
+         * @var ValidateResponse
          */
         $response = $api->validate('email@example.com', true);
 
@@ -93,7 +93,7 @@ JSON
         $api = $this->getApiInstance();
 
         /**
-         * @var $response ValidateResponse
+         * @var ValidateResponse
          */
         $response = $api->validate('email3@example.com', false);
 
@@ -181,7 +181,7 @@ JSON
         $api = $this->getApiInstance();
 
         /**
-         * @var $response GetBulkJobsResponse
+         * @var GetBulkJobsResponse
          */
         $response = $api->getBulkJobs(50);
 
@@ -230,7 +230,7 @@ JSON
         $api = $this->getApiInstance();
 
         /**
-         * @var $response GetBulkJobResponse
+         * @var GetBulkJobResponse
          */
         $response = $api->getBulkJob('listId123');
 
@@ -258,7 +258,7 @@ JSON
         $api = $this->getApiInstance();
 
         /**
-         * @var $response DeleteBulkJobResponse
+         * @var DeleteBulkJobResponse
          */
         $response = $api->deleteBulkJob('listId321');
 
@@ -280,7 +280,7 @@ JSON
         $api = $this->getApiInstance();
 
         /**
-         * @var $response CreateBulkJobResponse
+         * @var CreateBulkJobResponse
          */
         $response = $api->createBulkJob('listId1', __FILE__);
 
@@ -347,7 +347,7 @@ JSON
         $api = $this->getApiInstance();
 
         /**
-         * @var $response GetBulkPreviewsResponse
+         * @var GetBulkPreviewsResponse
          */
         $response = $api->getBulkPreviews(50);
 
@@ -389,7 +389,7 @@ JSON
         $api = $this->getApiInstance();
 
         /**
-         * @var $response GetBulkPreviewResponse
+         * @var GetBulkPreviewResponse
          */
         $response = $api->getBulkPreview('test_500');
 
@@ -405,7 +405,7 @@ JSON
         $api = $this->getApiInstance();
 
         /**
-         * @var $response bool
+         * @var bool
          */
         $status = $api->deleteBulkPreview('previewId1');
 
@@ -425,7 +425,7 @@ JSON
         $api = $this->getApiInstance();
 
         /**
-         * @var $response PromoteBulkPreviewResponse
+         * @var PromoteBulkPreviewResponse
          */
         $response = $api->promoteBulkPreview('previewId2');
 
@@ -446,7 +446,7 @@ JSON
         $api = $this->getApiInstance();
 
         /**
-         * @var $response CreateBulkPreviewResponse
+         * @var CreateBulkPreviewResponse
          */
         $response = $api->createBulkPreview('preview3', __FILE__);
 
