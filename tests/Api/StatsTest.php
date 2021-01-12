@@ -42,6 +42,22 @@ class StatsTest extends TestCase
         $this->assertInstanceOf(TotalResponse::class, $total);
         $this->assertCount(count($responseData['stats']), $total->getStats());
         $this->assertContainsOnlyInstancesOf(TotalResponseItem::class, $total->getStats());
+
+        $event = $queryParameters['event'];
+        $responseStat = $total->getStats()[0];
+        $statGetter = 'get'.ucwords($event);
+
+        if ('failed' !== $event) {
+            $expectedTotal = $responseData['stats'][0][$event]['total'];
+            $actualTotal = $responseStat->$statGetter()['total'];
+        }
+
+        if ('failed' == $event) {
+            $expectedTotal = $responseData['stats'][0][$event]['permanent']['total'];
+            $actualTotal = $responseStat->$statGetter()['permanent']['total'];
+        }
+
+        $this->assertEquals($expectedTotal, $actualTotal);
     }
 
     /**
@@ -56,36 +72,36 @@ class StatsTest extends TestCase
     public function totalProvider()
     {
         return [
-            'accepted events' => [
+            'accepted events'  => [
                 'queryParameters' => [
                     'event' => 'accepted',
                 ],
-                'responseData' => $this->generateTotalResponsePayload([
+                'responseData'    => $this->generateTotalResponsePayload([
                     [
-                        'time' => $this->formatDate('-7 days'),
+                        'time'     => $this->formatDate('-7 days'),
                         'accepted' => [
                             'outgoing' => 10,
                             'incoming' => 5,
-                            'total' => 15,
+                            'total'    => 15,
                         ],
                     ],
                 ]),
             ],
-            'failed events' => [
+            'failed events'    => [
                 'queryParameters' => [
                     'event' => 'failed',
                 ],
-                'responseData' => $this->generateTotalResponsePayload([
+                'responseData'    => $this->generateTotalResponsePayload([
                     [
-                        'time' => $this->formatDate('-7 days'),
+                        'time'   => $this->formatDate('-7 days'),
                         'failed' => [
                             'permanent' => [
-                                'bounce' => 4,
-                                'delayed-bounce' => 1,
-                                'suppress-bounce' => 1,
+                                'bounce'               => 4,
+                                'delayed-bounce'       => 1,
+                                'suppress-bounce'      => 1,
                                 'suppress-unsubscribe' => 2,
-                                'suppress-complaint' => 3,
-                                'total' => 10,
+                                'suppress-complaint'   => 3,
+                                'total'                => 10,
                             ],
                             'temporary' => [
                                 'espblock' => 1,
@@ -98,13 +114,39 @@ class StatsTest extends TestCase
                 'queryParameters' => [
                     'event' => 'delivered',
                 ],
-                'responseData' => $this->generateTotalResponsePayload([
+                'responseData'    => $this->generateTotalResponsePayload([
                     [
-                        'time' => $this->formatDate('-7 days'),
+                        'time'      => $this->formatDate('-7 days'),
                         'delivered' => [
-                            'smtp' => 15,
-                            'http' => 5,
+                            'smtp'  => 15,
+                            'http'  => 5,
                             'total' => 20,
+                        ],
+                    ],
+                ]),
+            ],
+            'clicked events'   => [
+                'queryParameters' => [
+                    'event' => 'clicked',
+                ],
+                'responseData'    => $this->generateTotalResponsePayload([
+                    [
+                        'time'    => $this->formatDate('-7 days'),
+                        'clicked' => [
+                            'total' => 7,
+                        ],
+                    ],
+                ]),
+            ],
+            'opened events'   => [
+                'queryParameters' => [
+                    'event' => 'opened',
+                ],
+                'responseData'    => $this->generateTotalResponsePayload([
+                    [
+                        'time'    => $this->formatDate('-7 days'),
+                        'opened' => [
+                            'total' => 19,
                         ],
                     ],
                 ]),
@@ -115,10 +157,10 @@ class StatsTest extends TestCase
     private function generateTotalResponsePayload(array $stats, $start = '-7 days', $end = 'now', $resolution = 'day')
     {
         return [
-            'end' => $this->formatDate($end),
+            'end'        => $this->formatDate($end),
             'resolution' => $resolution,
-            'start' => $this->formatDate($start),
-            'stats' => $stats,
+            'start'      => $this->formatDate($start),
+            'stats'      => $stats,
         ];
     }
 
