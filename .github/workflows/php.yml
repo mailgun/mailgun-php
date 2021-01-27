@@ -13,7 +13,7 @@ jobs:
             matrix:
                 # https://github.com/marketplace/actions/setup-php-action#github-hosted-runners
                 operating-system: [ 'ubuntu-18.04' ]
-                php-versions: [ '7.3', '7.4', '8.0', '8.1' ]
+                php-versions: [ '7.3', '7.4', '8.0' ]
 
         runs-on: ${{ matrix.operating-system }}
 
