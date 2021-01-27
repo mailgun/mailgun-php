@@ -12,7 +12,7 @@ jobs:
         strategy:
             matrix:
                 # https://github.com/marketplace/actions/setup-php-action#github-hosted-runners
-                operating-system: [ 'ubuntu-18.04' ]
+                operating-system: [ 'ubuntu-latest' ]
                 php-versions: [ '7.3', '7.4', '8.0' ]
 
         runs-on: ${{ matrix.operating-system }}
