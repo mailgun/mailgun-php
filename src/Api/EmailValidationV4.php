@@ -13,7 +13,6 @@ namespace Mailgun\Api;
 
 use Exception;
 use Mailgun\Assert;
-use Mailgun\Exception\InvalidArgumentException;
 use Mailgun\Model\EmailValidationV4\CreateBulkJobResponse;
 use Mailgun\Model\EmailValidationV4\CreateBulkPreviewResponse;
 use Mailgun\Model\EmailValidationV4\DeleteBulkJobResponse;
