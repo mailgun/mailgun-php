@@ -240,6 +240,8 @@ class EmailValidationV4 extends HttpApi
     {
         $filename = isset($filePath['filename']) ? $filePath['filename'] : null;
 
+        $resource = null;
+
         if (isset($filePath['fileContent'])) {
             // File from memory
             $resource = fopen('php://temp', 'r+');
@@ -255,8 +257,6 @@ class EmailValidationV4 extends HttpApi
             }
 
             $resource = fopen($path, 'r');
-        } else {
-            throw new InvalidArgumentException('When using a file you need to specify parameter "fileContent" or "filePath"');
         }
 
         return [
