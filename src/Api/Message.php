@@ -144,6 +144,8 @@ class Message extends HttpApi
             }
 
             $resource = fopen($path, 'r');
+        } else {
+            throw new InvalidArgumentException('When using a file you need to specify parameter "fileContent" or "filePath"');
         }
 
         return [
