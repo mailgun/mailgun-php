@@ -2,6 +2,16 @@
 
 The change log describes what is "Added", "Removed", "Changed" or "Fixed" between each release.
 
+## [Unreleased]
+
+### Added
+
+- Support for PHP 8.x
+
+### Removed
+
+- Support for PHP 7.1 and 7.2 as they both have reached their end of life
+
 ## 3.2.0
 
 ### Added

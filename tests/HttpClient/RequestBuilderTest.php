@@ -40,7 +40,7 @@ class RequestBuilderTest extends MailgunTestCase
     /**
      * Environment preset.
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -61,7 +61,7 @@ class RequestBuilderTest extends MailgunTestCase
     /**
      * Environment reset.
      */
-    protected function tearDown()
+    protected function tearDown(): void
     {
         parent::tearDown();
 

@@ -11,8 +11,9 @@ jobs:
 
         strategy:
             matrix:
+                # https://github.com/marketplace/actions/setup-php-action#github-hosted-runners
                 operating-system: [ 'ubuntu-latest' ]
-                php-versions: [ '7.1', '7.2', '7.3', '7.4' ]
+                php-versions: [ '7.3', '7.4', '8.0' ]
 
         runs-on: ${{ matrix.operating-system }}
 
@@ -37,13 +38,13 @@ jobs:
               run: composer test
 
             - name: PHP Stan
-              if: matrix.php-versions == '7.1'
+              if: matrix.php-versions == '7.3'
               run: |
                   phpstan --version
                   phpstan analyse
 
             - name: Scrunitizer CI
-              if: matrix.php-versions == '7.1'
+              if: matrix.php-versions == '7.3'
               run: |
                   wget https://scrutinizer-ci.com/ocular.phar
                   php ocular.phar code-coverage:upload --format=php-clover build/coverage.xml

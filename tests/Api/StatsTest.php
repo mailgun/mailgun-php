@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace Mailgun\Tests\Api;
 
 use GuzzleHttp\Psr7\Response;
+use Mailgun\Exception\InvalidArgumentException;
 use Mailgun\Hydrator\ModelHydrator;
 use Mailgun\Model\Stats\TotalResponse;
 use Mailgun\Model\Stats\TotalResponseItem;
@@ -44,11 +45,10 @@ class StatsTest extends TestCase
         $this->assertContainsOnlyInstancesOf(TotalResponseItem::class, $total->getStats());
     }
 
-    /**
-     * @expectedException \Mailgun\Exception\InvalidArgumentException
-     */
     public function testTotalInvalidArgument()
     {
+        $this->expectException(InvalidArgumentException::class);
+
         $api = $this->getApiMock();
         $api->total('');
     }
