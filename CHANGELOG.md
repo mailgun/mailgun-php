@@ -4,9 +4,12 @@ The change log describes what is "Added", "Removed", "Changed" or "Fixed" betwee
 
 ## [Unreleased]
 
+## 3.3.0
+
 ### Added
 
-- Support for PHP 8.x
+- Support for PHP 8 (#727 by @DavidGarciaCat)
+- Added `opened`, `clicked`, `unsubscribed` and `stored` to the `TotalResponseItem` (#739 by @Arkitecht)
 
 ### Removed
 
