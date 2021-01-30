@@ -1,50 +1,54 @@
-name: PHP Composer
+name: Tests
 
 on:
-    push:
-        branches: [ 'master', '2.x' ]
-    pull_request:
-        branches: [ 'master', '2.x' ]
+    push: ~
+    pull_request: ~
 
 jobs:
-    build:
-
+    php:
         strategy:
             matrix:
-                # https://github.com/marketplace/actions/setup-php-action#github-hosted-runners
-                operating-system: [ 'ubuntu-latest' ]
                 php-versions: [ '7.3', '7.4', '8.0' ]
 
-        runs-on: ${{ matrix.operating-system }}
+        runs-on: 'ubuntu-latest'
 
         steps:
 
-            - name: Checkout
-              uses: actions/checkout@v2
+            -   name: Checkout
+                uses: actions/checkout@v2
 
-            - name: Validate composer.json and composer.lock
-              run: composer validate
+            -   name: Setup PHP
+                uses: shivammathur/setup-php@v2
+                with:
+                    php-version: ${{ matrix.php-versions }}
+                    tools: none
 
-            - name: Setup PHP
-              uses: shivammathur/setup-php@v2
-              with:
-                  php-version: ${{ matrix.php-versions }}
-                  tools: phpunit, phpstan
+            -   name: Install dependencies
+                run: composer install --prefer-dist --no-progress --no-suggest
 
-            - name: Install dependencies
-              run: composer install --prefer-dist --no-progress --no-suggest
+            -   name: PHP Unit Tests
+                run: vendor/bin/phpunit
 
-            - name: PHP Unit Tests
-              run: composer test
+    lowest:
+        name: Lowest deps
+        runs-on: ubuntu-latest
+        steps:
+            -   name: Set up PHP
+                uses: shivammathur/setup-php@2.9.0
+                with:
+                    php-version: 7.4
+                    coverage: pcov
 
-            - name: PHP Stan
-              if: matrix.php-versions == '7.3'
-              run: |
-                  phpstan --version
-                  phpstan analyse
+            -   name: Checkout code
+                uses: actions/checkout@v2
 
-            - name: Scrunitizer CI
-              if: matrix.php-versions == '7.3'
-              run: |
-                  wget https://scrutinizer-ci.com/ocular.phar
-                  php ocular.phar code-coverage:upload --format=php-clover build/coverage.xml
+            -   name: Download dependencies
+                run: composer update --no-interaction --prefer-dist --optimize-autoloader --prefer-stable --prefer-lowest
+
+            -   name: Run tests
+                run: vendor/bin/phpunit --coverage-text --coverage-clover=coverage.xml
+
+            -   name: Scrunitizer CI
+                run: |
+                    wget https://scrutinizer-ci.com/ocular.phar
+                    php ocular.phar code-coverage:upload --format=php-clover coverage.xml
