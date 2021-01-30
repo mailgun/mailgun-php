@@ -92,7 +92,7 @@ abstract class HttpApi
             case 402:
                 throw HttpClientException::requestFailed($response);
             case 403:
-                throw  HttpClientException::forbidden($response);
+                throw HttpClientException::forbidden($response);
             case 404:
                 throw HttpClientException::notFound($response);
             case 413:

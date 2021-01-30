@@ -19,7 +19,7 @@ class UnsubscribeTest extends BaseModelTest
     /**
      * @test
      */
-    public function it_gets_empty_list_of_tags_by_default()
+    public function itGetsEmptyListOfTagsByDefault()
     {
         $unsubscribe = Unsubscribe::create(['address' => 'dummy@mailgun.net']);
         $this->assertEquals([], $unsubscribe->getTags());
@@ -28,7 +28,7 @@ class UnsubscribeTest extends BaseModelTest
     /**
      * @test
      */
-    public function it_gets_tags()
+    public function itGetsTags()
     {
         $tags = ['tag1', 'tag2'];
         $unsubscribe = Unsubscribe::create(['address' => 'dummy@mailgun.net', 'tags' => $tags]);
