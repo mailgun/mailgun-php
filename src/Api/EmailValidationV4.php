@@ -124,7 +124,6 @@ class EmailValidationV4 extends HttpApi
      */
     public function getBulkJobs(int $limit = 500)
     {
-        Assert::integer($limit);
         Assert::greaterThan($limit, 0);
 
         $response = $this->httpGet('/v4/address/validate/bulk', [
@@ -143,7 +142,6 @@ class EmailValidationV4 extends HttpApi
      */
     public function getBulkPreviews(int $limit = 500)
     {
-        Assert::integer($limit);
         Assert::greaterThan($limit, 0);
 
         $response = $this->httpGet('/v4/address/validate/preview', [
