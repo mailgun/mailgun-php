@@ -249,12 +249,6 @@ class EmailValidationV4 extends HttpApi
         } elseif (isset($filePath['filePath'])) {
             // File form path
             $path = $filePath['filePath'];
-
-            // Remove leading @ symbol
-            if (0 === strpos($path, '@')) {
-                $path = substr($path, 1);
-            }
-
             $resource = fopen($path, 'r');
         }
 
