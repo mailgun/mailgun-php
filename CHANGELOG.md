@@ -2,7 +2,12 @@
 
 The change log describes what is "Added", "Removed", "Changed" or "Fixed" between each release.
 
-## [Unreleased]
+## 3.4.0
+
+### Added
+
+- Email Validation (#726 by @uavn)
+  - Please note the Email Validation requires **always** to use the US servers. The Mailgun Team didn't enable this service on the European endpoints.
 
 ## 3.3.0
 
