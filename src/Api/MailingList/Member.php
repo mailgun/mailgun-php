@@ -37,14 +37,12 @@ class Member extends HttpApi
      *
      * @throws \Exception
      */
-    public function index(string $address, int $limit = 100, bool $subscribed = null)
+    public function index(string $address, int $limit = 100, bool $subscribed = null, array $params = [])
     {
         Assert::stringNotEmpty($address);
         Assert::greaterThan($limit, 0);
 
-        $params = [
-            'limit' => $limit,
-        ];
+        $params['limit'] = $limit;
 
         if (true === $subscribed) {
             $params['subscribed'] = 'yes';
