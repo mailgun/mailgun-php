@@ -32,6 +32,7 @@ class Member extends HttpApi
      * @param string    $address    Address of the mailing list
      * @param int       $limit      Maximum number of records to return (optional: 100 by default)
      * @param bool|null $subscribed `true` to lists subscribed, `false` for unsubscribed. list all if null
+     * @param array     $params     Array with additional params to add to the request
      *
      * @return IndexResponse
      *
