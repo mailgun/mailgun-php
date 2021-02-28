@@ -2,6 +2,12 @@
 
 The change log describes what is "Added", "Removed", "Changed" or "Fixed" between each release.
 
+## 3.4.1
+
+### Fixed
+
+- Fix double urlencoding (#747 by @uavn)
+
 ## 3.4.0
 
 ### Added
