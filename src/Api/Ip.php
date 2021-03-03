@@ -27,16 +27,15 @@ class Ip extends HttpApi
     /**
      * Returns a list of IPs.
      *
-     *
      * @return IndexResponse|ResponseInterface
      */
-    public function index(bool $dedicated = false)
+    public function index(?bool $dedicated = null)
     {
-        Assert::boolean($dedicated);
-
-        $params = [
-            'dedicated' => $dedicated,
-        ];
+        $params = [];
+        if (null !== $dedicated) {
+            Assert::boolean($dedicated);
+            $params['dedicated'] = $dedicated;
+        }
 
         $response = $this->httpGet('/v3/ips', $params);
 
@@ -46,21 +45,19 @@ class Ip extends HttpApi
     /**
      * Returns a list of IPs assigned to a domain.
      *
-     *
      * @return IndexResponse|ResponseInterface
      */
     public function domainIndex(string $domain)
     {
         Assert::stringNotEmpty($domain);
 
-        $response = $this->httpGet(sprintf('/v3/domains/%s/ip', $domain));
+        $response = $this->httpGet(sprintf('/v3/domains/%s/ips', $domain));
 
         return $this->hydrateResponse($response, IndexResponse::class);
     }
 
     /**
      * Returns a single ip.
-     *
      *
      * @return ShowResponse|ResponseInterface
      */
@@ -76,7 +73,6 @@ class Ip extends HttpApi
     /**
      * Assign a dedicated IP to the domain specified.
      *
-     *
      * @return UpdateResponse|ResponseInterface
      */
     public function assign(string $domain, string $ip)
@@ -85,7 +81,7 @@ class Ip extends HttpApi
         Assert::ip($ip);
 
         $params = [
-            'id' => $ip,
+            'ip' => $ip,
         ];
 
         $response = $this->httpPost(sprintf('/v3/domains/%s/ips', $domain), $params);
@@ -95,8 +91,6 @@ class Ip extends HttpApi
 
     /**
      * Unassign an IP from the domain specified.
-     *
-
      *
      * @return UpdateResponse|ResponseInterface
      */

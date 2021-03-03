@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<files psalm-version="4.4.1@9fd7a7d885b3a216cff8dec9d8c21a132f275224">
+  <file src="src/Api/Domain.php">
+    <PossiblyUndefinedVariable occurrences="1">
+      <code>$params</code>
+    </PossiblyUndefinedVariable>
+    <RedundantCondition occurrences="5">
+      <code>boolean</code>
+      <code>boolean</code>
+      <code>nullOrString</code>
+      <code>stringNotEmpty</code>
+      <code>stringNotEmpty</code>
+    </RedundantCondition>
+    <TypeDoesNotContainNull occurrences="1">
+      <code>nullOrString</code>
+    </TypeDoesNotContainNull>
+  </file>
+  <file src="src/Api/HttpApi.php">
+    <ParamNameMismatch occurrences="1">
+      <code>$class</code>
+    </ParamNameMismatch>
+  </file>
+  <file src="src/Api/Ip.php">
+    <RedundantCondition occurrences="1">
+      <code>boolean</code>
+    </RedundantCondition>
+  </file>
+  <file src="src/Api/MailingList.php">
+    <PossiblyNullArgument occurrences="1">
+      <code>$this-&gt;hydrator</code>
+    </PossiblyNullArgument>
+    <RedundantCondition occurrences="1">
+      <code>isArray</code>
+    </RedundantCondition>
+  </file>
+  <file src="src/Api/MailingList/Member.php">
+    <RedundantCondition occurrences="2">
+      <code>isArray</code>
+      <code>isArray</code>
+    </RedundantCondition>
+  </file>
+  <file src="src/Api/Message.php">
+    <RedundantCondition occurrences="3">
+      <code>nullOrIsArray</code>
+      <code>string</code>
+      <code>string</code>
+    </RedundantCondition>
+    <TypeDoesNotContainNull occurrences="1">
+      <code>nullOrIsArray</code>
+    </TypeDoesNotContainNull>
+  </file>
+  <file src="src/Api/Pagination.php">
+    <PossiblyNullArgument occurrences="4">
+      <code>$response-&gt;getFirstUrl()</code>
+      <code>$response-&gt;getLastUrl()</code>
+      <code>$response-&gt;getNextUrl()</code>
+      <code>$response-&gt;getPreviousUrl()</code>
+    </PossiblyNullArgument>
+  </file>
+  <file src="src/Api/Route.php">
+    <RedundantCondition occurrences="1">
+      <code>isArray</code>
+    </RedundantCondition>
+  </file>
+  <file src="src/Api/Suppression/Complaint.php">
+    <PossiblyUndefinedVariable occurrences="1">
+      <code>$params</code>
+    </PossiblyUndefinedVariable>
+  </file>
+  <file src="src/Assert.php">
+    <MissingImmutableAnnotation occurrences="1">
+      <code>protected static function reportInvalidArgument($message)</code>
+    </MissingImmutableAnnotation>
+  </file>
+  <file src="src/HttpClient/Plugin/HistoryTrait.php">
+    <UnrecognizedStatement occurrences="1"/>
+  </file>
+  <file src="src/Mailgun.php">
+    <PossiblyNullArgument occurrences="1">
+      <code>$this-&gt;apiKey</code>
+    </PossiblyNullArgument>
+  </file>
+  <file src="src/Message/BatchMessage.php">
+    <PossiblyUndefinedMethod occurrences="1">
+      <code>getId</code>
+    </PossiblyUndefinedMethod>
+  </file>
+</files>

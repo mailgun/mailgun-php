@@ -22,7 +22,7 @@ class MessageBuilderTest extends MailgunTestCase
      */
     private $messageBuilder;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->messageBuilder = new MessageBuilder();
     }

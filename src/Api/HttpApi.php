@@ -11,12 +11,13 @@ declare(strict_types=1);
 
 namespace Mailgun\Api;
 
-use Mailgun\Exception\UnknownErrorException;
-use Mailgun\Hydrator\Hydrator;
-use Mailgun\Hydrator\NoopHydrator;
+use Http\Client\Common\PluginClient;
 use Mailgun\Exception\HttpClientException;
 use Mailgun\Exception\HttpServerException;
+use Mailgun\Exception\UnknownErrorException;
 use Mailgun\HttpClient\RequestBuilder;
+use Mailgun\Hydrator\Hydrator;
+use Mailgun\Hydrator\NoopHydrator;
 use Psr\Http\Client as Psr18;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -29,7 +30,7 @@ abstract class HttpApi
     /**
      * The HTTP client.
      *
-     * @var ClientInterface
+     * @var ClientInterface|PluginClient
      */
     protected $httpClient;
 
@@ -43,8 +44,13 @@ abstract class HttpApi
      */
     protected $requestBuilder;
 
-    public function __construct(ClientInterface $httpClient, RequestBuilder $requestBuilder, Hydrator $hydrator)
+    public function __construct($httpClient, RequestBuilder $requestBuilder, Hydrator $hydrator)
     {
+        if (!is_a($httpClient, ClientInterface::class) &&
+            !is_a($httpClient, PluginClient::class)) {
+            throw new \RuntimeException('httpClient must be an instance of 
+            Psr\Http\Client\ClientInterface or Http\Client\Common\PluginClient');
+        }
         $this->httpClient = $httpClient;
         $this->requestBuilder = $requestBuilder;
         if (!$hydrator instanceof NoopHydrator) {
@@ -63,7 +69,7 @@ abstract class HttpApi
             return $response;
         }
 
-        if (200 !== $response->getStatusCode() && 201 !== $response->getStatusCode()) {
+        if (!in_array($response->getStatusCode(), [200, 201, 202], true)) {
             $this->handleErrors($response);
         }
 
@@ -85,8 +91,12 @@ abstract class HttpApi
                 throw HttpClientException::unauthorized($response);
             case 402:
                 throw HttpClientException::requestFailed($response);
+            case 403:
+                throw HttpClientException::forbidden($response);
             case 404:
                 throw HttpClientException::notFound($response);
+            case 409:
+                throw HttpClientException::conflict($response);
             case 413:
                 throw HttpClientException::payloadTooLarge($response);
             case 500 <= $statusCode:
@@ -106,7 +116,7 @@ abstract class HttpApi
     protected function httpGet(string $path, array $parameters = [], array $requestHeaders = []): ResponseInterface
     {
         if (count($parameters) > 0) {
-            $path .= '?'.http_build_query($parameters);
+            $path .= '?'.urldecode(http_build_query($parameters));
         }
 
         try {

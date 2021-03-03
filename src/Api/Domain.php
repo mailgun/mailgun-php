@@ -20,8 +20,12 @@ use Mailgun\Model\Domain\DeleteCredentialResponse;
 use Mailgun\Model\Domain\DeleteResponse;
 use Mailgun\Model\Domain\IndexResponse;
 use Mailgun\Model\Domain\ShowResponse;
+use Mailgun\Model\Domain\TrackingResponse;
+use Mailgun\Model\Domain\UpdateClickTrackingResponse;
 use Mailgun\Model\Domain\UpdateConnectionResponse;
 use Mailgun\Model\Domain\UpdateCredentialResponse;
+use Mailgun\Model\Domain\UpdateOpenTrackingResponse;
+use Mailgun\Model\Domain\UpdateUnsubscribeTrackingResponse;
 use Mailgun\Model\Domain\VerifyResponse;
 use Psr\Http\Message\ResponseInterface;
 
@@ -34,7 +38,6 @@ class Domain extends HttpApi
 {
     /**
      * Returns a list of domains on the account.
-     *
      *
      * @return IndexResponse
      */
@@ -75,27 +78,51 @@ class Domain extends HttpApi
      *
      * @see https://documentation.mailgun.com/en/latest/api-domains.html#domains
      *
-     * @param string $domain     name of the domain
-     * @param string $smtpPass   password for SMTP authentication
-     * @param string $spamAction `disable` or `tag` - inbound spam filtering
-     * @param bool   $wildcard   domain will accept email for subdomains
+     * @param string   $domain             name of the domain
+     * @param string   $smtpPass           password for SMTP authentication
+     * @param string   $spamAction         `disable` or `tag` - inbound spam filtering
+     * @param bool     $wildcard           domain will accept email for subdomains
+     * @param bool     $forceDkimAuthority force DKIM authority
+     * @param string[] $ips                an array of ips to be assigned to the domain
      *
      * @return CreateResponse|array|ResponseInterface
      */
-    public function create(string $domain, string $smtpPass = null, string $spamAction = null, bool $wildcard = null)
+    public function create(string $domain, string $smtpPass = null, string $spamAction = null, bool $wildcard = null, bool $forceDkimAuthority = null, ?array $ips = null)
     {
         Assert::stringNotEmpty($domain);
 
         $params['name'] = $domain;
 
-        // If at least smtpPass available, check for the fields spamAction wildcard
         if (!empty($smtpPass)) {
-            // TODO(sean.johnson): Extended spam filter input validation.
-            Assert::stringNotEmpty($spamAction);
-            Assert::boolean($wildcard);
+            Assert::stringNotEmpty($smtpPass);
 
             $params['smtp_password'] = $smtpPass;
+        }
+
+        if (!empty($spamAction)) {
+            // TODO(sean.johnson): Extended spam filter input validation.
+            Assert::stringNotEmpty($spamAction);
+
             $params['spam_action'] = $spamAction;
+        }
+
+        if (null !== $wildcard) {
+            Assert::boolean($wildcard);
+
+            $params['wildcard'] = $wildcard ? 'true' : 'false';
+        }
+
+        if (null !== $forceDkimAuthority) {
+            Assert::boolean($forceDkimAuthority);
+
+            $params['force_dkim_authority'] = $forceDkimAuthority ? 'true' : 'false';
+        }
+
+        if (null !== $ips) {
+            Assert::isList($ips);
+            Assert::allString($ips);
+
+            $params['ips'] = join(',', $ips);
         }
 
         $response = $this->httpPost('/v3/domains', $params);
@@ -275,5 +302,100 @@ class Domain extends HttpApi
         $response = $this->httpPut(sprintf('/v3/domains/%s/verify', $domain));
 
         return $this->hydrateResponse($response, VerifyResponse::class);
+    }
+
+    /**
+     * Returns a domain tracking settings.
+     *
+     * @param string $domain name of the domain
+     *
+     * @return TrackingResponse|array|ResponseInterface
+     */
+    public function tracking(string $domain)
+    {
+        Assert::stringNotEmpty($domain);
+
+        $response = $this->httpGet(sprintf('/v3/domains/%s/tracking', $domain));
+
+        return $this->hydrateResponse($response, TrackingResponse::class);
+    }
+
+    /**
+     * Updates a domain click tracking settings.
+     *
+     * @param string $domain The name of the domain
+     * @param string $active The status for this tracking (one of: yes, no)
+     *
+     * @return UpdateClickTrackingResponse|array|ResponseInterface
+     *
+     * @throws \Exception
+     */
+    public function updateClickTracking(string $domain, string $active)
+    {
+        Assert::stringNotEmpty($domain);
+        Assert::stringNotEmpty($active);
+        Assert::oneOf($active, ['yes', 'no', 'htmlonly']);
+
+        $params = [
+            'active' => $active,
+        ];
+
+        $response = $this->httpPut(sprintf('/v3/domains/%s/tracking/click', $domain), $params);
+
+        return $this->hydrateResponse($response, UpdateClickTrackingResponse::class);
+    }
+
+    /**
+     * Updates a domain open tracking settings.
+     *
+     * @param string $domain The name of the domain
+     * @param string $active The status for this tracking (one of: yes, no)
+     *
+     * @return UpdateOpenTrackingResponse|array|ResponseInterface
+     */
+    public function updateOpenTracking(string $domain, string $active)
+    {
+        Assert::stringNotEmpty($domain);
+        Assert::stringNotEmpty($active);
+        Assert::oneOf($active, ['yes', 'no']);
+
+        $params = [
+            'active' => $active,
+        ];
+
+        $response = $this->httpPut(sprintf('/v3/domains/%s/tracking/open', $domain), $params);
+
+        return $this->hydrateResponse($response, UpdateOpenTrackingResponse::class);
+    }
+
+    /**
+     * Updates a domain unsubscribe tracking settings.
+     *
+     * @param string $domain     The name of the domain
+     * @param string $active     The status for this tracking (one of: yes, no)
+     * @param string $htmlFooter The footer for HTML emails
+     * @param string $textFooter The footer for plain text emails
+     *
+     * @return UpdateUnsubscribeTrackingResponse|array|ResponseInterface
+     *
+     * @throws \Exception
+     */
+    public function updateUnsubscribeTracking(string $domain, string $active, string $htmlFooter, string $textFooter)
+    {
+        Assert::stringNotEmpty($domain);
+        Assert::stringNotEmpty($active);
+        Assert::oneOf($active, ['yes', 'no', 'true', 'false']);
+        Assert::stringNotEmpty($htmlFooter);
+        Assert::nullOrString($textFooter);
+
+        $params = [
+            'active' => (in_array($active, ['yes', 'true'], true)) ? 'true' : 'false',
+            'html_footer' => $htmlFooter,
+            'text_footer' => $textFooter,
+        ];
+
+        $response = $this->httpPut(sprintf('/v3/domains/%s/tracking/unsubscribe', $domain), $params);
+
+        return $this->hydrateResponse($response, UpdateUnsubscribeTrackingResponse::class);
     }
 }

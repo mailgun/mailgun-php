@@ -37,6 +37,7 @@ class EventResponseTest extends BaseModelTest
         "is-authenticated": true,
         "is-test-mode": false
       },
+      "log-level": "info",
       "message": {
         "headers": {
           "to": "foo@example.com",
@@ -69,5 +70,6 @@ JSON;
         $this->assertCount(1, $events);
         $event = $events[0];
         $this->assertEquals('czsjqFATSlC3QtAK-C80nw', $event->getId());
+        $this->assertEquals('info', $event->getLogLevel());
     }
 }

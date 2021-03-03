@@ -99,11 +99,14 @@ class Member extends HttpApi
 
         $params = [
             'address' => $address,
-            'name' => $name,
             'vars' => \json_encode($vars),
             'subscribed' => $subscribed ? 'yes' : 'no',
             'upsert' => $upsert ? 'yes' : 'no',
         ];
+
+        if (null !== $name) {
+            $params['name'] = $name;
+        }
 
         $response = $this->httpPost(sprintf('/v3/lists/%s/members', $list), $params);
 
@@ -128,11 +131,7 @@ class Member extends HttpApi
 
         // workaround for webmozart/asserts <= 1.2
         if (count($members) > 1000) {
-            throw new InvalidArgumentException(sprintf(
-                'Expected an Array to contain at most %2$d elements. Got: %d',
-                1000,
-                count($members)
-            ));
+            throw new InvalidArgumentException(sprintf('Expected an Array to contain at most %2$d elements. Got: %d', 1000, count($members)));
         }
 
         foreach ($members as $data) {
@@ -195,7 +194,7 @@ class Member extends HttpApi
         Assert::stringNotEmpty($address);
         Assert::isArray($parameters);
 
-        foreach ($parameters as $field => $value) {
+        foreach ($parameters as $field => &$value) {
             switch ($field) {
                 case 'vars':
                     if (is_array($value)) {
@@ -204,8 +203,11 @@ class Member extends HttpApi
                     // We should assert that "vars"'s $value is a string.
                     // no break
                 case 'address':
-                case 'name':
                     Assert::stringNotEmpty($value);
+
+                    break;
+                case 'name':
+                    Assert::nullOrStringNotEmpty($value);
 
                     break;
                 case 'subscribed':
@@ -213,6 +215,10 @@ class Member extends HttpApi
 
                     break;
             }
+        }
+
+        if (array_key_exists('name', $parameters) && null === $parameters['name']) {
+            unset($parameters['name']);
         }
 
         $response = $this->httpPut(sprintf('/v3/lists/%s/members/%s', $list, $address), $parameters);

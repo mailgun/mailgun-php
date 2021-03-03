@@ -34,4 +34,30 @@ class HttpClientExceptionTest extends MailgunTestCase
         $exception = HttpClientException::badRequest($response);
         $this->assertStringEndsWith('<html><body>Server HTML</body></html>', $exception->getMessage());
     }
+
+    public function testForbiddenRequestThrowException()
+    {
+        $response = new Response(403, ['Content-Type' => 'application/json'], '{"Error":"Business Verification"}');
+        $exception = HttpClientException::forbidden($response);
+        $this->assertInstanceOf(HttpClientException::class, $exception);
+        $this->assertSame(403, $exception->getCode());
+    }
+
+    public function testForbiddenRequestGetMessageJson()
+    {
+        $response = new Response(403, ['Content-Type' => 'application/json'], '{"Error":"Business Verification"}');
+        $exception = HttpClientException::forbidden($response);
+        $this->assertStringEndsWith('Business Verification', $exception->getMessage());
+
+        $response = new Response(403, ['Content-Type' => 'application/json'], '{"Message":"Business Verification"}');
+        $exception = HttpClientException::forbidden($response);
+        $this->assertStringEndsWith('{"Message":"Business Verification"}', $exception->getMessage());
+    }
+
+    public function testForbiddenRequestGetMessage()
+    {
+        $response = new Response(403, ['Content-Type' => 'text/html'], '<html><body>Forbidden</body></html>');
+        $exception = HttpClientException::forbidden($response);
+        $this->assertStringEndsWith('<html><body>Forbidden</body></html>', $exception->getMessage());
+    }
 }

@@ -39,7 +39,7 @@ class IndexResponseTest extends BaseModelTest
     "first":
         "https://url_to_first_page",
     "last":
-        "https://url_to_last_page"
+        "http://url_to_last_page"
   }
 }
 JSON;
@@ -49,5 +49,7 @@ JSON;
         $this->assertCount(2, $tags);
         $tag = $tags[0];
         $this->assertEquals('red', $tag->getTag());
+        // Check if http url was changed to https
+        $this->assertEquals('https://url_to_last_page', $model->getLastUrl());
     }
 }

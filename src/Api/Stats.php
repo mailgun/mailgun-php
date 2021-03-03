@@ -12,7 +12,6 @@ declare(strict_types=1);
 namespace Mailgun\Api;
 
 use Mailgun\Assert;
-use Mailgun\Model\Stats\AllResponse;
 use Mailgun\Model\Stats\TotalResponse;
 
 /**
@@ -32,17 +31,5 @@ class Stats extends HttpApi
         $response = $this->httpGet(sprintf('/v3/%s/stats/total', rawurlencode($domain)), $params);
 
         return $this->hydrateResponse($response, TotalResponse::class);
-    }
-
-    /**
-     * @return AllResponse|array
-     */
-    public function all(string $domain, array $params = [])
-    {
-        Assert::stringNotEmpty($domain);
-
-        $response = $this->httpGet(sprintf('/v3/%s/stats', rawurlencode($domain)), $params);
-
-        return $this->hydrateResponse($response, AllResponse::class);
     }
 }

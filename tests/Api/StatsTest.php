@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace Mailgun\Tests\Api;
 
 use GuzzleHttp\Psr7\Response;
+use Mailgun\Exception\InvalidArgumentException;
 use Mailgun\Hydrator\ModelHydrator;
 use Mailgun\Model\Stats\TotalResponse;
 use Mailgun\Model\Stats\TotalResponseItem;
@@ -42,40 +43,30 @@ class StatsTest extends TestCase
         $this->assertInstanceOf(TotalResponse::class, $total);
         $this->assertCount(count($responseData['stats']), $total->getStats());
         $this->assertContainsOnlyInstancesOf(TotalResponseItem::class, $total->getStats());
+
+        $event = $queryParameters['event'];
+        $responseStat = $total->getStats()[0];
+        $statGetter = 'get'.ucwords($event);
+
+        if ('failed' !== $event) {
+            $expectedTotal = $responseData['stats'][0][$event]['total'];
+            $actualTotal = $responseStat->$statGetter()['total'];
+        }
+
+        if ('failed' === $event) {
+            $expectedTotal = $responseData['stats'][0][$event]['permanent']['total'];
+            $actualTotal = $responseStat->$statGetter()['permanent']['total'];
+        }
+
+        $this->assertEquals($expectedTotal, $actualTotal);
     }
 
-    /**
-     * @expectedException \Mailgun\Exception\InvalidArgumentException
-     */
     public function testTotalInvalidArgument()
     {
+        $this->expectException(InvalidArgumentException::class);
+
         $api = $this->getApiMock();
         $api->total('');
-    }
-
-    public function testAll()
-    {
-        $data = [
-            'foo' => 'bar',
-        ];
-
-        $api = $this->getApiMock();
-        $api->expects($this->once())
-            ->method('httpGet')
-            ->with('/v3/domain/stats', $data)
-            ->willReturn(new Response());
-
-        $api->all('domain', $data);
-    }
-
-    /**
-     * @expectedException \Mailgun\Exception\InvalidArgumentException
-     */
-    public function testAllInvalidArgument()
-    {
-        $api = $this->getApiMock();
-
-        $api->all('');
     }
 
     public function totalProvider()
@@ -130,6 +121,58 @@ class StatsTest extends TestCase
                             'smtp' => 15,
                             'http' => 5,
                             'total' => 20,
+                        ],
+                    ],
+                ]),
+            ],
+            'clicked events' => [
+                'queryParameters' => [
+                    'event' => 'clicked',
+                ],
+                'responseData' => $this->generateTotalResponsePayload([
+                    [
+                        'time' => $this->formatDate('-7 days'),
+                        'clicked' => [
+                            'total' => 7,
+                        ],
+                    ],
+                ]),
+            ],
+            'opened events' => [
+                'queryParameters' => [
+                    'event' => 'opened',
+                ],
+                'responseData' => $this->generateTotalResponsePayload([
+                    [
+                        'time' => $this->formatDate('-7 days'),
+                        'opened' => [
+                            'total' => 19,
+                        ],
+                    ],
+                ]),
+            ],
+            'unsubscribed events' => [
+                'queryParameters' => [
+                    'event' => 'unsubscribed',
+                ],
+                'responseData' => $this->generateTotalResponsePayload([
+                    [
+                        'time' => $this->formatDate('-7 days'),
+                        'unsubscribed' => [
+                            'total' => 10,
+                        ],
+                    ],
+                ]),
+            ],
+            'stored events' => [
+                'queryParameters' => [
+                    'event' => 'stored',
+                ],
+                'responseData' => $this->generateTotalResponsePayload([
+                    [
+                        'time' => $this->formatDate('-7 days'),
+                        'stored' => [
+                            'total' => 12,
                         ],
                     ],
                 ]),

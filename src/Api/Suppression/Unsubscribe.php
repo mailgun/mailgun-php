@@ -84,17 +84,24 @@ class Unsubscribe extends HttpApi
     }
 
     /**
-     * @param string $domain  Domain to delete unsubscribe for
-     * @param string $address Unsubscribe address
+     * @param string      $domain  Domain to delete unsubscribe for
+     * @param string      $address Unsubscribe address
+     * @param string|null $tag     Unsubscribe tag
      *
      * @return DeleteResponse
      */
-    public function delete(string $domain, string $address)
+    public function delete(string $domain, string $address, string $tag = null)
     {
         Assert::stringNotEmpty($domain);
         Assert::stringNotEmpty($address);
+        Assert::nullOrStringNotEmpty($tag);
 
-        $response = $this->httpDelete(sprintf('/v3/%s/unsubscribes/%s', $domain, $address));
+        $params = [];
+        if (!is_null($tag)) {
+            $params['tag'] = $tag;
+        }
+
+        $response = $this->httpDelete(sprintf('/v3/%s/unsubscribes/%s', $domain, $address), $params);
 
         return $this->hydrateResponse($response, DeleteResponse::class);
     }

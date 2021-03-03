@@ -21,6 +21,7 @@ class IndexResponseTest extends BaseModelTest
         $json =
 <<<'JSON'
 {
+  "assignable_to_pools": ["192.161.0.1"],
   "items": ["192.161.0.1", "192.168.0.2"],
   "total_count": 2
 }
@@ -30,5 +31,21 @@ JSON;
         $items = $model->getItems();
         $this->assertCount(2, $items);
         $this->assertEquals('192.161.0.1', $items[0]);
+    }
+
+    public function testCreateWithAssignableToPools()
+    {
+        $json =
+<<<'JSON'
+{
+  "assignable_to_pools": ["192.161.0.1"],
+  "items": ["192.161.0.1", "192.168.0.2"],
+  "total_count": 2
+}
+JSON;
+        $model = IndexResponse::create(json_decode($json, true));
+        $assignableToPools = $model->getAssignableToPools();
+        $this->assertCount(1, $assignableToPools);
+        $this->assertEquals('192.161.0.1', $assignableToPools[0]);
     }
 }

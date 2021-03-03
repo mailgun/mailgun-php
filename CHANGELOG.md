@@ -2,12 +2,83 @@
 
 The change log describes what is "Added", "Removed", "Changed" or "Fixed" between each release.
 
-## 3.0.0 - UNRELEASED
+## 3.4.1
+
+### Fixed
+
+- Fix double urlencoding (#747 by @uavn)
+
+## 3.4.0
+
+### Added
+
+- Email Validation (#726 by @uavn)
+  - Please note the Email Validation requires **always** to use the US servers. The Mailgun Team didn't enable this service on the European endpoints.
+
+## 3.3.0
+
+### Added
+
+- Support for PHP 8 (#727 by @DavidGarciaCat)
+- Added `opened`, `clicked`, `unsubscribed` and `stored` to the `TotalResponseItem` (#739 by @Arkitecht)
+
+### Removed
+
+- Support for PHP 7.1 and 7.2 as they both have reached their end of life
+
+## 3.2.0
+
+### Added
+
+- Domain tracking implementation (#711 by @uavn)
+- Mailing list validation (#712 by @uavn)
+- Suppression Whitelists (#713 by @uavn)
+
+### Fixed
+
+- Added pagination to tags (#717 by @uavn)
+
+### Changed
+
+- Expect Client to be of type ClientInterface or PluginClient (#660 by @tonythomas01)
+
+## 3.1.0
+
+### Added
+
+- Suppressions allow now deleting an address passing an optional tag (#643 by @iwahara)
+- Allow both `^1.0` and `^2.0` for `php-http/guzzle6-adapter` (#680 by @boboldehampsink)
+- Add support for Mailing List `reply_preference` parameter (#684 by @twoonesixdigital)
+- Add support for `Force DKIM Authority` when creating a Domain (#686 by @Tiboonn)
+- Add support for PHP 7.4 (#698 by @snapshotpl)
+- Allow assigning a domain to a list of ips during creation (#703 by @josephshanak)
+- Add unmapped `log-level` property for Events (#704 by @uavn)
+
+### Fixed
+
+- Provide the Member's name just when it's not `null` (#639 by @indapublic)
+- Fix typehint for Message `ShowResponse::getContentIdMap()` (#664 by @lvdhoorn)
+- Fix endpoint for Domain's API (#668 by @tomschlick)
+- Webhook support for array handling (#675 by @martin-sanjuan)
+- Fix parameter name when assigning an IP to the specified Domain (#702 by @josephshanak)
+- `Ip::index()` now returns all IPs instead of the shared IPs (#707 by @josephshanak)
+
+### Changed
+
+- Updated examples for Debugging and Hydrator usage (#634 by @tonybolzan and #681 by @Jiia)
+- Updated link to the Mailgun Documentation page (#688 by @Casmo)
+- Remove deprecated Laravel package due to it is archived (#695 by @tomschlick)
+
+### Removed
+
+- Remove method for non-existing Stats URL (#705 by @uavn)
+
+## 3.0.0
 
 ### Added
 
 - Support for PSR-4
-- All classes `Mailgun\Model` are final or abstract. 
+- All classes `Mailgun\Model` are final or abstract.
 
 ### Changed
 
@@ -56,12 +127,12 @@ The change log describes what is "Added", "Removed", "Changed" or "Fixed" betwee
 
 ### Changed
 
-- Second argument to `Mailgun\Message\MessageBuilder::addBccRecipient()` is now optional. 
+- Second argument to `Mailgun\Message\MessageBuilder::addBccRecipient()` is now optional.
 - We try to close open resources
 
 ### Fixed
 
-- Fixed the type error when creating tags. 
+- Fixed the type error when creating tags.
 
 ## 2.6.0
 
@@ -103,16 +174,16 @@ The change log describes what is "Added", "Removed", "Changed" or "Fixed" betwee
 - Add cached property for DNS record
 - Add domain verification
 - `HttpClientException::getResponseCode()`
-- Added `AbstractDomainResponse` that `VerifyResponse` and `CreateResponse` extends. 
+- Added `AbstractDomainResponse` that `VerifyResponse` and `CreateResponse` extends.
 
 ### Fixed
 
 - Possible empty content of `WebhookIndexResponse`.
-- Typo in `TotalResponse` that caused the content to be empty. 
+- Typo in `TotalResponse` that caused the content to be empty.
 
 ### Changed
 
-- Allow some parameters to `Domain::create` to be optional. 
+- Allow some parameters to `Domain::create` to be optional.
 
 ## 2.3.4
 
@@ -131,7 +202,7 @@ The change log describes what is "Added", "Removed", "Changed" or "Fixed" betwee
 
 ### Fixed
 
-- When parsing an address in `MessageBuilder` we surround the recipient name with double quotes instead of single quotes.   
+- When parsing an address in `MessageBuilder` we surround the recipient name with double quotes instead of single quotes.
 
 ## 2.3.1
 
@@ -148,25 +219,25 @@ The change log describes what is "Added", "Removed", "Changed" or "Fixed" betwee
 ## 2.2.0
 
 This version contains a new way of using the API. Each endpoint return a domain object and the
-endpoints are grouped like the API documentation. 
+endpoints are grouped like the API documentation.
 
 ### Added
 
 - Api classes in Mailgun\Api\*
 - Api models/responses in Mailgun\Model\*
-- Added Hydrators to hydrate PSR-7 responses to arrays or domain objects. 
+- Added Hydrators to hydrate PSR-7 responses to arrays or domain objects.
 - All exceptions extend `Mailgun\Exception`.
 - New exceptions in `Mailgun\Exception` namespace.
-- Added `HttpClientConfigurator` to configure the HTTP client. 
+- Added `HttpClientConfigurator` to configure the HTTP client.
 - Added HttpClient plugins `History` and `ReplaceUriPlugin`
-- Assertions with Webmozart\Assert 
+- Assertions with Webmozart\Assert
 - `Mailgun\Mailgun::getLastResponse()`
 - `Mailgun\Connection\RestClient::getAttachment($url)`
 - Clear license information
 
 ### Fixed
 
-- Fix disordered POST parameters. We do not use array syntax. 
+- Fix disordered POST parameters. We do not use array syntax.
 - Code styles
 
 ### Deprecated
@@ -272,7 +343,7 @@ Bugfixes:
 ## 1.3 (2013-09-12)
 
 Bugfixes:
-  
+
   - relaxed Guzzle requirement (#7 @travelton)
   - fixed reply-to bug (#9 @travelton)
 

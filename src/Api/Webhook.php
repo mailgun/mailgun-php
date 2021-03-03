@@ -12,15 +12,15 @@ declare(strict_types=1);
 namespace Mailgun\Api;
 
 use Mailgun\Assert;
+use Mailgun\HttpClient\RequestBuilder;
 use Mailgun\Hydrator\Hydrator;
 use Mailgun\Model\Webhook\CreateResponse;
 use Mailgun\Model\Webhook\DeleteResponse;
 use Mailgun\Model\Webhook\IndexResponse;
 use Mailgun\Model\Webhook\ShowResponse;
 use Mailgun\Model\Webhook\UpdateResponse;
-use Mailgun\HttpClient\RequestBuilder;
-use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Client\ClientInterface;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * @see https://documentation.mailgun.com/en/latest/api-webhooks.html
@@ -88,7 +88,7 @@ class Webhook extends HttpApi
     /**
      * @return CreateResponse|ResponseInterface
      */
-    public function create(string $domain, string $id, string $url)
+    public function create(string $domain, string $id, array $url)
     {
         Assert::notEmpty($domain);
         Assert::notEmpty($id);
@@ -107,7 +107,7 @@ class Webhook extends HttpApi
     /**
      * @return UpdateResponse|ResponseInterface
      */
-    public function update(string $domain, string $id, string $url)
+    public function update(string $domain, string $id, array $url)
     {
         Assert::notEmpty($domain);
         Assert::notEmpty($id);

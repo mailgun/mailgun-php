@@ -14,9 +14,10 @@ namespace Mailgun\Api;
 use Mailgun\Api\Suppression\Bounce;
 use Mailgun\Api\Suppression\Complaint;
 use Mailgun\Api\Suppression\Unsubscribe;
+use Mailgun\Api\Suppression\Whitelist;
+use Mailgun\HttpClient\RequestBuilder;
 use Mailgun\Hydrator\Hydrator;
 use Psr\Http\Client\ClientInterface;
-use Mailgun\HttpClient\RequestBuilder;
 
 /**
  * @see https://documentation.mailgun.com/api-suppressions.html
@@ -60,5 +61,10 @@ class Suppression
     public function unsubscribes(): Unsubscribe
     {
         return new Unsubscribe($this->httpClient, $this->requestBuilder, $this->hydrator);
+    }
+
+    public function whitelists(): Whitelist
+    {
+        return new Whitelist($this->httpClient, $this->requestBuilder, $this->hydrator);
     }
 }

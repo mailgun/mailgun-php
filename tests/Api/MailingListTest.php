@@ -14,6 +14,9 @@ namespace Mailgun\Tests\Api;
 use GuzzleHttp\Psr7\Response;
 use Mailgun\Api\MailingList;
 use Mailgun\Exception\InvalidArgumentException;
+use Mailgun\Model\EmailValidation\ValidateResponse;
+use Mailgun\Model\MailingList\ValidationCancelResponse;
+use Mailgun\Model\MailingList\ValidationStatusResponse;
 
 class MailingListTest extends TestCase
 {
@@ -48,6 +51,7 @@ class MailingListTest extends TestCase
             'name' => 'Foo',
             'description' => 'Description',
             'access_level' => 'readonly',
+            'reply_preference' => 'list',
         ];
 
         $api = $this->getApiMock();
@@ -130,6 +134,36 @@ class MailingListTest extends TestCase
             ->willReturn(new Response());
 
         $api->delete('address');
+    }
+
+    public function testValidate()
+    {
+        $this->setRequestMethod('POST');
+        $this->setRequestUri('/v3/lists/address@domain/validate');
+        $this->setHydrateClass(ValidateResponse::class);
+
+        $api = $this->getApiInstance();
+        $api->validate('address@domain');
+    }
+
+    public function testValidationStatus()
+    {
+        $this->setRequestMethod('GET');
+        $this->setRequestUri('/v3/lists/address@domain/validate');
+        $this->setHydrateClass(ValidationStatusResponse::class);
+
+        $api = $this->getApiInstance();
+        $api->getValidationStatus('address@domain');
+    }
+
+    public function testCancelValidate()
+    {
+        $this->setRequestMethod('DELETE');
+        $this->setRequestUri('/v3/lists/address@domain/validate');
+        $this->setHydrateClass(ValidationCancelResponse::class);
+
+        $api = $this->getApiInstance();
+        $api->cancelValidation('address@domain');
     }
 
     /**
