@@ -33,8 +33,17 @@ final class ShowResponse implements ApiResponse
         return $model;
     }
 
-    public function getWebhookUrls(): ?array
+    public function getWebhookUrl(): ?string
     {
-        return $this->webhook['urls'] ?? null;
+        foreach ($this->getWebhookUrls() as $url) {
+            return $url;
+        }
+
+        return null;
+    }
+
+    public function getWebhookUrls(): array
+    {
+        return $this->webhook['urls'] ?? [];
     }
 }
