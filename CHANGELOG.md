@@ -2,6 +2,12 @@
 
 The change log describes what is "Added", "Removed", "Changed" or "Fixed" between each release.
 
+## 3.5.0
+
+### Added
+
+- Support for new webhook endpoints (#609 by @svenbw & #749 by @Nyholm)
+
 ## 3.4.1
 
 ### Fixed
