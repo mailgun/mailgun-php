@@ -60,4 +60,12 @@ class HttpClientExceptionTest extends MailgunTestCase
         $exception = HttpClientException::forbidden($response);
         $this->assertStringEndsWith('<html><body>Forbidden</body></html>', $exception->getMessage());
     }
+
+    public function testTooManyRequestsGetMessage()
+    {
+        $response = new Response(429, ['Content-Type' => 'text/html']);
+        $exception = HttpClientException::tooManyRequests($response);
+        $this->assertEquals('Too many requests.', $exception->getMessage());
+        $this->assertEquals($response->getStatusCode(), $exception->getCode());
+    }
 }
