@@ -146,8 +146,8 @@ $mg->messages()->send('example.com', [
 For usage examples on each API endpoint, head over to our official documentation
 pages.
 
-This SDK includes a [Message Builder](src/Mailgun/Messages/README.md),
-[Batch Message](src/Mailgun/Messages/README.md) and [Opt-In Handler](src/Mailgun/Lists/README.md) component.
+This SDK includes a [Message Builder](src/Message/README.md),
+[Batch Message](src/Message/README.md).
 
 Message Builder allows you to quickly create the array of parameters, required
 to send a message, by calling a methods for each parameter.
