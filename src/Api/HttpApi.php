@@ -59,6 +59,8 @@ abstract class HttpApi
     }
 
     /**
+     * @phpstan-param class-string $class
+     *
      * @return mixed|ResponseInterface
      *
      * @throws \Exception
