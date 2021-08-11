@@ -118,7 +118,7 @@ abstract class HttpApi
     protected function httpGet(string $path, array $parameters = [], array $requestHeaders = []): ResponseInterface
     {
         if (count($parameters) > 0) {
-            $path .= '?' . http_build_query($parameters);
+            $path .= '?'.http_build_query($parameters);
         }
 
         try {
