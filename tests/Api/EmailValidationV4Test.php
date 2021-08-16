@@ -42,7 +42,7 @@ class EmailValidationV4Test extends TestCase
     public function testInvalidEmail()
     {
         $this->setRequestMethod('GET');
-        $this->setRequestUri('/v4/address/validate?address=email@example.com&provider_lookup=1');
+        $this->setRequestUri('/v4/address/validate?address=email%40example.com&provider_lookup=1');
         $this->setHttpResponse(new Response(200, ['Content-Type' => 'application/json'], <<<'JSON'
 {
     "address": "email@example.com",
@@ -77,7 +77,7 @@ JSON
     public function testValidEmail()
     {
         $this->setRequestMethod('GET');
-        $this->setRequestUri('/v4/address/validate?address=email3@example.com&provider_lookup=0');
+        $this->setRequestUri('/v4/address/validate?address=email3%40example.com&provider_lookup=0');
         $this->setHttpResponse(new Response(200, ['Content-Type' => 'application/json'], <<<'JSON'
 {
     "address": "email3@example.com",
