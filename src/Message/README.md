@@ -80,5 +80,5 @@ $messageIds = $batchMessage->getMessageIds();
 
 More Documentation
 ------------------
-See the official [Mailgun Docs](http://documentation.mailgun.com/api-sending.html) 
+See the official [Mailgun Docs](https://documentation.mailgun.com/en/latest/api-sending.html) 
 for more information.
