@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace Mailgun\Tests\Api;
 
-use Nyholm\Psr7\Response;
 use Mailgun\Api\EmailValidation;
+use Nyholm\Psr7\Response;
 
 /**
  * @author David Garcia <me@davidgarcia.cat>

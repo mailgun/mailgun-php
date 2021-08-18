@@ -11,12 +11,12 @@ declare(strict_types=1);
 
 namespace Mailgun\Tests\Api;
 
-use Nyholm\Psr7\Response;
 use Mailgun\Api\MailingList;
 use Mailgun\Exception\InvalidArgumentException;
 use Mailgun\Model\EmailValidation\ValidateResponse;
 use Mailgun\Model\MailingList\ValidationCancelResponse;
 use Mailgun\Model\MailingList\ValidationStatusResponse;
+use Nyholm\Psr7\Response;
 
 class MailingListTest extends TestCase
 {

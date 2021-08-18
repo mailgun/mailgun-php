@@ -11,10 +11,10 @@ declare(strict_types=1);
 
 namespace Mailgun\Tests\Api;
 
-use Nyholm\Psr7\Response;
 use Mailgun\Api\Event;
 use Mailgun\Exception\InvalidArgumentException;
 use Mailgun\Model\Event\EventResponse;
+use Nyholm\Psr7\Response;
 
 class EventTest extends TestCase
 {

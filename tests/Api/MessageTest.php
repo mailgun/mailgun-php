@@ -11,10 +11,10 @@ declare(strict_types=1);
 
 namespace Mailgun\Tests\Api;
 
-use Nyholm\Psr7\Response;
 use Mailgun\Api\Message;
 use Mailgun\Model\Message\SendResponse;
 use Mailgun\Model\Message\ShowResponse;
+use Nyholm\Psr7\Response;
 
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
