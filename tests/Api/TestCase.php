@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace Mailgun\Tests\Api;
 
-use GuzzleHttp\Psr7\Request;
-use GuzzleHttp\Psr7\Response;
+use Nyholm\Psr7\Request;
+use Nyholm\Psr7\Response;
 use Mailgun\Hydrator\ModelHydrator;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\ResponseInterface;

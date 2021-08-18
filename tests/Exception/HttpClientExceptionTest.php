@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace Mailgun\Tests\Exception;
 
-use GuzzleHttp\Psr7\Response;
+use Nyholm\Psr7\Response;
 use Mailgun\Exception\HttpClientException;
 use Mailgun\Tests\MailgunTestCase;
 
