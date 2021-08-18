@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace Mailgun\Tests\Api;
 
-use Nyholm\Psr7\Response;
 use Mailgun\Api\Domain;
 use Mailgun\Exception\InvalidArgumentException;
 use Mailgun\Model\Domain\ConnectionResponse;
@@ -28,6 +27,7 @@ use Mailgun\Model\Domain\UpdateCredentialResponse;
 use Mailgun\Model\Domain\UpdateOpenTrackingResponse;
 use Mailgun\Model\Domain\UpdateUnsubscribeTrackingResponse;
 use Mailgun\Model\Domain\VerifyResponse;
+use Nyholm\Psr7\Response;
 
 class DomainTest extends TestCase
 {

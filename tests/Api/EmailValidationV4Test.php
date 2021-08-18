@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace Mailgun\Tests\Api;
 
-use Nyholm\Psr7\Response;
 use Mailgun\Api\EmailValidationV4;
 use Mailgun\Model\EmailValidationV4\CreateBulkJobResponse;
 use Mailgun\Model\EmailValidationV4\CreateBulkPreviewResponse;
@@ -26,6 +25,7 @@ use Mailgun\Model\EmailValidationV4\Preview;
 use Mailgun\Model\EmailValidationV4\PromoteBulkPreviewResponse;
 use Mailgun\Model\EmailValidationV4\Summary;
 use Mailgun\Model\EmailValidationV4\ValidateResponse;
+use Nyholm\Psr7\Response;
 
 class EmailValidationV4Test extends TestCase
 {
