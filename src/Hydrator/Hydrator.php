@@ -20,7 +20,7 @@ use Psr\Http\Message\ResponseInterface;
 interface Hydrator
 {
     /**
-     * @phpstan-param class-string $class
+     * @param class-string $class
      *
      * @throws HydrationException
      */

@@ -21,7 +21,7 @@ use Psr\Http\Message\ResponseInterface;
 final class NoopHydrator implements Hydrator
 {
     /**
-     * @phpstan-param class-string $class
+     * @param class-string $class
      *
      * @throws \LogicException
      */

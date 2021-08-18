@@ -48,7 +48,7 @@ abstract class HttpApi
     {
         if (!is_a($httpClient, ClientInterface::class) &&
             !is_a($httpClient, PluginClient::class)) {
-            throw new \RuntimeException('httpClient must be an instance of 
+            throw new \RuntimeException('httpClient must be an instance of
             Psr\Http\Client\ClientInterface or Http\Client\Common\PluginClient');
         }
         $this->httpClient = $httpClient;
@@ -59,7 +59,7 @@ abstract class HttpApi
     }
 
     /**
-     * @phpstan-param class-string $class
+     * @param class-string $class
      *
      * @return mixed|ResponseInterface
      *
