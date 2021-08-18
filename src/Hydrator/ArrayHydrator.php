@@ -22,7 +22,7 @@ use Psr\Http\Message\ResponseInterface;
 final class ArrayHydrator implements Hydrator
 {
     /**
-     * @phpstan-param class-string $class
+     * @param class-string $class
      *
      * @return array
      */

@@ -23,7 +23,7 @@ use Psr\Http\Message\ResponseInterface;
 final class ModelHydrator implements Hydrator
 {
     /**
-     * @phpstan-param class-string $class
+     * @param class-string $class
      *
      * @return ResponseInterface
      */

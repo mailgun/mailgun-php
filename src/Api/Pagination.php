@@ -23,7 +23,7 @@ trait Pagination
     abstract protected function httpGet(string $path, array $parameters = [], array $requestHeaders = []): ResponseInterface;
 
     /**
-     * @phpstan-param class-string $className
+     * @param class-string $className
      */
     abstract protected function hydrateResponse(ResponseInterface $response, string $className);
 
@@ -48,7 +48,7 @@ trait Pagination
     }
 
     /**
-     * @phpstan-param class-string $class
+     * @param class-string $class
      */
     private function getPaginationUrl(string $url, string $class): ?PagingProvider
     {
