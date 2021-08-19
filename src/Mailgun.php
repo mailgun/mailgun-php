@@ -146,6 +146,6 @@ class Mailgun
 
     public function mailboxes(): Api\Mailboxes
     {
-        return new Api\Mailboxes($this->httpClient, $this->requestBuilder, $this->hydrator, $this->apiKey);
+        return new Api\Mailboxes($this->httpClient, $this->requestBuilder, $this->hydrator);
     }
 }
