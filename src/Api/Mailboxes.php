@@ -22,9 +22,6 @@ class Mailboxes extends HttpApi
     private const MIN_PASSWORD_LENGTH = 5;
 
     /**
-     * @param string $domain
-     * @param array  $parameters
-     *
      * @return CreateResponse
      *
      * @throws \Exception
@@ -42,9 +39,6 @@ class Mailboxes extends HttpApi
     }
 
     /**
-     * @param string $domain
-     * @param array  $parameters
-     *
      * @return ShowResponse
      *
      * @throws \Exception
@@ -59,10 +53,6 @@ class Mailboxes extends HttpApi
     }
 
     /**
-     * @param string $domain
-     * @param string $mailbox
-     * @param array  $parameters
-     *
      * @return UpdateResponse
      *
      * @throws \Exception
@@ -78,9 +68,6 @@ class Mailboxes extends HttpApi
     }
 
     /**
-     * @param string $domain
-     * @param string $mailbox
-     *
      * @return DeleteResponse
      *
      * @throws \Exception
