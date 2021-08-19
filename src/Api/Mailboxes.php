@@ -29,12 +29,11 @@ class Mailboxes extends HttpApi
      *
      * @throws \Exception
      */
-    public function create(string $domain, array $parameters)
+    public function create(string $domain, array $parameters = [])
     {
         Assert::stringNotEmpty($domain);
-        Assert::isArray($parameters);
-        Assert::keyExists($parameters ,'mailbox');
-        Assert::keyExists($parameters ,'password');
+        Assert::keyExists($parameters, 'mailbox');
+        Assert::keyExists($parameters, 'password');
         Assert::minLength($parameters['password'], self::MIN_PASSWORD_LENGTH);
 
         $response = $this->httpPost(sprintf('/v3/%s/mailboxes', $domain), $parameters);
@@ -53,7 +52,6 @@ class Mailboxes extends HttpApi
     public function show(string $domain, array $parameters = [])
     {
         Assert::stringNotEmpty($domain);
-        Assert::isArray($parameters);
 
         $response = $this->httpGet(sprintf('/v3/%s/mailboxes', $domain), $parameters);
 
@@ -63,7 +61,7 @@ class Mailboxes extends HttpApi
     /**
      * @param string $domain
      * @param string $mailbox
-     * @param array  $parameters
+     * @param array $parameters
      *
      * @return UpdateResponse
      *
@@ -73,7 +71,6 @@ class Mailboxes extends HttpApi
     {
         Assert::stringNotEmpty($domain);
         Assert::stringNotEmpty($mailbox);
-        Assert::isArray($parameters);
 
         $response = $this->httpPut(sprintf('/v3/%s/mailboxes/%s', $domain, $mailbox), $parameters);
 
