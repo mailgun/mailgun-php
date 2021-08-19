@@ -19,7 +19,7 @@ use Mailgun\Model\Mailboxes\UpdateResponse;
 
 class Mailboxes extends HttpApi
 {
-    const MIN_PASSWORD_LENGTH = 5;
+    private const MIN_PASSWORD_LENGTH = 5;
 
     /**
      * @param string $domain
@@ -61,7 +61,7 @@ class Mailboxes extends HttpApi
     /**
      * @param string $domain
      * @param string $mailbox
-     * @param array $parameters
+     * @param array  $parameters
      *
      * @return UpdateResponse
      *
