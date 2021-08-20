@@ -19,7 +19,6 @@ use Mailgun\Model\Webhook\DeleteResponse;
 use Mailgun\Model\Webhook\IndexResponse;
 use Mailgun\Model\Webhook\ShowResponse;
 use Mailgun\Model\Webhook\UpdateResponse;
-use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\ResponseInterface;
 
 /**
@@ -34,7 +33,7 @@ class Webhook extends HttpApi
      */
     private $apiKey;
 
-    public function __construct(ClientInterface $httpClient, RequestBuilder $requestBuilder, Hydrator $hydrator, string $apiKey)
+    public function __construct($httpClient, RequestBuilder $requestBuilder, Hydrator $hydrator, string $apiKey)
     {
         parent::__construct($httpClient, $requestBuilder, $hydrator);
         $this->apiKey = $apiKey;
