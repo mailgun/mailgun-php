@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace Mailgun\Api;
 
-use Http\Client\Common\PluginClient;
+use Http\Client\HttpClient;
 use Mailgun\Api\Suppression\Bounce;
 use Mailgun\Api\Suppression\Complaint;
 use Mailgun\Api\Suppression\Unsubscribe;
@@ -28,7 +28,7 @@ use Psr\Http\Client\ClientInterface;
 class Suppression
 {
     /**
-     * @var ClientInterface|PluginClient
+     * @var ClientInterface|HttpClient
      */
     private $httpClient;
 
@@ -45,9 +45,9 @@ class Suppression
     public function __construct($httpClient, RequestBuilder $requestBuilder, Hydrator $hydrator)
     {
         if (!is_a($httpClient, ClientInterface::class) &&
-            !is_a($httpClient, PluginClient::class)) {
+            !is_a($httpClient, HttpClient::class)) {
             throw new \RuntimeException('httpClient must be an instance of
-            Psr\Http\Client\ClientInterface or Http\Client\Common\PluginClient');
+            Psr\Http\Client\ClientInterface or Http\Client\HttpClient');
         }
         $this->httpClient = $httpClient;
         $this->requestBuilder = $requestBuilder;
