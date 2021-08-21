@@ -11,9 +11,9 @@ declare(strict_types=1);
 
 namespace Mailgun\Tests\Api;
 
-use Nyholm\Psr7\Response;
 use Mailgun\Api\Mailboxes;
 use Mailgun\Exception\InvalidArgumentException;
+use Nyholm\Psr7\Response;
 
 class MailboxesTest extends TestCase
 {
