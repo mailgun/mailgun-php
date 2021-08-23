@@ -64,6 +64,8 @@ abstract class HttpApi
     }
 
     /**
+     * @param class-string $class
+     *
      * @return mixed|ResponseInterface
      *
      * @throws \Exception

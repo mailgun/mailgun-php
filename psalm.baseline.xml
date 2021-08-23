@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="4.4.1@9fd7a7d885b3a216cff8dec9d8c21a132f275224">
+<files psalm-version="4.8.1@f73f2299dbc59a3e6c4d66cff4605176e728ee69">
   <file src="src/Api/Domain.php">
     <PossiblyUndefinedVariable occurrences="1">
       <code>$params</code>
     </PossiblyUndefinedVariable>
-    <RedundantCondition occurrences="5">
+    <RedundantCondition occurrences="3">
       <code>boolean</code>
       <code>boolean</code>
       <code>nullOrString</code>
-      <code>stringNotEmpty</code>
-      <code>stringNotEmpty</code>
     </RedundantCondition>
     <TypeDoesNotContainNull occurrences="1">
       <code>nullOrString</code>
@@ -81,8 +79,47 @@
     </PossiblyNullArgument>
   </file>
   <file src="src/Message/BatchMessage.php">
+    <PossiblyInvalidDocblockTag occurrences="4">
+      <code>@var string $first</code>
+      <code>@var string $full_name</code>
+      <code>@var string $id</code>
+      <code>@var string $last</code>
+    </PossiblyInvalidDocblockTag>
     <PossiblyUndefinedMethod occurrences="1">
       <code>getId</code>
     </PossiblyUndefinedMethod>
+  </file>
+  <file src="src/Message/MessageBuilder.php">
+    <PossiblyInvalidDocblockTag occurrences="29">
+      <code>@var string</code>
+      <code>@var string</code>
+      <code>@var string</code>
+      <code>@var string $first</code>
+      <code>@var string $first</code>
+      <code>@var string $first</code>
+      <code>@var string $first</code>
+      <code>@var string $first</code>
+      <code>@var string $first</code>
+      <code>@var string $first</code>
+      <code>@var string $full_name</code>
+      <code>@var string $full_name</code>
+      <code>@var string $full_name</code>
+      <code>@var string $full_name</code>
+      <code>@var string $full_name</code>
+      <code>@var string $full_name</code>
+      <code>@var string $full_name</code>
+      <code>@var string $id If used with BatchMessage</code>
+      <code>@var string $id If used with BatchMessage</code>
+      <code>@var string $id If used with BatchMessage</code>
+      <code>@var string $id If used with BatchMessage</code>
+      <code>@var string $id If used with BatchMessage</code>
+      <code>@var string $last</code>
+      <code>@var string $last</code>
+      <code>@var string $last</code>
+      <code>@var string $last</code>
+      <code>@var string $last</code>
+      <code>@var string $last</code>
+      <code>@var string $last</code>
+    </PossiblyInvalidDocblockTag>
   </file>
 </files>
