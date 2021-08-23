@@ -231,7 +231,7 @@ class MessageBuilder
         return $this;
     }
     /**
-     * Set template
+     * Set email template.
      *
      * @param string $template Template name.
      * @return self
