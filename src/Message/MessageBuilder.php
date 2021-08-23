@@ -230,6 +230,18 @@ class MessageBuilder
 
         return $this;
     }
+    /**
+     * Set template
+     *
+     * @param string $template Template name.
+     * @return self
+     */
+    public function setTemplate(string $template): self
+    {
+        $this->message['template'] = $template;
+
+        return $this;
+    }
 
     public function addCustomHeader(string $headerName, $headerData): self
     {

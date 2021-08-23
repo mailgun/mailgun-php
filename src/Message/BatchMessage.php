@@ -114,8 +114,8 @@ class BatchMessage extends MessageBuilder
             throw MissingRequiredParameter::create('subject');
         }
 
-        if (empty($message['text']) && empty($message['html'])) {
-            throw MissingRequiredParameter::create('text" or "html');
+        if (empty($message['text']) && empty($message['html']) && empty($message['template'])) {
+            throw MissingRequiredParameter::create('text", "html" or "template"');
         }
 
         $message['recipient-variables'] = json_encode($this->batchRecipientAttributes);
