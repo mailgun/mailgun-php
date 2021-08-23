@@ -42,12 +42,17 @@ class Suppression
      */
     private $hydrator;
 
+    /**
+     * @param ClientInterface|HttpClient $httpClient
+     * @param RequestBuilder             $requestBuilder
+     * @param Hydrator                   $hydrator
+     */
     public function __construct($httpClient, RequestBuilder $requestBuilder, Hydrator $hydrator)
     {
-        if (!is_a($httpClient, ClientInterface::class) &&
-            !is_a($httpClient, HttpClient::class)) {
+        if (!$httpClient instanceof ClientInterface &&
+            !$httpClient instanceof HttpClient) {
             throw new \RuntimeException('httpClient must be an instance of
-            Psr\Http\Client\ClientInterface or Http\Client\HttpClient');
+            Psr\Http\Client\ClientInterface or Http\Client\Common\HttpClient');
         }
         $this->httpClient = $httpClient;
         $this->requestBuilder = $requestBuilder;

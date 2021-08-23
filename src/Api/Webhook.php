@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace Mailgun\Api;
 
+use Http\Client\HttpClient;
 use Mailgun\Assert;
 use Mailgun\HttpClient\RequestBuilder;
 use Mailgun\Hydrator\Hydrator;
@@ -19,6 +20,7 @@ use Mailgun\Model\Webhook\DeleteResponse;
 use Mailgun\Model\Webhook\IndexResponse;
 use Mailgun\Model\Webhook\ShowResponse;
 use Mailgun\Model\Webhook\UpdateResponse;
+use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\ResponseInterface;
 
 /**
@@ -33,6 +35,12 @@ class Webhook extends HttpApi
      */
     private $apiKey;
 
+    /**
+     * @param ClientInterface|HttpClient $httpClient
+     * @param RequestBuilder             $requestBuilder
+     * @param Hydrator                   $hydrator
+     * @param string                     $apiKey
+     */
     public function __construct($httpClient, RequestBuilder $requestBuilder, Hydrator $hydrator, string $apiKey)
     {
         parent::__construct($httpClient, $requestBuilder, $hydrator);
