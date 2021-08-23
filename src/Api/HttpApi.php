@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace Mailgun\Api;
 
-use Http\Client\Common\PluginClient;
 use Http\Client\HttpClient;
 use Mailgun\Exception\HttpClientException;
 use Mailgun\Exception\HttpServerException;
@@ -31,7 +30,7 @@ abstract class HttpApi
     /**
      * The HTTP client.
      *
-     * @var ClientInterface|PluginClient
+     * @var ClientInterface|HttpClient
      */
     protected $httpClient;
 
@@ -46,9 +45,9 @@ abstract class HttpApi
     protected $requestBuilder;
 
     /**
-     * @param ClientInterface|PluginClient $httpClient
-     * @param RequestBuilder               $requestBuilder
-     * @param Hydrator                     $hydrator
+     * @param ClientInterface|HttpClient $httpClient
+     * @param RequestBuilder             $requestBuilder
+     * @param Hydrator                   $hydrator
      */
     public function __construct($httpClient, RequestBuilder $requestBuilder, Hydrator $hydrator)
     {
