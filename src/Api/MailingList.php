@@ -61,7 +61,7 @@ class MailingList extends HttpApi
      * @param string|null $name        Name for the new mailing list (optional)
      * @param string|null $description Description for the new mailing list (optional)
      * @param string $accessLevel      List access level, one of: readonly (default), members, everyone
-     * @param string $replyPreference
+     * @param string $replyPreference  Set where replies should go: list (default) | sender (optional)
      *
      * @return CreateResponse
      *
