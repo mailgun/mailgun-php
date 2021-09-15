@@ -57,12 +57,12 @@ class MailingList extends HttpApi
     /**
      * Creates a new mailing list on the current domain.
      *
-     * @param string $address     Address for the new mailing list
+     * @param string $address          Address for the new mailing list
      * @param string|null $name        Name for the new mailing list (optional)
      * @param string|null $description Description for the new mailing list (optional)
-     * @param string $accessLevel List access level, one of: readonly (default), members, everyone
+     * @param string $accessLevel      List access level, one of: readonly (default), members, everyone
      * @param string $replyPreference
-     * 
+     *
      * @return CreateResponse
      *
      * @throws \Exception
