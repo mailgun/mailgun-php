@@ -63,6 +63,23 @@ class MailingListTest extends TestCase
         $api->create($address = 'foo@example.com', $name = 'Foo', $description = 'Description', $accessLevel = 'readonly');
     }
 
+    public function testCreateWithNulls()
+    {
+        $data = [
+            'address' => 'foo@example.com',
+            'access_level' => 'readonly',
+            'reply_preference' => 'list',
+        ];
+
+        $api = $this->getApiMock();
+        $api->expects($this->once())
+            ->method('httpPost')
+            ->with('/v3/lists', $data)
+            ->willReturn(new Response());
+
+        $api->create($address = 'foo@example.com', null, null, $accessLevel = 'readonly');
+    }
+
     public function testCreateInvalidAddress()
     {
         $this->expectException(InvalidArgumentException::class);
