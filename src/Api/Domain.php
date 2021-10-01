@@ -88,7 +88,7 @@ class Domain extends HttpApi
      *
      * @return CreateResponse|array|ResponseInterface
      */
-    public function create(string $domain, string $smtpPass = null, string $spamAction = null, bool $wildcard = null, bool $forceDkimAuthority = null, ?array $ips = null, string $webScheme = null)
+    public function create(string $domain, string $smtpPass = null, string $spamAction = null, bool $wildcard = null, bool $forceDkimAuthority = null, ?array $ips = null, string $webScheme = 'http')
     {
         Assert::stringNotEmpty($domain);
 
@@ -128,7 +128,7 @@ class Domain extends HttpApi
 
         if (!empty($webScheme)) {
             Assert::stringNotEmpty($webScheme);
-
+            Assert::oneOf($webScheme, ['https', 'http']);
             $params['web_scheme'] = $webScheme;
         }
 
