@@ -82,7 +82,7 @@ JSON
         $this->setRequestUri('/v3/domains');
         $this->setRequestBody([
             'name' => 'example.com',
-            'web_scheme' => 'http'
+            'web_scheme' => 'http',
         ]);
         $this->setHydrateClass(CreateResponse::class);
 
@@ -97,7 +97,7 @@ JSON
         $this->setRequestBody([
             'name' => 'example.com',
             'smtp_password' => 'foo',
-            'web_scheme' => 'http'
+            'web_scheme' => 'http',
         ]);
         $this->setHydrateClass(CreateResponse::class);
 
@@ -113,7 +113,7 @@ JSON
             'name' => 'example.com',
             'smtp_password' => 'foo',
             'spam_action' => 'bar',
-            'web_scheme' => 'http'
+            'web_scheme' => 'http',
         ]);
         $this->setHydrateClass(CreateResponse::class);
 
@@ -130,7 +130,7 @@ JSON
             'smtp_password' => 'foo',
             'spam_action' => 'bar',
             'wildcard' => 'true',
-            'web_scheme' => 'http'
+            'web_scheme' => 'http',
         ]);
         $this->setHydrateClass(CreateResponse::class);
 
@@ -146,7 +146,7 @@ JSON
             'name' => 'example.com',
             'smtp_password' => 'foo',
             'force_dkim_authority' => 'true',
-            'web_scheme' => 'http'
+            'web_scheme' => 'http',
         ]);
         $this->setHydrateClass(CreateResponse::class);
 
@@ -164,7 +164,7 @@ JSON
             'spam_action' => 'bar',
             'wildcard' => 'true',
             'force_dkim_authority' => 'true',
-            'web_scheme' => 'http'
+            'web_scheme' => 'http',
         ]);
         $this->setHydrateClass(CreateResponse::class);
 
@@ -188,7 +188,7 @@ JSON
         $this->setRequestUri('/v3/domains/example.com/credentials');
         $this->setRequestBody([
             'login' => 'foo',
-            'password' => 'barbar'
+            'password' => 'barbar',
         ]);
         $this->setHydrateClass(CreateCredentialResponse::class);
 
@@ -261,7 +261,7 @@ JSON
             'name' => 'example.com',
             'smtp_password' => 'foo',
             'ips' => '127.0.0.1,127.0.0.2',
-            'web_scheme' => 'http'
+            'web_scheme' => 'http',
         ]);
         $this->setHydrateClass(CreateResponse::class);
 
@@ -276,7 +276,7 @@ JSON
         $this->setRequestBody([
             'name' => 'example.com',
             'smtp_password' => 'foo',
-            'web_scheme' => 'https'
+            'web_scheme' => 'https',
         ]);
         $this->setHydrateClass(CreateResponse::class);
 
