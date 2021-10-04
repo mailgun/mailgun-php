@@ -110,7 +110,7 @@ JSON
         $this->setRequestBody([
             'name' => 'example.com',
             'smtp_password' => 'foo',
-            'pool_id' => '123'
+            'pool_id' => '123',
         ]);
         $this->setHydrateClass(CreateResponse::class);
 
