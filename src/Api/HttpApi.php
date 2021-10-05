@@ -49,12 +49,8 @@ abstract class HttpApi
      * @param RequestBuilder             $requestBuilder Builder that creates request based on params
      * @param Hydrator                   $hydrator       Transforms request body into array
      */
-    public function __construct($httpClient, RequestBuilder $requestBuilder, Hydrator $hydrator)
+    public function __construct(ClientInterface $httpClient, RequestBuilder $requestBuilder, Hydrator $hydrator)
     {
-        if (!$httpClient instanceof ClientInterface) {
-            throw new \RuntimeException('httpClient must be an instance of
-            Psr\Http\Client\ClientInterface or Http\Client\Common\HttpClient');
-        }
         $this->httpClient = $httpClient;
         $this->requestBuilder = $requestBuilder;
         if (!$hydrator instanceof NoopHydrator) {

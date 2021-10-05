@@ -41,7 +41,7 @@ class Webhook extends HttpApi
      * @param Hydrator                   $hydrator       Transforms request body into array
      * @param string                     $apiKey         Mailgun api key
      */
-    public function __construct($httpClient, RequestBuilder $requestBuilder, Hydrator $hydrator, string $apiKey)
+    public function __construct(ClientInterface $httpClient, RequestBuilder $requestBuilder, Hydrator $hydrator, string $apiKey)
     {
         parent::__construct($httpClient, $requestBuilder, $hydrator);
         $this->apiKey = $apiKey;
