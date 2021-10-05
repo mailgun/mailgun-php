@@ -103,6 +103,21 @@ JSON
         $api->create('example.com', 'foo');
     }
 
+    public function testCreateWithPoolId()
+    {
+        $this->setRequestMethod('POST');
+        $this->setRequestUri('/v3/domains');
+        $this->setRequestBody([
+            'name' => 'example.com',
+            'smtp_password' => 'foo',
+            'pool_id' => '123',
+        ]);
+        $this->setHydrateClass(CreateResponse::class);
+
+        $api = $this->getApiInstance();
+        $api->create('example.com', 'foo', null, null, null, null, '123');
+    }
+
     public function testCreateWithPasswordSpamAction()
     {
         $this->setRequestMethod('POST');
