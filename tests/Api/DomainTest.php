@@ -113,6 +113,7 @@ JSON
             'name' => 'example.com',
             'smtp_password' => 'foo',
             'pool_id' => '123',
+            'web_scheme' => 'http',
         ]);
         $this->setHydrateClass(CreateResponse::class);
 
@@ -296,7 +297,7 @@ JSON
         $this->setHydrateClass(CreateResponse::class);
 
         $api = $this->getApiInstance();
-        $api->create('example.com', 'foo', null, null, null, null, 'https');
+        $api->create('example.com', 'foo', null, null, null, null, null, 'https');
     }
 
     public function testTracking()
