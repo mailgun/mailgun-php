@@ -36,10 +36,10 @@ class Webhook extends HttpApi
     private $apiKey;
 
     /**
-     * @param ClientInterface|HttpClient $httpClient
-     * @param RequestBuilder             $requestBuilder
-     * @param Hydrator                   $hydrator
-     * @param string                     $apiKey
+     * @param ClientInterface|HttpClient $httpClient     Client used to send the requests
+     * @param RequestBuilder             $requestBuilder Builder that creates request based on params
+     * @param Hydrator                   $hydrator       Transforms request body into array
+     * @param string                     $apiKey         Mailgun api key
      */
     public function __construct($httpClient, RequestBuilder $requestBuilder, Hydrator $hydrator, string $apiKey)
     {
