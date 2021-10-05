@@ -84,11 +84,12 @@ class Domain extends HttpApi
      * @param bool     $wildcard           domain will accept email for subdomains
      * @param bool     $forceDkimAuthority force DKIM authority
      * @param string[] $ips                an array of ips to be assigned to the domain
-     * @param string   $webScheme          `http` or `https` - set your open, click and unsubscribe URLs to use http or https. The default is http.
+     * @param ?string  $pool_id            pool id to assign to the domain
+     * @param string   $webScheme          `http` or `https` - set your open, click and unsubscribe URLs to use http or https. The default is http
      *
      * @return CreateResponse|array|ResponseInterface
      */
-    public function create(string $domain, string $smtpPass = null, string $spamAction = null, bool $wildcard = null, bool $forceDkimAuthority = null, ?array $ips = null, string $webScheme = 'http')
+    public function create(string $domain, string $smtpPass = null, string $spamAction = null, bool $wildcard = null, bool $forceDkimAuthority = null, ?array $ips = null, ?string $pool_id = null, string $webScheme = 'http')
     {
         Assert::stringNotEmpty($domain);
 
@@ -130,6 +131,12 @@ class Domain extends HttpApi
             Assert::stringNotEmpty($webScheme);
             Assert::oneOf($webScheme, ['https', 'http']);
             $params['web_scheme'] = $webScheme;
+        }
+
+        if (null !== $pool_id) {
+            Assert::stringNotEmpty($pool_id);
+
+            $params['pool_id'] = $pool_id;
         }
 
         $response = $this->httpPost('/v3/domains', $params);
