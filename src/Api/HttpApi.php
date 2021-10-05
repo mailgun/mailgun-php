@@ -48,7 +48,7 @@ abstract class HttpApi
     {
         if (!is_a($httpClient, ClientInterface::class) &&
             !is_a($httpClient, PluginClient::class)) {
-            throw new \RuntimeException('httpClient must be an instance of 
+            throw new \RuntimeException('httpClient must be an instance of
             Psr\Http\Client\ClientInterface or Http\Client\Common\PluginClient');
         }
         $this->httpClient = $httpClient;
@@ -59,6 +59,8 @@ abstract class HttpApi
     }
 
     /**
+     * @param class-string $class
+     *
      * @return mixed|ResponseInterface
      *
      * @throws \Exception
@@ -99,6 +101,8 @@ abstract class HttpApi
                 throw HttpClientException::conflict($response);
             case 413:
                 throw HttpClientException::payloadTooLarge($response);
+            case 429:
+                throw HttpClientException::tooManyRequests($response);
             case 500 <= $statusCode:
                 throw HttpServerException::serverError($statusCode);
             default:
@@ -116,7 +120,7 @@ abstract class HttpApi
     protected function httpGet(string $path, array $parameters = [], array $requestHeaders = []): ResponseInterface
     {
         if (count($parameters) > 0) {
-            $path .= '?'.urldecode(http_build_query($parameters));
+            $path .= '?'.http_build_query($parameters);
         }
 
         try {

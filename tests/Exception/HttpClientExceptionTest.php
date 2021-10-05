@@ -11,9 +11,9 @@ declare(strict_types=1);
 
 namespace Mailgun\Tests\Exception;
 
-use GuzzleHttp\Psr7\Response;
 use Mailgun\Exception\HttpClientException;
 use Mailgun\Tests\MailgunTestCase;
+use Nyholm\Psr7\Response;
 
 class HttpClientExceptionTest extends MailgunTestCase
 {
@@ -59,5 +59,13 @@ class HttpClientExceptionTest extends MailgunTestCase
         $response = new Response(403, ['Content-Type' => 'text/html'], '<html><body>Forbidden</body></html>');
         $exception = HttpClientException::forbidden($response);
         $this->assertStringEndsWith('<html><body>Forbidden</body></html>', $exception->getMessage());
+    }
+
+    public function testTooManyRequestsGetMessage()
+    {
+        $response = new Response(429, ['Content-Type' => 'text/html']);
+        $exception = HttpClientException::tooManyRequests($response);
+        $this->assertEquals('Too many requests.', $exception->getMessage());
+        $this->assertEquals($response->getStatusCode(), $exception->getCode());
     }
 }

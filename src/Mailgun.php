@@ -143,4 +143,9 @@ class Mailgun
     {
         return new Api\Webhook($this->httpClient, $this->requestBuilder, $this->hydrator, $this->apiKey);
     }
+
+    public function mailboxes(): Api\Mailboxes
+    {
+        return new Api\Mailboxes($this->httpClient, $this->requestBuilder, $this->hydrator);
+    }
 }

@@ -11,11 +11,11 @@ declare(strict_types=1);
 
 namespace Mailgun\Tests\Api;
 
-use GuzzleHttp\Psr7\Response;
 use Mailgun\Exception\InvalidArgumentException;
 use Mailgun\Hydrator\ModelHydrator;
 use Mailgun\Model\Stats\TotalResponse;
 use Mailgun\Model\Stats\TotalResponseItem;
+use Nyholm\Psr7\Response;
 
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>

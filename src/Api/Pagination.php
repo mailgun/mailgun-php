@@ -22,6 +22,9 @@ trait Pagination
 {
     abstract protected function httpGet(string $path, array $parameters = [], array $requestHeaders = []): ResponseInterface;
 
+    /**
+     * @param class-string $className
+     */
     abstract protected function hydrateResponse(ResponseInterface $response, string $className);
 
     public function nextPage(PagingProvider $response): ?PagingProvider
@@ -44,6 +47,9 @@ trait Pagination
         return $this->getPaginationUrl($response->getLastUrl(), get_class($response));
     }
 
+    /**
+     * @param class-string $class
+     */
     private function getPaginationUrl(string $url, string $class): ?PagingProvider
     {
         Assert::stringNotEmpty($class);

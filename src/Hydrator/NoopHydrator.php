@@ -21,6 +21,8 @@ use Psr\Http\Message\ResponseInterface;
 final class NoopHydrator implements Hydrator
 {
     /**
+     * @param class-string $class
+     *
      * @throws \LogicException
      */
     public function hydrate(ResponseInterface $response, string $class)
