@@ -45,14 +45,13 @@ abstract class HttpApi
     protected $requestBuilder;
 
     /**
-     * @param ClientInterface|HttpClient $httpClient
+     * @param ClientInterface|HttpClient $httpClient 
      * @param RequestBuilder             $requestBuilder
      * @param Hydrator                   $hydrator
      */
     public function __construct($httpClient, RequestBuilder $requestBuilder, Hydrator $hydrator)
     {
-        if (!$httpClient instanceof ClientInterface &&
-            !$httpClient instanceof HttpClient) {
+        if (!$httpClient instanceof ClientInterface) {
             throw new \RuntimeException('httpClient must be an instance of
             Psr\Http\Client\ClientInterface or Http\Client\Common\HttpClient');
         }
