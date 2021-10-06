@@ -278,6 +278,20 @@ class MessageBuilder
         return $this;
     }
 
+    public function addStringAttachment(string $attachmentContent, string $attachmentName = null): self
+    {
+        if (!isset($this->message['attachment'])) {
+            $this->message['attachment'] = [];
+        }
+
+        $this->message['attachment'][] = [
+            'fileContent' => $attachmentContent,
+            'filename' => $attachmentName,
+        ];
+
+        return $this;
+    }
+
     public function addInlineImage(string $inlineImagePath, string $inlineImageName = null): self
     {
         if (!isset($this->message['inline'])) {
