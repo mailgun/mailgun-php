@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace Mailgun\Api;
 
-use Http\Client\HttpClient;
 use Mailgun\Assert;
 use Mailgun\HttpClient\RequestBuilder;
 use Mailgun\Hydrator\Hydrator;

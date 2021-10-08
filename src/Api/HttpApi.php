@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace Mailgun\Api;
 
-use Http\Client\HttpClient;
 use Mailgun\Exception\HttpClientException;
 use Mailgun\Exception\HttpServerException;
 use Mailgun\Exception\UnknownErrorException;

@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace Mailgun\Api;
 
-use Http\Client\HttpClient;
 use Mailgun\Api\Suppression\Bounce;
 use Mailgun\Api\Suppression\Complaint;
 use Mailgun\Api\Suppression\Unsubscribe;
