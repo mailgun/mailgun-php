@@ -30,7 +30,7 @@ abstract class HttpApi
     /**
      * The HTTP client.
      *
-     * @var ClientInterface|HttpClient
+     * @var ClientInterface
      */
     protected $httpClient;
 
@@ -45,9 +45,9 @@ abstract class HttpApi
     protected $requestBuilder;
 
     /**
-     * @param ClientInterface|HttpClient $httpClient     Client used to send the requests
-     * @param RequestBuilder             $requestBuilder Builder that creates request based on params
-     * @param Hydrator                   $hydrator       Transforms request body into array
+     * @param ClientInterface $httpClient     Client used to send the requests
+     * @param RequestBuilder  $requestBuilder Builder that creates request based on params
+     * @param Hydrator        $hydrator       Transforms request body into array
      */
     public function __construct(ClientInterface $httpClient, RequestBuilder $requestBuilder, Hydrator $hydrator)
     {

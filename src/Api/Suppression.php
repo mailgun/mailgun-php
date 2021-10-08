@@ -28,7 +28,7 @@ use Psr\Http\Client\ClientInterface;
 class Suppression
 {
     /**
-     * @var ClientInterface|HttpClient
+     * @var ClientInterface
      */
     private $httpClient;
 
@@ -43,9 +43,9 @@ class Suppression
     private $hydrator;
 
     /**
-     * @param ClientInterface|HttpClient $httpClient     Client used to send the requests
-     * @param RequestBuilder             $requestBuilder Builder that creates request based on params
-     * @param Hydrator                   $hydrator       Transforms request body into array
+     * @param ClientInterface $httpClient     Client used to send the requests
+     * @param RequestBuilder  $requestBuilder Builder that creates request based on params
+     * @param Hydrator        $hydrator       Transforms request body into array
      */
     public function __construct(ClientInterface $httpClient, RequestBuilder $requestBuilder, Hydrator $hydrator)
     {
