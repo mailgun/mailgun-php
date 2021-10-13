@@ -130,8 +130,7 @@ class RequestBuilder
         string $uri,
         array $headers,
         StreamInterface $stream
-    ): RequestInterface
-    {
+    ): RequestInterface {
         $request = $this->getRequestFactory()->createRequest($method, $uri);
         $request = $request->withBody($stream);
         foreach ($headers as $name => $value) {

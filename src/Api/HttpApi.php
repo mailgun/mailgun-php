@@ -82,6 +82,7 @@ abstract class HttpApi
      * Throw the correct exception for this error.
      *
      * @throws HttpClientException|HttpServerException|UnknownErrorException
+     *
      * @return never
      */
     protected function handleErrors(ResponseInterface $response): void

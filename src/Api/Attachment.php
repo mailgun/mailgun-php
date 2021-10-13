@@ -12,11 +12,9 @@ declare(strict_types=1);
 namespace Mailgun\Api;
 
 use Mailgun\Assert;
-use Mailgun\Exception\{
-    HttpClientException,
-    HttpServerException,
-    UnknownErrorException
-};
+use Mailgun\Exception\HttpClientException;
+use Mailgun\Exception\HttpServerException;
+use Mailgun\Exception\UnknownErrorException;
 use Psr\Http\Message\ResponseInterface;
 
 /**
