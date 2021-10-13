@@ -127,7 +127,6 @@ class Member extends HttpApi
     public function createMultiple(string $list, array $members, $upsert = false)
     {
         Assert::stringNotEmpty($list);
-        Assert::isArray($members);
 
         // workaround for webmozart/asserts <= 1.2
         if (count($members) > 1000) {
@@ -192,7 +191,6 @@ class Member extends HttpApi
     {
         Assert::stringNotEmpty($list);
         Assert::stringNotEmpty($address);
-        Assert::isArray($parameters);
 
         foreach ($parameters as $field => &$value) {
             switch ($field) {

@@ -33,7 +33,6 @@ class Ip extends HttpApi
     {
         $params = [];
         if (null !== $dedicated) {
-            Assert::boolean($dedicated);
             $params['dedicated'] = $dedicated;
         }
 

@@ -77,8 +77,6 @@ class Route extends HttpApi
      */
     public function create(string $expression, array $actions, string $description, int $priority = 0)
     {
-        Assert::isArray($actions);
-
         $params = [
             'priority' => (string) $priority,
             'expression' => $expression,

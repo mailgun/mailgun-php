@@ -37,7 +37,6 @@ class Message extends HttpApi
      */
     public function send(string $domain, array $params)
     {
-        Assert::string($domain);
         Assert::notEmpty($domain);
         Assert::notEmpty($params);
 
@@ -73,11 +72,9 @@ class Message extends HttpApi
      */
     public function sendMime(string $domain, array $recipients, string $message, array $params)
     {
-        Assert::string($domain);
         Assert::notEmpty($domain);
         Assert::notEmpty($recipients);
         Assert::notEmpty($message);
-        Assert::nullOrIsArray($params);
 
         $params['to'] = $recipients;
         $postDataMultipart = $this->prepareMultipartParameters($params);

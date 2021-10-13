@@ -119,7 +119,6 @@ class MailingList extends HttpApi
     public function update(string $address, array $parameters = [])
     {
         Assert::stringNotEmpty($address);
-        Assert::isArray($parameters);
 
         foreach ($parameters as $field => $value) {
             switch ($field) {

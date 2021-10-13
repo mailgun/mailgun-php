@@ -108,14 +108,10 @@ class Domain extends HttpApi
         }
 
         if (null !== $wildcard) {
-            Assert::boolean($wildcard);
-
             $params['wildcard'] = $wildcard ? 'true' : 'false';
         }
 
         if (null !== $forceDkimAuthority) {
-            Assert::boolean($forceDkimAuthority);
-
             $params['force_dkim_authority'] = $forceDkimAuthority ? 'true' : 'false';
         }
 
@@ -393,7 +389,6 @@ class Domain extends HttpApi
         Assert::stringNotEmpty($active);
         Assert::oneOf($active, ['yes', 'no', 'true', 'false']);
         Assert::stringNotEmpty($htmlFooter);
-        Assert::nullOrString($textFooter);
 
         $params = [
             'active' => (in_array($active, ['yes', 'true'], true)) ? 'true' : 'false',
