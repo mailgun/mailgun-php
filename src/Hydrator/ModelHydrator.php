@@ -25,6 +25,7 @@ final class ModelHydrator implements Hydrator
     /**
      * @param class-string $class
      *
+     * @throws HydrationException
      * @return ResponseInterface
      */
     public function hydrate(ResponseInterface $response, string $class)

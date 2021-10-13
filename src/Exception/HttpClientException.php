@@ -48,7 +48,7 @@ final class HttpClientException extends \RuntimeException implements Exception
         }
     }
 
-    public static function badRequest(ResponseInterface $response)
+    public static function badRequest(ResponseInterface $response): self
     {
         $body = $response->getBody()->__toString();
         if (0 !== strpos($response->getHeaderLine('Content-Type'), 'application/json')) {
@@ -63,37 +63,37 @@ final class HttpClientException extends \RuntimeException implements Exception
         return new self($message, 400, $response);
     }
 
-    public static function unauthorized(ResponseInterface $response)
+    public static function unauthorized(ResponseInterface $response): self
     {
         return new self('Your credentials are incorrect.', 401, $response);
     }
 
-    public static function requestFailed(ResponseInterface $response)
+    public static function requestFailed(ResponseInterface $response): self
     {
         return new self('Parameters were valid but request failed. Try again.', 402, $response);
     }
 
-    public static function notFound(ResponseInterface $response)
+    public static function notFound(ResponseInterface $response): self
     {
         return new self('The endpoint you have tried to access does not exist. Check if the domain matches the domain you have configure on Mailgun.', 404, $response);
     }
 
-    public static function conflict(ResponseInterface $response)
+    public static function conflict(ResponseInterface $response): self
     {
         return new self('Request conflicts with current state of the target resource.', 409, $response);
     }
 
-    public static function payloadTooLarge(ResponseInterface $response)
+    public static function payloadTooLarge(ResponseInterface $response): self
     {
         return new self('Payload too large, your total attachment size is too big.', 413, $response);
     }
 
-    public static function tooManyRequests(ResponseInterface $response)
+    public static function tooManyRequests(ResponseInterface $response): self
     {
         return new self('Too many requests.', 429, $response);
     }
 
-    public static function forbidden(ResponseInterface $response)
+    public static function forbidden(ResponseInterface $response): self
     {
         $body = $response->getBody()->__toString();
         if (0 !== strpos($response->getHeaderLine('Content-Type'), 'application/json')) {

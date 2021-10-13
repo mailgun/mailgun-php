@@ -81,9 +81,10 @@ abstract class HttpApi
     /**
      * Throw the correct exception for this error.
      *
-     * @throws \Exception
+     * @throws HttpClientException|HttpServerException|UnknownErrorException
+     * @return never
      */
-    protected function handleErrors(ResponseInterface $response)
+    protected function handleErrors(ResponseInterface $response): void
     {
         $statusCode = $response->getStatusCode();
         switch ($statusCode) {

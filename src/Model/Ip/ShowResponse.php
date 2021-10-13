@@ -26,7 +26,7 @@ final class ShowResponse implements ApiResponse
     {
     }
 
-    public static function create(array $data)
+    public static function create(array $data): self
     {
         $model = new self();
         $model->ip = $data['ip'];

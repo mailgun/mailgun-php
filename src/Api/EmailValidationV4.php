@@ -199,10 +199,8 @@ class EmailValidationV4 extends HttpApi
 
     /**
      * @param string $previewId ID given when the list created
-     *
-     * @return bool
      */
-    public function deleteBulkPreview(string $previewId)
+    public function deleteBulkPreview(string $previewId): bool
     {
         Assert::stringNotEmpty($previewId);
 

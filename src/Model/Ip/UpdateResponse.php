@@ -24,7 +24,7 @@ final class UpdateResponse implements ApiResponse
     {
     }
 
-    public static function create(array $data)
+    public static function create(array $data): self
     {
         $model = new self();
         $model->message = $data['message'];
