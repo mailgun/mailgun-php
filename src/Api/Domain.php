@@ -85,10 +85,11 @@ class Domain extends HttpApi
      * @param bool     $forceDkimAuthority force DKIM authority
      * @param string[] $ips                an array of ips to be assigned to the domain
      * @param ?string  $pool_id            pool id to assign to the domain
+     * @param string   $webScheme          `http` or `https` - set your open, click and unsubscribe URLs to use http or https. The default is http
      *
      * @return CreateResponse|array|ResponseInterface
      */
-    public function create(string $domain, string $smtpPass = null, string $spamAction = null, bool $wildcard = null, bool $forceDkimAuthority = null, ?array $ips = null, ?string $pool_id = null)
+    public function create(string $domain, string $smtpPass = null, string $spamAction = null, bool $wildcard = null, bool $forceDkimAuthority = null, ?array $ips = null, ?string $pool_id = null, string $webScheme = 'http')
     {
         Assert::stringNotEmpty($domain);
 
@@ -124,6 +125,12 @@ class Domain extends HttpApi
             Assert::allString($ips);
 
             $params['ips'] = join(',', $ips);
+        }
+
+        if (!empty($webScheme)) {
+            Assert::stringNotEmpty($webScheme);
+            Assert::oneOf($webScheme, ['https', 'http']);
+            $params['web_scheme'] = $webScheme;
         }
 
         if (null !== $pool_id) {
