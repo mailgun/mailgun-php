@@ -161,6 +161,26 @@ class MessageBuilderTest extends MailgunTestCase
         );
     }
 
+    public function testAddStringAttachment()
+    {
+        $this->messageBuilder->addStringAttachment('12345');
+        $this->messageBuilder->addStringAttachment('test');
+        $message = $this->messageBuilder->getMessage();
+        $this->assertEquals(
+            [
+                [
+                    'fileContent' => '12345',
+                    'filename' => null,
+                ],
+                [
+                    'fileContent' => 'test',
+                    'filename' => null,
+                ],
+            ],
+            $message['attachment']
+        );
+    }
+
     public function testAddInlineImages()
     {
         $this->messageBuilder->addInlineImage('@../TestAssets/mailgun_icon.png');
