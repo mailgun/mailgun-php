@@ -60,12 +60,12 @@ class Job implements ApiResponse
         $model = new static();
 
         $model->createdAt = isset($data['created_at']) ? (DateTimeImmutable::createFromFormat('U', (string) ($data['created_at'])) ?: null) : null;
-        $model->downloadUrl = $data['download_url'] ? JobDownloadUrl::create($data['download_url']) : null;
+        $model->downloadUrl = isset($data['download_url']) ? JobDownloadUrl::create($data['download_url']) : null;
         $model->id = $data['id'] ?? null;
         $model->quantity = $data['quantity'] ?? null;
         $model->recordsProcessed = $data['records_processed'] ?? null;
         $model->status = $data['status'] ?? null;
-        $model->summary = $data['summary'] ? Summary::create($data['summary']) : null;
+        $model->summary = isset($data['summary']) ? Summary::create($data['summary']) : null;
 
         return $model;
     }
