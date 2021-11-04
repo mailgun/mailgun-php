@@ -230,11 +230,9 @@ class MessageBuilder
 
         return $this;
     }
+
     /**
-     * Set email template.
-     *
-     * @param string $template Template name.
-     * @return self
+     * @param string $template Name of the Mailgun template
      */
     public function setTemplate(string $template): self
     {
