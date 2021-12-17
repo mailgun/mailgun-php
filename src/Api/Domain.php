@@ -140,10 +140,10 @@ class Domain extends HttpApi
 
             $params['pool_id'] = $poolId;
         }
-        if (null !== $dkimKeySize) {
+        if (!empty($dkimKeySize)) {
             Assert::oneOf(
-                $dkimKeySize, 
-                self::DKIM_SIZES, 
+                $dkimKeySize,
+                self::DKIM_SIZES,
                 'Length of your domain’s generated DKIM key must be 1024 or 2048'
             );
             $params['dkim_key_size'] = $dkimKeySize;
