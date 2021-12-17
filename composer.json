@@ -10,6 +10,7 @@
     ],
     "require": {
         "php": "^7.3 || ^8.0",
+        "ergebnis/composer-normalize": "^2.18",
         "php-http/client-common": "^2.2.1",
         "php-http/discovery": "^1.9.1",
         "php-http/multipart-stream-builder": "^1.1.2",
@@ -26,11 +27,6 @@
         "nyholm/psr7": "PSR-7 message implementation",
         "symfony/http-client": "HTTP client"
     },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "3.0-dev"
-        }
-    },
     "autoload": {
         "psr-4": {
             "Mailgun\\": "src/"
@@ -39,6 +35,11 @@
     "autoload-dev": {
         "psr-4": {
             "Mailgun\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "3.0-dev"
         }
     }
 }
