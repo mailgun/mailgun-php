@@ -37,6 +37,7 @@ use Psr\Http\Message\ResponseInterface;
 class Domain extends HttpApi
 {
     private const DKIM_SIZES = ['1024', '2048'];
+    
     /**
      * Returns a list of domains on the account.
      *

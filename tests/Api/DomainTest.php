@@ -83,7 +83,7 @@ JSON
         $this->setRequestBody([
             'name' => 'example.com',
             'web_scheme' => 'http',
-            'dkim_key_size' => '1024'
+            'dkim_key_size' => '1024',
         ]);
         $this->setHydrateClass(CreateResponse::class);
 
@@ -99,7 +99,7 @@ JSON
             'name' => 'example.com',
             'smtp_password' => 'foo',
             'web_scheme' => 'http',
-            'dkim_key_size' => '1024'
+            'dkim_key_size' => '1024',
         ]);
         $this->setHydrateClass(CreateResponse::class);
 
@@ -116,7 +116,7 @@ JSON
             'smtp_password' => 'foo',
             'pool_id' => '123',
             'web_scheme' => 'http',
-            'dkim_key_size' => '1024'
+            'dkim_key_size' => '1024',
         ]);
         $this->setHydrateClass(CreateResponse::class);
 
@@ -133,7 +133,7 @@ JSON
             'smtp_password' => 'foo',
             'spam_action' => 'bar',
             'web_scheme' => 'http',
-            'dkim_key_size' => '1024'
+            'dkim_key_size' => '1024',
         ]);
         $this->setHydrateClass(CreateResponse::class);
 
@@ -151,7 +151,7 @@ JSON
             'spam_action' => 'bar',
             'wildcard' => 'true',
             'web_scheme' => 'http',
-            'dkim_key_size' => '1024'
+            'dkim_key_size' => '1024',
         ]);
         $this->setHydrateClass(CreateResponse::class);
 
@@ -168,7 +168,7 @@ JSON
             'smtp_password' => 'foo',
             'force_dkim_authority' => 'true',
             'web_scheme' => 'http',
-            'dkim_key_size' => '1024'
+            'dkim_key_size' => '1024',
         ]);
         $this->setHydrateClass(CreateResponse::class);
 
@@ -187,7 +187,7 @@ JSON
             'wildcard' => 'true',
             'force_dkim_authority' => 'true',
             'web_scheme' => 'http',
-            'dkim_key_size' => '1024'
+            'dkim_key_size' => '1024',
         ]);
         $this->setHydrateClass(CreateResponse::class);
 
@@ -285,7 +285,7 @@ JSON
             'smtp_password' => 'foo',
             'ips' => '127.0.0.1,127.0.0.2',
             'web_scheme' => 'http',
-            'dkim_key_size' => '1024'
+            'dkim_key_size' => '1024',
         ]);
         $this->setHydrateClass(CreateResponse::class);
 
@@ -301,7 +301,7 @@ JSON
             'name' => 'example.com',
             'smtp_password' => 'foo',
             'web_scheme' => 'http',
-            'dkim_key_size' => '2048'
+            'dkim_key_size' => '2048',
         ]);
         $this->setHydrateClass(CreateResponse::class);
 
@@ -317,7 +317,7 @@ JSON
             'name' => 'example.com',
             'smtp_password' => 'foo',
             'web_scheme' => 'https',
-            'dkim_key_size' => '1024'
+            'dkim_key_size' => '1024',
         ]);
         $this->setHydrateClass(CreateResponse::class);
 
