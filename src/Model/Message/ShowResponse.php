@@ -51,7 +51,7 @@ final class ShowResponse implements ApiResponse
         $model->bodyHtml = $data['body-html'] ?? null;
         $model->strippedHtml = $data['stripped-html'] ?? null;
         $model->messageUrl = $data['message-url'] ?? null;
-        $model->messageHeaders = $data['message-headers'] ?? null;
+        $model->messageHeaders = $data['message-headers'] ?? [];
         $model->recipient = $data['recipient'] ?? null;
         $model->bodyMime = $data['body-mime'] ?? null;
         $model->attachments = $data['attachments'] ?? [];
