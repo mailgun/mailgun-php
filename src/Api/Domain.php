@@ -86,13 +86,13 @@ class Domain extends HttpApi
      * @param bool     $wildcard           domain will accept email for subdomains
      * @param bool     $forceDkimAuthority force DKIM authority
      * @param string[] $ips                an array of ips to be assigned to the domain
-     * @param ?string  $poolId             pool id to assign to the domain
+     * @param ?string  $pool_id             pool id to assign to the domain
      * @param string   $webScheme          `http` or `https` - set your open, click and unsubscribe URLs to use http or https. The default is http
      * @param string   $dkimKeySize        Set length of your domain’s generated DKIM key
      *
      * @return CreateResponse|array|ResponseInterface
      */
-    public function create(string $domain, string $smtpPass = null, string $spamAction = null, bool $wildcard = null, bool $forceDkimAuthority = null, ?array $ips = null, ?string $poolId = null, string $webScheme = 'http', string $dkimKeySize = '1024')
+    public function create(string $domain, string $smtpPass = null, string $spamAction = null, bool $wildcard = null, bool $forceDkimAuthority = null, ?array $ips = null, ?string $pool_id = null, string $webScheme = 'http', string $dkimKeySize = '1024')
     {
         Assert::stringNotEmpty($domain);
 
@@ -136,10 +136,10 @@ class Domain extends HttpApi
             $params['web_scheme'] = $webScheme;
         }
 
-        if (null !== $poolId) {
-            Assert::stringNotEmpty($poolId);
+        if (null !== $pool_id) {
+            Assert::stringNotEmpty($pool_id);
 
-            $params['pool_id'] = $poolId;
+            $params['pool_id'] = $pool_id;
         }
         if (!empty($dkimKeySize)) {
             Assert::oneOf(
