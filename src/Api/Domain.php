@@ -86,7 +86,7 @@ class Domain extends HttpApi
      * @param bool     $wildcard           domain will accept email for subdomains
      * @param bool     $forceDkimAuthority force DKIM authority
      * @param string[] $ips                an array of ips to be assigned to the domain
-     * @param ?string  $pool_id             pool id to assign to the domain
+     * @param ?string  $pool_id            pool id to assign to the domain
      * @param string   $webScheme          `http` or `https` - set your open, click and unsubscribe URLs to use http or https. The default is http
      * @param string   $dkimKeySize        Set length of your domain’s generated DKIM key
      *
