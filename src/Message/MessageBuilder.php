@@ -231,6 +231,16 @@ class MessageBuilder
         return $this;
     }
 
+    /**
+     * @param string $template Name of the Mailgun template
+     */
+    public function setTemplate(string $template): self
+    {
+        $this->message['template'] = $template;
+
+        return $this;
+    }
+
     public function addCustomHeader(string $headerName, $headerData): self
     {
         if (!preg_match('/^h:/i', $headerName)) {
