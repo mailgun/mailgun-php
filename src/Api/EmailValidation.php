@@ -51,7 +51,7 @@ class EmailValidation extends HttpApi
             'mailbox_verification' => $mailboxVerification,
         ];
 
-        $response = $this->httpGet('/address/private/validate', $params);
+        $response = $this->httpGet('/v3/address/private/validate', $params);
 
         return $this->hydrateResponse($response, ValidateResponse::class);
     }
