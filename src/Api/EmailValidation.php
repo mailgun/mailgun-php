@@ -90,7 +90,7 @@ class EmailValidation extends HttpApi
             'syntax_only' => $syntaxOnly,
         ];
 
-        $response = $this->httpGet('/address/private/parse', $params);
+        $response = $this->httpGet('/v3/address/private/parse', $params);
 
         return $this->hydrateResponse($response, ParseResponse::class);
     }

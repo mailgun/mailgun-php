@@ -52,7 +52,7 @@ class EmailValidationTest extends TestCase
 
         $api->expects($this->once())
             ->method('httpGet')
-            ->with('/address/private/parse', $params)
+            ->with('/v3/address/private/parse', $params)
             ->willReturn(new Response());
 
         $api->parse($params['addresses'], $params['syntax_only']);
