@@ -19,17 +19,12 @@
     "require-dev": {
         "nyholm/nsa": "^1.2.1",
         "nyholm/psr7": "^1.3.1",
-        "php-http/guzzle7-adapter": "^0.1.1",
-        "phpunit/phpunit": "^9.3"
+        "phpunit/phpunit": "^9.3",
+        "symfony/http-client": "^5.3"
     },
     "suggest": {
-        "guzzlehttp/psr7": "PSR-7 message implementation that also provides common utility methods",
-        "php-http/curl-client": "cURL client for PHP-HTTP"
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "3.0-dev"
-        }
+        "nyholm/psr7": "PSR-7 message implementation",
+        "symfony/http-client": "HTTP client"
     },
     "autoload": {
         "psr-4": {
@@ -39,6 +34,11 @@
     "autoload-dev": {
         "psr-4": {
             "Mailgun\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "3.0-dev"
         }
     }
 }

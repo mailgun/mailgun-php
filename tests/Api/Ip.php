@@ -11,9 +11,9 @@ declare(strict_types=1);
 
 namespace Mailgun\Tests\Api;
 
-use GuzzleHttp\Psr7\Response;
 use Mailgun\Api\Ip;
 use Mailgun\Model\Ip\IndexResponse;
+use Nyholm\Psr7\Response;
 
 class IpTest extends TestCase
 {

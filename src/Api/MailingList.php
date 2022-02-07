@@ -57,16 +57,17 @@ class MailingList extends HttpApi
     /**
      * Creates a new mailing list on the current domain.
      *
-     * @param string $address     Address for the new mailing list
-     * @param string $name        Name for the new mailing list (optional)
-     * @param string $description Description for the new mailing list (optional)
-     * @param string $accessLevel List access level, one of: readonly (default), members, everyone
+     * @param string      $address         Address for the new mailing list
+     * @param string|null $name            Name for the new mailing list (optional)
+     * @param string|null $description     Description for the new mailing list (optional)
+     * @param string      $accessLevel     List access level, one of: readonly (default), members, everyone
+     * @param string      $replyPreference Set where replies should go: list (default) | sender (optional)
      *
      * @return CreateResponse
      *
      * @throws \Exception
      */
-    public function create(string $address, string $name = null, string $description = null, string $accessLevel = 'readonly', string $replyPreference = 'list')
+    public function create(string $address, ?string $name = null, ?string $description = null, string $accessLevel = 'readonly', string $replyPreference = 'list')
     {
         Assert::stringNotEmpty($address);
         Assert::nullOrStringNotEmpty($name);
@@ -76,11 +77,11 @@ class MailingList extends HttpApi
 
         $params = [
             'address' => $address,
-            'name' => $name,
-            'description' => $description,
             'access_level' => $accessLevel,
             'reply_preference' => $replyPreference,
         ];
+        $description ? $params['description'] = $description : false;
+        $name ? $params['name'] = $name : false;
 
         $response = $this->httpPost('/v3/lists', $params);
 

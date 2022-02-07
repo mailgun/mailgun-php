@@ -11,12 +11,12 @@ declare(strict_types=1);
 
 namespace Mailgun\Tests\Api;
 
-use GuzzleHttp\Psr7\Response;
 use Mailgun\Api\Route;
 use Mailgun\Model\Route\DeleteResponse;
 use Mailgun\Model\Route\IndexResponse;
 use Mailgun\Model\Route\ShowResponse;
 use Mailgun\Model\Route\UpdateResponse;
+use Nyholm\Psr7\Response;
 
 /**
  * @author David Garcia <me@davidgarcia.cat>

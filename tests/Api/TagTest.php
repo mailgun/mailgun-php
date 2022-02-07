@@ -11,10 +11,10 @@ declare(strict_types=1);
 
 namespace Mailgun\Tests\Api;
 
-use GuzzleHttp\Psr7\Response;
 use Mailgun\Api\Tag;
 use Mailgun\Hydrator\ModelHydrator;
 use Mailgun\Model\Tag\IndexResponse;
+use Nyholm\Psr7\Response;
 
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>

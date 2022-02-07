@@ -231,6 +231,16 @@ class MessageBuilder
         return $this;
     }
 
+    /**
+     * @param string $template Name of the Mailgun template
+     */
+    public function setTemplate(string $template): self
+    {
+        $this->message['template'] = $template;
+
+        return $this;
+    }
+
     public function addCustomHeader(string $headerName, $headerData): self
     {
         if (!preg_match('/^h:/i', $headerName)) {
@@ -272,6 +282,20 @@ class MessageBuilder
 
         $this->message['attachment'][] = [
             'filePath' => $attachmentPath,
+            'filename' => $attachmentName,
+        ];
+
+        return $this;
+    }
+
+    public function addStringAttachment(string $attachmentContent, string $attachmentName = null): self
+    {
+        if (!isset($this->message['attachment'])) {
+            $this->message['attachment'] = [];
+        }
+
+        $this->message['attachment'][] = [
+            'fileContent' => $attachmentContent,
             'filename' => $attachmentName,
         ];
 
