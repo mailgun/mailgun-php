@@ -162,6 +162,7 @@ If you are using a framework you might consider these composer packages to make 
 * [katanyoo/yii2-mailgun-mailer](https://github.com/katanyoo/yii2-mailgun-mailer) for Yii2
 * [narendravaghela/cakephp-mailgun](https://github.com/narendravaghela/cakephp-mailgun) for CakePHP
 * [drupal/mailgun](https://www.drupal.org/project/mailgun) for Drupal
+* [Laravel](https://laravel.com/docs/8.x/mail#mailgun-driver) Mail comes with Mailgun driver support
 
 ## Contribute
 
