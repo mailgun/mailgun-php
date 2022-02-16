@@ -32,12 +32,12 @@ class Webhook extends HttpApi
     /**
      * @var string
      */
-    private $apiKey;
+    private $signingKey;
 
-    public function __construct(ClientInterface $httpClient, RequestBuilder $requestBuilder, Hydrator $hydrator, string $apiKey)
+    public function __construct(ClientInterface $httpClient, RequestBuilder $requestBuilder, Hydrator $hydrator, string $signingKey)
     {
         parent::__construct($httpClient, $requestBuilder, $hydrator);
-        $this->apiKey = $apiKey;
+        $this->signingKey = $signingKey;
     }
 
     /**
@@ -48,11 +48,11 @@ class Webhook extends HttpApi
      */
     public function verifyWebhookSignature(int $timestamp, string $token, string $signature): bool
     {
-        if (empty($timestamp) || empty($token) || empty($signature)) {
+        if (empty($timestamp) || empty($token) || empty($signature) || empty($this->signingKey)) {
             return false;
         }
 
-        $hmac = hash_hmac('sha256', $timestamp.$token, $this->apiKey);
+        $hmac = hash_hmac('sha256', $timestamp.$token, $this->signingKey);
 
         if (function_exists('hash_equals')) {
             // hash_equals is constant time, but will not be introduced until PHP 5.6
