@@ -26,9 +26,6 @@
         "nyholm/psr7": "PSR-7 message implementation",
         "symfony/http-client": "HTTP client"
     },
-    "scripts": {
-        "test": "vendor/bin/phpunit"
-    },
     "autoload": {
         "psr-4": {
             "Mailgun\\": "src/"
@@ -43,5 +40,8 @@
         "branch-alias": {
             "dev-master": "3.0-dev"
         }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit"
     }
 }
