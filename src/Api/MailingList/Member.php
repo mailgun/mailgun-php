@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace Mailgun\Api\MailingList;
 
 use Mailgun\Api\HttpApi;
+use Mailgun\Api\Pagination;
 use Mailgun\Assert;
 use Mailgun\Exception\InvalidArgumentException;
 use Mailgun\Model\MailingList\Member\CreateResponse;
@@ -26,6 +27,8 @@ use Mailgun\Model\MailingList\UpdateResponse as MailingListUpdateResponse;
  */
 class Member extends HttpApi
 {
+    use Pagination;
+
     /**
      * Returns a paginated list of members of the mailing list.
      *
