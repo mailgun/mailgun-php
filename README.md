@@ -5,8 +5,6 @@ with the Mailgun API. Below are examples to get you started. For additional
 examples, please see our official documentation at http://documentation.mailgun.com
 
 [![Latest Version](https://img.shields.io/github/release/mailgun/mailgun-php.svg?style=flat-square)](https://github.com/mailgun/mailgun-php/releases)
-[![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/mailgun/mailgun-php.svg?style=flat-square)](https://scrutinizer-ci.com/g/mailgun/mailgun-php)
-[![Quality Score](https://img.shields.io/scrutinizer/g/mailgun/mailgun-php.svg?style=flat-square)](https://scrutinizer-ci.com/g/mailgun/mailgun-php)
 [![Total Downloads](https://img.shields.io/packagist/dt/mailgun/mailgun-php.svg?style=flat-square)](https://packagist.org/packages/mailgun/mailgun-php)
 [![Join the chat at https://gitter.im/mailgun/mailgun-php](https://badges.gitter.im/mailgun/mailgun-php.svg)](https://gitter.im/mailgun/mailgun-php?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
@@ -24,13 +22,14 @@ curl -sS https://getcomposer.org/installer | php
 The Mailgun API Client is not hard coupled to Guzzle, Buzz or any other library that sends
 HTTP messages. Instead, it uses the [PSR-18](https://www.php-fig.org/psr/psr-18/) client abstraction.
 This will give you the flexibility to choose what
-[PSR-7 implementation and HTTP client](https://packagist.org/providers/php-http/client-implementation)
+[PSR-7 implementation](https://packagist.org/providers/psr/http-message-implementation)
+and [HTTP client](https://packagist.org/providers/psr/http-client-implementation)
 you want to use.
 
 If you just want to get started quickly you should run the following command:
 
 ```bash
-composer require mailgun/mailgun-php kriswallsmith/buzz nyholm/psr7
+composer require mailgun/mailgun-php symfony/http-client nyholm/psr7
 ```
 
 ## Usage
@@ -163,6 +162,7 @@ If you are using a framework you might consider these composer packages to make 
 * [katanyoo/yii2-mailgun-mailer](https://github.com/katanyoo/yii2-mailgun-mailer) for Yii2
 * [narendravaghela/cakephp-mailgun](https://github.com/narendravaghela/cakephp-mailgun) for CakePHP
 * [drupal/mailgun](https://www.drupal.org/project/mailgun) for Drupal
+* [Laravel](https://laravel.com/docs/8.x/mail#mailgun-driver) Mail comes with Mailgun driver support
 
 ## Contribute
 

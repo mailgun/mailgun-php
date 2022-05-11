@@ -23,6 +23,8 @@ use Psr\Http\Message\ResponseInterface;
 final class ModelHydrator implements Hydrator
 {
     /**
+     * @param class-string $class
+     *
      * @return ResponseInterface
      */
     public function hydrate(ResponseInterface $response, string $class)
@@ -41,7 +43,7 @@ final class ModelHydrator implements Hydrator
         }
 
         if (is_subclass_of($class, ApiResponse::class)) {
-            $object = call_user_func($class.'::create', $data);
+            $object = call_user_func([$class, 'create'], $data);
         } else {
             $object = new $class($data);
         }

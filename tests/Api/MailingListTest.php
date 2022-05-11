@@ -11,12 +11,12 @@ declare(strict_types=1);
 
 namespace Mailgun\Tests\Api;
 
-use GuzzleHttp\Psr7\Response;
 use Mailgun\Api\MailingList;
 use Mailgun\Exception\InvalidArgumentException;
 use Mailgun\Model\EmailValidation\ValidateResponse;
 use Mailgun\Model\MailingList\ValidationCancelResponse;
 use Mailgun\Model\MailingList\ValidationStatusResponse;
+use Nyholm\Psr7\Response;
 
 class MailingListTest extends TestCase
 {
@@ -61,6 +61,23 @@ class MailingListTest extends TestCase
             ->willReturn(new Response());
 
         $api->create($address = 'foo@example.com', $name = 'Foo', $description = 'Description', $accessLevel = 'readonly');
+    }
+
+    public function testCreateWithNulls()
+    {
+        $data = [
+            'address' => 'foo@example.com',
+            'access_level' => 'readonly',
+            'reply_preference' => 'list',
+        ];
+
+        $api = $this->getApiMock();
+        $api->expects($this->once())
+            ->method('httpPost')
+            ->with('/v3/lists', $data)
+            ->willReturn(new Response());
+
+        $api->create($address = 'foo@example.com', null, null, $accessLevel = 'readonly');
     }
 
     public function testCreateInvalidAddress()

@@ -1,24 +1,31 @@
 Mailgun - Messages
 ==================
 
-This is the Mailgun PHP *Message* utilities. 
+This is the Mailgun PHP *Message* utilities.
 
-The below assumes you've already installed the Mailgun PHP SDK in to your 
+The below assumes you've already installed the Mailgun PHP SDK in to your
 project. If not, go back to the master README for instructions.
 
-There are two utilities included, `MessageBuilder` and `BatchMessage`. 
+There are two utilities included, `MessageBuilder` and `BatchMessage`.
 
-* `MessageBuilder`: Allows you to build a message object by calling methods for 
-each MIME attribute. 
-* `BatchMessage`: Extends `MessageBuilder` and allows you to iterate through 
-recipients from a list. Messages will fire after the 1,000th recipient has been 
-added. 
+* `MessageBuilder`: Allows you to build a message object by calling methods for
+each MIME attribute.
+* `BatchMessage`: Extends `MessageBuilder` and allows you to iterate through
+recipients from a list. Messages will fire after the 1,000th recipient has been
+added.
 
 Usage - Message Builder
 -----------------------
-Here's how to use Message Builder to build your Message. 
+Here's how to use Message Builder to build your Message.
 
 ```php
+require 'vendor/autoload.php';
+use Mailgun\Mailgun;
+use Mailgun\Message\MessageBuilder;
+
+// First, instantiate the SDK with your API credentials
+$mg = Mailgun::create('key-example');
+
 # Next, instantiate a Message Builder object from the SDK.
 $builder = new MessageBuilder();
 
@@ -28,10 +35,12 @@ $builder->setFromAddress("me@example.com", array("first"=>"PHP", "last" => "SDK"
 $builder->addToRecipient("john.doe@example.com", array("first" => "John", "last" => "Doe"));
 # Define a cc recipient.
 $builder->addCcRecipient("sally.doe@example.com", array("full_name" => "Sally Doe"));
-# Define the subject. 
+# Define the subject.
 $builder->setSubject("A message from the PHP SDK using Message Builder!");
-# Define the body of the message.
+# Define the body of the message (One is required).
 $builder->setTextBody("This is the text body of the message!");
+$builder->setHtmlBody("<html><p>This is the HTML body of the message</p></html>");
+$builder->setTemplate("template_name");
 
 # Other Optional Parameters.
 $builder->addCampaignId("My-Awesome-Campaign");
@@ -41,35 +50,38 @@ $builder->setDeliveryTime("tomorrow 8:00AM", "PST");
 $builder->setClickTracking(true);
 
 # Finally, send the message.
-$mg = Mailgun::create('key-example');
-$domain = ;
 $mg->messages()->send("example.com", $builder->getMessage());
 ```
 
 Usage - Batch Message
 ---------------------
-Here's how to use Batch Message to easily handle batch sending jobs. 
+Here's how to use Batch Message to easily handle batch sending jobs.
 
 ```php
-# First, instantiate the SDK with your API credentials and define your domain. 
-$mg = new Mailgun("key-example");
+require 'vendor/autoload.php';
+use Mailgun\Mailgun;
+
+// First, instantiate the SDK with your API credentials
+$mg = Mailgun::create('key-example');
 
 # Next, instantiate a Message Builder object from the SDK, pass in your sending domain.
 $batchMessage = $mg->messages()->getBatchMessage("example.com");
 
 # Define the from address.
 $batchMessage->setFromAddress("me@example.com", array("first"=>"PHP", "last" => "SDK"));
-# Define the subject. 
+# Define the subject.
 $batchMessage->setSubject("A Batch Message from the PHP SDK!");
-# Define the body of the message.
+# Define the body of the message (One is required).
 $batchMessage->setTextBody("This is the text body of the message!");
+$batchMessage->setHtmlBody("<html><p>This is the HTML body of the message</p></html>");
+$batchMessage->setTemplate("template_name");
 
 # Next, let's add a few recipients to the batch job.
 $batchMessage->addToRecipient("john.doe@example.com", array("first" => "John", "last" => "Doe"));
 $batchMessage->addToRecipient("sally.doe@example.com", array("first" => "Sally", "last" => "Doe"));
 $batchMessage->addToRecipient("mike.jones@example.com", array("first" => "Mike", "last" => "Jones"));
 ...
-// After 1,000 recipients, Batch Message will automatically post your message to the messages endpoint. 
+// After 1,000 recipients, Batch Message will automatically post your message to the messages endpoint.
 
 // Call finalize() to send any remaining recipients still in the buffer.
 $batchMessage->finalize();
@@ -80,5 +92,5 @@ $messageIds = $batchMessage->getMessageIds();
 
 More Documentation
 ------------------
-See the official [Mailgun Docs](https://documentation.mailgun.com/en/latest/api-sending.html) 
+See the official [Mailgun Docs](https://documentation.mailgun.com/en/latest/api-sending.html)
 for more information.

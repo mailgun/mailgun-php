@@ -11,10 +11,10 @@ declare(strict_types=1);
 
 namespace Mailgun\Tests\Api\MailingList;
 
-use GuzzleHttp\Psr7\Response;
 use Mailgun\Api\MailingList;
 use Mailgun\Exception\InvalidArgumentException;
 use Mailgun\Tests\Api\TestCase;
+use Nyholm\Psr7\Response;
 
 class MemberTest extends TestCase
 {
