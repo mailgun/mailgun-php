@@ -118,7 +118,7 @@ class BatchMessage extends MessageBuilder
             throw MissingRequiredParameter::create('text", "html" or "template');
         }
 
-        $message['recipient-variables'] = json_encode($this->batchRecipientAttributes);
+        $message['recipient-variables'] = json_encode($this->batchRecipientAttributes, JSON_FORCE_OBJECT);
         $response = $this->api->send($this->domain, $message);
 
         $this->batchRecipientAttributes = [];
