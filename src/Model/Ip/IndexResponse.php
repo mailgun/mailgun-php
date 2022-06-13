@@ -42,7 +42,7 @@ final class IndexResponse implements ApiResponse
         $model = new self();
         $model->items = $data['items'];
         $model->totalCount = $data['total_count'] ?? 0;
-        $model->assignableToPools = $data['assignable_to_pools'];
+        $model->assignableToPools = $data['assignable_to_pools'] ?? [];
 
         return $model;
     }

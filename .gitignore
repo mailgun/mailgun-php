@@ -7,4 +7,4 @@ phpunit.xml
 modd.conf
 .phpunit.result.cache
 .php_cs.cache
-.phpunit.result.cache
+.idea
