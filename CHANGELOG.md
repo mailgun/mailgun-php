@@ -2,6 +2,13 @@
 
 The change log describes what is "Added", "Removed", "Changed" or "Fixed" between each release.
 
+## 3.5.1
+
+### Fixed
+
+- Error with empty array for param recipient-variables. Fix was suggested by @deviarte
+- Use null coalescing operator in IndexResponse.php when. Fix proposed by @TWithers
+
 ## 3.5.0
 
 ### Added

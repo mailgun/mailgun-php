@@ -181,4 +181,19 @@ class BatchMessageTest extends MailgunTestCase
         $this->expectException(MissingRequiredParameter::class);
         $this->batchMessage->finalize();
     }
+
+    public function testEmptyRecipientForBatchMessage(): void
+    {
+        $params =  [
+            'from'    => 'BATCH <example@gmail.com>',
+            'to'      => ['example@gmail.com'],
+            'subject' => 'Hey %recipient.first%',
+            'text'    => 'If you wish to unsubscribe, click http://example.com/unsubscribe/%recipient.id%',
+            'recipient-variables' => [],
+        ];
+        $this->batchMessage->setMessage($params);
+        $this->batchMessage->finalize();
+        $message = NSA::getProperty($this->batchMessage, 'message');
+        $this->assertEquals([], $message['recipient-variables']);
+    }
 }
