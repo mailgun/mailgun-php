@@ -184,11 +184,11 @@ class BatchMessageTest extends MailgunTestCase
 
     public function testEmptyRecipientForBatchMessage(): void
     {
-        $params =  [
-            'from'    => 'BATCH <example@gmail.com>',
-            'to'      => ['example@gmail.com'],
+        $params = [
+            'from' => 'BATCH <example@gmail.com>',
+            'to' => ['example@gmail.com'],
             'subject' => 'Hey %recipient.first%',
-            'text'    => 'If you wish to unsubscribe, click http://example.com/unsubscribe/%recipient.id%',
+            'text' => 'If you wish to unsubscribe, click http://example.com/unsubscribe/%recipient.id%',
             'recipient-variables' => [],
         ];
         $this->batchMessage->setMessage($params);
