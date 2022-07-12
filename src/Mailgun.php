@@ -139,9 +139,9 @@ class Mailgun
         return new Api\Tag($this->httpClient, $this->requestBuilder, $this->hydrator);
     }
 
-    public function webhooks(): Api\Webhook
+    public function webhooks(string $signingKey = ''): Api\Webhook
     {
-        return new Api\Webhook($this->httpClient, $this->requestBuilder, $this->hydrator, $this->apiKey);
+        return new Api\Webhook($this->httpClient, $this->requestBuilder, $this->hydrator, $signingKey);
     }
 
     public function mailboxes(): Api\Mailboxes
