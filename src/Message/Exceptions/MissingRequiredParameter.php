@@ -15,7 +15,7 @@ use Mailgun\Exception;
 
 class MissingRequiredParameter extends \Exception implements Exception
 {
-    public static function create(string $parameter, string $message = null)
+    public static function create(string $parameter, string $message = null): self
     {
         if (null === $message) {
             $message = 'The parameters passed to the API were invalid. Please specify "%s".';

@@ -125,8 +125,12 @@ class RequestBuilder
         return $this;
     }
 
-    private function createRequest(string $method, string $uri, array $headers, StreamInterface $stream)
-    {
+    private function createRequest(
+        string $method,
+        string $uri,
+        array $headers,
+        StreamInterface $stream
+    ): RequestInterface {
         $request = $this->getRequestFactory()->createRequest($method, $uri);
         $request = $request->withBody($stream);
         foreach ($headers as $name => $value) {

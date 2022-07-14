@@ -21,10 +21,7 @@ final class PagesResponse implements ApiResponse, PagingProvider
 
     private $items;
 
-    /**
-     * @return self
-     */
-    public static function create(array $data)
+    public static function create(array $data): self
     {
         $items = [];
 

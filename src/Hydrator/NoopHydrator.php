@@ -24,6 +24,8 @@ final class NoopHydrator implements Hydrator
      * @param class-string $class
      *
      * @throws \LogicException
+     *
+     * @return never
      */
     public function hydrate(ResponseInterface $response, string $class)
     {

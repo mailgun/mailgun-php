@@ -12,6 +12,9 @@ declare(strict_types=1);
 namespace Mailgun\Api;
 
 use Mailgun\Assert;
+use Mailgun\Exception\HttpClientException;
+use Mailgun\Exception\HttpServerException;
+use Mailgun\Exception\UnknownErrorException;
 use Psr\Http\Message\ResponseInterface;
 
 /**
@@ -20,9 +23,9 @@ use Psr\Http\Message\ResponseInterface;
 class Attachment extends HttpApi
 {
     /**
-     * @return ResponseInterface
+     * @throws HttpClientException|HttpServerException|UnknownErrorException
      */
-    public function show(string $url)
+    public function show(string $url): ResponseInterface
     {
         Assert::stringNotEmpty($url);
         Assert::regex($url, '@https://.*mailgun\.(net|org)/v.+@');

@@ -35,10 +35,7 @@ final class Parts
     {
     }
 
-    /**
-     * @return Parts
-     */
-    public static function create(array $data)
+    public static function create(array $data): self
     {
         $model = new self();
         $model->displayName = $data['display_name'] ?? null;

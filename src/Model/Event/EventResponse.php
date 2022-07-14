@@ -27,7 +27,7 @@ final class EventResponse implements ApiResponse, PagingProvider
     {
     }
 
-    public static function create(array $data)
+    public static function create(array $data): self
     {
         $events = [];
         if (isset($data['items'])) {

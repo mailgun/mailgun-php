@@ -21,9 +21,9 @@ final class Action
     /**
      * Action Named Constructor to build several Action DTOs provided by an Array.
      *
-     * @return Action[]
+     * @return self[]
      */
-    public static function createMultiple(array $data)
+    public static function createMultiple(array $data): array
     {
         $items = [];
 

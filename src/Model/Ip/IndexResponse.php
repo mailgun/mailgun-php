@@ -37,7 +37,7 @@ final class IndexResponse implements ApiResponse
     {
     }
 
-    public static function create(array $data)
+    public static function create(array $data): self
     {
         $model = new self();
         $model->items = $data['items'];
