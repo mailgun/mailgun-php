@@ -60,8 +60,8 @@ class RequestBuilder
 
         $builder = $this->getMultipartStreamBuilder();
         foreach ($body as $item) {
-            $name = $item['name'];
-            $content = $item['content'];
+            $name = $this->getItemValue($item, 'name');
+            $content = $this->getItemValue($item, 'content');
             unset($item['name']);
             unset($item['content']);
 
@@ -77,6 +77,9 @@ class RequestBuilder
         return $this->createRequest($method, $uri, $headers, $multipartStream);
     }
 
+    /**
+     * @return RequestFactoryInterface
+     */
     private function getRequestFactory(): RequestFactoryInterface
     {
         if (null === $this->requestFactory) {
@@ -86,6 +89,10 @@ class RequestBuilder
         return $this->requestFactory;
     }
 
+    /**
+     * @param  RequestFactoryInterface $requestFactory
+     * @return $this
+     */
     public function setRequestFactory(RequestFactoryInterface $requestFactory): self
     {
         $this->requestFactory = $requestFactory;
@@ -93,6 +100,9 @@ class RequestBuilder
         return $this;
     }
 
+    /**
+     * @return StreamFactoryInterface
+     */
     private function getStreamFactory(): StreamFactoryInterface
     {
         if (null === $this->streamFactory) {
@@ -102,6 +112,10 @@ class RequestBuilder
         return $this->streamFactory;
     }
 
+    /**
+     * @param  StreamFactoryInterface $streamFactory
+     * @return $this
+     */
     public function setStreamFactory(StreamFactoryInterface $streamFactory): self
     {
         $this->streamFactory = $streamFactory;
@@ -109,6 +123,9 @@ class RequestBuilder
         return $this;
     }
 
+    /**
+     * @return MultipartStreamBuilder
+     */
     private function getMultipartStreamBuilder(): MultipartStreamBuilder
     {
         if (null === $this->multipartStreamBuilder) {
@@ -118,6 +135,10 @@ class RequestBuilder
         return $this->multipartStreamBuilder;
     }
 
+    /**
+     * @param  MultipartStreamBuilder $multipartStreamBuilder
+     * @return $this
+     */
     public function setMultipartStreamBuilder(MultipartStreamBuilder $multipartStreamBuilder): self
     {
         $this->multipartStreamBuilder = $multipartStreamBuilder;
@@ -125,7 +146,14 @@ class RequestBuilder
         return $this;
     }
 
-    private function createRequest(string $method, string $uri, array $headers, StreamInterface $stream)
+    /**
+     * @param  string           $method
+     * @param  string           $uri
+     * @param  array            $headers
+     * @param  StreamInterface  $stream
+     * @return RequestInterface
+     */
+    private function createRequest(string $method, string $uri, array $headers, StreamInterface $stream): RequestInterface
     {
         $request = $this->getRequestFactory()->createRequest($method, $uri);
         $request = $request->withBody($stream);
@@ -134,5 +162,19 @@ class RequestBuilder
         }
 
         return $request;
+    }
+
+    /**
+     * @param  array        $item
+     * @param  string       $key
+     * @return mixed|string
+     */
+    private function getItemValue(array $item, string $key)
+    {
+        if (is_bool($item[$key])) {
+            return (string) $item[$key];
+        }
+
+        return $item[$key];
     }
 }

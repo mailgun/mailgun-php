@@ -56,7 +56,7 @@ class DomainTest extends TestCase
   ]
 }
 JSON
-));
+        ));
 
         $api = $this->getApiInstance();
         /** @var IndexResponse $response */

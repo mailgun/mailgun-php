@@ -59,7 +59,7 @@ class Job implements ApiResponse
     {
         $model = new static();
 
-        $model->createdAt = isset($data['created_at']) ? (DateTimeImmutable::createFromFormat('U', (string) ($data['created_at'])) ?: null) : null;
+        $model->createdAt = isset($data['created_at']) ? (DateTimeImmutable::createFromFormat('U', (string) $data['created_at']) ?: null) : null;
         $model->downloadUrl = $data['download_url'] ? JobDownloadUrl::create($data['download_url']) : null;
         $model->id = $data['id'] ?? null;
         $model->quantity = $data['quantity'] ?? null;

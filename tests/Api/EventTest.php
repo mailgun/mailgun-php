@@ -72,7 +72,7 @@ class EventTest extends TestCase
   }
 }
 JSON
-));
+        ));
 
         $api = $this->getApiInstance();
         $event = $api->get('example.com');
