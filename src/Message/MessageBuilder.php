@@ -24,11 +24,11 @@ use Mailgun\Message\Exceptions\TooManyRecipients;
  */
 class MessageBuilder
 {
-    const RECIPIENT_COUNT_LIMIT = 1000;
+    public const RECIPIENT_COUNT_LIMIT = 1000;
 
-    const CAMPAIGN_ID_LIMIT = 3;
+    public const CAMPAIGN_ID_LIMIT = 3;
 
-    const TAG_LIMIT = 3;
+    public const TAG_LIMIT = 3;
 
     /**
      * @var array

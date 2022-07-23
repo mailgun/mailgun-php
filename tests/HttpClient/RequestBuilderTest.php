@@ -53,7 +53,7 @@ class RequestBuilderTest extends MailgunTestCase
             ->getMock();
 
         $this->requestBuilder = new RequestBuilder();
-        //Everything but testing class is mock. Otherwise it wouldn't be unit testing
+        // Everything but testing class is mock. Otherwise it wouldn't be unit testing
         $this->requestBuilder->setRequestFactory($this->requestFactory);
         $this->requestBuilder->setStreamFactory($this->streamFactory);
     }
@@ -111,25 +111,21 @@ class RequestBuilderTest extends MailgunTestCase
         $multipartStreamBuilder = $this->createMultipartStreamBuilder();
 
         $item0 = ['content' => 'foobar', 'name' => 'username', 'some_stuff' => 'some value'];
-        $item1 = ['content' => 'Stockholm', 'name' => 'city', 'other_stuff' => 'other value'];
-        $body = [$item0, $item1];
 
-        foreach ($body as $index => $item) {
-            $multipartStreamBuilder
-                ->expects($this->at($index))
-                ->method('addResource')
-                ->with(
-                    $this->equalTo($item['name']),
-                    $this->equalTo($item['content']),
-                    $this->callback(function (array $data) use ($item) {
-                        unset($item['name'], $item['content']);
-                        $this->assertEquals($item, $data);
+        $multipartStreamBuilder
+            ->expects($this->once())
+            ->method('addResource')
+            ->with(
+                $this->equalTo($item0['name']),
+                $this->equalTo($item0['content']),
+                $this->callback(function (array $data) use ($item0) {
+                    unset($item0['name'], $item0['content']);
+                    $this->assertEquals($item0, $data);
 
-                        return true;
-                    })
-                )
-                ->willReturn($multipartStreamBuilder);
-        }
+                    return true;
+                })
+            )
+            ->willReturn($multipartStreamBuilder);
 
         $multipartStreamBuilder
             ->expects($this->once())
@@ -168,7 +164,7 @@ class RequestBuilderTest extends MailgunTestCase
 
         $this->requestBuilder->setMultipartStreamBuilder($multipartStreamBuilder);
         $result = $this->requestBuilder
-            ->create('GET', 'http://foo.bar', ['Content-Type' => 'application/json'], [$item0, $item1]);
+            ->create('GET', 'http://foo.bar', ['Content-Type' => 'application/json'], [$item0]);
 
         $this->assertSame($request, $result);
     }

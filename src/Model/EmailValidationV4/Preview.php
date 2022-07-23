@@ -58,7 +58,7 @@ class Preview implements ApiResponse
         $model->valid = $data['valid'] ?? null;
         $model->status = $data['status'] ?? null;
         $model->quantity = $data['quantity'] ?? null;
-        $model->createdAt = isset($data['created_at']) ? (DateTimeImmutable::createFromFormat('U', (string) ($data['created_at'])) ?: null) : null;
+        $model->createdAt = isset($data['created_at']) ? (DateTimeImmutable::createFromFormat('U', (string) $data['created_at']) ?: null) : null;
         $model->summary = $data['summary'] ? Summary::create($data['summary']) : null;
 
         return $model;

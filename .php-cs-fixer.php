@@ -11,7 +11,8 @@ $finder = PhpCsFixer\Finder::create()
     ->in('src')
     ->in('tests');
 
-return PhpCsFixer\Config::create()
+
+return (new PhpCsFixer\Config())
     ->setRiskyAllowed(true)
     ->setRules([
         '@PSR2' => true,
@@ -19,11 +20,12 @@ return PhpCsFixer\Config::create()
         'strict_param' => true,
         'array_syntax' => ['syntax' => 'short'],
         'declare_strict_types' => true,
-        'no_empty_phpdoc' => true,
-        'no_superfluous_phpdoc_tags' => true,
+        'no_empty_phpdoc' => false,
+        'no_superfluous_phpdoc_tags' => false,
+        'phpdoc_separation' => false,
         'no_unneeded_final_method' => false, # prevent phpstan divergence
         'header_comment' => [
-            'commentType' => 'comment',
+            'comment_type' => 'comment',
             'header' => $header,
             'location' => 'after_declare_strict',
             'separate' => 'both',
