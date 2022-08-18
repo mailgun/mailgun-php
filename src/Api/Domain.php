@@ -27,6 +27,7 @@ use Mailgun\Model\Domain\UpdateCredentialResponse;
 use Mailgun\Model\Domain\UpdateOpenTrackingResponse;
 use Mailgun\Model\Domain\UpdateUnsubscribeTrackingResponse;
 use Mailgun\Model\Domain\VerifyResponse;
+use Mailgun\Model\Domain\WebSchemeResponse;
 use Psr\Http\Message\ResponseInterface;
 
 /**
@@ -311,6 +312,31 @@ class Domain extends HttpApi
         $response = $this->httpPut(sprintf('/v3/domains/%s/connection', $domain), $params);
 
         return $this->hydrateResponse($response, UpdateConnectionResponse::class);
+    }
+
+    /**
+     * Update webScheme for existing domain
+     * See below for spam filtering parameter information.
+     * {@link https://documentation.mailgun.com/user_manual.html#um-spam-filter}.
+     *
+     * @see https://documentation.mailgun.com/en/latest/api-domains.html#domains
+     *
+     * @param string $domain    name of the domain
+     * @param string $webScheme `http` or `https` - set your open, click and unsubscribe URLs to use http or https. The default is http
+     * @return CreateResponse|array|ResponseInterface
+     * @throws \Exception
+     */
+    public function updateWebScheme(string $domain, string $webScheme = 'http')
+    {
+        Assert::stringNotEmpty($domain);
+
+        Assert::stringNotEmpty($webScheme);
+        Assert::oneOf($webScheme, ['https', 'http']);
+        $params['web_scheme'] = $webScheme;
+
+        $response = $this->httpPut(sprintf('/v3/domains/%s', $domain), $params);
+
+        return $this->hydrateResponse($response, WebSchemeResponse::class);
     }
 
     /**
