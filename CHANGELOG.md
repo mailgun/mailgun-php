@@ -2,6 +2,13 @@
 
 The change log describes what is "Added", "Removed", "Changed" or "Fixed" between each release.
 
+## 3.5.3
+
+### Added
+
+- Ability to update web_scheme for domain
+- `http` or `https` - set your open, click and unsubscribe URLs to use http or https. The default is http
+
 ## 3.5.1
 
 ### Fixed

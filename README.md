@@ -62,6 +62,23 @@ $mg->messages()->send('example.com', [
 
 Attention: `$domain` must match to the domain you have configured on [app.mailgun.com](https://app.mailgun.com/app/domains).
 
+### Usage of new method for updating web scheme
+
+```php
+# Include the Autoloader (see "Libraries" for install instructions)
+require 'vendor/autoload.php';
+use Mailgun\Mailgun;
+
+# Instantiate the client.
+$mgClient = Mailgun::create('KEY', 'FULL_DOMAIN_URL');
+$domain = "DOMAIN";
+
+# Issue the call to the client.
+$result = $mgClient->domains()->updateWebScheme($domain, 'https');
+
+print_r($result);
+```
+
 ### All usage examples
 
 You will find more detailed documentation at [/doc](doc/index.md) and on
