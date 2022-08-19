@@ -19,6 +19,7 @@ use Mailgun\HttpClient\RequestBuilder;
 use Mailgun\Hydrator\Hydrator;
 use Mailgun\Hydrator\NoopHydrator;
 use Psr\Http\Client as Psr18;
+use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\ResponseInterface;
 
@@ -113,9 +114,10 @@ abstract class HttpApi
     /**
      * Send a GET request with query parameters.
      *
-     * @param string $path           Request path
-     * @param array  $parameters     GET parameters
-     * @param array  $requestHeaders Request Headers
+     * @param  string                   $path           Request path
+     * @param  array                    $parameters     GET parameters
+     * @param  array                    $requestHeaders Request Headers
+     * @throws ClientExceptionInterface
      */
     protected function httpGet(string $path, array $parameters = [], array $requestHeaders = []): ResponseInterface
     {
@@ -149,9 +151,10 @@ abstract class HttpApi
     /**
      * Send a POST request with raw data.
      *
-     * @param string       $path           Request path
-     * @param array|string $body           Request body
-     * @param array        $requestHeaders Request headers
+     * @param  string                   $path           Request path
+     * @param  array|string             $body           Request body
+     * @param  array                    $requestHeaders Request headers
+     * @throws ClientExceptionInterface
      */
     protected function httpPostRaw(string $path, $body, array $requestHeaders = []): ResponseInterface
     {
@@ -169,9 +172,10 @@ abstract class HttpApi
     /**
      * Send a PUT request.
      *
-     * @param string $path           Request path
-     * @param array  $parameters     PUT parameters
-     * @param array  $requestHeaders Request headers
+     * @param  string                   $path           Request path
+     * @param  array                    $parameters     PUT parameters
+     * @param  array                    $requestHeaders Request headers
+     * @throws ClientExceptionInterface
      */
     protected function httpPut(string $path, array $parameters = [], array $requestHeaders = []): ResponseInterface
     {
@@ -189,9 +193,10 @@ abstract class HttpApi
     /**
      * Send a DELETE request.
      *
-     * @param string $path           Request path
-     * @param array  $parameters     DELETE parameters
-     * @param array  $requestHeaders Request headers
+     * @param  string                   $path           Request path
+     * @param  array                    $parameters     DELETE parameters
+     * @param  array                    $requestHeaders Request headers
+     * @throws ClientExceptionInterface
      */
     protected function httpDelete(string $path, array $parameters = [], array $requestHeaders = []): ResponseInterface
     {

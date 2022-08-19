@@ -35,12 +35,11 @@ class EmailValidation extends HttpApi
      * @param bool   $mailboxVerification If set to true, a mailbox verification check will be performed
      *                                    against the address. The default is False.
      *
-     * @throws InvalidArgumentException Thrown when local validation returns an error
-     * @throws HttpClientException      Thrown when there's an error on Client side
-     * @throws HttpServerException      Thrown when there's an error on Server side
-     * @throws \Exception               Thrown when we don't catch a Client or Server side Exception
-     *
      * @return ValidateResponse|ResponseInterface
+     * @throws InvalidArgumentException           Thrown when local validation returns an error
+     * @throws HttpClientException                Thrown when there's an error on Client side
+     * @throws HttpServerException                Thrown when there's an error on Server side
+     * @throws \Exception                         Thrown when we don't catch a Client or Server side Exception
      */
     public function validate(string $address, bool $mailboxVerification = false)
     {
@@ -73,12 +72,11 @@ class EmailValidation extends HttpApi
      * @param bool   $syntaxOnly Perform only syntax checks or DNS and ESP specific validation as well.
      *                           The default is True.
      *
-     * @throws InvalidArgumentException Thrown when local validation returns an error
-     * @throws HttpClientException      Thrown when there's an error on Client side
-     * @throws HttpServerException      Thrown when there's an error on Server side
-     * @throws \Exception               Thrown when we don't catch a Client or Server side Exception
-     *
      * @return ParseResponse|ResponseInterface
+     * @throws InvalidArgumentException        Thrown when local validation returns an error
+     * @throws HttpClientException             Thrown when there's an error on Client side
+     * @throws HttpServerException             Thrown when there's an error on Server side
+     * @throws \Exception                      Thrown when we don't catch a Client or Server side Exception
      */
     public function parse(string $addresses, bool $syntaxOnly = true)
     {
