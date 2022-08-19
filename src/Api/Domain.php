@@ -333,8 +333,8 @@ class Domain extends HttpApi
      *
      * @see https://documentation.mailgun.com/en/latest/api-domains.html#domains
      *
-     * @param string $domain    name of the domain
-     * @param string $webScheme `http` or `https` - set your open, click and unsubscribe URLs to use http or https. The default is http
+     * @param  string                                    $domain    name of the domain
+     * @param  string                                    $webScheme `http` or `https` - set your open, click and unsubscribe URLs to use http or https. The default is http
      * @return WebSchemeResponse|array|ResponseInterface
      * @throws Exception
      * @throws ClientExceptionInterface
