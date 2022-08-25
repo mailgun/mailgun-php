@@ -41,9 +41,9 @@ class HttpClient extends HttpApi
     }
 
     /**
-     * @param string $path
-     * @param array  $parameters
-     * @param array  $requestHeaders
+     * @param  string                   $path
+     * @param  array                    $parameters
+     * @param  array                    $requestHeaders
      * @return ResponseInterface
      * @throws ClientExceptionInterface
      */
@@ -53,9 +53,9 @@ class HttpClient extends HttpApi
     }
 
     /**
-     * @param string $path
-     * @param array  $parameters
-     * @param array  $requestHeaders
+     * @param  string                   $path
+     * @param  array                    $parameters
+     * @param  array                    $requestHeaders
      * @return ResponseInterface
      * @throws ClientExceptionInterface
      */
@@ -65,9 +65,9 @@ class HttpClient extends HttpApi
     }
 
     /**
-     * @param string $path
-     * @param array  $parameters
-     * @param array  $requestHeaders
+     * @param  string            $path
+     * @param  array             $parameters
+     * @param  array             $requestHeaders
      * @return ResponseInterface
      */
     public function httpPost(string $path, array $parameters = [], array $requestHeaders = []): ResponseInterface
@@ -76,9 +76,9 @@ class HttpClient extends HttpApi
     }
 
     /**
-     * @param string $path
-     * @param array  $parameters
-     * @param array  $requestHeaders
+     * @param  string                   $path
+     * @param  array                    $parameters
+     * @param  array                    $requestHeaders
      * @return ResponseInterface
      * @throws ClientExceptionInterface
      */
@@ -88,9 +88,9 @@ class HttpClient extends HttpApi
     }
 
     /**
-     * @param string $path
-     * @param        $body
-     * @param array  $requestHeaders
+     * @param  string                   $path
+     * @param                           $body
+     * @param  array                    $requestHeaders
      * @return ResponseInterface
      * @throws ClientExceptionInterface
      */

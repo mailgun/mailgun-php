@@ -86,9 +86,9 @@ class Mailgun
     }
 
     /**
-     * @param string $apiKey
-     * @param string $endpoint
-     * @return static
+     * @param  string $apiKey
+     * @param  string $endpoint
+     * @return self
      */
     public static function create(string $apiKey, string $endpoint = 'https://api.mailgun.net'): self
     {
