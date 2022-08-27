@@ -41,7 +41,12 @@ class Suppression
      */
     private $hydrator;
 
-    public function __construct(ClientInterface $httpClient, RequestBuilder $requestBuilder, Hydrator $hydrator)
+    /**
+     * @param ClientInterface $httpClient
+     * @param RequestBuilder  $requestBuilder
+     * @param Hydrator        $hydrator
+     */
+    public function __construct($httpClient, RequestBuilder $requestBuilder, Hydrator $hydrator)
     {
         $this->httpClient = $httpClient;
         $this->requestBuilder = $requestBuilder;

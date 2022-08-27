@@ -34,7 +34,13 @@ class Webhook extends HttpApi
      */
     private $apiKey;
 
-    public function __construct(ClientInterface $httpClient, RequestBuilder $requestBuilder, Hydrator $hydrator, string $apiKey)
+    /**
+     * @param ClientInterface $httpClient
+     * @param RequestBuilder  $requestBuilder
+     * @param Hydrator        $hydrator
+     * @param string          $apiKey
+     */
+    public function __construct($httpClient, RequestBuilder $requestBuilder, Hydrator $hydrator, string $apiKey)
     {
         parent::__construct($httpClient, $requestBuilder, $hydrator);
         $this->apiKey = $apiKey;
