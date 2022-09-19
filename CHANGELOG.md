@@ -1,6 +1,11 @@
 # Change Log
 
 The change log describes what is "Added", "Removed", "Changed" or "Fixed" between each release.
+## 3.5.5
+
+### Fixed
+- Cast integer values to string for sending multipart data
+
 ## 3.5.4
 
 ### Added
