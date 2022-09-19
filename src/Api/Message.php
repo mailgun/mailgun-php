@@ -167,7 +167,7 @@ class Message extends HttpApi
             // If $value is not an array we cast it to an array
             foreach ((array) $value as $subValue) {
                 if (is_int($subValue)) {
-                    $subValue = (string)$subValue;
+                    $subValue = (string) $subValue;
                 }
                 $postDataMultipart[] = [
                     'name' => $key,
