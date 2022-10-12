@@ -63,7 +63,6 @@ class MessageBuilder
     /**
      * @param  array  $params
      * @param  string $key
-     * @param         $default
      * @return mixed
      */
     private function get(array $params, string $key, $default)
