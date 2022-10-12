@@ -266,10 +266,10 @@ class MessageBuilder
 
     /**
      * @param  string $headerName
-     * @param         $headerData
+     * @param  string $headerData
      * @return $this
      */
-    public function addCustomHeader(string $headerName, $headerData): self
+    public function addCustomHeader(string $headerName, string $headerData): self
     {
         if (!preg_match('/^h:/i', $headerName)) {
             $headerName = 'h:'.$headerName;
@@ -480,7 +480,6 @@ class MessageBuilder
 
     /**
      * @param  string $customName
-     * @param         $data
      * @return $this
      */
     public function addCustomData(string $customName, $data): self
@@ -492,7 +491,6 @@ class MessageBuilder
 
     /**
      * @param  string $parameterName
-     * @param         $data
      * @return $this
      */
     public function addCustomParameter(string $parameterName, $data): self
