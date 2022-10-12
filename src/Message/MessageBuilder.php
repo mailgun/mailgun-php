@@ -265,10 +265,9 @@ class MessageBuilder
 
     /**
      * @param  string $headerName
-     * @param  string $headerData
      * @return $this
      */
-    public function addCustomHeader(string $headerName, string $headerData): self
+    public function addCustomHeader(string $headerName, $headerData): self
     {
         if (!preg_match('/^h:/i', $headerName)) {
             $headerName = 'h:'.$headerName;
