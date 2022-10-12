@@ -11,6 +11,9 @@ declare(strict_types=1);
 
 namespace Mailgun\Message;
 
+use DateTime;
+use DateTimeInterface;
+use DateTimeZone;
 use Mailgun\Message\Exceptions\LimitExceeded;
 use Mailgun\Message\Exceptions\TooManyRecipients;
 
@@ -57,6 +60,12 @@ class MessageBuilder
         ],
     ];
 
+    /**
+     * @param  array  $params
+     * @param  string $key
+     * @param         $default
+     * @return mixed
+     */
     private function get(array $params, string $key, $default)
     {
         if (array_key_exists($key, $params)) {
@@ -67,12 +76,12 @@ class MessageBuilder
     }
 
     /**
-     * @param array $params {
-     *
-     *     @var string $full_name
-     *     @var string $first
-     *     @var string $last
-     * }
+     * @param  array  $params {
+     *                        full_name?: string,
+     *                        first?: string,
+     *                        last?: string,
+     *                        }
+     * @return string
      */
     private function getFullName(array $params): string
     {
@@ -84,12 +93,13 @@ class MessageBuilder
     }
 
     /**
-     * @param array $variables {
-     *
-     *     @var string
-     *     @var string
-     *     @var string
-     * }
+     * @param  string $address
+     * @param  array  $variables {
+     *                           full_name?: string,
+     *                           first?: string,
+     *                           last?: string,
+     *                           }
+     * @return string
      */
     protected function parseAddress(string $address, array $variables): string
     {
@@ -102,12 +112,14 @@ class MessageBuilder
     }
 
     /**
-     * @param array $variables {
-     *
-     *     @var string $full_name
-     *     @var string $first
-     *     @var string $last
-     * }
+     * @param  string         $headerName
+     * @param  string         $address
+     * @param  array          $variables  {
+     *                                    full_name?: string,
+     *                                    first?: string,
+     *                                    last?: string,
+     *                                    }
+     * @return MessageBuilder
      */
     protected function addRecipient(string $headerName, string $address, array $variables): self
     {
@@ -128,14 +140,15 @@ class MessageBuilder
     }
 
     /**
-     * @param array $variables {
+     * @param string $address
+     * @param array  $variables {
+     *                          id?: string,
+     *                          full_name?: string,
+     *                          first?: string,
+     *                          last?: string,
+     *                          }
      *
-     *     @var string $id If used with BatchMessage
-     *     @var string $full_name
-     *     @var string $first
-     *     @var string $last
-     * }
-     *
+     * @return MessageBuilder
      * @throws TooManyRecipients
      */
     public function addToRecipient(string $address, array $variables = []): self
@@ -149,14 +162,15 @@ class MessageBuilder
     }
 
     /**
-     * @param array $variables {
+     * @param string $address
+     * @param array  $variables {
+     *                          id?: string,
+     *                          full_name?: string,
+     *                          first?: string,
+     *                          last?: string,
+     *                          }
      *
-     *     @var string $id If used with BatchMessage
-     *     @var string $full_name
-     *     @var string $first
-     *     @var string $last
-     * }
-     *
+     * @return MessageBuilder
      * @throws TooManyRecipients
      */
     public function addCcRecipient(string $address, array $variables = []): self
@@ -171,14 +185,15 @@ class MessageBuilder
     }
 
     /**
-     * @param array $variables {
+     * @param string $address
+     * @param array  $variables {
+     *                          id?: string,
+     *                          full_name?: string,
+     *                          first?: string,
+     *                          last?: string,
+     *                          }
      *
-     *     @var string $id If used with BatchMessage
-     *     @var string $full_name
-     *     @var string $first
-     *     @var string $last
-     * }
-     *
+     * @return MessageBuilder
      * @throws TooManyRecipients
      */
     public function addBccRecipient(string $address, array $variables = []): self
@@ -193,13 +208,15 @@ class MessageBuilder
     }
 
     /**
-     * @param array $variables {
+     * @param string $address
+     * @param array  $variables {
+     *                          id?: string,
+     *                          full_name?: string,
+     *                          first?: string,
+     *                          last?: string,
+     *                          }
      *
-     *     @var string $id If used with BatchMessage
-     *     @var string $full_name
-     *     @var string $first
-     *     @var string $last
-     * }
+     * @return MessageBuilder
      */
     public function setFromAddress(string $address, array $variables = []): self
     {
@@ -209,13 +226,15 @@ class MessageBuilder
     }
 
     /**
-     * @param array $variables {
+     * @param string $address
+     * @param array  $variables {
+     *                          id?: string,
+     *                          full_name?: string,
+     *                          first?: string,
+     *                          last?: string,
+     *                          }
      *
-     *     @var string $id If used with BatchMessage
-     *     @var string $full_name
-     *     @var string $first
-     *     @var string $last
-     * }
+     * @return MessageBuilder
      */
     public function setReplyToAddress(string $address, array $variables = []): self
     {
@@ -224,6 +243,10 @@ class MessageBuilder
         return $this;
     }
 
+    /**
+     * @param  string $subject
+     * @return $this
+     */
     public function setSubject(string $subject): self
     {
         $this->message['subject'] = $subject;
@@ -241,6 +264,11 @@ class MessageBuilder
         return $this;
     }
 
+    /**
+     * @param  string $headerName
+     * @param         $headerData
+     * @return $this
+     */
     public function addCustomHeader(string $headerName, $headerData): self
     {
         if (!preg_match('/^h:/i', $headerName)) {
@@ -260,6 +288,10 @@ class MessageBuilder
         return $this;
     }
 
+    /**
+     * @param  string $textBody
+     * @return $this
+     */
     public function setTextBody(string $textBody): self
     {
         $this->message['text'] = $textBody;
@@ -267,6 +299,10 @@ class MessageBuilder
         return $this;
     }
 
+    /**
+     * @param  string $htmlBody
+     * @return $this
+     */
     public function setHtmlBody(string $htmlBody): self
     {
         $this->message['html'] = $htmlBody;
@@ -274,6 +310,11 @@ class MessageBuilder
         return $this;
     }
 
+    /**
+     * @param  string      $attachmentPath
+     * @param  string|null $attachmentName
+     * @return $this
+     */
     public function addAttachment(string $attachmentPath, string $attachmentName = null): self
     {
         if (!isset($this->message['attachment'])) {
@@ -288,6 +329,11 @@ class MessageBuilder
         return $this;
     }
 
+    /**
+     * @param  string      $attachmentContent
+     * @param  string|null $attachmentName
+     * @return $this
+     */
     public function addStringAttachment(string $attachmentContent, string $attachmentName = null): self
     {
         if (!isset($this->message['attachment'])) {
@@ -302,6 +348,11 @@ class MessageBuilder
         return $this;
     }
 
+    /**
+     * @param  string      $inlineImagePath
+     * @param  string|null $inlineImageName
+     * @return $this
+     */
     public function addInlineImage(string $inlineImagePath, string $inlineImageName = null): self
     {
         if (!isset($this->message['inline'])) {
@@ -316,6 +367,10 @@ class MessageBuilder
         return $this;
     }
 
+    /**
+     * @param  bool  $enabled
+     * @return $this
+     */
     public function setTestMode(bool $enabled): self
     {
         $this->message['o:testmode'] = $enabled ? 'yes' : 'no';
@@ -360,6 +415,10 @@ class MessageBuilder
         return $this;
     }
 
+    /**
+     * @param  bool  $enabled
+     * @return $this
+     */
     public function setDkim(bool $enabled): self
     {
         $this->message['o:dkim'] = $enabled ? 'yes' : 'no';
@@ -367,6 +426,10 @@ class MessageBuilder
         return $this;
     }
 
+    /**
+     * @param  bool  $enabled
+     * @return $this
+     */
     public function setOpenTracking(bool $enabled): self
     {
         $this->message['o:tracking-opens'] = $enabled ? 'yes' : 'no';
@@ -374,6 +437,11 @@ class MessageBuilder
         return $this;
     }
 
+    /**
+     * @param  bool  $enabled
+     * @param  bool  $htmlOnly
+     * @return $this
+     */
     public function setClickTracking(bool $enabled, bool $htmlOnly = false): self
     {
         $value = 'no';
@@ -389,21 +457,32 @@ class MessageBuilder
         return $this;
     }
 
+    /**
+     * @param  string      $timeDate
+     * @param  string|null $timeZone
+     * @return $this
+     * @throws \Exception
+     */
     public function setDeliveryTime(string $timeDate, string $timeZone = null): self
     {
         if (null !== $timeZone) {
-            $timeZoneObj = new \DateTimeZone($timeZone);
+            $timeZoneObj = new DateTimeZone($timeZone);
         } else {
-            $timeZoneObj = new \DateTimeZone('UTC');
+            $timeZoneObj = new DateTimeZone('UTC');
         }
 
-        $dateTimeObj = new \DateTime($timeDate, $timeZoneObj);
-        $formattedTimeDate = $dateTimeObj->format(\DateTime::RFC2822);
+        $dateTimeObj = new DateTime($timeDate, $timeZoneObj);
+        $formattedTimeDate = $dateTimeObj->format(DateTimeInterface::RFC2822);
         $this->message['o:deliverytime'] = $formattedTimeDate;
 
         return $this;
     }
 
+    /**
+     * @param  string $customName
+     * @param         $data
+     * @return $this
+     */
     public function addCustomData(string $customName, $data): self
     {
         $this->message['v:'.$customName] = json_encode($data);
@@ -411,6 +490,11 @@ class MessageBuilder
         return $this;
     }
 
+    /**
+     * @param  string $parameterName
+     * @param         $data
+     * @return $this
+     */
     public function addCustomParameter(string $parameterName, $data): self
     {
         if (isset($this->message[$parameterName])) {
@@ -422,6 +506,10 @@ class MessageBuilder
         return $this;
     }
 
+    /**
+     * @param  array $message
+     * @return $this
+     */
     public function setMessage(array $message): self
     {
         $this->message = $message;
@@ -429,6 +517,9 @@ class MessageBuilder
         return $this;
     }
 
+    /**
+     * @return array
+     */
     public function getMessage(): array
     {
         return $this->message;
