@@ -124,7 +124,7 @@ class Message extends HttpApi
 
         $response = $this->httpGet($url, [], $headers);
         $responseObject = $this->hydrateResponse($response, ShowResponse::class);
-        if ($rawMessage) {
+        if ($rawMessage && $responseObject) {
             $responseObject->setRawStream($response->getBody());
         }
 
