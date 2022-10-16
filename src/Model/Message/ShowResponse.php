@@ -155,4 +155,12 @@ final class ShowResponse implements ApiResponse
     {
         return $this->rawStream;
     }
+
+    /**
+     * @param Stream|null $rawStream
+     */
+    public function setRawStream(?Stream $rawStream): void
+    {
+        $this->rawStream = $rawStream;
+    }
 }

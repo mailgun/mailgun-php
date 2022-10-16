@@ -37,7 +37,6 @@ final class ModelHydrator implements Hydrator
         }
 
         $data = json_decode($body, true);
-        $data['raw_stream'] = $response->getBody();
 
         if (JSON_ERROR_NONE !== json_last_error()) {
             throw new HydrationException(sprintf('Error (%d) when trying to json_decode response', json_last_error()));
