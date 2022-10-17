@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace Mailgun\Api;
 
+use Exception;
 use Mailgun\Assert;
 use Mailgun\Exception\InvalidArgumentException;
 use Mailgun\Message\BatchMessage;
@@ -35,7 +36,7 @@ class Message extends HttpApi
      * @see https://documentation.mailgun.com/en/latest/api-sending.html#sending
      *
      * @return SendResponse|ResponseInterface
-     * @throws \Exception|ClientExceptionInterface
+     * @throws Exception|ClientExceptionInterface
      */
     public function send(string $domain, array $params)
     {
@@ -72,6 +73,8 @@ class Message extends HttpApi
      * @param string $message    Message filepath or content
      *
      * @return SendResponse|ResponseInterface
+     * @throws ClientExceptionInterface
+     * @throws Exception
      */
     public function sendMime(string $domain, array $recipients, string $message, array $params)
     {
@@ -107,6 +110,8 @@ class Message extends HttpApi
      * @param bool $rawMessage if true we will use "Accept: message/rfc2822" header
      *
      * @return ShowResponse|ResponseInterface
+     * @throws Exception
+     * @throws ClientExceptionInterface
      */
     public function show(string $url, bool $rawMessage = false)
     {
