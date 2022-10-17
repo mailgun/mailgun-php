@@ -48,6 +48,10 @@ final class ModelHydrator implements Hydrator
             $object = new $class($data);
         }
 
+        if (method_exists($object, 'setRawStream')) {
+            $object->setRawStream($response->getBody());
+        }
+
         return $object;
     }
 }

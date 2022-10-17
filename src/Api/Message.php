@@ -123,12 +123,8 @@ class Message extends HttpApi
         }
 
         $response = $this->httpGet($url, [], $headers);
-        $responseObject = $this->hydrateResponse($response, ShowResponse::class);
-        if ($rawMessage && $responseObject) {
-            $responseObject->setRawStream($response->getBody());
-        }
 
-        return $responseObject;
+        return $this->hydrateResponse($response, ShowResponse::class);
     }
 
     /**
