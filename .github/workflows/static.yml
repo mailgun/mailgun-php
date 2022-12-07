@@ -73,10 +73,6 @@ jobs:
             -   name: Mark github workspace as safe
                 run: git config --global --add safe.directory /github/workspace
 
-            - name: Set ownership
-              run: |
-                chown -R $(id -u):$(id -g) $PWD
-
             -   name: Roave BC Check
                 uses: docker://nyholm/roave-bc-check:5.x
 
