@@ -63,19 +63,6 @@ jobs:
 
 
     #Temporary removal
-    #roave-bc-check:
-    #    name: Roave BC Check
-    #    runs-on: ubuntu-latest
-
-    #    steps:
-    #        -   name: Checkout code
-    #            uses: actions/checkout@v2
-
-    #        -   name: Mark github workspace as safe
-    #            run: git config --global --add safe.directory /github/workspace
-
-    #        -   name: Roave BC Check
-    #            uses: docker://nyholm/roave-bc-check-ga
 
     composer-normalize:
         name: Composer Normalize
