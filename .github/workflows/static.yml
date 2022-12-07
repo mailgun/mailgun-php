@@ -62,7 +62,17 @@ jobs:
                 run: psalm --no-progress --output-format=github
 
 
-    #Temporary removal
+    roave-bc-check:
+        name: Roave BC Check
+        runs-on: ubuntu-latest
+
+        steps:
+            -   name: Checkout code
+                uses: actions/checkout@v2
+
+            #temporary solution
+            #-   name: Roave BC Check
+            #    uses: docker://nyholm/roave-bc-check-ga
 
     composer-normalize:
         name: Composer Normalize
