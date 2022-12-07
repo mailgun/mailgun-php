@@ -71,8 +71,7 @@ jobs:
                 uses: actions/checkout@v2
 
             -   name: Mark github workspace as safe
-                run: |
-                    git config --global --add safe.directory /github/workspace
+                run: git config --global --add safe.directory /github/workspace
 
             -   name: Roave BC Check
                 uses: docker://nyholm/roave-bc-check-ga
