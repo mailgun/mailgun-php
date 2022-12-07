@@ -78,7 +78,7 @@ jobs:
                 chown -R $(id -u):$(id -g) $PWD
 
             -   name: Roave BC Check
-                uses: docker://nyholm/roave-bc-check-ga:6.x
+                uses: docker://nyholm/roave-bc-check-ga:5.x
 
     composer-normalize:
         name: Composer Normalize
