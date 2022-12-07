@@ -97,9 +97,9 @@ $parameters = [
 ];
 $mailgun->messages()->send('example.com', $parameters);
 ```
-#### Send a message with Mime
+#### Send a message with Mime (old version)
 
-Below in an example how to create a Mime message with SwiftMailer.
+Below in an example how to create a Mime message with SwiftMailer (this one is outdated).
 
 ```php
 $message = new Swift_Message('Mail Subject');
@@ -116,6 +116,25 @@ $to = ['admin@example.com', 'user0gmail.com', 'user1@hotmail.com', 'invoice@exam
 
 // Send the message
 $mailgun->messages()->sendMime('example.com', $to, $message->toString(), []);
+```
+
+#### Send a message with Mime (Recommended)
+
+Below in an example how to create a Mime message with Symfony Mailer.
+
+```php
+$email = (new \Symfony\Component\Mime\Email())
+    ->from('mailgun@example.com')
+    ->to('bestcustomer@example.com')
+    ->cc('cc@example.com')
+    ->bcc('bcc@example.com')
+    ->replyTo('fabien@example.com')
+    //->priority('some priority')
+    ->subject('Time for Symfony Mailer!')
+    ->text('Sending emails is fun again!')
+    ->html('<p>Your awesome text!</p>');
+
+$mailgun->messages()->sendMime($domain, $recipients, $email->getHtmlBody(), $params);
 ```
 
 #### Show a stored message
