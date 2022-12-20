@@ -238,4 +238,4 @@ If you find a bug, please submit the issue in Github directly.
 [Mailgun-PHP Issues](https://github.com/mailgun/mailgun-php/issues)
 
 As always, if you need additional assistance, drop us a note through your account at
-[https://app.mailgun.com/app/support/list](https://app.mailgun.com/app/support/list).
+[https://app.mailgun.com/support](https://app.mailgun.com/support).
