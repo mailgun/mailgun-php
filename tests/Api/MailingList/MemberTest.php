@@ -140,7 +140,7 @@ class MemberTest extends TestCase
             [
                 'address' => 'billy@example.com',
                 'name' => 'Billy',
-                'subscribed' => true,
+                'subscribed' => 123,
             ],
         ];
 
