@@ -160,7 +160,7 @@ class Member extends HttpApi
 
                         break;
                     case 'subscribed':
-                        Assert::oneOf($value, ['yes', 'no']);
+                        Assert::oneOf($value, ['yes', 'no', true, false]);
 
                         break;
                 }
