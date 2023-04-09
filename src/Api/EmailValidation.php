@@ -30,14 +30,14 @@ class EmailValidation extends HttpApi
     /**
      * Addresses are validated based off defined checks.
      * This operation is only accessible with the private API key and not subject to the daily usage limits.
-     * @param string $address             An email address to validate. Maximum: 512 characters.
-     * @param bool   $mailboxVerification If set to true, a mailbox verification check will be performed
-     *                                    against the address. The default is False.
+     * @param  string                              $address             An email address to validate. Maximum: 512 characters.
+     * @param  bool                                $mailboxVerification If set to true, a mailbox verification check will be performed
+     *                                                                  against the address. The default is False.
      * @return ValidateResponse|ResponseInterface
-     * @throws InvalidArgumentException           Thrown when local validation returns an error
-     * @throws HttpClientException                Thrown when there's an error on Client side
-     * @throws HttpServerException                Thrown when there's an error on Server side
-     * @throws \Exception|ClientExceptionInterface                         Thrown when we don't catch a Client or Server side Exception
+     * @throws InvalidArgumentException            Thrown when local validation returns an error
+     * @throws HttpClientException                 Thrown when there's an error on Client side
+     * @throws HttpServerException                 Thrown when there's an error on Server side
+     * @throws \Exception|ClientExceptionInterface Thrown when we don't catch a Client or Server side Exception
      */
     public function validate(string $address, bool $mailboxVerification = false)
     {
@@ -71,10 +71,10 @@ class EmailValidation extends HttpApi
      *                           The default is True.
      *
      * @return ParseResponse|ResponseInterface
-     * @throws InvalidArgumentException        Thrown when local validation returns an error
-     * @throws HttpClientException             Thrown when there's an error on Client side
-     * @throws HttpServerException             Thrown when there's an error on Server side
-     * @throws \Exception|ClientExceptionInterface                      Thrown when we don't catch a Client or Server side Exception
+     * @throws InvalidArgumentException            Thrown when local validation returns an error
+     * @throws HttpClientException                 Thrown when there's an error on Client side
+     * @throws HttpServerException                 Thrown when there's an error on Server side
+     * @throws \Exception|ClientExceptionInterface Thrown when we don't catch a Client or Server side Exception
      */
     public function parse(string $addresses, bool $syntaxOnly = true)
     {

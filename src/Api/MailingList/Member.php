@@ -27,7 +27,6 @@ use Mailgun\Model\MailingList\UpdateResponse as MailingListUpdateResponse;
  */
 class Member extends HttpApi
 {
-
     use Pagination;
 
     /**
@@ -83,12 +82,12 @@ class Member extends HttpApi
 
     /**
      * Creates (or updates) a member of the mailing list.
-     * @param string $list Address of the mailing list
-     * @param string $address Address for the member
-     * @param string|null $name Name for the member (optional)
-     * @param array $vars Array of field => value pairs to store additional data
-     * @param bool $subscribed `true` to add as subscribed (default), `false` as unsubscribed
-     * @param bool $upsert `true` to update member if present, `false` to raise error in case of a duplicate member (default)
+     * @param  string         $list       Address of the mailing list
+     * @param  string         $address    Address for the member
+     * @param  string|null    $name       Name for the member (optional)
+     * @param  array          $vars       Array of field => value pairs to store additional data
+     * @param  bool           $subscribed `true` to add as subscribed (default), `false` as unsubscribed
+     * @param  bool           $upsert     `true` to update member if present, `false` to raise error in case of a duplicate member (default)
      * @return CreateResponse
      */
     public function create(string $list, string $address, string $name = null, array $vars = [], bool $subscribed = true, bool $upsert = false)

@@ -21,7 +21,7 @@ use Psr\Http\Message\ResponseInterface;
 class Attachment extends HttpApi
 {
     /**
-     * @param string $url
+     * @param  string                   $url
      * @return ResponseInterface
      * @throws ClientExceptionInterface
      */

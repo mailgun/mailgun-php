@@ -65,9 +65,9 @@ class HttpClient extends HttpApi
     }
 
     /**
-     * @param string $path
-     * @param array $parameters
-     * @param array $requestHeaders
+     * @param  string                   $path
+     * @param  array                    $parameters
+     * @param  array                    $requestHeaders
      * @return ResponseInterface
      * @throws ClientExceptionInterface
      */

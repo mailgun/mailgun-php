@@ -138,9 +138,9 @@ abstract class HttpApi
 
     /**
      * Send a POST request with parameters.
-     * @param string $path Request path
-     * @param array $parameters POST parameters
-     * @param array $requestHeaders Request headers
+     * @param  string                   $path           Request path
+     * @param  array                    $parameters     POST parameters
+     * @param  array                    $requestHeaders Request headers
      * @throws ClientExceptionInterface
      */
     protected function httpPost(string $path, array $parameters = [], array $requestHeaders = []): ResponseInterface
