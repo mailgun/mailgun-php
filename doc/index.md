@@ -78,6 +78,19 @@ $mailgun->domains()->connection('example.com');
 $mailgun->domains()->updateConnection('example.com', true, false);
 ```
 
+## Email Validation API
+
+#### Validate a single address (v3)
+Note: Email address validation v3 has been depreciated in favor of v4.
+```php
+$mailgun->EmailValidation()->validate('alice@example.com');
+```
+
+#### Validate a single address (v4)
+```php
+$mailgun->EmailValidationV4()->validate('alice@example.com');
+```
+
 ## Event API
 
 #### Get all events for a domain
