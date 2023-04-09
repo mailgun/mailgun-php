@@ -13,6 +13,7 @@ namespace Mailgun\Api;
 
 use Mailgun\Assert;
 use Mailgun\Model\Stats\TotalResponse;
+use Psr\Http\Client\ClientExceptionInterface;
 
 /**
  * @see https://documentation.mailgun.com/en/latest/api-stats.html
@@ -23,6 +24,7 @@ class Stats extends HttpApi
 {
     /**
      * @return TotalResponse|array
+     * @throws ClientExceptionInterface
      */
     public function total(string $domain, array $params = [])
     {

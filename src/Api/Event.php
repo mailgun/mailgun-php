@@ -13,6 +13,7 @@ namespace Mailgun\Api;
 
 use Mailgun\Assert;
 use Mailgun\Model\Event\EventResponse;
+use Psr\Http\Client\ClientExceptionInterface;
 
 /**
  * @see https://documentation.mailgun.com/en/latest/api-events.html
@@ -24,7 +25,10 @@ class Event extends HttpApi
     use Pagination;
 
     /**
+     * @param  string                   $domain
+     * @param  array                    $params
      * @return EventResponse
+     * @throws ClientExceptionInterface
      */
     public function get(string $domain, array $params = [])
     {

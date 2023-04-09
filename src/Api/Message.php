@@ -27,6 +27,11 @@ use Psr\Http\Message\ResponseInterface;
  */
 class Message extends HttpApi
 {
+    /**
+     * @param  string       $domain
+     * @param  bool         $autoSend
+     * @return BatchMessage
+     */
     public function getBatchMessage(string $domain, bool $autoSend = true): BatchMessage
     {
         return new BatchMessage($this, $domain, $autoSend);
@@ -134,11 +139,11 @@ class Message extends HttpApi
      */
     private function prepareFile(string $fieldName, array $filePath): array
     {
-        $filename = isset($filePath['filename']) ? $filePath['filename'] : null;
+        $filename = $filePath['filename'] ?? null;
 
         if (isset($filePath['fileContent'])) {
             // File from memory
-            $resource = fopen('php://temp', 'r+');
+            $resource = fopen('php://temp', 'rb+');
             fwrite($resource, $filePath['fileContent']);
             rewind($resource);
         } elseif (isset($filePath['filePath'])) {
@@ -150,7 +155,7 @@ class Message extends HttpApi
                 $path = substr($path, 1);
             }
 
-            $resource = fopen($path, 'r');
+            $resource = fopen($path, 'rb');
         } else {
             throw new InvalidArgumentException('When using a file you need to specify parameter "fileContent" or "filePath"');
         }

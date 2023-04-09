@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace Mailgun\Api;
 
 use Mailgun\Assert;
+use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Message\ResponseInterface;
 
 /**
@@ -20,9 +21,11 @@ use Psr\Http\Message\ResponseInterface;
 class Attachment extends HttpApi
 {
     /**
+     * @param  string                   $url
      * @return ResponseInterface
+     * @throws ClientExceptionInterface
      */
-    public function show(string $url)
+    public function show(string $url): ResponseInterface
     {
         Assert::stringNotEmpty($url);
         Assert::regex($url, '@https://.*mailgun\.(net|org)/v.+@');

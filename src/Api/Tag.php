@@ -20,6 +20,7 @@ use Mailgun\Model\Tag\ProviderResponse;
 use Mailgun\Model\Tag\ShowResponse;
 use Mailgun\Model\Tag\StatisticsResponse;
 use Mailgun\Model\Tag\UpdateResponse;
+use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Message\ResponseInterface;
 
 /**
@@ -33,9 +34,8 @@ class Tag extends HttpApi
 
     /**
      * Returns a list of tags.
-
-     *
      * @return IndexResponse|ResponseInterface
+     * @throws ClientExceptionInterface
      */
     public function index(string $domain, int $limit = 100)
     {
@@ -53,8 +53,8 @@ class Tag extends HttpApi
 
     /**
      * Returns a single tag.
-     *
      * @return ShowResponse|ResponseInterface
+     * @throws ClientExceptionInterface
      */
     public function show(string $domain, string $tag)
     {
@@ -68,8 +68,8 @@ class Tag extends HttpApi
 
     /**
      * Update a tag.
-     *
      * @return UpdateResponse|ResponseInterface
+     * @throws ClientExceptionInterface
      */
     public function update(string $domain, string $tag, string $description)
     {
@@ -87,8 +87,8 @@ class Tag extends HttpApi
 
     /**
      * Returns statistics for a single tag.
-     *
      * @return StatisticsResponse|ResponseInterface
+     * @throws ClientExceptionInterface
      */
     public function stats(string $domain, string $tag, array $params)
     {
@@ -102,8 +102,8 @@ class Tag extends HttpApi
 
     /**
      * Removes a tag from the account.
-     *
      * @return DeleteResponse|ResponseInterface
+     * @throws ClientExceptionInterface
      */
     public function delete(string $domain, string $tag)
     {
@@ -117,6 +117,7 @@ class Tag extends HttpApi
 
     /**
      * @return CountryResponse|ResponseInterface
+     * @throws ClientExceptionInterface
      */
     public function countries(string $domain, string $tag)
     {
@@ -130,6 +131,7 @@ class Tag extends HttpApi
 
     /**
      * @return ProviderResponse|ResponseInterface
+     * @throws ClientExceptionInterface
      */
     public function providers(string $domain, string $tag)
     {
@@ -143,6 +145,7 @@ class Tag extends HttpApi
 
     /**
      * @return DeviceResponse|ResponseInterface
+     * @throws ClientExceptionInterface
      */
     public function devices(string $domain, string $tag)
     {

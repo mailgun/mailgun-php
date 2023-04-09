@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace Mailgun\Api;
 
+use Exception;
 use Mailgun\Exception\HttpClientException;
 use Mailgun\Exception\HttpServerException;
 use Mailgun\Exception\UnknownErrorException;
@@ -63,7 +64,7 @@ abstract class HttpApi
      *
      * @return mixed|ResponseInterface
      *
-     * @throws \Exception
+     * @throws Exception
      */
     protected function hydrateResponse(ResponseInterface $response, string $class)
     {
@@ -81,9 +82,9 @@ abstract class HttpApi
     /**
      * Throw the correct exception for this error.
      *
-     * @throws \Exception
+     * @throws Exception|UnknownErrorException
      */
-    protected function handleErrors(ResponseInterface $response)
+    protected function handleErrors(ResponseInterface $response): void
     {
         $statusCode = $response->getStatusCode();
         switch ($statusCode) {
@@ -137,10 +138,10 @@ abstract class HttpApi
 
     /**
      * Send a POST request with parameters.
-     *
-     * @param string $path           Request path
-     * @param array  $parameters     POST parameters
-     * @param array  $requestHeaders Request headers
+     * @param  string                   $path           Request path
+     * @param  array                    $parameters     POST parameters
+     * @param  array                    $requestHeaders Request headers
+     * @throws ClientExceptionInterface
      */
     protected function httpPost(string $path, array $parameters = [], array $requestHeaders = []): ResponseInterface
     {

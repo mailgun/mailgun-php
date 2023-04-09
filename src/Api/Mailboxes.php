@@ -16,15 +16,17 @@ use Mailgun\Model\Mailboxes\CreateResponse;
 use Mailgun\Model\Mailboxes\DeleteResponse;
 use Mailgun\Model\Mailboxes\ShowResponse;
 use Mailgun\Model\Mailboxes\UpdateResponse;
+use Psr\Http\Client\ClientExceptionInterface;
 
 class Mailboxes extends HttpApi
 {
     private const MIN_PASSWORD_LENGTH = 5;
 
     /**
+     * @param  string                   $domain
+     * @param  array                    $parameters
      * @return CreateResponse
-     *
-     * @throws \Exception
+     * @throws ClientExceptionInterface
      */
     public function create(string $domain, array $parameters = [])
     {
@@ -40,8 +42,7 @@ class Mailboxes extends HttpApi
 
     /**
      * @return ShowResponse
-     *
-     * @throws \Exception
+     * @throws \Exception|ClientExceptionInterface
      */
     public function show(string $domain, array $parameters = [])
     {
@@ -54,8 +55,7 @@ class Mailboxes extends HttpApi
 
     /**
      * @return UpdateResponse
-     *
-     * @throws \Exception
+     * @throws \Exception|ClientExceptionInterface
      */
     public function update(string $domain, string $mailbox, array $parameters = [])
     {
@@ -69,8 +69,7 @@ class Mailboxes extends HttpApi
 
     /**
      * @return DeleteResponse
-     *
-     * @throws \Exception
+     * @throws \Exception|ClientExceptionInterface
      */
     public function delete(string $domain, string $mailbox)
     {

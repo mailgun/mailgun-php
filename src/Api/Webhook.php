@@ -19,6 +19,7 @@ use Mailgun\Model\Webhook\DeleteResponse;
 use Mailgun\Model\Webhook\IndexResponse;
 use Mailgun\Model\Webhook\ShowResponse;
 use Mailgun\Model\Webhook\UpdateResponse;
+use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\ResponseInterface;
 
@@ -48,9 +49,12 @@ class Webhook extends HttpApi
 
     /**
      * This function verifies the webhook signature with your API key to to see if it is authentic.
-     *
      * If this function returns FALSE, you must not process the request.
      * You should reject the request with status code 403 Forbidden.
+     * @param  int    $timestamp
+     * @param  string $token
+     * @param  string $signature
+     * @return bool
      */
     public function verifyWebhookSignature(int $timestamp, string $token, string $signature): bool
     {
@@ -63,13 +67,15 @@ class Webhook extends HttpApi
         if (function_exists('hash_equals')) {
             // hash_equals is constant time, but will not be introduced until PHP 5.6
             return hash_equals($hmac, $signature);
-        } else {
-            return $hmac === $signature;
         }
+
+        return $hmac === $signature;
     }
 
     /**
+     * @param  string                          $domain
      * @return IndexResponse|ResponseInterface
+     * @throws ClientExceptionInterface
      */
     public function index(string $domain)
     {
@@ -80,7 +86,10 @@ class Webhook extends HttpApi
     }
 
     /**
+     * @param  string                         $domain
+     * @param  string                         $webhook
      * @return ShowResponse|ResponseInterface
+     * @throws ClientExceptionInterface
      */
     public function show(string $domain, string $webhook)
     {
@@ -92,7 +101,11 @@ class Webhook extends HttpApi
     }
 
     /**
+     * @param  string                           $domain
+     * @param  string                           $id
+     * @param  array                            $url
      * @return CreateResponse|ResponseInterface
+     * @throws ClientExceptionInterface
      */
     public function create(string $domain, string $id, array $url)
     {
@@ -111,7 +124,11 @@ class Webhook extends HttpApi
     }
 
     /**
+     * @param  string                           $domain
+     * @param  string                           $id
+     * @param  array                            $url
      * @return UpdateResponse|ResponseInterface
+     * @throws ClientExceptionInterface
      */
     public function update(string $domain, string $id, array $url)
     {
@@ -129,7 +146,10 @@ class Webhook extends HttpApi
     }
 
     /**
+     * @param  string                           $domain
+     * @param  string                           $id
      * @return DeleteResponse|ResponseInterface
+     * @throws ClientExceptionInterface
      */
     public function delete(string $domain, string $id)
     {

@@ -51,55 +51,83 @@ class Job implements ApiResponse
      */
     private $summary;
 
+    /**
+     *
+     */
     final private function __construct()
     {
     }
 
+    /**
+     * @param  array  $data
+     * @return static
+     */
     public static function create(array $data): self
     {
         $model = new static();
 
         $model->createdAt = isset($data['created_at']) ? (DateTimeImmutable::createFromFormat('U', (string) $data['created_at']) ?: null) : null;
-        $model->downloadUrl = $data['download_url'] ? JobDownloadUrl::create($data['download_url']) : null;
+        $model->downloadUrl = isset($data['download_url']) ? JobDownloadUrl::create($data['download_url']) : null;
         $model->id = $data['id'] ?? null;
         $model->quantity = $data['quantity'] ?? null;
         $model->recordsProcessed = $data['records_processed'] ?? null;
         $model->status = $data['status'] ?? null;
-        $model->summary = $data['summary'] ? Summary::create($data['summary']) : null;
+        $model->summary = isset($data['summary']) ? Summary::create($data['summary']) : null;
 
         return $model;
     }
 
+    /**
+     * @return DateTimeImmutable|null
+     */
     public function getCreatedAt(): ?DateTimeImmutable
     {
         return $this->createdAt;
     }
 
+    /**
+     * @return JobDownloadUrl|null
+     */
     public function getDownloadUrl(): ?JobDownloadUrl
     {
         return $this->downloadUrl;
     }
 
+    /**
+     * @return string|null
+     */
     public function getId(): ?string
     {
         return $this->id;
     }
 
+    /**
+     * @return int
+     */
     public function getQuantity(): int
     {
         return $this->quantity;
     }
 
+    /**
+     * @return int
+     */
     public function getRecordsProcessed(): int
     {
         return $this->recordsProcessed;
     }
 
+    /**
+     * @return string|null
+     */
     public function getStatus(): ?string
     {
         return $this->status;
     }
 
+    /**
+     * @return Summary|null
+     */
     public function getSummary(): ?Summary
     {
         return $this->summary;
