@@ -25,10 +25,12 @@ class Event extends HttpApi
     use Pagination;
 
     /**
+     * @param string $domain
+     * @param array $params
      * @return EventResponse
      * @throws ClientExceptionInterface
      */
-    public function get(string $domain, array $params = []): EventResponse
+    public function get(string $domain, array $params = [])
     {
         Assert::stringNotEmpty($domain);
 
