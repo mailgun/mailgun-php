@@ -69,7 +69,7 @@ trait Pagination
 
     /**
      * @param  string                   $url
-     * @param  string                   $class
+     * @param  class-string             $class
      * @return PagingProvider|null
      * @throws ClientExceptionInterface
      */
