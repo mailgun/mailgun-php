@@ -25,8 +25,8 @@ class Event extends HttpApi
     use Pagination;
 
     /**
-     * @param string $domain
-     * @param array $params
+     * @param  string                   $domain
+     * @param  array                    $params
      * @return EventResponse
      * @throws ClientExceptionInterface
      */
