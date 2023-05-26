@@ -203,7 +203,7 @@ final class Event
     }
 
     /**
-     * Return timestamp as it is
+     * Return timestamp as it is.
      *
      * @return mixed
      */
