@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace Mailgun\Model\Message;
 
 use Mailgun\Model\ApiResponse;
-use Nyholm\Psr7\Stream;
+use Psr\Http\Message\StreamInterface;
 
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
@@ -35,7 +35,7 @@ final class ShowResponse implements ApiResponse
     private $contentIdMap;
     private $messageHeaders;
     /**
-     * @var Stream|null
+     * @var StreamInterface|null
      */
     private $rawStream;
 
@@ -149,17 +149,17 @@ final class ShowResponse implements ApiResponse
 
     /**
      * Only available with message/rfc2822.
-     * @return Stream|null
+     * @return StreamInterface|null
      */
-    public function getRawStream(): ?Stream
+    public function getRawStream(): ?StreamInterface
     {
         return $this->rawStream;
     }
 
     /**
-     * @param Stream|null $rawStream
+     * @param StreamInterface|null $rawStream
      */
-    public function setRawStream(?Stream $rawStream): void
+    public function setRawStream(?StreamInterface $rawStream): void
     {
         $this->rawStream = $rawStream;
     }
