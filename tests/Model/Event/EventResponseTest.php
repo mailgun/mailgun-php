@@ -71,5 +71,6 @@ JSON;
         $event = $events[0];
         $this->assertEquals('czsjqFATSlC3QtAK-C80nw', $event->getId());
         $this->assertEquals('info', $event->getLogLevel());
+        $this->assertNotEquals($event->getRawTimestamp(), $event->getTimestamp());
     }
 }

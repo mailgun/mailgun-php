@@ -38,6 +38,7 @@ final class Event
     private $storage;
     private $method;
     private $logLevel;
+    private $rawTimestamp;
 
     private function __construct()
     {
@@ -68,6 +69,7 @@ final class Event
         $model->url = $data['url'] ?? '';
         $model->storage = $data['storage'] ?? [];
         $model->logLevel = $data['log-level'] ?? '';
+        $model->rawTimestamp = $data['timestamp'];
 
         return $model;
     }
@@ -198,5 +200,23 @@ final class Event
     public function getLogLevel(): string
     {
         return $this->logLevel;
+    }
+
+    /**
+     * Return timestamp as it is.
+     *
+     * @return mixed
+     */
+    public function getRawTimestamp()
+    {
+        return $this->rawTimestamp;
+    }
+
+    /**
+     * @param mixed $rawTimestamp
+     */
+    public function setRawTimestamp($rawTimestamp): void
+    {
+        $this->rawTimestamp = $rawTimestamp;
     }
 }
