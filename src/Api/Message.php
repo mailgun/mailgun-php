@@ -13,7 +13,6 @@ namespace Mailgun\Api;
 
 use Exception;
 use Mailgun\Assert;
-use Mailgun\Exception\HttpServerException;
 use Mailgun\Exception\InvalidArgumentException;
 use Mailgun\Message\BatchMessage;
 use Mailgun\Model\Message\SendResponse;
