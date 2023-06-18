@@ -73,8 +73,11 @@ class EmailValidationV4 extends HttpApi
         $postDataMultipart = [];
         $postDataMultipart[] = $this->prepareFile('file', $fileData);
 
-        $response = $this->httpPostRaw(sprintf('/v4/address/validate/bulk/%s', $listId), $postDataMultipart);
-        $this->closeResources($postDataMultipart);
+        try {
+            $response = $this->httpPostRaw(sprintf('/v4/address/validate/bulk/%s', $listId), $postDataMultipart);
+        } finally {
+            $this->closeResources($postDataMultipart);
+        }
 
         return $this->hydrateResponse($response, CreateBulkJobResponse::class);
     }
@@ -163,8 +166,11 @@ class EmailValidationV4 extends HttpApi
         $postDataMultipart = [];
         $postDataMultipart[] = $this->prepareFile('file', $fileData);
 
-        $response = $this->httpPostRaw(sprintf('/v4/address/validate/preview/%s', $previewId), $postDataMultipart);
-        $this->closeResources($postDataMultipart);
+        try {
+            $response = $this->httpPostRaw(sprintf('/v4/address/validate/preview/%s', $previewId), $postDataMultipart);
+        } finally {
+            $this->closeResources($postDataMultipart);
+        }
 
         return $this->hydrateResponse($response, CreateBulkPreviewResponse::class);
     }

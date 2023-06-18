@@ -13,6 +13,7 @@ namespace Mailgun\Api;
 
 use Exception;
 use Mailgun\Assert;
+use Mailgun\Exception\HttpServerException;
 use Mailgun\Exception\InvalidArgumentException;
 use Mailgun\Message\BatchMessage;
 use Mailgun\Model\Message\SendResponse;
@@ -65,8 +66,11 @@ class Message extends HttpApi
         }
 
         $postDataMultipart = array_merge($this->prepareMultipartParameters($params), $postDataMultipart);
-        $response = $this->httpPostRaw(sprintf('/v3/%s/messages', $domain), $postDataMultipart);
-        $this->closeResources($postDataMultipart);
+        try {
+            $response = $this->httpPostRaw(sprintf('/v3/%s/messages', $domain), $postDataMultipart);
+        } finally {
+            $this->closeResources($postDataMultipart);
+        }
 
         return $this->hydrateResponse($response, SendResponse::class);
     }
@@ -101,8 +105,11 @@ class Message extends HttpApi
             ];
         }
         $postDataMultipart[] = $this->prepareFile('message', $fileData);
-        $response = $this->httpPostRaw(sprintf('/v3/%s/messages.mime', $domain), $postDataMultipart);
-        $this->closeResources($postDataMultipart);
+        try {
+            $response = $this->httpPostRaw(sprintf('/v3/%s/messages.mime', $domain), $postDataMultipart);
+        } finally {
+            $this->closeResources($postDataMultipart);
+        }
 
         return $this->hydrateResponse($response, SendResponse::class);
     }
