@@ -45,11 +45,11 @@ class Domain extends HttpApi
      * Returns a list of domains on the account.
      * @param  int                      $limit
      * @param  int                      $skip
-     * @return IndexResponse
+     * @return IndexResponse|array
      * @throws ClientExceptionInterface
      * @throws Exception
      */
-    public function index(int $limit = 100, int $skip = 0): IndexResponse
+    public function index(int $limit = 100, int $skip = 0)
     {
         Assert::range($limit, 1, 1000);
 
