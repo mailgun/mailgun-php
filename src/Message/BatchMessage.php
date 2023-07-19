@@ -91,8 +91,9 @@ class BatchMessage extends MessageBuilder
         if (array_key_exists($headerName, $this->counters['recipients']) && !array_key_exists('id', $variables)) {
             $variables['id'] = $headerName.'_'.$this->counters['recipients'][$headerName];
         }
-
-        $this->batchRecipientAttributes[$address] = $variables;
+        if ($variables) {
+            $this->batchRecipientAttributes[$address] = $variables;
+        }
 
         return $this;
     }
