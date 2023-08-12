@@ -19,7 +19,7 @@ class PagesResponseTest extends BaseModelTest
     public function testCreate()
     {
         $json =
-<<<'JSON'
+        <<<'JSON'
 {
   "items": [
     {

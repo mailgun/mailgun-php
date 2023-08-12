@@ -19,7 +19,7 @@ class ValidateResponseTest extends BaseModelTest
     public function testCreate()
     {
         $json =
-<<<'JSON'
+        <<<'JSON'
 {
     "id": "listname@yourdomain.com",
     "message": "The validation job was submitted."

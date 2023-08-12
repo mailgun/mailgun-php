@@ -19,7 +19,7 @@ class ProviderResponseTest extends BaseModelTest
     public function testCreate()
     {
         $json =
-<<<'JSON'
+        <<<'JSON'
 {
   "providers": {
       "gmail.com": {

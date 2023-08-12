@@ -19,7 +19,7 @@ class DeleteResponseTest extends BaseModelTest
     public function testCreate()
     {
         $json =
-<<<'JSON'
+        <<<'JSON'
 {
   "message": "Domain has been deleted"
 }

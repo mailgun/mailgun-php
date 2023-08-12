@@ -19,7 +19,7 @@ class CredentialResponseTest extends BaseModelTest
     public function testCreate()
     {
         $json =
-<<<'JSON'
+        <<<'JSON'
 {
   "total_count": 2,
   "items": [

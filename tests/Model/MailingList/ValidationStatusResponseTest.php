@@ -23,7 +23,7 @@ class ValidationStatusResponseTest extends BaseModelTest
     public function testCreate()
     {
         $json =
-<<<'JSON'
+        <<<'JSON'
 {
     "created_at": "Tue, 26 Feb 2019 21:30:03 GMT",
     "download_url": {

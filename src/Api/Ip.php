@@ -27,6 +27,7 @@ class Ip extends HttpApi
 {
     /**
      * Returns a list of IPs.
+     *
      * @return IndexResponse|ResponseInterface
      * @throws ClientExceptionInterface
      */
@@ -45,6 +46,7 @@ class Ip extends HttpApi
 
     /**
      * Returns a list of IPs assigned to a domain.
+     *
      * @return IndexResponse|ResponseInterface
      * @throws ClientExceptionInterface
      */
@@ -59,6 +61,7 @@ class Ip extends HttpApi
 
     /**
      * Returns a single ip.
+     *
      * @return ShowResponse|ResponseInterface
      * @throws ClientExceptionInterface
      */
@@ -73,6 +76,7 @@ class Ip extends HttpApi
 
     /**
      * Assign a dedicated IP to the domain specified.
+     *
      * @return UpdateResponse|ResponseInterface
      * @throws ClientExceptionInterface
      */
@@ -92,6 +96,7 @@ class Ip extends HttpApi
 
     /**
      * Unassign an IP from the domain specified.
+     *
      * @return UpdateResponse|ResponseInterface
      * @throws ClientExceptionInterface
      */

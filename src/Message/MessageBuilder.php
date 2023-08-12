@@ -75,11 +75,14 @@ class MessageBuilder
     }
 
     /**
-     * @param  array  $params {
-     *                        full_name?: string,
-     *                        first?: string,
-     *                        last?: string,
-     *                        }
+     * @param  array $params {
+     *                       full_name?:
+     *                       string,
+     *                       first?:
+     *                       string,
+     *                       last?:
+     *                       string,
+     *                       }
      * @return string
      */
     private function getFullName(array $params): string
@@ -111,13 +114,16 @@ class MessageBuilder
     }
 
     /**
-     * @param  string         $headerName
-     * @param  string         $address
-     * @param  array          $variables  {
-     *                                    full_name?: string,
-     *                                    first?: string,
-     *                                    last?: string,
-     *                                    }
+     * @param  string $headerName
+     * @param  string $address
+     * @param  array  $variables  {
+     *                            full_name?:
+     *                            string,
+     *                            first?:
+     *                            string,
+     *                            last?:
+     *                            string,
+     *                            }
      * @return MessageBuilder
      */
     protected function addRecipient(string $headerName, string $address, array $variables): self
@@ -366,7 +372,7 @@ class MessageBuilder
     }
 
     /**
-     * @param  bool  $enabled
+     * @param  bool $enabled
      * @return $this
      */
     public function setTestMode(bool $enabled): self
@@ -414,7 +420,7 @@ class MessageBuilder
     }
 
     /**
-     * @param  bool  $enabled
+     * @param  bool $enabled
      * @return $this
      */
     public function setDkim(bool $enabled): self
@@ -425,7 +431,7 @@ class MessageBuilder
     }
 
     /**
-     * @param  bool  $enabled
+     * @param  bool $enabled
      * @return $this
      */
     public function setOpenTracking(bool $enabled): self
@@ -436,8 +442,8 @@ class MessageBuilder
     }
 
     /**
-     * @param  bool  $enabled
-     * @param  bool  $htmlOnly
+     * @param  bool $enabled
+     * @param  bool $htmlOnly
      * @return $this
      */
     public function setClickTracking(bool $enabled, bool $htmlOnly = false): self

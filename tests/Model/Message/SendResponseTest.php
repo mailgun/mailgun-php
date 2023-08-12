@@ -19,7 +19,7 @@ class SendResponseTest extends BaseModelTest
     public function testCreate()
     {
         $json =
-<<<'JSON'
+        <<<'JSON'
 {
   "message": "Queued. Thank you.",
   "id": "<20111114174239.25659.5817@samples.mailgun.org>"

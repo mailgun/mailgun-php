@@ -19,7 +19,7 @@ class ShowResponseTest extends BaseModelTest
     public function testHook1()
     {
         $json =
-<<<'JSON'
+        <<<'JSON'
 {
   "webhook": {
     "urls": [

@@ -19,7 +19,7 @@ class UpdateResponseTest extends BaseModelTest
     public function testCreate()
     {
         $json =
-<<<'JSON'
+        <<<'JSON'
 {
   "message": "success"
 }

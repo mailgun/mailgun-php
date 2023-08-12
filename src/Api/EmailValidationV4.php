@@ -32,8 +32,10 @@ class EmailValidationV4 extends HttpApi
 {
     /**
      * Addresses are validated based off defined checks.
-     * @param  string                             $address        An email address to validate. Maximum: 512 characters.
-     * @param  bool                               $providerLookup A provider lookup will be performed if Mailgun’s internal analysis is insufficient
+     *
+     * @param  string $address        An email address to validate. Maximum: 512 characters.
+     * @param  bool   $providerLookup A provider lookup will be performed if Mailgun’s internal analysis is
+     *                                insufficient
      * @return ValidateResponse|ResponseInterface
      * @throws Exception|ClientExceptionInterface Thrown when we don't catch a Client or Server side Exception
      */
@@ -52,8 +54,8 @@ class EmailValidationV4 extends HttpApi
     }
 
     /**
-     * @param  string                             $listId   ID given when the list created
-     * @param  mixed                              $filePath File path or file content
+     * @param  string $listId   ID given when the list created
+     * @param  mixed  $filePath File path or file content
      * @return mixed|ResponseInterface
      * @throws Exception|ClientExceptionInterface
      */
@@ -80,7 +82,7 @@ class EmailValidationV4 extends HttpApi
     }
 
     /**
-     * @param  string                                  $listId ID given when the list created
+     * @param  string $listId ID given when the list created
      * @return DeleteBulkJobResponse|ResponseInterface
      * @throws Exception|ClientExceptionInterface
      */
@@ -110,7 +112,7 @@ class EmailValidationV4 extends HttpApi
     }
 
     /**
-     * @param  int                                   $limit Jobs limit
+     * @param  int $limit Jobs limit
      * @return GetBulkJobsResponse|ResponseInterface
      * @throws Exception|ClientExceptionInterface
      */
@@ -118,15 +120,17 @@ class EmailValidationV4 extends HttpApi
     {
         Assert::greaterThan($limit, 0);
 
-        $response = $this->httpGet('/v4/address/validate/bulk', [
+        $response = $this->httpGet(
+            '/v4/address/validate/bulk', [
             'limit' => $limit,
-        ]);
+            ]
+        );
 
         return $this->hydrateResponse($response, GetBulkJobsResponse::class);
     }
 
     /**
-     * @param  int                                $limit Previews Limit
+     * @param  int $limit Previews Limit
      * @return mixed|ResponseInterface
      * @throws Exception|ClientExceptionInterface
      */
@@ -134,16 +138,18 @@ class EmailValidationV4 extends HttpApi
     {
         Assert::greaterThan($limit, 0);
 
-        $response = $this->httpGet('/v4/address/validate/preview', [
+        $response = $this->httpGet(
+            '/v4/address/validate/preview', [
             'limit' => $limit,
-        ]);
+            ]
+        );
 
         return $this->hydrateResponse($response, GetBulkPreviewsResponse::class);
     }
 
     /**
-     * @param  string                             $previewId ID given when the list created
-     * @param  mixed                              $filePath  File path or file content
+     * @param  string $previewId ID given when the list created
+     * @param  mixed  $filePath  File path or file content
      * @return mixed|ResponseInterface
      * @throws Exception|ClientExceptionInterface
      */
@@ -170,7 +176,7 @@ class EmailValidationV4 extends HttpApi
     }
 
     /**
-     * @param  string                             $previewId ID given when the list created
+     * @param  string $previewId ID given when the list created
      * @return mixed|ResponseInterface
      * @throws Exception|ClientExceptionInterface
      */
@@ -184,7 +190,7 @@ class EmailValidationV4 extends HttpApi
     }
 
     /**
-     * @param  string                   $previewId ID given when the list created
+     * @param  string $previewId ID given when the list created
      * @return bool
      * @throws ClientExceptionInterface
      */
@@ -198,7 +204,7 @@ class EmailValidationV4 extends HttpApi
     }
 
     /**
-     * @param  string                             $previewId ID given when the list created
+     * @param  string $previewId ID given when the list created
      * @return mixed|ResponseInterface
      * @throws Exception|ClientExceptionInterface
      */

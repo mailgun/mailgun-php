@@ -19,7 +19,7 @@ class CreateResponseTest extends BaseModelTest
     public function testCreate()
     {
         $json =
-<<<'JSON'
+        <<<'JSON'
 {
   "domain": {
     "name": "example.com",

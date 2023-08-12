@@ -23,8 +23,8 @@ class Mailboxes extends HttpApi
     private const MIN_PASSWORD_LENGTH = 5;
 
     /**
-     * @param  string                   $domain
-     * @param  array                    $parameters
+     * @param  string $domain
+     * @param  array  $parameters
      * @return CreateResponse
      * @throws ClientExceptionInterface
      */

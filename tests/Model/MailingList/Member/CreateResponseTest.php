@@ -20,7 +20,7 @@ class CreateResponseTest extends BaseModelTest
     public function testCreate()
     {
         $json =
-<<<'JSON'
+        <<<'JSON'
 {
   "member": {
       "vars": {

@@ -28,8 +28,8 @@ use Psr\Http\Message\ResponseInterface;
 class Message extends HttpApi
 {
     /**
-     * @param  string       $domain
-     * @param  bool         $autoSend
+     * @param  string $domain
+     * @param  bool   $autoSend
      * @return BatchMessage
      */
     public function getBatchMessage(string $domain, bool $autoSend = true): BatchMessage

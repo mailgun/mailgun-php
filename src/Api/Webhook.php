@@ -51,6 +51,7 @@ class Webhook extends HttpApi
      * This function verifies the webhook signature with your API key to to see if it is authentic.
      * If this function returns FALSE, you must not process the request.
      * You should reject the request with status code 403 Forbidden.
+     *
      * @param  int    $timestamp
      * @param  string $token
      * @param  string $signature
@@ -73,7 +74,7 @@ class Webhook extends HttpApi
     }
 
     /**
-     * @param  string                          $domain
+     * @param  string $domain
      * @return IndexResponse|ResponseInterface
      * @throws ClientExceptionInterface
      */
@@ -86,8 +87,8 @@ class Webhook extends HttpApi
     }
 
     /**
-     * @param  string                         $domain
-     * @param  string                         $webhook
+     * @param  string $domain
+     * @param  string $webhook
      * @return ShowResponse|ResponseInterface
      * @throws ClientExceptionInterface
      */
@@ -101,9 +102,9 @@ class Webhook extends HttpApi
     }
 
     /**
-     * @param  string                           $domain
-     * @param  string                           $id
-     * @param  array                            $url
+     * @param  string $domain
+     * @param  string $id
+     * @param  array  $url
      * @return CreateResponse|ResponseInterface
      * @throws ClientExceptionInterface
      */
@@ -124,9 +125,9 @@ class Webhook extends HttpApi
     }
 
     /**
-     * @param  string                           $domain
-     * @param  string                           $id
-     * @param  array                            $url
+     * @param  string $domain
+     * @param  string $id
+     * @param  array  $url
      * @return UpdateResponse|ResponseInterface
      * @throws ClientExceptionInterface
      */
@@ -146,8 +147,8 @@ class Webhook extends HttpApi
     }
 
     /**
-     * @param  string                           $domain
-     * @param  string                           $id
+     * @param  string $domain
+     * @param  string $id
      * @return DeleteResponse|ResponseInterface
      * @throws ClientExceptionInterface
      */

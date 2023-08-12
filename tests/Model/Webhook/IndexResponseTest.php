@@ -19,7 +19,7 @@ class IndexResponseTest extends BaseModelTest
     public function testCurrent()
     {
         $json =
-<<<'JSON'
+        <<<'JSON'
 {
   "webhooks": {
     "clicked": {
@@ -82,7 +82,7 @@ JSON;
     public function testLegacy()
     {
         $json =
-<<<'JSON'
+        <<<'JSON'
 {
   "webhooks": {
     "click": {

@@ -19,7 +19,7 @@ class DnsRecordTest extends BaseModelTest
     public function testCreate()
     {
         $json =
-<<<'JSON'
+        <<<'JSON'
 {
   "record_type": "TXT",
   "valid": "valid",

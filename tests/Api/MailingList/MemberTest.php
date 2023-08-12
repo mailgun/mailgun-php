@@ -101,7 +101,8 @@ class MemberTest extends TestCase
     public function testCreateMultiple()
     {
         $data = [
-            'members' => json_encode([
+            'members' => json_encode(
+                [
                 'bob@example.com',
                 'foo@example.com',
                 [
@@ -109,7 +110,8 @@ class MemberTest extends TestCase
                     'name' => 'Billy',
                     'subscribed' => 'yes',
                 ],
-            ]),
+                ]
+            ),
             'upsert' => 'no',
         ];
 
@@ -119,7 +121,8 @@ class MemberTest extends TestCase
             ->with('/v3/lists/address/members.json', $data)
             ->willReturn(new Response());
 
-        $api->createMultiple($list = 'address', [
+        $api->createMultiple(
+            $list = 'address', [
             'bob@example.com',
             'foo@example.com',
             [
@@ -127,7 +130,8 @@ class MemberTest extends TestCase
                 'name' => 'Billy',
                 'subscribed' => 'yes',
             ],
-        ], false);
+            ], false
+        );
     }
 
     public function testCreateMultipleInvalidMemberArgument()
@@ -162,9 +166,11 @@ class MemberTest extends TestCase
     public function testUpdate()
     {
         $data = [
-            'vars' => \json_encode([
+            'vars' => \json_encode(
+                [
                 'foo' => 'bar',
-            ]),
+                ]
+            ),
             'subscribed' => 'yes',
         ];
 

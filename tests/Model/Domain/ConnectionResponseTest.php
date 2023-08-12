@@ -19,7 +19,7 @@ class ConnectionResponseTest extends BaseModelTest
     public function testCreate()
     {
         $json =
-<<<'JSON'
+        <<<'JSON'
 {
   "connection": {
     "require_tls": false,

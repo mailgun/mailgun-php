@@ -118,12 +118,14 @@ class RequestBuilderTest extends MailgunTestCase
             ->with(
                 $this->equalTo($item0['name']),
                 $this->equalTo($item0['content']),
-                $this->callback(function (array $data) use ($item0) {
-                    unset($item0['name'], $item0['content']);
-                    $this->assertEquals($item0, $data);
+                $this->callback(
+                    function (array $data) use ($item0) {
+                        unset($item0['name'], $item0['content']);
+                        $this->assertEquals($item0, $data);
 
-                    return true;
-                })
+                        return true;
+                    }
+                )
             )
             ->willReturn($multipartStreamBuilder);
 

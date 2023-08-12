@@ -78,7 +78,8 @@ class WebhookTest extends TestCase
         $this->setRequestMethod('POST');
         $this->setRequestUri('/v3/domains/example.com/webhooks');
         $this->setHydrateClass(CreateResponse::class);
-        $this->setRequestBody([
+        $this->setRequestBody(
+            [
             [
                 'name' => 'id',
                 'content' => 'opened',
@@ -91,7 +92,8 @@ class WebhookTest extends TestCase
                 'name' => 'url',
                 'content' => 'url_2',
             ],
-        ]);
+            ]
+        );
 
         $api = $this->getApiInstance('key');
         $api->create('example.com', 'opened', ['url_1', 'url_2']);
@@ -102,7 +104,8 @@ class WebhookTest extends TestCase
         $this->setRequestMethod('PUT');
         $this->setRequestUri('/v3/domains/example.com/webhooks/4711');
         $this->setHydrateClass(UpdateResponse::class);
-        $this->setRequestBody([
+        $this->setRequestBody(
+            [
             [
                 'name' => 'url',
                 'content' => 'url_1',
@@ -111,7 +114,8 @@ class WebhookTest extends TestCase
                 'name' => 'url',
                 'content' => 'url_2',
             ],
-        ]);
+            ]
+        );
 
         $api = $this->getApiInstance('key');
         $api->update('example.com', '4711', ['url_1', 'url_2']);

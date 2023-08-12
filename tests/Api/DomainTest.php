@@ -40,7 +40,9 @@ class DomainTest extends TestCase
     {
         $this->setRequestMethod('GET');
         $this->setRequestUri('/v3/domains?limit=100&skip=0');
-        $this->setHttpResponse(new Response(200, ['Content-Type' => 'application/json'], <<<'JSON'
+        $this->setHttpResponse(
+            new Response(
+                200, ['Content-Type' => 'application/json'], <<<'JSON'
 {
   "total_count": 1,
   "items": [
@@ -56,10 +58,13 @@ class DomainTest extends TestCase
   ]
 }
 JSON
-        ));
+            )
+        );
 
         $api = $this->getApiInstance();
-        /** @var IndexResponse $response */
+        /**
+ * @var IndexResponse $response 
+*/
         $response = $api->index();
         $this->assertInstanceOf(IndexResponse::class, $response);
         $this->assertEquals(1, $response->getTotalCount());
@@ -80,11 +85,13 @@ JSON
     {
         $this->setRequestMethod('POST');
         $this->setRequestUri('/v3/domains');
-        $this->setRequestBody([
+        $this->setRequestBody(
+            [
             'name' => 'example.com',
             'web_scheme' => 'http',
             'dkim_key_size' => '1024',
-        ]);
+            ]
+        );
         $this->setHydrateClass(CreateResponse::class);
 
         $api = $this->getApiInstance();
@@ -95,12 +102,14 @@ JSON
     {
         $this->setRequestMethod('POST');
         $this->setRequestUri('/v3/domains');
-        $this->setRequestBody([
+        $this->setRequestBody(
+            [
             'name' => 'example.com',
             'smtp_password' => 'foo',
             'web_scheme' => 'http',
             'dkim_key_size' => '1024',
-        ]);
+            ]
+        );
         $this->setHydrateClass(CreateResponse::class);
 
         $api = $this->getApiInstance();
@@ -111,13 +120,15 @@ JSON
     {
         $this->setRequestMethod('POST');
         $this->setRequestUri('/v3/domains');
-        $this->setRequestBody([
+        $this->setRequestBody(
+            [
             'name' => 'example.com',
             'smtp_password' => 'foo',
             'pool_id' => '123',
             'web_scheme' => 'http',
             'dkim_key_size' => '1024',
-        ]);
+            ]
+        );
         $this->setHydrateClass(CreateResponse::class);
 
         $api = $this->getApiInstance();
@@ -128,13 +139,15 @@ JSON
     {
         $this->setRequestMethod('POST');
         $this->setRequestUri('/v3/domains');
-        $this->setRequestBody([
+        $this->setRequestBody(
+            [
             'name' => 'example.com',
             'smtp_password' => 'foo',
             'spam_action' => 'bar',
             'web_scheme' => 'http',
             'dkim_key_size' => '1024',
-        ]);
+            ]
+        );
         $this->setHydrateClass(CreateResponse::class);
 
         $api = $this->getApiInstance();
@@ -145,14 +158,16 @@ JSON
     {
         $this->setRequestMethod('POST');
         $this->setRequestUri('/v3/domains');
-        $this->setRequestBody([
+        $this->setRequestBody(
+            [
             'name' => 'example.com',
             'smtp_password' => 'foo',
             'spam_action' => 'bar',
             'wildcard' => 'true',
             'web_scheme' => 'http',
             'dkim_key_size' => '1024',
-        ]);
+            ]
+        );
         $this->setHydrateClass(CreateResponse::class);
 
         $api = $this->getApiInstance();
@@ -163,13 +178,15 @@ JSON
     {
         $this->setRequestMethod('POST');
         $this->setRequestUri('/v3/domains');
-        $this->setRequestBody([
+        $this->setRequestBody(
+            [
             'name' => 'example.com',
             'smtp_password' => 'foo',
             'force_dkim_authority' => 'true',
             'web_scheme' => 'http',
             'dkim_key_size' => '1024',
-        ]);
+            ]
+        );
         $this->setHydrateClass(CreateResponse::class);
 
         $api = $this->getApiInstance();
@@ -180,7 +197,8 @@ JSON
     {
         $this->setRequestMethod('POST');
         $this->setRequestUri('/v3/domains');
-        $this->setRequestBody([
+        $this->setRequestBody(
+            [
             'name' => 'example.com',
             'smtp_password' => 'foo',
             'spam_action' => 'bar',
@@ -188,7 +206,8 @@ JSON
             'force_dkim_authority' => 'true',
             'web_scheme' => 'http',
             'dkim_key_size' => '1024',
-        ]);
+            ]
+        );
         $this->setHydrateClass(CreateResponse::class);
 
         $api = $this->getApiInstance();
@@ -209,10 +228,12 @@ JSON
     {
         $this->setRequestMethod('POST');
         $this->setRequestUri('/v3/domains/example.com/credentials');
-        $this->setRequestBody([
+        $this->setRequestBody(
+            [
             'login' => 'foo',
             'password' => 'barbar',
-        ]);
+            ]
+        );
         $this->setHydrateClass(CreateCredentialResponse::class);
 
         $api = $this->getApiInstance();
@@ -223,9 +244,11 @@ JSON
     {
         $this->setRequestMethod('PUT');
         $this->setRequestUri('/v3/domains/example.com/credentials/foo');
-        $this->setRequestBody([
+        $this->setRequestBody(
+            [
             'password' => 'barbar',
-        ]);
+            ]
+        );
         $this->setHydrateClass(UpdateCredentialResponse::class);
 
         $api = $this->getApiInstance();
@@ -256,10 +279,12 @@ JSON
     {
         $this->setRequestMethod('PUT');
         $this->setRequestUri('/v3/domains/example.com/connection');
-        $this->setRequestBody([
+        $this->setRequestBody(
+            [
             'require_tls' => 'true',
             'skip_verification' => 'false',
-        ]);
+            ]
+        );
         $this->setHydrateClass(UpdateConnectionResponse::class);
 
         $api = $this->getApiInstance();
@@ -280,13 +305,15 @@ JSON
     {
         $this->setRequestMethod('POST');
         $this->setRequestUri('/v3/domains');
-        $this->setRequestBody([
+        $this->setRequestBody(
+            [
             'name' => 'example.com',
             'smtp_password' => 'foo',
             'ips' => '127.0.0.1,127.0.0.2',
             'web_scheme' => 'http',
             'dkim_key_size' => '1024',
-        ]);
+            ]
+        );
         $this->setHydrateClass(CreateResponse::class);
 
         $api = $this->getApiInstance();
@@ -297,12 +324,14 @@ JSON
     {
         $this->setRequestMethod('POST');
         $this->setRequestUri('/v3/domains');
-        $this->setRequestBody([
+        $this->setRequestBody(
+            [
             'name' => 'example.com',
             'smtp_password' => 'foo',
             'web_scheme' => 'http',
             'dkim_key_size' => '2048',
-        ]);
+            ]
+        );
         $this->setHydrateClass(CreateResponse::class);
 
         $api = $this->getApiInstance();
@@ -313,12 +342,14 @@ JSON
     {
         $this->setRequestMethod('POST');
         $this->setRequestUri('/v3/domains');
-        $this->setRequestBody([
+        $this->setRequestBody(
+            [
             'name' => 'example.com',
             'smtp_password' => 'foo',
             'web_scheme' => 'https',
             'dkim_key_size' => '1024',
-        ]);
+            ]
+        );
         $this->setHydrateClass(CreateResponse::class);
 
         $api = $this->getApiInstance();
@@ -354,9 +385,11 @@ JSON
     {
         $this->setRequestMethod('PUT');
         $this->setRequestUri('/v3/domains/example.com/tracking/click');
-        $this->setRequestBody([
+        $this->setRequestBody(
+            [
             'active' => $active,
-        ]);
+            ]
+        );
         $this->setHydrateClass(UpdateClickTrackingResponse::class);
 
         /**
@@ -392,9 +425,11 @@ JSON
     {
         $this->setRequestMethod('PUT');
         $this->setRequestUri('/v3/domains/example.com/tracking/open');
-        $this->setRequestBody([
+        $this->setRequestBody(
+            [
             'active' => $active,
-        ]);
+            ]
+        );
         $this->setHydrateClass(UpdateOpenTrackingResponse::class);
 
         /**
@@ -430,11 +465,13 @@ JSON
     {
         $this->setRequestMethod('PUT');
         $this->setRequestUri('/v3/domains/example.com/tracking/unsubscribe');
-        $this->setRequestBody([
+        $this->setRequestBody(
+            [
             'active' => $active,
             'html_footer' => $htmlFooter,
             'text_footer' => $textFooter,
-        ]);
+            ]
+        );
         $this->setHydrateClass(UpdateUnsubscribeTrackingResponse::class);
 
         /**

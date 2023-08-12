@@ -59,12 +59,14 @@ class RouteTest extends TestCase
         $this->setRequestMethod('PUT');
         $this->setRequestUri('/v3/routes/4711');
         $this->setHydrateClass(UpdateResponse::class);
-        $this->setRequestBody([
+        $this->setRequestBody(
+            [
             'expression' => 'catch_all()',
-           'action' => 'forward("mailbox@myapp.com")',
-           'description' => 'example',
-           'priority' => '100',
-        ]);
+            'action' => 'forward("mailbox@myapp.com")',
+            'description' => 'example',
+            'priority' => '100',
+            ]
+        );
 
         $api = $this->getApiInstance();
         $api->update('4711', 'catch_all()', ['forward("mailbox@myapp.com")'], 'example', 100);

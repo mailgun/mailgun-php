@@ -20,7 +20,8 @@
         "nyholm/nsa": "^1.2.1",
         "nyholm/psr7": "^1.3.1",
         "phpunit/phpunit": "^9.3",
-        "symfony/http-client": "^5.3"
+        "symfony/http-client": "^5.3",
+        "squizlabs/php_codesniffer": "^3.7"
     },
     "suggest": {
         "nyholm/psr7": "PSR-7 message implementation",

@@ -19,7 +19,7 @@ class DomainTest extends BaseModelTest
     public function testCreate()
     {
         $json =
-<<<'JSON'
+        <<<'JSON'
 {
     "name": "example.com",
     "created_at": "Fri, 22 Nov 2013 18:42:33 GMT",

@@ -25,9 +25,11 @@ class IpTest extends TestCase
     {
         $this->setRequestMethod('POST');
         $this->setRequestUri('/v3/domains/example.com/ips');
-        $this->setRequestBody([
+        $this->setRequestBody(
+            [
             'ip' => '127.0.0.1',
-        ]);
+            ]
+        );
         $this->setHydrateClass(UpdateResponse::class);
 
         $api = $this->getApiInstance();

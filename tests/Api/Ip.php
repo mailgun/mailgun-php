@@ -26,17 +26,22 @@ class IpTest extends TestCase
     {
         $this->setRequestMethod('GET');
         $this->setRequestUri('/v3/ips');
-        $this->setHttpResponse(new Response(200, ['Content-Type' => 'application/json'], <<<'JSON'
+        $this->setHttpResponse(
+            new Response(
+                200, ['Content-Type' => 'application/json'], <<<'JSON'
 {
   "assignable_to_pools": ["192.168.0.1"],
   "items": ["192.161.0.1", "192.168.0.2"],
   "total_count": 2
 }
 JSON
-        ));
+            )
+        );
 
         $api = $this->getApiInstance();
-        /** @var IndexResponse $response */
+        /**
+ * @var IndexResponse $response 
+*/
         $response = $api->index(null);
         $this->assertInstanceOf(IndexResponse::class, $response);
         $this->assertEquals(2, $response->getTotalCount());
@@ -49,17 +54,22 @@ JSON
     {
         $this->setRequestMethod('GET');
         $this->setRequestUri('/v3/ips?dedicated=1');
-        $this->setHttpResponse(new Response(200, ['Content-Type' => 'application/json'], <<<'JSON'
+        $this->setHttpResponse(
+            new Response(
+                200, ['Content-Type' => 'application/json'], <<<'JSON'
 {
   "assignable_to_pools": ["192.168.0.1"],
   "items": ["192.161.0.1"],
   "total_count": 1
 }
 JSON
-        ));
+            )
+        );
 
         $api = $this->getApiInstance();
-        /** @var IndexResponse $response */
+        /**
+ * @var IndexResponse $response 
+*/
         $response = $api->index(true);
         $this->assertInstanceOf(IndexResponse::class, $response);
         $this->assertEquals(1, $response->getTotalCount());
@@ -71,17 +81,22 @@ JSON
     {
         $this->setRequestMethod('GET');
         $this->setRequestUri('/v3/ips?dedicated=0');
-        $this->setHttpResponse(new Response(200, ['Content-Type' => 'application/json'], <<<'JSON'
+        $this->setHttpResponse(
+            new Response(
+                200, ['Content-Type' => 'application/json'], <<<'JSON'
 {
   "assignable_to_pools": ["192.168.0.1"],
   "items": ["192.168.0.2"],
   "total_count": 1
 }
 JSON
-        ));
+            )
+        );
 
         $api = $this->getApiInstance();
-        /** @var IndexResponse $response */
+        /**
+ * @var IndexResponse $response 
+*/
         $response = $api->index(false);
         $this->assertInstanceOf(IndexResponse::class, $response);
         $this->assertEquals(1, $response->getTotalCount());

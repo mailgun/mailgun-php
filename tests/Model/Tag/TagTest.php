@@ -22,12 +22,14 @@ class TagTest extends BaseModelTest
         $expectedDescription = 'bar';
         $expectedFirstSeen = '2018-12-13T05:00:00Z';
         $expectedLastSeeen = '2018-12-13T12:00:00Z';
-        $tag = TagModel::create([
+        $tag = TagModel::create(
+            [
             'tag' => $expectedTag,
             'description' => $expectedDescription,
             'first-seen' => $expectedFirstSeen,
             'last-seen' => $expectedLastSeeen,
-        ]);
+            ]
+        );
 
         $this->assertInstanceOf(TagModel::class, $tag);
         $this->assertSame($expectedTag, $tag->getTag());

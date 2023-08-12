@@ -19,7 +19,7 @@ class DeleteCredentialResponseTest extends BaseModelTest
     public function testCreate()
     {
         $json =
-<<<'JSON'
+        <<<'JSON'
 {
   "message": "Credentials have been deleted",
   "spec": "alice@samples.mailgun.org"

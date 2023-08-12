@@ -43,7 +43,9 @@ class EmailValidationV4Test extends TestCase
     {
         $this->setRequestMethod('GET');
         $this->setRequestUri('/v4/address/validate?address=email%40example.com&provider_lookup=1');
-        $this->setHttpResponse(new Response(200, ['Content-Type' => 'application/json'], <<<'JSON'
+        $this->setHttpResponse(
+            new Response(
+                200, ['Content-Type' => 'application/json'], <<<'JSON'
 {
     "address": "email@example.com",
     "did_you_mean": "email@domain.com",
@@ -54,7 +56,8 @@ class EmailValidationV4Test extends TestCase
     "risk": "high"
 }
 JSON
-        ));
+            )
+        );
 
         $api = $this->getApiInstance();
 
@@ -78,7 +81,9 @@ JSON
     {
         $this->setRequestMethod('GET');
         $this->setRequestUri('/v4/address/validate?address=email3%40example.com&provider_lookup=0');
-        $this->setHttpResponse(new Response(200, ['Content-Type' => 'application/json'], <<<'JSON'
+        $this->setHttpResponse(
+            new Response(
+                200, ['Content-Type' => 'application/json'], <<<'JSON'
 {
     "address": "email3@example.com",
     "is_disposable_address": false,
@@ -89,7 +94,8 @@ JSON
     "root_address": "email2@example.com"
 }
 JSON
-        ));
+            )
+        );
         $api = $this->getApiInstance();
 
         /**
@@ -112,7 +118,9 @@ JSON
     {
         $this->setRequestMethod('GET');
         $this->setRequestUri('/v4/address/validate/bulk?limit=50');
-        $this->setHttpResponse(new Response(200, ['Content-Type' => 'application/json'], <<<'JSON'
+        $this->setHttpResponse(
+            new Response(
+                200, ['Content-Type' => 'application/json'], <<<'JSON'
 {
     "jobs": [
         {
@@ -177,7 +185,8 @@ JSON
     }
 }
 JSON
-        ));
+            )
+        );
         $api = $this->getApiInstance();
 
         /**
@@ -198,7 +207,9 @@ JSON
     {
         $this->setRequestMethod('GET');
         $this->setRequestUri('/v4/address/validate/bulk/listId123');
-        $this->setHttpResponse(new Response(200, ['Content-Type' => 'application/json'], <<<'JSON'
+        $this->setHttpResponse(
+            new Response(
+                200, ['Content-Type' => 'application/json'], <<<'JSON'
 {
     "created_at": 1590080191,
     "download_url": {
@@ -226,7 +237,8 @@ JSON
     }
 }
 JSON
-        ));
+            )
+        );
         $api = $this->getApiInstance();
 
         /**
@@ -249,12 +261,15 @@ JSON
     {
         $this->setRequestMethod('DELETE');
         $this->setRequestUri('/v4/address/validate/bulk/listId321');
-        $this->setHttpResponse(new Response(200, ['Content-Type' => 'application/json'], <<<'JSON'
+        $this->setHttpResponse(
+            new Response(
+                200, ['Content-Type' => 'application/json'], <<<'JSON'
 {
      "message": "Validation job canceled."
 }
 JSON
-        ));
+            )
+        );
         $api = $this->getApiInstance();
 
         /**
@@ -270,13 +285,16 @@ JSON
     {
         $this->setRequestMethod('POST');
         $this->setRequestUri('/v4/address/validate/bulk/listId1');
-        $this->setHttpResponse(new Response(200, ['Content-Type' => 'application/json'], <<<'JSON'
+        $this->setHttpResponse(
+            new Response(
+                200, ['Content-Type' => 'application/json'], <<<'JSON'
 {
     "id":"listId1",
     "message": "The validation job was submitted."
 }
 JSON
-        ));
+            )
+        );
         $api = $this->getApiInstance();
 
         /**
@@ -293,7 +311,9 @@ JSON
     {
         $this->setRequestMethod('GET');
         $this->setRequestUri('/v4/address/validate/preview?limit=50');
-        $this->setHttpResponse(new Response(200, ['Content-Type' => 'application/json'], <<<'JSON'
+        $this->setHttpResponse(
+            new Response(
+                200, ['Content-Type' => 'application/json'], <<<'JSON'
 {
   "previews": [
     {
@@ -343,7 +363,8 @@ JSON
   ]
 }
 JSON
-        ));
+            )
+        );
         $api = $this->getApiInstance();
 
         /**
@@ -360,7 +381,9 @@ JSON
     {
         $this->setRequestMethod('GET');
         $this->setRequestUri('/v4/address/validate/preview/test_500');
-        $this->setHttpResponse(new Response(200, ['Content-Type' => 'application/json'], <<<'JSON'
+        $this->setHttpResponse(
+            new Response(
+                200, ['Content-Type' => 'application/json'], <<<'JSON'
 {
   "preview": {
     "id": "test_500",
@@ -385,7 +408,8 @@ JSON
   }
 }
 JSON
-        ));
+            )
+        );
         $api = $this->getApiInstance();
 
         /**
@@ -416,12 +440,15 @@ JSON
     {
         $this->setRequestMethod('PUT');
         $this->setRequestUri('/v4/address/validate/preview/previewId2');
-        $this->setHttpResponse(new Response(200, ['Content-Type' => 'application/json'], <<<'JSON'
+        $this->setHttpResponse(
+            new Response(
+                200, ['Content-Type' => 'application/json'], <<<'JSON'
 {
      "message": "Validation preview promoted."
 }
 JSON
-        ));
+            )
+        );
         $api = $this->getApiInstance();
 
         /**
@@ -436,13 +463,16 @@ JSON
     {
         $this->setRequestMethod('POST');
         $this->setRequestUri('/v4/address/validate/preview/preview3');
-        $this->setHttpResponse(new Response(200, ['Content-Type' => 'application/json'], <<<'JSON'
+        $this->setHttpResponse(
+            new Response(
+                200, ['Content-Type' => 'application/json'], <<<'JSON'
 {
     "id":"preview3",
     "message": "The bulk preview was submitted."
 }
 JSON
-        ));
+            )
+        );
         $api = $this->getApiInstance();
 
         /**

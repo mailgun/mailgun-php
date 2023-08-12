@@ -19,7 +19,7 @@ class ShowResponseTest extends BaseModelTest
     public function testCreate()
     {
         $json =
-<<<'JSON'
+        <<<'JSON'
 {
   "ip": "192.161.0.1",
   "dedicated": true,

@@ -29,7 +29,7 @@ trait Pagination
     abstract protected function hydrateResponse(ResponseInterface $response, string $className);
 
     /**
-     * @param  PagingProvider           $response
+     * @param  PagingProvider $response
      * @return PagingProvider|null
      * @throws ClientExceptionInterface
      */
@@ -39,7 +39,7 @@ trait Pagination
     }
 
     /**
-     * @param  PagingProvider           $response
+     * @param  PagingProvider $response
      * @return PagingProvider|null
      * @throws ClientExceptionInterface
      */
@@ -49,7 +49,7 @@ trait Pagination
     }
 
     /**
-     * @param  PagingProvider      $response
+     * @param  PagingProvider $response
      * @return PagingProvider|null
      */
     public function firstPage(PagingProvider $response): ?PagingProvider
@@ -58,7 +58,7 @@ trait Pagination
     }
 
     /**
-     * @param  PagingProvider           $response
+     * @param  PagingProvider $response
      * @return PagingProvider|null
      * @throws ClientExceptionInterface
      */
@@ -68,8 +68,8 @@ trait Pagination
     }
 
     /**
-     * @param  string                   $url
-     * @param  class-string             $class
+     * @param  string       $url
+     * @param  class-string $class
      * @return PagingProvider|null
      * @throws ClientExceptionInterface
      */

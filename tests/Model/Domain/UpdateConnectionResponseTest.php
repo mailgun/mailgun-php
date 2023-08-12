@@ -19,7 +19,7 @@ class UpdateConnectionResponseTest extends BaseModelTest
     public function testCreate()
     {
         $json =
-<<<'JSON'
+        <<<'JSON'
 {
   "message": "Domain connection settings have been updated, may take 10 minutes to fully propagate",
   "require-tls": true,

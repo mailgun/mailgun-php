@@ -20,7 +20,7 @@ class UpdateResponseTest extends BaseModelTest
     public function testCreate()
     {
         $json =
-<<<'JSON'
+        <<<'JSON'
 {
   "message": "Mailing list has been updated",
   "list": {
