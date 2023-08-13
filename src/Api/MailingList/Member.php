@@ -83,12 +83,12 @@ class Member extends HttpApi
     /**
      * Creates (or updates) a member of the mailing list.
      *
-     * @param  string      $list       Address of the mailing list
-     * @param  string      $address    Address for the member
-     * @param  string|null $name       Name for the member (optional)
-     * @param  array       $vars       Array of field => value pairs to store additional data
-     * @param  bool        $subscribed `true` to add as subscribed (default), `false` as unsubscribed
-     * @param  bool        $upsert     `true` to update member if present, `false` to raise error in case of a duplicate member (default)
+     * @param  string         $list       Address of the mailing list
+     * @param  string         $address    Address for the member
+     * @param  string|null    $name       Name for the member (optional)
+     * @param  array          $vars       Array of field => value pairs to store additional data
+     * @param  bool           $subscribed `true` to add as subscribed (default), `false` as unsubscribed
+     * @param  bool           $upsert     `true` to update member if present, `false` to raise error in case of a duplicate member (default)
      * @return CreateResponse
      */
     public function create(string $list, string $address, string $name = null, array $vars = [], bool $subscribed = true, bool $upsert = false)
@@ -145,24 +145,24 @@ class Member extends HttpApi
 
             foreach ($data as $field => &$value) {
                 switch ($field) {
-                case 'address':
-                    Assert::stringNotEmpty($value);
+                    case 'address':
+                        Assert::stringNotEmpty($value);
 
-                    break;
-                case 'vars':
-                    if (is_array($value)) {
-                        $value = json_encode($value);
-                    }
-                    // We should assert that "vars"'s $value is a string.
-                    // no break
-                case 'name':
-                    Assert::string($value);
+                        break;
+                    case 'vars':
+                        if (is_array($value)) {
+                            $value = json_encode($value);
+                        }
+                        // We should assert that "vars"'s $value is a string.
+                        // no break
+                    case 'name':
+                        Assert::string($value);
 
-                    break;
-                case 'subscribed':
-                    Assert::oneOf($value, ['yes', 'no', true, false]);
+                        break;
+                    case 'subscribed':
+                        Assert::oneOf($value, ['yes', 'no', true, false]);
 
-                    break;
+                        break;
                 }
             }
         }
@@ -196,24 +196,24 @@ class Member extends HttpApi
 
         foreach ($parameters as $field => &$value) {
             switch ($field) {
-            case 'vars':
-                if (is_array($value)) {
-                    $value = json_encode($value);
-                }
-                // We should assert that "vars"'s $value is a string.
-                // no break
-            case 'address':
-                Assert::stringNotEmpty($value);
+                case 'vars':
+                    if (is_array($value)) {
+                        $value = json_encode($value);
+                    }
+                    // We should assert that "vars"'s $value is a string.
+                    // no break
+                case 'address':
+                    Assert::stringNotEmpty($value);
 
-                break;
-            case 'name':
-                Assert::nullOrStringNotEmpty($value);
+                    break;
+                case 'name':
+                    Assert::nullOrStringNotEmpty($value);
 
-                break;
-            case 'subscribed':
-                Assert::oneOf($value, ['yes', 'no']);
+                    break;
+                case 'subscribed':
+                    Assert::oneOf($value, ['yes', 'no']);
 
-                break;
+                    break;
             }
         }
 

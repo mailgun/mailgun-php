@@ -147,10 +147,10 @@ class RequestBuilder
     }
 
     /**
-     * @param  string          $method
-     * @param  string          $uri
-     * @param  array           $headers
-     * @param  StreamInterface $stream
+     * @param  string           $method
+     * @param  string           $uri
+     * @param  array            $headers
+     * @param  StreamInterface  $stream
      * @return RequestInterface
      */
     private function createRequest(string $method, string $uri, array $headers, StreamInterface $stream): RequestInterface
@@ -165,8 +165,8 @@ class RequestBuilder
     }
 
     /**
-     * @param  array  $item
-     * @param  string $key
+     * @param  array        $item
+     * @param  string       $key
      * @return mixed|string
      */
     private function getItemValue(array $item, string $key)

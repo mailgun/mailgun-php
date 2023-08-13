@@ -74,7 +74,7 @@ class Webhook extends HttpApi
     }
 
     /**
-     * @param  string $domain
+     * @param  string                          $domain
      * @return IndexResponse|ResponseInterface
      * @throws ClientExceptionInterface
      */
@@ -87,8 +87,8 @@ class Webhook extends HttpApi
     }
 
     /**
-     * @param  string $domain
-     * @param  string $webhook
+     * @param  string                         $domain
+     * @param  string                         $webhook
      * @return ShowResponse|ResponseInterface
      * @throws ClientExceptionInterface
      */
@@ -102,9 +102,9 @@ class Webhook extends HttpApi
     }
 
     /**
-     * @param  string $domain
-     * @param  string $id
-     * @param  array  $url
+     * @param  string                           $domain
+     * @param  string                           $id
+     * @param  array                            $url
      * @return CreateResponse|ResponseInterface
      * @throws ClientExceptionInterface
      */
@@ -125,9 +125,9 @@ class Webhook extends HttpApi
     }
 
     /**
-     * @param  string $domain
-     * @param  string $id
-     * @param  array  $url
+     * @param  string                           $domain
+     * @param  string                           $id
+     * @param  array                            $url
      * @return UpdateResponse|ResponseInterface
      * @throws ClientExceptionInterface
      */
@@ -147,8 +147,8 @@ class Webhook extends HttpApi
     }
 
     /**
-     * @param  string $domain
-     * @param  string $id
+     * @param  string                           $domain
+     * @param  string                           $id
      * @return DeleteResponse|ResponseInterface
      * @throws ClientExceptionInterface
      */

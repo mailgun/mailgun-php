@@ -88,35 +88,35 @@ abstract class HttpApi
     {
         $statusCode = $response->getStatusCode();
         switch ($statusCode) {
-        case 400:
-            throw HttpClientException::badRequest($response);
-        case 401:
-            throw HttpClientException::unauthorized($response);
-        case 402:
-            throw HttpClientException::requestFailed($response);
-        case 403:
-            throw HttpClientException::forbidden($response);
-        case 404:
-            throw HttpClientException::notFound($response);
-        case 409:
-            throw HttpClientException::conflict($response);
-        case 413:
-            throw HttpClientException::payloadTooLarge($response);
-        case 429:
-            throw HttpClientException::tooManyRequests($response);
-        case 500 <= $statusCode:
-            throw HttpServerException::serverError($statusCode);
-        default:
-            throw new UnknownErrorException();
+            case 400:
+                throw HttpClientException::badRequest($response);
+            case 401:
+                throw HttpClientException::unauthorized($response);
+            case 402:
+                throw HttpClientException::requestFailed($response);
+            case 403:
+                throw HttpClientException::forbidden($response);
+            case 404:
+                throw HttpClientException::notFound($response);
+            case 409:
+                throw HttpClientException::conflict($response);
+            case 413:
+                throw HttpClientException::payloadTooLarge($response);
+            case 429:
+                throw HttpClientException::tooManyRequests($response);
+            case 500 <= $statusCode:
+                throw HttpServerException::serverError($statusCode);
+            default:
+                throw new UnknownErrorException();
         }
     }
 
     /**
      * Send a GET request with query parameters.
      *
-     * @param  string $path           Request path
-     * @param  array  $parameters     GET parameters
-     * @param  array  $requestHeaders Request Headers
+     * @param  string                   $path           Request path
+     * @param  array                    $parameters     GET parameters
+     * @param  array                    $requestHeaders Request Headers
      * @throws ClientExceptionInterface
      */
     protected function httpGet(string $path, array $parameters = [], array $requestHeaders = []): ResponseInterface
@@ -139,9 +139,9 @@ abstract class HttpApi
     /**
      * Send a POST request with parameters.
      *
-     * @param  string $path           Request path
-     * @param  array  $parameters     POST parameters
-     * @param  array  $requestHeaders Request headers
+     * @param  string                   $path           Request path
+     * @param  array                    $parameters     POST parameters
+     * @param  array                    $requestHeaders Request headers
      * @throws ClientExceptionInterface
      */
     protected function httpPost(string $path, array $parameters = [], array $requestHeaders = []): ResponseInterface
@@ -152,9 +152,9 @@ abstract class HttpApi
     /**
      * Send a POST request with raw data.
      *
-     * @param  string       $path           Request path
-     * @param  array|string $body           Request body
-     * @param  array        $requestHeaders Request headers
+     * @param  string                   $path           Request path
+     * @param  array|string             $body           Request body
+     * @param  array                    $requestHeaders Request headers
      * @throws ClientExceptionInterface
      */
     protected function httpPostRaw(string $path, $body, array $requestHeaders = []): ResponseInterface
@@ -173,9 +173,9 @@ abstract class HttpApi
     /**
      * Send a PUT request.
      *
-     * @param  string $path           Request path
-     * @param  array  $parameters     PUT parameters
-     * @param  array  $requestHeaders Request headers
+     * @param  string                   $path           Request path
+     * @param  array                    $parameters     PUT parameters
+     * @param  array                    $requestHeaders Request headers
      * @throws ClientExceptionInterface
      */
     protected function httpPut(string $path, array $parameters = [], array $requestHeaders = []): ResponseInterface
@@ -194,9 +194,9 @@ abstract class HttpApi
     /**
      * Send a DELETE request.
      *
-     * @param  string $path           Request path
-     * @param  array  $parameters     DELETE parameters
-     * @param  array  $requestHeaders Request headers
+     * @param  string                   $path           Request path
+     * @param  array                    $parameters     DELETE parameters
+     * @param  array                    $requestHeaders Request headers
      * @throws ClientExceptionInterface
      */
     protected function httpDelete(string $path, array $parameters = [], array $requestHeaders = []): ResponseInterface

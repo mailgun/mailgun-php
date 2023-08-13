@@ -40,8 +40,8 @@ JSON
 
         $api = $this->getApiInstance();
         /**
- * @var IndexResponse $response 
-*/
+         * @var IndexResponse $response
+         */
         $response = $api->index(null);
         $this->assertInstanceOf(IndexResponse::class, $response);
         $this->assertEquals(2, $response->getTotalCount());
@@ -68,8 +68,8 @@ JSON
 
         $api = $this->getApiInstance();
         /**
- * @var IndexResponse $response 
-*/
+         * @var IndexResponse $response
+         */
         $response = $api->index(true);
         $this->assertInstanceOf(IndexResponse::class, $response);
         $this->assertEquals(1, $response->getTotalCount());
@@ -95,8 +95,8 @@ JSON
 
         $api = $this->getApiInstance();
         /**
- * @var IndexResponse $response 
-*/
+         * @var IndexResponse $response
+         */
         $response = $api->index(false);
         $this->assertInstanceOf(IndexResponse::class, $response);
         $this->assertEquals(1, $response->getTotalCount());

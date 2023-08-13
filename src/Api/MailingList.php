@@ -40,7 +40,7 @@ class MailingList extends HttpApi
     /**
      * Returns a paginated list of mailing lists on the domain.
      *
-     * @param  int $limit Maximum number of records to return (optional: 100 by default)
+     * @param  int                                $limit Maximum number of records to return (optional: 100 by default)
      * @return PagesResponse
      * @throws Exception|ClientExceptionInterface
      */
@@ -60,11 +60,11 @@ class MailingList extends HttpApi
     /**
      * Creates a new mailing list on the current domain.
      *
-     * @param  string      $address         Address for the new mailing list
-     * @param  string|null $name            Name for the new mailing list (optional)
-     * @param  string|null $description     Description for the new mailing list (optional)
-     * @param  string      $accessLevel     List access level, one of: readonly (default), members, everyone
-     * @param  string      $replyPreference Set where replies should go: list (default) | sender (optional)
+     * @param  string                             $address         Address for the new mailing list
+     * @param  string|null                        $name            Name for the new mailing list (optional)
+     * @param  string|null                        $description     Description for the new mailing list (optional)
+     * @param  string                             $accessLevel     List access level, one of: readonly (default), members, everyone
+     * @param  string                             $replyPreference Set where replies should go: list (default) | sender (optional)
      * @return CreateResponse
      * @throws Exception|ClientExceptionInterface
      */
@@ -92,7 +92,7 @@ class MailingList extends HttpApi
     /**
      * Returns a single mailing list.
      *
-     * @param  string $address Address of the mailing list
+     * @param  string                             $address Address of the mailing list
      * @return ShowResponse
      * @throws Exception|ClientExceptionInterface
      */
@@ -108,8 +108,8 @@ class MailingList extends HttpApi
     /**
      * Updates a mailing list.
      *
-     * @param  string $address    Address of the mailing list
-     * @param  array  $parameters Array of field => value pairs to update
+     * @param  string                             $address    Address of the mailing list
+     * @param  array                              $parameters Array of field => value pairs to update
      * @return UpdateResponse
      * @throws Exception|ClientExceptionInterface
      */
@@ -120,16 +120,16 @@ class MailingList extends HttpApi
 
         foreach ($parameters as $field => $value) {
             switch ($field) {
-            case 'address':
-            case 'name':
-            case 'description':
-                Assert::stringNotEmpty($value);
+                case 'address':
+                case 'name':
+                case 'description':
+                    Assert::stringNotEmpty($value);
 
-                break;
-            case 'access_level':
-                Assert::oneOf($value, ['readonly', 'members', 'everyone']);
+                    break;
+                case 'access_level':
+                    Assert::oneOf($value, ['readonly', 'members', 'everyone']);
 
-                break;
+                    break;
             }
         }
 
@@ -141,7 +141,7 @@ class MailingList extends HttpApi
     /**
      * Removes a mailing list from the domain.
      *
-     * @param  string $address Address of the mailing list
+     * @param  string                             $address Address of the mailing list
      * @return DeleteResponse
      * @throws Exception|ClientExceptionInterface
      */
@@ -157,7 +157,7 @@ class MailingList extends HttpApi
     /**
      * Validates mailing list.
      *
-     * @param  string $address Address of the mailing list
+     * @param  string                             $address Address of the mailing list
      * @return ValidateResponse
      * @throws Exception|ClientExceptionInterface
      */
@@ -173,7 +173,7 @@ class MailingList extends HttpApi
     /**
      * Get mailing list validation status.
      *
-     * @param  string $address Address of the mailing list
+     * @param  string                             $address Address of the mailing list
      * @return ValidationStatusResponse
      * @throws Exception|ClientExceptionInterface
      */
@@ -189,7 +189,7 @@ class MailingList extends HttpApi
     /**
      * Cancel mailing list validation.
      *
-     * @param  string $address Address of the mailing list
+     * @param  string                             $address Address of the mailing list
      * @return ValidationCancelResponse
      * @throws Exception|ClientExceptionInterface
      */
