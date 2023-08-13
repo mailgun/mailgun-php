@@ -47,10 +47,12 @@ class BounceTest extends TestCase
         $this->setRequestMethod('POST');
         $this->setRequestUri('/v3/example.com/bounces');
         $this->setHydrateClass(CreateResponse::class);
-        $this->setRequestBody([
+        $this->setRequestBody(
+            [
             'address' => 'foo@bar.com',
             'foo' => 'xxx',
-        ]);
+            ]
+        );
 
         $api = $this->getApiInstance();
         $api->create('example.com', 'foo@bar.com', ['foo' => 'xxx']);

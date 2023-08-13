@@ -27,7 +27,9 @@ class EventTest extends TestCase
     {
         $this->setRequestMethod('GET');
         $this->setRequestUri('/v3/example.com/events');
-        $this->setHttpResponse(new Response(200, ['Content-Type' => 'application/json'], <<<'JSON'
+        $this->setHttpResponse(
+            new Response(
+                200, ['Content-Type' => 'application/json'], <<<'JSON'
 {
   "items": [
     {
@@ -72,7 +74,8 @@ class EventTest extends TestCase
   }
 }
 JSON
-        ));
+            )
+        );
 
         $api = $this->getApiInstance();
         $event = $api->get('example.com');

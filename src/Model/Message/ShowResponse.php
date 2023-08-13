@@ -149,6 +149,7 @@ final class ShowResponse implements ApiResponse
 
     /**
      * Only available with message/rfc2822.
+     *
      * @return StreamInterface|null
      */
     public function getRawStream(): ?StreamInterface

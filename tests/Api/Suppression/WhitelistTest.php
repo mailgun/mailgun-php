@@ -49,9 +49,11 @@ class WhitelistTest extends TestCase
         $this->setRequestMethod('POST');
         $this->setRequestUri('/v3/example.com/whitelists');
         $this->setHydrateClass(CreateResponse::class);
-        $this->setRequestBody([
+        $this->setRequestBody(
+            [
             'address' => 'foo@bar.com',
-        ]);
+            ]
+        );
 
         $api = $this->getApiInstance();
         $api->create('example.com', 'foo@bar.com');
@@ -62,9 +64,11 @@ class WhitelistTest extends TestCase
         $this->setRequestMethod('POST');
         $this->setRequestUri('/v3/example.com/whitelists');
         $this->setHydrateClass(CreateResponse::class);
-        $this->setRequestBody([
+        $this->setRequestBody(
+            [
             'domain' => 'foobar.com',
-        ]);
+            ]
+        );
 
         $api = $this->getApiInstance();
         $api->create('example.com', 'foobar.com');
@@ -83,12 +87,16 @@ class WhitelistTest extends TestCase
         $this->setRequestMethod('POST');
         $this->setRequestUri('/v3/example.com/whitelists/import');
         $this->setHydrateClass(ImportResponse::class);
-        $this->setRequestBody([
+        $this->setRequestBody(
+            [
             'file' => 'resource',
-        ]);
-        $this->setRequestHeaders([
+            ]
+        );
+        $this->setRequestHeaders(
+            [
             'filename' => basename(__FILE__),
-        ]);
+            ]
+        );
 
         $api = $this->getApiInstance();
         $api->import('example.com', __FILE__);

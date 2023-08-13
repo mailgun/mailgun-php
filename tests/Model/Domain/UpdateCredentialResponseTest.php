@@ -19,7 +19,7 @@ class UpdateCredentialResponseTest extends BaseModelTest
     public function testCreate()
     {
         $json =
-<<<'JSON'
+        <<<'JSON'
 {
   "message": "Password changed"
 }

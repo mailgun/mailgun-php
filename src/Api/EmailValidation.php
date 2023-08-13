@@ -30,6 +30,7 @@ class EmailValidation extends HttpApi
     /**
      * Addresses are validated based off defined checks.
      * This operation is only accessible with the private API key and not subject to the daily usage limits.
+     *
      * @param  string                              $address             An email address to validate. Maximum: 512 characters.
      * @param  bool                                $mailboxVerification If set to true, a mailbox verification check will be performed
      *                                                                  against the address. The default is False.

@@ -19,7 +19,7 @@ class DeleteResponseTest extends BaseModelTest
     public function testCreate()
     {
         $json =
-<<<'JSON'
+        <<<'JSON'
 {
   "message": "Mailing list has been deleted",
   "address": "dev@samples.mailgun.org"

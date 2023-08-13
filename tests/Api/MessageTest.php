@@ -26,16 +26,19 @@ class MessageTest extends TestCase
         $this->setRequestMethod('POST');
         $this->setRequestUri('/v3/example.com/messages');
         $this->setHydrateClass(SendResponse::class);
-        $this->setRequestBody([
+        $this->setRequestBody(
+            [
             'from' => 'bob@example.com',
             'to' => 'sally@example.com',
             'subject' => 'Test file path attachments',
             'text' => 'Test',
             'attachment' => 'resource',
-        ]);
+            ]
+        );
 
         $api = $this->getApiInstance();
-        $api->send('example.com', [
+        $api->send(
+            'example.com', [
             'from' => 'bob@example.com',
             'to' => 'sally@example.com',
             'subject' => 'Test file path attachments',
@@ -43,7 +46,8 @@ class MessageTest extends TestCase
             'attachment' => [
                 ['filePath' => __DIR__.'/../TestAssets/mailgun_icon1.png', 'filename' => 'mailgun_icon1.png'],
             ],
-        ]);
+            ]
+        );
     }
 
     public function testSendMime()
@@ -51,40 +55,44 @@ class MessageTest extends TestCase
         $api = $this->getApiMock();
         $api->expects($this->once())
             ->method('httpPostRaw')
-            ->with('/v3/foo/messages.mime',
-                $this->callback(function ($multipartBody) {
-                    $parameters = ['o:Foo' => 'bar', 'to' => 'mailbox@myapp.com'];
+            ->with(
+                '/v3/foo/messages.mime',
+                $this->callback(
+                    function ($multipartBody) {
+                        $parameters = ['o:Foo' => 'bar', 'to' => 'mailbox@myapp.com'];
 
-                    // Verify all parameters
-                    foreach ($parameters as $name => $content) {
+                        // Verify all parameters
+                        foreach ($parameters as $name => $content) {
+                            $found = false;
+                            foreach ($multipartBody as $body) {
+                                if ($body['name'] === $name && $body['content'] === $content) {
+                                    $found = true;
+                                }
+                            }
+                            if (!$found) {
+                                return false;
+                            }
+                        }
+
                         $found = false;
                         foreach ($multipartBody as $body) {
-                            if ($body['name'] === $name && $body['content'] === $content) {
+                            if ('message' === $body['name']) {
+                                // Make sure message exists.
                                 $found = true;
+                                // Make sure content is what we expect
+                                if (!isset($body['content'])) {
+                                    return false;
+                                }
                             }
                         }
                         if (!$found) {
                             return false;
                         }
-                    }
 
-                    $found = false;
-                    foreach ($multipartBody as $body) {
-                        if ('message' === $body['name']) {
-                            // Make sure message exists.
-                            $found = true;
-                            // Make sure content is what we expect
-                            if (!isset($body['content'])) {
-                                return false;
-                            }
-                        }
+                        return true;
                     }
-                    if (!$found) {
-                        return false;
-                    }
-
-                    return true;
-                }))
+                )
+            )
             ->willReturn(new Response());
 
         $api->sendMime('foo', ['mailbox@myapp.com'], 'mime message', ['o:Foo' => 'bar']);
@@ -104,9 +112,11 @@ class MessageTest extends TestCase
     {
         $this->setRequestMethod('GET');
         $this->setRequestUri('url');
-        $this->setRequestHeaders([
+        $this->setRequestHeaders(
+            [
             'Accept' => 'message/rfc2822',
-        ]);
+            ]
+        );
         $this->setHydrateClass(ShowResponse::class);
 
         $api = $this->getApiInstance();

@@ -76,9 +76,12 @@ class MessageBuilder
 
     /**
      * @param  array  $params {
-     *                        full_name?: string,
-     *                        first?: string,
-     *                        last?: string,
+     *                        full_name?:
+     *                        string,
+     *                        first?:
+     *                        string,
+     *                        last?:
+     *                        string,
      *                        }
      * @return string
      */
@@ -114,9 +117,12 @@ class MessageBuilder
      * @param  string         $headerName
      * @param  string         $address
      * @param  array          $variables  {
-     *                                    full_name?: string,
-     *                                    first?: string,
-     *                                    last?: string,
+     *                                    full_name?:
+     *                                    string,
+     *                                    first?:
+     *                                    string,
+     *                                    last?:
+     *                                    string,
      *                                    }
      * @return MessageBuilder
      */

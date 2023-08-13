@@ -19,7 +19,7 @@ class CountryResponseTest extends BaseModelTest
     public function testCreate()
     {
         $json =
-<<<'JSON'
+        <<<'JSON'
 {
   "countries": {
       "ad": {

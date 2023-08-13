@@ -19,7 +19,7 @@ class VerifyResponseTest extends BaseModelTest
     public function testCreate()
     {
         $json =
-<<<'JSON'
+        <<<'JSON'
 {
   "domain": {
     "created_at": "Wed, 10 Jul 2013 19:26:52 GMT",

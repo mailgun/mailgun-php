@@ -19,7 +19,7 @@ class IndexResponseTest extends BaseModelTest
     public function testCreate()
     {
         $json =
-<<<'JSON'
+        <<<'JSON'
 {
   "total_count": 266,
   "items": [

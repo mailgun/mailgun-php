@@ -18,7 +18,7 @@ use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\ResponseInterface;
 
 /**
- * @see    https://documentation.mailgun.com/api-domains.html
+ * @see https://documentation.mailgun.com/api-domains.html
  *
  * @author Sean Johnson <sean@mailgun.com>
  */

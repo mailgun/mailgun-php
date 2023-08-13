@@ -19,6 +19,7 @@ use Mailgun\Model\Message\SendResponse;
 use Mailgun\Model\Message\ShowResponse;
 use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Message\ResponseInterface;
+use RuntimeException;
 
 /**
  * @see https://documentation.mailgun.com/en/latest/api-sending.html
@@ -65,8 +66,13 @@ class Message extends HttpApi
         }
 
         $postDataMultipart = array_merge($this->prepareMultipartParameters($params), $postDataMultipart);
-        $response = $this->httpPostRaw(sprintf('/v3/%s/messages', $domain), $postDataMultipart);
-        $this->closeResources($postDataMultipart);
+        try {
+            $response = $this->httpPostRaw(sprintf('/v3/%s/messages', $domain), $postDataMultipart);
+        } catch (Exception $exception) {
+            throw new RuntimeException($exception->getMessage());
+        } finally {
+            $this->closeResources($postDataMultipart);
+        }
 
         return $this->hydrateResponse($response, SendResponse::class);
     }
@@ -101,8 +107,13 @@ class Message extends HttpApi
             ];
         }
         $postDataMultipart[] = $this->prepareFile('message', $fileData);
-        $response = $this->httpPostRaw(sprintf('/v3/%s/messages.mime', $domain), $postDataMultipart);
-        $this->closeResources($postDataMultipart);
+        try {
+            $response = $this->httpPostRaw(sprintf('/v3/%s/messages.mime', $domain), $postDataMultipart);
+        } catch (Exception $exception) {
+            throw new RuntimeException($exception->getMessage());
+        } finally {
+            $this->closeResources($postDataMultipart);
+        }
 
         return $this->hydrateResponse($response, SendResponse::class);
     }

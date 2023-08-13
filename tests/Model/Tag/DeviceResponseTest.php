@@ -19,7 +19,7 @@ class DeviceResponseTest extends BaseModelTest
     public function testCreate()
     {
         $json =
-<<<'JSON'
+        <<<'JSON'
 {
   "devices": {
       "desktop": {

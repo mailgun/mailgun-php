@@ -28,6 +28,7 @@ class Route extends HttpApi
 {
     /**
      * Fetches the list of Routes.
+     *
      * @param  int                      $limit Maximum number of records to return. (100 by default)
      * @param  int                      $skip  Number of records to skip. (0 by default)
      * @return IndexResponse
@@ -51,6 +52,7 @@ class Route extends HttpApi
 
     /**
      * Returns a single Route object based on its ID.
+     *
      * @param  string                   $routeId Route ID returned by the Routes::index() method
      * @return ShowResponse
      * @throws ClientExceptionInterface
@@ -66,6 +68,7 @@ class Route extends HttpApi
 
     /**
      * Creates a new Route.
+     *
      * @param  string                   $expression  A filter expression like "match_recipient('.*@gmail.com')"
      * @param  array                    $actions     Route action. This action is executed when the expression evaluates to True. Example: "forward('alice@example.com')"
      * @param  string                   $description An arbitrary string
@@ -92,6 +95,7 @@ class Route extends HttpApi
     /**
      * Updates a given Route by ID. All parameters are optional.
      * This API call only updates the specified fields leaving others unchanged.
+     *
      * @param  string                   $routeId     Route ID returned by the Routes::index() method
      * @param  string|null              $expression  A filter expression like "match_recipient('.*@gmail.com')"
      * @param  array                    $actions     Route action. This action is executed when the expression evaluates to True. Example: "forward('alice@example.com')"
@@ -136,6 +140,7 @@ class Route extends HttpApi
 
     /**
      * Deletes a Route based on the ID.
+     *
      * @param  string                   $routeId Route ID returned by the Routes::index() method
      * @return DeleteResponse
      * @throws ClientExceptionInterface

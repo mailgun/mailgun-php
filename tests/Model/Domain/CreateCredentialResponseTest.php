@@ -19,7 +19,7 @@ class CreateCredentialResponseTest extends BaseModelTest
     public function testCreate()
     {
         $json =
-<<<'JSON'
+        <<<'JSON'
 {
   "message": "Created 1 credentials pair(s)"
 }

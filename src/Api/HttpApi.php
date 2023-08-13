@@ -138,6 +138,7 @@ abstract class HttpApi
 
     /**
      * Send a POST request with parameters.
+     *
      * @param  string                   $path           Request path
      * @param  array                    $parameters     POST parameters
      * @param  array                    $requestHeaders Request headers

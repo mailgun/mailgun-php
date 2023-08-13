@@ -82,6 +82,7 @@ class Member extends HttpApi
 
     /**
      * Creates (or updates) a member of the mailing list.
+     *
      * @param  string         $list       Address of the mailing list
      * @param  string         $address    Address for the member
      * @param  string|null    $name       Name for the member (optional)

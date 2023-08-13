@@ -19,7 +19,7 @@ class IndexResponseTest extends BaseModelTest
     public function testCreate()
     {
         $json =
-<<<'JSON'
+        <<<'JSON'
 {
   "assignable_to_pools": ["192.161.0.1"],
   "items": ["192.161.0.1", "192.168.0.2"],
@@ -36,7 +36,7 @@ JSON;
     public function testCreateWithAssignableToPools()
     {
         $json =
-<<<'JSON'
+        <<<'JSON'
 {
   "assignable_to_pools": ["192.161.0.1"],
   "items": ["192.161.0.1", "192.168.0.2"],

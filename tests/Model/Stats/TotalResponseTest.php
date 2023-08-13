@@ -19,7 +19,7 @@ class TotalResponseTest extends BaseModelTest
     public function testCreate()
     {
         $json =
-<<<'JSON'
+        <<<'JSON'
 {
   "end": "Fri, 01 Apr 2012 00:00:00 UTC",
   "resolution": "month",

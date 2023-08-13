@@ -20,7 +20,7 @@ class DeleteResponseTest extends BaseModelTest
     public function testCreate()
     {
         $json =
-<<<'JSON'
+        <<<'JSON'
 {
   "member": {
       "address": "bar@example.com"

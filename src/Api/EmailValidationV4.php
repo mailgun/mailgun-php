@@ -24,6 +24,7 @@ use Mailgun\Model\EmailValidationV4\PromoteBulkPreviewResponse;
 use Mailgun\Model\EmailValidationV4\ValidateResponse;
 use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Message\ResponseInterface;
+use RuntimeException;
 
 /**
  * @see https://documentation.mailgun.com/en/latest/api-email-validation.html
@@ -32,8 +33,10 @@ class EmailValidationV4 extends HttpApi
 {
     /**
      * Addresses are validated based off defined checks.
+     *
      * @param  string                             $address        An email address to validate. Maximum: 512 characters.
-     * @param  bool                               $providerLookup A provider lookup will be performed if Mailgun’s internal analysis is insufficient
+     * @param  bool                               $providerLookup A provider lookup will be performed if Mailgun’s internal analysis is
+     *                                                            insufficient
      * @return ValidateResponse|ResponseInterface
      * @throws Exception|ClientExceptionInterface Thrown when we don't catch a Client or Server side Exception
      */
@@ -73,8 +76,13 @@ class EmailValidationV4 extends HttpApi
         $postDataMultipart = [];
         $postDataMultipart[] = $this->prepareFile('file', $fileData);
 
-        $response = $this->httpPostRaw(sprintf('/v4/address/validate/bulk/%s', $listId), $postDataMultipart);
-        $this->closeResources($postDataMultipart);
+        try {
+            $response = $this->httpPostRaw(sprintf('/v4/address/validate/bulk/%s', $listId), $postDataMultipart);
+        } catch (Exception $exception) {
+            throw new RuntimeException($exception->getMessage());
+        } finally {
+            $this->closeResources($postDataMultipart);
+        }
 
         return $this->hydrateResponse($response, CreateBulkJobResponse::class);
     }
@@ -118,9 +126,11 @@ class EmailValidationV4 extends HttpApi
     {
         Assert::greaterThan($limit, 0);
 
-        $response = $this->httpGet('/v4/address/validate/bulk', [
+        $response = $this->httpGet(
+            '/v4/address/validate/bulk', [
             'limit' => $limit,
-        ]);
+            ]
+        );
 
         return $this->hydrateResponse($response, GetBulkJobsResponse::class);
     }
@@ -134,9 +144,11 @@ class EmailValidationV4 extends HttpApi
     {
         Assert::greaterThan($limit, 0);
 
-        $response = $this->httpGet('/v4/address/validate/preview', [
+        $response = $this->httpGet(
+            '/v4/address/validate/preview', [
             'limit' => $limit,
-        ]);
+            ]
+        );
 
         return $this->hydrateResponse($response, GetBulkPreviewsResponse::class);
     }
@@ -163,8 +175,13 @@ class EmailValidationV4 extends HttpApi
         $postDataMultipart = [];
         $postDataMultipart[] = $this->prepareFile('file', $fileData);
 
-        $response = $this->httpPostRaw(sprintf('/v4/address/validate/preview/%s', $previewId), $postDataMultipart);
-        $this->closeResources($postDataMultipart);
+        try {
+            $response = $this->httpPostRaw(sprintf('/v4/address/validate/preview/%s', $previewId), $postDataMultipart);
+        } catch (Exception $exception) {
+            throw new RuntimeException($exception->getMessage());
+        } finally {
+            $this->closeResources($postDataMultipart);
+        }
 
         return $this->hydrateResponse($response, CreateBulkPreviewResponse::class);
     }

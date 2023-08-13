@@ -117,12 +117,17 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
             $hydratorModelClass = $this->hydrateClass;
             $hydrateMethod = $hydrator->method('hydrate')
                 ->with(
-                    $this->callback(function ($response) {
-                        return $response instanceof ResponseInterface;
-                    }),
-                    $this->callback(function ($class) use ($hydratorModelClass) {
-                        return null === $hydratorModelClass || $class === $hydratorModelClass;
-                    }));
+                    $this->callback(
+                        function ($response) {
+                            return $response instanceof ResponseInterface;
+                        }
+                    ),
+                    $this->callback(
+                        function ($class) use ($hydratorModelClass) {
+                            return null === $hydratorModelClass || $class === $hydratorModelClass;
+                        }
+                    )
+                );
 
             if (null !== $this->hydratedResponse) {
                 $hydrateMethod->willReturn($this->hydratedResponse);

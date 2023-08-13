@@ -68,10 +68,12 @@ final class HttpClientConfigurator
     {
         $plugins = [
             new Plugin\AddHostPlugin($this->getUriFactory()->createUri($this->endpoint)),
-            new Plugin\HeaderDefaultsPlugin([
+            new Plugin\HeaderDefaultsPlugin(
+                [
                 'User-Agent' => 'mailgun-sdk-php/v2 (https://github.com/mailgun/mailgun-php)',
                 'Authorization' => 'Basic '.base64_encode(sprintf('api:%s', $this->getApiKey())),
-            ]),
+                ]
+            ),
             new Plugin\HistoryPlugin($this->responseHistory),
         ];
 

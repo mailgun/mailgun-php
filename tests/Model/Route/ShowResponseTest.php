@@ -19,7 +19,7 @@ class ShowResponseTest extends BaseModelTest
     public function testCreate()
     {
         $json =
-<<<'JSON'
+        <<<'JSON'
 {
   "route": {
       "description": "Sample route",

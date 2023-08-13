@@ -19,7 +19,7 @@ class CredentialResponseItemTest extends BaseModelTest
     public function testCreate()
     {
         $json =
-<<<'JSON'
+        <<<'JSON'
 {
   "size_bytes": 5,
   "created_at": "Tue, 27 Sep 2011 20:24:22 GMT",

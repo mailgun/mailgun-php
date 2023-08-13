@@ -76,7 +76,8 @@ class StatsTest extends TestCase
                 'queryParameters' => [
                     'event' => 'accepted',
                 ],
-                'responseData' => $this->generateTotalResponsePayload([
+                'responseData' => $this->generateTotalResponsePayload(
+                    [
                     [
                         'time' => $this->formatDate('-7 days'),
                         'accepted' => [
@@ -85,13 +86,15 @@ class StatsTest extends TestCase
                             'total' => 15,
                         ],
                     ],
-                ]),
+                    ]
+                ),
             ],
             'failed events' => [
                 'queryParameters' => [
                     'event' => 'failed',
                 ],
-                'responseData' => $this->generateTotalResponsePayload([
+                'responseData' => $this->generateTotalResponsePayload(
+                    [
                     [
                         'time' => $this->formatDate('-7 days'),
                         'failed' => [
@@ -108,13 +111,15 @@ class StatsTest extends TestCase
                             ],
                         ],
                     ],
-                ]),
+                    ]
+                ),
             ],
             'delivered events' => [
                 'queryParameters' => [
                     'event' => 'delivered',
                 ],
-                'responseData' => $this->generateTotalResponsePayload([
+                'responseData' => $this->generateTotalResponsePayload(
+                    [
                     [
                         'time' => $this->formatDate('-7 days'),
                         'delivered' => [
@@ -123,59 +128,68 @@ class StatsTest extends TestCase
                             'total' => 20,
                         ],
                     ],
-                ]),
+                    ]
+                ),
             ],
             'clicked events' => [
                 'queryParameters' => [
                     'event' => 'clicked',
                 ],
-                'responseData' => $this->generateTotalResponsePayload([
+                'responseData' => $this->generateTotalResponsePayload(
+                    [
                     [
                         'time' => $this->formatDate('-7 days'),
                         'clicked' => [
                             'total' => 7,
                         ],
                     ],
-                ]),
+                    ]
+                ),
             ],
             'opened events' => [
                 'queryParameters' => [
                     'event' => 'opened',
                 ],
-                'responseData' => $this->generateTotalResponsePayload([
+                'responseData' => $this->generateTotalResponsePayload(
+                    [
                     [
                         'time' => $this->formatDate('-7 days'),
                         'opened' => [
                             'total' => 19,
                         ],
                     ],
-                ]),
+                    ]
+                ),
             ],
             'unsubscribed events' => [
                 'queryParameters' => [
                     'event' => 'unsubscribed',
                 ],
-                'responseData' => $this->generateTotalResponsePayload([
+                'responseData' => $this->generateTotalResponsePayload(
+                    [
                     [
                         'time' => $this->formatDate('-7 days'),
                         'unsubscribed' => [
                             'total' => 10,
                         ],
                     ],
-                ]),
+                    ]
+                ),
             ],
             'stored events' => [
                 'queryParameters' => [
                     'event' => 'stored',
                 ],
-                'responseData' => $this->generateTotalResponsePayload([
+                'responseData' => $this->generateTotalResponsePayload(
+                    [
                     [
                         'time' => $this->formatDate('-7 days'),
                         'stored' => [
                             'total' => 12,
                         ],
                     ],
-                ]),
+                    ]
+                ),
             ],
         ];
     }

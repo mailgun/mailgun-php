@@ -34,6 +34,7 @@ class Tag extends HttpApi
 
     /**
      * Returns a list of tags.
+     *
      * @return IndexResponse|ResponseInterface
      * @throws ClientExceptionInterface
      */
@@ -53,6 +54,7 @@ class Tag extends HttpApi
 
     /**
      * Returns a single tag.
+     *
      * @return ShowResponse|ResponseInterface
      * @throws ClientExceptionInterface
      */
@@ -68,6 +70,7 @@ class Tag extends HttpApi
 
     /**
      * Update a tag.
+     *
      * @return UpdateResponse|ResponseInterface
      * @throws ClientExceptionInterface
      */
@@ -87,6 +90,7 @@ class Tag extends HttpApi
 
     /**
      * Returns statistics for a single tag.
+     *
      * @return StatisticsResponse|ResponseInterface
      * @throws ClientExceptionInterface
      */
@@ -102,6 +106,7 @@ class Tag extends HttpApi
 
     /**
      * Removes a tag from the account.
+     *
      * @return DeleteResponse|ResponseInterface
      * @throws ClientExceptionInterface
      */
