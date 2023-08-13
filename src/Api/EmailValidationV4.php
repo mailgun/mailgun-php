@@ -24,6 +24,7 @@ use Mailgun\Model\EmailValidationV4\PromoteBulkPreviewResponse;
 use Mailgun\Model\EmailValidationV4\ValidateResponse;
 use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Message\ResponseInterface;
+use RuntimeException;
 
 /**
  * @see https://documentation.mailgun.com/en/latest/api-email-validation.html
@@ -75,8 +76,14 @@ class EmailValidationV4 extends HttpApi
         $postDataMultipart = [];
         $postDataMultipart[] = $this->prepareFile('file', $fileData);
 
-        $response = $this->httpPostRaw(sprintf('/v4/address/validate/bulk/%s', $listId), $postDataMultipart);
-        $this->closeResources($postDataMultipart);
+        try {
+            $response = $this->httpPostRaw(sprintf('/v4/address/validate/bulk/%s', $listId), $postDataMultipart);
+        } catch (Exception $exception) {
+            throw new RuntimeException($exception->getMessage());
+        } finally {
+            $this->closeResources($postDataMultipart);
+        }
+
 
         return $this->hydrateResponse($response, CreateBulkJobResponse::class);
     }
@@ -169,8 +176,13 @@ class EmailValidationV4 extends HttpApi
         $postDataMultipart = [];
         $postDataMultipart[] = $this->prepareFile('file', $fileData);
 
-        $response = $this->httpPostRaw(sprintf('/v4/address/validate/preview/%s', $previewId), $postDataMultipart);
-        $this->closeResources($postDataMultipart);
+        try {
+            $response = $this->httpPostRaw(sprintf('/v4/address/validate/preview/%s', $previewId), $postDataMultipart);
+        } catch (Exception $exception) {
+            throw new RuntimeException($exception->getMessage());
+        } finally {
+            $this->closeResources($postDataMultipart);
+        }
 
         return $this->hydrateResponse($response, CreateBulkPreviewResponse::class);
     }
