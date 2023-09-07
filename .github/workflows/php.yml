@@ -8,7 +8,7 @@ jobs:
     php:
         strategy:
             matrix:
-                php-versions: [ '7.3', '7.4', '8.0' ]
+                php-versions: [ '7.3', '7.4', '8.0', '8.1' ]
 
         runs-on: 'Ubuntu-20.04'
 
@@ -24,7 +24,7 @@ jobs:
                     tools: none
 
             -   name: Install dependencies
-                run: composer install --prefer-dist --no-progress --no-suggest
+                run: composer install --prefer-dist --no-progress --no-suggest -W
 
             -   name: PHP Unit Tests
                 run: vendor/bin/phpunit
@@ -43,7 +43,7 @@ jobs:
                 uses: actions/checkout@v2
 
             -   name: Download dependencies
-                run: composer update --no-interaction --prefer-dist --optimize-autoloader --prefer-stable --prefer-lowest
+                run: composer update --no-interaction --prefer-dist --optimize-autoloader --prefer-stable --prefer-lowest -W
 
             -   name: Run tests
                 run: vendor/bin/phpunit
