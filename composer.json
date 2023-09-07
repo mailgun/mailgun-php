@@ -15,7 +15,6 @@
         "php-http/multipart-stream-builder": "^1.1.2",
         "psr/http-client": "^1.0.1",
         "webmozart/assert": "^1.9.1",
-        "psr/log": "^3.0"
     },
     "require-dev": {
         "nyholm/nsa": "^1.2.1",
