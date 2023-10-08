@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace Mailgun\HttpClient;
 
+use Composer\InstalledVersions;
 use Http\Client\Common\Plugin;
 use Http\Client\Common\PluginClient;
 use Http\Discovery\Psr17FactoryDiscovery;
@@ -64,13 +65,20 @@ final class HttpClientConfigurator
         $this->responseHistory = new History();
     }
 
+    /**
+     * @return PluginClient
+     */
     public function createConfiguredClient(): PluginClient
     {
+        $userAgent = InstalledVersions::getVersion('mailgun/mailgun-php');
+        if (!isset($userAgent) || !$userAgent) {
+            $userAgent = 'mailgun-sdk-php/v2 (https://github.com/mailgun/mailgun-php)';
+        }
         $plugins = [
             new Plugin\AddHostPlugin($this->getUriFactory()->createUri($this->endpoint)),
             new Plugin\HeaderDefaultsPlugin(
                 [
-                'User-Agent' => 'mailgun-sdk-php/v2 (https://github.com/mailgun/mailgun-php)',
+                'User-Agent' => $userAgent,
                 'Authorization' => 'Basic '.base64_encode(sprintf('api:%s', $this->getApiKey())),
                 ]
             ),
