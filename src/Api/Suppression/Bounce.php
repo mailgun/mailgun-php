@@ -22,7 +22,6 @@ use Psr\Http\Client\ClientExceptionInterface;
 
 /**
  * @see https://documentation.mailgun.com/api-suppressions.html#bounces
- *
  * @author Sean Johnson <sean@mailgun.com>
  */
 class Bounce extends HttpApi
@@ -30,8 +29,8 @@ class Bounce extends HttpApi
     use Pagination;
 
     /**
-     * @param string $domain Domain to list bounces for
-     * @param int $limit optional
+     * @param  string                   $domain Domain to list bounces for
+     * @param  int                      $limit  optional
      * @return IndexResponse|null
      * @throws ClientExceptionInterface
      */
@@ -50,8 +49,8 @@ class Bounce extends HttpApi
     }
 
     /**
-     * @param string $domain Domain to show bounce from
-     * @param string $address Bounce address to show
+     * @param  string                   $domain  Domain to show bounce from
+     * @param  string                   $address Bounce address to show
      * @return ShowResponse|null
      * @throws ClientExceptionInterface
      */
@@ -66,9 +65,9 @@ class Bounce extends HttpApi
     }
 
     /**
-     * @param string $domain Domain to create a bounce for
-     * @param string $address Address to create a bounce for
-     * @param array $params optional
+     * @param  string                   $domain  Domain to create a bounce for
+     * @param  string                   $address Address to create a bounce for
+     * @param  array                    $params  optional
      * @return CreateResponse|null
      * @throws ClientExceptionInterface
      */
@@ -85,8 +84,8 @@ class Bounce extends HttpApi
     }
 
     /**
-     * @param string $domain Domain to delete a bounce for
-     * @param string $address Bounce address to delete
+     * @param  string                   $domain  Domain to delete a bounce for
+     * @param  string                   $address Bounce address to delete
      * @return DeleteResponse|null
      * @throws ClientExceptionInterface
      */
@@ -101,7 +100,7 @@ class Bounce extends HttpApi
     }
 
     /**
-     * @param string $domain Domain to delete all bounces for
+     * @param  string                   $domain Domain to delete all bounces for
      * @return DeleteResponse|null
      * @throws ClientExceptionInterface
      */
