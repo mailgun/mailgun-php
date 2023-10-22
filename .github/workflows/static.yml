@@ -13,7 +13,7 @@ jobs:
             -   name: Setup PHP
                 uses: shivammathur/setup-php@v2
                 with:
-                    php-version: 8.0
+                    php-version: 8.1
                     coverage: none
                     tools: phpstan:0.12.92, cs2pr
 
@@ -34,7 +34,7 @@ jobs:
             -   name: Setup PHP
                 uses: shivammathur/setup-php@v2
                 with:
-                    php-version: 8.0
+                    php-version: 8.1
                     coverage: none
                     tools: php-cs-fixer:3.9.5, cs2pr
 
@@ -51,7 +51,7 @@ jobs:
             -   name: Setup PHP
                 uses: shivammathur/setup-php@v2
                 with:
-                    php-version: 8.0
+                    php-version: 8.1
                     coverage: none
                     tools: vimeo/psalm:4.8.1
 
@@ -60,19 +60,6 @@ jobs:
 
             -   name: Psalm
                 run: psalm --no-progress --output-format=github
-
-
-    roave-bc-check:
-        name: Roave BC Check
-        runs-on: ubuntu-latest
-
-        steps:
-            -   name: Checkout code
-                uses: actions/checkout@v2
-
-            #temporary solution
-            #-   name: Roave BC Check
-            #    uses: docker://nyholm/roave-bc-check-ga
 
     composer-normalize:
         name: Composer Normalize
