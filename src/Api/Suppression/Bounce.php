@@ -32,10 +32,10 @@ class Bounce extends HttpApi
     /**
      * @param string $domain Domain to list bounces for
      * @param int $limit optional
-     * @return IndexResponse
+     * @return IndexResponse|null
      * @throws ClientExceptionInterface
      */
-    public function index(string $domain, int $limit = 100): IndexResponse
+    public function index(string $domain, int $limit = 100): ?IndexResponse
     {
         Assert::stringNotEmpty($domain);
         Assert::range($limit, 1, 10000, '"Limit" parameter must be between 1 and 10000');
@@ -52,10 +52,10 @@ class Bounce extends HttpApi
     /**
      * @param string $domain Domain to show bounce from
      * @param string $address Bounce address to show
-     * @return ShowResponse
+     * @return ShowResponse|null
      * @throws ClientExceptionInterface
      */
-    public function show(string $domain, string $address): ShowResponse
+    public function show(string $domain, string $address): ?ShowResponse
     {
         Assert::stringNotEmpty($domain);
         Assert::stringNotEmpty($address);
@@ -69,10 +69,10 @@ class Bounce extends HttpApi
      * @param string $domain Domain to create a bounce for
      * @param string $address Address to create a bounce for
      * @param array $params optional
-     * @return CreateResponse
+     * @return CreateResponse|null
      * @throws ClientExceptionInterface
      */
-    public function create(string $domain, string $address, array $params = []): CreateResponse
+    public function create(string $domain, string $address, array $params = []): ?CreateResponse
     {
         Assert::stringNotEmpty($domain);
         Assert::stringNotEmpty($address);
@@ -87,10 +87,10 @@ class Bounce extends HttpApi
     /**
      * @param string $domain Domain to delete a bounce for
      * @param string $address Bounce address to delete
-     * @return DeleteResponse
+     * @return DeleteResponse|null
      * @throws ClientExceptionInterface
      */
-    public function delete(string $domain, string $address): DeleteResponse
+    public function delete(string $domain, string $address): ?DeleteResponse
     {
         Assert::stringNotEmpty($domain);
         Assert::stringNotEmpty($address);
@@ -102,10 +102,10 @@ class Bounce extends HttpApi
 
     /**
      * @param string $domain Domain to delete all bounces for
-     * @return DeleteResponse
+     * @return DeleteResponse|null
      * @throws ClientExceptionInterface
      */
-    public function deleteAll(string $domain): DeleteResponse
+    public function deleteAll(string $domain): ?DeleteResponse
     {
         Assert::stringNotEmpty($domain);
 
