@@ -18,6 +18,7 @@ use Mailgun\Model\Suppression\Bounce\CreateResponse;
 use Mailgun\Model\Suppression\Bounce\DeleteResponse;
 use Mailgun\Model\Suppression\Bounce\IndexResponse;
 use Mailgun\Model\Suppression\Bounce\ShowResponse;
+use Psr\Http\Client\ClientExceptionInterface;
 
 /**
  * @see https://documentation.mailgun.com/api-suppressions.html#bounces
@@ -30,11 +31,11 @@ class Bounce extends HttpApi
 
     /**
      * @param string $domain Domain to list bounces for
-     * @param int    $limit  optional
-     *
+     * @param int $limit optional
      * @return IndexResponse
+     * @throws ClientExceptionInterface
      */
-    public function index(string $domain, int $limit = 100)
+    public function index(string $domain, int $limit = 100): IndexResponse
     {
         Assert::stringNotEmpty($domain);
         Assert::range($limit, 1, 10000, '"Limit" parameter must be between 1 and 10000');
@@ -49,12 +50,12 @@ class Bounce extends HttpApi
     }
 
     /**
-     * @param string $domain  Domain to show bounce from
+     * @param string $domain Domain to show bounce from
      * @param string $address Bounce address to show
-     *
      * @return ShowResponse
+     * @throws ClientExceptionInterface
      */
-    public function show(string $domain, string $address)
+    public function show(string $domain, string $address): ShowResponse
     {
         Assert::stringNotEmpty($domain);
         Assert::stringNotEmpty($address);
@@ -65,13 +66,13 @@ class Bounce extends HttpApi
     }
 
     /**
-     * @param string $domain  Domain to create a bounce for
+     * @param string $domain Domain to create a bounce for
      * @param string $address Address to create a bounce for
-     * @param array  $params  optional
-     *
+     * @param array $params optional
      * @return CreateResponse
+     * @throws ClientExceptionInterface
      */
-    public function create(string $domain, string $address, array $params = [])
+    public function create(string $domain, string $address, array $params = []): CreateResponse
     {
         Assert::stringNotEmpty($domain);
         Assert::stringNotEmpty($address);
@@ -84,12 +85,12 @@ class Bounce extends HttpApi
     }
 
     /**
-     * @param string $domain  Domain to delete a bounce for
+     * @param string $domain Domain to delete a bounce for
      * @param string $address Bounce address to delete
-     *
      * @return DeleteResponse
+     * @throws ClientExceptionInterface
      */
-    public function delete(string $domain, string $address)
+    public function delete(string $domain, string $address): DeleteResponse
     {
         Assert::stringNotEmpty($domain);
         Assert::stringNotEmpty($address);
@@ -101,10 +102,10 @@ class Bounce extends HttpApi
 
     /**
      * @param string $domain Domain to delete all bounces for
-     *
      * @return DeleteResponse
+     * @throws ClientExceptionInterface
      */
-    public function deleteAll(string $domain)
+    public function deleteAll(string $domain): DeleteResponse
     {
         Assert::stringNotEmpty($domain);
 
