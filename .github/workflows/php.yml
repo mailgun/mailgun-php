@@ -8,7 +8,10 @@ jobs:
     php:
         strategy:
             matrix:
-                php-versions: ['8.1', '8.2']
+                php-versions: ['7.3', '7.4', '8.0', '8.1', '8.2']
+                dependency-versions:
+                    - "lowest"
+                    - "highest"
 
         runs-on: 'Ubuntu-20.04'
 
@@ -23,8 +26,10 @@ jobs:
                     php-version: ${{ matrix.php-versions }}
                     tools: none
 
-            -   name: Install dependencies
-                run: composer install --prefer-dist --no-progress --no-suggest
+            -   name: Install composer dependencies
+                uses: ramsey/composer-install@v2
+                with:
+                    dependency-versions: ${{ matrix.dependency-versions }}
 
             -   name: PHP Unit Tests
                 run: vendor/bin/phpunit

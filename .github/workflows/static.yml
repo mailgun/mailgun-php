@@ -70,19 +70,6 @@ jobs:
             -   name: Checkout code
                 uses: actions/checkout@v2
 
-            #temporary solution
-            #-   name: Roave BC Check
-            #    uses: docker://nyholm/roave-bc-check-ga
-
-    ## fake needed jobs for old rules.
-    php (7.3):
-        name: 7.3 Mock changes
-        runs-on: ubuntu-latest
-
-        steps:
-            -   name: Checkout code
-                uses: actions/checkout@v2
-
     composer-normalize:
         name: Composer Normalize
         runs-on: ubuntu-20.04
