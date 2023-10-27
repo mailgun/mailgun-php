@@ -26,10 +26,13 @@ jobs:
                     php-version: ${{ matrix.php-versions }}
                     tools: none
 
-            -   name: Install composer dependencies
-                uses: ramsey/composer-install@v2
-                with:
-                    dependency-versions: ${{ matrix.dependency-versions }}
+            #-   name: Install composer dependencies
+            #    uses: ramsey/composer-install@v2
+            #    with:
+            #        dependency-versions: ${{ matrix.dependency-versions }}
+
+            -   name: Install dependencies
+                run: composer install --prefer-dist --no-progress --no-suggest
 
             -   name: PHP Unit Tests
                 run: vendor/bin/phpunit
@@ -41,7 +44,7 @@ jobs:
             -   name: Set up PHP
                 uses: shivammathur/setup-php@2.9.0
                 with:
-                    php-version: 8.1
+                    php-version: 7.3
                     coverage: pcov
 
             -   name: Checkout code
