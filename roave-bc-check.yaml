@@ -1,4 +1,0 @@
-parameters:
-    ignoreErrors:
-        - '#Mailgun\\Api\\Webhook#'
-        - '#Mailgun\\Api\\Suppression#'
