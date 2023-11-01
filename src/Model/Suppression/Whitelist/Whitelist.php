@@ -23,13 +23,13 @@ class Whitelist
     private $type;
     private $createdAt;
 
-    private function __construct()
+    final private function __construct()
     {
     }
 
     public static function create(array $data): self
     {
-        $model = new self();
+        $model = new static();
         $model->value = $data['value'] ?? null;
         $model->reason = $data['reason'] ?? null;
         $model->type = $data['type'] ?? null;

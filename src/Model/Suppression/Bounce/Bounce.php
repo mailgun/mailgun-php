@@ -21,13 +21,13 @@ class Bounce
     private $error;
     private $createdAt;
 
-    private function __construct()
+    final private function __construct()
     {
     }
 
     public static function create(array $data): self
     {
-        $model = new self();
+        $model = new static();
         $model->address = $data['address'] ?? null;
         $model->code = $data['code'] ?? null;
         $model->error = $data['error'] ?? null;

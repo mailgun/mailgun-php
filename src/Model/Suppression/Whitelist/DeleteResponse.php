@@ -27,7 +27,7 @@ final class DeleteResponse implements ApiResponse
 
     public static function create(array $data): self
     {
-        $model = new static();
+        $model = new self();
         $model->value = $data['value'] ?? '';
         $model->message = $data['message'] ?? '';
 

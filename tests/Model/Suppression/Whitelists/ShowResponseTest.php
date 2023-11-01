@@ -33,5 +33,6 @@ JSON;
         $this->assertEquals('why the record was created', $model->getReason());
         $this->assertEquals('address', $model->getType());
         $this->assertEquals('2011-10-21 11:02:55', $model->getCreatedAt()->format('Y-m-d H:i:s'));
+        $this->assertInstanceOf(ShowResponse::class, $model);
     }
 }
