@@ -45,6 +45,11 @@ final class IndexResponse implements ApiResponse, PagingProvider
     {
     }
 
+    /**
+     * @param  array      $data
+     * @return static
+     * @throws \Exception
+     */
     public static function create(array $data): self
     {
         $unsubscribes = [];
@@ -69,6 +74,9 @@ final class IndexResponse implements ApiResponse, PagingProvider
         return $this->items;
     }
 
+    /**
+     * @return int
+     */
     public function getTotalCount(): int
     {
         if (null === $this->totalCount) {

@@ -28,6 +28,11 @@ final class IndexResponse implements ApiResponse, PagingProvider
     {
     }
 
+    /**
+     * @param  array      $data
+     * @return static
+     * @throws \Exception
+     */
     public static function create(array $data): self
     {
         $complaints = [];

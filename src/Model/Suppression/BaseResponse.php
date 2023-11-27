@@ -27,6 +27,10 @@ abstract class BaseResponse implements ApiResponse
     {
     }
 
+    /**
+     * @param  array  $data
+     * @return static
+     */
     public static function create(array $data): self
     {
         $model = new static();

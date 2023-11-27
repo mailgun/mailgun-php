@@ -11,6 +11,8 @@ declare(strict_types=1);
 
 namespace Mailgun\Model\Suppression\Bounce;
 
+use DateTimeImmutable;
+
 /**
  * @author Sean Johnson <sean@mailgun.com>
  */
@@ -25,33 +27,48 @@ class Bounce
     {
     }
 
+    /**
+     * @throws \Exception
+     */
     public static function create(array $data): self
     {
         $model = new static();
         $model->address = $data['address'] ?? null;
         $model->code = $data['code'] ?? null;
         $model->error = $data['error'] ?? null;
-        $model->createdAt = isset($data['created_at']) ? new \DateTimeImmutable($data['created_at']) : null;
+        $model->createdAt = isset($data['created_at']) ? new DateTimeImmutable($data['created_at']) : null;
 
         return $model;
     }
 
+    /**
+     * @return string|null
+     */
     public function getAddress(): ?string
     {
         return $this->address;
     }
 
+    /**
+     * @return string|null
+     */
     public function getCode(): ?string
     {
         return $this->code;
     }
 
+    /**
+     * @return string|null
+     */
     public function getError(): ?string
     {
         return $this->error;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
+    /**
+     * @return DateTimeImmutable|null
+     */
+    public function getCreatedAt(): ?DateTimeImmutable
     {
         return $this->createdAt;
     }
