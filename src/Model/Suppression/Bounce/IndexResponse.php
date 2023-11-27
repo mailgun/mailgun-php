@@ -29,7 +29,7 @@ final class IndexResponse implements ApiResponse, PagingProvider
     }
 
     /**
-     * @param array $data
+     * @param  array      $data
      * @return static
      * @throws \Exception
      */
