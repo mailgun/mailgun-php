@@ -20,13 +20,13 @@ class Unsubscribe
     private $createdAt;
     private $tags = [];
 
-    private function __construct()
+    final private function __construct()
     {
     }
 
     public static function create(array $data): self
     {
-        $model = new self();
+        $model = new static();
         $model->tags = $data['tags'] ?? [];
         $model->address = $data['address'] ?? null;
         $model->createdAt = isset($data['created_at']) ? new \DateTimeImmutable($data['created_at']) : null;
