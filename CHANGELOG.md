@@ -1,6 +1,14 @@
 # Change Log
 
 The change log describes what is "Added", "Removed", "Changed" or "Fixed" between each release.
+## 3.6.2
+ - Bugfix: TypeError caused by improper use of new self() instead of new static() in base class method
+
+## 3.6.1
+ - update library
+ - Improvement: SDK version headers v2 vs v3
+ - Update packages by @oleksandr-mykhailenko
+
 ## 3.5.9
 - Fixed: bug when params `to` and `reply-to` have the same address
 

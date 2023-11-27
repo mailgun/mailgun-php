@@ -27,6 +27,9 @@ class Whitelist
     {
     }
 
+    /**
+     * @throws \Exception
+     */
     public static function create(array $data): self
     {
         $model = new static();
@@ -38,21 +41,33 @@ class Whitelist
         return $model;
     }
 
+    /**
+     * @return string|null
+     */
     public function getValue(): ?string
     {
         return $this->value;
     }
 
+    /**
+     * @return string|null
+     */
     public function getReason(): ?string
     {
         return $this->reason;
     }
 
+    /**
+     * @return string|null
+     */
     public function getType(): ?string
     {
         return $this->type;
     }
 
+    /**
+     * @return DateTimeImmutable|null
+     */
     public function getCreatedAt(): ?DateTimeImmutable
     {
         return $this->createdAt;
