@@ -33,9 +33,10 @@ final class ArrayHydrator implements Hydrator
             throw new HydrationException('The ArrayHydrator cannot hydrate response with Content-Type:'.$response->getHeaderLine('Content-Type'));
         }
 
-        $content = json_decode($body, true, 512, JSON_THROW_ON_ERROR);
-        if (JSON_ERROR_NONE !== json_last_error()) {
-            throw new HydrationException(sprintf('Error (%d) when trying to json_decode response', json_last_error()));
+        try {
+            $content = json_decode($body, true, 512, JSON_THROW_ON_ERROR);
+        } catch (\JsonException $exception) {
+            throw new HydrationException(sprintf('Error (%d) when trying to json_decode response: %s', $exception->getCode(), $exception->getMessage()));
         }
 
         return $content;
