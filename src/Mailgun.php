@@ -226,4 +226,9 @@ class Mailgun
     {
         return new Api\HttpClient($this->httpClient, $this->requestBuilder, $this->hydrator);
     }
+
+    public function subaccounts(): Api\SubAccounts
+    {
+        return new Api\SubAccounts($this->httpClient, $this->requestBuilder, $this->hydrator);
+    }
 }
