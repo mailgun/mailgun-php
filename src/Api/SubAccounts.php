@@ -10,8 +10,8 @@ declare(strict_types=1);
 namespace Mailgun\Api;
 
 use Mailgun\Assert;
-use Mailgun\Exception\HttpClientException;
 use Mailgun\Model\SubAccounts\CreateResponse;
+use Mailgun\Model\SubAccounts\IndexResponse;
 use Mailgun\Model\SubAccounts\ShowResponse;
 use Psr\Http\Client\ClientExceptionInterface;
 
@@ -38,12 +38,64 @@ class SubAccounts extends HttpApi
 
     /**
      * @param array $params
-     * @return ShowResponse|null
-     * @throws ClientExceptionInterface|HttpClientException
+     * @return IndexResponse|null
+     * @throws ClientExceptionInterface
      */
-    public function show(array $params = []): ?ShowResponse
+    public function index(array $params = []): ?IndexResponse
     {
+        if (isset($params['limit'])) {
+            Assert::range($params['limit'], 1, 10);
+        }
+        if (isset($params['sort'])) {
+            Assert::isArray($params['sort']);
+        }
+        if (isset($params['enabled'])) {
+            Assert::boolean($params['enabled']);
+        }
+
         $response = $this->httpGet(self::ENTITY_API_URL, $params);
+
+        return $this->hydrateResponse($response, IndexResponse::class);
+    }
+
+    /**
+     * @param string $id
+     * @return ShowResponse|null
+     * @throws ClientExceptionInterface
+     */
+    public function show(string $id): ?ShowResponse
+    {
+        Assert::notEmpty($id);
+
+        $response = $this->httpGet(sprintf(self::ENTITY_API_URL . '/%s', $id));
+
+        return $this->hydrateResponse($response, ShowResponse::class);
+    }
+
+    /**
+     * @param string $id
+     * @return ShowResponse|null
+     * @throws ClientExceptionInterface
+     */
+    public function disable(string $id): ?ShowResponse
+    {
+        Assert::notEmpty($id);
+
+        $response = $this->httpPost(sprintf(self::ENTITY_API_URL . '/%s/disable', $id));
+
+        return $this->hydrateResponse($response, ShowResponse::class);
+    }
+
+    /**
+     * @param string $id
+     * @return ShowResponse|null
+     * @throws ClientExceptionInterface
+     */
+    public function enable(string $id): ?ShowResponse
+    {
+        Assert::notEmpty($id);
+
+        $response = $this->httpPost(sprintf(self::ENTITY_API_URL . '/%s/enable', $id), ['id' => $id]);
 
         return $this->hydrateResponse($response, ShowResponse::class);
     }

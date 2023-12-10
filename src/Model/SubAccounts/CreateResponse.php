@@ -11,6 +11,66 @@ declare(strict_types=1);
 
 namespace Mailgun\Model\SubAccounts;
 
-final class CreateResponse extends BaseResponse
+use Mailgun\Model\ApiResponse;
+
+final class CreateResponse implements ApiResponse
 {
+    /**
+     * @var array $message
+     */
+    private $message;
+
+    /**
+     * @var array $error;
+     */
+    private $error;
+
+    private function __construct()
+    {
+    }
+
+    /**
+     * @param array $data
+     * @return static
+     */
+    public static function create(array $data): self
+    {
+        $model = new self();
+        $model->setMessage(isset($data['message']) ? [$data['message']] : $data);
+
+        return $model;
+    }
+
+    /**
+     * @return array
+     */
+    public function getMessage(): array
+    {
+        return $this->message;
+    }
+
+    /**
+     * @param array $message
+     */
+    public function setMessage(array $message): void
+    {
+        $this->message = $message;
+    }
+
+    /**
+     * @return array
+     */
+    public function getError(): array
+    {
+        return $this->error;
+    }
+
+    /**
+     * @param array $error
+     */
+    public function setError(array $error): void
+    {
+        $this->error = $error;
+    }
+
 }
