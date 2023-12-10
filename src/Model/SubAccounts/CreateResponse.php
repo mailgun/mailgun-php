@@ -16,12 +16,12 @@ use Mailgun\Model\ApiResponse;
 final class CreateResponse implements ApiResponse
 {
     /**
-     * @var array $message
+     * @var array
      */
     private $message;
 
     /**
-     * @var array $error;
+     * @var array;
      */
     private $error;
 
@@ -30,7 +30,7 @@ final class CreateResponse implements ApiResponse
     }
 
     /**
-     * @param array $data
+     * @param  array  $data
      * @return static
      */
     public static function create(array $data): self
@@ -72,5 +72,4 @@ final class CreateResponse implements ApiResponse
     {
         $this->error = $error;
     }
-
 }

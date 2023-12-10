@@ -11,24 +11,23 @@ declare(strict_types=1);
 
 namespace Mailgun\Model\SubAccounts;
 
-
 /**
  * @author Sean Johnson <sean@mailgun.com>
  */
 class SubAccount
 {
     /**
-     * @var string $id
+     * @var string
      */
     private $id;
 
     /**
-     * @var string $name
+     * @var string
      */
     private $name;
 
     /**
-     * @var string $status
+     * @var string
      */
     private $status;
 

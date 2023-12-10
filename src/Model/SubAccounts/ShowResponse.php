@@ -24,12 +24,12 @@ final class ShowResponse implements ApiResponse
     private $item;
 
     /**
-     * @var array $message
+     * @var array
      */
     private $message;
 
     /**
-     * @param array $data
+     * @param  array        $data
      * @return ShowResponse
      * @throws \Exception
      */
@@ -40,6 +40,7 @@ final class ShowResponse implements ApiResponse
         if (isset($data['message'])) {
             $model->setMessage([$data['message']]);
         }
+
         return $model;
     }
 
@@ -74,5 +75,4 @@ final class ShowResponse implements ApiResponse
     {
         $this->message = $message;
     }
-
 }

@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace Mailgun\Model\SubAccounts;
 
-use Mailgun\Model\SubAccounts\SubAccount;
 use Mailgun\Model\ApiResponse;
 use Mailgun\Model\PaginationResponse;
 use Mailgun\Model\PagingProvider;
@@ -26,7 +25,7 @@ final class IndexResponse implements ApiResponse, PagingProvider
     private $items;
 
     /**
-     * @var int $total
+     * @var int
      */
     private $total;
 
@@ -42,7 +41,7 @@ final class IndexResponse implements ApiResponse, PagingProvider
     public static function create(array $data): self
     {
         $items = [];
-        if ($data['subaccounts'])  {
+        if ($data['subaccounts']) {
             foreach ($data['subaccounts'] as $subaccount) {
                 $items[] = SubAccount::create($subaccount);
             }
@@ -50,7 +49,7 @@ final class IndexResponse implements ApiResponse, PagingProvider
 
         $model = new self();
         $model->items = $items;
-        $model->total = (int)($data['total'] ?? 0);
+        $model->total = (int) ($data['total'] ?? 0);
 
         return $model;
     }

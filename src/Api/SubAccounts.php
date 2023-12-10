@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /*
@@ -7,6 +8,7 @@ declare(strict_types=1);
  * This software may be modified and distributed under the terms
  * of the MIT license. See the LICENSE file for details.
  */
+
 namespace Mailgun\Api;
 
 use Mailgun\Assert;
@@ -22,7 +24,7 @@ class SubAccounts extends HttpApi
     private const ENTITY_API_URL = '/v5/accounts/subaccounts';
 
     /**
-     * @param string $name
+     * @param  string                   $name
      * @return CreateResponse|null
      * @throws ClientExceptionInterface
      */
@@ -37,7 +39,7 @@ class SubAccounts extends HttpApi
     }
 
     /**
-     * @param array $params
+     * @param  array                    $params
      * @return IndexResponse|null
      * @throws ClientExceptionInterface
      */
@@ -59,7 +61,7 @@ class SubAccounts extends HttpApi
     }
 
     /**
-     * @param string $id
+     * @param  string                   $id
      * @return ShowResponse|null
      * @throws ClientExceptionInterface
      */
@@ -67,13 +69,13 @@ class SubAccounts extends HttpApi
     {
         Assert::notEmpty($id);
 
-        $response = $this->httpGet(sprintf(self::ENTITY_API_URL . '/%s', $id));
+        $response = $this->httpGet(sprintf(self::ENTITY_API_URL.'/%s', $id));
 
         return $this->hydrateResponse($response, ShowResponse::class);
     }
 
     /**
-     * @param string $id
+     * @param  string                   $id
      * @return ShowResponse|null
      * @throws ClientExceptionInterface
      */
@@ -81,13 +83,13 @@ class SubAccounts extends HttpApi
     {
         Assert::notEmpty($id);
 
-        $response = $this->httpPost(sprintf(self::ENTITY_API_URL . '/%s/disable', $id));
+        $response = $this->httpPost(sprintf(self::ENTITY_API_URL.'/%s/disable', $id));
 
         return $this->hydrateResponse($response, ShowResponse::class);
     }
 
     /**
-     * @param string $id
+     * @param  string                   $id
      * @return ShowResponse|null
      * @throws ClientExceptionInterface
      */
@@ -95,7 +97,7 @@ class SubAccounts extends HttpApi
     {
         Assert::notEmpty($id);
 
-        $response = $this->httpPost(sprintf(self::ENTITY_API_URL . '/%s/enable', $id), ['id' => $id]);
+        $response = $this->httpPost(sprintf(self::ENTITY_API_URL.'/%s/enable', $id), ['id' => $id]);
 
         return $this->hydrateResponse($response, ShowResponse::class);
     }
