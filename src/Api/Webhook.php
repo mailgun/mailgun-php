@@ -75,13 +75,14 @@ class Webhook extends HttpApi
 
     /**
      * @param  string                          $domain
+     * @param  array                           $requestHeaders
      * @return IndexResponse|ResponseInterface
      * @throws ClientExceptionInterface
      */
-    public function index(string $domain)
+    public function index(string $domain, array $requestHeaders = [])
     {
         Assert::notEmpty($domain);
-        $response = $this->httpGet(sprintf('/v3/domains/%s/webhooks', $domain));
+        $response = $this->httpGet(sprintf('/v3/domains/%s/webhooks', $domain), [], $requestHeaders);
 
         return $this->hydrateResponse($response, IndexResponse::class);
     }
@@ -89,14 +90,15 @@ class Webhook extends HttpApi
     /**
      * @param  string                         $domain
      * @param  string                         $webhook
+     * @param  array                          $requestHeaders
      * @return ShowResponse|ResponseInterface
      * @throws ClientExceptionInterface
      */
-    public function show(string $domain, string $webhook)
+    public function show(string $domain, string $webhook, array $requestHeaders = [])
     {
         Assert::notEmpty($domain);
         Assert::notEmpty($webhook);
-        $response = $this->httpGet(sprintf('/v3/domains/%s/webhooks/%s', $domain, $webhook));
+        $response = $this->httpGet(sprintf('/v3/domains/%s/webhooks/%s', $domain, $webhook), [], $requestHeaders);
 
         return $this->hydrateResponse($response, ShowResponse::class);
     }
@@ -105,10 +107,11 @@ class Webhook extends HttpApi
      * @param  string                           $domain
      * @param  string                           $id
      * @param  array                            $url
+     * @param  array                            $requestHeaders
      * @return CreateResponse|ResponseInterface
      * @throws ClientExceptionInterface
      */
-    public function create(string $domain, string $id, array $url)
+    public function create(string $domain, string $id, array $url, array $requestHeaders = [])
     {
         Assert::notEmpty($domain);
         Assert::notEmpty($id);
@@ -119,7 +122,7 @@ class Webhook extends HttpApi
             'url' => $url,
         ];
 
-        $response = $this->httpPost(sprintf('/v3/domains/%s/webhooks', $domain), $params);
+        $response = $this->httpPost(sprintf('/v3/domains/%s/webhooks', $domain), $params, $requestHeaders);
 
         return $this->hydrateResponse($response, CreateResponse::class);
     }
@@ -128,10 +131,11 @@ class Webhook extends HttpApi
      * @param  string                           $domain
      * @param  string                           $id
      * @param  array                            $url
+     * @param  array                            $requestHeaders
      * @return UpdateResponse|ResponseInterface
      * @throws ClientExceptionInterface
      */
-    public function update(string $domain, string $id, array $url)
+    public function update(string $domain, string $id, array $url, array $requestHeaders = [])
     {
         Assert::notEmpty($domain);
         Assert::notEmpty($id);
@@ -141,7 +145,7 @@ class Webhook extends HttpApi
             'url' => $url,
         ];
 
-        $response = $this->httpPut(sprintf('/v3/domains/%s/webhooks/%s', $domain, $id), $params);
+        $response = $this->httpPut(sprintf('/v3/domains/%s/webhooks/%s', $domain, $id), $params, $requestHeaders);
 
         return $this->hydrateResponse($response, UpdateResponse::class);
     }
@@ -149,15 +153,16 @@ class Webhook extends HttpApi
     /**
      * @param  string                           $domain
      * @param  string                           $id
+     * @param  array                            $requestHeaders
      * @return DeleteResponse|ResponseInterface
      * @throws ClientExceptionInterface
      */
-    public function delete(string $domain, string $id)
+    public function delete(string $domain, string $id, array $requestHeaders = [])
     {
         Assert::notEmpty($domain);
         Assert::notEmpty($id);
 
-        $response = $this->httpDelete(sprintf('/v3/domains/%s/webhooks/%s', $domain, $id));
+        $response = $this->httpDelete(sprintf('/v3/domains/%s/webhooks/%s', $domain, $id), [], $requestHeaders);
 
         return $this->hydrateResponse($response, DeleteResponse::class);
     }

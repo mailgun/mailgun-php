@@ -262,7 +262,7 @@ JSON
         $this->setHydrateClass(DeleteCredentialResponse::class);
 
         $api = $this->getApiInstance();
-        $api->deleteCredential('example.com', 'foo', 'barbar');
+        $api->deleteCredential('example.com', 'foo');
     }
 
     public function testConnection()

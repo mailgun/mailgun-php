@@ -86,15 +86,17 @@ class Mailgun
     }
 
     /**
-     * @param  string $apiKey
-     * @param  string $endpoint
+     * @param  string      $apiKey
+     * @param  string      $endpoint
+     * @param  string|null $subAccountId
      * @return self
      */
-    public static function create(string $apiKey, string $endpoint = 'https://api.mailgun.net'): self
+    public static function create(string $apiKey, string $endpoint = 'https://api.mailgun.net', ?string $subAccountId = null): self
     {
         $httpClientConfigurator = (new HttpClientConfigurator())
             ->setApiKey($apiKey)
-            ->setEndpoint($endpoint);
+            ->setEndpoint($endpoint)
+            ->setSubAccountId($subAccountId);
 
         return new self($httpClientConfigurator);
     }

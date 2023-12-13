@@ -25,58 +25,69 @@ class Mailboxes extends HttpApi
     /**
      * @param  string                   $domain
      * @param  array                    $parameters
+     * @param  array                    $requestHeaders
      * @return CreateResponse
      * @throws ClientExceptionInterface
      */
-    public function create(string $domain, array $parameters = [])
+    public function create(string $domain, array $parameters = [], array $requestHeaders = [])
     {
         Assert::stringNotEmpty($domain);
         Assert::keyExists($parameters, 'mailbox');
         Assert::keyExists($parameters, 'password');
         Assert::minLength($parameters['password'], self::MIN_PASSWORD_LENGTH);
 
-        $response = $this->httpPost(sprintf('/v3/%s/mailboxes', $domain), $parameters);
+        $response = $this->httpPost(sprintf('/v3/%s/mailboxes', $domain), $parameters, $requestHeaders);
 
         return $this->hydrateResponse($response, CreateResponse::class);
     }
 
     /**
+     * @param  string                   $domain
+     * @param  array                    $parameters
+     * @param  array                    $requestHeaders
      * @return ShowResponse
-     * @throws \Exception|ClientExceptionInterface
+     * @throws ClientExceptionInterface
      */
-    public function show(string $domain, array $parameters = [])
+    public function show(string $domain, array $parameters = [], array $requestHeaders = [])
     {
         Assert::stringNotEmpty($domain);
 
-        $response = $this->httpGet(sprintf('/v3/%s/mailboxes', $domain), $parameters);
+        $response = $this->httpGet(sprintf('/v3/%s/mailboxes', $domain), $parameters, $requestHeaders);
 
         return $this->hydrateResponse($response, ShowResponse::class);
     }
 
     /**
+     * @param  string                   $domain
+     * @param  string                   $mailbox
+     * @param  array                    $parameters
+     * @param  array                    $requestHeaders
      * @return UpdateResponse
-     * @throws \Exception|ClientExceptionInterface
+     * @throws ClientExceptionInterface
      */
-    public function update(string $domain, string $mailbox, array $parameters = [])
+    public function update(string $domain, string $mailbox, array $parameters = [], array $requestHeaders = [])
     {
         Assert::stringNotEmpty($domain);
         Assert::stringNotEmpty($mailbox);
 
-        $response = $this->httpPut(sprintf('/v3/%s/mailboxes/%s', $domain, $mailbox), $parameters);
+        $response = $this->httpPut(sprintf('/v3/%s/mailboxes/%s', $domain, $mailbox), $parameters, $requestHeaders);
 
         return $this->hydrateResponse($response, UpdateResponse::class);
     }
 
     /**
+     * @param  string                   $domain
+     * @param  string                   $mailbox
+     * @param  array                    $requestHeaders
      * @return DeleteResponse
-     * @throws \Exception|ClientExceptionInterface
+     * @throws ClientExceptionInterface
      */
-    public function delete(string $domain, string $mailbox)
+    public function delete(string $domain, string $mailbox, array $requestHeaders = [])
     {
         Assert::stringNotEmpty($domain);
         Assert::stringNotEmpty($mailbox);
 
-        $response = $this->httpDelete(sprintf('/v3/%s/mailboxes/%s', $domain, $mailbox));
+        $response = $this->httpDelete(sprintf('/v3/%s/mailboxes/%s', $domain, $mailbox), [], $requestHeaders);
 
         return $this->hydrateResponse($response, DeleteResponse::class);
     }

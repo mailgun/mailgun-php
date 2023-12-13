@@ -12,9 +12,6 @@ declare(strict_types=1);
 namespace Mailgun\Api;
 
 use Mailgun\Assert;
-use Mailgun\Exception\HttpClientException;
-use Mailgun\Exception\HttpServerException;
-use Mailgun\Exception\InvalidArgumentException;
 use Mailgun\Model\EmailValidation\ParseResponse;
 use Mailgun\Model\EmailValidation\ValidateResponse;
 use Psr\Http\Client\ClientExceptionInterface;
@@ -30,17 +27,14 @@ class EmailValidation extends HttpApi
     /**
      * Addresses are validated based off defined checks.
      * This operation is only accessible with the private API key and not subject to the daily usage limits.
-     *
-     * @param  string                              $address             An email address to validate. Maximum: 512 characters.
-     * @param  bool                                $mailboxVerification If set to true, a mailbox verification check will be performed
-     *                                                                  against the address. The default is False.
+     * @param  string                             $address             An email address to validate. Maximum: 512 characters.
+     * @param  bool                               $mailboxVerification If set to true, a mailbox verification check will be performed
+     *                                                                 against the address. The default is False.
+     * @param  array                              $requestHeaders
      * @return ValidateResponse|ResponseInterface
-     * @throws InvalidArgumentException            Thrown when local validation returns an error
-     * @throws HttpClientException                 Thrown when there's an error on Client side
-     * @throws HttpServerException                 Thrown when there's an error on Server side
-     * @throws \Exception|ClientExceptionInterface Thrown when we don't catch a Client or Server side Exception
+     * @throws ClientExceptionInterface           Thrown when we don't catch a Client or Server side Exception
      */
-    public function validate(string $address, bool $mailboxVerification = false)
+    public function validate(string $address, bool $mailboxVerification = false, array $requestHeaders = [])
     {
         Assert::stringNotEmpty($address);
 
@@ -49,35 +43,27 @@ class EmailValidation extends HttpApi
             'mailbox_verification' => $mailboxVerification,
         ];
 
-        $response = $this->httpGet('/v3/address/private/validate', $params);
+        $response = $this->httpGet('/v3/address/private/validate', $params, $requestHeaders);
 
         return $this->hydrateResponse($response, ValidateResponse::class);
     }
 
     /**
      * Parses a delimiter-separated list of email addresses into two lists: parsed addresses and unparsable portions.
-     *
      * The parsed addresses are a list of addresses that are syntactically valid
      * (and optionally pass DNS and ESP specific grammar checks).
-     *
      * The unparsable list is a list of character sequences that could not be parsed
      * (or optionally failed DNS or ESP specific grammar checks).
-     *
      * Delimiter characters are comma (,) and semicolon (;).
-     *
      * This operation is only accessible with the private API key and not subject to the daily usage limits.
-     *
-     * @param string $addresses  A delimiter separated list of addresses. Maximum: 8000 characters.
-     * @param bool   $syntaxOnly Perform only syntax checks or DNS and ESP specific validation as well.
-     *                           The default is True.
-     *
+     * @param  string                          $addresses      A delimiter separated list of addresses. Maximum: 8000 characters.
+     * @param  bool                            $syntaxOnly     Perform only syntax checks or DNS and ESP specific validation as well.
+     *                                                         The default is True.
+     * @param  array                           $requestHeaders
      * @return ParseResponse|ResponseInterface
-     * @throws InvalidArgumentException            Thrown when local validation returns an error
-     * @throws HttpClientException                 Thrown when there's an error on Client side
-     * @throws HttpServerException                 Thrown when there's an error on Server side
-     * @throws \Exception|ClientExceptionInterface Thrown when we don't catch a Client or Server side Exception
+     * @throws ClientExceptionInterface        Thrown when we don't catch a Client or Server side Exception
      */
-    public function parse(string $addresses, bool $syntaxOnly = true)
+    public function parse(string $addresses, bool $syntaxOnly = true, array $requestHeaders = [])
     {
         Assert::stringNotEmpty($addresses);
         Assert::maxLength($addresses, 8000);
@@ -87,7 +73,7 @@ class EmailValidation extends HttpApi
             'syntax_only' => $syntaxOnly,
         ];
 
-        $response = $this->httpGet('/v3/address/private/parse', $params);
+        $response = $this->httpGet('/v3/address/private/parse', $params, $requestHeaders);
 
         return $this->hydrateResponse($response, ParseResponse::class);
     }

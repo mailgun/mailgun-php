@@ -29,12 +29,13 @@ class Bounce extends HttpApi
     use Pagination;
 
     /**
-     * @param  string                   $domain Domain to list bounces for
-     * @param  int                      $limit  optional
+     * @param  string                   $domain         Domain to list bounces for
+     * @param  int                      $limit          optional
+     * @param  array                    $requestHeaders
      * @return IndexResponse|null
      * @throws ClientExceptionInterface
      */
-    public function index(string $domain, int $limit = 100): ?IndexResponse
+    public function index(string $domain, int $limit = 100, array $requestHeaders = []): ?IndexResponse
     {
         Assert::stringNotEmpty($domain);
         Assert::range($limit, 1, 10000, '"Limit" parameter must be between 1 and 10000');
@@ -43,72 +44,76 @@ class Bounce extends HttpApi
             'limit' => $limit,
         ];
 
-        $response = $this->httpGet(sprintf('/v3/%s/bounces', $domain), $params);
+        $response = $this->httpGet(sprintf('/v3/%s/bounces', $domain), $params, $requestHeaders);
 
         return $this->hydrateResponse($response, IndexResponse::class);
     }
 
     /**
-     * @param  string                   $domain  Domain to show bounce from
-     * @param  string                   $address Bounce address to show
+     * @param  string                   $domain         Domain to show bounce from
+     * @param  string                   $address        Bounce address to show
+     * @param  array                    $requestHeaders
      * @return ShowResponse|null
      * @throws ClientExceptionInterface
      */
-    public function show(string $domain, string $address): ?ShowResponse
+    public function show(string $domain, string $address, array $requestHeaders = []): ?ShowResponse
     {
         Assert::stringNotEmpty($domain);
         Assert::stringNotEmpty($address);
 
-        $response = $this->httpGet(sprintf('/v3/%s/bounces/%s', $domain, $address));
+        $response = $this->httpGet(sprintf('/v3/%s/bounces/%s', $domain, $address), [], $requestHeaders);
 
         return $this->hydrateResponse($response, ShowResponse::class);
     }
 
     /**
-     * @param  string                   $domain  Domain to create a bounce for
-     * @param  string                   $address Address to create a bounce for
-     * @param  array                    $params  optional
+     * @param  string                   $domain         Domain to create a bounce for
+     * @param  string                   $address        Address to create a bounce for
+     * @param  array                    $params         optional
+     * @param  array                    $requestHeaders
      * @return CreateResponse|null
      * @throws ClientExceptionInterface
      */
-    public function create(string $domain, string $address, array $params = []): ?CreateResponse
+    public function create(string $domain, string $address, array $params = [], array $requestHeaders = []): ?CreateResponse
     {
         Assert::stringNotEmpty($domain);
         Assert::stringNotEmpty($address);
 
         $params['address'] = $address;
 
-        $response = $this->httpPost(sprintf('/v3/%s/bounces', $domain), $params);
+        $response = $this->httpPost(sprintf('/v3/%s/bounces', $domain), $params, $requestHeaders);
 
         return $this->hydrateResponse($response, CreateResponse::class);
     }
 
     /**
-     * @param  string                   $domain  Domain to delete a bounce for
-     * @param  string                   $address Bounce address to delete
+     * @param  string                   $domain         Domain to delete a bounce for
+     * @param  string                   $address        Bounce address to delete
+     * @param  array                    $requestHeaders
      * @return DeleteResponse|null
      * @throws ClientExceptionInterface
      */
-    public function delete(string $domain, string $address): ?DeleteResponse
+    public function delete(string $domain, string $address, array $requestHeaders = []): ?DeleteResponse
     {
         Assert::stringNotEmpty($domain);
         Assert::stringNotEmpty($address);
 
-        $response = $this->httpDelete(sprintf('/v3/%s/bounces/%s', $domain, $address));
+        $response = $this->httpDelete(sprintf('/v3/%s/bounces/%s', $domain, $address), [], $requestHeaders);
 
         return $this->hydrateResponse($response, DeleteResponse::class);
     }
 
     /**
-     * @param  string                   $domain Domain to delete all bounces for
+     * @param  string                   $domain         Domain to delete all bounces for
+     * @param  array                    $requestHeaders
      * @return DeleteResponse|null
      * @throws ClientExceptionInterface
      */
-    public function deleteAll(string $domain): ?DeleteResponse
+    public function deleteAll(string $domain, array $requestHeaders = []): ?DeleteResponse
     {
         Assert::stringNotEmpty($domain);
 
-        $response = $this->httpDelete(sprintf('/v3/%s/bounces', $domain));
+        $response = $this->httpDelete(sprintf('/v3/%s/bounces', $domain), [], $requestHeaders);
 
         return $this->hydrateResponse($response, DeleteResponse::class);
     }

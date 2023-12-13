@@ -21,7 +21,7 @@ final class CreateResponse implements ApiResponse
     private $message;
 
     /**
-     * @var array;
+     * @var array
      */
     private $error;
 
