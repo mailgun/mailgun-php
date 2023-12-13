@@ -32,8 +32,7 @@ class SubAccounts extends HttpApi
     {
         Assert::stringNotEmpty($name);
 
-        $params['name'] = $name;
-        $response = $this->httpPost(self::ENTITY_API_URL, $params);
+        $response = $this->httpPost(self::ENTITY_API_URL, ['name' => $name]);
 
         return $this->hydrateResponse($response, CreateResponse::class);
     }
