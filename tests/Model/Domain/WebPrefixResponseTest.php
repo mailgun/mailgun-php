@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace Mailgun\Tests\Model\Domain;
 
-use Mailgun\Model\Domain\ClickTracking;
 use Mailgun\Model\Domain\WebPrefixResponse;
 use Mailgun\Tests\Model\BaseModelTest;
 

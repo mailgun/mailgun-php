@@ -28,8 +28,8 @@ use Mailgun\Model\Domain\UpdateCredentialResponse;
 use Mailgun\Model\Domain\UpdateOpenTrackingResponse;
 use Mailgun\Model\Domain\UpdateUnsubscribeTrackingResponse;
 use Mailgun\Model\Domain\VerifyResponse;
-use Mailgun\Model\Domain\WebSchemeResponse;
 use Mailgun\Model\Domain\WebPrefixResponse;
+use Mailgun\Model\Domain\WebSchemeResponse;
 use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Message\ResponseInterface;
 
