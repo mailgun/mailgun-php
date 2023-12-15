@@ -27,6 +27,7 @@ use Mailgun\Model\Domain\UpdateCredentialResponse;
 use Mailgun\Model\Domain\UpdateOpenTrackingResponse;
 use Mailgun\Model\Domain\UpdateUnsubscribeTrackingResponse;
 use Mailgun\Model\Domain\VerifyResponse;
+use Mailgun\Model\Domain\WebPrefixResponse;
 use Nyholm\Psr7\Response;
 
 class DomainTest extends TestCase
@@ -490,5 +491,23 @@ JSON
          */
         $api = $this->getApiInstance();
         $api->updateUnsubscribeTracking('example.com', 'non-valid-active-param', 'html-footer', 'text-footer');
+    }
+
+    public function testUpdateWebPrefix()
+    {
+        $this->setRequestMethod('PUT');
+        $this->setRequestUri('/v3/domains/example.com/web_prefix');
+        $this->setRequestBody(
+            [
+            'web_prefix' => 'tracking',
+            ]
+        );
+        $this->setHydrateClass(WebPrefixResponse::class);
+
+        /**
+         * @var Domain
+         */
+        $api = $this->getApiInstance();
+        $api->updateWebPrefix('example.com', 'tracking');
     }
 }
