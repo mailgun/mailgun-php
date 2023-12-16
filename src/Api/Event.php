@@ -27,10 +27,11 @@ class Event extends HttpApi
     /**
      * @param  string                   $domain
      * @param  array                    $params
+     * @param  array                    $requestHeaders
      * @return EventResponse
      * @throws ClientExceptionInterface
      */
-    public function get(string $domain, array $params = [])
+    public function get(string $domain, array $params = [], array $requestHeaders = [])
     {
         Assert::stringNotEmpty($domain);
 
@@ -38,7 +39,7 @@ class Event extends HttpApi
             Assert::range($params['limit'], 1, 300);
         }
 
-        $response = $this->httpGet(sprintf('/v3/%s/events', $domain), $params);
+        $response = $this->httpGet(sprintf('/v3/%s/events', $domain), $params, $requestHeaders);
 
         return $this->hydrateResponse($response, EventResponse::class);
     }

@@ -60,6 +60,11 @@ final class HttpClientConfigurator
      */
     private $responseHistory;
 
+    /**
+     * @var ?string
+     */
+    private $subAccountId;
+
     public function __construct()
     {
         $this->responseHistory = new History();
@@ -74,14 +79,18 @@ final class HttpClientConfigurator
         if (!isset($userAgent) || !$userAgent) {
             $userAgent = 'mailgun-sdk-php/v2 (https://github.com/mailgun/mailgun-php)';
         }
+
+        $defaultPlugin = [
+            'User-Agent' => $userAgent,
+            'Authorization' => 'Basic '.base64_encode(sprintf('api:%s', $this->getApiKey())),
+        ];
+        if (null !== $this->getSubAccountId()) {
+            $defaultPlugin['X-Mailgun-On-Behalf-Of'] = $this->getSubAccountId();
+        }
+
         $plugins = [
             new Plugin\AddHostPlugin($this->getUriFactory()->createUri($this->endpoint)),
-            new Plugin\HeaderDefaultsPlugin(
-                [
-                'User-Agent' => $userAgent,
-                'Authorization' => 'Basic '.base64_encode(sprintf('api:%s', $this->getApiKey())),
-                ]
-            ),
+            new Plugin\HeaderDefaultsPlugin($defaultPlugin),
             new Plugin\HistoryPlugin($this->responseHistory),
         ];
 
@@ -153,5 +162,24 @@ final class HttpClientConfigurator
     public function getResponseHistory(): History
     {
         return $this->responseHistory;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getSubAccountId(): ?string
+    {
+        return $this->subAccountId;
+    }
+
+    /**
+     * @param  string|null            $subAccountId
+     * @return HttpClientConfigurator
+     */
+    public function setSubAccountId(?string $subAccountId): self
+    {
+        $this->subAccountId = $subAccountId;
+
+        return $this;
     }
 }

@@ -40,11 +40,13 @@ class Message extends HttpApi
 
     /**
      * @see https://documentation.mailgun.com/en/latest/api-sending.html#sending
-     *
+     * @param  string                         $domain
+     * @param  array                          $params
+     * @param  array                          $requestHeaders
      * @return SendResponse|ResponseInterface
-     * @throws Exception|ClientExceptionInterface
+     * @throws ClientExceptionInterface
      */
-    public function send(string $domain, array $params)
+    public function send(string $domain, array $params, array $requestHeaders = [])
     {
         Assert::string($domain);
         Assert::notEmpty($domain);
@@ -67,7 +69,7 @@ class Message extends HttpApi
 
         $postDataMultipart = array_merge($this->prepareMultipartParameters($params), $postDataMultipart);
         try {
-            $response = $this->httpPostRaw(sprintf('/v3/%s/messages', $domain), $postDataMultipart);
+            $response = $this->httpPostRaw(sprintf('/v3/%s/messages', $domain), $postDataMultipart, $requestHeaders);
         } catch (Exception $exception) {
             throw new RuntimeException($exception->getMessage());
         } finally {
@@ -79,15 +81,15 @@ class Message extends HttpApi
 
     /**
      * @see https://documentation.mailgun.com/en/latest/api-sending.html#sending
-     *
-     * @param array  $recipients with all you send emails to. Including bcc and cc
-     * @param string $message    Message filepath or content
-     *
+     * @param  string                         $domain
+     * @param  array                          $recipients     with all you send emails to. Including bcc and cc
+     * @param  string                         $message        Message filepath or content
+     * @param  array                          $params
+     * @param  array                          $requestHeaders
      * @return SendResponse|ResponseInterface
      * @throws ClientExceptionInterface
-     * @throws Exception
      */
-    public function sendMime(string $domain, array $recipients, string $message, array $params)
+    public function sendMime(string $domain, array $recipients, string $message, array $params, array $requestHeaders = [])
     {
         Assert::string($domain);
         Assert::notEmpty($domain);
@@ -108,7 +110,7 @@ class Message extends HttpApi
         }
         $postDataMultipart[] = $this->prepareFile('message', $fileData);
         try {
-            $response = $this->httpPostRaw(sprintf('/v3/%s/messages.mime', $domain), $postDataMultipart);
+            $response = $this->httpPostRaw(sprintf('/v3/%s/messages.mime', $domain), $postDataMultipart, $requestHeaders);
         } catch (Exception $exception) {
             throw new RuntimeException($exception->getMessage());
         } finally {
@@ -120,22 +122,23 @@ class Message extends HttpApi
 
     /**
      * Get stored message.
-     *
      * @see https://documentation.mailgun.com/en/latest/api-sending.html#retrieving-stored-messages
-     *
-     * @param bool $rawMessage if true we will use "Accept: message/rfc2822" header
-     *
+     * @param  string                         $url
+     * @param  bool                           $rawMessage     if true we will use "Accept: message/rfc2822" header
+     * @param  array                          $requestHeaders
      * @return ShowResponse|ResponseInterface
-     * @throws Exception
      * @throws ClientExceptionInterface
      */
-    public function show(string $url, bool $rawMessage = false)
+    public function show(string $url, bool $rawMessage = false, array $requestHeaders = [])
     {
         Assert::notEmpty($url);
 
         $headers = [];
         if ($rawMessage) {
             $headers['Accept'] = 'message/rfc2822';
+        }
+        if (!empty($requestHeaders)) {
+            $headers = array_merge($headers, $requestHeaders);
         }
 
         $response = $this->httpGet($url, [], $headers);

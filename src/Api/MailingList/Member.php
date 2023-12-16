@@ -21,6 +21,7 @@ use Mailgun\Model\MailingList\Member\IndexResponse;
 use Mailgun\Model\MailingList\Member\ShowResponse;
 use Mailgun\Model\MailingList\Member\UpdateResponse;
 use Mailgun\Model\MailingList\UpdateResponse as MailingListUpdateResponse;
+use Psr\Http\Client\ClientExceptionInterface;
 
 /**
  * @see https://documentation.mailgun.com/en/latest/api-mailinglists.html
@@ -31,16 +32,14 @@ class Member extends HttpApi
 
     /**
      * Returns a paginated list of members of the mailing list.
-     *
-     * @param string    $address    Address of the mailing list
-     * @param int       $limit      Maximum number of records to return (optional: 100 by default)
-     * @param bool|null $subscribed `true` to lists subscribed, `false` for unsubscribed. list all if null
-     *
+     * @param  string                   $address        Address of the mailing list
+     * @param  int                      $limit          Maximum number of records to return (optional: 100 by default)
+     * @param  bool|null                $subscribed     `true` to lists subscribed, `false` for unsubscribed. list all if null
+     * @param  array                    $requestHeaders
      * @return IndexResponse
-     *
-     * @throws \Exception
+     * @throws ClientExceptionInterface
      */
-    public function index(string $address, int $limit = 100, bool $subscribed = null)
+    public function index(string $address, int $limit = 100, bool $subscribed = null, array $requestHeaders = [])
     {
         Assert::stringNotEmpty($address);
         Assert::greaterThan($limit, 0);
@@ -55,44 +54,50 @@ class Member extends HttpApi
             $params['subscribed'] = 'no';
         }
 
-        $response = $this->httpGet(sprintf('/v3/lists/%s/members/pages', $address), $params);
+        $response = $this->httpGet(sprintf('/v3/lists/%s/members/pages', $address), $params, $requestHeaders);
 
         return $this->hydrateResponse($response, IndexResponse::class);
     }
 
     /**
      * Shows a single member of the mailing list.
-     *
-     * @param string $list    Address of the mailing list
-     * @param string $address Address of the member
-     *
+     * @param  string                   $list           Address of the mailing list
+     * @param  string                   $address        Address of the member
+     * @param  array                    $requestHeaders
      * @return ShowResponse
-     *
-     * @throws \Exception
+     * @throws ClientExceptionInterface
      */
-    public function show(string $list, string $address)
+    public function show(string $list, string $address, array $requestHeaders = [])
     {
         Assert::stringNotEmpty($list);
         Assert::stringNotEmpty($address);
 
-        $response = $this->httpGet(sprintf('/v3/lists/%s/members/%s', $list, $address));
+        $response = $this->httpGet(sprintf('/v3/lists/%s/members/%s', $list, $address), [], $requestHeaders);
 
         return $this->hydrateResponse($response, ShowResponse::class);
     }
 
     /**
      * Creates (or updates) a member of the mailing list.
-     *
-     * @param  string         $list       Address of the mailing list
-     * @param  string         $address    Address for the member
-     * @param  string|null    $name       Name for the member (optional)
-     * @param  array          $vars       Array of field => value pairs to store additional data
-     * @param  bool           $subscribed `true` to add as subscribed (default), `false` as unsubscribed
-     * @param  bool           $upsert     `true` to update member if present, `false` to raise error in case of a duplicate member (default)
+     * @param  string                   $list           Address of the mailing list
+     * @param  string                   $address        Address for the member
+     * @param  string|null              $name           Name for the member (optional)
+     * @param  array                    $vars           Array of field => value pairs to store additional data
+     * @param  bool                     $subscribed     `true` to add as subscribed (default), `false` as unsubscribed
+     * @param  bool                     $upsert         `true` to update member if present, `false` to raise error in case of a duplicate member (default)
+     * @param  array                    $requestHeaders
      * @return CreateResponse
+     * @throws ClientExceptionInterface
      */
-    public function create(string $list, string $address, string $name = null, array $vars = [], bool $subscribed = true, bool $upsert = false)
-    {
+    public function create(
+        string $list,
+        string $address,
+        string $name = null,
+        array $vars = [],
+        bool $subscribed = true,
+        bool $upsert = false,
+        array $requestHeaders = []
+    ) {
         Assert::stringNotEmpty($list);
         Assert::stringNotEmpty($address);
         Assert::nullOrStringNotEmpty($name);
@@ -108,23 +113,21 @@ class Member extends HttpApi
             $params['name'] = $name;
         }
 
-        $response = $this->httpPost(sprintf('/v3/lists/%s/members', $list), $params);
+        $response = $this->httpPost(sprintf('/v3/lists/%s/members', $list), $params, $requestHeaders);
 
         return $this->hydrateResponse($response, CreateResponse::class);
     }
 
     /**
      * Adds multiple members (up to 1000) to the mailing list.
-     *
-     * @param string $list    Address of the mailing list
-     * @param array  $members Array of members, each item should be either a single string address or an array of member properties
-     * @param bool   $upsert  `true` to update existing members, `false` (default) to ignore duplicates
-     *
+     * @param  string                   $list           Address of the mailing list
+     * @param  array                    $members        Array of members, each item should be either a single string address or an array of member properties
+     * @param  bool                     $upsert         `true` to update existing members, `false` (default) to ignore duplicates
+     * @param  array                    $requestHeaders
      * @return UpdateResponse
-     *
-     * @throws \Exception
+     * @throws ClientExceptionInterface
      */
-    public function createMultiple(string $list, array $members, $upsert = false)
+    public function createMultiple(string $list, array $members, bool $upsert = false, array $requestHeaders = [])
     {
         Assert::stringNotEmpty($list);
         Assert::isArray($members);
@@ -165,6 +168,7 @@ class Member extends HttpApi
                         break;
                 }
             }
+            unset($value);
         }
 
         $params = [
@@ -172,7 +176,7 @@ class Member extends HttpApi
             'upsert' => $upsert ? 'yes' : 'no',
         ];
 
-        $response = $this->httpPost(sprintf('/v3/lists/%s/members.json', $list), $params);
+        $response = $this->httpPost(sprintf('/v3/lists/%s/members.json', $list), $params, $requestHeaders);
 
         return $this->hydrateResponse($response, MailingListUpdateResponse::class);
     }
@@ -188,7 +192,7 @@ class Member extends HttpApi
      *
      * @throws \Exception
      */
-    public function update(string $list, string $address, array $parameters = [])
+    public function update(string $list, string $address, array $parameters = [], array $requestHeaders = [])
     {
         Assert::stringNotEmpty($list);
         Assert::stringNotEmpty($address);
@@ -216,32 +220,31 @@ class Member extends HttpApi
                     break;
             }
         }
+        unset($value);
 
         if (array_key_exists('name', $parameters) && null === $parameters['name']) {
             unset($parameters['name']);
         }
 
-        $response = $this->httpPut(sprintf('/v3/lists/%s/members/%s', $list, $address), $parameters);
+        $response = $this->httpPut(sprintf('/v3/lists/%s/members/%s', $list, $address), $parameters, $requestHeaders);
 
         return $this->hydrateResponse($response, UpdateResponse::class);
     }
 
     /**
      * Removes a member from the mailing list.
-     *
-     * @param string $list    Address of the mailing list
-     * @param string $address Address of the member
-     *
+     * @param  string                   $list           Address of the mailing list
+     * @param  string                   $address        Address of the member
+     * @param  array                    $requestHeaders
      * @return DeleteResponse
-     *
-     * @throws \Exception
+     * @throws ClientExceptionInterface
      */
-    public function delete(string $list, string $address)
+    public function delete(string $list, string $address, array $requestHeaders = [])
     {
         Assert::stringNotEmpty($list);
         Assert::stringNotEmpty($address);
 
-        $response = $this->httpDelete(sprintf('/v3/lists/%s/members/%s', $list, $address));
+        $response = $this->httpDelete(sprintf('/v3/lists/%s/members/%s', $list, $address), [], $requestHeaders);
 
         return $this->hydrateResponse($response, DeleteResponse::class);
     }

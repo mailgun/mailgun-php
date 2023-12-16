@@ -34,11 +34,13 @@ class Tag extends HttpApi
 
     /**
      * Returns a list of tags.
-     *
+     * @param  string                          $domain
+     * @param  int                             $limit
+     * @param  array                           $requestHeaders
      * @return IndexResponse|ResponseInterface
      * @throws ClientExceptionInterface
      */
-    public function index(string $domain, int $limit = 100)
+    public function index(string $domain, int $limit = 100, array $requestHeaders = [])
     {
         Assert::stringNotEmpty($domain);
         Assert::range($limit, 1, 1000);
@@ -47,34 +49,39 @@ class Tag extends HttpApi
             'limit' => $limit,
         ];
 
-        $response = $this->httpGet(sprintf('/v3/%s/tags', $domain), $params);
+        $response = $this->httpGet(sprintf('/v3/%s/tags', $domain), $params, $requestHeaders);
 
         return $this->hydrateResponse($response, IndexResponse::class);
     }
 
     /**
      * Returns a single tag.
-     *
+     * @param  string                         $domain
+     * @param  string                         $tag
+     * @param  array                          $requestHeaders
      * @return ShowResponse|ResponseInterface
      * @throws ClientExceptionInterface
      */
-    public function show(string $domain, string $tag)
+    public function show(string $domain, string $tag, array $requestHeaders = [])
     {
         Assert::stringNotEmpty($domain);
         Assert::stringNotEmpty($tag);
 
-        $response = $this->httpGet(sprintf('/v3/%s/tags/%s', $domain, $tag));
+        $response = $this->httpGet(sprintf('/v3/%s/tags/%s', $domain, $tag), [], $requestHeaders);
 
         return $this->hydrateResponse($response, ShowResponse::class);
     }
 
     /**
      * Update a tag.
-     *
+     * @param  string                           $domain
+     * @param  string                           $tag
+     * @param  string                           $description
+     * @param  array                            $requestHeaders
      * @return UpdateResponse|ResponseInterface
      * @throws ClientExceptionInterface
      */
-    public function update(string $domain, string $tag, string $description)
+    public function update(string $domain, string $tag, string $description, array $requestHeaders = [])
     {
         Assert::stringNotEmpty($domain);
         Assert::stringNotEmpty($tag);
@@ -83,81 +90,95 @@ class Tag extends HttpApi
             'description' => $description,
         ];
 
-        $response = $this->httpPut(sprintf('/v3/%s/tags/%s', $domain, $tag), $params);
+        $response = $this->httpPut(sprintf('/v3/%s/tags/%s', $domain, $tag), $params, $requestHeaders);
 
         return $this->hydrateResponse($response, UpdateResponse::class);
     }
 
     /**
      * Returns statistics for a single tag.
-     *
+     * @param  string                               $domain
+     * @param  string                               $tag
+     * @param  array                                $params
+     * @param  array                                $requestHeaders
      * @return StatisticsResponse|ResponseInterface
      * @throws ClientExceptionInterface
      */
-    public function stats(string $domain, string $tag, array $params)
+    public function stats(string $domain, string $tag, array $params, array $requestHeaders = [])
     {
         Assert::stringNotEmpty($domain);
         Assert::stringNotEmpty($tag);
 
-        $response = $this->httpGet(sprintf('/v3/%s/tags/%s/stats', $domain, $tag), $params);
+        $response = $this->httpGet(sprintf('/v3/%s/tags/%s/stats', $domain, $tag), $params, $requestHeaders);
 
         return $this->hydrateResponse($response, StatisticsResponse::class);
     }
 
     /**
      * Removes a tag from the account.
-     *
+     * @param  string                           $domain
+     * @param  string                           $tag
+     * @param  array                            $requestHeaders
      * @return DeleteResponse|ResponseInterface
      * @throws ClientExceptionInterface
      */
-    public function delete(string $domain, string $tag)
+    public function delete(string $domain, string $tag, array $requestHeaders = [])
     {
         Assert::stringNotEmpty($domain);
         Assert::stringNotEmpty($tag);
 
-        $response = $this->httpDelete(sprintf('/v3/%s/tags/%s', $domain, $tag));
+        $response = $this->httpDelete(sprintf('/v3/%s/tags/%s', $domain, $tag), [], $requestHeaders);
 
         return $this->hydrateResponse($response, DeleteResponse::class);
     }
 
     /**
+     * @param  string                            $domain
+     * @param  string                            $tag
+     * @param  array                             $requestHeaders
      * @return CountryResponse|ResponseInterface
      * @throws ClientExceptionInterface
      */
-    public function countries(string $domain, string $tag)
+    public function countries(string $domain, string $tag, array $requestHeaders = [])
     {
         Assert::stringNotEmpty($domain);
         Assert::stringNotEmpty($tag);
 
-        $response = $this->httpGet(sprintf('/v3/%s/tags/%s/stats/aggregates/countries', $domain, $tag));
+        $response = $this->httpGet(sprintf('/v3/%s/tags/%s/stats/aggregates/countries', $domain, $tag), [], $requestHeaders);
 
         return $this->hydrateResponse($response, CountryResponse::class);
     }
 
     /**
+     * @param  string                             $domain
+     * @param  string                             $tag
+     * @param  array                              $requestHeaders
      * @return ProviderResponse|ResponseInterface
      * @throws ClientExceptionInterface
      */
-    public function providers(string $domain, string $tag)
+    public function providers(string $domain, string $tag, array $requestHeaders = [])
     {
         Assert::stringNotEmpty($domain);
         Assert::stringNotEmpty($tag);
 
-        $response = $this->httpGet(sprintf('/v3/%s/tags/%s/stats/aggregates/providers', $domain, $tag));
+        $response = $this->httpGet(sprintf('/v3/%s/tags/%s/stats/aggregates/providers', $domain, $tag), [], $requestHeaders);
 
         return $this->hydrateResponse($response, ProviderResponse::class);
     }
 
     /**
+     * @param  string                           $domain
+     * @param  string                           $tag
+     * @param  array                            $requestHeaders
      * @return DeviceResponse|ResponseInterface
      * @throws ClientExceptionInterface
      */
-    public function devices(string $domain, string $tag)
+    public function devices(string $domain, string $tag, array $requestHeaders = [])
     {
         Assert::stringNotEmpty($domain);
         Assert::stringNotEmpty($tag);
 
-        $response = $this->httpGet(sprintf('/v3/%s/tags/%s/stats/aggregates/devices', $domain, $tag));
+        $response = $this->httpGet(sprintf('/v3/%s/tags/%s/stats/aggregates/devices', $domain, $tag), [], $requestHeaders);
 
         return $this->hydrateResponse($response, DeviceResponse::class);
     }

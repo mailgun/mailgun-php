@@ -23,14 +23,17 @@ use Psr\Http\Client\ClientExceptionInterface;
 class Stats extends HttpApi
 {
     /**
+     * @param  string                   $domain
+     * @param  array                    $params
+     * @param  array                    $requestHeaders
      * @return TotalResponse|array
      * @throws ClientExceptionInterface
      */
-    public function total(string $domain, array $params = [])
+    public function total(string $domain, array $params = [], array $requestHeaders = [])
     {
         Assert::stringNotEmpty($domain);
 
-        $response = $this->httpGet(sprintf('/v3/%s/stats/total', rawurlencode($domain)), $params);
+        $response = $this->httpGet(sprintf('/v3/%s/stats/total', rawurlencode($domain)), $params, $requestHeaders);
 
         return $this->hydrateResponse($response, TotalResponse::class);
     }
