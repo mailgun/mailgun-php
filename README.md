@@ -108,6 +108,56 @@ $resultDelete = $mgClient->httpClient()->httpDelete($path, $params);
 
 ```
 
+
+### SubAccounts
+
+```php
+//Enable Sub Account
+try {
+    $items = $mgClient->subaccounts()->enable($id);
+} catch (Exception $exception) {
+    echo sprintf('HTTP CODE - %s,', $exception->getCode());
+    echo sprintf('Error - %s', $exception->getMessage());
+}
+
+//Create a new Sub Account
+try {
+    $items = $mgClient->subaccounts()->create('some name');
+} catch (Exception $exception) {
+    echo sprintf('HTTP CODE - %s,', $exception->getCode());
+    echo sprintf('Error - %s', $exception->getMessage());
+}
+
+//Get All
+try {
+    $items = $mgClient->subaccounts()->index();
+
+    print_r($items->getItems());
+} catch (Exception $exception) {
+    echo sprintf('HTTP CODE - %s,', $exception->getCode());
+    echo sprintf('Error - %s', $exception->getMessage());
+}
+```
+### Performing API Requests "On Behalf Of" Subaccounts
+More Detailed you can read here - [https://help.mailgun.com/hc/en-us/articles/16380043681435-Subaccounts#01H2VMHAW8CN4A7WXM6ZFNSH4R](https://help.mailgun.com/hc/en-us/articles/16380043681435-Subaccounts#01H2VMHAW8CN4A7WXM6ZFNSH4R)
+```php
+$mgClient = Mailgun::create(
+    'xxx',
+    'yyy',
+    $subAccountId
+);
+```
+
+```php
+use Mailgun\HttpClient\HttpClientConfigurator;
+use Mailgun\Hydrator\NoopHydrator;
+
+$configurator = new HttpClientConfigurator();
+$configurator->setEndpoint('http://bin.mailgun.net/aecf68de');
+$configurator->setApiKey('key-example');
+$configurator->setSubAccountId($subAccountId)
+```
+
 ### All usage examples
 
 You will find more detailed documentation at [/doc](doc/index.md) and on
