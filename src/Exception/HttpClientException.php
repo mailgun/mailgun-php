@@ -13,6 +13,7 @@ namespace Mailgun\Exception;
 
 use Mailgun\Exception;
 use Psr\Http\Message\ResponseInterface;
+use Throwable;
 
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
@@ -48,7 +49,11 @@ final class HttpClientException extends \RuntimeException implements Exception
         }
     }
 
-    public static function badRequest(ResponseInterface $response)
+    /**
+     * @param  ResponseInterface   $response
+     * @return HttpClientException
+     */
+    public static function badRequest(ResponseInterface $response): HttpClientException
     {
         $body = $response->getBody()->__toString();
         if (0 !== strpos($response->getHeaderLine('Content-Type'), 'application/json')) {
@@ -63,37 +68,72 @@ final class HttpClientException extends \RuntimeException implements Exception
         return new self($message, 400, $response);
     }
 
-    public static function unauthorized(ResponseInterface $response)
+    /**
+     * @param  ResponseInterface   $response
+     * @return HttpClientException
+     */
+    public static function unauthorized(ResponseInterface $response): HttpClientException
     {
         return new self('Your credentials are incorrect.', 401, $response);
     }
 
-    public static function requestFailed(ResponseInterface $response)
+    /**
+     * @param  ResponseInterface   $response
+     * @return HttpClientException
+     */
+    public static function requestFailed(ResponseInterface $response): HttpClientException
     {
         return new self('Parameters were valid but request failed. Try again.', 402, $response);
     }
 
-    public static function notFound(ResponseInterface $response)
+    /**
+     * @param  ResponseInterface   $response
+     * @return HttpClientException
+     */
+    public static function notFound(ResponseInterface $response): HttpClientException
     {
-        return new self('The endpoint you have tried to access does not exist. Check if the domain matches the domain you have configure on Mailgun.', 404, $response);
+        $serverMessage = [];
+        $defaultMessage = 'The endpoint you have tried to access does not exist. Check if the domain matches the domain you have configure on Mailgun.';
+        try {
+            $serverMessage = json_decode($response->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);
+        } catch (Throwable $throwable) {
+        }
+
+        return new self($serverMessage['message'] ?? $defaultMessage, 404, $response);
     }
 
-    public static function conflict(ResponseInterface $response)
+    /**
+     * @param  ResponseInterface   $response
+     * @return HttpClientException
+     */
+    public static function conflict(ResponseInterface $response): HttpClientException
     {
         return new self('Request conflicts with current state of the target resource.', 409, $response);
     }
 
-    public static function payloadTooLarge(ResponseInterface $response)
+    /**
+     * @param  ResponseInterface   $response
+     * @return HttpClientException
+     */
+    public static function payloadTooLarge(ResponseInterface $response): HttpClientException
     {
         return new self('Payload too large, your total attachment size is too big.', 413, $response);
     }
 
-    public static function tooManyRequests(ResponseInterface $response)
+    /**
+     * @param  ResponseInterface   $response
+     * @return HttpClientException
+     */
+    public static function tooManyRequests(ResponseInterface $response): HttpClientException
     {
         return new self('Too many requests.', 429, $response);
     }
 
-    public static function forbidden(ResponseInterface $response)
+    /**
+     * @param  ResponseInterface   $response
+     * @return HttpClientException
+     */
+    public static function forbidden(ResponseInterface $response): HttpClientException
     {
         $body = $response->getBody()->__toString();
         if (0 !== strpos($response->getHeaderLine('Content-Type'), 'application/json')) {
@@ -108,16 +148,25 @@ final class HttpClientException extends \RuntimeException implements Exception
         return new self($message, 403, $response);
     }
 
+    /**
+     * @return ResponseInterface|null
+     */
     public function getResponse(): ?ResponseInterface
     {
         return $this->response;
     }
 
+    /**
+     * @return array
+     */
     public function getResponseBody(): array
     {
         return $this->responseBody;
     }
 
+    /**
+     * @return int
+     */
     public function getResponseCode(): int
     {
         return $this->responseCode;

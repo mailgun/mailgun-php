@@ -1,6 +1,15 @@
 # Change Log
 
 The change log describes what is "Added", "Removed", "Changed" or "Fixed" between each release.
+
+## 4.0.1
+ - Fix wrong classes in tests
+ - Fixed response in case of 404 http error. Respect server error message
+
+## 4.0
+ - SubAccount support @oleksandr-mykhailenko in #886
+ - Requests of behalf of Sub Account
+
 ## 3.6.2
  - Bugfix: TypeError caused by improper use of new self() instead of new static() in base class method
 
