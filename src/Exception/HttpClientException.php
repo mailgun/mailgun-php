@@ -92,7 +92,7 @@ final class HttpClientException extends \RuntimeException implements Exception
      */
     public static function notFound(ResponseInterface $response): HttpClientException
     {
-        $serverMessage = null;
+        $serverMessage = [];
         $defaultMessage = 'The endpoint you have tried to access does not exist. Check if the domain matches the domain you have configure on Mailgun.';
         try {
             $serverMessage = json_decode($response->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);

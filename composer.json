@@ -14,8 +14,7 @@
         "php-http/discovery": "^1.19",
         "php-http/multipart-stream-builder": "^1.1.2",
         "psr/http-client": "^1.0",
-        "webmozart/assert": "^1.9.1",
-        "ext-json": "*"
+        "webmozart/assert": "^1.9.1"
     },
     "require-dev": {
         "nyholm/nsa": "^1.2.1",
