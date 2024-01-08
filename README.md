@@ -25,7 +25,7 @@ curl -sS https://getcomposer.org/installer | php
 The Mailgun API Client is not hard coupled to Guzzle, Buzz or any other library that sends
 HTTP messages. Instead, it uses the [PSR-18](https://www.php-fig.org/psr/psr-18/) client abstraction.
 This will give you the flexibility to choose what
-[PSR-7 implementation](https://packagist.org/providers/psr/http-message-implementation)
+[PSR-7 implementation](https://packagist.org/providers/psr/http-factory-implementation)
 and [HTTP client](https://packagist.org/providers/psr/http-client-implementation)
 you want to use.
 
