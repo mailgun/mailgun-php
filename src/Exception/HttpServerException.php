@@ -18,17 +18,29 @@ use Mailgun\Exception;
  */
 final class HttpServerException extends \RuntimeException implements Exception
 {
-    public static function serverError(int $httpStatus = 500)
+    /**
+     * @param  int                 $httpStatus
+     * @return HttpServerException
+     */
+    public static function serverError(int $httpStatus = 500): HttpServerException
     {
         return new self('An unexpected error occurred at Mailgun\'s servers. Try again later and contact support if the error still exists.', $httpStatus);
     }
 
-    public static function networkError(\Throwable $previous)
+    /**
+     * @param  \Throwable          $previous
+     * @return HttpServerException
+     */
+    public static function networkError(\Throwable $previous): HttpServerException
     {
         return new self('Mailgun\'s servers are currently unreachable.', 0, $previous);
     }
 
-    public static function unknownHttpResponseCode(int $code)
+    /**
+     * @param  int                 $code
+     * @return HttpServerException
+     */
+    public static function unknownHttpResponseCode(int $code): HttpServerException
     {
         return new self(sprintf('Unknown HTTP response code ("%d") received from the API server', $code));
     }

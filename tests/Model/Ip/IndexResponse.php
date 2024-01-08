@@ -1,0 +1,51 @@
+<?php
+
+declare(strict_types=1);
+
+/*
+ * Copyright (C) 2013 Mailgun
+ *
+ * This software may be modified and distributed under the terms
+ * of the MIT license. See the LICENSE file for details.
+ */
+
+namespace Mailgun\Tests\Model\Ip;
+
+use Mailgun\Model\Ip\IndexResponse as IndexResponseAlias;
+use Mailgun\Tests\Model\BaseModel;
+
+class IndexResponse extends BaseModel
+{
+    public function testCreate()
+    {
+        $json =
+        <<<'JSON'
+{
+  "assignable_to_pools": ["192.161.0.1"],
+  "items": ["192.161.0.1", "192.168.0.2"],
+  "total_count": 2
+}
+JSON;
+        $model = IndexResponseAlias::create(json_decode($json, true));
+        $this->assertEquals(2, $model->getTotalCount());
+        $items = $model->getItems();
+        $this->assertCount(2, $items);
+        $this->assertEquals('192.161.0.1', $items[0]);
+    }
+
+    public function testCreateWithAssignableToPools()
+    {
+        $json =
+        <<<'JSON'
+{
+  "assignable_to_pools": ["192.161.0.1"],
+  "items": ["192.161.0.1", "192.168.0.2"],
+  "total_count": 2
+}
+JSON;
+        $model = IndexResponseAlias::create(json_decode($json, true));
+        $assignableToPools = $model->getAssignableToPools();
+        $this->assertCount(1, $assignableToPools);
+        $this->assertEquals('192.161.0.1', $assignableToPools[0]);
+    }
+}
