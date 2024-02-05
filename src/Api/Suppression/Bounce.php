@@ -21,7 +21,7 @@ use Mailgun\Model\Suppression\Bounce\ShowResponse;
 use Psr\Http\Client\ClientExceptionInterface;
 
 /**
- * @see https://documentation.mailgun.com/api-suppressions.html#bounces
+ * @see https://documentation.mailgun.com/en/latest/api-suppressions.html#bounces
  * @author Sean Johnson <sean@mailgun.com>
  */
 class Bounce extends HttpApi

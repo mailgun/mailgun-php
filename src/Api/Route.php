@@ -20,7 +20,7 @@ use Mailgun\Model\Route\UpdateResponse;
 use Psr\Http\Client\ClientExceptionInterface;
 
 /**
- * @see https://documentation.mailgun.com/api-routes.html
+ * @see https://documentation.mailgun.com/en/latest/api-routes.html
  *
  * @author David Garcia <me@davidgarcia.cat>
  */

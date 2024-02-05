@@ -33,7 +33,7 @@ use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Message\ResponseInterface;
 
 /**
- * @see https://documentation.mailgun.com/api-domains.html
+ * @see https://documentation.mailgun.com/en/latest/api-domains.html
  *
  * @author Sean Johnson <sean@mailgun.com>
  */
@@ -82,7 +82,7 @@ class Domain extends HttpApi
     /**
      * Creates a new domain for the account.
      * See below for spam filtering parameter information.
-     * {@link https://documentation.mailgun.com/user_manual.html#um-spam-filter}.
+     * {@link https://documentation.mailgun.com/en/latest/user_manual.html#um-spam-filter}.
      *
      * @see    https://documentation.mailgun.com/en/latest/api-domains.html#domains
      * @param  string                                 $domain             name of the domain
@@ -334,7 +334,7 @@ class Domain extends HttpApi
     /**
      * Update webScheme for existing domain
      * See below for spam filtering parameter information.
-     * {@link https://documentation.mailgun.com/user_manual.html#um-spam-filter}.
+     * {@link https://documentation.mailgun.com/en/latest/user_manual.html#um-spam-filter}.
      * @see https://documentation.mailgun.com/en/latest/api-domains.html#domains
      * @param  string                                    $domain         name of the domain
      * @param  string                                    $webScheme      `http` or `https` - set your open, click and unsubscribe URLs to use http or https. The default is http
