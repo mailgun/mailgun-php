@@ -28,6 +28,7 @@ use Mailgun\Model\Domain\UpdateCredentialResponse;
 use Mailgun\Model\Domain\UpdateOpenTrackingResponse;
 use Mailgun\Model\Domain\UpdateUnsubscribeTrackingResponse;
 use Mailgun\Model\Domain\VerifyResponse;
+use Mailgun\Model\Domain\WebPrefixResponse;
 use Mailgun\Model\Domain\WebSchemeResponse;
 use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -461,5 +462,28 @@ class Domain extends HttpApi
         $response = $this->httpPut(sprintf('/v3/domains/%s/tracking/unsubscribe', $domain), $params, $requestHeaders);
 
         return $this->hydrateResponse($response, UpdateUnsubscribeTrackingResponse::class);
+    }
+
+    /**
+     * Updates a CNAME used for tracking opens and clicks.
+     *
+     * @param string $domain    The name of the domain
+     * @param string $webPrefix The tracking CNAME for a domain
+     *
+     * @return WebPrefixResponse|array|ResponseInterface
+     * @throws ClientExceptionInterface
+     */
+    public function updateWebPrefix(string $domain, string $webPrefix)
+    {
+        Assert::stringNotEmpty($domain);
+        Assert::stringNotEmpty($webPrefix);
+
+        $params = [
+            'web_prefix' => $webPrefix,
+        ];
+
+        $response = $this->httpPut(sprintf('/v3/domains/%s/web_prefix', $domain), $params);
+
+        return $this->hydrateResponse($response, WebPrefixResponse::class);
     }
 }
