@@ -20,6 +20,8 @@ final class SendResponse implements ApiResponse
 {
     private $id;
     private $message;
+    private $statusCode;
+    private $headers;
 
     private function __construct()
     {
@@ -42,5 +44,37 @@ final class SendResponse implements ApiResponse
     public function getMessage(): string
     {
         return $this->message;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStatusCode()
+    {
+        return $this->statusCode;
+    }
+
+    /**
+     * @param mixed $statusCode
+     */
+    public function setStatusCode($statusCode): void
+    {
+        $this->statusCode = $statusCode;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getHeaders()
+    {
+        return $this->headers;
+    }
+
+    /**
+     * @param mixed $headers
+     */
+    public function setHeaders($headers): void
+    {
+        $this->headers = $headers;
     }
 }
