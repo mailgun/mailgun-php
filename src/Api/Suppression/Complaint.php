@@ -21,7 +21,7 @@ use Mailgun\Model\Suppression\Complaint\ShowResponse;
 use Psr\Http\Client\ClientExceptionInterface;
 
 /**
- * @see https://documentation.mailgun.com/api-suppressions.html#complaints
+ * @see https://documentation.mailgun.com/en/latest/api-suppressions.html#complaints
  *
  * @author Sean Johnson <sean@mailgun.com>
  */

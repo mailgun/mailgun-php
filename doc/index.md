@@ -1,7 +1,7 @@
 # API documentation
 
 This page will document the API classes and ways to properly use the API. These resources will eventually move to
-the official documentation at [https://documentation.mailgun.com](https://documentation.mailgun.com/api_reference.html).
+the official documentation at [https://documentation.mailgun.com](https://documentation.mailgun.com/en/latest/api_reference.html).
 
 Other relevant documentation pages might be:
 
