@@ -51,6 +51,12 @@ final class ModelHydrator implements Hydrator
         if (method_exists($object, 'setRawStream')) {
             $object->setRawStream($response->getBody());
         }
+        if (method_exists($object, 'setStatusCode')) {
+            $object->setStatusCode($response->getStatusCode());
+        }
+        if (method_exists($object, 'setHeaders')) {
+            $object->setHeaders($response->getHeaders());
+        }
 
         return $object;
     }
