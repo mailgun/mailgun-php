@@ -12,9 +12,9 @@ declare(strict_types=1);
 namespace Mailgun\Tests\Model\Domain;
 
 use Mailgun\Model\Domain\WebPrefixResponse;
-use Mailgun\Tests\Model\BaseModelTest;
+use Mailgun\Tests\Model\BaseModel;
 
-class WebPrefixResponseTest extends BaseModelTest
+class WebPrefixResponseTest extends BaseModel
 {
     public function testCreate()
     {

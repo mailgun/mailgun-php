@@ -82,6 +82,37 @@ $result = $mgClient->domains()->updateWebScheme($domain, 'https');
 print_r($result);
 ```
 
+### Update web prefix
+
+```php
+# Include the Autoloader (see "Libraries" for install instructions)
+require 'vendor/autoload.php';
+use Mailgun\Mailgun;
+
+# Instantiate the client.
+$mgClient = Mailgun::create('KEY', 'FULL_DOMAIN_URL');
+$domain = "DOMAIN";
+
+# Issue the call to the client.
+$result = $mgClient->domains()->updateWebPrefix($domain, 'tracking');
+print_r($result);
+```
+
+ - Example of response
+```
+Mailgun\Model\Domain\WebPrefixResponse Object
+(
+    [message:Mailgun\Model\Domain\AbstractDomainResponse:private] => Domain web prefix updated
+    [domain:Mailgun\Model\Domain\AbstractDomainResponse:private] =>
+    [inboundDnsRecords:Mailgun\Model\Domain\AbstractDomainResponse:private] => Array
+        (
+        )
+    [outboundDnsRecords:Mailgun\Model\Domain\AbstractDomainResponse:private] => Array
+        (
+        )
+)
+```
+
 ### Custom http request to the API
 
 ```php
