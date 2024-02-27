@@ -15,6 +15,7 @@ use Exception;
 use Mailgun\Assert;
 use Mailgun\Model\Domain\CreateResponse;
 use Mailgun\Model\Templates\GetResponse;
+use Mailgun\Model\Templates\ShowResponse;
 use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Message\ResponseInterface;
 
@@ -53,6 +54,23 @@ class Templates extends HttpApi
         $response = $this->httpGet(sprintf('/v3/%s/templates', $domain), $params, $requestHeaders);
 
         return $this->hydrateResponse($response, GetResponse::class);
+    }
+
+    /**
+     * @param string $domain
+     * @param string $templateId
+     * @param array $requestHeaders
+     * @return mixed|ResponseInterface
+     * @throws ClientExceptionInterface
+     */
+    public function show(string $domain, string $templateId, array $requestHeaders = [])
+    {
+        Assert::notEmpty($domain);
+        Assert::notEmpty($templateId);
+
+        $response = $this->httpGet(sprintf('/v3/%s/templates/%s', $domain, $templateId), [], $requestHeaders);
+
+        return $this->hydrateResponse($response, ShowResponse::class);
     }
 
 

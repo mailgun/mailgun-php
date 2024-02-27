@@ -37,13 +37,14 @@ class Template
      */
     public static function create(array $data): self
     {
+        $template = $data['template'] ?? $data;
         $model = new self();
 
-        $model->setId($data['id']);
-        $model->setName($data['name']);
-        $model->setDescription($data['description'] ?? '');
-        $model->setCreatedAt($data['createdAt'] ?? '');
-        $model->setCreatedBy($data['createdBy'] ?? '');
+        $model->setId($template['id']);
+        $model->setName($template['name']);
+        $model->setDescription($template['description'] ?? '');
+        $model->setCreatedAt($template['createdAt'] ?? '');
+        $model->setCreatedBy($template['createdBy'] ?? '');
 
         return $model;
     }
