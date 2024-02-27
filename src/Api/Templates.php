@@ -13,7 +13,7 @@ namespace Mailgun\Api;
 
 use Exception;
 use Mailgun\Assert;
-use Mailgun\Model\Domain\CreateResponse;
+use Mailgun\Model\Templates\CreateResponse;
 use Mailgun\Model\Templates\GetResponse;
 use Mailgun\Model\Templates\ShowResponse;
 use Psr\Http\Client\ClientExceptionInterface;
@@ -62,6 +62,7 @@ class Templates extends HttpApi
      * @param array $requestHeaders
      * @return mixed|ResponseInterface
      * @throws ClientExceptionInterface
+     * @throws Exception
      */
     public function show(string $domain, string $templateId, array $requestHeaders = [])
     {
@@ -73,46 +74,63 @@ class Templates extends HttpApi
         return $this->hydrateResponse($response, ShowResponse::class);
     }
 
-
-
     /**
-     * Creates a new domain for the account.
-     * See below for spam filtering parameter information.
-     * {@link https://documentation.mailgun.com/en/latest/user_manual.html#um-spam-filter}.
-     *
-     * @see    https://documentation.mailgun.com/en/latest/api-domains.html#domains
-     * @param  string                                 $domain             name of the domain
-     * @param  string|null                            $smtpPass           password for SMTP authentication
-     * @param  string|null                            $spamAction         `disable` or `tag` - inbound spam filtering
-     * @param  bool                                   $wildcard           domain will accept email for subdomains
-     * @param  bool                                   $forceDkimAuthority force DKIM authority
-     * @param  string[]                               $ips                an array of ips to be assigned to the domain
-     * @param  ?string                                $pool_id            pool id to assign to the domain
-     * @param  string                                 $webScheme          `http` or `https` - set your open, click and unsubscribe URLs to use http or https. The default is http
-     * @param  string                                 $dkimKeySize        Set length of your domain’s generated DKIM
-     *                                                                    key
-     * @return CreateResponse|array|ResponseInterface
+     * @param string $domain
+     * @param string $name
+     * @param string|null $template
+     * @param array|null $headers
+     * @param string|null $tag
+     * @param string|null $comment
+     * @param string|null $createdBy
+     * @param string|null $description
+     * @param string|null $engine
+     * @param array|null $requestHeaders
+     * @return CreateResponse|ResponseInterface
+     * @throws ClientExceptionInterface
      * @throws Exception
      */
     public function create(
         string $domain,
-        string $smtpPass = null,
-        string $spamAction = null,
-        bool $wildcard = null,
-        bool $forceDkimAuthority = null,
-        ?array $ips = null,
-        ?string $pool_id = null,
-        string $webScheme = 'http',
-        string $dkimKeySize = '1024',
-        array $requestHeaders = []
+        string $name,
+        ?string $template = null,
+        ?array $headers = null,
+        ?string $tag = null,
+        ?string $comment = null,
+        ?string $createdBy = null,
+        ?string $description = null,
+        ?string $engine = null,
+        ?array $requestHeaders = []
     ) {
         Assert::stringNotEmpty($domain);
+        Assert::stringNotEmpty($name);
 
-        $params['name'] = $domain;
+        $body = [
+            'name' => $name . time(),
+        ];
 
+        if (!empty($template)) {
+            $body['template'] = $template;
+        }
+        if (!empty($tag)) {
+            $body['tag'] = $tag;
+        }
+        if (!empty($comment)) {
+            $body['comment'] = $comment;
+        }
+        if (!empty($createdBy)) {
+            $body['createdBy'] = $createdBy;
+        }
+        if (!empty($headers) && is_array($headers)) {
+            $body['headers'] = json_encode($headers);
+        }
+        if (!empty($description)) {
+            $body['description'] = $description;
+        }
+        if (!empty($engine)) {
+            $body['engine'] = $engine;
+        }
 
-
-        $response = $this->httpPost('/v3/domains', $params, $requestHeaders);
+        $response = $this->httpPost(sprintf('/v3/%s/templates', $domain), $body , $requestHeaders);
 
         return $this->hydrateResponse($response, CreateResponse::class);
     }
