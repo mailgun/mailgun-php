@@ -14,7 +14,6 @@ namespace Mailgun\Api;
 use Exception;
 use Mailgun\Assert;
 use Mailgun\Model\Domain\CreateResponse;
-use Mailgun\Model\Domain\IndexResponse;
 use Mailgun\Model\Templates\GetResponse;
 use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -37,8 +36,9 @@ class Templates extends HttpApi
      * @param string $page
      * @param string $pivot
      * @param array $requestHeaders
-     * @return mixed|ResponseInterface
+     * @return GetResponse|ResponseInterface
      * @throws ClientExceptionInterface
+     * @throws Exception
      */
     public function get(string $domain, int $limit, string $page, string $pivot, array $requestHeaders = [])
     {

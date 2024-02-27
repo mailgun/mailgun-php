@@ -34,6 +34,10 @@ final class GetResponse implements ApiResponse, PagingProvider
     {
     }
 
+    /**
+     * @param array $data
+     * @return static
+     */
     public static function create(array $data): self
     {
         $items = [];
