@@ -105,7 +105,7 @@ class Templates extends HttpApi
         Assert::stringNotEmpty($name);
 
         $body = [
-            'name' => $name.time(),
+            'name' => $name,
         ];
 
         if (!empty($template)) {
