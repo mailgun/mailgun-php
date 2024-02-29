@@ -84,7 +84,7 @@ class Templates extends HttpApi
      * @param  string|null                      $createdBy
      * @param  string|null                      $description
      * @param  string|null                      $engine
-     * @param  array|null                       $requestHeaders
+     * @param  array                            $requestHeaders
      * @return CreateResponse|ResponseInterface
      * @throws ClientExceptionInterface
      * @throws Exception
@@ -99,7 +99,7 @@ class Templates extends HttpApi
         ?string $createdBy = null,
         ?string $description = null,
         ?string $engine = null,
-        ?array $requestHeaders = []
+        array $requestHeaders = []
     ) {
         Assert::stringNotEmpty($domain);
         Assert::stringNotEmpty($name);
