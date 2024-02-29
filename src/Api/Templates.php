@@ -120,7 +120,7 @@ class Templates extends HttpApi
         if (!empty($createdBy)) {
             $body['createdBy'] = $createdBy;
         }
-        if (!empty($headers) && is_array($headers)) {
+        if (!empty($headers)) {
             $body['headers'] = json_encode($headers);
         }
         if (!empty($description)) {
