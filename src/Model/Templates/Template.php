@@ -13,15 +13,15 @@ namespace Mailgun\Model\Templates;
 
 class Template
 {
-    /** @var string $id */
+    /** @var string */
     private $id;
-    /** @var string $id */
+    /** @var string */
     private $name;
-    /** @var string $id */
+    /** @var string */
     private $description;
-    /** @var string $id */
+    /** @var string */
     private $createdAt;
-    /** @var string $id */
+    /** @var string */
     private $createdBy;
 
     /**
@@ -32,7 +32,7 @@ class Template
     }
 
     /**
-     * @param array $data
+     * @param  array  $data
      * @return static
      */
     public static function create(array $data): self

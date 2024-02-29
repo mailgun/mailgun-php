@@ -13,22 +13,20 @@ namespace Mailgun\Model\Templates;
 
 use Mailgun\Model\ApiResponse;
 
-
 final class DeleteResponse implements ApiResponse
 {
     /**
-     * @var string $message
+     * @var string
      */
     private $message;
 
     /**
-     * @var Template $template
+     * @var Template
      */
     private $template;
 
-
     /**
-     * @param array $data
+     * @param  array  $data
      * @return static
      */
     public static function create(array $data): self

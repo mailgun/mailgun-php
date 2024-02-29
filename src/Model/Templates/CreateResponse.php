@@ -18,12 +18,12 @@ final class CreateResponse implements ApiResponse
     private $message;
 
     /**
-     * @var Template $template
+     * @var Template
      */
     private $template;
 
     /**
-     * @param array $data
+     * @param  array  $data
      * @return static
      */
     public static function create(array $data): self

@@ -32,11 +32,11 @@ class Templates extends HttpApi
     private const PAGE_LAST = 'last';
 
     /**
-     * @param string $domain
-     * @param int $limit
-     * @param string $page
-     * @param string $pivot
-     * @param array $requestHeaders
+     * @param  string                          $domain
+     * @param  int                             $limit
+     * @param  string                          $page
+     * @param  string                          $pivot
+     * @param  array                           $requestHeaders
      * @return IndexResponse|ResponseInterface
      * @throws ClientExceptionInterface
      * @throws Exception
@@ -48,7 +48,7 @@ class Templates extends HttpApi
         $params = [
             'limit' => $limit,
             'skip' => $page,
-            'p' => $pivot
+            'p' => $pivot,
         ];
 
         $response = $this->httpGet(sprintf('/v3/%s/templates', $domain), $params, $requestHeaders);
@@ -57,9 +57,9 @@ class Templates extends HttpApi
     }
 
     /**
-     * @param string $domain
-     * @param string $templateId
-     * @param array $requestHeaders
+     * @param  string                   $domain
+     * @param  string                   $templateId
+     * @param  array                    $requestHeaders
      * @return mixed|ResponseInterface
      * @throws ClientExceptionInterface
      * @throws Exception
@@ -75,16 +75,16 @@ class Templates extends HttpApi
     }
 
     /**
-     * @param string $domain
-     * @param string $name
-     * @param string|null $template
-     * @param array|null $headers
-     * @param string|null $tag
-     * @param string|null $comment
-     * @param string|null $createdBy
-     * @param string|null $description
-     * @param string|null $engine
-     * @param array|null $requestHeaders
+     * @param  string                           $domain
+     * @param  string                           $name
+     * @param  string|null                      $template
+     * @param  array|null                       $headers
+     * @param  string|null                      $tag
+     * @param  string|null                      $comment
+     * @param  string|null                      $createdBy
+     * @param  string|null                      $description
+     * @param  string|null                      $engine
+     * @param  array|null                       $requestHeaders
      * @return CreateResponse|ResponseInterface
      * @throws ClientExceptionInterface
      * @throws Exception
@@ -105,7 +105,7 @@ class Templates extends HttpApi
         Assert::stringNotEmpty($name);
 
         $body = [
-            'name' => $name . time(),
+            'name' => $name.time(),
         ];
 
         if (!empty($template)) {
@@ -130,21 +130,21 @@ class Templates extends HttpApi
             $body['engine'] = $engine;
         }
 
-        $response = $this->httpPost(sprintf('/v3/%s/templates', $domain), $body , $requestHeaders);
+        $response = $this->httpPost(sprintf('/v3/%s/templates', $domain), $body, $requestHeaders);
 
         return $this->hydrateResponse($response, CreateResponse::class);
     }
 
     /**
-     * @param string $domain
-     * @param string $templateName
-     * @param array $requestHeaders
+     * @param  string                   $domain
+     * @param  string                   $templateName
+     * @param  array                    $requestHeaders
      * @return mixed|ResponseInterface
      * @throws ClientExceptionInterface
      */
     public function deleteTemplate(string $domain, string $templateName, array $requestHeaders = [])
     {
-        $response = $this->httpDelete(sprintf('/v3/%s/templates/%s', $domain, $templateName), [] , $requestHeaders);
+        $response = $this->httpDelete(sprintf('/v3/%s/templates/%s', $domain, $templateName), [], $requestHeaders);
 
         return $this->hydrateResponse($response, ShowResponse::class);
     }
