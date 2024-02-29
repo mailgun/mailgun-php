@@ -16,6 +16,10 @@ use Mailgun\Model\ApiResponse;
 final class CreateResponse implements ApiResponse
 {
     private $message;
+
+    /**
+     * @var Template $template
+     */
     private $template;
 
     /**
@@ -26,7 +30,9 @@ final class CreateResponse implements ApiResponse
     {
         $model = new self();
         $model->message = $data['message'] ?? null;
-        $model->template = $data['template'] ?? null;
+        if (isset($data['template'])) {
+            $model->template = Template::create($data['template']);
+        }
 
         return $model;
     }
@@ -44,9 +50,9 @@ final class CreateResponse implements ApiResponse
     }
 
     /**
-     * @return array|null
+     * @return Template|null
      */
-    public function getTemplate(): ?array
+    public function getTemplate(): ?Template
     {
         return $this->template;
     }

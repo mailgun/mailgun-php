@@ -16,10 +16,7 @@ use Mailgun\Model\PaginationResponse;
 use Mailgun\Model\PagingProvider;
 use Psr\Http\Message\StreamInterface;
 
-/**
- * @author Tobias Nyholm <tobias.nyholm@gmail.com>
- */
-final class GetResponse implements ApiResponse, PagingProvider
+final class IndexResponse implements ApiResponse, PagingProvider
 {
     use PaginationResponse;
 

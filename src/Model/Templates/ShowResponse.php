@@ -13,9 +13,6 @@ namespace Mailgun\Model\Templates;
 
 use Mailgun\Model\ApiResponse;
 
-/**
- * @author Tobias Nyholm <tobias.nyholm@gmail.com>
- */
 final class ShowResponse extends Template implements ApiResponse
 {
 }

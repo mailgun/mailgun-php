@@ -40,7 +40,7 @@ class Template
         $template = $data['template'] ?? $data;
         $model = new self();
 
-        $model->setId($template['id']);
+        $model->setId($template['id'] ?? null);
         $model->setName($template['name']);
         $model->setDescription($template['description'] ?? '');
         $model->setCreatedAt($template['createdAt'] ?? '');
@@ -50,17 +50,17 @@ class Template
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getId(): string
+    public function getId(): ?string
     {
         return $this->id;
     }
 
     /**
-     * @param string $id
+     * @param string|null $id
      */
-    public function setId(string $id): void
+    public function setId(?string $id): void
     {
         $this->id = $id;
     }

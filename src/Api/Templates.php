@@ -14,7 +14,7 @@ namespace Mailgun\Api;
 use Exception;
 use Mailgun\Assert;
 use Mailgun\Model\Templates\CreateResponse;
-use Mailgun\Model\Templates\GetResponse;
+use Mailgun\Model\Templates\IndexResponse;
 use Mailgun\Model\Templates\ShowResponse;
 use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -37,11 +37,11 @@ class Templates extends HttpApi
      * @param string $page
      * @param string $pivot
      * @param array $requestHeaders
-     * @return GetResponse|ResponseInterface
+     * @return IndexResponse|ResponseInterface
      * @throws ClientExceptionInterface
      * @throws Exception
      */
-    public function get(string $domain, int $limit, string $page, string $pivot, array $requestHeaders = [])
+    public function index(string $domain, int $limit, string $page, string $pivot, array $requestHeaders = [])
     {
         Assert::inArray($page, [self::PAGE_LAST, self::PAGE_FIRST, self::PAGE_PREVIOUS, self::PAGE_NEXT]);
 
@@ -53,7 +53,7 @@ class Templates extends HttpApi
 
         $response = $this->httpGet(sprintf('/v3/%s/templates', $domain), $params, $requestHeaders);
 
-        return $this->hydrateResponse($response, GetResponse::class);
+        return $this->hydrateResponse($response, IndexResponse::class);
     }
 
     /**
@@ -133,5 +133,19 @@ class Templates extends HttpApi
         $response = $this->httpPost(sprintf('/v3/%s/templates', $domain), $body , $requestHeaders);
 
         return $this->hydrateResponse($response, CreateResponse::class);
+    }
+
+    /**
+     * @param string $domain
+     * @param string $templateName
+     * @param array $requestHeaders
+     * @return mixed|ResponseInterface
+     * @throws ClientExceptionInterface
+     */
+    public function deleteTemplate(string $domain, string $templateName, array $requestHeaders = [])
+    {
+        $response = $this->httpDelete(sprintf('/v3/%s/templates/%s', $domain, $templateName), [] , $requestHeaders);
+
+        return $this->hydrateResponse($response, ShowResponse::class);
     }
 }
