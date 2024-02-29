@@ -33,9 +33,9 @@ class Template
 
     /**
      * @param  array  $data
-     * @return static
+     * @return Template
      */
-    public static function create(array $data): self
+    public static function create(array $data): Template
     {
         $template = $data['template'] ?? $data;
         $model = new self();
