@@ -23,11 +23,6 @@ jobs:
                     php-version: ${{ matrix.php-versions }}
                     tools: none
 
-            #-   name: Install composer dependencies
-            #    uses: ramsey/composer-install@v2
-            #    with:
-            #        dependency-versions: ${{ matrix.dependency-versions }}
-
             -   name: Install dependencies
                 run: composer install --prefer-dist --no-progress --no-suggest
 
