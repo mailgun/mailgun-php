@@ -16,7 +16,8 @@ return (new PhpCsFixer\Config())
     ->setRiskyAllowed(true)
     ->setRules([
         '@PSR2' => true,
-        '@Symfony' => true,
+        '@PSR12' => true,
+        '@Symfony' => false,
         'strict_param' => true,
         'array_syntax' => ['syntax' => 'short'],
         'declare_strict_types' => true,
