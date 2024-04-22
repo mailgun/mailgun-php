@@ -24,8 +24,10 @@ use Mailgun\Api\MailingList;
 use Mailgun\Api\Message;
 use Mailgun\Api\Route;
 use Mailgun\Api\Stats;
+use Mailgun\Api\SubAccounts;
 use Mailgun\Api\Suppression;
 use Mailgun\Api\Tag;
+use Mailgun\Api\Templates;
 use Mailgun\Api\Webhook;
 use Mailgun\HttpClient\HttpClientConfigurator;
 use Mailgun\HttpClient\Plugin\History;
@@ -229,8 +231,19 @@ class Mailgun
         return new Api\HttpClient($this->httpClient, $this->requestBuilder, $this->hydrator);
     }
 
+    /**
+     * @return SubAccounts
+     */
     public function subaccounts(): Api\SubAccounts
     {
         return new Api\SubAccounts($this->httpClient, $this->requestBuilder, $this->hydrator);
+    }
+
+    /**
+     * @return Templates
+     */
+    public function templates(): Templates
+    {
+        return new Templates($this->httpClient, $this->requestBuilder, $this->hydrator);
     }
 }
