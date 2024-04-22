@@ -179,11 +179,45 @@ class Ip extends HttpApi
      * @param array $requestHeaders
      * @return AvailableIpsResponse|ResponseInterface
      * @throws ClientExceptionInterface
+     * @throws Exception
      */
     public function numberOfIps(array $requestHeaders = [])
     {
         $response = $this->httpGet('v3/ips/request/new', [], $requestHeaders);
 
         return $this->hydrateResponse($response, AvailableIpsResponse::class);
+    }
+
+    /**
+     * Add a new dedicated IP to the account
+     * @param array $requestHeaders
+     * @return UpdateResponse|ResponseInterface
+     * @throws ClientExceptionInterface
+     * @throws Exception
+     */
+    public function addDedicatedIp(array $requestHeaders = [])
+    {
+        $response = $this->httpPost('v3/ips/request/new', [], $requestHeaders);
+
+        return $this->hydrateResponse($response, UpdateResponse::class);
+    }
+
+    /**
+     * Remove an IP from the domain pool, unlink a DIPP or remove the domain pool
+     * @param string $domain
+     * @param string $ip
+     * @param array $requestHeaders
+     * @return UpdateResponse|ResponseInterface
+     * @throws ClientExceptionInterface
+     * @throws Exception
+     */
+    public function removeIpOrUnlink(string $domain, string $ip, array $requestHeaders = [])
+    {
+        Assert::stringNotEmpty($domain);
+        Assert::ip($ip);
+
+        $response = $this->httpDelete(sprintf('/v3/domains/%s/pool/%s', $domain, $ip), [], $requestHeaders);
+
+        return $this->hydrateResponse($response, UpdateResponse::class);
     }
 }
