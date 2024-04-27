@@ -73,7 +73,7 @@ class DomainV4 extends HttpApi
     {
         Assert::stringNotEmpty($domain);
 
-        $response = $this->httpGet(sprintf('/v3/domains/%s', $domain), [], $requestHeaders);
+        $response = $this->httpGet(sprintf('/v4/domains/%s', $domain), [], $requestHeaders);
 
         return $this->hydrateResponse($response, ShowResponse::class);
     }
@@ -141,7 +141,7 @@ class DomainV4 extends HttpApi
             Assert::isList($ips);
             Assert::allString($ips);
 
-            $params['ips'] = join(',', $ips);
+            $params['ips'] = implode(',', $ips);
         }
 
         if (!empty($webScheme)) {
@@ -164,7 +164,7 @@ class DomainV4 extends HttpApi
             $params['dkim_key_size'] = $dkimKeySize;
         }
 
-        $response = $this->httpPost('/v3/domains', $params, $requestHeaders);
+        $response = $this->httpPost('/v4/domains', $params, $requestHeaders);
 
         return $this->hydrateResponse($response, CreateResponse::class);
     }
@@ -181,7 +181,7 @@ class DomainV4 extends HttpApi
     {
         Assert::stringNotEmpty($domain);
 
-        $response = $this->httpDelete(sprintf('/v3/domains/%s', $domain), [], $requestHeaders);
+        $response = $this->httpDelete(sprintf('/v4/domains/%s', $domain), [], $requestHeaders);
 
         return $this->hydrateResponse($response, DeleteResponse::class);
     }
@@ -203,7 +203,7 @@ class DomainV4 extends HttpApi
             'skip' => $skip,
         ];
 
-        $response = $this->httpGet(sprintf('/v3/domains/%s/credentials', $domain), $params, $requestHeaders);
+        $response = $this->httpGet(sprintf('/v4/domains/%s/credentials', $domain), $params, $requestHeaders);
 
         return $this->hydrateResponse($response, CredentialResponse::class);
     }
@@ -229,7 +229,7 @@ class DomainV4 extends HttpApi
             'password' => $password,
         ];
 
-        $response = $this->httpPost(sprintf('/v3/domains/%s/credentials', $domain), $params, $requestHeaders);
+        $response = $this->httpPost(sprintf('/v4/domains/%s/credentials', $domain), $params, $requestHeaders);
 
         return $this->hydrateResponse($response, CreateCredentialResponse::class);
     }
@@ -255,7 +255,7 @@ class DomainV4 extends HttpApi
             'password' => $pass,
         ];
 
-        $response = $this->httpPut(sprintf('/v3/domains/%s/credentials/%s', $domain, $login), $params, $requestHeaders);
+        $response = $this->httpPut(sprintf('/v4/domains/%s/credentials/%s', $domain, $login), $params, $requestHeaders);
 
         return $this->hydrateResponse($response, UpdateCredentialResponse::class);
     }
@@ -275,7 +275,7 @@ class DomainV4 extends HttpApi
 
         $response = $this->httpDelete(
             sprintf(
-                '/v3/domains/%s/credentials/%s',
+                '/v4/domains/%s/credentials/%s',
                 $domain,
                 $login
             ),
@@ -297,7 +297,7 @@ class DomainV4 extends HttpApi
     {
         Assert::stringNotEmpty($domain);
 
-        $response = $this->httpGet(sprintf('/v3/domains/%s/connection', $domain), [], $requestHeaders);
+        $response = $this->httpGet(sprintf('/v4/domains/%s/connection', $domain), [], $requestHeaders);
 
         return $this->hydrateResponse($response, ConnectionResponse::class);
     }
@@ -325,7 +325,7 @@ class DomainV4 extends HttpApi
             $params['skip_verification'] = $noVerify ? 'true' : 'false';
         }
 
-        $response = $this->httpPut(sprintf('/v3/domains/%s/connection', $domain), $params, $requestHeaders);
+        $response = $this->httpPut(sprintf('/v4/domains/%s/connection', $domain), $params, $requestHeaders);
 
         return $this->hydrateResponse($response, UpdateConnectionResponse::class);
     }
@@ -350,7 +350,7 @@ class DomainV4 extends HttpApi
 
         $params['web_scheme'] = $webScheme;
 
-        $response = $this->httpPut(sprintf('/v3/domains/%s', $domain), $params, $requestHeaders);
+        $response = $this->httpPut(sprintf('/v4/domains/%s', $domain), $params, $requestHeaders);
 
         return $this->hydrateResponse($response, WebSchemeResponse::class);
     }
@@ -366,7 +366,7 @@ class DomainV4 extends HttpApi
     {
         Assert::stringNotEmpty($domain);
 
-        $response = $this->httpPut(sprintf('/v3/domains/%s/verify', $domain), [], $requestHeaders);
+        $response = $this->httpPut(sprintf('/v4/domains/%s/verify', $domain), [], $requestHeaders);
 
         return $this->hydrateResponse($response, VerifyResponse::class);
     }
@@ -382,7 +382,7 @@ class DomainV4 extends HttpApi
     {
         Assert::stringNotEmpty($domain);
 
-        $response = $this->httpGet(sprintf('/v3/domains/%s/tracking', $domain), [], $requestHeaders);
+        $response = $this->httpGet(sprintf('/v4/domains/%s/tracking', $domain), [], $requestHeaders);
 
         return $this->hydrateResponse($response, TrackingResponse::class);
     }
@@ -405,7 +405,7 @@ class DomainV4 extends HttpApi
             'active' => $active,
         ];
 
-        $response = $this->httpPut(sprintf('/v3/domains/%s/tracking/click', $domain), $params, $requestHeaders);
+        $response = $this->httpPut(sprintf('/v4/domains/%s/tracking/click', $domain), $params, $requestHeaders);
 
         return $this->hydrateResponse($response, UpdateClickTrackingResponse::class);
     }
@@ -428,7 +428,7 @@ class DomainV4 extends HttpApi
             'active' => $active,
         ];
 
-        $response = $this->httpPut(sprintf('/v3/domains/%s/tracking/open', $domain), $params, $requestHeaders);
+        $response = $this->httpPut(sprintf('/v4/domains/%s/tracking/open', $domain), $params, $requestHeaders);
 
         return $this->hydrateResponse($response, UpdateOpenTrackingResponse::class);
     }
@@ -457,7 +457,7 @@ class DomainV4 extends HttpApi
             'text_footer' => $textFooter,
         ];
 
-        $response = $this->httpPut(sprintf('/v3/domains/%s/tracking/unsubscribe', $domain), $params, $requestHeaders);
+        $response = $this->httpPut(sprintf('/v4/domains/%s/tracking/unsubscribe', $domain), $params, $requestHeaders);
 
         return $this->hydrateResponse($response, UpdateUnsubscribeTrackingResponse::class);
     }
@@ -480,7 +480,7 @@ class DomainV4 extends HttpApi
             'web_prefix' => $webPrefix,
         ];
 
-        $response = $this->httpPut(sprintf('/v3/domains/%s/web_prefix', $domain), $params);
+        $response = $this->httpPut(sprintf('/v4/domains/%s/web_prefix', $domain), $params);
 
         return $this->hydrateResponse($response, WebPrefixResponse::class);
     }
