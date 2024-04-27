@@ -15,6 +15,7 @@ use Exception;
 use Mailgun\Api\MailingList\Member;
 use Mailgun\Assert;
 use Mailgun\Model\EmailValidation\ValidateResponse;
+use Mailgun\Model\MailingList\BulkResponse;
 use Mailgun\Model\MailingList\CreateResponse;
 use Mailgun\Model\MailingList\DeleteResponse;
 use Mailgun\Model\MailingList\PagesResponse;
@@ -206,5 +207,60 @@ class MailingList extends HttpApi
         $response = $this->httpDelete(sprintf('/v3/lists/%s/validate', $address), [], $requestHeaders);
 
         return $this->hydrateResponse($response, ValidationCancelResponse::class);
+    }
+
+    /**
+     * Bulk upload members to a mailing list (JSON)
+     * @param string $mailList
+     * @param array $members
+     * @param bool $isUpsert
+     * @param array $requestHeaders
+     * @return BulkResponse
+     * @throws ClientExceptionInterface
+     */
+    public function bulkUploadJson(string $mailList, array $members, bool $isUpsert = false, array $requestHeaders = [])
+    {
+        Assert::stringNotEmpty($mailList);
+
+        $query = [
+            'members' => json_encode($members),
+            'upsert' => $isUpsert,
+        ];
+
+        $response = $this->httpPost(
+            sprintf('/v3/lists/%s/members.json?%s', $mailList, http_build_query($query)),
+            [],
+            $requestHeaders
+        );
+
+        return $this->hydrateResponse($response, BulkResponse::class);
+    }
+
+    /**
+     * Bulk upload members to a mailing list (CSV)
+     * //TODO
+     * @param string $mailList
+     * @param array $members
+     * @param bool $isUpsert
+     * @param array $requestHeaders
+     * @return BulkResponse
+     * @throws ClientExceptionInterface
+     */
+    public function bulkUploadCsv(string $mailList, array $members, bool $isUpsert = false, array $requestHeaders = [])
+    {
+        Assert::stringNotEmpty($mailList);
+
+        $payload = [
+            'members' => implode(",", $members),
+            'upsert' => $isUpsert ? 'true' : 'false'
+        ];
+
+        $response = $this->httpPost(
+            sprintf('/v3/lists/%s/members.csv', $mailList),
+            $payload,
+            $requestHeaders
+        );
+
+        return $this->hydrateResponse($response, BulkResponse::class);
     }
 }
