@@ -15,6 +15,7 @@ use Mailgun\Assert;
 use Mailgun\Model\Route\CreateResponse;
 use Mailgun\Model\Route\DeleteResponse;
 use Mailgun\Model\Route\IndexResponse;
+use Mailgun\Model\Route\MatchRouteResponse;
 use Mailgun\Model\Route\ShowResponse;
 use Mailgun\Model\Route\UpdateResponse;
 use Psr\Http\Client\ClientExceptionInterface;
@@ -153,5 +154,25 @@ class Route extends HttpApi
         $response = $this->httpDelete(sprintf('/v3/routes/%s', $routeId), [], $requestHeaders);
 
         return $this->hydrateResponse($response, DeleteResponse::class);
+    }
+
+    /**
+     * Match address to route
+     * @param string $address
+     * @param array $requestHeaders
+     * @return MatchRouteResponse
+     * @throws ClientExceptionInterface
+     */
+    public function matchAddressToRoute(string $address, array $requestHeaders = [])
+    {
+        Assert::stringNotEmpty($address);
+
+        $query = [
+            'address' => $address,
+        ];
+
+        $response = $this->httpGet('/v3/routes/match', $query, $requestHeaders);
+
+        return $this->hydrateResponse($response, MatchRouteResponse::class);
     }
 }
