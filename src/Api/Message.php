@@ -15,6 +15,7 @@ use Exception;
 use Mailgun\Assert;
 use Mailgun\Exception\InvalidArgumentException;
 use Mailgun\Message\BatchMessage;
+use Mailgun\Model\Message\QueueStatusResponse;
 use Mailgun\Model\Message\SendResponse;
 use Mailgun\Model\Message\ShowResponse;
 use Psr\Http\Client\ClientExceptionInterface;
@@ -144,6 +145,22 @@ class Message extends HttpApi
         $response = $this->httpGet($url, [], $headers);
 
         return $this->hydrateResponse($response, ShowResponse::class);
+    }
+
+    /**
+     * Get messages queue status
+     * @see https://documentation.mailgun.com/docs/mailgun/api-reference/openapi-final/tag/Messages/#tag/Messages/operation/httpapi.(*LegacyHttpApi).GetDomainSendingQueues-fm-70
+     * @param string $domain
+     * @param array $requestHeaders
+     * @return QueueStatusResponse
+     * @throws ClientExceptionInterface
+     */
+    public function getMessageQueueStatus(string $domain, array $requestHeaders = [])
+    {
+        Assert::notEmpty($domain);
+        $response = $this->httpGet(sprintf('/v3/domains/%s/sending_queues', $domain), [], $requestHeaders);
+
+        return $this->hydrateResponse($response, QueueStatusResponse::class);
     }
 
     /**
