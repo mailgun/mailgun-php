@@ -28,7 +28,7 @@ final class QueueStatusResponse implements ApiResponse
     {
         $model = new self();
         $model->regular = $data['regular'] ?? [];
-        $model->scheduled = $data['scheduled'] ?? '';
+        $model->scheduled = $data['scheduled'] ?? [];
 
         return $model;
     }
