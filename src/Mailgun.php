@@ -128,6 +128,14 @@ class Mailgun
     }
 
     /**
+     * @return Api\DomainV4
+     */
+    public function domainsV4(): Api\DomainV4
+    {
+        return new Api\DomainV4($this->httpClient, $this->requestBuilder, $this->hydrator);
+    }
+
+    /**
      * @return EmailValidation
      */
     public function emailValidation(): Api\EmailValidation
