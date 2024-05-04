@@ -121,12 +121,10 @@ class DomainV4 extends HttpApi
         }
 
         if (null !== $wildcard) {
-            Assert::boolean($wildcard);
             $params['wildcard'] = $wildcard ? 'true' : 'false';
         }
 
         if (null !== $forceDkimAuthority) {
-            Assert::boolean($forceDkimAuthority);
             $params['force_dkim_authority'] = $forceDkimAuthority ? 'true' : 'false';
         }
 
