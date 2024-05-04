@@ -107,6 +107,8 @@ class DomainV4 extends HttpApi
     ) {
         Assert::stringNotEmpty($domain);
 
+        $params = [];
+
         $params['name'] = $domain;
 
         if (!empty($smtpPass)) {
