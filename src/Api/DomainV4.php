@@ -105,8 +105,6 @@ class DomainV4 extends HttpApi
         string  $spamAction = null,
         bool $wildcard = null,
         bool $forceDkimAuthority = null,
-        ?bool   $wildcard = null,
-        ?bool   $forceDkimAuthority = null,
         ?array  $ips = null,
         ?string $pool_id = null,
         string  $webScheme = 'http',
