@@ -73,7 +73,7 @@ class DomainV4 extends HttpApi
     {
         Assert::stringNotEmpty($domain);
 
-        $response = $this->httpGet(sprintf('/v3/domains/%s', $domain), [], $requestHeaders);
+        $response = $this->httpGet(sprintf('/v4/domains/%s', $domain), [], $requestHeaders);
 
         return $this->hydrateResponse($response, ShowResponse::class);
     }
@@ -82,34 +82,40 @@ class DomainV4 extends HttpApi
      * Creates a new domain for the account.
      * See below for spam filtering parameter information.
      * {@link https://documentation.mailgun.com/en/latest/user_manual.html#um-spam-filter}.
-     *
      * @see    https://documentation.mailgun.com/en/latest/api-domains.html#domains
-     * @param  string                                 $domain             name of the domain
-     * @param  string|null                            $smtpPass           password for SMTP authentication
-     * @param  string|null                            $spamAction         `disable` or `tag` - inbound spam filtering
-     * @param  bool                                   $wildcard           domain will accept email for subdomains
-     * @param  bool                                   $forceDkimAuthority force DKIM authority
-     * @param  string[]                               $ips                an array of ips to be assigned to the domain
-     * @param  ?string                                $pool_id            pool id to assign to the domain
-     * @param  string                                 $webScheme          `http` or `https` - set your open, click and unsubscribe URLs to use http or https. The default is http
-     * @param  string                                 $dkimKeySize        Set length of your domain’s generated DKIM
+     * @param string $domain name of the domain
+     * @param string|null $smtpPass password for SMTP authentication
+     * @param string|null $spamAction `disable` or `tag` - inbound spam filtering
+     * @param bool|null $wildcard domain will accept email for subdomains
+     * @param bool|null $forceDkimAuthority force DKIM authority
+     * @param bool|null $wildcard
+     * @param bool|null $forceDkimAuthority
+     * @param string[] $ips an array of ips to be assigned to the domain
+     * @param  ?string $pool_id pool id to assign to the domain
+     * @param string $webScheme `http` or `https` - set your open, click and unsubscribe URLs to use http or https. The default is http
+     * @param string $dkimKeySize Set length of your domain’s generated DKIM
      *                                                                    key
+     * @param array $requestHeaders
      * @return CreateResponse|array|ResponseInterface
      * @throws Exception
      */
     public function create(
-        string $domain,
-        string $smtpPass = null,
-        string $spamAction = null,
+        string  $domain,
+        string  $smtpPass = null,
+        string  $spamAction = null,
         bool $wildcard = null,
         bool $forceDkimAuthority = null,
-        ?array $ips = null,
+        ?bool   $wildcard = null,
+        ?bool   $forceDkimAuthority = null,
+        ?array  $ips = null,
         ?string $pool_id = null,
-        string $webScheme = 'http',
-        string $dkimKeySize = '1024',
-        array $requestHeaders = []
+        string  $webScheme = 'http',
+        string  $dkimKeySize = '1024',
+        array   $requestHeaders = []
     ) {
         Assert::stringNotEmpty($domain);
+
+        $params = [];
 
         $params['name'] = $domain;
 
@@ -141,7 +147,7 @@ class DomainV4 extends HttpApi
             Assert::isList($ips);
             Assert::allString($ips);
 
-            $params['ips'] = join(',', $ips);
+            $params['ips'] = implode(',', $ips);
         }
 
         if (!empty($webScheme)) {
@@ -164,7 +170,6 @@ class DomainV4 extends HttpApi
             $params['dkim_key_size'] = $dkimKeySize;
         }
 
-        $response = $this->httpPost('/v3/domains', $params, $requestHeaders);
 
         return $this->hydrateResponse($response, CreateResponse::class);
     }
@@ -181,7 +186,7 @@ class DomainV4 extends HttpApi
     {
         Assert::stringNotEmpty($domain);
 
-        $response = $this->httpDelete(sprintf('/v3/domains/%s', $domain), [], $requestHeaders);
+        $response = $this->httpDelete(sprintf('/v4/domains/%s', $domain), [], $requestHeaders);
 
         return $this->hydrateResponse($response, DeleteResponse::class);
     }
@@ -350,7 +355,7 @@ class DomainV4 extends HttpApi
 
         $params['web_scheme'] = $webScheme;
 
-        $response = $this->httpPut(sprintf('/v3/domains/%s', $domain), $params, $requestHeaders);
+        $response = $this->httpPut(sprintf('/v4/domains/%s', $domain), $params, $requestHeaders);
 
         return $this->hydrateResponse($response, WebSchemeResponse::class);
     }
@@ -366,7 +371,7 @@ class DomainV4 extends HttpApi
     {
         Assert::stringNotEmpty($domain);
 
-        $response = $this->httpPut(sprintf('/v3/domains/%s/verify', $domain), [], $requestHeaders);
+        $response = $this->httpPut(sprintf('/v4/domains/%s/verify', $domain), [], $requestHeaders);
 
         return $this->hydrateResponse($response, VerifyResponse::class);
     }
