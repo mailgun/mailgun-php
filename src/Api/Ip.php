@@ -220,4 +220,52 @@ class Ip extends HttpApi
 
         return $this->hydrateResponse($response, UpdateResponse::class);
     }
+
+    /**
+     * @param array $data
+     * @param array $requestHeaders
+     * @return mixed|ResponseInterface
+     * @throws ClientExceptionInterface
+     */
+    public function addNewDIPPIntoAccount(array $data, array $requestHeaders = [])
+    {
+        Assert::stringNotEmpty($data['description']);
+        Assert::stringNotEmpty($data['name']);
+
+        $response = $this->httpPost('/v3/ip_pools', $data, $requestHeaders);
+
+        return $this->hydrateResponse($response, UpdateResponse::class);
+    }
+
+    /**
+     * @param string $poolId
+     * @param array $requestHeaders
+     * @return mixed|ResponseInterface
+     * @throws ClientExceptionInterface
+     */
+    public function loadDIPPInformation(string $poolId, array $requestHeaders = [])
+    {
+        $response = $this->httpGet(sprintf('/v3/ip_pools/%s', $poolId), [], $requestHeaders);
+
+        return $this->hydrateResponse($response, UpdateResponse::class);
+    }
+
+    /**
+     * @param string $poolId
+     * @param string $ip
+     * @param string $repPoolId
+     * @param array $requestHeaders
+     * @return mixed|ResponseInterface
+     * @throws ClientExceptionInterface
+     */
+    public function deleteDIPP(string $poolId, string $ip, string $repPoolId, array $requestHeaders = [])
+    {
+        $response = $this->httpDelete(
+            sprintf('/v3/ip_pools/%s?', $poolId,) . http_build_query(['ip' => $ip, 'pool_id' => $repPoolId]),
+            [],
+            $requestHeaders
+        );
+
+        return $this->hydrateResponse($response, UpdateResponse::class);
+    }
 }
