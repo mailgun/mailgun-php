@@ -128,14 +128,10 @@ class DomainV4 extends HttpApi
         }
 
         if (null !== $wildcard) {
-            Assert::boolean($wildcard);
-
             $params['wildcard'] = $wildcard ? 'true' : 'false';
         }
 
         if (null !== $forceDkimAuthority) {
-            Assert::boolean($forceDkimAuthority);
-
             $params['force_dkim_authority'] = $forceDkimAuthority ? 'true' : 'false';
         }
 
@@ -174,8 +170,8 @@ class DomainV4 extends HttpApi
     /**
      * Removes a domain from the account.
      * WARNING: This action is irreversible! Be cautious!
-     * @param  string                                 $domain         name of the domain
-     * @param  array                                  $requestHeaders
+     * @param string $domain name of the domain
+     * @param array $requestHeaders
      * @return DeleteResponse|array|ResponseInterface
      * @throws ClientExceptionInterface
      */
@@ -451,7 +447,6 @@ class DomainV4 extends HttpApi
         Assert::stringNotEmpty($active);
         Assert::oneOf($active, ['yes', 'no', 'true', 'false']);
         Assert::stringNotEmpty($htmlFooter);
-        Assert::nullOrString($textFooter);
 
         $params = [
             'active' => (in_array($active, ['yes', 'true'], true)) ? 'true' : 'false',
