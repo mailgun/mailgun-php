@@ -86,8 +86,6 @@ class DomainV4 extends HttpApi
      * @param string $domain name of the domain
      * @param string|null $smtpPass password for SMTP authentication
      * @param string|null $spamAction `disable` or `tag` - inbound spam filtering
-     * @param bool|null $wildcard domain will accept email for subdomains
-     * @param bool|null $forceDkimAuthority force DKIM authority
      * @param bool|null $wildcard
      * @param bool|null $forceDkimAuthority
      * @param string[] $ips an array of ips to be assigned to the domain
@@ -97,14 +95,14 @@ class DomainV4 extends HttpApi
      *                                                                    key
      * @param array $requestHeaders
      * @return CreateResponse|array|ResponseInterface
-     * @throws Exception
+     * @throws Exception|ClientExceptionInterface
      */
     public function create(
         string  $domain,
         string  $smtpPass = null,
         string  $spamAction = null,
-        bool $wildcard = null,
-        bool $forceDkimAuthority = null,
+        ?bool $wildcard = null,
+        ?bool $forceDkimAuthority = null,
         ?array  $ips = null,
         ?string $pool_id = null,
         string  $webScheme = 'http',
@@ -130,14 +128,10 @@ class DomainV4 extends HttpApi
         }
 
         if (null !== $wildcard) {
-            Assert::boolean($wildcard);
-
             $params['wildcard'] = $wildcard ? 'true' : 'false';
         }
 
         if (null !== $forceDkimAuthority) {
-            Assert::boolean($forceDkimAuthority);
-
             $params['force_dkim_authority'] = $forceDkimAuthority ? 'true' : 'false';
         }
 
@@ -168,6 +162,7 @@ class DomainV4 extends HttpApi
             $params['dkim_key_size'] = $dkimKeySize;
         }
 
+        $response = $this->httpPost('/v4/domains', $params, $requestHeaders);
 
         return $this->hydrateResponse($response, CreateResponse::class);
     }
@@ -175,8 +170,8 @@ class DomainV4 extends HttpApi
     /**
      * Removes a domain from the account.
      * WARNING: This action is irreversible! Be cautious!
-     * @param  string                                 $domain         name of the domain
-     * @param  array                                  $requestHeaders
+     * @param string $domain name of the domain
+     * @param array $requestHeaders
      * @return DeleteResponse|array|ResponseInterface
      * @throws ClientExceptionInterface
      */
@@ -452,7 +447,6 @@ class DomainV4 extends HttpApi
         Assert::stringNotEmpty($active);
         Assert::oneOf($active, ['yes', 'no', 'true', 'false']);
         Assert::stringNotEmpty($htmlFooter);
-        Assert::nullOrString($textFooter);
 
         $params = [
             'active' => (in_array($active, ['yes', 'true'], true)) ? 'true' : 'false',
