@@ -22,7 +22,7 @@
         "phpunit/phpunit": "^9.3",
         "squizlabs/php_codesniffer": "^3.7",
         "symfony/http-client": "^5.4 || ^6.3",
-        "vimeo/psalm": "^5.25"
+        "vimeo/psalm": "^4.0 || ^5.25"
     },
     "suggest": {
         "nyholm/psr7": "PSR-7 message implementation",
