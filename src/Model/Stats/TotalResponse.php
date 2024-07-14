@@ -27,6 +27,11 @@ final class TotalResponse implements ApiResponse
     {
     }
 
+    /**
+     * @param array $data
+     * @return self
+     * @throws \Exception
+     */
     public static function create(array $data): self
     {
         $stats = [];
@@ -45,16 +50,25 @@ final class TotalResponse implements ApiResponse
         return $model;
     }
 
+    /**
+     * @return \DateTimeImmutable|null
+     */
     public function getStart(): ?\DateTimeImmutable
     {
         return $this->start;
     }
 
+    /**
+     * @return \DateTimeImmutable|null
+     */
     public function getEnd(): ?\DateTimeImmutable
     {
         return $this->end;
     }
 
+    /**
+     * @return string|null
+     */
     public function getResolution(): ?string
     {
         return $this->resolution;
