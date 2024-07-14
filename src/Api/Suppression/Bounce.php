@@ -14,11 +14,14 @@ namespace Mailgun\Api\Suppression;
 use Mailgun\Api\HttpApi;
 use Mailgun\Api\Pagination;
 use Mailgun\Assert;
+use Mailgun\Exception\InvalidArgumentException;
 use Mailgun\Model\Suppression\Bounce\CreateResponse;
 use Mailgun\Model\Suppression\Bounce\DeleteResponse;
 use Mailgun\Model\Suppression\Bounce\IndexResponse;
 use Mailgun\Model\Suppression\Bounce\ShowResponse;
 use Psr\Http\Client\ClientExceptionInterface;
+use RuntimeException;
+use Throwable;
 
 /**
  * @see https://documentation.mailgun.com/en/latest/api-suppressions.html#bounces
@@ -116,5 +119,26 @@ class Bounce extends HttpApi
         $response = $this->httpDelete(sprintf('/v3/%s/bounces', $domain), [], $requestHeaders);
 
         return $this->hydrateResponse($response, DeleteResponse::class);
+    }
+
+    /**
+     * @param string $domainId
+     * @param array $bounces
+     * @param array $requestHeaders
+     * @return mixed
+     */
+    public function importBouncesList(string $domainId, array $bounces, array $requestHeaders = [])
+    {
+        try {
+            $response = $this->httpPostRaw(
+                sprintf('/v3/%s/bounces/import', $domainId),
+                $bounces,
+                $requestHeaders
+            );
+        } catch (Throwable $throwable) {
+            throw new RuntimeException($throwable->getMessage());
+        }
+
+        return $this->hydrateResponse($response, CreateResponse::class);
     }
 }
