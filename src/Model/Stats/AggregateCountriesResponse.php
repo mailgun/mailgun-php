@@ -13,9 +13,9 @@ namespace Mailgun\Model\Stats;
 
 use Mailgun\Model\ApiResponse;
 
-final class AggregateResponse implements ApiResponse
+final class AggregateCountriesResponse implements ApiResponse
 {
-    private array $providers = [];
+    private array $countries = [];
 
     private function __construct()
     {
@@ -28,33 +28,31 @@ final class AggregateResponse implements ApiResponse
      */
     public static function create(array $data): self
     {
-        print_r($data);
-
-        $providers = [];
-        foreach ($data['providers'] as $domain => $provider) {
-            $providers[] = AggregateResponseItem::create($provider + ['domain' => $domain]);
+        $countries = [];
+        foreach ($data['countries'] as $country => $provider) {
+            $countries[] = AggregateResponseItem::create($provider + ['country' => $country]);
         }
         $model = new self();
-        $model->setProviders($providers);
-
+        $model->setCountries($countries);
         return $model;
     }
 
     /**
      * @return array|AggregateResponseItem[]
      */
-    public function getProviders(): array
+    public function getCountries(): array
     {
-        return $this->providers;
+        return $this->countries;
     }
 
     /**
-     * @param array $providers
+     * @param array $countries
      * @return void
      */
-    public function setProviders(array $providers): void
+    public function setCountries(array $countries): void
     {
-        $this->providers = $providers;
+        $this->countries = $countries;
     }
+
 
 }

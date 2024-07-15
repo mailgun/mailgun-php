@@ -13,6 +13,8 @@ namespace Mailgun\Api;
 
 use Exception;
 use Mailgun\Assert;
+use Mailgun\Model\Stats\AggregateCountriesResponse;
+use Mailgun\Model\Stats\AggregateDevicesResponse;
 use Mailgun\Model\Stats\AggregateResponse;
 use Mailgun\Model\Stats\TotalResponse;
 use Psr\Http\Client\ClientExceptionInterface;
@@ -71,11 +73,40 @@ class Stats extends HttpApi
      * @param array $requestHeaders
      * @return AggregateResponse
      * @throws ClientExceptionInterface
+     * @throws Exception
      */
     public function aggregateCountsByESP(string $domain, array $requestHeaders = []): AggregateResponse
     {
         $response = $this->httpGet(sprintf('/v3/%s/aggregates/providers', rawurlencode($domain)), [], $requestHeaders);
 
         return $this->hydrateResponse($response, AggregateResponse::class);
+    }
+
+    /**
+     * @param string $domain
+     * @param array $requestHeaders
+     * @return AggregateDevicesResponse
+     * @throws ClientExceptionInterface
+     * @throws Exception
+     */
+    public function aggregateByDevices(string $domain, array $requestHeaders = []): AggregateDevicesResponse
+    {
+        $response = $this->httpGet(sprintf('/v3/%s/aggregates/devices', rawurlencode($domain)), [], $requestHeaders);
+
+        return $this->hydrateResponse($response, AggregateDevicesResponse::class);
+    }
+
+    /**
+     * @param string $domain
+     * @param array $requestHeaders
+     * @return AggregateCountriesResponse
+     * @throws ClientExceptionInterface
+     * @throws Exception
+     */
+    public function aggregateByCountry(string $domain, array $requestHeaders = []): AggregateCountriesResponse
+    {
+        $response = $this->httpGet(sprintf('/v3/%s/aggregates/countries', rawurlencode($domain)), [], $requestHeaders);
+
+        return $this->hydrateResponse($response, AggregateCountriesResponse::class);
     }
 }

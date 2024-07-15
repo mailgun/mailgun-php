@@ -24,6 +24,8 @@ final class AggregateResponseItem implements ApiResponse
     private int $uniqueOpened;
     private int $unsubscribed;
     private string $domain;
+    private string $device;
+    private string $country;
 
 
     private function __construct()
@@ -46,6 +48,8 @@ final class AggregateResponseItem implements ApiResponse
         $model->setUnsubscribed($data['unsubscribed'] ?? 0);
         $model->setAccepted($data['accepted'] ?? 0);
         $model->setDomain($data['domain'] ?? '');
+        $model->setDevice($data['device'] ?? '');
+        $model->setCountry($data['country'] ?? '');
 
         return $model;
     }
@@ -201,5 +205,39 @@ final class AggregateResponseItem implements ApiResponse
     public function setDomain(string $domain): void
     {
         $this->domain = $domain;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDevice(): string
+    {
+        return $this->device;
+    }
+
+    /**
+     * @param string $device
+     * @return void
+     */
+    public function setDevice(string $device): void
+    {
+        $this->device = $device;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCountry(): string
+    {
+        return $this->country;
+    }
+
+    /**
+     * @param string $country
+     * @return void
+     */
+    public function setCountry(string $country): void
+    {
+        $this->country = $country;
     }
 }
