@@ -28,8 +28,6 @@ final class AggregateResponse implements ApiResponse
      */
     public static function create(array $data): self
     {
-        print_r($data);
-
         $providers = [];
         foreach ($data['providers'] as $domain => $provider) {
             $providers[] = AggregateResponseItem::create($provider + ['domain' => $domain]);
