@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace Mailgun\Model\Tag;
 
-use JetBrains\PhpStorm\ArrayShape;
 use Mailgun\Model\ApiResponse;
 
 final class TagLimitResponse implements ApiResponse
@@ -88,7 +87,7 @@ final class TagLimitResponse implements ApiResponse
     /**
      * @return array
      */
-    #[ArrayShape(['id' => "string", 'limit' => "int", 'count' => "int"])] public function toArray(): array
+    public function toArray(): array
     {
         return [
             'id' => $this->getId(),
