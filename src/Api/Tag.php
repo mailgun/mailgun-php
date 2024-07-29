@@ -98,10 +98,9 @@ class Tag extends HttpApi
 
     /**
      * Returns statistics for a single tag.
-     * @param  string                               $domain
-     * @param  string                               $tag
-     * @param  array                                $params
-     * @param  array                                $requestHeaders
+     * @param string $domain
+     * @param array $params
+     * @param array $requestHeaders
      * @return StatisticsResponse|ResponseInterface
      * @throws ClientExceptionInterface
      */
