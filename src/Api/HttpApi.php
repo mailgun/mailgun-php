@@ -50,7 +50,7 @@ abstract class HttpApi
      * @param RequestBuilder  $requestBuilder
      * @param Hydrator        $hydrator
      */
-    public function __construct($httpClient, RequestBuilder $requestBuilder, Hydrator $hydrator)
+    public function __construct(ClientInterface $httpClient, RequestBuilder $requestBuilder, Hydrator $hydrator)
     {
         $this->httpClient = $httpClient;
         $this->requestBuilder = $requestBuilder;

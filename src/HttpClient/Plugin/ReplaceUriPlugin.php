@@ -29,11 +29,20 @@ final class ReplaceUriPlugin implements Plugin
      */
     private $uri;
 
+    /**
+     * @param UriInterface $uri
+     */
     public function __construct(UriInterface $uri)
     {
         $this->uri = $uri;
     }
 
+    /**
+     * @param RequestInterface $request
+     * @param callable $next
+     * @param callable $first
+     * @return mixed
+     */
     public function doHandleRequest(RequestInterface $request, callable $next, callable $first)
     {
         $request = $request->withUri($this->uri);

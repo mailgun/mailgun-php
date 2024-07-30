@@ -70,10 +70,9 @@ class BatchMessage extends MessageBuilder
      *                           full_name?: string,
      *                           first?: string,
      *                           last?: string,
-     *
      * @return MessageBuilder
      * @throws MissingRequiredParameter
-     * @throws TooManyRecipients
+     * @throws TooManyRecipients|ClientExceptionInterface
      */
     protected function addRecipient(string $headerName, string $address, array $variables): MessageBuilder
     {

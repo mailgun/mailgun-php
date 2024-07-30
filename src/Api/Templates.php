@@ -47,7 +47,7 @@ class Templates extends HttpApi
 
         $params = [
             'limit' => $limit,
-            'skip' => $page,
+            'page' => $page,
             'p' => $pivot,
         ];
 
