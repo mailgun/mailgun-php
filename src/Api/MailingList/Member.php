@@ -120,14 +120,14 @@ class Member extends HttpApi
 
     /**
      * Adds multiple members (up to 1000) to the mailing list.
-     * @param  string                   $list           Address of the mailing list
-     * @param  array                    $members        Array of members, each item should be either a single string address or an array of member properties
-     * @param  bool                     $upsert         `true` to update existing members, `false` (default) to ignore duplicates
-     * @param  array                    $requestHeaders
-     * @return MailingListUpdateResponse
+     * @param string $list Address of the mailing list
+     * @param array $members Array of members, each item should be either a single string address or an array of member properties
+     * @param bool $upsert `true` to update existing members, `false` (default) to ignore duplicates
+     * @param array $requestHeaders
+     * @return MailingListUpdateResponse|null
      * @throws ClientExceptionInterface
      */
-    public function createMultiple(string $list, array $members, bool $upsert = false, array $requestHeaders = []): MailingListUpdateResponse
+    public function createMultiple(string $list, array $members, bool $upsert = false, array $requestHeaders = []): ?MailingListUpdateResponse
     {
         Assert::stringNotEmpty($list);
         Assert::isArray($members);
