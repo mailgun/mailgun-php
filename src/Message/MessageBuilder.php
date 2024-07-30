@@ -63,7 +63,7 @@ class MessageBuilder
     /**
      * @param array $params
      * @param string $key
-     * @param $default
+     * @param mixed $default
      * @return mixed
      */
     private function get(array $params, string $key, $default)
@@ -269,7 +269,7 @@ class MessageBuilder
 
     /**
      * @param string $headerName
-     * @param $headerData
+     * @param mixed $headerData
      * @return $this
      */
     public function addCustomHeader(string $headerName, $headerData): self
@@ -483,7 +483,7 @@ class MessageBuilder
 
     /**
      * @param string $customName
-     * @param $data
+     * @param mixed $data
      * @return $this
      */
     public function addCustomData(string $customName, $data): self
@@ -495,7 +495,7 @@ class MessageBuilder
 
     /**
      * @param string $parameterName
-     * @param $data
+     * @param mixed $data
      * @return $this
      */
     public function addCustomParameter(string $parameterName, $data): self

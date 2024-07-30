@@ -23,7 +23,7 @@ final class Assert extends \Webmozart\Assert\Assert
     /**
      * @psalm-pure this method is not supposed to perform side-effects
      * @psalm-return never
-     * @param $message
+     * @param mixed $message
      * @return void
      */
     protected static function reportInvalidArgument($message): void
