@@ -15,6 +15,11 @@ use Mailgun\Exception;
 
 class MissingRequiredParameter extends \Exception implements Exception
 {
+    /**
+     * @param string $parameter
+     * @param string|null $message
+     * @return self
+     */
     public static function create(string $parameter, string $message = null)
     {
         if (null === $message) {

@@ -20,7 +20,13 @@ use Mailgun\Exception\InvalidArgumentException;
  */
 final class Assert extends \Webmozart\Assert\Assert
 {
-    protected static function reportInvalidArgument($message)
+    /**
+     * @psalm-pure this method is not supposed to perform side-effects
+     * @psalm-return never
+     * @param $message
+     * @return void
+     */
+    protected static function reportInvalidArgument($message): void
     {
         throw new InvalidArgumentException($message);
     }

@@ -21,10 +21,19 @@ use Psr\Http\Message\ResponseInterface;
  */
 trait Pagination
 {
+    /**
+     * @param string $path
+     * @param array $parameters
+     * @param array $requestHeaders
+     * @return ResponseInterface
+     */
     abstract protected function httpGet(string $path, array $parameters = [], array $requestHeaders = []): ResponseInterface;
 
+
     /**
-     * @param class-string $className
+     * @param ResponseInterface $response
+     * @param string $className
+     * @return mixed
      */
     abstract protected function hydrateResponse(ResponseInterface $response, string $className);
 
@@ -49,8 +58,9 @@ trait Pagination
     }
 
     /**
-     * @param  PagingProvider      $response
+     * @param PagingProvider $response
      * @return PagingProvider|null
+     * @throws ClientExceptionInterface
      */
     public function firstPage(PagingProvider $response): ?PagingProvider
     {

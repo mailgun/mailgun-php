@@ -61,8 +61,9 @@ class MessageBuilder
     ];
 
     /**
-     * @param  array  $params
-     * @param  string $key
+     * @param array $params
+     * @param string $key
+     * @param $default
      * @return mixed
      */
     private function get(array $params, string $key, $default)
@@ -75,7 +76,7 @@ class MessageBuilder
     }
 
     /**
-     * @param  array  $params {
+     * @param array $params {
      *                        full_name?:
      *                        string,
      *                        first?:
@@ -152,9 +153,8 @@ class MessageBuilder
      *                          first?: string,
      *                          last?: string,
      *                          }
-     *
      * @return MessageBuilder
-     * @throws TooManyRecipients
+     * @throws TooManyRecipients|LimitExceeded
      */
     public function addToRecipient(string $address, array $variables = []): self
     {
@@ -174,9 +174,8 @@ class MessageBuilder
      *                          first?: string,
      *                          last?: string,
      *                          }
-     *
      * @return MessageBuilder
-     * @throws TooManyRecipients
+     * @throws TooManyRecipients|LimitExceeded
      */
     public function addCcRecipient(string $address, array $variables = []): self
     {
@@ -197,9 +196,8 @@ class MessageBuilder
      *                          first?: string,
      *                          last?: string,
      *                          }
-     *
      * @return MessageBuilder
-     * @throws TooManyRecipients
+     * @throws TooManyRecipients|LimitExceeded
      */
     public function addBccRecipient(string $address, array $variables = []): self
     {
@@ -270,7 +268,8 @@ class MessageBuilder
     }
 
     /**
-     * @param  string $headerName
+     * @param string $headerName
+     * @param $headerData
      * @return $this
      */
     public function addCustomHeader(string $headerName, $headerData): self
@@ -391,7 +390,7 @@ class MessageBuilder
             throw LimitExceeded::create('campaigns', self::CAMPAIGN_ID_LIMIT);
         }
         if (isset($this->message['o:campaign'])) {
-            array_push($this->message['o:campaign'], $campaignId);
+            $this->message['o:campaign'][] = $campaignId;
         } else {
             $this->message['o:campaign'] = [$campaignId];
         }
@@ -410,7 +409,7 @@ class MessageBuilder
         }
 
         if (isset($this->message['o:tag'])) {
-            array_push($this->message['o:tag'], $tag);
+            $this->message['o:tag'][] = $tag;
         } else {
             $this->message['o:tag'] = [$tag];
         }
@@ -483,7 +482,8 @@ class MessageBuilder
     }
 
     /**
-     * @param  string $customName
+     * @param string $customName
+     * @param $data
      * @return $this
      */
     public function addCustomData(string $customName, $data): self
@@ -494,7 +494,8 @@ class MessageBuilder
     }
 
     /**
-     * @param  string $parameterName
+     * @param string $parameterName
+     * @param $data
      * @return $this
      */
     public function addCustomParameter(string $parameterName, $data): self
