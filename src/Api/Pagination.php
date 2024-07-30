@@ -31,8 +31,8 @@ trait Pagination
 
 
     /**
+     * @param class-string $className
      * @param ResponseInterface $response
-     * @param string $className
      * @return mixed
      */
     abstract protected function hydrateResponse(ResponseInterface $response, string $className);
