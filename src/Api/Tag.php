@@ -19,6 +19,7 @@ use Mailgun\Model\Tag\IndexResponse;
 use Mailgun\Model\Tag\ProviderResponse;
 use Mailgun\Model\Tag\ShowResponse;
 use Mailgun\Model\Tag\StatisticsResponse;
+use Mailgun\Model\Tag\TagLimitResponse;
 use Mailgun\Model\Tag\UpdateResponse;
 use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -97,19 +98,19 @@ class Tag extends HttpApi
 
     /**
      * Returns statistics for a single tag.
-     * @param  string                               $domain
-     * @param  string                               $tag
-     * @param  array                                $params
-     * @param  array                                $requestHeaders
+     * @param string $domain
+     * @param array $params
+     * @param array $requestHeaders
      * @return StatisticsResponse|ResponseInterface
      * @throws ClientExceptionInterface
      */
-    public function stats(string $domain, string $tag, array $params, array $requestHeaders = [])
+    public function stats(string $domain, array $params, array $requestHeaders = [])
     {
         Assert::stringNotEmpty($domain);
-        Assert::stringNotEmpty($tag);
+        Assert::stringNotEmpty($params['event']);
+        Assert::stringNotEmpty($params['tag']);
 
-        $response = $this->httpGet(sprintf('/v3/%s/tags/%s/stats', $domain, $tag), $params, $requestHeaders);
+        $response = $this->httpGet(sprintf('/v3/%s/tag/stats', $domain), $params, $requestHeaders);
 
         return $this->hydrateResponse($response, StatisticsResponse::class);
     }
@@ -127,7 +128,7 @@ class Tag extends HttpApi
         Assert::stringNotEmpty($domain);
         Assert::stringNotEmpty($tag);
 
-        $response = $this->httpDelete(sprintf('/v3/%s/tags/%s', $domain, $tag), [], $requestHeaders);
+        $response = $this->httpDelete(sprintf('/v3/%s/tag', $domain), ['tag' => $tag], $requestHeaders);
 
         return $this->hydrateResponse($response, DeleteResponse::class);
     }
@@ -181,5 +182,20 @@ class Tag extends HttpApi
         $response = $this->httpGet(sprintf('/v3/%s/tags/%s/stats/aggregates/devices', $domain, $tag), [], $requestHeaders);
 
         return $this->hydrateResponse($response, DeviceResponse::class);
+    }
+
+    /**
+     * @param string $domain
+     * @param array $requestHeaders
+     * @return TagLimitResponse
+     * @throws ClientExceptionInterface
+     */
+    public function getTagLimits(string $domain, array $requestHeaders = []): TagLimitResponse
+    {
+        Assert::stringNotEmpty($domain);
+
+        $response = $this->httpGet(sprintf('/v3/domains/%s/limits/tag', $domain), [], $requestHeaders);
+
+        return $this->hydrateResponse($response, TagLimitResponse::class);
     }
 }
