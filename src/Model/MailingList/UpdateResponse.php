@@ -18,6 +18,10 @@ final class UpdateResponse implements ApiResponse
     private $message;
     private $list;
 
+    /**
+     * @param array $data
+     * @return self
+     */
     public static function create(array $data): self
     {
         $model = new self();
@@ -31,11 +35,17 @@ final class UpdateResponse implements ApiResponse
     {
     }
 
+    /**
+     * @return string
+     */
     public function getMessage(): string
     {
         return $this->message;
     }
 
+    /**
+     * @return MailingList
+     */
     public function getList(): MailingList
     {
         return $this->list;

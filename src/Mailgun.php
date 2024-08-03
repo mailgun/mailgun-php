@@ -220,7 +220,7 @@ class Mailgun
      */
     public function webhooks(): Api\Webhook
     {
-        return new Api\Webhook($this->httpClient, $this->requestBuilder, $this->hydrator, $this->apiKey);
+        return new Api\Webhook($this->httpClient, $this->requestBuilder, $this->hydrator, $this->apiKey ?? '');
     }
 
     /**

@@ -120,14 +120,14 @@ class Member extends HttpApi
 
     /**
      * Adds multiple members (up to 1000) to the mailing list.
-     * @param  string                   $list           Address of the mailing list
-     * @param  array                    $members        Array of members, each item should be either a single string address or an array of member properties
-     * @param  bool                     $upsert         `true` to update existing members, `false` (default) to ignore duplicates
-     * @param  array                    $requestHeaders
-     * @return UpdateResponse
+     * @param string $list Address of the mailing list
+     * @param array $members Array of members, each item should be either a single string address or an array of member properties
+     * @param bool $upsert `true` to update existing members, `false` (default) to ignore duplicates
+     * @param array $requestHeaders
+     * @return MailingListUpdateResponse|null
      * @throws ClientExceptionInterface
      */
-    public function createMultiple(string $list, array $members, bool $upsert = false, array $requestHeaders = [])
+    public function createMultiple(string $list, array $members, bool $upsert = false, array $requestHeaders = []): ?MailingListUpdateResponse
     {
         Assert::stringNotEmpty($list);
         Assert::isArray($members);
@@ -156,11 +156,11 @@ class Member extends HttpApi
                         if (is_array($value)) {
                             $value = json_encode($value);
                         }
-                        // We should assert that "vars"'s $value is a string.
+                        break;
+                    // We should assert that "vars"'s $value is a string.
                         // no break
                     case 'name':
                         Assert::string($value);
-
                         break;
                     case 'subscribed':
                         Assert::oneOf($value, ['yes', 'no', true, false]);
