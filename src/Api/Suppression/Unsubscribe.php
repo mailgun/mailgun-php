@@ -125,4 +125,27 @@ class Unsubscribe extends HttpApi
 
         return $this->hydrateResponse($response, DeleteResponse::class);
     }
+
+    /**
+     * @param string $domain
+     * @param string $filePath
+     * @return mixed
+     * @throws ClientExceptionInterface
+     */
+    public function import(string $domain, string $filePath)
+    {
+        Assert::stringNotEmpty($domain);
+        Assert::stringNotEmpty($filePath);
+        Assert::fileExists($filePath);
+
+        $response = $this->httpPost(
+            sprintf('/v3/%s/unsubscribes/import', $domain),
+            ['file' => fopen($filePath, 'r')],
+            [
+                'filename' => basename($filePath),
+            ]
+        );
+
+        return $this->hydrateResponse($response, ShowResponse::class);
+    }
 }
