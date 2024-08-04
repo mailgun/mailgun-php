@@ -18,8 +18,8 @@ use Mailgun\Model\ApiResponse;
  */
 final class UpdateUnsubscribeTrackingResponse implements ApiResponse
 {
-    private $message;
-    private $unsubscribe;
+    private ?string $message;
+    private UnsubscribeTracking $unsubscribe;
 
     public static function create(array $data): self
     {
@@ -34,11 +34,17 @@ final class UpdateUnsubscribeTrackingResponse implements ApiResponse
     {
     }
 
+    /**
+     * @return string|null
+     */
     public function getMessage(): ?string
     {
         return $this->message;
     }
 
+    /**
+     * @return UnsubscribeTracking
+     */
     public function getUnsubscribe(): UnsubscribeTracking
     {
         return $this->unsubscribe;

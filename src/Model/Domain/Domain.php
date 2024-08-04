@@ -19,13 +19,13 @@ namespace Mailgun\Model\Domain;
 final class Domain
 {
     private $createdAt;
-    private $smtpLogin;
-    private $name;
-    private $smtpPassword;
+    private ?string $smtpLogin;
+    private ?string $name;
+    private ?string $smtpPassword;
     private $wildcard;
-    private $spamAction;
-    private $state;
-    private $webScheme;
+    private ?string $spamAction;
+    private ?string $state;
+    private ?string $webScheme;
 
     public static function create(array $data): self
     {
@@ -46,38 +46,76 @@ final class Domain
     {
     }
 
+    /**
+     * @return string|null
+     */
     public function getName(): ?string
     {
         return $this->name;
     }
 
+    /**
+     * @return string|null
+     */
     public function getSmtpUsername(): ?string
     {
         return $this->smtpLogin;
     }
 
+    /**
+     * @return string|null
+     */
     public function getSmtpPassword(): ?string
     {
         return $this->smtpPassword;
     }
 
+    /**
+     * @return bool|null
+     */
     public function isWildcard(): ?bool
     {
         return $this->wildcard;
     }
 
+    /**
+     * @return string|null
+     */
     public function getSpamAction(): ?string
     {
         return $this->spamAction;
     }
 
+    /**
+     * @return string|null
+     */
     public function getState(): ?string
     {
         return $this->state;
     }
 
+    /**
+     * @return \DateTimeImmutable
+     */
     public function getCreatedAt(): \DateTimeImmutable
     {
         return $this->createdAt;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getWebScheme(): ?string
+    {
+        return $this->webScheme;
+    }
+
+    /**
+     * @param string|null $webScheme
+     * @return void
+     */
+    public function setWebScheme(?string $webScheme): void
+    {
+        $this->webScheme = $webScheme;
     }
 }

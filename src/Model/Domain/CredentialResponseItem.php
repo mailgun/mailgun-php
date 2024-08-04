@@ -16,10 +16,10 @@ namespace Mailgun\Model\Domain;
  */
 final class CredentialResponseItem
 {
-    private $sizeBytes;
+    private ?int $sizeBytes;
     private $createdAt;
-    private $mailbox;
-    private $login;
+    private ?string $mailbox;
+    private ?string $login;
 
     public static function create(array $data): self
     {
@@ -36,21 +36,33 @@ final class CredentialResponseItem
     {
     }
 
+    /**
+     * @return int|null
+     */
     public function getSizeBytes(): ?int
     {
         return $this->sizeBytes;
     }
 
+    /**
+     * @return \DateTimeImmutable|null
+     */
     public function getCreatedAt(): ?\DateTimeImmutable
     {
         return $this->createdAt;
     }
 
+    /**
+     * @return string|null
+     */
     public function getMailbox(): ?string
     {
         return $this->mailbox;
     }
 
+    /**
+     * @return string|null
+     */
     public function getLogin(): ?string
     {
         return $this->login;

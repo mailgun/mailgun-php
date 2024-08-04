@@ -18,12 +18,12 @@ namespace Mailgun\Model\Domain;
  */
 final class DnsRecord
 {
-    private $name;
-    private $type;
-    private $value;
-    private $priority;
-    private $valid;
-    private $cached;
+    private ?string $name;
+    private ?string $type;
+    private ?string $value;
+    private ?string $priority;
+    private ?string $valid;
+    private array $cached;
 
     public static function create(array $data): self
     {
@@ -52,8 +52,7 @@ final class DnsRecord
 
     /**
      * DNS record type.
-     *
-     * @return string
+     * @return string|null
      */
     public function getType(): ?string
     {

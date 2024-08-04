@@ -18,9 +18,9 @@ use Mailgun\Model\ApiResponse;
  */
 final class ShowResponse implements ApiResponse
 {
-    private $domain;
-    private $inboundDnsRecords;
-    private $outboundDnsRecords;
+    private ?Domain $domain;
+    private array $inboundDnsRecords;
+    private array $outboundDnsRecords;
 
     public static function create(array $data): self
     {
@@ -56,6 +56,9 @@ final class ShowResponse implements ApiResponse
     {
     }
 
+    /**
+     * @return Domain|null
+     */
     public function getDomain(): ?Domain
     {
         return $this->domain;

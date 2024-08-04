@@ -18,9 +18,9 @@ use Mailgun\Model\ApiResponse;
  */
 final class TrackingResponse implements ApiResponse
 {
-    private $click;
-    private $open;
-    private $unsubscribe;
+    private ClickTracking $click;
+    private OpenTracking $open;
+    private UnsubscribeTracking $unsubscribe;
 
     public static function create(array $data): ?self
     {
@@ -42,16 +42,25 @@ final class TrackingResponse implements ApiResponse
     {
     }
 
+    /**
+     * @return ClickTracking
+     */
     public function getClick(): ClickTracking
     {
         return $this->click;
     }
 
+    /**
+     * @return OpenTracking
+     */
     public function getOpen(): OpenTracking
     {
         return $this->open;
     }
 
+    /**
+     * @return UnsubscribeTracking
+     */
     public function getUnsubscribe(): UnsubscribeTracking
     {
         return $this->unsubscribe;

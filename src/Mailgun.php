@@ -45,7 +45,7 @@ class Mailgun
     /**
      * @var string|null
      */
-    private $apiKey;
+    private ?string $apiKey;
 
     /**
      * @var ClientInterface|PluginClient
@@ -55,19 +55,19 @@ class Mailgun
     /**
      * @var Hydrator
      */
-    private $hydrator;
+    private Hydrator $hydrator;
 
     /**
      * @var RequestBuilder
      */
-    private $requestBuilder;
+    private RequestBuilder $requestBuilder;
 
     /**
      * This is a object that holds the last response from the API.
      *
      * @var History
      */
-    private $responseHistory;
+    private History $responseHistory;
 
     /**
      * @param HttpClientConfigurator $configurator

@@ -14,7 +14,6 @@ namespace Mailgun\Api\Suppression;
 use Mailgun\Api\HttpApi;
 use Mailgun\Api\Pagination;
 use Mailgun\Assert;
-use Mailgun\Exception\InvalidArgumentException;
 use Mailgun\Model\Suppression\Bounce\CreateResponse;
 use Mailgun\Model\Suppression\Bounce\DeleteResponse;
 use Mailgun\Model\Suppression\Bounce\IndexResponse;

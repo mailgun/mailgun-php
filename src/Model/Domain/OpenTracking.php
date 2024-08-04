@@ -18,7 +18,7 @@ namespace Mailgun\Model\Domain;
  */
 final class OpenTracking
 {
-    private $active;
+    private ?string $active;
 
     public static function create(array $data): self
     {
@@ -34,13 +34,16 @@ final class OpenTracking
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getActive(): ?string
     {
         return $this->active;
     }
 
+    /**
+     * @return bool
+     */
     public function isActive(): bool
     {
         return 'yes' === $this->getActive();

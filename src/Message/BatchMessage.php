@@ -28,27 +28,27 @@ class BatchMessage extends MessageBuilder
     /**
      * @var array
      */
-    private $batchRecipientAttributes = [];
+    private array $batchRecipientAttributes = [];
 
     /**
      * @var bool
      */
-    private $autoSend;
+    private bool $autoSend;
 
     /**
      * @var array
      */
-    private $messageIds = [];
+    private array $messageIds = [];
 
     /**
      * @var string
      */
-    private $domain;
+    private string $domain;
 
     /**
      * @var Message
      */
-    private $api;
+    private Message $api;
 
     /**
      * @param Message $messageApi

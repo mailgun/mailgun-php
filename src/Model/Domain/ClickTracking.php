@@ -18,7 +18,7 @@ namespace Mailgun\Model\Domain;
  */
 final class ClickTracking
 {
-    private $active;
+    private ?string $active;
 
     public static function create(array $data): self
     {
@@ -33,16 +33,25 @@ final class ClickTracking
     {
     }
 
+    /**
+     * @return string|null
+     */
     public function getActive(): ?string
     {
         return $this->active;
     }
 
+    /**
+     * @return bool
+     */
     public function isActive(): bool
     {
         return 'yes' === $this->getActive();
     }
 
+    /**
+     * @return bool
+     */
     public function isHtmlOnly(): bool
     {
         return 'htmlonly' === $this->getActive();
