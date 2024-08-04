@@ -18,8 +18,8 @@ use Mailgun\Model\ApiResponse;
  */
 final class DeleteResponse implements ApiResponse
 {
-    private $message;
-    private $error;
+    private ?string $message;
+    private ?string $error;
 
     private function __construct()
     {
@@ -34,11 +34,17 @@ final class DeleteResponse implements ApiResponse
         return $model;
     }
 
+    /**
+     * @return string|null
+     */
     public function getMessage(): ?string
     {
         return $this->message;
     }
 
+    /**
+     * @return string|null
+     */
     public function getError(): ?string
     {
         return $this->error;

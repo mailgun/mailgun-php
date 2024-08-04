@@ -18,8 +18,8 @@ use Mailgun\Model\ApiResponse;
  */
 final class IndexResponse implements ApiResponse
 {
-    private $totalCount;
-    private $items;
+    private int $totalCount;
+    private array $items;
 
     public static function create(array $data): self
     {
@@ -48,6 +48,9 @@ final class IndexResponse implements ApiResponse
     {
     }
 
+    /**
+     * @return int
+     */
     public function getTotalCount(): int
     {
         return $this->totalCount;

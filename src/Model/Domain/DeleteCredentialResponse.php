@@ -19,8 +19,8 @@ use Mailgun\Model\ApiResponse;
 final class DeleteCredentialResponse implements ApiResponse
 {
     private $message;
-    private $error;
-    private $spec;
+    private ?string $error;
+    private ?string $spec;
 
     private function __construct()
     {
@@ -36,16 +36,25 @@ final class DeleteCredentialResponse implements ApiResponse
         return $model;
     }
 
+    /**
+     * @return string|null
+     */
     public function getMessage(): ?string
     {
         return $this->message;
     }
 
+    /**
+     * @return string|null
+     */
     public function getError(): ?string
     {
         return $this->error;
     }
 
+    /**
+     * @return string|null
+     */
     public function getSpec(): ?string
     {
         return $this->spec;

@@ -18,9 +18,9 @@ namespace Mailgun\Model\Domain;
  */
 final class UnsubscribeTracking
 {
-    private $active;
-    private $htmlFooter;
-    private $textFooter;
+    private string $active;
+    private string $htmlFooter;
+    private string $textFooter;
 
     public static function create(array $data): self
     {
@@ -36,21 +36,33 @@ final class UnsubscribeTracking
     {
     }
 
+    /**
+     * @return bool
+     */
     public function isActive(): bool
     {
         return 'yes' === $this->getActive();
     }
 
+    /**
+     * @return string
+     */
     public function getActive(): string
     {
         return $this->active;
     }
 
+    /**
+     * @return string
+     */
     public function getHtmlFooter(): string
     {
         return $this->htmlFooter;
     }
 
+    /**
+     * @return string
+     */
     public function getTextFooter(): string
     {
         return $this->textFooter;

@@ -8,7 +8,7 @@ jobs:
     php:
         strategy:
             matrix:
-                php-versions: ['7.3', '7.4', '8.0', '8.1', '8.2', '8.3']
+                php-versions: ['7.4', '8.0', '8.1', '8.2', '8.3']
 
         runs-on: 'Ubuntu-20.04'
 
@@ -36,7 +36,7 @@ jobs:
             -   name: Set up PHP
                 uses: shivammathur/setup-php@2.9.0
                 with:
-                    php-version: 7.3
+                    php-version: 7.4
                     coverage: pcov
 
             -   name: Checkout code

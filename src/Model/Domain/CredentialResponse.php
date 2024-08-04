@@ -18,7 +18,7 @@ use Mailgun\Model\ApiResponse;
  */
 final class CredentialResponse implements ApiResponse
 {
-    private $totalCount;
+    private int $totalCount;
     private $items;
 
     public static function create(array $data): self
@@ -47,6 +47,9 @@ final class CredentialResponse implements ApiResponse
     {
     }
 
+    /**
+     * @return int
+     */
     public function getTotalCount(): int
     {
         return $this->totalCount;

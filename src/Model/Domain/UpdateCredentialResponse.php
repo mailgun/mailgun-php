@@ -18,7 +18,7 @@ use Mailgun\Model\ApiResponse;
  */
 final class UpdateCredentialResponse implements ApiResponse
 {
-    private $message;
+    private ?string $message;
 
     public static function create(array $data): self
     {
@@ -32,6 +32,9 @@ final class UpdateCredentialResponse implements ApiResponse
     {
     }
 
+    /**
+     * @return string|null
+     */
     public function getMessage(): ?string
     {
         return $this->message;
