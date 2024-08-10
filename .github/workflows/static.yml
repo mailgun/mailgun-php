@@ -61,6 +61,14 @@ jobs:
       - name: Psalm
         run: psalm --no-progress --output-format=github
 
+  roave-bc-check:
+    name: Roave BC Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
   composer-normalize:
     name: Composer Normalize
     runs-on: ubuntu-20.04
