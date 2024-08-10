@@ -4,11 +4,11 @@ name: Static analysis
 jobs:
     phpstan:
         name: PHPStan
-        runs-on: ubuntu-20.04
+        runs-on: 'ubuntu-latest'
 
         steps:
             -   name: Checkout code
-                uses: actions/checkout@v2
+                uses: actions/checkout@v4
 
             -   name: Setup PHP
                 uses: shivammathur/setup-php@v2
@@ -25,11 +25,11 @@ jobs:
 
     php-cs-fixer:
         name: PHP-CS-Fixer
-        runs-on: ubuntu-20.04
+        runs-on: 'ubuntu-latest'
 
         steps:
             -   name: Checkout code
-                uses: actions/checkout@v2
+                uses: actions/checkout@v4
 
             -   name: Setup PHP
                 uses: shivammathur/setup-php@v2
@@ -43,10 +43,10 @@ jobs:
 
     psalm:
         name: Psalm
-        runs-on: ubuntu-20.04
+        runs-on: 'ubuntu-latest'
         steps:
             -   name: Checkout code
-                uses: actions/checkout@v2
+                uses: actions/checkout@v4
 
             -   name: Setup PHP
                 uses: shivammathur/setup-php@v2
@@ -62,13 +62,15 @@ jobs:
                 run: psalm --no-progress --output-format=github
 
 
-    roave-bc-check:
-        name: Roave BC Check
+    roave-backwards-compatibility-check:
+        name: Roave Backwards Compatibility Check
         runs-on: ubuntu-latest
-
         steps:
-            -   name: Checkout code
-                uses: actions/checkout@v2
+            - uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0
+            - name: "Check for BC breaks"
+              uses: docker://nyholm/roave-bc-check-ga
 
     composer-normalize:
         name: Composer Normalize
@@ -83,7 +85,7 @@ jobs:
                     tools: composer-normalize
 
             -   name: Checkout code
-                uses: actions/checkout@v2
+                uses: actions/checkout@v4
 
             -   name: Normalize
                 run: composer-normalize --dry-run

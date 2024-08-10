@@ -10,12 +10,12 @@ jobs:
             matrix:
                 php-versions: ['7.4', '8.0', '8.1', '8.2', '8.3']
 
-        runs-on: 'Ubuntu-20.04'
+        runs-on: 'ubuntu-latest'
 
         steps:
 
             -   name: Checkout
-                uses: actions/checkout@v2
+                uses: actions/checkout@v4
 
             -   name: Setup PHP
                 uses: shivammathur/setup-php@v2
@@ -31,7 +31,7 @@ jobs:
 
     lowest:
         name: Lowest deps
-        runs-on: ubuntu-20.04
+        runs-on: 'ubuntu-latest'
         steps:
             -   name: Set up PHP
                 uses: shivammathur/setup-php@2.9.0
@@ -40,7 +40,7 @@ jobs:
                     coverage: pcov
 
             -   name: Checkout code
-                uses: actions/checkout@v2
+                uses: actions/checkout@v4
 
             -   name: Download dependencies
                 run: composer update --no-interaction --prefer-dist --optimize-autoloader --prefer-stable --prefer-lowest
