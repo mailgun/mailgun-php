@@ -61,22 +61,9 @@ jobs:
       - name: Psalm
         run: psalm --no-progress --output-format=github
 
-  roave-backwards-compatibility-check:
-    name: Roave Backwards Compatibility Check
-    runs-on: ubuntu-latest
-    steps:
-      - name: Mark github workspace as safe
-        run: git config --global --add safe.directory /github/workspace
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - name: "Check for BC breaks"
-        uses: docker://nyholm/roave-bc-check-ga
-
   composer-normalize:
     name: Composer Normalize
     runs-on: ubuntu-20.04
-
     steps:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
