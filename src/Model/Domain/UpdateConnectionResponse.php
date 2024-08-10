@@ -18,9 +18,9 @@ use Mailgun\Model\ApiResponse;
  */
 final class UpdateConnectionResponse implements ApiResponse
 {
-    private $message;
+    private ?string $message;
     private $noVerify;
-    private $requireTLS;
+    private ?bool $requireTLS;
 
     public static function create(array $data): self
     {
@@ -36,16 +36,25 @@ final class UpdateConnectionResponse implements ApiResponse
     {
     }
 
+    /**
+     * @return string|null
+     */
     public function getMessage(): ?string
     {
         return $this->message;
     }
 
+    /**
+     * @return bool|null
+     */
     public function getSkipVerification(): ?bool
     {
         return $this->noVerify;
     }
 
+    /**
+     * @return bool|null
+     */
     public function getRequireTLS(): ?bool
     {
         return $this->requireTLS;

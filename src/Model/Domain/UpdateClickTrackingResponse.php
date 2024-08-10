@@ -18,8 +18,8 @@ use Mailgun\Model\ApiResponse;
  */
 final class UpdateClickTrackingResponse implements ApiResponse
 {
-    private $message;
-    private $click;
+    private ?string $message;
+    private ClickTracking $click;
 
     public static function create(array $data): self
     {
@@ -34,11 +34,17 @@ final class UpdateClickTrackingResponse implements ApiResponse
     {
     }
 
+    /**
+     * @return string|null
+     */
     public function getMessage(): ?string
     {
         return $this->message;
     }
 
+    /**
+     * @return ClickTracking
+     */
     public function getClick(): ClickTracking
     {
         return $this->click;

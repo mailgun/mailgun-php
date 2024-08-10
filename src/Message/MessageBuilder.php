@@ -36,17 +36,17 @@ class MessageBuilder
     /**
      * @var array
      */
-    protected $message = [];
+    protected array $message = [];
 
     /**
      * @var array
      */
-    protected $variables = [];
+    protected array $variables = [];
 
     /**
      * @var array
      */
-    protected $counters = [
+    protected array $counters = [
         'recipients' => [
             'to' => 0,
             'cc' => 0,

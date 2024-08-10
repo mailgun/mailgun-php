@@ -2,6 +2,15 @@
 
 The change log describes what is "Added", "Removed", "Changed" or "Fixed" between each release.
 
+## 4.3.0
+- End of support php 7.3
+- Updated properties and added types to the classes properties
+- Update code style
+- Add missed field into IndexResponse for Webhooks
+- Fixed template search filters
+- Fixed tags API endpoints
+- Added new API endpoints
+
 ## 4.2.0
 - Added basic templates functionality
 

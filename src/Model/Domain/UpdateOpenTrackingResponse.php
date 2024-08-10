@@ -18,8 +18,8 @@ use Mailgun\Model\ApiResponse;
  */
 final class UpdateOpenTrackingResponse implements ApiResponse
 {
-    private $message;
-    private $open;
+    private ?string $message;
+    private OpenTracking $open;
 
     public static function create(array $data): self
     {
@@ -34,11 +34,17 @@ final class UpdateOpenTrackingResponse implements ApiResponse
     {
     }
 
+    /**
+     * @return string|null
+     */
     public function getMessage(): ?string
     {
         return $this->message;
     }
 
+    /**
+     * @return OpenTracking
+     */
     public function getOpen(): OpenTracking
     {
         return $this->open;
