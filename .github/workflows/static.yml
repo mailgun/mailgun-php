@@ -2,90 +2,91 @@ on: [ pull_request ]
 name: Static analysis
 
 jobs:
-    phpstan:
-        name: PHPStan
-        runs-on: 'ubuntu-latest'
+  phpstan:
+    name: PHPStan
+    runs-on: 'ubuntu-latest'
 
-        steps:
-            -   name: Checkout code
-                uses: actions/checkout@v4
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-            -   name: Setup PHP
-                uses: shivammathur/setup-php@v2
-                with:
-                    php-version: 8.1
-                    coverage: none
-                    tools: phpstan:0.12.92, cs2pr
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.1
+          coverage: none
+          tools: phpstan:0.12.92, cs2pr
 
-            -   name: Download dependencies
-                uses: ramsey/composer-install@v1
+      - name: Download dependencies
+        uses: ramsey/composer-install@v1
 
-            -   name: PHPStan
-                run: phpstan analyze --no-progress --error-format=checkstyle | cs2pr
+      - name: PHPStan
+        run: phpstan analyze --no-progress --error-format=checkstyle | cs2pr
 
-    php-cs-fixer:
-        name: PHP-CS-Fixer
-        runs-on: 'ubuntu-latest'
+  php-cs-fixer:
+    name: PHP-CS-Fixer
+    runs-on: 'ubuntu-latest'
 
-        steps:
-            -   name: Checkout code
-                uses: actions/checkout@v4
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-            -   name: Setup PHP
-                uses: shivammathur/setup-php@v2
-                with:
-                    php-version: 8.1
-                    coverage: none
-                    tools: php-cs-fixer:3.9.5, cs2pr
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.1
+          coverage: none
+          tools: php-cs-fixer:3.9.5, cs2pr
 
-            -   name: PHP-CS-Fixer
-                run: php-cs-fixer fix --dry-run --format=checkstyle | cs2pr
+      - name: PHP-CS-Fixer
+        run: php-cs-fixer fix --dry-run --format=checkstyle | cs2pr
 
-    psalm:
-        name: Psalm
-        runs-on: 'ubuntu-latest'
-        steps:
-            -   name: Checkout code
-                uses: actions/checkout@v4
+  psalm:
+    name: Psalm
+    runs-on: 'ubuntu-latest'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-            -   name: Setup PHP
-                uses: shivammathur/setup-php@v2
-                with:
-                    php-version: 8.0
-                    coverage: none
-                    tools: vimeo/psalm:4.8.1
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.0
+          coverage: none
+          tools: vimeo/psalm:4.8.1
 
-            -   name: Download dependencies
-                uses: ramsey/composer-install@v1
+      - name: Download dependencies
+        uses: ramsey/composer-install@v1
 
-            -   name: Psalm
-                run: psalm --no-progress --output-format=github
+      - name: Psalm
+        run: psalm --no-progress --output-format=github
 
+  roave-backwards-compatibility-check:
+    name: Roave Backwards Compatibility Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Mark github workspace as safe
+        run: git config --global --add safe.directory /github/workspace
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: "Check for BC breaks"
+        uses: docker://nyholm/roave-bc-check-ga
 
-    roave-backwards-compatibility-check:
-        name: Roave Backwards Compatibility Check
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v4
-              with:
-                  fetch-depth: 0
-            - name: "Check for BC breaks"
-              uses: docker://nyholm/roave-bc-check-ga
+  composer-normalize:
+    name: Composer Normalize
+    runs-on: ubuntu-20.04
 
-    composer-normalize:
-        name: Composer Normalize
-        runs-on: ubuntu-20.04
+    steps:
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.1
+          coverage: none
+          tools: composer-normalize
 
-        steps:
-            -   name: Setup PHP
-                uses: shivammathur/setup-php@v2
-                with:
-                    php-version: 8.1
-                    coverage: none
-                    tools: composer-normalize
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-            -   name: Checkout code
-                uses: actions/checkout@v4
-
-            -   name: Normalize
-                run: composer-normalize --dry-run
+      - name: Normalize
+        run: composer-normalize --dry-run
