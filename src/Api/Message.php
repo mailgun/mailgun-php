@@ -164,6 +164,22 @@ class Message extends HttpApi
     }
 
     /**
+     * @param string $domain
+     * @param string $storageId
+     * @param array $requestHeaders
+     * @return ShowResponse
+     * @throws ClientExceptionInterface
+     */
+    public function retrieveStoredMessage(string $domain, string $storageId, array $requestHeaders = []): ShowResponse
+    {
+        Assert::notEmpty($domain);
+        Assert::notEmpty($storageId);
+        $response = $this->httpGet(sprintf('/v3/domains/%s/messages/%s', $domain, $storageId), [], $requestHeaders);
+
+        return $this->hydrateResponse($response, ShowResponse::class);
+    }
+
+    /**
      * @param array $filePath array('fileContent' => 'content') or array('filePath' => '/foo/bar')
      *
      * @throws InvalidArgumentException
