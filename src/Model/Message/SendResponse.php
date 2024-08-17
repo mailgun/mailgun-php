@@ -27,6 +27,10 @@ final class SendResponse implements ApiResponse
     {
     }
 
+    /**
+     * @param array $data
+     * @return self
+     */
     public static function create(array $data): self
     {
         $model = new self();
@@ -36,11 +40,17 @@ final class SendResponse implements ApiResponse
         return $model;
     }
 
+    /**
+     * @return string
+     */
     public function getId(): string
     {
         return $this->id;
     }
 
+    /**
+     * @return string
+     */
     public function getMessage(): string
     {
         return $this->message;
