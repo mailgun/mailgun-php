@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace Mailgun\Api;
 
-use Exception;
 use Mailgun\Assert;
 use Mailgun\Model\Domain\ConnectionResponse;
 use Mailgun\Model\Domain\CreateCredentialResponse;
@@ -89,13 +88,14 @@ class DomainV4 extends HttpApi
      * @param bool|null $wildcard
      * @param bool|null $forceDkimAuthority
      * @param string[] $ips an array of ips to be assigned to the domain
-     * @param  ?string $pool_id pool id to assign to the domain
+     * @param ?string $pool_id pool id to assign to the domain
      * @param string $webScheme `http` or `https` - set your open, click and unsubscribe URLs to use http or https. The default is http
-     * @param string $dkimKeySize Set length of your domain’s generated DKIM
-     *                                                                    key
+     * @param string $dkimKeySize Set length of your domain’s generated DKIM key
      * @param array $requestHeaders
+     * @param string|null $dkimHostName
+     * @param string|null $dkimSelector
      * @return CreateResponse|array|ResponseInterface
-     * @throws Exception|ClientExceptionInterface
+     * @throws ClientExceptionInterface
      */
     public function create(
         string  $domain,
@@ -107,7 +107,10 @@ class DomainV4 extends HttpApi
         ?string $pool_id = null,
         string  $webScheme = 'http',
         string  $dkimKeySize = '1024',
-        array   $requestHeaders = []
+        array   $requestHeaders = [],
+        ?string $dkimHostName = null,
+        ?string $dkimSelector = null,
+
     ) {
         Assert::stringNotEmpty($domain);
 
@@ -160,6 +163,16 @@ class DomainV4 extends HttpApi
                 'Length of your domain’s generated DKIM key must be 1024 or 2048'
             );
             $params['dkim_key_size'] = $dkimKeySize;
+        }
+
+        if (!empty($dkimHostName)) {
+            Assert::stringNotEmpty($dkimHostName);
+            $params['dkim_host_name'] = $dkimHostName;
+        }
+
+        if (!empty($dkimSelector)) {
+            Assert::stringNotEmpty($dkimSelector);
+            $params['dkim_selector'] = $dkimSelector;
         }
 
         $response = $this->httpPost('/v4/domains', $params, $requestHeaders);
