@@ -2,6 +2,13 @@
 
 The change log describes what is "Added", "Removed", "Changed" or "Fixed" between each release.
 
+## 4.3.2
+ - Added new API endpoint for getting metrics @see https://documentation.mailgun.com/docs/mailgun/api-reference/openapi-final/tag/Metrics/
+
+## 4.3.1
+ - Add method for retrieving stored messages by @oleksandr-mykhailenko in #920
+ - Add missed params to the create method for DomainV4.php by @oleksandr-mykhailenko in #921
+
 ## 4.3.0
 - End of support php 7.3
 - Updated properties and added types to the classes properties

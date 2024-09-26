@@ -22,6 +22,7 @@ use Mailgun\Api\Ip;
 use Mailgun\Api\Mailboxes;
 use Mailgun\Api\MailingList;
 use Mailgun\Api\Message;
+use Mailgun\Api\Metrics;
 use Mailgun\Api\Route;
 use Mailgun\Api\Stats;
 use Mailgun\Api\SubAccounts;
@@ -253,5 +254,13 @@ class Mailgun
     public function templates(): Templates
     {
         return new Templates($this->httpClient, $this->requestBuilder, $this->hydrator);
+    }
+
+    /**
+     * @return Metrics
+     */
+    public function metrics(): Metrics
+    {
+        return new Metrics($this->httpClient, $this->requestBuilder, $this->hydrator);
     }
 }
