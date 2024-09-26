@@ -189,6 +189,38 @@ $configurator->setApiKey('key-example');
 $configurator->setSubAccountId($subAccountId)
 ```
 
+### Load data from the Analytics API
+
+```php
+<?php
+# Include the Autoloader (see "Libraries" for install instructions)
+require 'vendor/autoload.php';
+
+use Mailgun\Mailgun;
+
+# Instantiate the client.
+$mgClient = Mailgun::create('xxx');
+$domain = "xxx.mailgun.org";
+
+$result = $mgClient->metrics()->loadMetrics([
+    'start' => 'Wed, 11 Sep 2024 18:29:02 +0300',
+    'end' => 'Wed, 25 Sep 2024 18:29:02 +0300',
+    'metrics' => [
+        "failed_count", "opened_count", "sent_count", "delivered_count"
+    ],
+    'resolution' => 'month',
+    'precision' => 'day',
+    'dimensions' => [
+        'time',
+    ],
+    'include_aggregates' => true,
+    'include_subaccounts' => true,
+]);
+
+print_r($result->getItems());
+
+````
+
 ### All usage examples
 
 You will find more detailed documentation at [/doc](doc/index.md) and on
