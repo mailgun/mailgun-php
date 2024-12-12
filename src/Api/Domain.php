@@ -101,10 +101,10 @@ class Domain extends HttpApi
      */
     public function create(
         string $domain,
-        string $smtpPass = null,
-        string $spamAction = null,
-        bool $wildcard = null,
-        bool $forceDkimAuthority = null,
+        ?string $smtpPass = null,
+        ?string $spamAction = null,
+        ?bool $wildcard = null,
+        ?bool $forceDkimAuthority = null,
         ?array $ips = null,
         ?string $pool_id = null,
         string $webScheme = 'http',
