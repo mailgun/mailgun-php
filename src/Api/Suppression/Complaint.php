@@ -73,7 +73,7 @@ class Complaint extends HttpApi
      * @return CreateResponse
      * @throws ClientExceptionInterface
      */
-    public function create(string $domain, string $address, string $createdAt = null, array $requestHeaders = [])
+    public function create(string $domain, string $address, ?string $createdAt = null, array $requestHeaders = [])
     {
         Assert::stringNotEmpty($domain);
         Assert::stringNotEmpty($address);

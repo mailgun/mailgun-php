@@ -33,17 +33,17 @@ abstract class HttpApi
      *
      * @var ClientInterface
      */
-    protected $httpClient;
+    protected ClientInterface $httpClient;
 
     /**
      * @var Hydrator|null
      */
-    protected $hydrator;
+    protected ?Hydrator $hydrator;
 
     /**
      * @var RequestBuilder
      */
-    protected $requestBuilder;
+    protected RequestBuilder $requestBuilder;
 
     /**
      * @param ClientInterface $httpClient
@@ -117,7 +117,7 @@ abstract class HttpApi
      * @param  string                   $path           Request path
      * @param  array                    $parameters     GET parameters
      * @param  array                    $requestHeaders Request Headers
-     * @throws ClientExceptionInterface
+     * @throws ClientExceptionInterface|\JsonException
      */
     protected function httpGet(string $path, array $parameters = [], array $requestHeaders = []): ResponseInterface
     {
@@ -142,10 +142,14 @@ abstract class HttpApi
      * @param  string                   $path           Request path
      * @param  array                    $parameters     POST parameters
      * @param  array                    $requestHeaders Request headers
-     * @throws ClientExceptionInterface
+     * @throws ClientExceptionInterface|\JsonException
      */
     protected function httpPost(string $path, array $parameters = [], array $requestHeaders = []): ResponseInterface
     {
+        if (isset($requestHeaders['Content-Type']) && $requestHeaders['Content-Type'] === 'application/json') {
+            return $this->httpPostRaw($path, $parameters, $requestHeaders);
+        }
+
         return $this->httpPostRaw($path, $this->createRequestBody($parameters), $requestHeaders);
     }
 
@@ -155,7 +159,7 @@ abstract class HttpApi
      * @param  string                   $path           Request path
      * @param  array|string             $body           Request body
      * @param  array                    $requestHeaders Request headers
-     * @throws ClientExceptionInterface
+     * @throws ClientExceptionInterface|\JsonException
      */
     protected function httpPostRaw(string $path, $body, array $requestHeaders = []): ResponseInterface
     {
@@ -176,7 +180,7 @@ abstract class HttpApi
      * @param  string                   $path           Request path
      * @param  array                    $parameters     PUT parameters
      * @param  array                    $requestHeaders Request headers
-     * @throws ClientExceptionInterface
+     * @throws ClientExceptionInterface|\JsonException
      */
     protected function httpPut(string $path, array $parameters = [], array $requestHeaders = []): ResponseInterface
     {
