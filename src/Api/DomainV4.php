@@ -99,8 +99,8 @@ class DomainV4 extends HttpApi
      */
     public function create(
         string  $domain,
-        string  $smtpPass = null,
-        string  $spamAction = null,
+        ?string  $smtpPass = null,
+        ?string  $spamAction = null,
         ?bool $wildcard = null,
         ?bool $forceDkimAuthority = null,
         ?array  $ips = null,
