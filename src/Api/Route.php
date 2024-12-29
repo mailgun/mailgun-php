@@ -107,10 +107,10 @@ class Route extends HttpApi
      */
     public function update(
         string $routeId,
-        string $expression = null,
+        ?string $expression = null,
         array $actions = [],
-        string $description = null,
-        int $priority = null,
+        ?string $description = null,
+        ?int $priority = null,
         array $requestHeaders = []
     ) {
         Assert::stringNotEmpty($routeId);

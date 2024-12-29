@@ -166,7 +166,7 @@ class RequestBuilderTest extends MailgunTestCase
 
         $this->requestBuilder->setMultipartStreamBuilder($multipartStreamBuilder);
         $result = $this->requestBuilder
-            ->create('GET', 'http://foo.bar', ['Content-Type' => 'application/json'], [$item0]);
+            ->create('GET', 'http://foo.bar', [], [$item0]);
 
         $this->assertSame($request, $result);
     }

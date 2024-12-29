@@ -64,6 +64,8 @@ class Metrics extends HttpApi
             }
         }
 
+        $requestHeaders['Content-Type'] = 'application/json';
+
         $response = $this->httpPost('/v1/analytics/metrics', $payload, $requestHeaders);
 
         return $this->hydrateResponse($response, MetricsResponse::class);

@@ -77,8 +77,8 @@ class Mailgun
      */
     public function __construct(
         HttpClientConfigurator $configurator,
-        Hydrator $hydrator = null,
-        RequestBuilder $requestBuilder = null
+        ?Hydrator $hydrator = null,
+        ?RequestBuilder $requestBuilder = null
     ) {
         $this->requestBuilder = $requestBuilder ?: new RequestBuilder();
         $this->hydrator = $hydrator ?: new ModelHydrator();

@@ -95,7 +95,7 @@ class Unsubscribe extends HttpApi
      * @return DeleteResponse
      * @throws ClientExceptionInterface
      */
-    public function delete(string $domain, string $address, string $tag = null, array $requestHeaders = [])
+    public function delete(string $domain, string $address, ?string $tag = null, array $requestHeaders = [])
     {
         Assert::stringNotEmpty($domain);
         Assert::stringNotEmpty($address);

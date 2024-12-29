@@ -202,20 +202,24 @@ use Mailgun\Mailgun;
 $mgClient = Mailgun::create('xxx');
 $domain = "xxx.mailgun.org";
 
-$result = $mgClient->metrics()->loadMetrics([
-    'start' => 'Wed, 11 Sep 2024 18:29:02 +0300',
-    'end' => 'Wed, 25 Sep 2024 18:29:02 +0300',
-    'metrics' => [
-        "failed_count", "opened_count", "sent_count", "delivered_count"
+$payload = [
+    "resolution" => "day",
+    "metrics" => [
+        "accepted_count",
+        "delivered_count",
+        "clicked_rate",
+        "opened_rate"
     ],
-    'resolution' => 'month',
-    'precision' => 'day',
-    'dimensions' => [
-        'time',
+    "include_aggregates" => true,
+    "start" => "Sun, 22 Dec 2024 18:29:02 +0000",
+    "dimensions" => [
+        "time"
     ],
-    'include_aggregates' => true,
-    'include_subaccounts' => true,
-]);
+    "end" => "Wed, 25 Dec 2024 18:29:02 +0000",
+    "include_subaccounts" => true
+];
+
+$result = $mgClient->metrics()->loadMetrics($payload);
 
 print_r($result->getItems());
 

@@ -51,11 +51,20 @@ class RequestBuilder
      *                                'filename'=> string (optional)
      *                                'headers' => array (optinal) ['header-name' => 'header-value']
      *                                )
+     * @throws \JsonException
      */
     public function create(string $method, string $uri, array $headers = [], $body = null): RequestInterface
     {
         if (!is_array($body)) {
             $stream = $this->getStreamFactory()->createStream((string)$body);
+
+            return $this->createRequest($method, $uri, $headers, $stream);
+        }
+
+        if (isset($headers['Content-Type']) && $headers['Content-Type'] === 'application/json') {
+            $jsonBody = json_encode($body, JSON_THROW_ON_ERROR);
+            $stream = $this->getStreamFactory()->createStream($jsonBody);
+            $headers['Content-Type'] = 'application/json';
 
             return $this->createRequest($method, $uri, $headers, $stream);
         }

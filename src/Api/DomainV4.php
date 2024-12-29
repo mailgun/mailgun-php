@@ -109,8 +109,7 @@ class DomainV4 extends HttpApi
         string  $dkimKeySize = '1024',
         array   $requestHeaders = [],
         ?string $dkimHostName = null,
-        ?string $dkimSelector = null,
-
+        ?string $dkimSelector = null
     ) {
         Assert::stringNotEmpty($domain);
 

@@ -39,7 +39,7 @@ class Member extends HttpApi
      * @return IndexResponse
      * @throws ClientExceptionInterface
      */
-    public function index(string $address, int $limit = 100, bool $subscribed = null, array $requestHeaders = [])
+    public function index(string $address, int $limit = 100, ?bool $subscribed = null, array $requestHeaders = [])
     {
         Assert::stringNotEmpty($address);
         Assert::greaterThan($limit, 0);
@@ -92,10 +92,10 @@ class Member extends HttpApi
     public function create(
         string $list,
         string $address,
-        string $name = null,
+        ?string $name = null,
         array $vars = [],
-        bool $subscribed = true,
-        bool $upsert = false,
+        ?bool $subscribed = true,
+        ?bool $upsert = false,
         array $requestHeaders = []
     ) {
         Assert::stringNotEmpty($list);

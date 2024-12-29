@@ -318,7 +318,7 @@ class MessageBuilder
      * @param  string|null $attachmentName
      * @return $this
      */
-    public function addAttachment(string $attachmentPath, string $attachmentName = null): self
+    public function addAttachment(string $attachmentPath, ?string $attachmentName = null): self
     {
         if (!isset($this->message['attachment'])) {
             $this->message['attachment'] = [];
@@ -337,7 +337,7 @@ class MessageBuilder
      * @param  string|null $attachmentName
      * @return $this
      */
-    public function addStringAttachment(string $attachmentContent, string $attachmentName = null): self
+    public function addStringAttachment(string $attachmentContent, ?string $attachmentName = null): self
     {
         if (!isset($this->message['attachment'])) {
             $this->message['attachment'] = [];
@@ -356,7 +356,7 @@ class MessageBuilder
      * @param  string|null $inlineImageName
      * @return $this
      */
-    public function addInlineImage(string $inlineImagePath, string $inlineImageName = null): self
+    public function addInlineImage(string $inlineImagePath, ?string $inlineImageName = null): self
     {
         if (!isset($this->message['inline'])) {
             $this->message['inline'] = [];
@@ -466,7 +466,7 @@ class MessageBuilder
      * @return $this
      * @throws \Exception
      */
-    public function setDeliveryTime(string $timeDate, string $timeZone = null): self
+    public function setDeliveryTime(string $timeDate, ?string $timeZone = null): self
     {
         if (null !== $timeZone) {
             $timeZoneObj = new DateTimeZone($timeZone);
