@@ -385,7 +385,6 @@ class DomainV4 extends HttpApi
     {
     $params = [];
     Assert::stringNotEmpty($domain);
-    Assert::boolean($useAutomaticSenderSecurity);
 
     $params['use_automatic_sender_security'] = $useAutomaticSenderSecurity;
 
