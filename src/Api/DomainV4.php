@@ -26,6 +26,7 @@ use Mailgun\Model\Domain\UpdateConnectionResponse;
 use Mailgun\Model\Domain\UpdateCredentialResponse;
 use Mailgun\Model\Domain\UpdateOpenTrackingResponse;
 use Mailgun\Model\Domain\UpdateUnsubscribeTrackingResponse;
+use Mailgun\Model\Domain\UseAutomaticSenderSecurity;
 use Mailgun\Model\Domain\VerifyResponse;
 use Mailgun\Model\Domain\WebPrefixResponse;
 use Mailgun\Model\Domain\WebSchemeResponse;
@@ -94,6 +95,7 @@ class DomainV4 extends HttpApi
      * @param array $requestHeaders
      * @param string|null $dkimHostName
      * @param string|null $dkimSelector
+     * @param bool|null $useAutomaticSenderSecurity
      * @return CreateResponse|array|ResponseInterface
      * @throws ClientExceptionInterface
      */
@@ -109,7 +111,8 @@ class DomainV4 extends HttpApi
         string  $dkimKeySize = '1024',
         array   $requestHeaders = [],
         ?string $dkimHostName = null,
-        ?string $dkimSelector = null
+        ?string $dkimSelector = null,
+        ?bool $useAutomaticSenderSecurity = null
     ) {
         Assert::stringNotEmpty($domain);
 
@@ -172,6 +175,10 @@ class DomainV4 extends HttpApi
         if (!empty($dkimSelector)) {
             Assert::stringNotEmpty($dkimSelector);
             $params['dkim_selector'] = $dkimSelector;
+        }
+
+        if (null !== $useAutomaticSenderSecurity) {
+            $params['use_automatic_sender_security'] = $useAutomaticSenderSecurity ? 'true' : 'false';
         }
 
         $response = $this->httpPost('/v4/domains', $params, $requestHeaders);
@@ -363,6 +370,28 @@ class DomainV4 extends HttpApi
         $response = $this->httpPut(sprintf('/v4/domains/%s', $domain), $params, $requestHeaders);
 
         return $this->hydrateResponse($response, WebSchemeResponse::class);
+    }
+
+    /**
+     * Update useAutomaticSenderSecurity for existing domain
+     * @see https://documentation.mailgun.com/docs/mailgun/api-reference/openapi-final/tag/Domains/#tag/Domains/operation/PUT-v4-domains--name-
+     * @param  string                                    $domain         name of the domain
+     * @param  bool                                      $useAutomaticSenderSecurity      If enabled, requires setting DNS CNAME entries for DKIM keys instead of a TXT record. Defaults to false.
+     * @param  array                                     $requestHeaders
+     * @return UseAutomaticSenderSecurity|array|ResponseInterface
+     * @throws ClientExceptionInterface
+     */
+    public function updateUseAutomaticSenderSecurity(string $domain, bool $useAutomaticSenderSecurity = false, array $requestHeaders = [])
+    {
+    $params = [];
+    Assert::stringNotEmpty($domain);
+    Assert::boolean($useAutomaticSenderSecurity);
+
+    $params['use_automatic_sender_security'] = $useAutomaticSenderSecurity;
+
+    $response = $this->httpPut(sprintf('/v4/domains/%s', $domain), $params, $requestHeaders);
+
+    return $this->hydrateResponse($response, UseAutomaticSenderSecurity::class);
     }
 
     /**
