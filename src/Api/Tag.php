@@ -107,7 +107,6 @@ class Tag extends HttpApi
     public function stats(string $domain, array $params, array $requestHeaders = [])
     {
         Assert::stringNotEmpty($domain);
-        Assert::stringNotEmpty($params['event']);
         Assert::stringNotEmpty($params['tag']);
 
         $response = $this->httpGet(sprintf('/v3/%s/tag/stats', $domain), $params, $requestHeaders);
