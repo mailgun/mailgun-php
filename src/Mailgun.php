@@ -14,6 +14,7 @@ namespace Mailgun;
 use Http\Client\Common\PluginClient;
 use Mailgun\Api\Attachment;
 use Mailgun\Api\Domain;
+use Mailgun\Api\DomainKeys;
 use Mailgun\Api\EmailValidation;
 use Mailgun\Api\EmailValidationV4;
 use Mailgun\Api\Event;
@@ -262,5 +263,13 @@ class Mailgun
     public function metrics(): Metrics
     {
         return new Metrics($this->httpClient, $this->requestBuilder, $this->hydrator);
+    }
+
+    /**
+     * @return DomainKeys
+     */
+    public function domainKeys(): Api\DomainKeys
+    {
+        return new Api\DomainKeys($this->httpClient, $this->requestBuilder, $this->hydrator);
     }
 }

@@ -20,10 +20,12 @@ final class IndexResponse implements ApiResponse
 {
     private int $totalCount;
     private array $items;
+    private array $paging;
 
     public static function create(array $data): self
     {
         $items = [];
+        $paging = [];
 
         if (isset($data['items'])) {
             foreach ($data['items'] as $item) {
@@ -37,9 +39,12 @@ final class IndexResponse implements ApiResponse
             $count = count($items);
         }
 
+        $paging = $data['paging'] ?? [];
+
         $model = new self();
         $model->totalCount = $count;
         $model->items = $items;
+        $model->paging = $paging;
 
         return $model;
     }
@@ -62,5 +67,22 @@ final class IndexResponse implements ApiResponse
     public function getDomains(): array
     {
         return $this->items;
+    }
+
+    /**
+     * @return array
+     */
+    public function getPaging(): array
+    {
+        return $this->paging;
+    }
+
+    /**
+     * @param array $paging
+     * @return void
+     */
+    public function setPaging(array $paging): void
+    {
+        $this->paging = $paging;
     }
 }
