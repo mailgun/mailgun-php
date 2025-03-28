@@ -103,13 +103,13 @@ class DomainKeys extends HttpApi
             'selector' => $selector,
         ];
 
-        if (!empty($dkimKeySize)) {
+        if (!empty($bits)) {
             Assert::oneOf(
-                $dkimKeySize,
+                $bits,
                 self::BITS_SIZE,
                 'Length of your domain’s generated DKIM key must be 1024 or 2048'
             );
-            $params['bits'] = $dkimKeySize;
+            $params['bits'] = $bits;
         }
 
         $response = $this->httpPost('/v1/dkim/keys', $params, $requestHeaders);
