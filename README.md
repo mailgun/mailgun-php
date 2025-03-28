@@ -359,3 +359,6 @@ If you find a bug, please submit the issue in Github directly.
 
 As always, if you need additional assistance, drop us a note through your account at
 [https://app.mailgun.com/support](https://app.mailgun.com/support).
+
+## Examples section
+[Examples section](doc/examples.md) contains examples of how to use the SDK.
