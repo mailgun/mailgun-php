@@ -24,6 +24,7 @@ final class DnsRecord
     private ?string $priority;
     private ?string $valid;
     private array $cached;
+    private bool $isActive;
 
     public static function create(array $data): self
     {
@@ -34,6 +35,7 @@ final class DnsRecord
         $model->priority = $data['priority'] ?? null;
         $model->valid = $data['valid'] ?? null;
         $model->cached = $data['cached'] ?? [];
+        $model->isActive = $data['is_active'] ?? false;
 
         return $model;
     }
@@ -94,5 +96,22 @@ final class DnsRecord
     public function getCached(): array
     {
         return $this->cached;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isActive(): bool
+    {
+        return $this->isActive;
+    }
+
+    /**
+     * @param bool $isActive
+     * @return void
+     */
+    public function setIsActive(bool $isActive): void
+    {
+        $this->isActive = $isActive;
     }
 }
