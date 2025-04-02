@@ -31,7 +31,7 @@ class MessageBuilder
 
     public const CAMPAIGN_ID_LIMIT = 3;
 
-    public const TAG_LIMIT = 3;
+    public const TAG_LIMIT = 10;
 
     /**
      * @var array

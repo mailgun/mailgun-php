@@ -2,6 +2,9 @@
 
 The change log describes what is "Added", "Removed", "Changed" or "Fixed" between each release.
 
+## 4.3.4
+ - Extended limit of tags to 10.
+
 ## 4.3.3
  - Fixed way of sending request with JSON body. loadMetrics works. Adjusted tests. Fixed warning related to the php 8.4 and nullable types
 
