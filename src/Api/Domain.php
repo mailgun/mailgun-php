@@ -13,6 +13,7 @@ namespace Mailgun\Api;
 
 use Exception;
 use Mailgun\Assert;
+use Mailgun\Model\Domain\CertStatusResponse;
 use Mailgun\Model\Domain\ConnectionResponse;
 use Mailgun\Model\Domain\CreateCredentialResponse;
 use Mailgun\Model\Domain\CreateResponse;
@@ -485,5 +486,44 @@ class Domain extends HttpApi
         $response = $this->httpPut(sprintf('/v3/domains/%s/web_prefix', $domain), $params);
 
         return $this->hydrateResponse($response, WebPrefixResponse::class);
+    }
+
+    /**
+     * Status of x509 TLS certificate
+     * @link https://documentation.mailgun.com/docs/mailgun/api-reference/openapi-final/tag/Domain-Tracking/#tag/Domain-Tracking/operation/httpapi.(*HttpAPI).getStatusV2-fm-8
+     *
+     * @param string $domain
+     * @return mixed|ResponseInterface
+     * @throws ClientExceptionInterface
+     * @throws \JsonException
+     * @throws Exception
+     */
+    public function statusOf509Crt(string $domain)
+    {
+        Assert::stringNotEmpty($domain);
+
+        $response = $this->httpGet(sprintf('/v2/x509/%s}/status', $domain), []);
+
+        return $this->hydrateResponse($response, CertStatusResponse::class);
+    }
+
+    /**
+     * @param string $domain
+     * @return mixed|ResponseInterface
+     * @throws ClientExceptionInterface
+     * @throws \JsonException
+     * @throws Exception
+     */
+    public function generate509Tls(string $domain)
+    {
+        Assert::stringNotEmpty($domain);
+
+        $params = [
+            'domain' => $domain,
+        ];
+
+        $response = $this->httpPost(sprintf('/v2/x509/%s', $domain), $params);
+
+        return $this->hydrateResponse($response, CertStatusResponse::class);
     }
 }
