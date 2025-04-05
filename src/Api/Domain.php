@@ -526,4 +526,24 @@ class Domain extends HttpApi
 
         return $this->hydrateResponse($response, CertStatusResponse::class);
     }
+
+    /**
+     * @param string $domain
+     * @return mixed|ResponseInterface
+     * @throws ClientExceptionInterface
+     * @throws \JsonException
+     * @throws Exception
+     */
+    public function regenerateExpiredCrt(string $domain)
+    {
+        Assert::stringNotEmpty($domain);
+
+        $params = [
+            'domain' => $domain,
+        ];
+
+        $response = $this->httpPut(sprintf('/v2/x509/%s', $domain), $params);
+
+        return $this->hydrateResponse($response, CertStatusResponse::class);
+    }
 }

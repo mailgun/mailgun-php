@@ -119,8 +119,10 @@ final class CertStatusResponse implements ApiResponse
     }
 
 
+    /**
+     *
+     */
     private function __construct()
     {
     }
-
 }
