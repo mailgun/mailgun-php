@@ -11,6 +11,8 @@ declare(strict_types=1);
 
 namespace Mailgun\Model\Domain;
 
+use DateTimeImmutable;
+
 /**
  * Represents domain information in its simplest form.
  *
@@ -35,7 +37,8 @@ final class Domain
     private bool $isDisabled;
 
     /**
-     * @throws \DateMalformedStringException
+     * @param array $data
+     * @return self
      */
     public static function create(array $data): self
     {
@@ -46,7 +49,7 @@ final class Domain
         $model->wildcard = $data['wildcard'] ?? null;
         $model->spamAction = $data['spam_action'] ?? null;
         $model->state = $data['state'] ?? null;
-        $model->createdAt = isset($data['created_at']) ? new \DateTimeImmutable($data['created_at']) : null;
+        $model->createdAt = isset($data['created_at']) ? new DateTimeImmutable($data['created_at']) : null;
         $model->webScheme = $data['web_scheme'] ?? null;
         $model->webPrefix = $data['web_prefix'] ?? null;
         $model->type = $data['type'] ?? 'sandbox';
@@ -108,9 +111,9 @@ final class Domain
     }
 
     /**
-     * @return \DateTimeImmutable
+     * @return DateTimeImmutable
      */
-    public function getCreatedAt(): \DateTimeImmutable
+    public function getCreatedAt(): DateTimeImmutable
     {
         return $this->createdAt;
     }
