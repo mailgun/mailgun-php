@@ -19,6 +19,8 @@ use Mailgun\Model\Suppression\Complaint\DeleteResponse;
 use Mailgun\Model\Suppression\Complaint\IndexResponse;
 use Mailgun\Model\Suppression\Complaint\ShowResponse;
 use Psr\Http\Client\ClientExceptionInterface;
+use RuntimeException;
+use Throwable;
 
 /**
  * @see https://documentation.mailgun.com/en/latest/api-suppressions.html#complaints
@@ -119,5 +121,26 @@ class Complaint extends HttpApi
         $response = $this->httpDelete(sprintf('/v3/%s/complaints', $domain), [], $requestHeaders);
 
         return $this->hydrateResponse($response, DeleteResponse::class);
+    }
+
+    /**
+     * @param string $domainId
+     * @param array $complaints
+     * @param array $requestHeaders
+     * @return mixed
+     */
+    public function importComplaints(string $domainId, array $complaints, array $requestHeaders = [])
+    {
+        try {
+            $response = $this->httpPostRaw(
+                sprintf('/v3/%s/complaints/import', $domainId),
+                $complaints,
+                $requestHeaders
+            );
+        } catch (Throwable $throwable) {
+            throw new RuntimeException($throwable->getMessage());
+        }
+
+        return $this->hydrateResponse($response, ShowResponse::class);
     }
 }

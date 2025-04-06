@@ -2,6 +2,18 @@
 
 The change log describes what is "Added", "Removed", "Changed" or "Fixed" between each release.
 
+## 4.3.5
+- Implemented `AccountManagement` API endpoints:
+    - `updateAccountSettings` for `PUT /v5/accounts`
+    - `getHttpSigningKey` for `GET /v5/accounts/http_signing_key`
+    - `createHttpSigningKey` for `POST /v5/accounts/http_signing_key`
+    - `getSandboxAuthRecipients` for `GET /v5/sandbox/auth_recipients`
+- Added model classes for `AccountManagement` API responses:
+    - `AccountResponse`
+    - `HttpSigningKeyResponse`
+    - `SandboxAuthRecipientsResponse`
+- Updated `Mailgun` class to include `AccountManagement` API.
+
 ## 4.3.4
  - Extended limit of tags to 10.
 
