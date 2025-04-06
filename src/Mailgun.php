@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace Mailgun;
 
 use Http\Client\Common\PluginClient;
+use Mailgun\Api\AccountManagement;
 use Mailgun\Api\Attachment;
 use Mailgun\Api\Domain;
 use Mailgun\Api\DomainKeys;
@@ -271,5 +272,13 @@ class Mailgun
     public function domainKeys(): Api\DomainKeys
     {
         return new Api\DomainKeys($this->httpClient, $this->requestBuilder, $this->hydrator);
+    }
+
+    /**
+     * @return AccountManagement
+     */
+    public function accountManagement(): AccountManagement
+    {
+        return new AccountManagement($this->httpClient, $this->requestBuilder, $this->hydrator);
     }
 }
