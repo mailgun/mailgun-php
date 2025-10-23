@@ -38,7 +38,7 @@ abstract class HttpApi
     /**
      * @var Hydrator|null
      */
-    protected ?Hydrator $hydrator;
+    protected ?Hydrator $hydrator = null;
 
     /**
      * @var RequestBuilder
