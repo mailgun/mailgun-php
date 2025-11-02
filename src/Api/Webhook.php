@@ -24,7 +24,7 @@ use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\ResponseInterface;
 
 /**
- * @see https://documentation.mailgun.com/en/latest/api-webhooks.html
+ * @see https://documentation.mailgun.com/docs/mailgun/api-reference/send/mailgun/webhooks
  *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
@@ -74,6 +74,8 @@ class Webhook extends HttpApi
     }
 
     /**
+     * @see https://documentation.mailgun.com/docs/mailgun/api-reference/send/mailgun/webhooks/get-v3-domains--domain--webhooks
+     *
      * @param  string                          $domain
      * @param  array                           $requestHeaders
      * @return IndexResponse|ResponseInterface
@@ -88,6 +90,8 @@ class Webhook extends HttpApi
     }
 
     /**
+     * @see https://documentation.mailgun.com/docs/mailgun/api-reference/send/mailgun/webhooks/get-v3-domains--domain-name--webhooks--webhook-name-
+     *
      * @param  string                         $domain
      * @param  string                         $webhook
      * @param  array                          $requestHeaders
@@ -104,6 +108,8 @@ class Webhook extends HttpApi
     }
 
     /**
+     * @see https://documentation.mailgun.com/docs/mailgun/api-reference/send/mailgun/webhooks/post-v3-domains--domain--webhooks
+     *
      * @param  string                           $domain
      * @param  string                           $id
      * @param  array                            $url
@@ -128,6 +134,8 @@ class Webhook extends HttpApi
     }
 
     /**
+     * @see https://documentation.mailgun.com/docs/mailgun/api-reference/send/mailgun/webhooks/put-v3-domains--domain-name--webhooks--webhook-name-
+     *
      * @param  string                           $domain
      * @param  string                           $id
      * @param  array                            $url
@@ -151,6 +159,7 @@ class Webhook extends HttpApi
     }
 
     /**
+     * @see https://documentation.mailgun.com/docs/mailgun/api-reference/send/mailgun/webhooks/delete-v3-domains--domain-name--webhooks--webhook-name-
      * @param  string                           $domain
      * @param  string                           $id
      * @param  array                            $requestHeaders

@@ -23,7 +23,7 @@ use RuntimeException;
 use Throwable;
 
 /**
- * @see https://documentation.mailgun.com/en/latest/api-suppressions.html#bounces
+ * @see https://documentation.mailgun.com/docs/mailgun/api-reference/send/mailgun/bounces
  * @author Sean Johnson <sean@mailgun.com>
  */
 class Bounce extends HttpApi
