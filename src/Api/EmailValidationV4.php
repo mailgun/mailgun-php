@@ -27,7 +27,7 @@ use Psr\Http\Message\ResponseInterface;
 use RuntimeException;
 
 /**
- * @see https://documentation.mailgun.com/en/latest/api-email-validation.html
+ * @see https://documentation.mailgun.com/docs/inboxready/api-reference/openapi-validate-final/validations
  */
 class EmailValidationV4 extends HttpApi
 {

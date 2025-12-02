@@ -20,7 +20,7 @@ use Mailgun\Hydrator\Hydrator;
 use Psr\Http\Client\ClientInterface;
 
 /**
- * @see https://documentation.mailgun.com/en/latest/api-suppressions.html
+ * @see https://documentation.mailgun.com/docs/mailgun/api-reference/send/mailgun
  *
  * @author Sean Johnson <sean@mailgun.com>
  */

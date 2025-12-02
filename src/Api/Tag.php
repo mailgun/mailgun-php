@@ -25,9 +25,10 @@ use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Message\ResponseInterface;
 
 /**
- * @see https://documentation.mailgun.com/en/latest/api-tags.html
+ * @see https://documentation.mailgun.com/docs/mailgun/api-reference/send/mailgun/tags
  *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
+ * @deprecated
  */
 class Tag extends HttpApi
 {

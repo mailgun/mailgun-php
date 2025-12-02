@@ -24,7 +24,7 @@ use Mailgun\Model\Suppression\Whitelist\ShowResponse;
 use Psr\Http\Client\ClientExceptionInterface;
 
 /**
- * @see https://documentation.mailgun.com/en/latest/api-suppressions.html#whitelists
+ * @see https://documentation.mailgun.com/docs/mailgun/api-reference/send/mailgun/allowlist
  *
  * @author Artem Bondarenko <artem@uartema.com>
  */

@@ -21,7 +21,7 @@ use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Message\ResponseInterface;
 
 /**
- * @see https://documentation.mailgun.com/en/latest/api-stats.html
+ * @see https://documentation.mailgun.com/docs/mailgun/api-reference/send/mailgun/stats
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
 class Stats extends HttpApi

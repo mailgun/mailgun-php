@@ -24,7 +24,7 @@ use Mailgun\Model\MailingList\UpdateResponse as MailingListUpdateResponse;
 use Psr\Http\Client\ClientExceptionInterface;
 
 /**
- * @see https://documentation.mailgun.com/en/latest/api-mailinglists.html
+ * @see https://documentation.mailgun.com/docs/mailgun/api-reference/send/mailgun/mailing-lists
  */
 class Member extends HttpApi
 {

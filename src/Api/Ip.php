@@ -21,13 +21,15 @@ use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Message\ResponseInterface;
 
 /**
- * @see https://documentation.mailgun.com/en/latest/api-ips.html
+ * @see https://documentation.mailgun.com/docs/mailgun/api-reference/send/mailgun/ips
  *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
 class Ip extends HttpApi
 {
     /**
+     * @see https://documentation.mailgun.com/docs/mailgun/api-reference/send/mailgun/ips/get-v3-ips
+     *
      * Returns a list of IPs.
      * @param bool|null $dedicated
      * @param array $requestHeaders
@@ -66,6 +68,8 @@ class Ip extends HttpApi
     }
 
     /**
+     * @see https://documentation.mailgun.com/docs/mailgun/api-reference/send/mailgun/ips/get-v3-ips--ip-
+     *
      * Returns a single ip.
      * @param string $ip
      * @param array $requestHeaders
@@ -126,6 +130,8 @@ class Ip extends HttpApi
 
     /**
      * Get all domains of an account where a specific IP is assigned
+     * @see https://documentation.mailgun.com/docs/mailgun/api-reference/send/mailgun/ips/get-v3-ips--ip--domains
+     *
      * @param string $ip
      * @param int $limit
      * @param int $skip
@@ -154,6 +160,8 @@ class Ip extends HttpApi
 
     /**
      * Place account IP into a dedicated IP band
+     * @see https://documentation.mailgun.com/docs/mailgun/api-reference/send/mailgun/ips/post-v3-ips--addr--ip-band
+     *
      * @param string $ip
      * @param array $requestHeaders
      * @return UpdateResponse|ResponseInterface
@@ -176,6 +184,8 @@ class Ip extends HttpApi
 
     /**
      * Return the number of IPs available to the account per its billing plan
+     * @see https://documentation.mailgun.com/docs/mailgun/api-reference/send/mailgun/ips/get-v3-ips-request-new
+     *
      * @param array $requestHeaders
      * @return AvailableIpsResponse|ResponseInterface
      * @throws ClientExceptionInterface
@@ -204,6 +214,8 @@ class Ip extends HttpApi
 
     /**
      * Remove an IP from the domain pool, unlink a DIPP or remove the domain pool
+     * @see https://documentation.mailgun.com/docs/mailgun/api-reference/send/mailgun/ip-pools/delete-v3-domains--name--pool--ip-
+     *
      * @param string $domain
      * @param string $ip
      * @param array $requestHeaders
@@ -222,6 +234,8 @@ class Ip extends HttpApi
     }
 
     /**
+     * @see https://documentation.mailgun.com/docs/mailgun/api-reference/send/mailgun/ip-pools/get-v3-ip-pools
+     *
      * @param array $data
      * @param array $requestHeaders
      * @return mixed|ResponseInterface
@@ -238,6 +252,8 @@ class Ip extends HttpApi
     }
 
     /**
+     * @see https://documentation.mailgun.com/docs/mailgun/api-reference/send/mailgun/ip-pools/get-v3-ip-pools--pool-id-
+     *
      * @param string $poolId
      * @param array $requestHeaders
      * @return mixed|ResponseInterface
@@ -251,6 +267,8 @@ class Ip extends HttpApi
     }
 
     /**
+     * @see https://documentation.mailgun.com/docs/mailgun/api-reference/send/mailgun/ip-pools/delete-v3-ip-pools--pool-id-
+     *
      * @param string $poolId
      * @param string $ip
      * @param string $repPoolId

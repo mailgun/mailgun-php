@@ -23,7 +23,7 @@ use Psr\Http\Message\ResponseInterface;
 use RuntimeException;
 
 /**
- * @see https://documentation.mailgun.com/en/latest/api-sending.html
+ * @see https://documentation.mailgun.com/docs/mailgun/api-reference/send/mailgun/messages
  *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
@@ -40,7 +40,7 @@ class Message extends HttpApi
     }
 
     /**
-     * @see https://documentation.mailgun.com/en/latest/api-sending.html#sending
+     * @see https://documentation.mailgun.com/docs/mailgun/api-reference/send/mailgun/messages/post-v3--domain-name--messages
      * @param  string                         $domain
      * @param  array                          $params
      * @param  array                          $requestHeaders
@@ -81,7 +81,7 @@ class Message extends HttpApi
     }
 
     /**
-     * @see https://documentation.mailgun.com/en/latest/api-sending.html#sending
+     * @see https://documentation.mailgun.com/docs/mailgun/api-reference/send/mailgun/messages/post-v3--domain-name--messages-mime
      * @param  string                         $domain
      * @param  array                          $recipients     with all you send emails to. Including bcc and cc
      * @param  string                         $message        Message filepath or content
@@ -123,7 +123,7 @@ class Message extends HttpApi
 
     /**
      * Get stored message.
-     * @see https://documentation.mailgun.com/en/latest/api-sending.html#retrieving-stored-messages
+     * @see https://documentation.mailgun.com/docs/mailgun/api-reference/send/mailgun/messages/get-v3-domains--domain-name--messages--storage-key-
      * @param  string                         $url
      * @param  bool                           $rawMessage     if true we will use "Accept: message/rfc2822" header
      * @param  array                          $requestHeaders
@@ -149,7 +149,7 @@ class Message extends HttpApi
 
     /**
      * Get messages queue status
-     * @see https://documentation.mailgun.com/docs/mailgun/api-reference/openapi-final/tag/Messages/#tag/Messages/operation/httpapi.(*LegacyHttpApi).GetDomainSendingQueues-fm-70
+     * @see https://documentation.mailgun.com/docs/mailgun/api-reference/send/mailgun/messages/get-v3-domains--name--sending-queues
      * @param string $domain
      * @param array $requestHeaders
      * @return QueueStatusResponse

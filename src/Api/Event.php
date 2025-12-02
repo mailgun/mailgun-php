@@ -16,7 +16,7 @@ use Mailgun\Model\Event\EventResponse;
 use Psr\Http\Client\ClientExceptionInterface;
 
 /**
- * @see https://documentation.mailgun.com/en/latest/api-events.html
+ * @see https://documentation.mailgun.com/docs/mailgun/api-reference/send/mailgun/events
  *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
