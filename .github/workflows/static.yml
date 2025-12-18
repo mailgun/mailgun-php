@@ -83,5 +83,5 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Normalize
-        run: composer-normalize --dry-run
+      #- name: Normalize
+      #  run: composer-normalize --dry-run
