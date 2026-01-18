@@ -50,8 +50,8 @@ Here's how to send a message using the SDK:
 
 ```php
 // First, instantiate the SDK with your API credentials
-$mg = Mailgun::create('key-example'); // For US servers
-$mg = Mailgun::create('key-example', 'https://api.eu.mailgun.net'); // For EU servers
+$mg = Mailgun::create('your_api_key_here'); // For US servers
+$mg = Mailgun::create('your_api_key_here', 'https://api.eu.mailgun.net'); // For EU servers
 
 // Now, compose and send your message.
 // $mg->messages()->send($domain, $params);
@@ -185,7 +185,7 @@ use Mailgun\Hydrator\NoopHydrator;
 
 $configurator = new HttpClientConfigurator();
 $configurator->setEndpoint('http://bin.mailgun.net/aecf68de');
-$configurator->setApiKey('key-example');
+$configurator->setApiKey('your_api_key_here');
 $configurator->setSubAccountId($subAccountId)
 ```
 
@@ -237,7 +237,7 @@ to understand the response without reading the documentation. One can just read 
 doc blocks on the response classes. This provides an excellent IDE integration.
 
 ```php
-$mg = Mailgun::create('key-example');
+$mg = Mailgun::create('your_api_key_here');
 $dns = $mg->domains()->show('example.com')->getInboundDNSRecords();
 
 foreach ($dns as $record) {
@@ -252,7 +252,7 @@ to the Mailgun class.
 use Mailgun\Hydrator\ArrayHydrator;
 
 $configurator = new HttpClientConfigurator();
-$configurator->setApiKey('key-example');
+$configurator->setApiKey('your_api_key_here');
 
 $mg = new Mailgun($configurator, new ArrayHydrator());
 $data = $mg->domains()->show('example.com');
@@ -290,7 +290,7 @@ use Mailgun\Hydrator\NoopHydrator;
 
 $configurator = new HttpClientConfigurator();
 $configurator->setEndpoint('http://bin.mailgun.net/aecf68de');
-$configurator->setApiKey('key-example');
+$configurator->setApiKey('your_api_key_here');
 $configurator->setDebug(true);
 
 $mg = new Mailgun($configurator, new NoopHydrator());

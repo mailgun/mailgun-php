@@ -24,7 +24,7 @@ use Mailgun\Mailgun;
 use Mailgun\Message\MessageBuilder;
 
 // First, instantiate the SDK with your API credentials
-$mg = Mailgun::create('key-example');
+$mg = Mailgun::create('your_api_key_here');
 
 # Next, instantiate a Message Builder object from the SDK.
 $builder = new MessageBuilder();
@@ -62,7 +62,7 @@ require 'vendor/autoload.php';
 use Mailgun\Mailgun;
 
 // First, instantiate the SDK with your API credentials
-$mg = Mailgun::create('key-example');
+$mg = Mailgun::create('your_api_key_here');
 
 # Next, instantiate a Message Builder object from the SDK, pass in your sending domain.
 $batchMessage = $mg->messages()->getBatchMessage("example.com");
