@@ -69,19 +69,19 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-#  composer-normalize:
-#    name: Composer Normalize
-#    runs-on: ubuntu-20.04
-#    steps:
-#      - name: Setup PHP
-#        uses: shivammathur/setup-php@v2
-#        with:
-#          php-version: 8.1
-#          coverage: none
-#          tools: composer-normalize
-#
-#      - name: Checkout code
-#        uses: actions/checkout@v4
-#
-#      - name: Normalize
-#        run: composer-normalize --dry-run
+  composer-normalize:
+    name: Composer Normalize
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.1
+          coverage: none
+          tools: composer-normalize
+
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Normalize
+        run: composer-normalize --dry-run
