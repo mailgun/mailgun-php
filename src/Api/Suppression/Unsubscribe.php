@@ -21,7 +21,7 @@ use Mailgun\Model\Suppression\Unsubscribe\ShowResponse;
 use Psr\Http\Client\ClientExceptionInterface;
 
 /**
- * @see https://documentation.mailgun.com/en/latest/api-suppressions.html#unsubscribes
+ * @see https://documentation.mailgun.com/docs/mailgun/api-reference/send/mailgun/unsubscribe
  *
  * @author Sean Johnson <sean@mailgun.com>
  */
