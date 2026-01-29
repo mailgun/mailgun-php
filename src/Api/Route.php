@@ -21,7 +21,7 @@ use Mailgun\Model\Route\UpdateResponse;
 use Psr\Http\Client\ClientExceptionInterface;
 
 /**
- * @see https://documentation.mailgun.com/en/latest/api-routes.html
+ * @see https://documentation.mailgun.com/docs/mailgun/api-reference/send/mailgun/routes
  *
  * @author David Garcia <me@davidgarcia.cat>
  */
@@ -29,6 +29,8 @@ class Route extends HttpApi
 {
     /**
      * Fetches the list of Routes.
+     * @see https://documentation.mailgun.com/docs/mailgun/api-reference/send/mailgun/routes/get-v3-routes
+     *
      * @param  int                      $limit          Maximum number of records to return. (100 by default)
      * @param  int                      $skip           Number of records to skip. (0 by default)
      * @param  array                    $requestHeaders
@@ -52,6 +54,8 @@ class Route extends HttpApi
     }
 
     /**
+     * @see https://documentation.mailgun.com/docs/mailgun/api-reference/send/mailgun/routes/get-v3-routes-id
+     *
      * Returns a single Route object based on its ID.
      * @param  string                   $routeId        Route ID returned by the Routes::index() method
      * @param  array                    $requestHeaders
@@ -69,6 +73,8 @@ class Route extends HttpApi
 
     /**
      * Creates a new Route.
+     * @see https://documentation.mailgun.com/docs/mailgun/api-reference/send/mailgun/routes/post-v3-routes
+     *
      * @param  string                   $expression     A filter expression like "match_recipient('.*@gmail.com')"
      * @param  array                    $actions        Route action. This action is executed when the expression evaluates to True. Example: "forward('alice@example.com')"
      * @param  string                   $description    An arbitrary string
@@ -96,6 +102,8 @@ class Route extends HttpApi
     /**
      * Updates a given Route by ID. All parameters are optional.
      * This API call only updates the specified fields leaving others unchanged.
+     * @see https://documentation.mailgun.com/docs/mailgun/api-reference/send/mailgun/routes/put-v3-routes-id
+     *
      * @param  string                   $routeId        Route ID returned by the Routes::index() method
      * @param  string|null              $expression     A filter expression like "match_recipient('.*@gmail.com')"
      * @param  array                    $actions        Route action. This action is executed when the expression evaluates to True. Example: "forward('alice@example.com')"
@@ -142,6 +150,8 @@ class Route extends HttpApi
 
     /**
      * Deletes a Route based on the ID.
+     * @see https://documentation.mailgun.com/docs/mailgun/api-reference/send/mailgun/routes/delete-v3-routes-id
+     *
      * @param  string                   $routeId        Route ID returned by the Routes::index() method
      * @param  array                    $requestHeaders
      * @return DeleteResponse
@@ -158,6 +168,8 @@ class Route extends HttpApi
 
     /**
      * Match address to route
+     * @see https://documentation.mailgun.com/docs/mailgun/api-reference/send/mailgun/routes/get-v3-routes-match
+     *
      * @param string $address
      * @param array $requestHeaders
      * @return MatchRouteResponse

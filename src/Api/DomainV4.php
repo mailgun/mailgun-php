@@ -34,7 +34,7 @@ use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Message\ResponseInterface;
 
 /**
- * @see https://documentation.mailgun.com/en/latest/api-domains.html
+ * @see https://documentation.mailgun.com/docs/mailgun/api-reference/send/mailgun/domains
  */
 class DomainV4 extends HttpApi
 {
@@ -81,8 +81,7 @@ class DomainV4 extends HttpApi
     /**
      * Creates a new domain for the account.
      * See below for spam filtering parameter information.
-     * {@link https://documentation.mailgun.com/en/latest/user_manual.html#um-spam-filter}.
-     * @see    https://documentation.mailgun.com/en/latest/api-domains.html#domains
+     * @see    https://documentation.mailgun.com/docs/mailgun/api-reference/send/mailgun/domains/post-v4-domains
      * @param string $domain name of the domain
      * @param string|null $smtpPass password for SMTP authentication
      * @param string|null $spamAction `disable` or `tag` - inbound spam filtering
@@ -350,8 +349,7 @@ class DomainV4 extends HttpApi
     /**
      * Update webScheme for existing domain
      * See below for spam filtering parameter information.
-     * {@link https://documentation.mailgun.com/en/latest/user_manual.html#um-spam-filter}.
-     * @see https://documentation.mailgun.com/en/latest/api-domains.html#domains
+     * @see https://documentation.mailgun.com/docs/mailgun/api-reference/send/mailgun/domains/put-v4-domains--name-
      * @param  string                                    $domain         name of the domain
      * @param  string                                    $webScheme      `http` or `https` - set your open, click and unsubscribe URLs to use http or https. The default is http
      * @param  array                                     $requestHeaders
