@@ -70,18 +70,13 @@ jobs:
         uses: actions/checkout@v2
 
   composer-normalize:
-    name: Composer Normalize
-    runs-on: ubuntu-latest
-    steps:
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: 8.1
-          coverage: none
-          tools: composer-normalize
+      name: "composer-normalize"
 
-      - name: Checkout code
-        uses: actions/checkout@v4
+      runs-on: "ubuntu-latest"
 
-      #- name: Normalize
-      #  run: composer-normalize --dry-run
+      steps:
+        - name: "Checkout"
+          uses: "actions/checkout@v2"
+
+        - name: "Run composer normalize"
+          uses: "docker://ergebnis/composer-normalize-action:latest"
