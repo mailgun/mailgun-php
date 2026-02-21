@@ -25,6 +25,11 @@ final class CreateResponse implements ApiResponse
      */
     private $error;
 
+    /**
+     * @var SubAccount
+     */
+    private $item;
+
     private function __construct()
     {
     }
@@ -36,7 +41,11 @@ final class CreateResponse implements ApiResponse
     public static function create(array $data): self
     {
         $model = new self();
-        $model->setMessage(isset($data['message']) ? [$data['message']] : $data);
+        $model->setItem(SubAccount::create($data['subaccount'] ?? []));
+
+        if (isset($data['message'])) {
+            $model->setMessage([$data['message']]);
+        }
 
         return $model;
     }
@@ -71,5 +80,15 @@ final class CreateResponse implements ApiResponse
     public function setError(array $error): void
     {
         $this->error = $error;
+    }
+
+    public function setItem(SubAccount $subaccount): void
+    {
+        $this->item = $subaccount;
+    }
+
+    public function getItem(): SubAccount
+    {
+        return $this->item;
     }
 }
