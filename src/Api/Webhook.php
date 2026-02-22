@@ -33,13 +33,13 @@ class Webhook extends HttpApi
     /**
      * @var string
      */
-    private $signingKey;
+    private string $signingKey;
 
     /**
      * @param ClientInterface $httpClient
      * @param RequestBuilder  $requestBuilder
      * @param Hydrator        $hydrator
-     * @param string          $apiKey
+     * @param string          $signingKey
      */
     public function __construct($httpClient, RequestBuilder $requestBuilder, Hydrator $hydrator, string $signingKey)
     {
