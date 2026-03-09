@@ -26,7 +26,7 @@ final class Assert extends \Webmozart\Assert\Assert
      * @param mixed $message
      * @return void
      */
-    protected static function reportInvalidArgument($message): void
+    protected static function reportInvalidArgument(string $message): never
     {
         throw new InvalidArgumentException($message);
     }
