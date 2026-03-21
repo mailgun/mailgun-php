@@ -43,24 +43,22 @@ class DomainV4 extends HttpApi
     /**
      * Returns a list of domains on the account.
      * @link https://documentation.mailgun.com/docs/mailgun/api-reference/send/mailgun/domains/get-v4-domains#domains/get-v4-domains/request
+     * @param int $limit
+     * @param int $skip
      * @param array $params
      * @param array $requestHeaders
      * @return IndexResponse|array
      * @throws ClientExceptionInterface
+     * @throws \JsonException
      */
-    public function index(array $params = [], array $requestHeaders = [])
+    public function index(int $limit = 100, int $skip = 0, array $params = [], array $requestHeaders = [])
     {
-        $params = array_merge([
-            'limit' => 100,
-            'skip' => 0,
-        ], $params);
-
-        if (isset($params['limit'])) {
-            Assert::range($params['limit'], 1, 1000, 'Limit must be between 1 and 1000');
+        if ($limit) {
+            Assert::range($limit, 1, 1000, 'Limit must be between 1 and 1000');
         }
 
-        if (isset($params['skip'])) {
-            Assert::greaterThanEq($params['skip'], 0, 'Skip must be non-negative');
+        if ($skip) {
+            Assert::greaterThanEq($skip, 0, 'Skip must be non-negative');
         }
 
         if (isset($params['state'])) {
@@ -73,11 +71,16 @@ class DomainV4 extends HttpApi
                 'Sort must be one of: name, name:asc, name:desc');
         }
 
-        $params = array_filter($params, function ($value) {
+        $requestParams = array_merge([
+            'limit' => $limit,
+            'skip' => $skip,
+        ], $params);
+
+        $requestParams = array_filter($requestParams, function ($value) {
             return !is_null($value) && $value !== '';
         });
 
-        $response = $this->httpGet('/v4/domains', $params, $requestHeaders);
+        $response = $this->httpGet('/v4/domains', $requestParams, $requestHeaders);
 
         return $this->hydrateResponse($response, IndexResponse::class);
     }

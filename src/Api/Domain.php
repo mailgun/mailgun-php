@@ -43,31 +43,19 @@ class Domain extends HttpApi
 {
     private const DKIM_SIZES = ['1024', '2048'];
 
-    /**
-     * Returns a list of domains on the account.
-     * @param array $params
-     * @param array $requestHeaders
-     * @return IndexResponse|array
-     * @throws ClientExceptionInterface
-     */
-    public function index(array $params = [], array $requestHeaders = [])
+    public function index(int $limit = 100, int $skip = 0, array $params = [], array $requestHeaders = [])
     {
-        $params = array_merge([
-            'limit' => 100,
-            'skip' => 0,
-        ], $params);
-
-        if (isset($params['limit'])) {
-            Assert::range($params['limit'], 1, 1000, 'Limit must be between 1 and 1000');
+        if ($limit) {
+            Assert::range($limit, 1, 1000, 'Limit must be between 1 and 1000');
         }
 
-        if (isset($params['skip'])) {
-            Assert::greaterThanEq($params['skip'], 0, 'Skip must be non-negative');
+        if ($skip) {
+            Assert::greaterThanEq($skip, 0, 'Skip must be non-negative');
         }
 
         if (isset($params['state'])) {
             Assert::oneOf($params['state'], ['active', 'unverified', 'disabled'],
-            'State must be one of: active, unverified, disabled');
+                'State must be one of: active, unverified, disabled');
         }
 
         if (isset($params['sort'])) {
@@ -75,11 +63,16 @@ class Domain extends HttpApi
                 'Sort must be one of: name, name:asc, name:desc');
         }
 
-        $params = array_filter($params, function ($value) {
+        $requestParams = array_merge([
+            'limit' => $limit,
+            'skip' => $skip,
+        ], $params);
+
+        $requestParams = array_filter($requestParams, function ($value) {
             return !is_null($value) && $value !== '';
         });
 
-        $response = $this->httpGet('/v3/domains', $params, $requestHeaders);
+        $response = $this->httpGet('/v3/domains', $requestParams, $requestHeaders);
 
         return $this->hydrateResponse($response, IndexResponse::class);
     }
