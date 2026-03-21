@@ -30,10 +30,7 @@ use Psr\Http\Message\ResponseInterface;
  */
 class Webhook extends HttpApi
 {
-    /**
-     * @var string|null
-     */
-    private string $signingKey;
+    private ?string $signingKey;
 
     /**
      * @param ClientInterface $httpClient
