@@ -30,18 +30,15 @@ use Psr\Http\Message\ResponseInterface;
  */
 class Webhook extends HttpApi
 {
-    /**
-     * @var string
-     */
-    private string $signingKey;
+    private ?string $signingKey;
 
     /**
      * @param ClientInterface $httpClient
-     * @param RequestBuilder  $requestBuilder
-     * @param Hydrator        $hydrator
-     * @param string          $signingKey
+     * @param RequestBuilder $requestBuilder
+     * @param Hydrator $hydrator
+     * @param string|null $signingKey
      */
-    public function __construct($httpClient, RequestBuilder $requestBuilder, Hydrator $hydrator, string $signingKey)
+    public function __construct($httpClient, RequestBuilder $requestBuilder, Hydrator $hydrator, ?string $signingKey)
     {
         parent::__construct($httpClient, $requestBuilder, $hydrator);
         $this->signingKey = $signingKey;
