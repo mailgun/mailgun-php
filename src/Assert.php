@@ -16,18 +16,26 @@ use Mailgun\Exception\InvalidArgumentException;
 /**
  * We need to override Webmozart\Assert because we want to throw our own Exception.
  *
+ * Webmozart\Assert version 2.0 is required for PHP 8.4 support, but
+ * incompatible with versions 1.x. So unfortunately we need this conditional
+ * class definition.
+ *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
-final class Assert extends \Webmozart\Assert\Assert
-{
-    /**
-     * @psalm-pure this method is not supposed to perform side-effects
-     * @psalm-return never
-     * @param mixed $message
-     * @return void
-     */
+if (version_compare(\Composer\InstalledVersions::getVersion('webmozart/assert'), '2.0.0', '>=')) {
+  final class Assert extends \Webmozart\Assert\Assert
+  {
+    protected static function reportInvalidArgument(string $message): never
+    {
+      throw new InvalidArgumentException($message);
+    }
+  }
+} else {
+  final class Assert extends \Webmozart\Assert\Assert
+  {
     protected static function reportInvalidArgument($message): void
     {
-        throw new InvalidArgumentException($message);
+      throw new InvalidArgumentException($message);
     }
+  }
 }
