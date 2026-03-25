@@ -22,6 +22,27 @@ use Psr\Http\Client\ClientExceptionInterface;
 class Metrics extends HttpApi
 {
     /**
+     * Valid dimensions for metrics queries
+     * @see https://documentation.mailgun.com/docs/mailgun/user-manual/reporting/dimensions
+     */
+    private const VALID_DIMENSIONS = [
+        'bot',
+        'country',
+        'time',
+        'domain',
+        'ip',
+        'ip_pool',
+        'recipient_domain',
+        'recipient_provider',
+        'tag',
+        'subaccount',
+        'device',
+        'browser',
+        'os',
+        'mailbox_provider',
+    ];
+
+    /**
      * Query metrics for the total account.
      *
      * @param array $payload
@@ -58,9 +79,8 @@ class Metrics extends HttpApi
         // Validate dimensions (must be an array and contain only valid values)
         if (isset($payload['dimensions'])) {
             Assert::isArray($payload['dimensions'], 'Dimensions must be an array');
-            $validDimensions = ['time', 'domain', 'ip', 'ip_pool', 'recipient_domain', 'tag', 'country', 'subaccount'];
             foreach ($payload['dimensions'] as $dimension) {
-                Assert::oneOf($dimension, $validDimensions, "Invalid dimension: $dimension");
+                Assert::oneOf($dimension, self::VALID_DIMENSIONS, "Invalid dimension: $dimension");
             }
         }
 
