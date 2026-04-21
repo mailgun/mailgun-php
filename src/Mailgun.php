@@ -15,6 +15,7 @@ use Http\Client\Common\PluginClient;
 use Mailgun\Api\AccountManagement;
 use Mailgun\Api\Attachment;
 use Mailgun\Api\Domain;
+use Mailgun\Api\DynamicIpPools;
 use Mailgun\Api\DomainKeys;
 use Mailgun\Api\EmailValidation;
 use Mailgun\Api\EmailValidationV4;
@@ -280,5 +281,13 @@ class Mailgun
     public function accountManagement(): AccountManagement
     {
         return new AccountManagement($this->httpClient, $this->requestBuilder, $this->hydrator);
+    }
+
+    /**
+     * @return DynamicIpPools
+     */
+    public function dynamicIpPools(): DynamicIpPools
+    {
+        return new DynamicIpPools($this->httpClient, $this->requestBuilder, $this->hydrator);
     }
 }
