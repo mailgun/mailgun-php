@@ -2,6 +2,43 @@
 
 The change log describes what is "Added", "Removed", "Changed" or "Fixed" between each release.
 
+## 4.3.6
+
+### Added
+
+- Completed IP Pools (DIPP) API coverage — all 11 remaining endpoints now implemented in `Mailgun\Api\Ip`:
+    - `listIpPools()` — `GET /v3/ip_pools`
+    - `createIpPool(name, description)` — `POST /v3/ip_pools`
+    - `updateIpPool(poolId, data)` — `PATCH /v3/ip_pools/{pool_id}` (add/remove IPs, rename, link/unlink domains)
+    - `getIpPoolDomains(poolId, limit, page)` — `GET /v3/ip_pools/{pool_id}/domains`
+    - `addIpToPool(poolId, ip)` — `PUT /v3/ip_pools/{pool_id}/ips/{ip}`
+    - `removeIpFromPool(poolId, ip)` — `DELETE /v3/ip_pools/{pool_id}/ips/{ip}`
+    - `addIpsToPool(poolId, ips[])` — `POST /v3/ip_pools/{pool_id}/ips.json`
+    - `delegateIpPool(poolId, subaccountId)` — `PUT /v3/ip_pools/{pool_id}/delegate`
+    - `revokeDelegatedIpPool(poolId, subaccountId)` — `DELETE /v3/ip_pools/{pool_id}/delegate`
+    - `assignIpToAllDomains(ip)` — `POST /v3/ips/{ip}/domains`
+    - `removeIpFromAllDomains(ip, alternative)` — `DELETE /v3/ips/{ip}/domains`
+    - `listIpsDetailed(params)` — `GET /v3/ips/details/all`
+- Added 5 new response model classes:
+    - `Mailgun\Model\Ip\IpPoolsResponse` — pool list with `pool_id`, `name`, `description`, `ips[]`, `is_inherited`, `is_linked`
+    - `Mailgun\Model\Ip\IpPoolResponse` — single pool details (replaces incorrect `UpdateResponse` usage)
+    - `Mailgun\Model\Ip\IpPoolDomainsResponse` — paginated domain list with `nextPage` cursor
+    - `Mailgun\Model\Ip\IpReferenceResponse` — async-operation responses carrying `message` + `reference_id`
+    - `Mailgun\Model\Ip\IpDetailsResponse` — detailed IP list for `/v3/ips/details/all`
+- Added 31 tests covering all `Ip` API methods, including request URI/body assertions and response model property checks
+
+### Fixed
+
+- `loadDIPPInformation()` was hydrating into `UpdateResponse` (message-only); now correctly returns `IpPoolResponse`
+- `deleteDIPP()` replacement parameters (`$ip`, `$repPoolId`) were wrongly required; both are now optional (`?string = null`)
+- `deleteDIPP()` URL was built via unsafe string concatenation; replaced with proper `http_build_query` construction
+- `addNewDIPPIntoAccount()` used unsafe direct array key access (`$data['description']`); replaced with null-coalescing guard
+- `placeAccountIpToBand()` had a redundant `Assert::stringNotEmpty()` call alongside `Assert::ip()` on the same value
+
+### Changed
+
+- `addNewDIPPIntoAccount()` marked `@deprecated` in favour of the explicit `createIpPool(string $name, string $description)` method
+
 ## 4.3.5
 - Implemented `AccountManagement` API endpoints:
     - `updateAccountSettings` for `PUT /v5/accounts`
