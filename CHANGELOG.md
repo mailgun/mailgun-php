@@ -2,7 +2,7 @@
 
 The change log describes what is "Added", "Removed", "Changed" or "Fixed" between each release.
 
-## 4.3.6
+## 4.5.0
 
 ### Added
 
