@@ -514,7 +514,6 @@ class Ip extends HttpApi
     public function addIpsToPool(string $poolId, array $ips, array $requestHeaders = [])
     {
         Assert::stringNotEmpty($poolId);
-        Assert::isArray($ips);
 
         $requestHeaders['Content-Type'] = 'application/json';
         $response = $this->httpPost(
