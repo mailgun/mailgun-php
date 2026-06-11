@@ -11,16 +11,16 @@ declare(strict_types=1);
 
 namespace Mailgun\Api;
 
-use Exception;
 use Mailgun\Assert;
 use Mailgun\Exception\InvalidArgumentException;
 use Mailgun\Message\BatchMessage;
+use Mailgun\Message\Exceptions\RuntimeException;
 use Mailgun\Model\Message\QueueStatusResponse;
 use Mailgun\Model\Message\SendResponse;
 use Mailgun\Model\Message\ShowResponse;
 use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Message\ResponseInterface;
-use RuntimeException;
+use Throwable;
 
 /**
  * @see https://documentation.mailgun.com/docs/mailgun/api-reference/send/mailgun/messages
@@ -71,8 +71,8 @@ class Message extends HttpApi
         $postDataMultipart = array_merge($this->prepareMultipartParameters($params), $postDataMultipart);
         try {
             $response = $this->httpPostRaw(sprintf('/v3/%s/messages', $domain), $postDataMultipart, $requestHeaders);
-        } catch (Exception $exception) {
-            throw new RuntimeException($exception->getMessage());
+        } catch (Throwable $throwable) {
+            throw new RuntimeException($throwable->getMessage(), 0, $throwable);
         } finally {
             $this->closeResources($postDataMultipart);
         }
@@ -112,8 +112,8 @@ class Message extends HttpApi
         $postDataMultipart[] = $this->prepareFile('message', $fileData);
         try {
             $response = $this->httpPostRaw(sprintf('/v3/%s/messages.mime', $domain), $postDataMultipart, $requestHeaders);
-        } catch (Exception $exception) {
-            throw new RuntimeException($exception->getMessage());
+        } catch (Throwable $throwable) {
+            throw new RuntimeException($throwable->getMessage(), 0, $throwable);
         } finally {
             $this->closeResources($postDataMultipart);
         }

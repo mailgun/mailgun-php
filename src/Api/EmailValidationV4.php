@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace Mailgun\Api;
 
-use Exception;
 use Mailgun\Assert;
+use Mailgun\Message\Exceptions\RuntimeException;
 use Mailgun\Model\EmailValidationV4\CreateBulkJobResponse;
 use Mailgun\Model\EmailValidationV4\CreateBulkPreviewResponse;
 use Mailgun\Model\EmailValidationV4\DeleteBulkJobResponse;
@@ -24,7 +24,7 @@ use Mailgun\Model\EmailValidationV4\PromoteBulkPreviewResponse;
 use Mailgun\Model\EmailValidationV4\ValidateResponse;
 use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Message\ResponseInterface;
-use RuntimeException;
+use Throwable;
 
 /**
  * @see https://documentation.mailgun.com/docs/inboxready/api-reference/openapi-validate-final/validations
@@ -58,7 +58,7 @@ class EmailValidationV4 extends HttpApi
      * @param  string                             $listId   ID given when the list created
      * @param  mixed                              $filePath File path or file content
      * @return mixed|ResponseInterface
-     * @throws Exception|ClientExceptionInterface
+     * @throws ClientExceptionInterface
      */
     public function createBulkJob(string $listId, $filePath, array $requestHeaders = [])
     {
@@ -78,8 +78,8 @@ class EmailValidationV4 extends HttpApi
 
         try {
             $response = $this->httpPostRaw(sprintf('/v4/address/validate/bulk/%s', $listId), $postDataMultipart, $requestHeaders);
-        } catch (Exception $exception) {
-            throw new RuntimeException($exception->getMessage());
+        } catch (Throwable $throwable) {
+            throw new RuntimeException($throwable->getMessage(), 0, $throwable);
         } finally {
             $this->closeResources($postDataMultipart);
         }
@@ -184,8 +184,8 @@ class EmailValidationV4 extends HttpApi
 
         try {
             $response = $this->httpPostRaw(sprintf('/v4/address/validate/preview/%s', $previewId), $postDataMultipart, $requestHeaders);
-        } catch (Exception $exception) {
-            throw new RuntimeException($exception->getMessage());
+        } catch (Throwable $throwable) {
+            throw new RuntimeException($throwable->getMessage(), 0, $throwable);
         } finally {
             $this->closeResources($postDataMultipart);
         }

@@ -14,12 +14,12 @@ namespace Mailgun\Api\Suppression;
 use Mailgun\Api\HttpApi;
 use Mailgun\Api\Pagination;
 use Mailgun\Assert;
+use Mailgun\Message\Exceptions\RuntimeException;
 use Mailgun\Model\Suppression\Bounce\CreateResponse;
 use Mailgun\Model\Suppression\Bounce\DeleteResponse;
 use Mailgun\Model\Suppression\Bounce\IndexResponse;
 use Mailgun\Model\Suppression\Bounce\ShowResponse;
 use Psr\Http\Client\ClientExceptionInterface;
-use RuntimeException;
 use Throwable;
 
 /**
@@ -135,7 +135,7 @@ class Bounce extends HttpApi
                 $requestHeaders
             );
         } catch (Throwable $throwable) {
-            throw new RuntimeException($throwable->getMessage());
+            throw new RuntimeException($throwable->getMessage(), 0, $throwable);
         }
 
         return $this->hydrateResponse($response, CreateResponse::class);
