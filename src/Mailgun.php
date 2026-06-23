@@ -222,9 +222,9 @@ class Mailgun
     /**
      * @return Webhook
      */
-    public function webhooks(string $signingKey): Api\Webhook
+    public function webhooks(?string $signingKey = null): Api\Webhook
     {
-        return new Api\Webhook($this->httpClient, $this->requestBuilder, $this->hydrator, $signingKey);
+        return new Api\Webhook($this->httpClient, $this->requestBuilder, $this->hydrator, $signingKey ?? $this->apiKey);
     }
 
     /**

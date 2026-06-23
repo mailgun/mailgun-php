@@ -53,6 +53,13 @@ class WebhookTest extends TestCase
         $this->assertFalse($api->verifyWebhookSignature(0, '', ''));
     }
 
+    public function testVerifyWebhookWithNoSigningKey()
+    {
+        $api = $this->getApiInstance();
+
+        $this->assertFalse($api->verifyWebhookSignature(1403645220, 'sometoken', 'somesig'));
+    }
+
     public function testIndex()
     {
         $this->setRequestMethod('GET');
