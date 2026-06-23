@@ -14,12 +14,12 @@ namespace Mailgun\Api\Suppression;
 use Mailgun\Api\HttpApi;
 use Mailgun\Api\Pagination;
 use Mailgun\Assert;
+use Mailgun\Message\Exceptions\RuntimeException;
 use Mailgun\Model\Suppression\Complaint\CreateResponse;
 use Mailgun\Model\Suppression\Complaint\DeleteResponse;
 use Mailgun\Model\Suppression\Complaint\IndexResponse;
 use Mailgun\Model\Suppression\Complaint\ShowResponse;
 use Psr\Http\Client\ClientExceptionInterface;
-use RuntimeException;
 use Throwable;
 
 /**
@@ -138,7 +138,7 @@ class Complaint extends HttpApi
                 $requestHeaders
             );
         } catch (Throwable $throwable) {
-            throw new RuntimeException($throwable->getMessage());
+            throw new RuntimeException($throwable->getMessage(), 0, $throwable);
         }
 
         return $this->hydrateResponse($response, ShowResponse::class);
