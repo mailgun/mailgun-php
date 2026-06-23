@@ -38,7 +38,7 @@ class Webhook extends HttpApi
      * @param Hydrator $hydrator
      * @param string|null $signingKey
      */
-    public function __construct($httpClient, RequestBuilder $requestBuilder, Hydrator $hydrator, ?string $signingKey)
+    public function __construct($httpClient, RequestBuilder $requestBuilder, Hydrator $hydrator, ?string $signingKey = null)
     {
         parent::__construct($httpClient, $requestBuilder, $hydrator);
         $this->signingKey = $signingKey;

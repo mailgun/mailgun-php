@@ -2,6 +2,14 @@
 
 The change log describes what is "Added", "Removed", "Changed" or "Fixed" between each release.
 
+## 4.5.1
+
+### Fixed
+
+- `Mailgun::webhooks()` no longer requires an explicit `$signingKey` argument.
+  When omitted, it falls back to the API key stored on the `Mailgun` instance,
+  restoring compatibility with pre-v4.3.7 usage patterns (issue #947).
+
 ## 4.5.0
 
 ### Added
