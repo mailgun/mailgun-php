@@ -126,6 +126,8 @@ class Domain extends HttpApi
     ) {
         Assert::stringNotEmpty($domain);
 
+        $params = [];
+
         $params['name'] = $domain;
 
         if (!empty($smtpPass)) {

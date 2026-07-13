@@ -62,13 +62,13 @@ abstract class HttpApi
     }
 
     /**
-     * @param class-string $class
+     * @param class-string $className
      *
      * @return mixed|ResponseInterface
      *
      * @throws Exception
      */
-    protected function hydrateResponse(ResponseInterface $response, string $class)
+    protected function hydrateResponse(ResponseInterface $response, string $className)
     {
         if (null === $this->hydrator) {
             return $response;
@@ -78,7 +78,7 @@ abstract class HttpApi
             $this->handleErrors($response);
         }
 
-        return $this->hydrator->hydrate($response, $class);
+        return $this->hydrator->hydrate($response, $className);
     }
 
     /**
@@ -106,9 +106,11 @@ abstract class HttpApi
                 throw HttpClientException::payloadTooLarge($response);
             case 429:
                 throw HttpClientException::tooManyRequests($response);
-            case 500 <= $statusCode:
-                throw HttpServerException::serverError($statusCode);
             default:
+                if ($statusCode >= 500 && $statusCode < 600) {
+                    throw HttpServerException::serverError($statusCode);
+                }
+
                 throw new UnknownErrorException();
         }
     }

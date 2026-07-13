@@ -78,12 +78,12 @@ trait Pagination
     }
 
     /**
-     * @param  string                   $url
+     * @param  string|null              $url
      * @param  class-string             $class
      * @return PagingProvider|null
      * @throws ClientExceptionInterface
      */
-    private function getPaginationUrl(string $url, string $class): ?PagingProvider
+    private function getPaginationUrl(?string $url, string $class): ?PagingProvider
     {
         Assert::stringNotEmpty($class);
 

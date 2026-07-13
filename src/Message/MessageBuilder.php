@@ -468,7 +468,7 @@ class MessageBuilder
      */
     public function setDeliveryTime(string $timeDate, ?string $timeZone = null): self
     {
-        if (null !== $timeZone) {
+        if (null !== $timeZone && '' !== $timeZone) {
             $timeZoneObj = new DateTimeZone($timeZone);
         } else {
             $timeZoneObj = new DateTimeZone('UTC');
