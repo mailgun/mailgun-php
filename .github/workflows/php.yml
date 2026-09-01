@@ -1,49 +1,67 @@
 name: Tests
 
 on:
-    push: ~
-    pull_request: ~
+  push: ~
+  pull_request: ~
+
+permissions:
+  contents: read
+  actions: read
+  checks: write
 
 jobs:
-    php:
-        strategy:
-            matrix:
-                php-versions: ['7.4', '8.0', '8.1', '8.2', '8.3', '8.4']
+  php:
+    runs-on: 'ubuntu-latest'
+    strategy:
+      matrix:
+        php-versions: [ '7.4', '8.0', '8.1', '8.2', '8.3', '8.4', '8.5' ]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
 
-        runs-on: 'ubuntu-latest'
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-versions }}
+          coverage: none
 
-        steps:
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress --no-suggest
 
-            -   name: Checkout
-                uses: actions/checkout@v4
+      - name: Run tests
+        run: vendor/bin/phpunit --log-junit phpunit-junit.xml
 
-            -   name: Setup PHP
-                uses: shivammathur/setup-php@v2
-                with:
-                    php-version: ${{ matrix.php-versions }}
-                    tools: none
+      - name: Publish test report
+        if: always()
+        uses: dorny/test-reporter@v3
+        with:
+          name: php (${{ matrix.php-versions }})
+          path: phpunit-junit.xml
+          reporter: phpunit-junit
 
-            -   name: Install dependencies
-                run: composer install --prefer-dist --no-progress --no-suggest
+  lowest:
+    name: Lowest deps
+    runs-on: 'ubuntu-latest'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
 
-            -   name: PHP Unit Tests
-                run: vendor/bin/phpunit
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 7.4
+          coverage: none
 
-    lowest:
-        name: Lowest deps
-        runs-on: 'ubuntu-latest'
-        steps:
-            -   name: Set up PHP
-                uses: shivammathur/setup-php@2.9.0
-                with:
-                    php-version: 7.4
-                    coverage: pcov
+      - name: Download dependencies
+        run: composer update --prefer-dist --no-progress --no-suggest --optimize-autoloader --prefer-stable --prefer-lowest
 
-            -   name: Checkout code
-                uses: actions/checkout@v4
+      - name: Run tests
+        run: vendor/bin/phpunit --log-junit phpunit-junit.xml
 
-            -   name: Download dependencies
-                run: composer update --no-interaction --prefer-dist --optimize-autoloader --prefer-stable --prefer-lowest
-
-            -   name: Run tests
-                run: vendor/bin/phpunit
+      - name: Publish test report
+        if: always()
+        uses: dorny/test-reporter@v3
+        with:
+          name: Lowest deps
+          path: phpunit-junit.xml
+          reporter: phpunit-junit

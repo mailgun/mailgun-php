@@ -191,6 +191,9 @@ class Message extends HttpApi
         if (isset($filePath['fileContent'])) {
             // File from memory
             $resource = fopen('php://temp', 'rb+');
+            if ($resource === false) {
+                throw new RuntimeException('Unable to open php://temp stream.');
+            }
             fwrite($resource, $filePath['fileContent']);
             rewind($resource);
         } elseif (isset($filePath['filePath'])) {
@@ -200,6 +203,10 @@ class Message extends HttpApi
             // Remove leading @ symbol
             if (0 === strpos($path, '@')) {
                 $path = substr($path, 1);
+            }
+
+            if (false === $path || '' === $path) {
+                throw new InvalidArgumentException('Specified "filePath" was empty');
             }
 
             $resource = fopen($path, 'rb');

@@ -18,7 +18,7 @@ final class CreateResponse implements ApiResponse
     private $message;
 
     /**
-     * @var Template
+     * @var Template|null
      */
     private $template;
 

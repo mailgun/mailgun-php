@@ -14,20 +14,55 @@ namespace Mailgun;
 use Mailgun\Exception\InvalidArgumentException;
 
 /**
- * We need to override Webmozart\Assert because we want to throw our own Exception.
+ * We proxy Webmozart\Assert because we want to throw our own Exception.
+ *
+ * A proxy is used to allow compatibility with version 1 and 2 of webmozart/assert.
+ *
+ * Explicitly specifying methods because using mixin breaks Psalm.
+ * Psalm doesn't understand the mixed in class is from a library that can have a different minimum PHP version.
+ * Can likely be replaced with a mixin once the minimum PHP version is bumped to PHP 8.0+.
+ *
+ * @method static array allString($value, $message = '')
+ * @method static mixed boolean($value, $message = '')
+ * @method static string fileExists($value, $message = '')
+ * @method static mixed greaterThan($value, $limit, $message = '')
+ * @method static mixed greaterThanEq($value, $limit, $message = '')
+ * @method static mixed inArray($value, array $values, $message = '')
+ * @method static string ip($value, $message = '')
+ * @method static array isArray($value, $message = '')
+ * @method static array isList($value, $message = '')
+ * @method static array keyExists($array, $key, $message = '')
+ * @method static string lengthBetween($value, $min, $max, $message = '')
+ * @method static string maxLength($value, $max, $message = '')
+ * @method static string minLength($value, $min, $message = '')
+ * @method static mixed notEmpty($value, $message = '')
+ * @method static array nullOrIsArray($value, $message = '')
+ * @method static mixed nullOrString($value, $message = '')
+ * @method static mixed nullOrStringNotEmpty($value, $message = '')
+ * @method static mixed oneOf($value, array $values, $message = '')
+ * @method static mixed range($value, $min, $max, $message = '')
+ * @method static string regex($value, string $pattern, $message = '')
+ * @method static string string($value, $message = '')
+ * @method static string stringNotEmpty($value, $message = '')
  *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
-final class Assert extends \Webmozart\Assert\Assert
+final class Assert
 {
     /**
-     * @psalm-pure this method is not supposed to perform side-effects
-     * @psalm-return never
-     * @param mixed $message
-     * @return void
+     * Proxy all static assertion calls to webmozart/assert.
+     *
+     * @param string $name
+     * @param array $arguments
+     *
+     * @return mixed
      */
-    protected static function reportInvalidArgument($message): void
+    public static function __callStatic(string $name, array $arguments)
     {
-        throw new InvalidArgumentException($message);
+        try {
+            return \Webmozart\Assert\Assert::$name(...$arguments);
+        } catch (\InvalidArgumentException $exception) { // @phpstan-ignore catch.neverThrown
+            throw new InvalidArgumentException($exception->getMessage(), $exception->getCode(), $exception);
+        }
     }
 }

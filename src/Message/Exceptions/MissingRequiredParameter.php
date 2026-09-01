@@ -17,15 +17,10 @@ class MissingRequiredParameter extends \Exception implements Exception
 {
     /**
      * @param string $parameter
-     * @param string|null $message
      * @return self
      */
-    public static function create(string $parameter, ?string $message = null)
+    public static function create(string $parameter)
     {
-        if (null === $message) {
-            $message = 'The parameters passed to the API were invalid. Please specify "%s".';
-        }
-
-        return new self(sprintf($message, $parameter));
+        return new self(sprintf('The parameters passed to the API were invalid. Please specify "%s".', $parameter));
     }
 }

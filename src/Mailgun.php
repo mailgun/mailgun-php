@@ -47,9 +47,9 @@ use Psr\Http\Message\ResponseInterface;
 class Mailgun
 {
     /**
-     * @var string|null
+     * @var string
      */
-    private ?string $apiKey;
+    private string $apiKey;
 
     /**
      * @var ClientInterface|PluginClient
