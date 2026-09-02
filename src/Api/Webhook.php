@@ -62,12 +62,11 @@ class Webhook extends HttpApi
 
         $hmac = hash_hmac('sha256', $timestamp.$token, $this->signingKey);
 
-        if (function_exists('hash_equals')) {
-            // hash_equals is constant time, but will not be introduced until PHP 5.6
-            return hash_equals($hmac, $signature);
+        if ($hmac === false) { // @phpstan-ignore identical.alwaysFalse
+            return false;
         }
 
-        return $hmac === $signature;
+        return hash_equals($hmac, $signature);
     }
 
     /**

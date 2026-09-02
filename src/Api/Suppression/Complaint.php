@@ -80,6 +80,7 @@ class Complaint extends HttpApi
         Assert::stringNotEmpty($domain);
         Assert::stringNotEmpty($address);
 
+        $params = [];
         $params['address'] = $address;
         if (null !== $createdAt) {
             Assert::stringNotEmpty($createdAt);

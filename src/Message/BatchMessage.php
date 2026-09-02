@@ -15,6 +15,7 @@ use Mailgun\Api\Message;
 use Mailgun\Message\Exceptions\MissingRequiredParameter;
 use Mailgun\Message\Exceptions\RuntimeException;
 use Mailgun\Message\Exceptions\TooManyRecipients;
+use Mailgun\Model\Message\SendResponse;
 use Psr\Http\Client\ClientExceptionInterface;
 
 /**
@@ -134,7 +135,9 @@ class BatchMessage extends MessageBuilder
         $this->counters['recipients']['bcc'] = 0;
         unset($this->message['to']);
 
-        $this->messageIds[] = $response->getId();
+        if ($response instanceof SendResponse) {
+            $this->messageIds[] = $response->getId();
+        }
     }
 
     /**

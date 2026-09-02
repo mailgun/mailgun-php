@@ -14,6 +14,7 @@ namespace Mailgun\Api;
 use Exception;
 use Mailgun\Api\MailingList\Member;
 use Mailgun\Assert;
+use Mailgun\Hydrator\NoopHydrator;
 use Mailgun\Model\EmailValidation\ValidateResponse;
 use Mailgun\Model\MailingList\BulkResponse;
 use Mailgun\Model\MailingList\CreateResponse;
@@ -35,7 +36,7 @@ class MailingList extends HttpApi
      */
     public function member(): Member
     {
-        return new Member($this->httpClient, $this->requestBuilder, $this->hydrator);
+        return new Member($this->httpClient, $this->requestBuilder, $this->hydrator ?? new NoopHydrator());
     }
 
     /**

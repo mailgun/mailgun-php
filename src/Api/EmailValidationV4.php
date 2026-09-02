@@ -253,6 +253,9 @@ class EmailValidationV4 extends HttpApi
         if (isset($filePath['fileContent'])) {
             // File from memory
             $resource = fopen('php://temp', 'rb+');
+            if ($resource === false) {
+                throw new RuntimeException('Unable to open php://temp stream.');
+            }
             fwrite($resource, $filePath['fileContent']);
             rewind($resource);
         } elseif (isset($filePath['filePath'])) {
