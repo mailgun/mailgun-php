@@ -67,10 +67,12 @@ class MemberTest extends TestCase
 
     public function testCreate()
     {
+        // Empty vars must go out as a JSON object, never `[]`: the API rejects
+        // the array form with "'vars' parameter is not a valid JSON".
         $data = [
             'address' => 'foo@example.com',
             'name' => 'Foo',
-            'vars' => \json_encode([]),
+            'vars' => '{}',
             'subscribed' => 'yes',
             'upsert' => 'no',
         ];
@@ -82,6 +84,25 @@ class MemberTest extends TestCase
             ->willReturn(new Response());
 
         $api->create($list = 'address', $address = 'foo@example.com', $name = 'Foo', $vars = [], $subscribed = true, $upsert = false);
+    }
+
+    public function testCreateWithVars()
+    {
+        $data = [
+            'address' => 'foo@example.com',
+            'name' => 'Foo',
+            'vars' => '{"foo":"bar"}',
+            'subscribed' => 'yes',
+            'upsert' => 'no',
+        ];
+
+        $api = $this->getApiMock();
+        $api->expects($this->once())
+            ->method('httpPost')
+            ->with('/v3/lists/address/members', $data)
+            ->willReturn(new Response());
+
+        $api->create('address', 'foo@example.com', 'Foo', ['foo' => 'bar']);
     }
 
     public function testCreateInvalidAddress()
@@ -134,6 +155,47 @@ class MemberTest extends TestCase
         );
     }
 
+    public function testCreateMultipleVarsStayJsonObjects()
+    {
+        // Inside the bulk payload, vars is nested in the members JSON: it must
+        // encode as an object there, not as a JSON string (which the API
+        // silently skips) and not as `[]` when empty (which the API rejects).
+        $data = [
+            'members' => '[{"address":"a@example.com","vars":{"foo":"bar"}},'
+                . '{"address":"b@example.com","vars":{}},'
+                . '{"address":"c@example.com","vars":{"baz":1}}]',
+            'upsert' => 'no',
+        ];
+
+        $api = $this->getApiMock();
+        $api->expects($this->once())
+            ->method('httpPost')
+            ->with('/v3/lists/address/members.json', $data)
+            ->willReturn(new Response());
+
+        $api->createMultiple(
+            'address',
+            [
+                ['address' => 'a@example.com', 'vars' => ['foo' => 'bar']],
+                ['address' => 'b@example.com', 'vars' => []],
+                ['address' => 'c@example.com', 'vars' => '{"baz":1}'],
+            ]
+        );
+    }
+
+    public function testCreateMultipleInvalidVarsString()
+    {
+        $this->expectException(InvalidArgumentException::class);
+
+        $api = $this->getApiMock();
+        $api->createMultiple(
+            'address',
+            [
+                ['address' => 'a@example.com', 'vars' => 'not json'],
+            ]
+        );
+    }
+
     public function testCreateMultipleInvalidMemberArgument()
     {
         $this->expectException(InvalidArgumentException::class);
@@ -181,6 +243,22 @@ class MemberTest extends TestCase
             ->willReturn(new Response());
 
         $api->update('address', 'member', $data);
+    }
+
+    public function testUpdateEmptyVars()
+    {
+        $data = [
+            'vars' => '{}',
+            'subscribed' => 'yes',
+        ];
+
+        $api = $this->getApiMock();
+        $api->expects($this->once())
+            ->method('httpPut')
+            ->with('/v3/lists/address/members/member', $data)
+            ->willReturn(new Response());
+
+        $api->update('address', 'member', ['vars' => [], 'subscribed' => 'yes']);
     }
 
     public function testUpdateInvalidArgument()
