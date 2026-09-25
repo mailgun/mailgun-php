@@ -67,10 +67,12 @@ class MemberTest extends TestCase
 
     public function testCreate()
     {
+        // Empty vars must go out as a JSON object, never `[]`: the API rejects
+        // the array form with "'vars' parameter is not a valid JSON".
         $data = [
             'address' => 'foo@example.com',
             'name' => 'Foo',
-            'vars' => \json_encode([]),
+            'vars' => '{}',
             'subscribed' => 'yes',
             'upsert' => 'no',
         ];
@@ -82,6 +84,25 @@ class MemberTest extends TestCase
             ->willReturn(new Response());
 
         $api->create($list = 'address', $address = 'foo@example.com', $name = 'Foo', $vars = [], $subscribed = true, $upsert = false);
+    }
+
+    public function testCreateWithVars()
+    {
+        $data = [
+            'address' => 'foo@example.com',
+            'name' => 'Foo',
+            'vars' => '{"foo":"bar"}',
+            'subscribed' => 'yes',
+            'upsert' => 'no',
+        ];
+
+        $api = $this->getApiMock();
+        $api->expects($this->once())
+            ->method('httpPost')
+            ->with('/v3/lists/address/members', $data)
+            ->willReturn(new Response());
+
+        $api->create('address', 'foo@example.com', 'Foo', ['foo' => 'bar']);
     }
 
     public function testCreateInvalidAddress()
@@ -181,6 +202,22 @@ class MemberTest extends TestCase
             ->willReturn(new Response());
 
         $api->update('address', 'member', $data);
+    }
+
+    public function testUpdateEmptyVars()
+    {
+        $data = [
+            'vars' => '{}',
+            'subscribed' => 'yes',
+        ];
+
+        $api = $this->getApiMock();
+        $api->expects($this->once())
+            ->method('httpPut')
+            ->with('/v3/lists/address/members/member', $data)
+            ->willReturn(new Response());
+
+        $api->update('address', 'member', ['vars' => [], 'subscribed' => 'yes']);
     }
 
     public function testUpdateInvalidArgument()

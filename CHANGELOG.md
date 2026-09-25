@@ -2,6 +2,15 @@
 
 The change log describes what is "Added", "Removed", "Changed" or "Fixed" between each release.
 
+## Unreleased
+
+### Fixed
+
+- `MailingList\Member::create()` and `update()` now encode an empty `vars`
+  array as `{}` instead of `[]`. The API requires a JSON object and, since
+  2026-09-25, rejects the array form with 400 "'vars' parameter is not a
+  valid JSON", which made every `create()` call without vars fail.
+
 ## 4.5.1
 
 ### Fixed

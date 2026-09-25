@@ -104,7 +104,7 @@ class Member extends HttpApi
 
         $params = [
             'address' => $address,
-            'vars' => \json_encode($vars),
+            'vars' => self::encodeVars($vars),
             'subscribed' => $subscribed ? 'yes' : 'no',
             'upsert' => $upsert ? 'yes' : 'no',
         ];
@@ -202,7 +202,7 @@ class Member extends HttpApi
             switch ($field) {
                 case 'vars':
                     if (is_array($value)) {
-                        $value = json_encode($value);
+                        $value = self::encodeVars($value);
                     }
                     // We should assert that "vars"'s $value is a string.
                     // no break
@@ -247,5 +247,16 @@ class Member extends HttpApi
         $response = $this->httpDelete(sprintf('/v3/lists/%s/members/%s', $list, $address), [], $requestHeaders);
 
         return $this->hydrateResponse($response, DeleteResponse::class);
+    }
+
+    /**
+     * Encodes member "vars" for a form field. The API requires a JSON object
+     * and rejects a JSON array ("'vars' parameter is not a valid JSON",
+     * enforced since 2026-09-25), so an empty array must become `{}` rather
+     * than the `[]` json_encode produces for it.
+     */
+    private static function encodeVars(array $vars): string
+    {
+        return [] === $vars ? '{}' : \json_encode($vars, JSON_THROW_ON_ERROR);
     }
 }
