@@ -10,6 +10,13 @@ The change log describes what is "Added", "Removed", "Changed" or "Fixed" betwee
   array as `{}` instead of `[]`. The API requires a JSON object and, since
   2026-09-25, rejects the array form with 400 "'vars' parameter is not a
   valid JSON", which made every `create()` call without vars fail.
+- `MailingList\Member::createMultiple()` now normalizes each member's `vars`
+  (its previous per-member handling ran on a by-value copy and never reached
+  the payload): an empty array encodes as `{}` instead of `[]`, and a
+  pre-encoded JSON object string is decoded so it lands as a nested object.
+  Nested as a string, the API silently skipped that member (HTTP 200, member
+  absent). A string that is not a JSON object now throws
+  `InvalidArgumentException`.
 
 ## 4.5.1
 

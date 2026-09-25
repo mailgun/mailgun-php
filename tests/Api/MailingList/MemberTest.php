@@ -155,6 +155,47 @@ class MemberTest extends TestCase
         );
     }
 
+    public function testCreateMultipleVarsStayJsonObjects()
+    {
+        // Inside the bulk payload, vars is nested in the members JSON: it must
+        // encode as an object there, not as a JSON string (which the API
+        // silently skips) and not as `[]` when empty (which the API rejects).
+        $data = [
+            'members' => '[{"address":"a@example.com","vars":{"foo":"bar"}},'
+                . '{"address":"b@example.com","vars":{}},'
+                . '{"address":"c@example.com","vars":{"baz":1}}]',
+            'upsert' => 'no',
+        ];
+
+        $api = $this->getApiMock();
+        $api->expects($this->once())
+            ->method('httpPost')
+            ->with('/v3/lists/address/members.json', $data)
+            ->willReturn(new Response());
+
+        $api->createMultiple(
+            'address',
+            [
+                ['address' => 'a@example.com', 'vars' => ['foo' => 'bar']],
+                ['address' => 'b@example.com', 'vars' => []],
+                ['address' => 'c@example.com', 'vars' => '{"baz":1}'],
+            ]
+        );
+    }
+
+    public function testCreateMultipleInvalidVarsString()
+    {
+        $this->expectException(InvalidArgumentException::class);
+
+        $api = $this->getApiMock();
+        $api->createMultiple(
+            'address',
+            [
+                ['address' => 'a@example.com', 'vars' => 'not json'],
+            ]
+        );
+    }
+
     public function testCreateMultipleInvalidMemberArgument()
     {
         $this->expectException(InvalidArgumentException::class);

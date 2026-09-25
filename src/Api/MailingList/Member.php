@@ -137,7 +137,9 @@ class Member extends HttpApi
             throw new InvalidArgumentException(sprintf('Expected an Array to contain at most %2$d elements. Got: %d', 1000, count($members)));
         }
 
-        foreach ($members as $data) {
+        // By reference: the vars normalization below must reach the payload.
+        // The previous by-value loop left the old vars json_encode without effect.
+        foreach ($members as &$data) {
             if (is_string($data)) {
                 Assert::stringNotEmpty($data);
                 // single address - no additional validation required
@@ -153,12 +155,9 @@ class Member extends HttpApi
 
                         break;
                     case 'vars':
-                        if (is_array($value)) {
-                            $value = json_encode($value);
-                        }
+                        $value = self::normalizeBulkVars($value);
+
                         break;
-                    // We should assert that "vars"'s $value is a string.
-                        // no break
                     case 'name':
                         Assert::string($value);
                         break;
@@ -170,6 +169,7 @@ class Member extends HttpApi
             }
             unset($value);
         }
+        unset($data);
 
         $params = [
             'members' => json_encode($members),
@@ -258,5 +258,36 @@ class Member extends HttpApi
     private static function encodeVars(array $vars): string
     {
         return [] === $vars ? '{}' : \json_encode($vars, JSON_THROW_ON_ERROR);
+    }
+
+    /**
+     * Normalizes a member's "vars" for the bulk `members` payload, where it is
+     * nested inside the JSON document createMultiple() encodes as a whole, so
+     * it must stay a PHP value. An empty array becomes an empty object so it
+     * encodes as `{}` rather than `[]`, which the API rejects. A pre-encoded
+     * JSON object string is decoded: nested as-is it becomes a JSON string,
+     * and the API silently skips that member while answering 200.
+     *
+     * @param array|string|mixed $vars
+     *
+     * @return array|\stdClass
+     */
+    private static function normalizeBulkVars($vars)
+    {
+        if (is_string($vars)) {
+            $decoded = \json_decode($vars, true);
+
+            if (!is_array($decoded)) {
+                throw new InvalidArgumentException(
+                    sprintf('Member "vars" must be an array or a JSON object string. Got: %s', $vars)
+                );
+            }
+
+            $vars = $decoded;
+        }
+
+        Assert::isArray($vars);
+
+        return [] === $vars ? new \stdClass() : $vars;
     }
 }
