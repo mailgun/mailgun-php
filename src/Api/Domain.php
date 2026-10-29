@@ -516,7 +516,7 @@ class Domain extends HttpApi
     {
         Assert::stringNotEmpty($domain);
 
-        $response = $this->httpGet(sprintf('/v2/x509/%s}/status', $domain), []);
+        $response = $this->httpGet(sprintf('/v2/x509/%s/status', $domain), []);
 
         return $this->hydrateResponse($response, CertStatusResponse::class);
     }
