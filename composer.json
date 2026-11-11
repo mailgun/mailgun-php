@@ -25,7 +25,7 @@
         "phpcompatibility/php-compatibility": "dev-develop",
         "phpstan/phpstan": "^2.2",
         "phpunit/phpunit": "^9.3",
-        "vimeo/psalm": "^5.25 || ^6.0"
+        "vimeo/psalm": "^7.1.0"
     },
     "suggest": {
         "nyholm/psr7": "PSR-7 message implementation",
