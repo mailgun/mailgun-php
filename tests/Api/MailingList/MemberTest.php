@@ -70,7 +70,7 @@ class MemberTest extends TestCase
         $data = [
             'address' => 'foo@example.com',
             'name' => 'Foo',
-            'vars' => \json_encode([]),
+            'vars' => '{}',
             'subscribed' => 'yes',
             'upsert' => 'no',
         ];

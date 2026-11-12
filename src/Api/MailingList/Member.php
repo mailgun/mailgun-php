@@ -104,7 +104,7 @@ class Member extends HttpApi
 
         $params = [
             'address' => $address,
-            'vars' => \json_encode($vars),
+            'vars' => \json_encode($vars === [] ? new \stdClass() : $vars),
             'subscribed' => $subscribed ? 'yes' : 'no',
             'upsert' => $upsert ? 'yes' : 'no',
         ];
